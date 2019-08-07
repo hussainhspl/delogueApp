@@ -31,7 +31,7 @@ class Style extends React.Component {
       return state;
     } 
     //step 1 create store: it requires reducer and state
-    // const store = createStore(reducer, "Peace");
+    const store = createStore(reducer, "Peace");
     
     
 
