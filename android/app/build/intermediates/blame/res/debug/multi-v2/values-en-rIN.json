@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "/Users/commonuser/react-native/delogue/android/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-en-rIN/values-en-rIN.xml",
+            "outputFile": "/Users/commonuser/react-native/delogueApp/android/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-en-rIN/values-en-rIN.xml",
             "map": [
                 {
                     "source": "/Users/commonuser/.gradle/caches/transforms-2/files-2.1/4512ba692dfcb0fe09a14af172cf4302/res/values-en-rIN/values-en-rIN.xml",

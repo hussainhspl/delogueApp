@@ -1,24 +1,51 @@
-import React from 'react';
-import { View, Text, Image } from 'react-native';
-import styled from 'styled-components'
-
-const ImageView = styled.View`
-  height: 250,
-`;
+import React, {Fragment} from 'react';
+import { View, Text, Image, ScrollView } from 'react-native';
+import styled from 'styled-components/native';
+import General from './General';
+import {createStore} from 'redux'
 
 class Style extends React.Component {
+  
+  // renderSelectedTab () {
+  //   switch (path) {
+  //     case 'welcome':
+  //       return (<Welcome />);
+  //       break;
+  //     case 'profile':
+  //       return (<Profile />);
+  //       break;
+  //     case 'login':
+  //       return (<Login />);
+  //       break;
+  //     default:
+  //   }
+  // }
   render() {
-    return(
-      <View>
-        {/* <ImageView>
-          <Image 
-            resizeMode={"center"}
-            source={require('../../img/shirt-static.png')}
+    
+    // step 2 create reducer: it needs state and action
+    //payload = newState/ command
+    const reducer = (state, action) => {
+      if(action.type === "ATTACK"){
+        return action.payload
+      }
+      return state;
+    } 
+    //step 1 create store: it requires reducer and state
+    // const store = createStore(reducer, "Peace");
+    
+    
 
-          />
-        </ImageView> */}
-        <Text> hey </Text>
-      </View>
+    //step 3 Subscribe 
+    store.subscribe( () => {
+      console.log('store is now', store.getState())
+    })
+
+    //step 4 Dispatch action
+    store.dispatch({type: "ATTACK", payload: "Iron Man"})
+    return(
+      <Fragment>
+        <General />
+      </Fragment>
     )
   }
 }

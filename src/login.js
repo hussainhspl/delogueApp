@@ -16,7 +16,7 @@ class Login extends React.Component {
     console.log("history: ", history)
     return(
       <View style={container}>
-      <KeyboardAwareScrollView>
+      <KeyboardAwareScrollView showsVerticalScrollIndicator={false}>
       <View style={container}>
         <View style={logoView}>
           <Image style={logo} source={require('../img/logo-login.png')} />

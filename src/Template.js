@@ -14,7 +14,7 @@ class Template extends React.Component {
     super(props);
   }
   render() {
-    console.log("template", this.props.location.pathname);
+    // console.log("template", this.props.location.pathname);
     const path = this.props.location.pathname;
     return(
       <Fragment>

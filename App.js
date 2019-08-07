@@ -31,8 +31,12 @@ import Header from './src/Header';
 import Search from './src/search/Search';
 import MainTemplate from './src/mainTemplate';
 import Template from './src/Template';
+import Footer from './src/FooterComponent';
+
 
 import Style from './src/style/Style';
+
+import { Provider } from 'react-redux';
 
 const App = () => {
   componentDidMount = () => {
@@ -44,22 +48,13 @@ const App = () => {
       <StatusBar barStyle="dark-content" />
       <SafeAreaView />
         <View style={{flex: 1}}>
-          {/* <Login /> */}
-          {/* <CompanyList /> */}
-          {/* {
-            this.props.location.pathname === '/' ? <View/> : <Header/>
-          } */}
             <Switch>
-              <Route exact path="/" component={Template}></Route>
-              {/* <Header>
-              </Header> */}
+              {/* <Route exact path="/" component={Template}></Route> */}
+              <Header>
+                <Route exact path="/" component={Style}></Route>
+                <Footer />
+              </Header>
               <Template/>              
-              {/* <MainTemplate> */}
-                {/* <Route exact path="/search" component={Search}></Route> */}
-              {/* </MainTemplate>  */}
-
-                
-              {/* </MainTemplate> */}
             </Switch>
         </View>
       <SafeAreaView/>
