@@ -3,6 +3,7 @@ import { View, Text, Image, ScrollView } from 'react-native';
 import styled from 'styled-components/native';
 import General from './General';
 import {createStore} from 'redux'
+import Comments from './Comments';
 
 class Style extends React.Component {
   
@@ -44,7 +45,8 @@ class Style extends React.Component {
     store.dispatch({type: "ATTACK", payload: "Iron Man"})
     return(
       <Fragment>
-        <General />
+        {/* <General /> */}
+        <Comments />
       </Fragment>
     )
   }

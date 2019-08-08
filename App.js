@@ -36,13 +36,17 @@ import Footer from './src/FooterComponent';
 
 import Style from './src/style/Style';
 
+import configStore from './src/store/config_store';
 import { Provider } from 'react-redux';
+
+const store = configStore();
 
 const App = () => {
   componentDidMount = () => {
     console.log("app", this.props.location.pathname);
   }
   return (
+    // <Provider store={ store }>
     <NativeRouter>
     <Fragment>
       <StatusBar barStyle="dark-content" />
@@ -60,6 +64,7 @@ const App = () => {
       <SafeAreaView/>
     </Fragment>
     </NativeRouter>
+    // </Provider>
   );
 };
 

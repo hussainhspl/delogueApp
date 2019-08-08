@@ -5,12 +5,18 @@ import styled from 'styled-components';
 
 import Comments from './style/Comments';
 
+import { connect } from "react-redux";
+
 const IconText = styled.Text`
   fontSize: 10
 `
 
 
 class FooterComponent extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {};
+  }
   // renderSelectedTab () {
   //   switch (path) {
   //     case 'welcome':
@@ -64,5 +70,18 @@ class FooterComponent extends React.Component {
 		)
 	}
 }
+
+const mapStateToProps = state => {
+  return {
+    currentTab: state.tab.now
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    // counterAddFunction: () => dispatch(counterAdd()),
+    // counterSubtractFunction: () => dispatch(counterSubtract()),
+  };
+};
 
 export default FooterComponent;
