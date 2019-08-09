@@ -1,7 +1,31 @@
-import {STYLE_TAB} from './action_types';
+import {GENERAL, COMMENTS, FILES, SAMPLE, PDF} from './action_types';
 
-export const changeTab = () => {
+export const generalTab = () => {
 	return {
-		type: STYLE_TAB
+		type: GENERAL
+	};
+}
+
+export const commentTab = () => {
+	return {
+		type: COMMENTS
+	};
+}
+
+export const filesTab = () => {
+	return {
+		type: FILES
+	};
+}
+
+export const sampleTab = () => {
+	return {
+		type: SAMPLE
+	};
+}
+
+export const pdfTab = () => {
+	return {
+		type: PDF
 	};
 }

@@ -1,1 +1,1 @@
-export { changeTab } from './tab_actions';
+export { generalTab, commentTab, filesTab, sampleTab, pdfTab } from './tab_actions';

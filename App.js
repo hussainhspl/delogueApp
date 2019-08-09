@@ -46,7 +46,7 @@ const App = () => {
     console.log("app", this.props.location.pathname);
   }
   return (
-    // <Provider store={ store }>
+    <Provider store={ store }>
     <NativeRouter>
     <Fragment>
       <StatusBar barStyle="dark-content" />
@@ -64,7 +64,7 @@ const App = () => {
       <SafeAreaView/>
     </Fragment>
     </NativeRouter>
-    // </Provider>
+    </Provider>
   );
 };
 

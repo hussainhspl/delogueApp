@@ -97,7 +97,7 @@ class Comments extends React.Component {
             </StyleInfo>
           </ImageDetails>
         </Row>
-        <NewMessage />
+        {/* <NewMessage /> */}
         <CommentBlock />
       </ScrollView>
 

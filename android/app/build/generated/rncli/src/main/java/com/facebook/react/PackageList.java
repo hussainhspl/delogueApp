@@ -13,6 +13,8 @@ import java.util.ArrayList;
 import com.delogue.BuildConfig;
 import com.delogue.R;
 
+// react-native-camera
+import org.reactnative.camera.RNCameraPackage;
 // react-native-vector-icons
 import com.oblador.vectoricons.VectorIconsPackage;
 
@@ -48,6 +50,7 @@ public class PackageList {
   public ArrayList<ReactPackage> getPackages() {
     return new ArrayList<>(Arrays.<ReactPackage>asList(
       new MainReactPackage(),
+      new RNCameraPackage(),
       new VectorIconsPackage()
     ));
   }

@@ -1,7 +1,8 @@
 import {GENERAL, COMMENTS, FILES, SAMPLE, PDF} from '../acttions/action_types';
+// import console = require('console');
 
 const initialState = {
-  now: 'general'
+  now: 'files'
 };
 
 
@@ -24,6 +25,7 @@ const tabReducer = (state = initialState, action) => {
 	// }
 	switch (action.type) {
     case GENERAL:
+      console.log("clicked on genral tab");
       return {
         ...state,
         now: state.now = 'general'
