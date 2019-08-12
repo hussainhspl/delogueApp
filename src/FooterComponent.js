@@ -7,12 +7,12 @@ import Comments from './style/Comments';
 
 import { connect } from "react-redux";
 // import { counterAdd, counterSubtract } from '../store/actions/index';
-import { generalTab, commentTab, filesTab, sampleTab, pdfTab } from './store/acttions/index';
+import { generalTab, commentTab, filesTab, sampleTab, pdfTab } from './store/actions/index';
 // import console = require('console');
 
 const IconText = styled.Text`
-  fontSize: 10
-`
+  font-size: 10px;
+`;
 
 
 class FooterComponent extends React.Component {

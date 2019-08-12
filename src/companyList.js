@@ -113,7 +113,7 @@ class CompanyList extends React.Component {
     return (
       // <View style={styles.item} key={item.key}>
       <TouchableOpacity 
-        underlayColor='rgba(221, 221, 221, 0.4)' onPress={() => {history.push("/search"); 
+        underlayColor='rgba(221, 221, 221, 0.4)' onPress={() => {history.push("/headerTemplate"); 
         console.log(history);}}
         style={styles.item} key={item.key}>
           <View style={styles.imageView}>

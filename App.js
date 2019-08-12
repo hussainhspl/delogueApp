@@ -29,7 +29,7 @@ import Login from './src/login';
 import CompanyList from './src/companyList';
 import Header from './src/Header';
 import Search from './src/search/Search';
-import MainTemplate from './src/mainTemplate';
+// import MainTemplate from './src/mainTemplate';
 import Template from './src/Template';
 import Footer from './src/FooterComponent';
 
@@ -43,6 +43,7 @@ const store = configStore();
 
 const App = () => {
   componentDidMount = () => {
+    // const history = this.props.history
     console.log("app", this.props.location.pathname);
   }
   return (
@@ -56,9 +57,9 @@ const App = () => {
               {/* <Route exact path="/" component={Template}></Route> */}
               <Header>
                 <Route exact path="/" component={Style}></Route>
-                <Footer />
+          
               </Header>
-              <Template/>              
+              <Template  />              
             </Switch>
         </View>
       <SafeAreaView/>

@@ -1,28 +1,13 @@
-import {GENERAL, COMMENTS, FILES, SAMPLE, PDF} from '../acttions/action_types';
+import {GENERAL, COMMENTS, FILES, SAMPLE, PDF} from '../actions/action_types';
+import { } from '../actions/action_types';
 // import console = require('console');
 
 const initialState = {
-  now: 'files'
+  now: 'sample'
 };
 
 
 const tabReducer = (state = initialState, action) => {
-	// switch (action.type) {
-  //   case nowER_ADD:
-  //     return {
-  //       ...state,
-  //       now: state.now + 1
-  //     };
-
-  //   case nowER_SUBTRACT:
-  //     return {
-  //       ...state,
-  //       now: state.now - 1
-  //     };
-
-  //   default:
-  //     return state;
-	// }
 	switch (action.type) {
     case GENERAL:
       console.log("clicked on genral tab");

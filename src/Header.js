@@ -3,7 +3,10 @@ import { Text, View, Image, TouchableOpacity } from 'react-native';
 import Drawer from 'react-native-drawer';
 import Icon from 'react-native-vector-icons/Ionicons';
 import Menu from './Menu';
+import Search from  './search/Search';
 
+import { connect } from "react-redux";
+import { searchButton, messageButton, styleButton} from './store/actions/index';
 
 class Header extends React.Component {
   constructor(props) {
@@ -13,10 +16,11 @@ class Header extends React.Component {
 
     this.state = {
       isOpen: false,
+      
     };
   }
   toggle = () =>  {
-    console.log("toggle state");
+    // console.log("toggle state");
     this.setState(prevState => ({ isOpen: !prevState.isOpen }),()=>console.log(this.state.isOpen));
   }
   render() {
@@ -42,17 +46,21 @@ class Header extends React.Component {
           <View style={container}>
             <View style={iconGroup}>
               <View>
-                <TouchableOpacity style={icon}>
+                <TouchableOpacity style={icon}
+                  onPress= {() => this.props.searchButtonFunction()}>
                   <Image resizeMode={"contain"} source={require('../img/search-icon.png')} /> 
                 </TouchableOpacity>         
               </View>
               <View>
-                <TouchableOpacity style={icon}>
+                <TouchableOpacity style={icon}
+                  onPress= {() => this.props.messageButtFnunction()}
+                  >
                   <Image resizeMode={"contain"} source={require('../img/message-icon.png')} />
                 </TouchableOpacity>          
               </View>
               <View>
-                <TouchableOpacity style={icon}>
+                <TouchableOpacity style={icon}
+                onPress= {() => this.props.styleButtonFunction()}>
                   <Image resizeMode={"contain"} source={require('../img/style-icon.png')} />  
                 </TouchableOpacity>        
               </View>
@@ -98,4 +106,20 @@ const styles= {
     alignItems: 'center'
   }
 }
-export default Header;
+
+const mapStateToProps = state => {
+  return {
+    currentTab: state.header.now
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    searchButtonFunction: () => dispatch(searchButton()),
+    messageButtFnunction: () => dispatch(messageButton()),
+    styleButtonFunction: () => dispatch(styleButton()),
+    
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps) (Header);

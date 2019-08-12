@@ -1,5 +1,5 @@
 import React, {Fragment} from 'react';
-import { View, Text, Image, ScrollView } from 'react-native';
+import { View, Text, Image, ScrollView, Dimensions } from 'react-native';
 import { Accordion } from "native-base";
 import styled from 'styled-components/native';
 import General from './General';
@@ -15,15 +15,17 @@ const dataArray = [
 // `;
 
 const ImageView = styled.View`
-  height: 200px;
-  width: 200px;
-  justifyContent: center;
-  alignItems: center;
+  height: ${Dimensions.get('window').width/ 3 +30};
+  width: ${Dimensions.get('window').width/ 3};
+  justify-content: center;
+  align-items: center;
   border: 1px solid #ddd;
-  margin : 20px;
+  margin : 20px 0px 20px 20px;
+  
 `;
 const StyleImage = styled.Image`
   max-height: 180px;
+  width: ${Dimensions.get('window').width/ 3-20};
 `;
 const Row = styled.View`
   flex-direction: row;
@@ -33,26 +35,28 @@ const ImageDetails = styled.View`
   text-align: center;
   flex: 1;
   align-items: center;
-  margin: 20px;
+  margin: 20px 10px 20px 10px;
+  
 `;
 const StyleInfo = styled.View`
   flex-direction: row;
-  padding: 5px;
 `;
 const Title = styled.Text`
-  width: 50%;
+  width: 45%;
   text-align: right;
   color: #9b9b9b;
   text-transform: uppercase;
   font-weight: 600;
   padding-right: 5px;
+  font-size: 13;
 `;
 const SubTitle = styled.Text`
   text-align: left;
-  width: 50%;
+  width: 55%;
   color: #4a4a4a;
   padding-left: 5;
-  text-transform : capitalize;s
+  text-transform : capitalize;
+  font-size: 13;
 `;
 
 class Comments extends React.Component {

@@ -15,7 +15,7 @@ const FirstRow = styled.View`
 	align-items: center;
 	border-bottom-color: #ddd;
 	border-bottom-width: 1px;
-	padding-bottom: 15px
+	padding-bottom: 15px;
 `;
 
 const NewButton = styled(View)`
@@ -43,7 +43,7 @@ const ButtonText = styled.Text`
 `;
 const FromRow = styled.View`
 	flex-direction: row;
-	justifyContent: flex-end;
+	justify-Content: flex-end;
 	padding: 10px 5px 0px 10px;
 
 `;
@@ -60,15 +60,15 @@ const ImageRow = styled.View`
 	margin-bottom: 15px;
 `;
 const ImageView = styled.View`
-	width: ${Dimensions.get('window').width/ 3 -35}
+	width: ${Dimensions.get('window').width/ 3 -35};
 	padding: 10px;
-	height: ${Dimensions.get('window').width/ 3 + 50}
+	height: ${Dimensions.get('window').width/ 3 + 50};
 	border: 1px solid #ddd;
 	margin: 5px;
 `;
 const StyleImage = styled.Image`
-		max-height: ${Dimensions.get('window').width/ 3 + 30}
-		max-width: ${Dimensions.get('window').width/ 3 - 60}
+		max-height: ${Dimensions.get('window').width/ 3 + 30};
+		max-width: ${Dimensions.get('window').width/ 3 - 60};
 `;
 
 const ImageName = styled.Text`

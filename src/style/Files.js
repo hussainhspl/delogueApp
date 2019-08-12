@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, Image, Dimensions, TouchableOpacity } from 'react-native';
+import {View, Text, Image, Dimensions, TouchableOpacity, ScrollView } from 'react-native';
 import styled from 'styled-components';
 import {Icon } from 'native-base';
 import { RNCamera } from 'react-native-camera';
@@ -42,7 +42,7 @@ const Title = styled.Text`
 	color: #7b7b7b;
 	text-transform: uppercase;
 	text-align: right;
-	width: ${Dimensions.get('window').width/ 5}
+	width: ${Dimensions.get('window').width/ 5};
 	padding-top: 2px;
 `;
 const SubTitle = styled.Text`
@@ -66,25 +66,56 @@ const CameraView = styled.View`
 
 const Preview = styled(RNCamera)`
 	flex: 1;
-	justifyContent: flex-end;
-	alignItems: center;
+	justify-content: flex-end;
+	align-items: center;
 `;
 const CameraContainer = styled.View`
 	flex: 1;
-	flexDirection: column;
-	backgroundColor: black;
+	flex-direction: column;
+	background-color: black;
 `;
 
 const Capture = styled.TouchableOpacity`
 	flex: 0;
 	background-color: #fff;
-	
-	padding-horizontal: 40px;
+	padding: 0px 40px;
 	align-self: center;
 	margin: 20px;
 	width: 80px;
 	height: 80px;
 	border-radius: 50px;
+`;
+
+const Capital = styled.Text`
+	text-transform: uppercase;
+`;
+const Card = styled.View`
+  width: ${Dimensions.get('window').width/ 3};
+  height: ${Dimensions.get('window').width/ 3 + 100};
+  border: 1px solid #ccc;
+  justify-content: center;
+  align-items: center;
+`;
+const ImageView = styled.View`
+	width: ${Dimensions.get('window').width/ 3 -30};
+	height: ${Dimensions.get('window').width/ 3 + 20};
+	border: 1px solid #ddd;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+`;
+const StyleImage = styled.Image`
+		max-height: ${Dimensions.get('window').width/ 3 -40};
+		max-width: ${Dimensions.get('window').width/ 3};
+    
+`;
+const ImageInfo = styled.View`
+	padding: 5px 10px;
+`;
+const ImageRow = styled.View`
+	flex-direction: row;
+	flex-wrap: wrap;
+	margin-bottom: 15px;
 `;
 class Files extends React.Component{
 	constructor(props) {
@@ -105,7 +136,9 @@ class Files extends React.Component{
   render() {
 		console.log("camera:", this.state.cameraOn)
 		return(
-			<View style={{flex:1}}>
+       
+        <ScrollView  showsVerticalScrollIndicator={false}>
+			<View>
 				<StyleDescriptionRow> 
 					<ImageBox>
 						<Image resizeMode={"contain"} source={require('../../img/styleblack.png')} /> 
@@ -142,7 +175,7 @@ class Files extends React.Component{
 					</Flex>
 				</StyleDescriptionRow>
 				<StyleFileTitle>
-					<Text> style files </Text>
+					<Capital> style files </Capital>
 					<TouchableOpacity onPress={() => this.setState({cameraOn: true})}>
 						<CameraView>
 							<Icon style={{color: 'white', fontSize: 20}} name="camera" />
@@ -181,9 +214,136 @@ class Files extends React.Component{
 								</Capture>
 							</View>
 						</CameraContainer>
-				}
-				
+        }
+        <View>
+          <ImageRow>
+            <Card>
+              <ImageView>
+                <StyleImage
+                  resizeMode={"center"}
+                  source={require('../../img/shirt-static.png')}
+                />
+              </ImageView>
+              <ImageInfo>
+                <Text>File Name</Text>
+                <Text>ImageInfo</Text>
+                <Text>dd-mmm-yyyy</Text>
+              </ImageInfo>
+            </Card>
+            <Card>
+              <ImageView>
+                <StyleImage
+                  resizeMode={"center"}
+                  source={require('../../img/shirt-static.png')}
+                />
+              </ImageView>
+              <ImageInfo>
+                <Text>File Name</Text>
+                <Text>ImageInfo</Text>
+                <Text>dd-mmm-yyyy</Text>
+              </ImageInfo>
+            </Card>
+            <Card>
+              <ImageView>
+                <StyleImage
+                  resizeMode={"center"}
+                  source={require('../../img/shirt-static.png')}
+                />
+              </ImageView>
+              <ImageInfo>
+                <Text>File Name</Text>
+                <Text>ImageInfo</Text>
+                <Text>dd-mmm-yyyy</Text>
+              </ImageInfo>
+            </Card>
+          </ImageRow>
+        </View>
+        <StyleFileTitle>
+					<Capital> Communication files </Capital>
+					<TouchableOpacity onPress={() => this.setState({cameraOn: true})}>
+						<CameraView>
+							<Icon style={{color: 'white', fontSize: 20}} name="camera" />
+						</CameraView>
+					</TouchableOpacity>
+				</StyleFileTitle>
+				{
+					this.state.cameraOn && 
+						<CameraContainer>
+							<Preview
+								ref={ref => {
+									this.camera = ref;
+								}}
+								// style={styles.preview}
+								type={RNCamera.Constants.Type.back}
+								flashMode={RNCamera.Constants.FlashMode.on}
+								androidCameraPermissionOptions={{
+									title: 'Permission to use camera',
+									message: 'We need your permission to use your camera',
+									buttonPositive: 'Ok',
+									buttonNegative: 'Cancel',
+								}}
+								androidRecordAudioPermissionOptions={{
+									title: 'Permission to use audio recording',
+									message: 'We need your permission to use your audio',
+									buttonPositive: 'Ok',
+									buttonNegative: 'Cancel',
+								}}
+								onGoogleVisionBarcodesDetected={({ barcodes }) => {
+									console.log(barcodes);
+								}}
+							/>
+							<View style={{ flex: 0, flexDirection: 'row', justifyContent: 'center' }}>
+								<Capture onPress={this.takePicture.bind(this)}>
+									<Text style={{ fontSize: 14 }}> SNAP </Text>
+								</Capture>
+							</View>
+						</CameraContainer>
+        }
+        <View>
+          <ImageRow>
+            <Card>
+              <ImageView>
+                <StyleImage
+                  resizeMode={"center"}
+                  source={require('../../img/shirt-static.png')}
+                />
+              </ImageView>
+              <ImageInfo>
+                <Text>File Name</Text>
+                <Text>ImageInfo</Text>
+                <Text>dd-mmm-yyyy</Text>
+              </ImageInfo>
+            </Card>
+            <Card>
+              <ImageView>
+                <StyleImage
+                  resizeMode={"center"}
+                  source={require('../../img/shirt-static.png')}
+                />
+              </ImageView>
+              <ImageInfo>
+                <Text>File Name</Text>
+                <Text>ImageInfo</Text>
+                <Text>dd-mmm-yyyy</Text>
+              </ImageInfo>
+            </Card>
+            <Card>
+              <ImageView>
+                <StyleImage
+                  resizeMode={"center"}
+                  source={require('../../img/shirt-static.png')}
+                />
+              </ImageView>
+              <ImageInfo>
+                <Text>File Name</Text>
+                <Text>ImageInfo</Text>
+                <Text>dd-mmm-yyyy</Text>
+              </ImageInfo>
+            </Card>
+          </ImageRow>
+        </View>
 			</View>
+        </ScrollView>
 		)
 	}
 }

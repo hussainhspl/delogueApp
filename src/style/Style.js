@@ -5,8 +5,11 @@ import General from './General';
 import {createStore} from 'redux'
 import Comments from './Comments';
 import Files from './Files';
+import Sample from './sample';
 
 import { connect } from "react-redux";
+// import { FooterTab } from 'native-base';
+import FooterComponent from '../FooterComponent';
 
 class Style extends React.Component {
   
@@ -21,12 +24,12 @@ class Style extends React.Component {
       case 'files':
         return (<Files />);
         break;
-    //   case 'login':
-    //     return (<Login />);
-    //     break;
+      case 'sample':
+        return (<Sample />);
+        break;
       default:
     }
-    console.log("printing from render: ", params);
+    // console.log("printing from render: ", params);
   }
   render() {
     
@@ -54,9 +57,7 @@ class Style extends React.Component {
     return(
       <Fragment>
         { this.renderSelectedTab(this.props.currentTab)}
-        {/* <General /> */}
-        {/* <Comments /> */}
-        {/* <Files></Files> */}
+       <FooterComponent/>
       </Fragment>
     )
   }
