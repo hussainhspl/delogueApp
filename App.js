@@ -35,6 +35,7 @@ import Footer from './src/FooterComponent';
 
 
 import Style from './src/style/Style';
+import SamlpeRequest from './src/style/SampleRequest';
 
 import configStore from './src/store/config_store';
 import { Provider } from 'react-redux';
@@ -56,7 +57,7 @@ const App = () => {
             <Switch>
               {/* <Route exact path="/" component={Template}></Route> */}
               <Header>
-                <Route exact path="/" component={Style}></Route>
+                <Route exact path="/" component={SamlpeRequest}></Route>
           
               </Header>
               <Template  />              

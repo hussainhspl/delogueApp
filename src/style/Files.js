@@ -121,7 +121,8 @@ class Files extends React.Component{
 	constructor(props) {
     super(props);
     this.state = {
-			cameraOn: false,
+			cameraFileOn: false,
+			cameraCommOn: false,
 		}
 	}
 	takePicture = async() => {

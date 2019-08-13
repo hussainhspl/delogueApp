@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text} from 'react-native';
+import {View, Text, Image} from 'react-native';
 import { Container, Header, Content, Footer, FooterTab, Button, Icon } from 'native-base';
 import styled from 'styled-components';
 
@@ -22,25 +22,11 @@ class FooterComponent extends React.Component {
       tab2: 'general'
     };
   }
-  // renderSelectedTab () {
-  //   switch (path) {
-  //     case 'welcome':
-  //       return (<Welcome />);
-  //       break;
-  //     case 'profile':
-  //       return (<Profile />);
-  //       break;
-  //     case 'login':
-  //       return (<Login />);
-  //       break;
-  //     default:
-  //   }
-  // }
 	render() {
     console.log("footer state active:", this.props.currentTab);
     const currentTab = this.props.currentTab
 		return(
-			<View style={{height:53}}>
+			<View style={{height:50}}>
 				<Container>
 				<Footer>
           <FooterTab>
@@ -48,46 +34,54 @@ class FooterComponent extends React.Component {
               active={this.props.currentTab === 'general'? true : false}
               onPress={() => this.props.generalTabFunction()}
             >
-              <Icon 
-                active={this.props.currentTab === 'general'? true : false}
-                name="shirt" />
-              <IconText>General </IconText>
+              <Image 
+                resizeMode={"cover"}
+                source={this.props.currentTab === 'general' ? require('../img/footer/style.png') :require('../img/footer/styleblack.png')}
+              />
+              <IconText style={{color: this.props.currentTab === 'general' ? '#fff' : '#444'}}>General </IconText>
             </Button>
             <Button vertical 
               active={this.props.currentTab === 'comments'? true : false}
               onPress={() => this.props.commentTabFunction()}
             >
-              <Icon 
+              {/* <Icon 
                 active={this.props.currentTab === 'comments'? true : false}
-                name="mail" />
-              <IconText>Comments</IconText>
+                name="mail" /> */}
+              <Image 
+                resizeMode={"cover"}
+                source={this.props.currentTab === 'comments' ? require('../img/footer/message.png') :require('../img/footer/messageblack.png')}
+              />
+              <IconText style={{color: this.props.currentTab === 'comments' ? '#fff' : '#444'}}>Comments</IconText>
             </Button>
             <Button vertical
               active={this.props.currentTab === 'files'? true : false}
               onPress={() => this.props.filesTabFunction()}
             >
-              <Icon
-                active={this.props.currentTab === 'files'? true : false}
-                name="document" />
-              <IconText>Files</IconText>
+              <Image 
+                resizeMode={"cover"}
+                source={this.props.currentTab === 'files' ? require('../img/footer/files.png') :require('../img/footer/filesblack.png')}
+              />
+              <IconText style={{color: this.props.currentTab === 'files' ? '#fff' : '#444'}}>Files</IconText>
             </Button>
             <Button vertical
               active={this.props.currentTab === 'sample'? true : false}
               onPress={() => this.props.sampleTabFunction()}
             >
-              <Icon 
-                active={this.props.currentTab === 'sample'? true : false}
-                name="folder-open" />
-              <IconText>Sample</IconText>
+              <Image 
+                resizeMode={"cover"}
+                source={this.props.currentTab === 'sample' ? require('../img/footer/sample.png') :require('../img/footer/sampleblack.png')}
+              />
+              <IconText style={{color: this.props.currentTab === 'sample' ? '#fff' : '#444'}}>Sample</IconText>
             </Button>
             <Button vertical
               active={this.props.currentTab === 'pdf'? true : false}
               onPress={() => this.props.pdfTabFunction()}
             >
-              <Icon
-                active={this.props.currentTab === 'pdf'? true : false} 
-                name="document" />
-              <IconText>PDF</IconText>
+              <Image 
+                resizeMode={"cover"}
+                source={this.props.currentTab === 'pdf' ? require('../img/footer/pdf.png') :require('../img/footer/pdfblack.png')}
+              />
+              <IconText style={{color: this.props.currentTab === 'pdf' ? '#fff' : '#444'}}>PDF</IconText>
             </Button>
           </FooterTab>
         </Footer>

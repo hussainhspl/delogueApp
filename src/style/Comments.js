@@ -36,7 +36,6 @@ const ImageDetails = styled.View`
   flex: 1;
   align-items: center;
   margin: 20px 10px 20px 10px;
-  
 `;
 const StyleInfo = styled.View`
   flex-direction: row;
