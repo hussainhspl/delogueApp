@@ -1,18 +1,36 @@
 import React from 'react';
-import {View, Text} from 'react-native';
+import {View, Text, TouchableOpacity, Image, Dimensions} from 'react-native';
 import styled from "styled-components";
 import {Icon} from 'native-base';
+import CameraComponent from '../shared/CameraComponent';
+
+const CardArr = [
+	{
+		filename: 'file name',
+		info: 'info',
+		date: 'dd-mm-yyyy',
+	},
+	{
+		filename: 'file name',
+		info: 'info',
+		date: 'dd-mm-yyyy'
+	},
+	{
+		filename: 'file name',
+		info: 'info',
+		date: 'dd-mm-yyyy'
+	},
+];
 
 //button css
 const ButtonRow = styled.View`
-  justify-content: center;
-  align-items: center;
+  
 `;
 const CommentedButton = styled(View)`
   background-color: #99afaf;
   margin-left: 15;
   width: 180;
-  margin: 15px auto;
+  margin: 15px;
   padding: 0;
   flex-direction: row;
   align-items: center;
@@ -31,19 +49,132 @@ const ButtonText = styled.Text`
   text-align: center;
 `;
 //button css end
-
+const TextArea = styled.TextInput`
+	border: 1px solid #ddd;
+	justify-content: flex-start;
+	align-items: flex-start;
+	padding: 10px;
+	margin-top: 10px;
+`;
+const Box = styled.View`
+	padding: 15px;
+`;
+const Label = styled.Text`
+	color: #8D8177;
+	font-weight: 600;
+	text-transform: uppercase;
+`;
+const StyleFileTitle = styled.View`
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+	background-color: #F1EFED;
+	border: 1px solid #DCD7D4;
+`;
+const Capital = styled.Text`
+	text-transform: uppercase;
+`;
+const CameraView = styled.View`
+	width: 40;
+	height: 40;
+	justify-content: center;
+	align-items: center;
+	background-color: #849d7a;
+`;
+const ImageRow = styled.View`
+	flex-direction: row;
+	flex-wrap: wrap;
+	margin-bottom: 15px;
+`;
+const Card = styled.View`
+  width: ${Dimensions.get('window').width/ 3};
+  height: ${Dimensions.get('window').width/ 3 + 100};
+  border: 1px solid #ccc;
+  justify-content: center;
+  align-items: center;
+`;
+const ImageView = styled.View`
+	width: ${Dimensions.get('window').width/ 3 -30};
+	height: ${Dimensions.get('window').width/ 3 + 20};
+	border: 1px solid #ddd;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+`;
+const StyleImage = styled.Image`
+		max-height: ${Dimensions.get('window').width/ 3 -40};
+		max-width: ${Dimensions.get('window').width/ 3};
+    
+`;
+const ImageInfo = styled.View`
+	padding: 5px 10px;
+`;
 class StyleTemplate extends React.Component {
+	constructor(props) {
+    super(props);
+    this.state = {
+			textArea: '',
+			cameraOn: false,
+		}
+	}
 	render() {
 		return(
 			<View>
 				<ButtonRow>
           <CommentedButton small>
             <IconView>
-              <Icon style={{ color: "#fff", fontSize: 15 }} name="undo" />
+              <Icon style={{ color: "#fff", fontSize: 15 }} name="tablet-portrait" />
             </IconView>
-            <ButtonText> hide commented </ButtonText>
+            <ButtonText> use template </ButtonText>
           </CommentedButton>
         </ButtonRow>
+				
+				<Box>
+					<Label> Comment </Label>
+					<TextArea
+						multiline={true}
+						numberOfLines={4}
+						onChangeText={(textArea) => this.setState({textArea})}
+						value={this.state.textArea}
+						placeholder="type your message"
+						textAlignVertical= 'top'
+					/>
+				</Box>
+				<StyleFileTitle>
+					<Capital> style files </Capital>
+					<TouchableOpacity onPress={() => this.setState({cameraOn: true})}>
+						<CameraView>
+							<Icon style={{color: 'white', fontSize: 20}} name="camera" />
+						</CameraView>
+					</TouchableOpacity>
+				</StyleFileTitle>
+				{
+					this.state.cameraOn &&
+					<CameraComponent />
+				}
+				<View>
+          <ImageRow>
+						{
+							CardArr.map(data => {
+								return(
+									<Card>
+										<ImageView>
+											<StyleImage
+												resizeMode={"center"}
+												source={require('../../img/shirt-static.png')}
+											/>
+										</ImageView>
+										<ImageInfo>
+											<Text>File Name</Text>
+											<Text>ImageInfo</Text>
+											<Text>dd-mmm-yyyy</Text>
+										</ImageInfo>
+									</Card>
+								)
+							})
+						}
+          </ImageRow>
+        </View>
 			</View>
 		)
 	}

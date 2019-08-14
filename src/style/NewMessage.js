@@ -43,7 +43,7 @@ const SubjectInput = styled(TextInput)`
 const Row = styled.View`
 	align-items: center;
 	flex-direction: row;
-	margin-bottom: 15
+	margin-bottom: 15px;
 `;
 
 const CheckBoxText = styled.Text`
@@ -59,7 +59,7 @@ const StyledView = styled.View`
 	margin-bottom: 30px;
 `;
 const StyledPicker = styled(Picker)`
-	height: 30
+	height: 30px;
 `;
 
 const NotifySelector = styled.View`
@@ -71,8 +71,8 @@ const NotifySelector = styled.View`
 `;
 
 const CancelNotify = styled.View`
-	width: 20;
-	height: 20;
+	width: 20px;
+	height: 20px;
 	justify-content: center;
 	align-items: center;
 	position: absolute;
