@@ -49,6 +49,7 @@ const SubTitle = styled.Text`
   font-size: 12;
   color: #222;
 `;
+// button css start
 const ButtonRow = styled.View`
   justify-content: center;
   align-items: center;
@@ -75,6 +76,7 @@ const ButtonText = styled.Text`
   width: 150;
   text-align: center;
 `;
+// button css end
 const SampleRow = styled.View`
   flex-direction: row;
   flex-wrap: wrap;

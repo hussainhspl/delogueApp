@@ -1,9 +1,11 @@
 import React from 'react';
-import {View, Text, ScrollView, Dimensions, Image, TouchableHighlight, Modal, Alert} from 'react-native';
+import {View, Text, ScrollView, Dimensions, Image, 
+	TouchableHighlight, Modal, Alert, TextInput, SafeAreaView} from 'react-native';
 import styled from 'styled-components';
-import {Icon} from 'native-base';
+import {Icon, Button} from 'native-base';
 import { Col, Row, Grid } from "react-native-easy-grid";
-
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+import StyleTemplate from './StyleTemplate';
 const sizeXl = [
 	{
 		description: 'Shoulder',
@@ -125,8 +127,32 @@ const StyleCol = styled(Col)`
 	justify-content: center;
 `;
 
+const TableTextInput = styled.TextInput`
+	border: 1px solid #ddd;
+	text-align: center;
+	padding: 5px;
+	margin-right: 10px;
+	margin-top:5px;
+	margin-bottom: 5px;
+`;
+
+const ApplyButtonText = styled.Text`
+	color: #fff;
+	text-transform: uppercase;
+	padding: 5px;
+`;
+
+const ApplyBar = styled.View`
+	padding: 15px;
+	align-items: center;
+	justify-content: flex-end;
+	flex-direction: row;
+	height: 50px;
+	background-color: #F1EFED;
+`;
+
 class SampleRequest extends React.Component {
-	state= {modalVisible : true}
+	state= {modalVisible : false}
 	setModalVisible(visible) {
     this.setState({modalVisible: visible});
   }
@@ -190,6 +216,8 @@ class SampleRequest extends React.Component {
           onRequestClose={() => {
             Alert.alert('Modal has been closed.');
           }}>
+						<SafeAreaView>
+								<KeyboardAwareScrollView>
             <View style={{flex: 1}}>
 							<ModalTitle>
 								<HeaderText>Measurement Chart</HeaderText>
@@ -202,11 +230,12 @@ class SampleRequest extends React.Component {
                   </TouchableHighlight>
                 </CloseBox>
 							</ModalTitle>
-							<View style={{flexDirection: 'row', padding: 5}}>
+							<View>
+								<Grid>
+							<View style={{flexDirection: 'row', padding: 5, height:30}}>
 								<SizeText> Size: </SizeText>
 								<Text> XL </Text>
 							</View>
-							<Grid style={{backgroundColor: '#f00'}}>
 								<HeaderRow>
 									<StyleCol size={2}>
 										<Text> description </Text>
@@ -221,7 +250,6 @@ class SampleRequest extends React.Component {
 										<Text> Want </Text>
 									</StyleCol>
 								</HeaderRow>
-								{/* <Row> */}
 									{
 										sizeXl.map(data => {
 											return(
@@ -230,24 +258,24 @@ class SampleRequest extends React.Component {
 														<Text>{data.description}</Text>
 													</StyleCol>
 													<StyleCol size={1}>
-														<Text>{data.comp}</Text>
+														<TableTextInput>{data.comp}</TableTextInput>
 													</StyleCol>
 													<StyleCol size={1}>
-														<Text>{data.comp}</Text>
+														<TableTextInput>{data.comp}</TableTextInput>
 													</StyleCol>
 													<StyleCol size={1}>
-														<Text>{data.comp}</Text>
+														<TableTextInput>{data.comp}</TableTextInput>
 													</StyleCol>
 												</Row>																						
 											)
 										})
 									}
-							</Grid>
-							<View style={{flexDirection: 'row', padding: 5}}>
+							
+							<View style={{flexDirection: 'row', padding: 5, height: 30, marginTop: 20}}>
 								<SizeText> Size: </SizeText>
 								<Text> Large </Text>
 							</View>
-							<Grid>
+							
 								<HeaderRow>
 									<StyleCol size={2}>
 										<Text> description </Text>
@@ -262,7 +290,6 @@ class SampleRequest extends React.Component {
 										<Text> Want </Text>
 									</StyleCol>
 								</HeaderRow>
-								{/* <Row> */}
 									{
 										sizeXl.map(data => {
 											return(
@@ -271,22 +298,34 @@ class SampleRequest extends React.Component {
 														<Text>{data.description}</Text>
 													</StyleCol>
 													<StyleCol size={1}>
-														<Text>{data.comp}</Text>
+														<TableTextInput>{data.comp}</TableTextInput>
 													</StyleCol>
 													<StyleCol size={1}>
-														<Text>{data.comp}</Text>
+														<TableTextInput>{data.comp}</TableTextInput>
 													</StyleCol>
 													<StyleCol size={1}>
-														<Text>{data.comp}</Text>
+														<TableTextInput>{data.comp}</TableTextInput>
 													</StyleCol>
 												</Row>																						
 											)
 										})
 									}
-							</Grid>
+									<ApplyBar>
+										<Button bordered light small danger>
+											<Text style={{color: "#d9534e"}}> CANCEL </Text> 
+										</Button>
+										<Button small style={{backgroundColor:"#849D7A", marginLeft: 15}}>
+											<ApplyButtonText>apply</ApplyButtonText>
+										</Button>
+									</ApplyBar>
+									</Grid>
+							</View>
 						</View>
+									</KeyboardAwareScrollView>
+						</SafeAreaView>
 					</Modal>
 				</View>
+				<StyleTemplate />
 				
 			</ScrollView >
 		)
