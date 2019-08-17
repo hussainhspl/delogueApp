@@ -13,17 +13,21 @@ import { connect } from "react-redux";
 import FooterComponent from '../FooterComponent';
 
 class Style extends React.Component {
-  
+  constructor(props) {
+    super(props);
+    this.state = {}
+  }
   renderSelectedTab (params) {
+    // console.log()
     switch (params) {
       case 'general':
-        return (<General />);
+        return (<General history = {this.props.history} />);
       case 'comments':
         return (<Comments />);
       case 'files':
         return (<Files />);
       case 'sample':
-        return (<Sample />);
+        return (<Sample history = {this.props.history} />);
       case 'pdf':
         return (<Pdf />);
       default:
@@ -31,10 +35,11 @@ class Style extends React.Component {
     // console.log("printing from render: ", params);
   }
   render() {
-    
+    const history = this.props.history;
+    // console.log("History on style page:", history)
     // step 2 create reducer: it needs state and action
     //payload = newState/ command
-    console.log("store state: ",this.props.currentTab)
+    // console.log("store state: ",this.props.currentTab)
     const reducer = (state, action) => {
       if(action.type === "ATTACK"){
         return action.payload

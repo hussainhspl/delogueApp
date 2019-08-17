@@ -23,7 +23,7 @@ const NewButton = styled(View)`
 	margin-left: 15;
 	width: 100;
 	margin-left: auto;
-	margin-right: 20;
+	margin-right: 10;
 	padding: 0;
 	flex-direction: row;
 	align-items: center;
@@ -45,10 +45,12 @@ const FromRow = styled.View`
 	flex-direction: row;
 	justify-Content: flex-end;
 	padding: 10px 5px 0px 10px;
+	flex-wrap: wrap;
 
 `;
 const  HeaderText = styled.Text`
 	color: #9b9b9b;
+	line-height: 29px;
 `;
 const MessageBody = styled.Text`
 	padding: 20px 0px;
@@ -73,14 +75,17 @@ const StyleImage = styled.Image`
 
 const ImageName = styled.Text`
 	text-align: center;
-	padding: 10px;
+	padding: 10px 0px;
+	font-size: 12px;
 `;
 class CommentBlock extends React.Component {
 	render(){
 		return (
 			<CommentBox>
 				<FirstRow>
-					<Text> The title of message or comment </Text>
+					<View style={{flex: 1, paddingRight: 2}}>
+						<Text numberOfLines={1} > The title of message or comment </Text>
+					</View>
 					<NewButton small>
 						<IconView>
 							<Icon style={{ color: '#fff', fontSize: 15}} name="undo" />
@@ -93,10 +98,10 @@ class CommentBlock extends React.Component {
 					<HeaderText> hussain badri </HeaderText>
 					<HeaderText> 21 Sept 2019 </HeaderText>
 					<HeaderText> 9.10</HeaderText>
-					<HeaderText> NOTIFIED </HeaderText>
+					<HeaderText> NOTIFIED: Hussain, Siya, Deepakshi </HeaderText>
 				</FromRow>
 				<FromRow>
-				<HeaderText> NOTIFIED: Hussain, Siya, Deepakshi </HeaderText>
+				{/* <HeaderText> NOTIFIED: Hussain, Siya, Deepakshi </HeaderText> */}
 				</FromRow>
 				<MessageBody>
 					Laboris consectetur id tempor do nostrud enim laboris exercitation exercitation ad. Deserunt incididunt tempor sit cillum veniam officia eu esse laboris quis aliqua ex cupidatat eu. Ad et tempor proident velit et nulla Lorem. Mollit ut magna aliqua ex mollit aute in Lorem. Voluptate esse ut exercitation deserunt excepteur eu. Id laborum culpa pariatur anim dolor ipsum ullamco exercitation.

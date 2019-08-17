@@ -47,20 +47,25 @@ class Header extends React.Component {
             <View style={iconGroup}>
               <View>
                 <TouchableOpacity style={icon}
-                  onPress= {() => this.props.searchButtonFunction()}>
+                  // onPress= {() => this.props.searchButtonFunction()}
+                  onPress={() => {history.push("/search")}}
+                  >
                   <Image resizeMode={"contain"} source={require('../img/search-icon.png')} /> 
                 </TouchableOpacity>         
               </View>
               <View>
                 <TouchableOpacity style={icon}
-                  onPress= {() => this.props.messageButtFnunction()}
+                  // onPress= {() => this.props.messageButtFunction()}
+                  onPress={() => {history.push("/message")}}
                   >
                   <Image resizeMode={"contain"} source={require('../img/message-icon.png')} />
                 </TouchableOpacity>          
               </View>
               <View>
                 <TouchableOpacity style={icon}
-                onPress= {() => this.props.styleButtonFunction()}>
+                // onPress= {() => this.props.styleButtonFunction()}
+                onPress={() => {history.push("/style")}}
+                >
                   <Image resizeMode={"contain"} source={require('../img/style-icon.png')} />  
                 </TouchableOpacity>        
               </View>

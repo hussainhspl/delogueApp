@@ -3,6 +3,7 @@ import {View, Text, Image, Dimensions, TouchableOpacity, ScrollView } from 'reac
 import styled from 'styled-components';
 import {Icon } from 'native-base';
 import { RNCamera } from 'react-native-camera';
+import StyleModal from './StyleModal'
 
 const StyleDescriptionRow = styled.View`
 	padding: 5px;
@@ -89,7 +90,7 @@ const Capture = styled.TouchableOpacity`
 const Capital = styled.Text`
 	text-transform: uppercase;
 `;
-const Card = styled.View`
+const Card = styled.TouchableOpacity`
   width: ${Dimensions.get('window').width/ 3};
   height: ${Dimensions.get('window').width/ 3 + 100};
   border: 1px solid #ccc;
@@ -123,6 +124,7 @@ class Files extends React.Component{
     this.state = {
 			cameraFileOn: false,
 			cameraCommOn: false,
+			modalVisible : false,
 		}
 	}
 	takePicture = async() => {
@@ -133,7 +135,9 @@ class Files extends React.Component{
     }
 	};
 	handleOnPress = () => this.setState({ cameraOn: false })
-
+	setModalVisible(visible) {
+    this.setState({modalVisible: visible});
+  }
   render() {
 		console.log("camera:", this.state.cameraOn)
 		return(
@@ -218,7 +222,9 @@ class Files extends React.Component{
         }
         <View>
           <ImageRow>
-            <Card>
+            <Card onPress={() => {
+							this.setModalVisible(true);
+						}}>
               <ImageView>
                 <StyleImage
                   resizeMode={"center"}
@@ -258,6 +264,12 @@ class Files extends React.Component{
               </ImageInfo>
             </Card>
           </ImageRow>
+					<StyleModal
+						title='Requested Quantity'
+						modalVisible={this.state.modalVisible}
+						close={() => {this.setModalVisible(!this.state.modalVisible);
+							}} 
+					/>
         </View>
         <StyleFileTitle>
 					<Capital> Communication files </Capital>

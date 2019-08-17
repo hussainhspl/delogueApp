@@ -36,10 +36,12 @@ import Footer from './src/FooterComponent';
 
 import Style from './src/style/Style';
 import SamlpeRequest from './src/style/SampleRequest';
+import Sample from './src/style/sample'
 import Pdf from './src/style/Pdf'
 
 import configStore from './src/store/config_store';
 import { Provider } from 'react-redux';
+import Files from './src/style/Files'
 
 const store = configStore();
 
@@ -57,10 +59,10 @@ const App = () => {
       <SafeAreaView />
         <View style={{flex: 1}}>
             <Switch>
-              <Route exact path="/" component={Template}></Route>
-              {/* <Header>
-                <Route exact path="/" component={Pdf}></Route>
-              </Header> */}
+              {/* <Route exact path="/" component={Template}></Route> */}
+              <Header>
+                <Route exact path="/" component={Sample}></Route>
+              </Header>
               <Template  />              
             </Switch>
         </View>

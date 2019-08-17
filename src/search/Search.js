@@ -46,9 +46,7 @@ const numColumns = 3;
 export default class Search extends React.Component {
   constructor(props) {
     super(props);
-
     this.changeView = this.changeView.bind(this);
-
     this.state = {
       currentView: 'grid',
     };

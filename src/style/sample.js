@@ -3,6 +3,7 @@ import { View, Text, ScrollView, Dimensions, Image, TouchableOpacity } from "rea
 import styled from "styled-components";
 import { Icon } from "native-base";
 import SampleComponent from "./sampleComponent";
+import NewSampleRequest from './NewSampleRequest';
 // import console = require("console");
 
 const StyleDescriptionRow = styled.View`
@@ -84,7 +85,8 @@ const SampleRow = styled.View`
 `;
 class Sample extends React.Component {
   render() {
-    console.log("history on sample page:",)
+    const history = this.props.history;
+    console.log("history on sample page:",);
     return (
       <ScrollView showsVerticalScrollIndicator={false}>
         <StyleDescriptionRow>
@@ -134,13 +136,14 @@ class Sample extends React.Component {
           </CommentedButton>
         </ButtonRow>
         <SampleRow>
-          <TouchableOpacity onPress={() => {history.push("/style")}}>
+          <TouchableOpacity onPress={() => {history.push("/sampleRequest")}}>
             <SampleComponent />
           </TouchableOpacity>
             {/* //open sample request on click */}
           
           <SampleComponent />
           <SampleComponent />
+          <NewSampleRequest />
 
         </SampleRow>
       </ScrollView>

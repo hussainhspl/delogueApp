@@ -6,14 +6,21 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 
 
 class Login extends React.Component {
-  state= {
-    text: '',
-    password: '',
+  constructor(props) {
+    super(props);
+    this.state={
+      text: '',
+      password: '',
+    }
   }
+  // state= {
+  //   text: '',
+  //   password: '',
+  // }
   render() {
     const { container, logo, logoView, label, input, loginButton, loginText} = styles;
     const history= this.props.history;
-    console.log("history: ", history)
+    console.log(" login history: ", history)
     return(
       <View style={container}>
       <KeyboardAwareScrollView showsVerticalScrollIndicator={false}>

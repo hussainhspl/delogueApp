@@ -109,11 +109,11 @@ class CompanyList extends React.Component {
       return <View style={[styles.item, styles.itemInvisible]} />;
     }
     const history= this.props.history;
-    console.log("hist", this.props.history);
+    console.log("company list render hist", this.props.history);
     return (
       // <View style={styles.item} key={item.key}>
       <TouchableOpacity 
-        underlayColor='rgba(221, 221, 221, 0.4)' onPress={() => {history.push("/headerTemplate"); 
+        underlayColor='rgba(221, 221, 221, 0.4)' onPress={() => {history.push("/search"); 
         console.log(history);}}
         style={styles.item} key={item.key}>
           <View style={styles.imageView}>
