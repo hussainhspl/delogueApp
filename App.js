@@ -36,6 +36,7 @@ import Footer from './src/FooterComponent';
 
 import Style from './src/style/Style';
 import SamlpeRequest from './src/style/SampleRequest';
+import Pdf from './src/style/Pdf'
 
 import configStore from './src/store/config_store';
 import { Provider } from 'react-redux';
@@ -47,6 +48,7 @@ const App = () => {
     // const history = this.props.history
     console.log("app", this.props.location.pathname);
   }
+  
   return (
     <Provider store={ store }>
     <NativeRouter>
@@ -55,11 +57,10 @@ const App = () => {
       <SafeAreaView />
         <View style={{flex: 1}}>
             <Switch>
-              {/* <Route exact path="/" component={Template}></Route> */}
-              <Header>
-                <Route exact path="/" component={SamlpeRequest}></Route>
-          
-              </Header>
+              <Route exact path="/" component={Template}></Route>
+              {/* <Header>
+                <Route exact path="/" component={Pdf}></Route>
+              </Header> */}
               <Template  />              
             </Switch>
         </View>

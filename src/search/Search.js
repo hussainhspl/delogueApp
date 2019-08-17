@@ -2,7 +2,7 @@ import React, {Fragment} from 'react';
 import {Text, View, TouchableOpacity, Image, FlatList, Dimensions } from 'react-native';
 import SearchInput, { createFilter } from 'react-native-search-filter';
 import Icon from 'react-native-vector-icons/Ionicons';
-import SearchFilter from './searchFilter'
+import SearchFilter from './searchFilter';
 
 const details = [
   {
@@ -42,7 +42,7 @@ const formatData = (details, numColumns) => {
   return details;
 };
 const numColumns = 3;
-// flatlist end
+// flat list end
 export default class Search extends React.Component {
   constructor(props) {
     super(props);
@@ -73,8 +73,9 @@ export default class Search extends React.Component {
     if (item.empty === true) {
       return <View style={[styles.item, styles.itemInvisible]} />;
     }
+    const history= this.props.history;
     return (
-      <View style={styles.item} key={item.key}>
+      <TouchableOpacity onPress={() => {history.push("/style")}} style={styles.item} key={item.key}>
         <View style={styles.imageView}>
           <Image 
             resizeMode={"center"}
@@ -88,12 +89,14 @@ export default class Search extends React.Component {
           {/* <Text style={styles.itemText}> {item.userType} </Text> */}
 
         </View>
-      </View>
+      </TouchableOpacity>
     );
   };
   render() {
     const { imageBox, row } = styles;
-    console.log('current state', this.state.currentView);
+    // console.log('current state', this.state.currentView);
+    const history = this.props.history;
+    console.log("history on search page", this.props.history);
     return(
       <View style={{flex: 1}}>
         <View style={[row,{justifyContent:'space-between'}]}>
@@ -117,7 +120,7 @@ export default class Search extends React.Component {
             return(
               <Fragment>
               
-              <TouchableOpacity onPress={()=>alert("hello")}  key={data.styleNo} style={styles.touchableRow}>
+              <TouchableOpacity onPress={() => {history.push("/style")}} key={data.styleNo} style={styles.touchableRow}>
                 <View style={imageBox}>
                   <Image resizeMode={"contain"} source={require('../../img/styleblack.png')} /> 
                 </View>

@@ -6,6 +6,7 @@ import {createStore} from 'redux'
 import Comments from './Comments';
 import Files from './Files';
 import Sample from './sample';
+import Pdf from './Pdf';
 
 import { connect } from "react-redux";
 // import { FooterTab } from 'native-base';
@@ -17,16 +18,14 @@ class Style extends React.Component {
     switch (params) {
       case 'general':
         return (<General />);
-        break;
       case 'comments':
         return (<Comments />);
-        break;
       case 'files':
         return (<Files />);
-        break;
       case 'sample':
         return (<Sample />);
-        break;
+      case 'pdf':
+        return (<Pdf />);
       default:
     }
     // console.log("printing from render: ", params);

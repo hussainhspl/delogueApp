@@ -1,7 +1,7 @@
 import React from 'react';
 import {View, Text, TouchableOpacity, Image, Dimensions} from 'react-native';
 import styled from "styled-components";
-import {Icon} from 'native-base';
+import {Icon, Picker} from 'native-base';
 import CameraComponent from '../shared/CameraComponent';
 
 const CardArr = [
@@ -109,14 +109,22 @@ const StyleImage = styled.Image`
 const ImageInfo = styled.View`
 	padding: 5px 10px;
 `;
+const CommentBox = styled.View`
+	background-color: #faf2d4;
+	margin: 15px;
+	padding: 15px;
+`;
+
 class StyleTemplate extends React.Component {
 	constructor(props) {
     super(props);
     this.state = {
 			textArea: '',
 			cameraOn: false,
+			selected2: 'undefined',
 		}
 	}
+
 	render() {
 		return(
 			<View>
@@ -174,6 +182,12 @@ class StyleTemplate extends React.Component {
 							})
 						}
           </ImageRow>
+					<Label> Comment by supplier </Label>
+					<CommentBox>
+						<Text>
+						Dolor deserunt nulla elit consequat commodo ex consectetur consectetur officia do in consequat laborum. Est occaecat aliqua est quis officia ad labore ex anim. Officia officia eiusmod culpa ex pariatur reprehenderit irure minim laborum nisi tempor excepteur ipsum. Deserunt deserunt sit anim ad esse voluptate quis id ex aliqua. Fugiat excepteur irure ea excepteur reprehenderit.
+						</Text>
+					</CommentBox>
         </View>
 			</View>
 		)

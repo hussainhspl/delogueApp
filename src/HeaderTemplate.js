@@ -8,6 +8,7 @@ import Search  from './search/Search';
 import Message from './message/message';
 // import FooterComponent from './FooterComponent'
 import { connect } from "react-redux";
+// import { NativeRouter, Switch, Route } from 'react-router-native';
 
 
 // import console = require('console');
@@ -20,31 +21,24 @@ class HeaderTemplate extends React.Component {
 		renderSelectedTab (params) {
 			switch (params) {
 				case 'search':
-					return (<Search />);
+					return (<Search history={this.props.history} />);
 					break;
 				case 'message':
-					return (<Message />);
+					return (<Message history={this.props.history} />);
 					break;
-				case 'style':
-					return (
-							<Style />
+				case 'style':π
+					return (<Style history={this.props.history} />
 					);
 					break;
-			//   case 'login':
-			//     return (<Login />);
-			//     break;
 				default:
 			}
-			// console.log("printing from render: ", params);
 		}
     render() {
-			const path = this.props.location.pathname;
-			console.log("header template path", path);
+			console.log("header template history", this.props.history);
 			return(
 				<Header history={this.props.history}>
-					
-					{/* <Search /> */}
 					{ this.renderSelectedTab(this.props.currentTab)}
+					<Route exact path="/style" component={Style}></Route>
 				</Header>
 			)
 		}

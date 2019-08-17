@@ -6,6 +6,9 @@ import {Icon, Button} from 'native-base';
 import { Col, Row, Grid } from "react-native-easy-grid";
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import StyleTemplate from './StyleTemplate';
+import SampleRequestSummary from './SampleRequestSummary';
+import ViewRequestedQuantity from './ViewRequestedQuantity';
+import CommonModal from '../shared/CommonModal';
 const sizeXl = [
 	{
 		description: 'Shoulder',
@@ -95,24 +98,6 @@ const ViewChart = styled.Text`
 	text-align: center;
 	padding: 3px 6px;
 `;
-// modal
-const ModalTitle = styled.View`
-	background-color: #415461;
-	height: 30px;
-	flex-direction: row;
-	align-items: center;
-  
-`;
-const CloseBox = styled.View`
-	margin-left: auto;
-	padding: 5px 10px;
-`;
-const HeaderText = styled.Text`
-	color: white;
-	padding-left: 10px;
-	font-size: 16px;
-	text-transform : uppercase;
-`;
 const SizeText = styled.Text`
 	color: #8D8177;
 `;
@@ -150,7 +135,14 @@ const ApplyBar = styled.View`
 	height: 50px;
 	background-color: #F1EFED;
 `;
-
+const FooterButton = styled.View`
+	padding: 15px;
+	align-items: center;
+	justify-content: flex-end;
+	flex-direction: row;
+	height: 50px;
+	
+`;
 class SampleRequest extends React.Component {
 	state= {modalVisible : false}
 	setModalVisible(visible) {
@@ -209,27 +201,13 @@ class SampleRequest extends React.Component {
 						}}>
 							<ViewChart>view chart</ViewChart>
 					</TouchableHighlight>
-					<Modal
-          animationType="fade"
-          transparent={false}
-          visible={this.state.modalVisible}
-          onRequestClose={() => {
-            Alert.alert('Modal has been closed.');
-          }}>
-						<SafeAreaView>
-								<KeyboardAwareScrollView>
-            <View style={{flex: 1}}>
-							<ModalTitle>
-								<HeaderText>Measurement Chart</HeaderText>
-								<CloseBox>
-                  <TouchableHighlight
-                    onPress={() => {
-                      this.setModalVisible(!this.state.modalVisible);
-                    }}>
-                      <Icon style={{color: '#fff', fontSize: 28}} name="ios-close" />
-                  </TouchableHighlight>
-                </CloseBox>
-							</ModalTitle>
+
+							<CommonModal 
+								title='Measurement Chart'
+								modalVisible={this.state.modalVisible}
+								close={() => {this.setModalVisible(!this.state.modalVisible);
+									}}
+							>
 							<View>
 								<Grid>
 							<View style={{flexDirection: 'row', padding: 5, height:30}}>
@@ -310,23 +288,21 @@ class SampleRequest extends React.Component {
 											)
 										})
 									}
-									<ApplyBar>
-										<Button bordered light small danger>
-											<Text style={{color: "#d9534e"}}> CANCEL </Text> 
-										</Button>
-										<Button small style={{backgroundColor:"#849D7A", marginLeft: 15}}>
-											<ApplyButtonText>apply</ApplyButtonText>
-										</Button>
-									</ApplyBar>
 									</Grid>
 							</View>
+							</CommonModal>
 						</View>
-									</KeyboardAwareScrollView>
-						</SafeAreaView>
-					</Modal>
-				</View>
 				<StyleTemplate />
-				
+				<SampleRequestSummary />
+				<ViewRequestedQuantity />
+				<FooterButton>
+					<Button bordered light small danger>
+						<Text style={{color: "#d9534e"}}> CANCEL </Text> 
+					</Button>
+					<Button small style={{backgroundColor:"#849D7A", marginLeft: 15}}>
+						<ApplyButtonText>apply</ApplyButtonText>
+					</Button>
+				</FooterButton>
 			</ScrollView >
 		)
 	}
