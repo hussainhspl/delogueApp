@@ -2,6 +2,7 @@ import React from 'react';
 import {View, Text, Image, TextInput, TouchableOpacity, TouchableHighlight } from 'react-native';
 import CompanyList from './companyList';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+import { withRouter } from 'react-router';
 
 
 
@@ -20,7 +21,8 @@ class Login extends React.Component {
   render() {
     const { container, logo, logoView, label, input, loginButton, loginText} = styles;
     const history= this.props.history;
-    console.log(" login history: ", history)
+    // const path = this.props.location.pathname;
+    console.log(" login path: ", history);
     return(
       <View style={container}>
       <KeyboardAwareScrollView showsVerticalScrollIndicator={false}>
@@ -106,4 +108,4 @@ const styles = {
     
   }
 }
-export default Login
+export default Login;

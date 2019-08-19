@@ -4,6 +4,8 @@ import Menu from './Menu';
 // import SideMenu from 'react-native-side-menu';
 import Drawer from 'react-native-drawer';
 import Icon from 'react-native-vector-icons/Ionicons';
+import { withRouter } from 'react-router';
+
 
 const data = [
   { 
@@ -227,4 +229,4 @@ const styles = {
   }
 
 }
-export default CompanyList;
+export default withRouter(CompanyList);

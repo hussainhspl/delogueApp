@@ -32,13 +32,11 @@ const sizeXl = [
 ];
 
 const ViewChart = styled.Text`
-	background-color: #849D7A;
 	align-self: flex-start;
 	text-transform: uppercase;
 	color: white;
 	text-align: center;
 	padding: 3px 6px;
-	margin: 15px;
 `;
 const HeaderRow = styled(Row)`
 	background-color: #C9C2BB;
@@ -58,7 +56,12 @@ const TableTextInput = styled.TextInput`
 	margin-top:5px;
 	margin-bottom: 5px;
 `;
+const GetView = styled.View`
+  background-color: #849d7a;
+  align-self: flex-start;
+  margin: 15px;
 
+`;
 class ViewRequestedQuantity extends React.Component {
 	state= {modalVisible : false}
 	setModalVisible(visible) {
@@ -67,12 +70,14 @@ class ViewRequestedQuantity extends React.Component {
   render() {
     return (
 			<View>
-        <TouchableHighlight
-					onPress={() => {
-						this.setModalVisible(!this.state.modalVisible);
-					}}>
-						<ViewChart>view requested quantity </ViewChart>
-				</TouchableHighlight>
+				<GetView>
+					<TouchableHighlight
+						onPress={() => {
+							this.setModalVisible(!this.state.modalVisible);
+						}}>
+							<ViewChart>view requested quantity </ViewChart>
+					</TouchableHighlight>
+				</GetView>
 				<CommonModal 
 					title='Requested Quantity'
 					modalVisible={this.state.modalVisible}

@@ -2,6 +2,7 @@ import React from 'react';
 import {View, Text, TouchableOpacity, Image, ScrollView} from 'react-native';
 import styled from 'styled-components';
 import { Col, Row, Grid } from "react-native-easy-grid";
+import Header from '../Header';
 
 const messageArr = [
 	{
@@ -88,9 +89,11 @@ class Message extends React.Component {
 	}
 	render() {
 		console.log("comm state",this.state.currentView);
+		history =this.props.history;
 		return(
-			<ScrollView>
 			<View style={{flex: 1}}>
+				<Header history ={this.props.history}>
+			 <ScrollView>
 				<IconRow >
 					<IconBox onPress={() => this.setState({currentView: 'message'})}>
 						<Image 
@@ -156,8 +159,9 @@ class Message extends React.Component {
 								</Grid>
 							</View>
 				}
+				</ScrollView>
+			</Header>
 			</View>
-			</ScrollView>
 		)
 	}
 }

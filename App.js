@@ -32,16 +32,18 @@ import Search from './src/search/Search';
 // import MainTemplate from './src/mainTemplate';
 import Template from './src/Template';
 import Footer from './src/FooterComponent';
+import Message from './src/message/message';
 
 
 import Style from './src/style/Style';
-import SamlpeRequest from './src/style/SampleRequest';
+import SampleRequest from './src/style/SampleRequest';
 import Sample from './src/style/sample'
 import Pdf from './src/style/Pdf'
 
 import configStore from './src/store/config_store';
 import { Provider } from 'react-redux';
-import Files from './src/style/Files'
+import Files from './src/style/Files';
+
 
 const store = configStore();
 
@@ -50,7 +52,8 @@ const App = () => {
     // const history = this.props.history
     console.log("app", this.props.location.pathname);
   }
-  
+  // const path = this.props.location.pathname;
+  // console.log('app:', path);
   return (
     <Provider store={ store }>
     <NativeRouter>
@@ -59,11 +62,14 @@ const App = () => {
       <SafeAreaView />
         <View style={{flex: 1}}>
             <Switch>
-              {/* <Route exact path="/" component={Template}></Route> */}
-              <Header>
-                <Route exact path="/" component={Sample}></Route>
-              </Header>
-              <Template  />              
+              {/* <Route exact path="/" component={Sample}></Route> */}
+              <Route exact path="/" component={Template}></Route>
+              <Route exact path="/search" component={Search}></Route>
+              <Route exact path="/message" component={Message}></Route>
+              <Route exact path="/style" component={Style}></Route>
+              <Route exact path="/sampleRequest" component={SampleRequest}></Route> 
+              <Route exact path="/companyList" component={CompanyList}></Route>
+              
             </Switch>
         </View>
       <SafeAreaView/>

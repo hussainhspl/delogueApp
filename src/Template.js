@@ -12,7 +12,7 @@ import HeaderTemplate from './HeaderTemplate';
 import Header from './Header';
 import SampleRequest from './style/SampleRequest';
 
-
+import { withRouter } from 'react-router';
 
 class Template extends React.Component {
   constructor(props) {
@@ -22,7 +22,7 @@ class Template extends React.Component {
     // console.log("template", this.props.location.pathname);
     const path = this.props.location.pathname;
     const history = this.props.history;
-    console.log("template history: ", history);
+    console.log("template history: ", path);
     console.disableYellowBox = true
     return(
       <Fragment>
@@ -48,4 +48,4 @@ class Template extends React.Component {
     )
   }
 }
-export default Template;
+export default withRouter(Template);

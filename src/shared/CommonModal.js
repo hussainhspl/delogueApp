@@ -63,7 +63,7 @@ class CommonModal extends React.Component {
 				transparent={false}
 				visible={this.props.modalVisible}
 				onRequestClose={() => {
-					Alert.alert('Modal has been closed.');
+					this.props.close
 				}}>
 					<SafeAreaView>
 							<KeyboardAwareScrollView>
@@ -89,7 +89,7 @@ class CommonModal extends React.Component {
 							}{
 								this.props.hideButton ? null :
 									<ApplyBar>
-										<Button bordered light small danger>
+										<Button bordered light small danger onPress={this.props.close}>
 											<Text style={{color: "#d9534e"}}> CANCEL </Text> 
 										</Button>
 										<ApplyButton small style={{backgroundColor:"#849D7A"}}>

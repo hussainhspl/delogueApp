@@ -86,7 +86,7 @@ const SampleRow = styled.View`
 class Sample extends React.Component {
   render() {
     const history = this.props.history;
-    console.log("history on sample page:",);
+    console.log("history on sample page:", history);
     return (
       <ScrollView showsVerticalScrollIndicator={false}>
         <StyleDescriptionRow>

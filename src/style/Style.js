@@ -7,6 +7,7 @@ import Comments from './Comments';
 import Files from './Files';
 import Sample from './sample';
 import Pdf from './Pdf';
+import Header from '../Header'
 
 import { connect } from "react-redux";
 // import { FooterTab } from 'native-base';
@@ -60,7 +61,9 @@ class Style extends React.Component {
     store.dispatch({type: "ATTACK", payload: "Iron Man"})
     return(
       <Fragment>
-        { this.renderSelectedTab(this.props.currentTab)}
+        <Header history= {this.props.history}>
+          { this.renderSelectedTab(this.props.currentTab)}
+        </Header>
        <FooterComponent/>
       </Fragment>
     )

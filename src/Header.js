@@ -7,6 +7,7 @@ import Search from  './search/Search';
 
 import { connect } from "react-redux";
 import { searchButton, messageButton, styleButton} from './store/actions/index';
+import CompanyList from './companyList';
 
 class Header extends React.Component {
   constructor(props) {
@@ -26,6 +27,7 @@ class Header extends React.Component {
   render() {
     const {container, icon, iconGroup } = styles;
     const history= this.props.history;
+    // const path = this.props.location.pathname;
     console.log('header history: ', history);
     return(
       <View style={{flex: 1 }}>

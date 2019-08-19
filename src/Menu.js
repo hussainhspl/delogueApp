@@ -22,7 +22,8 @@ export default class Menu extends React.Component {
           {/* <Text onPress={() => onItemSelected('Contacts')}> Switch Company </Text> */}
           <TouchableHighlight underlayColor='rgba(221, 221, 221, 0.4)' 
             onPress={() => history.push("/companyList")}>
-            <Button small style={{backgroundColor: '#C2BEB6'}}><Text style={styles.grayButtonText}>demo company</Text></Button>
+              <View style={{backgroundColor: '#C2BEB6'}}><Text style={styles.grayButtonText}>demo company</Text></View>
+            {/* <Button small </Button> */}
           </TouchableHighlight>
           
         </View>

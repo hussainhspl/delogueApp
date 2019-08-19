@@ -3,6 +3,7 @@ import {Text, View, TouchableOpacity, Image, FlatList, Dimensions } from 'react-
 import SearchInput, { createFilter } from 'react-native-search-filter';
 import Icon from 'react-native-vector-icons/Ionicons';
 import SearchFilter from './searchFilter';
+import Header from '../Header';
 
 const details = [
   {
@@ -43,7 +44,7 @@ const formatData = (details, numColumns) => {
 };
 const numColumns = 3;
 // flat list end
-export default class Search extends React.Component {
+class Search extends React.Component {
   constructor(props) {
     super(props);
     this.changeView = this.changeView.bind(this);
@@ -97,6 +98,7 @@ export default class Search extends React.Component {
     console.log("history on search page", this.props.history);
     return(
       <View style={{flex: 1}}>
+        <Header history ={this.props.history}>
         <View style={[row,{justifyContent:'space-between'}]}>
           <View style={styles.Flex}>
             <SearchInput 
@@ -153,7 +155,6 @@ export default class Search extends React.Component {
                 </View>
               </TouchableOpacity>
               {/* } */}
-              
               </Fragment>
             )
           })
@@ -167,6 +168,7 @@ export default class Search extends React.Component {
           />
         }
         <SearchFilter />
+        </Header>
       </View>
     )
   }
@@ -279,4 +281,4 @@ const styles = {
   },
 }
 
-// export default Search;
+export default Search;
