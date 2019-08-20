@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, TouchableHighlight, Dimensions, TouchableOpacity} from 'react-native';
+import {View, Text, TouchableHighlight, Alert, Dimensions, TouchableOpacity} from 'react-native';
 import styled from 'styled-components';
 import CommonModal from '../shared/CommonModal';
 import {Icon, Picker} from 'native-base';
@@ -132,11 +132,13 @@ const CameraView = styled.View`
 `;
 const AddView = styled.View`
   border: 1px solid #ddd;
-  padding: 10px;
+  padding: 15px;
   width: ${Dimensions.get("window").width / 2 - 10};
   margin: 5px;
   border-radius: 5px;
   flex-direction: row;
+  /* flex: 1;
+  flex-wrap: wrap; */
 `;
 class NewSampleRequest extends React.Component{
   constructor(props) {
@@ -169,9 +171,14 @@ handleDatePicked = date => {
 console.log("A date has been picked: ", date);
 this.hideDateTimePicker();
 };
+redirectTo =(history) => {
+  console.log('enter in  redirect function');
+  history.push("/notificationModal")
+}
   render(){
+    const history= this.props.history;
     console.log("camera on ",this.state.cameraOn);
-    console.log("notification modal", this.props.history);
+    console.log("new sample modal", this.props.history);
     return(
       <View>
         <TouchableHighlight
@@ -183,17 +190,18 @@ this.hideDateTimePicker();
               <View>
                 <Icon style={{fontSize: 30, marginRight: 10}} name="add" /> 
               </View>
-						  <Text>Add new sample request </Text>
+              <View style={{flexDirection: 'row', flex: 1}}>
+						    <Text style={{flexWrap: 'wrap', flex: 1, marginRight: 5, }}>Add new sample request </Text>
+              </View>
             </AddView>
 				</TouchableHighlight>
-        <CommonModal 
-          history= {this.props.history}
+        <CommonModal    
 					title='Requested Quantity'
 					modalVisible={this.state.modalVisible}
           close={() => {this.setModalVisible(!this.state.modalVisible);
           }}
           okButton = "notification"
-          // okClick = {this.OpenNotificationModal()} 
+          okClick = {() => this.redirectTo(history)}
 				>
           <SampleRequestRow>
             <ImageView>

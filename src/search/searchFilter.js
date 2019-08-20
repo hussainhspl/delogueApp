@@ -18,7 +18,7 @@ const seasonArray = [
   { name: "Summer"}, 
   { name: "Winter"},
   { name: "Rainy"},
-  { name: "Autom"}, 
+  { name: "Autumn"}, 
   { name: "Fall"},
 ]
 
@@ -92,7 +92,7 @@ class searchFilter extends Component {
                 <SearchInput 
                   onChangeText={(term) => { this.searchUpdated(term) }} 
                   style={styles.searchInput}
-                  placeholder="Enter Name or Number "
+                  placeholder="Enter Brand Name "
                 />
                 <View style={skillView}>
                 {

@@ -14,7 +14,7 @@ class Pdf extends React.Component {
     this.setState({modalVisible: visible});
   }
   render() {
-    console.disableYellowBox = true
+    // console.disableYellowBox = true
     return(
       <View style={{flex: 1}}> 
        <TouchableHighlight

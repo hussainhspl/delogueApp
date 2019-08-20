@@ -9,8 +9,8 @@ const colorArray = [
 const ImageView = styled.View`
   height: 200px;
   width: 200px;
-  justifyContent: center;
-  alignItems: center;
+  justify-content: center;
+  align-items: center;
   border: 1px solid #ddd;
   margin : 20px auto;
 `;
@@ -23,12 +23,12 @@ const ColorBar = styled.View`
   justify-content: center;
   align-items: center;
   flex-direction: row;
-  margin-bottom : 10
+  margin-bottom : 10px;
 `;
 const ColorBox = styled.View`
   height: 30px;
   width: 30px;
-  margin-horizontal: 5px;
+  margin: 0px 5px;
 `;
 const StyleInfo = styled.View`
   flex-direction: row;
@@ -47,7 +47,7 @@ const SubTitle = styled.Text`
   width: 50%;
   color: #4a4a4a;
   padding-left: 5;
-  text-transform : capitalize;s
+  text-transform : capitalize;
 `;
 
 class General extends React.Component {
@@ -69,7 +69,7 @@ class General extends React.Component {
             colorArray.map(item => {
               // console.log('color', item);
               return(
-                <ColorBox style={{backgroundColor: `${item}`}} />
+              <ColorBox style={{backgroundColor: `${item}`}} key={Math.random().toFixed(3)} />
               )
             })
           }

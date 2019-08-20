@@ -143,7 +143,7 @@ class Sample extends React.Component {
           
           <SampleComponent />
           <SampleComponent />
-          <NewSampleRequest />
+          <NewSampleRequest history={this.props.history} />
 
         </SampleRow>
       </ScrollView>

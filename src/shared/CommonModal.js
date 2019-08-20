@@ -8,9 +8,9 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 
 const ModalTitle = styled.View`
 	background-color: #415461;
-	height: 30px;
 	flex-direction: row;
 	align-items: center;
+	padding: 10px 0px;
   
 `;
 const CloseBox = styled.View`
@@ -25,6 +25,7 @@ const HeaderText = styled.Text`
 	padding-left: 10px;
 	font-size: 16px;
 	text-transform : uppercase;
+	line-height: 25px;
 `;
 const ApplyBar = styled.View`
 	padding: 15px;
@@ -62,6 +63,7 @@ class CommonModal extends React.Component {
 				animationType="fade"
 				transparent={false}
 				visible={this.props.modalVisible}
+
 				onRequestClose={() => {
 					this.props.close
 				}}>
@@ -92,7 +94,7 @@ class CommonModal extends React.Component {
 										<Button bordered light small danger onPress={this.props.close}>
 											<Text style={{color: "#d9534e"}}> CANCEL </Text> 
 										</Button>
-										<ApplyButton small style={{backgroundColor:"#849D7A"}}>
+										<ApplyButton onPress={this.props.okClick ? this.props.okClick : ''} small style={{backgroundColor:"#849D7A"}}>
 											<ApplyButtonText>{this.props.okButton ?this.props.okButton : 'apply'}</ApplyButtonText>
 										</ApplyButton>
 									</ApplyBar>

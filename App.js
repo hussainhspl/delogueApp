@@ -33,6 +33,8 @@ import Search from './src/search/Search';
 import Template from './src/Template';
 import Footer from './src/FooterComponent';
 import Message from './src/message/message';
+import NotificationModal from './src/style/NotificationModal';
+// import NewSampleRequest from './src/style/NewSampleRequest'
 
 
 import Style from './src/style/Style';
@@ -48,12 +50,7 @@ import Files from './src/style/Files';
 const store = configStore();
 
 const App = () => {
-  componentDidMount = () => {
-    // const history = this.props.history
-    console.log("app", this.props.location.pathname);
-  }
-  // const path = this.props.location.pathname;
-  // console.log('app:', path);
+ 
   return (
     <Provider store={ store }>
     <NativeRouter>
@@ -62,13 +59,14 @@ const App = () => {
       <SafeAreaView />
         <View style={{flex: 1}}>
             <Switch>
-              {/* <Route exact path="/" component={Sample}></Route> */}
+              {/* <Route exact path="/" component={Style}></Route> */}
               <Route exact path="/" component={Template}></Route>
               <Route exact path="/search" component={Search}></Route>
               <Route exact path="/message" component={Message}></Route>
               <Route exact path="/style" component={Style}></Route>
               <Route exact path="/sampleRequest" component={SampleRequest}></Route> 
               <Route exact path="/companyList" component={CompanyList}></Route>
+              <Route exact path="/notificationModal" component={NotificationModal}></Route>
               
             </Switch>
         </View>
@@ -80,34 +78,6 @@ const App = () => {
 };
 
 const styles = StyleSheet.create({
-  // scrollView: {
-  //   backgroundColor: Colors.lighter,
-  // },
-  // engine: {
-  //   position: 'absolute',
-  //   right: 0,
-  // },
-  // body: {
-  //   backgroundColor: Colors.white,
-  // },
-  // sectionContainer: {
-  //   marginTop: 32,
-  //   paddingHorizontal: 24,
-  // },
-  // sectionTitle: {
-  //   fontSize: 24,
-  //   fontWeight: '600',
-  //   color: Colors.black,
-  // },
-  // sectionDescription: {
-  //   marginTop: 8,
-  //   fontSize: 18,
-  //   fontWeight: '400',
-  //   color: Colors.dark,
-  // },
-  // highlight: {
-  //   fontWeight: '700',
-  // },
   // footer: {
   //   color: Colors.dark,
   //   fontSize: 12,

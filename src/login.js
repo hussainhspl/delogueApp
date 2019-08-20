@@ -23,6 +23,7 @@ class Login extends React.Component {
     const history= this.props.history;
     // const path = this.props.location.pathname;
     console.log(" login path: ", history);
+    console.disableYellowBox = true
     return(
       <View style={container}>
       <KeyboardAwareScrollView showsVerticalScrollIndicator={false}>

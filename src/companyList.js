@@ -1,11 +1,11 @@
 import React from 'react';
-import { StyleSheet, Text, View, FlatList, Dimensions, TouchableOpacity,  } from 'react-native';
+import { StyleSheet, Text, View, FlatList, Dimensions, TouchableOpacity, Image } from 'react-native';
 import Menu from './Menu';
 // import SideMenu from 'react-native-side-menu';
 import Drawer from 'react-native-drawer';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { withRouter } from 'react-router';
-
+import styled from 'styled-components';
 
 const data = [
   { 
@@ -72,6 +72,12 @@ const data = [
   // { key: 'L' },
 ];
 
+const GridImage = styled.Image`
+  width: ${Dimensions.get('window').width / 2-30};
+  height: ${Dimensions.get('window').width / 2-30};
+  margin: 15px;
+`;
+
 const formatData = (data, numColumns) => {
   const numberOfFullRows = Math.floor(data.length / numColumns);
 
@@ -119,7 +125,11 @@ class CompanyList extends React.Component {
         console.log(history);}}
         style={styles.item} key={item.key}>
           <View style={styles.imageView}>
-            <Text> No Image </Text>
+            <GridImage 
+              resizeMode={"center"}
+              // source={require('../../img/shirt-static.png')}
+              source={require('../img/shirt-static.png')}
+            />
           </View>
           <View style={styles.cardInfo}>
             <Text style={styles.itemText}> {item.companyName} </Text>

@@ -4,33 +4,46 @@ import SearchInput, { createFilter } from 'react-native-search-filter';
 import Icon from 'react-native-vector-icons/Ionicons';
 import SearchFilter from './searchFilter';
 import Header from '../Header';
+import styled from 'styled-components';
 
 const details = [
   {
     styleNo: 'sty2211',
-    styleNmae: 'Casual Shirt',
+    styleName: 'Casual Shirt',
     supplier: 'head textiles',
     season: 'summer'
   },
   {
     styleNo: 'sty2212',
-    styleNmae: 'Casual Shirt',
-    supplier: 'head textiles',
-    season: 'summer'
+    styleName: 'Formal Shirt',
+    supplier: 'Pune textiles',
+    season: 'Autumn'
   },
   {
     styleNo: 'sty2214',
-    styleNmae: 'Casual Shirt',
+    styleName: 'Casual Shirt',
     supplier: 'head textiles',
-    season: 'summer'
+    season: 'Winter'
   },
   {
     styleNo: 'sty2217',
-    styleNmae: 'Casual Shirt',
-    supplier: 'head textiles',
+    styleName: 't shirt',
+    supplier: 'Super textiles',
     season: 'summer'
   },
-]
+];
+const GridImage = styled.Image`
+  width: ${Dimensions.get('window').width / 3-30};
+  height: ${Dimensions.get('window').width / 3-30};
+  margin: 15px;
+`;
+const GirdImageView = styled.View`
+  width: ${Dimensions.get('window').width / 3};
+  height: ${Dimensions.get('window').width / 3+50};
+  border: 1px solid #ddd;
+  align-self: flex-start;
+  /* background-color: #f00; */
+`;
 // flatlist start
 const formatData = (details, numColumns) => {
   const numberOfFullRows = Math.floor(details.length / numColumns);
@@ -44,16 +57,21 @@ const formatData = (details, numColumns) => {
 };
 const numColumns = 3;
 // flat list end
+const KEYS_TO_FILTERS = ['styleNo','styleName', 'supplier', 'season'];
 class Search extends React.Component {
   constructor(props) {
     super(props);
     this.changeView = this.changeView.bind(this);
     this.state = {
       currentView: 'grid',
+      searchTerm: '',
     };
   }
-  state= {
-    currentView: 'grid',
+
+  searchUpdated(term) {
+    this.setState({ 
+      searchTerm: term,
+    })
   }
   changeView = () => {
     if(this.state.currentView === 'linear') {
@@ -83,7 +101,7 @@ class Search extends React.Component {
           />
         </View>
         <View style={styles.cardInfo}>
-          <Text style={styles.itemText}> {item.styleNmae} </Text>
+          <Text style={styles.itemText}> {item.styleName} </Text>
           <Text style={styles.itemText}> {item.styleNo} </Text>
           {/* <Text style={styles.itemText}> {item.userType} </Text> */}
 
@@ -93,6 +111,7 @@ class Search extends React.Component {
   };
   render() {
     const { imageBox, row } = styles;
+    const filteredStyle = details.filter(createFilter(this.state.searchTerm, KEYS_TO_FILTERS));
     // console.log('current state', this.state.currentView);
     const history = this.props.history;
     console.log("history on search page", this.props.history);
@@ -102,10 +121,10 @@ class Search extends React.Component {
         <View style={[row,{justifyContent:'space-between'}]}>
           <View style={styles.Flex}>
             <SearchInput 
-            onChangeText={(term) => { this.searchUpdated(term) }} 
-            style={styles.mainSearchInput}
-            placeholder="Type a message to search"
-          />
+              onChangeText={(term) => { this.searchUpdated(term) }} 
+              style={styles.mainSearchInput}
+              placeholder="Type a message to search"
+            />
           </View>
           <TouchableOpacity onPress={this.changeView}>
           <View style={styles.ViewBox}>
@@ -116,9 +135,10 @@ class Search extends React.Component {
           </TouchableOpacity>
         </View>
         {this.state.currentView === 'linear' &&
-          details.map(data => {
+          filteredStyle.map(data => {
+            console.log('1');
             return(
-              <Fragment>
+              // <Fragment>
               
               <TouchableOpacity onPress={() => {history.push("/style")}} key={data.styleNo} style={styles.touchableRow}>
                 <View style={imageBox}>
@@ -128,13 +148,13 @@ class Search extends React.Component {
                   <View style={styles.row}>
                     <Text numberOfLines={1} style={styles.title}>style no</Text>
                     <View style={styles.Flex}>
-                      <Text numberOfLines={1} style={styles.subtitle}>sty1100</Text>
+                      <Text numberOfLines={1} style={styles.subtitle}>{data.styleNo}</Text>
                     </View>
                   </View>
                   <View style={styles.row}>
-                    <Text numberOfLines={1} style={styles.title}>style name</Text>
+                    <Text style={styles.title}>style name</Text>
                     <View style={styles.Flex}>
-                      <Text numberOfLines={1} style={styles.subtitle}>sty1100uyuyyhkghgjgg</Text>
+                      <Text numberOfLines={1} style={styles.subtitle}>{data.styleName}</Text>
                     </View>
                   </View>
                 </View>
@@ -143,29 +163,44 @@ class Search extends React.Component {
                   <View style={styles.row}>
                     <Text numberOfLines={1} style={styles.title}>supplier</Text>
                     <View style={styles.Flex}>
-                      <Text numberOfLines={1} style={styles.subtitle}>sty1100</Text>
+                      <Text numberOfLines={1} style={styles.subtitle}>{data.supplier}</Text>
                     </View>
                   </View>
                   <View style={styles.row}>
                     <Text numberOfLines={1} style={styles.title}> season</Text>
                     <View style={styles.Flex}>
-                      <Text numberOfLines={1} style={styles.subtitle}>sty1100huhuhuhuh</Text>
+                      <Text numberOfLines={1} style={styles.subtitle}>{data.season}</Text>
                     </View>
                   </View>
                 </View>
               </TouchableOpacity>
-              {/* } */}
-              </Fragment>
+              // {/* </Fragment> */}
             )
           })
         }
         {this.state.currentView === 'grid' &&
-          <FlatList
-            data={formatData(details, numColumns)}
-            style={styles.container}
-            renderItem={this.renderGridView}
-            numColumns={numColumns}
-          />
+          <View style={{flexDirection: 'row', flexWrap: 'wrap'}}>
+          
+          {filteredStyle.map(data => {
+            return(
+                
+                <GirdImageView key={data.styleNo}>
+                  <TouchableOpacity onPress={() => {history.push("/style")}} key={data.key}>
+                    <GridImage 
+                      resizeMode={"center"}
+                      source={require('../../img/shirt-static.png')}
+                    />
+                    <View style={styles.cardInfo}>
+                      <Text style={styles.itemText}> {data.styleName} </Text>
+                      <Text style={styles.itemText}> {data.styleNo} </Text>
+                    </View>
+                    
+                  </TouchableOpacity>
+                </GirdImageView>
+                )
+              }) 
+            }
+            </View>
         }
         <SearchFilter />
         </Header>
@@ -194,15 +229,15 @@ const styles = {
     fontWeight: '600',
     fontSize: 11,
     paddingRight: 5,
-    color: '#7b7b7b',
+    color: '#9b9b9b',
     textTransform: 'uppercase',
     textAlign: 'right',
-    width: 75,
+    width: 80,
     paddingTop: 2
   },
   subtitle: {
     fontSize: 12,
-    color: '#222',
+    color: '#4A4A4A',
     // Width: '100%',
   },
   iconView: {
@@ -279,6 +314,7 @@ const styles = {
     paddingHorizontal: 5,
     width: '100%',
   },
+
 }
 
 export default Search;
