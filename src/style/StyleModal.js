@@ -6,7 +6,7 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 
 const ModalTitle = styled.View`
 	background-color: #415461;
-	height: 30px;
+	padding: 10px 0px;
 	flex-direction: row;
 	align-items: center;
   
@@ -22,6 +22,7 @@ const HeaderText = styled.Text`
 	padding-left: 10px;
 	font-size: 16px;
 	text-transform : uppercase;
+	line-height: 25px;
 `;
 const ApplyBar = styled.View`
 	padding: 15px;

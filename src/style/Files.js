@@ -141,6 +141,7 @@ class Files extends React.Component {
   }
   render() {
     console.log("camera:", this.state.cameraOn);
+    console.log("style modal", this.state.modalVisible);
     return (
       <ScrollView showsVerticalScrollIndicator={false}>
         <View>

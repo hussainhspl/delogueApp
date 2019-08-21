@@ -66,23 +66,33 @@ class Search extends React.Component {
       currentView: 'grid',
       searchTerm: '',
     };
+    this.myTextInput = React.createRef();
   }
 
   searchUpdated(term) {
+    console.log("serach term called", term)
     this.setState({ 
       searchTerm: term,
     })
   }
   changeView = () => {
     if(this.state.currentView === 'linear') {
+      let self = this;
       this.setState({
-        currentView: 'grid'
-      })
+        currentView: 'grid',
+        searchTerm: '',
+      },() => console.log('state updated'));
+      this.searchUpdated('');
     }
     else {
       this.setState({
-        currentView: 'linear'
-      })
+        currentView: 'linear',
+        searchTerm: '',
+      },() => console.log('else'));
+      this.searchUpdated('');
+      // this.myTextInput.val('');
+      let term=this.state.searchTerm;
+      // var username= this.refs.username._lastNativeText;
     }
   }
 
@@ -124,6 +134,8 @@ class Search extends React.Component {
               onChangeText={(term) => { this.searchUpdated(term) }} 
               style={styles.mainSearchInput}
               placeholder="Type a message to search"
+              ref= {(el) => { this.term = el; }}
+              value={this.state.searchTerm}
             />
           </View>
           <TouchableOpacity onPress={this.changeView}>

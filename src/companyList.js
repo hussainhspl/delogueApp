@@ -1,5 +1,5 @@
-import React from 'react';
-import { StyleSheet, Text, View, FlatList, Dimensions, TouchableOpacity, Image } from 'react-native';
+import React, {Fragment} from 'react';
+import { StyleSheet, Text, View, FlatList, Dimensions, TouchableOpacity, TouchableHighlight,  Image } from 'react-native';
 import Menu from './Menu';
 // import SideMenu from 'react-native-side-menu';
 import Drawer from 'react-native-drawer';
@@ -120,10 +120,12 @@ class CompanyList extends React.Component {
     console.log("company list render hist", this.props.history);
     return (
       // <View style={styles.item} key={item.key}>
-      <TouchableOpacity 
-        underlayColor='rgba(221, 221, 221, 0.4)' onPress={() => {history.push("/search"); 
+      <TouchableHighlight 
+        underlayColor='rgba(245, 245, 245, 1)' onPress={() => {history.push("/search"); 
         console.log(history);}}
-        style={styles.item} key={item.key}>
+        style={styles.item} key={item.key}
+      >
+        <Fragment>
           <View style={styles.imageView}>
             <GridImage 
               resizeMode={"center"}
@@ -137,7 +139,8 @@ class CompanyList extends React.Component {
             <Text style={styles.itemText}> {item.userType} </Text>
 
           </View>
-        </TouchableOpacity>
+          </Fragment>
+        </TouchableHighlight>
       // </View>
     );
   };

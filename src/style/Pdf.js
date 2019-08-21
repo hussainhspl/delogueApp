@@ -3,6 +3,9 @@ import {View, Text, TouchableHighlight} from 'react-native';
 import {ListItem, CheckBox, Body} from 'native-base';
 import CommonModal from '../shared/CommonModal';
 import styled from 'styled-components';
+import { connect } from "react-redux";
+
+import { generalTab } from '../store/actions/index';
 
 const SelectorBox = styled.View`
   padding: 10px;
@@ -13,23 +16,28 @@ class Pdf extends React.Component {
 	setModalVisible(visible) {
     this.setState({modalVisible: visible});
   }
+  redirectTo =(history) => {
+    console.log('enter in  redirect function');
+    history.push("/style")
+  }
   render() {
     // console.disableYellowBox = true
+    history = this.props.history;
+    console.log('pdf history', this.props.history);
     return(
       <View style={{flex: 1}}> 
-       <TouchableHighlight
+       {/* <TouchableHighlight
 					onPress={() => {
 						this.setModalVisible(!this.state.modalVisible);
 					}}>
 
         <Text> pdf </Text>
           
-          </TouchableHighlight>
+          </TouchableHighlight> */}
         <CommonModal 
 					title='Print Style'
 					modalVisible={this.state.modalVisible}
-          close={() => {this.setModalVisible(!this.state.modalVisible);
-          }}
+          close={() => this.props.generalTabFunction()}
           // hideButton={true}
           okButton = "print pdf"
 				>
@@ -107,4 +115,9 @@ class Pdf extends React.Component {
     )
   }
 }
-export default Pdf;
+const mapDispatchToProps = dispatch => {
+  return {
+    generalTabFunction: () => dispatch(generalTab()),
+  }
+}
+export default connect(null, mapDispatchToProps) (Pdf);

@@ -98,7 +98,9 @@ class searchFilter extends Component {
                 {
                   filteredStyle.map(item => {
                     return(
-                      <View style={styleItem} key={item.name}><Text style={itemName}>{item.name}</Text></View>
+                      <View style={styleItem} key={item.name}>
+                        <Text style={itemName}>{item.name} </Text>
+                      </View>
                     )
                   })
                 }
@@ -123,7 +125,6 @@ class searchFilter extends Component {
                 </View>
               </View>
 
-          </KeyboardAwareScrollView>
               <View style={applyBar}>
                 <Button bordered light small danger>
                   <Text style={[upper,{color: "#d9534e"}]}> cancel </Text> 
@@ -132,6 +133,7 @@ class searchFilter extends Component {
                   <Text style={applyText}>apply</Text>
                 </Button>
               </View>
+          </KeyboardAwareScrollView>
 
             </View>
         </Modal>
@@ -213,9 +215,8 @@ const styles = {
   },
   applyBar: {
     padding: 15,
-    position: 'absolute',
-    bottom: 5,
-    right: 5,
+    justifyContent: 'flex-end',
+    alignItems: 'center',
     flexDirection: 'row',
     // backgroundColor: 'red'
     // zIndex:-1
@@ -252,6 +253,7 @@ const styles = {
     fontWeight: '300',
     paddingHorizontal: 4,
     paddingVertical: 2,
+    fontFamily: "",
   },
   applyText: {
     color: 'white',

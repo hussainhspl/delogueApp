@@ -8,6 +8,7 @@ import Comments from './style/Comments';
 import { connect } from "react-redux";
 // import { counterAdd, counterSubtract } from '../store/actions/index';
 import { generalTab, commentTab, filesTab, sampleTab, pdfTab } from './store/actions/index';
+import { DebugInstructions } from 'react-native/Libraries/NewAppScreen';
 // import console = require('console');
 
 const IconText = styled.Text`
@@ -44,9 +45,6 @@ class FooterComponent extends React.Component {
               active={this.props.currentTab === 'comments'? true : false}
               onPress={() => this.props.commentTabFunction()}
             >
-              {/* <Icon 
-                active={this.props.currentTab === 'comments'? true : false}
-                name="mail" /> */}
               <Image 
                 resizeMode={"cover"}
                 source={this.props.currentTab === 'comments' ? require('../img/footer/message.png') :require('../img/footer/messageblack.png')}
@@ -92,6 +90,7 @@ class FooterComponent extends React.Component {
 }
 
 const mapStateToProps = state => {
+  console.log(" footer map state to props");
   return {
     currentTab: state.tab.now
   };
