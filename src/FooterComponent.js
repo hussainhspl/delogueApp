@@ -23,6 +23,11 @@ class FooterComponent extends React.Component {
       tab2: 'general'
     };
   }
+  componentWillReceiveProps = (nextProps) => {
+    if(JSON.stringify(nextProps.currentTab) != JSON.stringify(this.props.currentTab)) {
+      console.log('content change', this.props.currentTab, nextProps.currentTab);
+    }
+  }
 	render() {
     console.log("footer state active:", this.props.currentTab);
     const currentTab = this.props.currentTab

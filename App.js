@@ -60,7 +60,7 @@ const App = () => {
         <View style={{flex: 1}}>
             <Switch>
               {/* <Route exact path="/" component={Style}></Route> */}
-              <Route exact path="/" component={Template}></Route>
+              <Route exact path="/" component={Login}></Route>
               <Route exact path="/search" component={Search}></Route>
               <Route exact path="/message" component={Message}></Route>
               <Route exact path="/style" component={Style}></Route>

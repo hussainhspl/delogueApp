@@ -26,7 +26,7 @@ class Login extends React.Component {
     console.disableYellowBox = true
     return(
       <View style={container}>
-      <KeyboardAwareScrollView showsVerticalScrollIndicator={false}>
+      {/* <KeyboardAwareScrollView showsVerticalScrollIndicator={false}> */}
       <View style={container}>
         <View style={logoView}>
           <Image style={logo} source={require('../img/logo-login.png')} />
@@ -58,7 +58,7 @@ class Login extends React.Component {
         </TouchableHighlight>
 
       </View>
-      </KeyboardAwareScrollView>
+      {/* </KeyboardAwareScrollView> */}
       </View>
     )
   }

@@ -117,7 +117,7 @@ class Message extends React.Component {
 									{
 										messageArr.map(data => {
 											return (
-												<Row>
+												<Row key={Math.random().toFixed(3)}>
 													<StyleCol size={1}> 
 														<Text>{data.brandName}</Text>
 													</StyleCol>

@@ -30,7 +30,7 @@ class Style extends React.Component {
       case "sample":
         return <Sample history={this.props.history} />;
       case "pdf":
-        return <Pdf history={this.props.history} />;
+        return <Pdf/>;
       default:
     }
     // console.log("printing from render: ", params);
