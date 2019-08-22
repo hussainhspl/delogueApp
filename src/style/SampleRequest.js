@@ -9,6 +9,7 @@ import StyleTemplate from './StyleTemplate';
 import SampleRequestSummary from './SampleRequestSummary';
 import ViewRequestedQuantity from './ViewRequestedQuantity';
 import CommonModal from '../shared/CommonModal';
+import Header from '../Header';
 const sizeXl = [
 	{
 		description: 'Shoulder',
@@ -150,161 +151,162 @@ class SampleRequest extends React.Component {
   }
   render() {
 		return(
-			
-			<ScrollView showsVerticalScrollIndicator={false}>
-				{/* <Text>hello</Text> */}
-        <StyleDescriptionRow>
-          <ImageBox>
-            <Image
-              resizeMode={"contain"}
-              source={require("../../img/styleblack.png")}
-            />
-          </ImageBox>
-          <Flex>
-            <StyleRow>
-              <Title numberOfLines={1}>style no</Title>
-              <Flex>
-                <SubTitle numberOfLines={1}>sty1100</SubTitle>
-              </Flex>
-            </StyleRow>
-            <StyleRow>
-              <Title numberOfLines={1}>style name</Title>
-              <Flex>
-                <SubTitle numberOfLines={1}>sty1100uyuyyhkghgjgg</SubTitle>
-              </Flex>
-            </StyleRow>
-          </Flex>
-          <Flex>
-            <StyleRow>
-              <Title numberOfLines={1}>supplier</Title>
-              <Flex>
-                <SubTitle numberOfLines={1}>sty1100</SubTitle>
-              </Flex>
-            </StyleRow>
-            <StyleRow>
-              <Title numberOfLines={1}>season</Title>
-              <Flex>
-                <SubTitle numberOfLines={1}>sty1100uyuyyhkghgjgg</SubTitle>
-              </Flex>
-            </StyleRow>
-          </Flex>
-        </StyleDescriptionRow>
-				<View style={{flexDirection: 'row', padding: 10}}>
-					<Label> sample type </Label>
-					<Text>photo sample</Text>
-				</View>
-				<View style={{flexDirection: 'row', padding: 10}}>
-					<Label> measurement </Label>
-					<TouchableHighlight
-						onPress={() => {
-							this.setModalVisible(!this.state.modalVisible);
-							// this.setState({modalVisible: true})
-						}}>
-							<ViewChart>view chart</ViewChart>
-					</TouchableHighlight>
+			<Header history={this.props.history}>
+				<ScrollView showsVerticalScrollIndicator={false}>
+					{/* <Text>hello</Text> */}
+					<StyleDescriptionRow>
+						<ImageBox>
+							<Image
+								resizeMode={"contain"}
+								source={require("../../img/styleblack.png")}
+							/>
+						</ImageBox>
+						<Flex>
+							<StyleRow>
+								<Title numberOfLines={1}>style no</Title>
+								<Flex>
+									<SubTitle numberOfLines={1}>sty1100</SubTitle>
+								</Flex>
+							</StyleRow>
+							<StyleRow>
+								<Title numberOfLines={1}>style name</Title>
+								<Flex>
+									<SubTitle numberOfLines={1}>sty1100uyuyyhkghgjgg</SubTitle>
+								</Flex>
+							</StyleRow>
+						</Flex>
+						<Flex>
+							<StyleRow>
+								<Title numberOfLines={1}>supplier</Title>
+								<Flex>
+									<SubTitle numberOfLines={1}>sty1100</SubTitle>
+								</Flex>
+							</StyleRow>
+							<StyleRow>
+								<Title numberOfLines={1}>season</Title>
+								<Flex>
+									<SubTitle numberOfLines={1}>sty1100uyuyyhkghgjgg</SubTitle>
+								</Flex>
+							</StyleRow>
+						</Flex>
+					</StyleDescriptionRow>
+					<View style={{flexDirection: 'row', padding: 10}}>
+						<Label> sample type </Label>
+						<Text>photo sample</Text>
+					</View>
+					<View style={{flexDirection: 'row', padding: 10}}>
+						<Label> measurement </Label>
+						<TouchableHighlight
+							onPress={() => {
+								this.setModalVisible(!this.state.modalVisible);
+								// this.setState({modalVisible: true})
+							}}>
+								<ViewChart>view chart</ViewChart>
+						</TouchableHighlight>
 
-							<CommonModal 
-								title='Measurement Chart'
-								modalVisible={this.state.modalVisible}
-								close={() => {this.setModalVisible(!this.state.modalVisible);
-									}}
-							>
-							<View>
-								<Grid>
-							<View style={{flexDirection: 'row', padding: 5, height:30}}>
-								<SizeText> Size: </SizeText>
-								<Text> XL </Text>
+								<CommonModal 
+									title='Measurement Chart'
+									modalVisible={this.state.modalVisible}
+									close={() => {this.setModalVisible(!this.state.modalVisible);
+										}}
+								>
+								<View>
+									<Grid>
+								<View style={{flexDirection: 'row', padding: 5, height:30}}>
+									<SizeText> Size: </SizeText>
+									<Text> XL </Text>
+								</View>
+									<HeaderRow>
+										<StyleCol size={2}>
+											<Text> description </Text>
+										</StyleCol>
+										<StyleCol size={1}>
+											<Text> Req </Text>
+										</StyleCol>
+										<StyleCol size={1}>
+											<Text> Comp </Text>
+										</StyleCol>
+										<StyleCol size={1}>
+											<Text> Want </Text>
+										</StyleCol>
+									</HeaderRow>
+										{
+											sizeXl.map(data => {
+												return(
+													<Row style={{height: 40}}>
+														<StyleCol size={2}>
+															<Text>{data.description}</Text>
+														</StyleCol>
+														<StyleCol size={1}>
+															<TableTextInput>{data.comp}</TableTextInput>
+														</StyleCol>
+														<StyleCol size={1}>
+															<TableTextInput>{data.comp}</TableTextInput>
+														</StyleCol>
+														<StyleCol size={1}>
+															<TableTextInput>{data.comp}</TableTextInput>
+														</StyleCol>
+													</Row>																						
+												)
+											})
+										}
+								
+								<View style={{flexDirection: 'row', padding: 5, height: 30, marginTop: 20}}>
+									<SizeText> Size: </SizeText>
+									<Text> Large </Text>
+								</View>
+								
+									<HeaderRow>
+										<StyleCol size={2}>
+											<Text> description </Text>
+										</StyleCol>
+										<StyleCol size={1}>
+											<Text> Req </Text>
+										</StyleCol>
+										<StyleCol size={1}>
+											<Text> Comp </Text>
+										</StyleCol>
+										<StyleCol size={1}>
+											<Text> Want </Text>
+										</StyleCol>
+									</HeaderRow>
+										{
+											sizeXl.map(data => {
+												return(
+													<Row style={{height: 40}}>
+														<StyleCol size={2}>
+															<Text>{data.description}</Text>
+														</StyleCol>
+														<StyleCol size={1}>
+															<TableTextInput>{data.comp}</TableTextInput>
+														</StyleCol>
+														<StyleCol size={1}>
+															<TableTextInput>{data.comp}</TableTextInput>
+														</StyleCol>
+														<StyleCol size={1}>
+															<TableTextInput>{data.comp}</TableTextInput>
+														</StyleCol>
+													</Row>																						
+												)
+											})
+										}
+										</Grid>
+								</View>
+								</CommonModal>
 							</View>
-								<HeaderRow>
-									<StyleCol size={2}>
-										<Text> description </Text>
-									</StyleCol>
-									<StyleCol size={1}>
-										<Text> Req </Text>
-									</StyleCol>
-									<StyleCol size={1}>
-										<Text> Comp </Text>
-									</StyleCol>
-									<StyleCol size={1}>
-										<Text> Want </Text>
-									</StyleCol>
-								</HeaderRow>
-									{
-										sizeXl.map(data => {
-											return(
-												<Row style={{height: 40}}>
-													<StyleCol size={2}>
-														<Text>{data.description}</Text>
-													</StyleCol>
-													<StyleCol size={1}>
-														<TableTextInput>{data.comp}</TableTextInput>
-													</StyleCol>
-													<StyleCol size={1}>
-														<TableTextInput>{data.comp}</TableTextInput>
-													</StyleCol>
-													<StyleCol size={1}>
-														<TableTextInput>{data.comp}</TableTextInput>
-													</StyleCol>
-												</Row>																						
-											)
-										})
-									}
-							
-							<View style={{flexDirection: 'row', padding: 5, height: 30, marginTop: 20}}>
-								<SizeText> Size: </SizeText>
-								<Text> Large </Text>
-							</View>
-							
-								<HeaderRow>
-									<StyleCol size={2}>
-										<Text> description </Text>
-									</StyleCol>
-									<StyleCol size={1}>
-										<Text> Req </Text>
-									</StyleCol>
-									<StyleCol size={1}>
-										<Text> Comp </Text>
-									</StyleCol>
-									<StyleCol size={1}>
-										<Text> Want </Text>
-									</StyleCol>
-								</HeaderRow>
-									{
-										sizeXl.map(data => {
-											return(
-												<Row style={{height: 40}}>
-													<StyleCol size={2}>
-														<Text>{data.description}</Text>
-													</StyleCol>
-													<StyleCol size={1}>
-														<TableTextInput>{data.comp}</TableTextInput>
-													</StyleCol>
-													<StyleCol size={1}>
-														<TableTextInput>{data.comp}</TableTextInput>
-													</StyleCol>
-													<StyleCol size={1}>
-														<TableTextInput>{data.comp}</TableTextInput>
-													</StyleCol>
-												</Row>																						
-											)
-										})
-									}
-									</Grid>
-							</View>
-							</CommonModal>
-						</View>
-				<StyleTemplate />
-				<SampleRequestSummary />
-				<ViewRequestedQuantity />
-				<FooterButton>
-					<Button bordered light small danger>
-						<Text style={{color: "#d9534e"}}> CANCEL </Text> 
-					</Button>
-					<Button small style={{backgroundColor:"#849D7A", marginLeft: 15}}>
-						<ApplyButtonText>apply</ApplyButtonText>
-					</Button>
-				</FooterButton>
-			</ScrollView >
+					<StyleTemplate />
+					<SampleRequestSummary />
+					<ViewRequestedQuantity />
+					<FooterButton>
+						<Button bordered light small danger>
+							<Text style={{color: "#d9534e"}}> CANCEL </Text> 
+						</Button>
+						<Button small style={{backgroundColor:"#849D7A", marginLeft: 15}}>
+							<ApplyButtonText>apply</ApplyButtonText>
+						</Button>
+					</FooterButton>
+				</ScrollView>
+			</Header>
 		)
 	}
 }

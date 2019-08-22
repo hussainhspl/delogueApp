@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, Image, Dimensions, TouchableOpacity, ScrollView, Modal, Alert, TouchableHighlight } from 'react-native';
+import {View, Text, SafeAreaView, Modal, Alert, TouchableHighlight } from 'react-native';
 import styled from 'styled-components';
 import {Icon } from 'native-base';
 import { RNCamera } from 'react-native-camera';
@@ -29,11 +29,11 @@ const CloseBox = styled.View`
 	position: absolute;
 	right: 10;
 	top: 10;
-	width: 30;
-	height: 30;
+	padding: 10px;
 	z-index: 1;
 	align-items: center;
 	justify-content: center;
+	background-color: #f00;
 `;
 
 class CameraComponent extends React.Component {
@@ -59,6 +59,7 @@ class CameraComponent extends React.Component {
 				onRequestClose={() => {
 					this.props.close
 				}}>
+					<SafeAreaView />
 				<CameraContainer>
 					<CloseBox>
 						<TouchableHighlight
@@ -97,6 +98,7 @@ class CameraComponent extends React.Component {
 						</Capture>
 					</View>
 				</CameraContainer>
+				{/* </SafeAreaView> */}
 			</Modal>
 		)
 	}

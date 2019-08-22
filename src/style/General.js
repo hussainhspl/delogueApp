@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, Image, ScrollView } from 'react-native';
+import { View, Text, Image, ScrollView, Dimensions } from 'react-native';
 import styled from 'styled-components/native';
 
 const colorArray = [
@@ -7,15 +7,16 @@ const colorArray = [
 ]
 
 const ImageView = styled.View`
-  height: 200px;
-  width: 200px;
+  width: ${Dimensions.get('window').width -70};
+  height: ${Dimensions.get('window').width - 70};
   justify-content: center;
   align-items: center;
   border: 1px solid #ddd;
   margin : 20px auto;
 `;
 const StyleImage = styled.Image`
-  max-height: 180px;
+  width: ${Dimensions.get('window').width -120};
+  height: ${Dimensions.get('window').width - 90};
 `;
 const ColorBar = styled.View`
   border: 1px solid #ccc;

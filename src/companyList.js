@@ -73,9 +73,8 @@ const data = [
 ];
 
 const GridImage = styled.Image`
-  width: ${Dimensions.get('window').width / 2-30};
-  height: ${Dimensions.get('window').width / 2-30};
-  margin: 15px;
+  max-width: 100%;
+  max-height: 100%;
 `;
 
 const formatData = (data, numColumns) => {
@@ -170,7 +169,7 @@ class CompanyList extends React.Component {
               <TouchableOpacity
                 onPress={this.toggle}
               >
-                <Icon style={{color: '#000', fontSize: 28}} name="ios-menu" />
+                <Icon style={{color: '#000', fontSize: 28, paddingHorizontal: 15, paddingVertical: 10}} name="ios-menu" />
               </TouchableOpacity>
             </View>
           </View>
@@ -223,14 +222,15 @@ const styles = {
     padding: 5
   },
   imageView: {
-    height: Dimensions.get('window').width / numColumns,
-    alignItems: 'center',
-    justifyContent: 'center',
-    paddingHorizontal: 5,
-    width: '100%',
+    width: Dimensions.get('window').width / 2- 30,
+    height: Dimensions.get('window').width / 2 -10 ,
+    // alignItems: 'center',
+    // justifyContent: 'center',
+    // paddingHorizontal: 5,
+    // backgroundColor: 'red',
   },
   button: {
-    padding: 10
+    // padding: 10
   },
   subHeader: {
     flexDirection: 'row',
@@ -238,7 +238,7 @@ const styles = {
     marginHorizontal: 'auto',
     alignItems: 'center',
     justifyContent: 'space-between',
-    paddingHorizontal: 10
+    paddingLeft: 10
   }
 
 }

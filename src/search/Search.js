@@ -1,5 +1,5 @@
 import React, {Fragment} from 'react';
-import {Text, View, TouchableOpacity, Image, FlatList, Dimensions } from 'react-native';
+import {Text, View, TouchableOpacity, Image, FlatList, Dimensions, ScrollView } from 'react-native';
 import SearchInput, { createFilter } from 'react-native-search-filter';
 import Icon from 'react-native-vector-icons/Ionicons';
 import SearchFilter from './searchFilter';
@@ -34,8 +34,8 @@ const details = [
 ];
 const GridImage = styled.Image`
   width: ${Dimensions.get('window').width / 3-30};
-  height: ${Dimensions.get('window').width / 3-30};
-  margin: 15px;
+  height: ${Dimensions.get('window').width / 3};
+  margin: 0px auto;
 `;
 const GirdImageView = styled.View`
   width: ${Dimensions.get('window').width / 3};
@@ -127,7 +127,11 @@ class Search extends React.Component {
     console.log("history on search page", this.props.history);
     return(
       <View style={{flex: 1}}>
+        
         <Header history ={this.props.history}>
+        <ScrollView 
+        showsVerticalScrollIndicator={false}
+      >
         <View style={[row,{justifyContent:'space-between'}]}>
           <View style={styles.Flex}>
             <SearchInput 
@@ -214,6 +218,7 @@ class Search extends React.Component {
             }
             </View>
         }
+        </ScrollView>
         <SearchFilter />
         </Header>
       </View>

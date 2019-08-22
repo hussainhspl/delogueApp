@@ -76,7 +76,7 @@ class Header extends React.Component {
               <TouchableOpacity
                 onPress={this.toggle}
               >
-                <Icon style={{color: '#eee', fontSize: 28}} name="ios-menu" />
+                <Icon style={{color: '#eee', fontSize: 28, paddingHorizontal: 15, paddingVertical: 10}} name="ios-menu" />
               </TouchableOpacity>
             </View>
           </View>
@@ -97,7 +97,6 @@ const styles= {
     backgroundColor: '#818181',
     justifyContent: 'space-between',
     alignItems: 'center',
-    paddingRight: 10
   },
   icon: {
     padding: 10,

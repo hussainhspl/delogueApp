@@ -24,8 +24,8 @@ const ImageView = styled.View`
   
 `;
 const StyleImage = styled.Image`
-  max-height: 180px;
-  width: ${Dimensions.get('window').width/ 3-20};
+  height: ${Dimensions.get('window').width/ 3};
+  width: ${Dimensions.get('window').width/ 3-30};
 `;
 const Row = styled.View`
   flex-direction: row;
@@ -39,6 +39,7 @@ const ImageDetails = styled.View`
 `;
 const StyleInfo = styled.View`
   flex-direction: row;
+  padding-bottom: 10px;
 `;
 const Title = styled.Text`
   width: 45%;

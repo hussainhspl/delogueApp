@@ -1,8 +1,11 @@
 import React from 'react';
 import {View, Text, Dimensions, TouchableHighlight} from 'react-native';
-import { Button } from 'native-base';
-import CompanyList from './companyList';
+import styled from 'styled-components';
 
+const MenuText = styled.Text`
+  padding: 15px;
+  
+`;
 
 const window = Dimensions.get('window');
 
@@ -17,12 +20,12 @@ export default class Menu extends React.Component {
         <View style={{height:80,paddingLeft: 15, paddingTop: 15, justifyContent:"space-between"}}>
           <TouchableHighlight underlayColor='rgba(221, 221, 221, 0.4)' 
             onPress={() => history.push("/")}>
-            <Text> Logout </Text>
+            <MenuText > Logout </MenuText>
           </TouchableHighlight>
           {/* <Text onPress={() => onItemSelected('Contacts')}> Switch Company </Text> */}
           <TouchableHighlight underlayColor='rgba(221, 221, 221, 0.4)' 
             onPress={() => history.push("/companyList")}>
-              <View style={{backgroundColor: '#C2BEB6'}}><Text style={styles.grayButtonText}>demo company</Text></View>
+              <View style={{backgroundColor: '#C2BEB6'}}><MenuText style={styles.grayButtonText}>demo company</MenuText></View>
             {/* <Button small </Button> */}
           </TouchableHighlight>
           

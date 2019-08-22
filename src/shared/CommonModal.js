@@ -10,19 +10,18 @@ const ModalTitle = styled.View`
 	background-color: #415461;
 	flex-direction: row;
 	align-items: center;
-	padding: 10px 0px;
   
 `;
 const CloseBox = styled.View`
 	margin-left: auto;
-	padding: 0px 10px;
-	/* background-color: red; */
+	padding: 10px;
+	/* background-color: green; */
 	justify-content: center;
 	align-items: center;
 `;
 const HeaderText = styled.Text`
 	color: white;
-	padding-left: 10px;
+	padding: 10px;
 	font-size: 16px;
 	text-transform : uppercase;
 	line-height: 25px;
@@ -33,7 +32,8 @@ const ApplyBar = styled.View`
 	justify-content: flex-end;
 	flex-direction: row;
 	height: 50px;
-	background-color: #F1EFED;
+	background-color: ${(props) => props.bg ? props.bg : '#F1EFED'};
+	/* align-items: ${(props) => props.boolVar ? "flex-start" : "center"}; F1EFED*/
 	padding-right: 15px;
 `;
 const ApplyButtonText = styled.Text`
@@ -58,6 +58,7 @@ class CommonModal extends React.Component {
 	}
   render() {
 		console.log('hide button', this.props);
+		// const bg = this.props.bg;
     return (
 			<Modal
 				animationType="fade"
@@ -74,13 +75,14 @@ class CommonModal extends React.Component {
 									<HeaderText>{this.props.title}</HeaderText>
 									<CloseBox>
 										<TouchableHighlight
+											underlayColor='rgba(221, 221, 221, 0.4)'
 											onPress={
 												// () => {
 												// this.setModalVisible(!this.state.modalVisible);
 												// }
 												this.props.close
 											}>
-												<Icon style={{color: '#fff', fontSize: 28}} name="ios-close" />
+												<Icon style={{color: '#fff', fontSize: 28, paddingHorizontal: 10}} name="ios-close" />
 										</TouchableHighlight>
 									</CloseBox>
 								</ModalTitle>
@@ -91,10 +93,14 @@ class CommonModal extends React.Component {
 							}{
 								this.props.hideButton ? null :
 									<ApplyBar>
-										<Button bordered light small danger onPress={this.props.close}>
+										<Button bordered light small danger 
+											// onPress={() => {this.props.closeModal()}}
+											>
 											<Text style={{color: "#d9534e"}}> CANCEL </Text> 
 										</Button>
-										<ApplyButton onPress={this.props.okClick ? this.props.okClick : ''} small style={{backgroundColor:"#849D7A"}}>
+										<ApplyButton 
+											// onPress={this.props.okClick ? this.props.okClick : ''} 
+											small style={{backgroundColor:"#849D7A"}}>
 											<ApplyButtonText>{this.props.okButton ?this.props.okButton : 'apply'}</ApplyButtonText>
 										</ApplyButton>
 									</ApplyBar>

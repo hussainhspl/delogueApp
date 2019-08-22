@@ -4,6 +4,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import SearchInput, { createFilter } from 'react-native-search-filter';
 import { Button } from 'native-base';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+import CommonModal from '../shared/CommonModal';
 
 const styleArray = [
   { name: "Superdry"}, 
@@ -45,6 +46,7 @@ class searchFilter extends Component {
   setModalVisible(visible) {
     this.setState({modalVisible: visible});
   }
+  
   render() {
     const { filterButton, filterArea, closeBox, filterBar, 
       modalTitle, grayButton, grayButtonText, resetBar, upper, searchBar, skillView, styleItem, itemName, applyBar, applyText } = styles;
@@ -54,34 +56,37 @@ class searchFilter extends Component {
       <Fragment>
         <TouchableOpacity
           activeOpacity={0.7}
+          // onPress={() => {
+          //   this.setModalVisible(true);
+          // }} 
           onPress={() => {
-            this.setModalVisible(true);
-          }} 
+						this.setModalVisible(!this.state.modalVisible);
+					}}
           style={styles.TouchableOpacityStyle}>
             <View style={filterButton}>
               <Image resizeMode={"contain"} source={require('../../img/filter.png')} /> 
             </View>
         </TouchableOpacity>
-        <Modal
+        {/* <Modal
           animationType="fade"
           transparent={false}
           visible={this.state.modalVisible}
           onRequestClose={() => {
             Alert.alert('Modal has been closed.');
-          }}>
+          }}> */}
+          <CommonModal    
+            title='filter'
+            modalVisible={this.state.modalVisible}
+            close={() => {this.setModalVisible(!this.state.modalVisible);
+            }}
+            // okButton = "notification"
+            okClick = {() => this.redirectTo(history)}
+            // bg='#fff'
+          >
             <View style={{flex: 1}}>
+
           <KeyboardAwareScrollView>
-              <View style={filterBar}>
-                <Text style={modalTitle}> filter </Text>
-                <View style={closeBox}>
-                  <TouchableHighlight
-                    onPress={() => {
-                      this.setModalVisible(!this.state.modalVisible);
-                    }}>
-                      <Icon style={{color: '#fff', fontSize: 28}} name="ios-close" />
-                  </TouchableHighlight>
-                </View>
-              </View>
+              
               
               <View style={resetBar}>
                 <Button small style={{backgroundColor: '#C2BEB6'}}><Text style={grayButtonText}>reset</Text></Button>
@@ -124,19 +129,10 @@ class searchFilter extends Component {
                   }
                 </View>
               </View>
-
-              <View style={applyBar}>
-                <Button bordered light small danger>
-                  <Text style={[upper,{color: "#d9534e"}]}> cancel </Text> 
-                </Button>
-                <Button small style={{backgroundColor:"#849D7A", marginLeft: 15}} >
-                  <Text style={applyText}>apply</Text>
-                </Button>
-              </View>
           </KeyboardAwareScrollView>
 
             </View>
-        </Modal>
+        </CommonModal>
       </Fragment>
     )
   }
@@ -202,7 +198,8 @@ const styles = {
     borderBottomWidth: 1,
     borderColor: '#ccc',
     justifyContent: 'flex-end',
-    flexDirection: 'row'
+    flexDirection: 'row',
+    alignItems: 'center',
   },
   upper: {
     textTransform: 'uppercase',
@@ -253,7 +250,7 @@ const styles = {
     fontWeight: '300',
     paddingHorizontal: 4,
     paddingVertical: 2,
-    fontFamily: "",
+    // fontFamily: "",
   },
   applyText: {
     color: 'white',

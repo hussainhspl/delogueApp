@@ -20,25 +20,32 @@ class Pdf extends React.Component {
     console.log('enter in  redirect function');
     history.push("/style")
   }
+  closeModal() {
+    console.log("enter in close modal")
+    this.setState({modalVisible: false}, () => this.props.generalTabFunction());
+    // if(this.state.modalVisible == false) {
+    //   this.props.generalTabFunction();
+    // }
+  }
   render() {
     // console.disableYellowBox = true
     history = this.props.history;
     console.log('pdf history', this.props.history);
     return(
       <View style={{flex: 1}}> 
-       {/* <TouchableHighlight
+       <TouchableHighlight
 					onPress={() => {
 						this.setModalVisible(!this.state.modalVisible);
 					}}>
 
         <Text> pdf </Text>
           
-          </TouchableHighlight> */}
+          </TouchableHighlight>
         <CommonModal 
 					title='Print Style'
 					modalVisible={this.state.modalVisible}
-          close={() => this.props.generalTabFunction()}
-          // hideButton={true}
+          // close={() => {this.props.generalTabFunction()}}
+          close={() => {this.closeModal()}}
           okButton = "print pdf"
 				>
           <SelectorBox>
@@ -121,3 +128,4 @@ const mapDispatchToProps = dispatch => {
   }
 }
 export default connect(null, mapDispatchToProps) (Pdf);
+// export default Pdf;
