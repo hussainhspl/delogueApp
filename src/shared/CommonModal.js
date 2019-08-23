@@ -57,7 +57,7 @@ class CommonModal extends React.Component {
 		}
 	}
   render() {
-		console.log('hide button', this.props);
+		// console.log('hide button', this.props);
 		// const bg = this.props.bg;
     return (
 			<Modal

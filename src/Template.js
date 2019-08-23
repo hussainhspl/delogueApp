@@ -22,7 +22,7 @@ class Template extends React.Component {
     // console.log("template", this.props.location.pathname);
     const path = this.props.location.pathname;
     const history = this.props.history;
-    console.log("template history: ", path);
+    // console.log("template history: ", path);
     console.disableYellowBox = true
     return(
       <Fragment>

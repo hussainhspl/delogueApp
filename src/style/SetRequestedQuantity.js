@@ -106,7 +106,7 @@ class SetRequestedQuantity extends React.Component {
               </HeaderRow>
               {sizeXl.map(data => {
                 return (
-                  <Row style={{ height: 40 }}>
+                  <Row style={{ height: 40 }} key={Math.random().toFixed(3)}>
                     <StyleCol size={1}>
                       <Text>{data.description}</Text>
                     </StyleCol>

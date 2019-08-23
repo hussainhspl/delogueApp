@@ -48,7 +48,6 @@ class SampleRequestSummary extends React.Component {
 	onValueChange2(value: string) {
 		this.setState({
 			selected2: value,
-			note
 		});
 	}
 	render() {

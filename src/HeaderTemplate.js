@@ -36,7 +36,7 @@ class HeaderTemplate extends React.Component {
 		}
     render() {
 			const history = this.props.history;
-			console.log("header template history", this.props.history);
+			// console.log("header template history", this.props.history);
 			return(
 				<Header history={this.props.history}>
 					<Route exact path="/search" component={Search}></Route>

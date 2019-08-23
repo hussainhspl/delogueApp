@@ -158,14 +158,16 @@ class StyleTemplate extends React.Component {
 				</StyleFileTitle>
 				{
 					this.state.cameraOn &&
-					<CameraComponent />
+					<CameraComponent
+						close={() => this.setState({cameraOn: false})}
+					 />
 				}
 				<View>
           <ImageRow>
 						{
 							CardArr.map(data => {
 								return(
-									<Card>
+									<Card key={Math.random().toFixed(3)}>
 										<ImageView>
 											<StyleImage
 												resizeMode={"center"}

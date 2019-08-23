@@ -88,7 +88,7 @@ class Message extends React.Component {
 		}
 	}
 	render() {
-		console.log("comm state",this.state.currentView);
+		// console.log("comm state",this.state.currentView);
 		history =this.props.history;
 		return(
 			<View style={{flex: 1}}>
@@ -139,7 +139,7 @@ class Message extends React.Component {
 									{
 										chatArr.map(data => {
 											return (
-												<Row>
+												<Row key={Math.random().toFixed(3)}>
 													<StyleCol size={1}> 
 														<Text>{data.brandName}</Text>
 													</StyleCol>

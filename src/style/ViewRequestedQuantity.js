@@ -72,6 +72,7 @@ class ViewRequestedQuantity extends React.Component {
 			<View>
 				<GetView>
 					<TouchableHighlight
+						underlayColor='rgba(245, 245, 245, 0.4)'
 						onPress={() => {
 							this.setModalVisible(!this.state.modalVisible);
 						}}>
@@ -103,7 +104,7 @@ class ViewRequestedQuantity extends React.Component {
 									{
 										sizeXl.map(data => {
 											return(
-												<Row style={{height: 40}}>
+												<Row style={{height: 40}} key={Math.random().toFixed(3)}>
 													<StyleCol size={1}>
 														<Text>{data.description}</Text>
 													</StyleCol>

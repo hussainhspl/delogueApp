@@ -45,6 +45,7 @@ import Pdf from './src/style/Pdf'
 import configStore from './src/store/config_store';
 import { Provider } from 'react-redux';
 import Files from './src/style/Files';
+import SampleComponent from './src/style/sampleComponent';
 
 
 const store = configStore();

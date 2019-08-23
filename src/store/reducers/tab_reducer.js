@@ -10,7 +10,7 @@ const initialState = {
 const tabReducer = (state = initialState, action) => {
 	switch (action.type) {
     case GENERAL:
-      console.log("clicked on genral tab");
+      // console.log("clicked on genral tab");
       return {
         ...state,
         now: state.now = 'general'

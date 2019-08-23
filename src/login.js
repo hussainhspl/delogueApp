@@ -22,7 +22,7 @@ class Login extends React.Component {
     const { container, logo, logoView, label, input, loginButton, loginText} = styles;
     const history= this.props.history;
     // const path = this.props.location.pathname;
-    console.log(" login path: ", history);
+    // console.log(" login path: ", history);
     console.disableYellowBox = true
     return(
       <View style={container}>

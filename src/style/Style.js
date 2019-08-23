@@ -57,7 +57,7 @@ class Style extends React.Component {
 
     //step 4 Dispatch action
     // store.dispatch({ type: "ATTACK", payload: "Iron Man" });
-    console.log("store state:", this.props.currentTab);
+    // console.log("store state:", this.props.currentTab);
     return (
       <Fragment>
         <Header history={this.props.history}>

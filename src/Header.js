@@ -28,7 +28,7 @@ class Header extends React.Component {
     const {container, icon, iconGroup } = styles;
     const history= this.props.history;
     // const path = this.props.location.pathname;
-    console.log('header history: ', history);
+    // console.log('header history: ', history);
     return(
       <View style={{flex: 1 }}>
         <Drawer

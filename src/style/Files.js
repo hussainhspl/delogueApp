@@ -6,6 +6,7 @@ import { Icon } from "native-base";
 import { RNCamera } from "react-native-camera";
 import StyleModal from "./StyleModal";
 import CameraComponent from '../shared/CameraComponent'; 
+import CommonModal from '../shared/CommonModal';
 
 
 const styArr = [
@@ -143,23 +144,23 @@ class Files extends React.Component {
     this.state = {
       cameraFileOn: false,
       cameraCommOn: false,
-      modalVisible: false
+      modalVisible : false,
     };
   }
   takePicture = async () => {
     if (this.camera) {
       const options = { quality: 0.5, base64: true };
       const data = await this.camera.takePictureAsync(options);
-      console.log(data.uri);
+      // console.log(data.uri);
     }
   };
   handleOnPress = () => this.setState({ cameraOn: false });
   setModalVisible(visible) {
-    this.setState({ modalVisible: visible });
+    this.setState({modalVisible: visible});
   }
   render() {
-    console.log("camera:", this.state.cameraOn);
-    console.log("style modal", this.state.modalVisible);
+    // console.log("camera:", this.state.cameraOn);
+    // console.log("style modal", this.state.modalVisible);
     return (
       <ScrollView showsVerticalScrollIndicator={false}>
         <View>
@@ -220,6 +221,7 @@ class Files extends React.Component {
                 styArr.map(data => {
                   return(
                     <Card
+                      key={Math.random().toFixed(3)}
                       onPress={() => {
                         this.setModalVisible(true);
                       }}
@@ -231,22 +233,25 @@ class Files extends React.Component {
                         />
                       </ImageView>
                       <ImageInfo>
-                        <Text>File Name</Text>
-                        <Text>ImageInfo</Text>
-                        <Text>dd-mmm-yyyy</Text>
+                        <Text>{data.fileName}</Text>
+                        <Text>{data.imgInfo}</Text>
+                        <Text>{data.date}</Text>
                       </ImageInfo>
                     </Card>
                   )
                 })
               }
             </ImageRow>
-            <StyleModal
-              title="Requested Quantity"
+            <CommonModal
+              title="Style File"
               modalVisible={this.state.modalVisible}
               close={() => {
                 this.setModalVisible(!this.state.modalVisible);
               }}
-            />
+              hideButton={true}
+            >
+              <StyleModal/>
+            </CommonModal>
           </View>
           <StyleFileTitle>
             <Capital> Communication files </Capital>
@@ -267,6 +272,7 @@ class Files extends React.Component {
                 styArr.map(data => {
                   return(
                     <Card
+                      key={Math.random().toFixed(3)}
                       onPress={() => {
                         this.setModalVisible(true);
                       }}
@@ -278,9 +284,9 @@ class Files extends React.Component {
                         />
                       </ImageView>
                       <ImageInfo>
-                        <Text>File Name</Text>
-                        <Text>ImageInfo</Text>
-                        <Text>dd-mmm-yyyy</Text>
+                        <Text>{data.fileName}</Text>
+                        <Text>{data.imgInfo}</Text>
+                        <Text>{data.date}</Text>
                       </ImageInfo>
                     </Card>
                   )

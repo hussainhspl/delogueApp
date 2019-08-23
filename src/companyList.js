@@ -100,15 +100,15 @@ class CompanyList extends React.Component {
   }
   closeControlPanel = () => {
     this._drawer.close();
-    console.log("close function");
+  
   };
   openControlPanel = () => {
     this._drawer.open()
   };
 
   toggle = () =>  {
-    console.log("toggle state");
-    this.setState(prevState => ({ isOpen: !prevState.isOpen }),()=>console.log(this.state.isOpen));
+ 
+    this.setState(prevState => ({ isOpen: !prevState.isOpen }));
   }
 
   renderItem = ({ item, index }) => {
@@ -116,12 +116,12 @@ class CompanyList extends React.Component {
       return <View style={[styles.item, styles.itemInvisible]} />;
     }
     const history= this.props.history;
-    console.log("company list render hist", this.props.history);
+    
     return (
       // <View style={styles.item} key={item.key}>
       <TouchableHighlight 
         underlayColor='rgba(245, 245, 245, 1)' onPress={() => {history.push("/search"); 
-        console.log(history);}}
+        }}
         style={styles.item} key={item.key}
       >
         <Fragment>

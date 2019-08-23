@@ -233,7 +233,7 @@ class SampleRequest extends React.Component {
 										{
 											sizeXl.map(data => {
 												return(
-													<Row style={{height: 40}}>
+													<Row style={{height: 40}} key={Math.random().toFixed(3)}>
 														<StyleCol size={2}>
 															<Text>{data.description}</Text>
 														</StyleCol>
@@ -273,7 +273,7 @@ class SampleRequest extends React.Component {
 										{
 											sizeXl.map(data => {
 												return(
-													<Row style={{height: 40}}>
+													<Row style={{height: 40}} key={Math.random().toFixed(3)}>
 														<StyleCol size={2}>
 															<Text>{data.description}</Text>
 														</StyleCol>

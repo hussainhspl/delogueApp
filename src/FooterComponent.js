@@ -14,7 +14,12 @@ import { DebugInstructions } from 'react-native/Libraries/NewAppScreen';
 const IconText = styled.Text`
   font-size: 10px;
 `;
-
+const StyledFooterTab = styled(FooterTab)`
+  background-color: #eee;
+  :active {
+    background-color: '#f00';
+  }
+`;
 
 class FooterComponent extends React.Component {
   constructor(props) {
@@ -25,18 +30,19 @@ class FooterComponent extends React.Component {
   }
   componentWillReceiveProps = (nextProps) => {
     if(JSON.stringify(nextProps.currentTab) != JSON.stringify(this.props.currentTab)) {
-      console.log('content change', this.props.currentTab, nextProps.currentTab);
+      // console.log('content change', this.props.currentTab, nextProps.currentTab);
     }
   }
 	render() {
-    console.log("footer state active:", this.props.currentTab);
+    // console.log("footer state active:", this.props.currentTab);
     const currentTab = this.props.currentTab
 		return(
 			<View style={{height:50}}>
 				<Container>
 				<Footer>
-          <FooterTab>
+          <StyledFooterTab>
             <Button vertical 
+              style={{backgroundColor:this.props.currentTab === 'general' ? '#818181' : '#eee', height: 55}}
               active={this.props.currentTab === 'general'? true : false}
               onPress={() => this.props.generalTabFunction()}
             >
@@ -47,6 +53,7 @@ class FooterComponent extends React.Component {
               <IconText style={{color: this.props.currentTab === 'general' ? '#fff' : '#444'}}>General </IconText>
             </Button>
             <Button vertical 
+              style={{backgroundColor:this.props.currentTab === 'comments' ? '#818181' : '#eee'}}
               active={this.props.currentTab === 'comments'? true : false}
               onPress={() => this.props.commentTabFunction()}
             >
@@ -57,6 +64,7 @@ class FooterComponent extends React.Component {
               <IconText style={{color: this.props.currentTab === 'comments' ? '#fff' : '#444'}}>Comments</IconText>
             </Button>
             <Button vertical
+              style={{backgroundColor:this.props.currentTab === 'files' ? '#818181' : '#eee', height: 55}}
               active={this.props.currentTab === 'files'? true : false}
               onPress={() => this.props.filesTabFunction()}
             >
@@ -67,6 +75,7 @@ class FooterComponent extends React.Component {
               <IconText style={{color: this.props.currentTab === 'files' ? '#fff' : '#444'}}>Files</IconText>
             </Button>
             <Button vertical
+              style={{backgroundColor:this.props.currentTab === 'sample' ? '#818181' : '#eee', height: 55}}
               active={this.props.currentTab === 'sample'? true : false}
               onPress={() => this.props.sampleTabFunction()}
             >
@@ -77,6 +86,7 @@ class FooterComponent extends React.Component {
               <IconText style={{color: this.props.currentTab === 'sample' ? '#fff' : '#444'}}>Sample</IconText>
             </Button>
             <Button vertical
+              style={{backgroundColor:this.props.currentTab === 'pdf' ? '#818181' : '#eee', height: 55}}
               active={this.props.currentTab === 'pdf'? true : false}
               onPress={() => this.props.pdfTabFunction()}
             >
@@ -86,7 +96,7 @@ class FooterComponent extends React.Component {
               />
               <IconText style={{color: this.props.currentTab === 'pdf' ? '#fff' : '#444'}}>PDF</IconText>
             </Button>
-          </FooterTab>
+          </StyledFooterTab>
         </Footer>
 				</Container>
 			</View>
@@ -95,7 +105,7 @@ class FooterComponent extends React.Component {
 }
 
 const mapStateToProps = state => {
-  console.log(" footer map state to props");
+  // console.log(" footer map state to props");
   return {
     currentTab: state.tab.now
   };

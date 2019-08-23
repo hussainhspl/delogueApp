@@ -17,7 +17,7 @@ const headerReducer = (state = initialState, action) => {
 				now: state.now = 'message'
 			};
 		case STYLE: 
-		console.log("clicked on style tab");
+		// console.log("clicked on style tab");
 			return {
 				...state,
 				now: state.now = 'style'

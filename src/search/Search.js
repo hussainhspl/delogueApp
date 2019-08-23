@@ -70,7 +70,7 @@ class Search extends React.Component {
   }
 
   searchUpdated(term) {
-    console.log("serach term called", term)
+    // console.log("serach term called", term)
     this.setState({ 
       searchTerm: term,
     })
@@ -81,14 +81,14 @@ class Search extends React.Component {
       this.setState({
         currentView: 'grid',
         searchTerm: '',
-      },() => console.log('state updated'));
+      });
       this.searchUpdated('');
     }
     else {
       this.setState({
         currentView: 'linear',
         searchTerm: '',
-      },() => console.log('else'));
+      });
       this.searchUpdated('');
       // this.myTextInput.val('');
       let term=this.state.searchTerm;
@@ -124,7 +124,7 @@ class Search extends React.Component {
     const filteredStyle = details.filter(createFilter(this.state.searchTerm, KEYS_TO_FILTERS));
     // console.log('current state', this.state.currentView);
     const history = this.props.history;
-    console.log("history on search page", this.props.history);
+    // console.log("history on search page", this.props.history);
     return(
       <View style={{flex: 1}}>
         
@@ -152,7 +152,7 @@ class Search extends React.Component {
         </View>
         {this.state.currentView === 'linear' &&
           filteredStyle.map(data => {
-            console.log('1');
+            
             return(
               // <Fragment>
               

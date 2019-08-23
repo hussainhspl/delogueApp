@@ -146,7 +146,8 @@ class NewSampleRequest extends React.Component{
     this.state={
       modalVisible : false,
       textArea: '',
-      isDateTimePickerVisible: false,
+      isDeadlineDateTimePickerVisible: false,
+      isEtdDateTimePickerVisible: false,
     }
   }
   setModalVisible(visible) {
@@ -159,26 +160,37 @@ class NewSampleRequest extends React.Component{
 		});
   }
 
-showDateTimePicker = () => {
-this.setState({ isDateTimePickerVisible: true });
+showDateTimePicker = (value) => {
+  // console.log("calender clicked: ", value);
+  if(value === 'deadline') {
+    this.setState({ isDeadlineDateTimePickerVisible: true });
+  }
+  if(value === 'etd'){
+    this.setState({ isEtdDateTimePickerVisible: true });
+  }
 };
 
-hideDateTimePicker = () => {
-this.setState({ isDateTimePickerVisible: false });
+hideDateTimePicker = (value) => {
+  if(value === 'deadline') {
+    this.setState({ isDeadlineDateTimePickerVisible: false });
+  }
+  if(value === 'etd'){
+    this.setState({ isEtdDateTimePickerVisible: false });
+  }
 };
 
-handleDatePicked = date => {
-console.log("A date has been picked: ", date);
-this.hideDateTimePicker();
+handleDatePicked = (date, value) => {
+// console.log("A date has been picked: ", date, value);
+this.hideDateTimePicker(value);
 };
 redirectTo =(history) => {
-  console.log('enter in  redirect function');
+  // console.log('enter in  redirect function');
   history.push("/notificationModal")
 }
   render(){
     const history= this.props.history;
-    console.log("camera on ",this.state.cameraOn);
-    console.log("new sample modal", this.props.history);
+    // console.log("camera on ",this.state.cameraOn);
+    // console.log("calender etd ", this.state.isEtdDateTimePickerVisible);
     return(
       <View>
         <TouchableHighlight
@@ -272,16 +284,16 @@ redirectTo =(history) => {
               value={this.state.text}
               placeholder="dd-mm-yy"
             />
-            <TouchableOpacity onPress={this.showDateTimePicker}>
+            <TouchableOpacity onPress={() => this.showDateTimePicker('deadline')}>
               <Icon
                 style={{ color: "#8C8076", fontSize: 30 }}
                 name="calendar"
               />
             </TouchableOpacity>
             <DateTimePicker
-              isVisible={this.state.isDateTimePickerVisible}
-              onConfirm={this.handleDatePicked}
-              onCancel={this.hideDateTimePicker}
+              isVisible={this.state.isDeadlineDateTimePickerVisible}
+              onConfirm={(date) => this.handleDatePicked(date, 'deadline')}
+              onCancel={() => this.hideDateTimePicker('deadline')}
             />
           </DateRow>
           <ContentTitle> ETD </ContentTitle>
@@ -291,16 +303,16 @@ redirectTo =(history) => {
               value={this.state.text}
               placeholder="dd-mm-yy"
             />
-            <TouchableOpacity onPress={this.showDateTimePicker}>
+            <TouchableOpacity onPress={() =>this.showDateTimePicker('etd')}>
               <Icon
                 style={{ color: "#8C8076", fontSize: 30 }}
                 name="calendar"
               />
             </TouchableOpacity>
             <DateTimePicker
-              isVisible={this.state.isDateTimePickerVisible}
-              onConfirm={this.handleDatePicked}
-              onCancel={this.hideDateTimePicker}
+              isVisible={this.state.isEtdDateTimePickerVisible}
+              onConfirm={(date) => this.handleDatePicked(date, 'etd')}
+              onCancel={() => this.hideDateTimePicker('etd')}
             />
           </DateRow>
           <ContentTitle> Tracking Number </ContentTitle>

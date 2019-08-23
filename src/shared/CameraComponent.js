@@ -25,15 +25,14 @@ const Capture = styled.TouchableOpacity`
 	border-radius: 50px;
 `;
 const CloseBox = styled.View`
-	padding: 10px;
+	/* padding: 10px; */
 	position: absolute;
 	right: 10;
 	top: 10;
-	padding: 10px;
 	z-index: 1;
 	align-items: center;
 	justify-content: center;
-	background-color: #f00;
+	/* background-color: #f00; */
 `;
 
 class CameraComponent extends React.Component {
@@ -47,7 +46,7 @@ class CameraComponent extends React.Component {
     if (this.camera) {
       const options = { quality: 0.5, base64: true };
       const data = await this.camera.takePictureAsync(options);
-      console.log(data.uri);
+      // console.log(data.uri);
     }
 	};
   render() {
@@ -63,10 +62,11 @@ class CameraComponent extends React.Component {
 				<CameraContainer>
 					<CloseBox>
 						<TouchableHighlight
+							underlayColor='rgba(221, 221, 221, 0.4)'
 							onPress={
 								this.props.close
 							}>
-								<Icon style={{color: '#fff', fontSize: 28}} name="ios-close" />
+								<Icon style={{color: '#fff', fontSize: 28, paddingHorizontal: 10}} name="ios-close" />
 						</TouchableHighlight>
 					</CloseBox>
 					<Preview
@@ -89,7 +89,7 @@ class CameraComponent extends React.Component {
 							buttonNegative: 'Cancel',
 						}}
 						onGoogleVisionBarcodesDetected={({ barcodes }) => {
-							console.log(barcodes);
+							// console.log(barcodes);
 						}}
 					/>
 					<View style={{ flex: 0, flexDirection: 'row', justifyContent: 'center' }}>
