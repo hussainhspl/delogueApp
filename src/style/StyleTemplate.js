@@ -90,11 +90,11 @@ const Card = styled.View`
   width: ${Dimensions.get('window').width/ 3};
   height: ${Dimensions.get('window').width/ 3 + 100};
   border: 1px solid #ccc;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
 `;
 const ImageView = styled.View`
-	width: ${Dimensions.get('window').width/ 3 -30};
+	width: ${Dimensions.get('window').width/ 3 -20};
 	height: ${Dimensions.get('window').width/ 3 + 20};
 	border: 1px solid #ddd;
   justify-content: center;
@@ -102,8 +102,8 @@ const ImageView = styled.View`
   margin-top: 10px;
 `;
 const StyleImage = styled.Image`
-		max-height: ${Dimensions.get('window').width/ 3 -40};
-		max-width: ${Dimensions.get('window').width/ 3};
+		width: ${Dimensions.get('window').width/ 3 -40};
+		height: ${Dimensions.get('window').width/ 3};
     
 `;
 const ImageInfo = styled.View`

@@ -1,9 +1,10 @@
-import React from "react";
+import React, {Fragment} from "react";
 import { View, Text, ScrollView, Dimensions, Image, TouchableOpacity } from "react-native";
 import styled from "styled-components";
 import { Icon } from "native-base";
 import SampleComponent from "./sampleComponent";
 import NewSampleRequest from './NewSampleRequest';
+import SampleRequest from './SampleRequest';
 // import console = require("console");
 
 const StyleDescriptionRow = styled.View`
@@ -84,60 +85,71 @@ const SampleRow = styled.View`
   flex-wrap: wrap;
 `;
 class Sample extends React.Component {
+  constructor(props){
+    super(props);
+    this.state= {
+      sampleRequest :false,
+    }
+  }
   render() {
     const history = this.props.history;
-    
+    console.log("sample req state ", this.state.sampleRequest);
     // console.log("history on sample page:", history);
     return (
       <ScrollView showsVerticalScrollIndicator={false}>
-        <StyleDescriptionRow>
-          <ImageBox>
-            <Image
-              resizeMode={"contain"}
-              source={require("../../img/styleblack.png")}
-            />
-          </ImageBox>
-          <Flex>
-            <Row>
-              <Title numberOfLines={1}>style no</Title>
+        {this.state.sampleRequest == false && (
+          <Fragment>
+            <StyleDescriptionRow>
+              <ImageBox>
+                <Image
+                  resizeMode={"contain"}
+                  source={require("../../img/styleblack.png")}
+                />
+              </ImageBox>
               <Flex>
-                <SubTitle numberOfLines={1}>sty1100</SubTitle>
+                <Row>
+                  <Title numberOfLines={1}>style no</Title>
+                  <Flex>
+                    <SubTitle numberOfLines={1}>sty1100</SubTitle>
+                  </Flex>
+                  {/* <Text>hello</Text> */}
+                </Row>
+                <Row>
+                  <Title numberOfLines={1}>style name</Title>
+                  <Flex>
+                    <SubTitle numberOfLines={1}>sty1100uyuyyhkghgjgg</SubTitle>
+                  </Flex>
+                </Row>
               </Flex>
-              {/* <Text>hello</Text> */}
-            </Row>
-            <Row>
-              <Title numberOfLines={1}>style name</Title>
-              <Flex>
-                <SubTitle numberOfLines={1}>sty1100uyuyyhkghgjgg</SubTitle>
-              </Flex>
-            </Row>
-          </Flex>
 
-          <Flex>
-            <Row>
-              <Title numberOfLines={1}>supplier</Title>
               <Flex>
-                <SubTitle numberOfLines={1}>sty1100</SubTitle>
+                <Row>
+                  <Title numberOfLines={1}>supplier</Title>
+                  <Flex>
+                    <SubTitle numberOfLines={1}>sty1100</SubTitle>
+                  </Flex>
+                </Row>
+                <Row>
+                  <Title numberOfLines={1}>season</Title>
+                  <Flex>
+                    <SubTitle numberOfLines={1}>sty1100uyuyyhkghgjgg</SubTitle>
+                  </Flex>
+                </Row>
               </Flex>
-            </Row>
-            <Row>
-              <Title numberOfLines={1}>season</Title>
-              <Flex>
-                <SubTitle numberOfLines={1}>sty1100uyuyyhkghgjgg</SubTitle>
-              </Flex>
-            </Row>
-          </Flex>
-        </StyleDescriptionRow>
-        <ButtonRow>
-          <CommentedButton small>
-            <IconView>
-              <Icon style={{ color: "#fff", fontSize: 15 }} name="undo" />
-            </IconView>
-            <ButtonText> hide commented </ButtonText>
-          </CommentedButton>
-        </ButtonRow>
-        <SampleRow>
-          <TouchableOpacity onPress={() => {history.push("/sampleRequest")}}>
+            </StyleDescriptionRow>
+            <ButtonRow>
+              <CommentedButton small>
+                <IconView>
+                  <Icon style={{ color: "#fff", fontSize: 15 }} name="undo" />
+                </IconView>
+                <ButtonText> hide commented </ButtonText>
+              </CommentedButton>
+            </ButtonRow>
+            <SampleRow>
+          <TouchableOpacity onPress={() => {
+            // history.push("/sampleRequest")
+            this.setState({sampleRequest: true})
+          }}>
             <SampleComponent />
           </TouchableOpacity>
             {/* //open sample request on click */}
@@ -146,7 +158,17 @@ class Sample extends React.Component {
           <SampleComponent />
           <NewSampleRequest history={this.props.history} />
 
-        </SampleRow>
+        </SampleRow >
+          </Fragment>
+        )}
+        {this.state.sampleRequest == true && (
+          <Fragment>
+            <SampleRequest history={this.props.history} />
+            {/* <Text> hello </Text> */}
+
+          </Fragment>
+
+        )}
       </ScrollView>
     );
   }

@@ -151,9 +151,8 @@ class SampleRequest extends React.Component {
   }
   render() {
 		return(
-			<Header history={this.props.history}>
+			// <Header history={this.props.history}>
 				<ScrollView showsVerticalScrollIndicator={false}>
-					{/* <Text>hello</Text> */}
 					<StyleDescriptionRow>
 						<ImageBox>
 							<Image
@@ -306,7 +305,7 @@ class SampleRequest extends React.Component {
 						</Button>
 					</FooterButton>
 				</ScrollView>
-			</Header>
+			// </Header>
 		)
 	}
 }
