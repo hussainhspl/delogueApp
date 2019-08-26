@@ -34,7 +34,7 @@ class Sidebar extends React.Component {
     };
   }
   toggle() {
-    console.log("toggle state");
+    // console.log("toggle state");
     this.setState({
       isOpen: !this.state.isOpen,
     });

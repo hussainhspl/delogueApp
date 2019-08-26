@@ -17,11 +17,11 @@ class Pdf extends React.Component {
     this.setState({modalVisible: visible});
   }
   redirectTo =(history) => {
-    console.log('enter in  redirect function');
+    // console.log('enter in  redirect function');
     history.push("/style")
   }
   closeModal() {
-    console.log("enter in close modal")
+    // console.log("enter in close modal")
     this.setState({modalVisible: false}, () => this.props.generalTabFunction());
     // if(this.state.modalVisible == false) {
     //   this.props.generalTabFunction();
@@ -30,7 +30,7 @@ class Pdf extends React.Component {
   render() {
     // console.disableYellowBox = true
     history = this.props.history;
-    console.log('pdf history', this.props.history);
+    // console.log('pdf history', this.props.history);
     return(
       <View style={{flex: 1}}> 
        <TouchableHighlight

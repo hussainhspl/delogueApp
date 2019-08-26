@@ -48,7 +48,7 @@ class Header extends React.Component {
           <View style={container}>
             <View style={iconGroup}>
               <View>
-                <TouchableOpacity style={icon}
+                <TouchableOpacity style={[icon,{backgroundColor: history.location.pathname == '/search' ? '#666': '#818181'}]}
                   // onPress= {() => this.props.searchButtonFunction()}
                   onPress={() => {history.push("/search")}}
                   >
@@ -56,7 +56,7 @@ class Header extends React.Component {
                 </TouchableOpacity>         
               </View>
               <View>
-                <TouchableOpacity style={icon}
+                <TouchableOpacity style={[icon,{backgroundColor: history.location.pathname == '/message' ? '#666': '#818181'}]}
                   // onPress= {() => this.props.messageButtFunction()}
                   onPress={() => {history.push("/message")}}
                   >
@@ -64,7 +64,7 @@ class Header extends React.Component {
                 </TouchableOpacity>          
               </View>
               <View>
-                <TouchableOpacity style={icon}
+                <TouchableOpacity style={[icon,{backgroundColor: history.location.pathname == '/style' ? '#666': '#818181'}]}
                 // onPress= {() => this.props.styleButtonFunction()}
                 onPress={() => {history.push("/style")}}
                 >
@@ -100,8 +100,6 @@ const styles= {
   },
   icon: {
     padding: 10,
-    // backgroundColor: 'green'
-    // height: 30
     alignItems: 'center',
     justifyContent: 'center',
     height: 50,

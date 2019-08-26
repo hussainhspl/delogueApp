@@ -15,7 +15,7 @@ const MainBox = styled.View`
   border: 1px solid #ddd;
   border-radius: 5px;
   width: ${Dimensions.get("window").width / 2 - 10};
-  height: ${Dimensions.get("window").width / 2 + 50};
+  height: ${Dimensions.get("window").width / 2 + 80};
   margin: 5px;
 `;
 const TitleRow = styled.View`
@@ -45,6 +45,7 @@ const ContentTitle = styled.Text`
 `;
 const DateRow = styled.View`
   flex-direction: row;
+  align-items: center;
 `;
 const DateInput = styled.TextInput`
   border: 1px solid #ddd;
@@ -75,6 +76,9 @@ const Pieces = styled.Text`
 const MessageRow = styled.View`
   flex-direction: row;
 `;
+const CalenderTouchableOpacity = styled.TouchableOpacity`
+  padding: 5px;
+`
 class sampleComponent extends React.Component {
   constructor(props) {
     super(props);
@@ -84,6 +88,10 @@ class sampleComponent extends React.Component {
       isSentDateTimePickerVisible: false,
       isReceivedDateTimePickerVisible: false,
       text: "",
+      deadlineText: '',
+      etdText: '',
+      sentText: '',
+      receivedText: '',
     };
   }
   showDateTimePicker = (value) => {
@@ -137,16 +145,16 @@ class sampleComponent extends React.Component {
           <ContentTitle>deadline</ContentTitle>
           <DateRow>
             <DateInput
-              onChangeText={text => this.setState({ text })}
-              value={this.state.text}
+              onChangeText={deadlineText => this.setState({ deadlineText })}
+              value={this.state.deadlineText}
               placeholder="dd-mm-yy"
             />
-            <TouchableOpacity onPress={() => this.showDateTimePicker("deadline")}>
+            <CalenderTouchableOpacity onPress={() => this.showDateTimePicker("deadline")}>
               <Icon
-                style={{ color: "#8C8076", fontSize: 20 }}
+                style={{ color: "#8C8076", fontSize: 18}}
                 name="calendar"
               />
-            </TouchableOpacity>
+            </CalenderTouchableOpacity>
             <DateTimePicker
               isVisible={this.state.isDeadlineDateTimePickerVisible}
               onConfirm={this.handleDatePicked}
@@ -158,16 +166,16 @@ class sampleComponent extends React.Component {
           <ContentTitle> etd</ContentTitle>
           <DateRow>
             <DateInput
-              onChangeText={text => this.setState({ text })}
-              value={this.state.text}
+              onChangeText={etdText => this.setState({ etdText })}
+              value={this.state.etdText}
               placeholder="dd-mm-yy"
             />
-            <TouchableOpacity onPress={() => this.showDateTimePicker("etd")}>
+            <CalenderTouchableOpacity onPress={() => this.showDateTimePicker("etd")}>
               <Icon
-                style={{ color: "#8C8076", fontSize: 20 }}
+                style={{ color: "#8C8076", fontSize: 18}}
                 name="calendar"
               />
-            </TouchableOpacity>
+            </CalenderTouchableOpacity>
             <DateTimePicker
               isVisible={this.state.isEtdDateTimePickerVisible}
               onConfirm={this.handleDatePicked}
@@ -179,16 +187,16 @@ class sampleComponent extends React.Component {
           <ContentTitle> sent </ContentTitle>
           <DateRow>
             <DateInput
-              onChangeText={text => this.setState({ text })}
-              value={this.state.text}
+              onChangeText={sentText => this.setState({ sentText })}
+              value={this.state.sentText}
               placeholder="dd-mm-yy"
             />
-            <TouchableOpacity onPress={() => this.showDateTimePicker("sent")}>
+            <CalenderTouchableOpacity onPress={() => this.showDateTimePicker("sent")}>
               <Icon
-                style={{ color: "#8C8076", fontSize: 20 }}
+                style={{ color: "#8C8076", fontSize: 18}}
                 name="calendar"
               />
-            </TouchableOpacity>
+            </CalenderTouchableOpacity>
             <DateTimePicker
               isVisible={this.state.isSentDateTimePickerVisible}
               onConfirm={this.handleDatePicked}
@@ -200,16 +208,16 @@ class sampleComponent extends React.Component {
           <ContentTitle> received </ContentTitle>
           <DateRow>
             <DateInput
-              onChangeText={text => this.setState({ text })}
-              value={this.state.text}
+              onChangeText={receivedText => this.setState({ receivedText })}
+              value={this.state.receivedText}
               placeholder="dd-mm-yy"
             />
-            <TouchableOpacity onPress={() => this.showDateTimePicker("received")}>
+            <CalenderTouchableOpacity onPress={() => this.showDateTimePicker("received")}>
               <Icon
-                style={{ color: "#8C8076", fontSize: 20 }}
+                style={{ color: "#8C8076", fontSize: 18}}
                 name="calendar"
               />
-            </TouchableOpacity>
+            </CalenderTouchableOpacity>
             <DateTimePicker
               isVisible={this.state.isReceivedDateTimePickerVisible}
               onConfirm={this.handleDatePicked}

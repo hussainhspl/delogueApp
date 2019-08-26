@@ -53,7 +53,7 @@ class FooterComponent extends React.Component {
               <IconText style={{color: this.props.currentTab === 'general' ? '#fff' : '#444'}}>General </IconText>
             </Button>
             <Button vertical 
-              style={{backgroundColor:this.props.currentTab === 'comments' ? '#818181' : '#eee'}}
+              style={{backgroundColor:this.props.currentTab === 'comments' ? '#818181' : '#eee', height: 55}}
               active={this.props.currentTab === 'comments'? true : false}
               onPress={() => this.props.commentTabFunction()}
             >

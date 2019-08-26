@@ -1,5 +1,5 @@
 import React, {Fragment} from 'react';
-import { StyleSheet, Text, View, FlatList, Dimensions, TouchableOpacity, TouchableHighlight,  Image } from 'react-native';
+import { StyleSheet, Text, View, FlatList, Dimensions, TouchableOpacity, TouchableHighlight, BackHandler} from 'react-native';
 import Menu from './Menu';
 // import SideMenu from 'react-native-side-menu';
 import Drawer from 'react-native-drawer';
@@ -97,10 +97,21 @@ class CompanyList extends React.Component {
     this.state = {
       isOpen: false,
     };
+    this.handleBackButtonClick = this.handleBackButtonClick.bind(this);
   }
+  componentWillMount() {
+    BackHandler.addEventListener('hardwareBackPress', this.handleBackButtonClick);
+  }
+  handleBackButtonClick() {
+    // console.log("back button press on company list");
+    this.props.history.goBack();
+    return true;
+  }
+  // componentWillUnmount() {
+  //   BackHandler.removeEventListener('hardwareBackPress', this.handleBackButtonClick);
+  // }
   closeControlPanel = () => {
     this._drawer.close();
-  
   };
   openControlPanel = () => {
     this._drawer.open()
@@ -146,6 +157,7 @@ class CompanyList extends React.Component {
   render(){
     const { container, item, itemInvisible, itemText,} = styles;
     const history= this.props.history;
+    // console.log('company page history', history);
     return(
       
       <View style={{flex: 1}}>

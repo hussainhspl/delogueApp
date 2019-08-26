@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, Image, TextInput, TouchableOpacity, TouchableHighlight } from 'react-native';
+import {View, Text, Image, TextInput, TouchableOpacity, TouchableHighlight, BackHandler } from 'react-native';
 import CompanyList from './companyList';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { withRouter } from 'react-router';
@@ -14,16 +14,24 @@ class Login extends React.Component {
       password: '',
     }
   }
-  // state= {
-  //   text: '',
-  //   password: '',
-  // }
+
+  componentWillMount() {
+    BackHandler.addEventListener('hardwareBackPress', this.handleBackButtonClick);
+  }
+  handleBackButtonClick() {
+    // console.log("exit app");
+    return BackHandler.exitApp();
+  }
+  componentWillUnmount() {
+    BackHandler.removeEventListener('hardwareBackPress', this.handleBackButtonClick);
+  }
   render() {
     const { container, logo, logoView, label, input, loginButton, loginText} = styles;
     const history= this.props.history;
     // const path = this.props.location.pathname;
     // console.log(" login path: ", history);
-    console.disableYellowBox = true
+    console.disableYellowBox = true;
+    // console.log('login history', history);
     return(
       <View style={container}>
       <KeyboardAwareScrollView showsVerticalScrollIndicator={false}>

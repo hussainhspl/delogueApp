@@ -137,6 +137,8 @@ const AddView = styled.View`
   margin: 5px;
   border-radius: 5px;
   flex-direction: row;
+  /* justify-content: center; */
+  align-items: center;
   /* flex: 1;
   flex-wrap: wrap; */
 `;
@@ -151,6 +153,7 @@ class NewSampleRequest extends React.Component{
     }
   }
   setModalVisible(visible) {
+    console.log('props close click');
     this.setState({modalVisible: visible});
   }
   onValueChange2(value: string) {

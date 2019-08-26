@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, TouchableHighlight, Modal, Alert, SafeAreaView} from "react-native";
+import { View, Text, TouchableHighlight, Modal, Alert, SafeAreaView, TouchableNativeFeedback} from "react-native";
 import styled from 'styled-components';
 import {Icon, Button} from 'native-base';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
@@ -56,6 +56,9 @@ class CommonModal extends React.Component {
 			modalVisible: this.props.modalVisible,
 		}
 	}
+	closeModal() {
+		this.props.close();
+	}
   render() {
 		// console.log('hide button', this.props);
 		// const bg = this.props.bg;
@@ -94,8 +97,9 @@ class CommonModal extends React.Component {
 								this.props.hideButton ? null :
 									<ApplyBar>
 										<Button bordered light small danger 
-											// onPress={() => {this.props.closeModal()}}
-											>
+											onPress={() => {this.closeModal(this.props.close)}}
+											// background={TouchableNativeFeedback.Ripple('#818181', true)}
+										>
 											<Text style={{color: "#d9534e"}}> CANCEL </Text> 
 										</Button>
 										<ApplyButton 

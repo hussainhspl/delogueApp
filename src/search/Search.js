@@ -1,5 +1,5 @@
 import React, {Fragment} from 'react';
-import {Text, View, TouchableOpacity, Image, FlatList, Dimensions, ScrollView } from 'react-native';
+import {Text, View, TouchableOpacity, Image, FlatList, Dimensions, ScrollView, BackHandler } from 'react-native';
 import SearchInput, { createFilter } from 'react-native-search-filter';
 import Icon from 'react-native-vector-icons/Ionicons';
 import SearchFilter from './searchFilter';
@@ -67,8 +67,22 @@ class Search extends React.Component {
       searchTerm: '',
     };
     this.myTextInput = React.createRef();
+    // this.handleBackButtonClick = this.handleBackButtonClick.bind(this);
+    // this.goBack = this.goBack.bind(this);
   }
-
+  // componentWillMount() {
+  //   BackHandler.addEventListener('hardwareBackPress', this.handleBackButtonClick);
+  // }
+  // handleBackButtonClick() {
+  //   // this.props.navigation.goBack(null);
+  //   console.log("back button press");
+  //   this.props.history.goBack();
+  //   return true;
+  // }
+  // componentWillUnmount() {
+  //   console.log("unmount search");
+  //   BackHandler.removeEventListener('hardwareBackPress', this.handleBackButtonClick);
+  // }
   searchUpdated(term) {
     // console.log("serach term called", term)
     this.setState({ 
@@ -124,6 +138,7 @@ class Search extends React.Component {
     const filteredStyle = details.filter(createFilter(this.state.searchTerm, KEYS_TO_FILTERS));
     // console.log('current state', this.state.currentView);
     const history = this.props.history;
+    // console.log("search history:", history);
     // console.log("history on search page", this.props.history);
     return(
       <View style={{flex: 1}}>
