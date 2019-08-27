@@ -39,7 +39,7 @@ const ApplyBar = styled.View`
 const ApplyButtonText = styled.Text`
 	color: #fff;
 	text-transform: uppercase;
-	/* padding: 5px; */
+	padding-bottom: -5px;
 	
 	
 `;
@@ -104,7 +104,7 @@ class CommonModal extends React.Component {
 										</Button>
 										<ApplyButton 
 											// onPress={this.props.okClick ? this.props.okClick : ''} 
-											small style={{backgroundColor:"#849D7A"}}>
+											small style={{backgroundColor:"#849D7A", marginLeft: 15}}>
 											<ApplyButtonText>{this.props.okButton ?this.props.okButton : 'apply'}</ApplyButtonText>
 										</ApplyButton>
 									</ApplyBar>

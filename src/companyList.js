@@ -1,13 +1,14 @@
 import React, {Fragment} from 'react';
-import { StyleSheet, Text, View, FlatList, Dimensions, TouchableOpacity, TouchableHighlight, BackHandler} from 'react-native';
+import { StyleSheet, Text, View, FlatList, Dimensions, TouchableOpacity, TouchableHighlight, BackHandler, ScrollView} from 'react-native';
 import Menu from './Menu';
 // import SideMenu from 'react-native-side-menu';
 import Drawer from 'react-native-drawer';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { withRouter } from 'react-router';
 import styled from 'styled-components';
+import { Grid, Section, Block } from 'react-native-responsive-layout';
 
-const data = [
+const CList = [
   { 
     key: 'A',
     companyName: 'c name',
@@ -73,10 +74,23 @@ const data = [
 ];
 
 const GridImage = styled.Image`
-  max-width: 100%;
-  max-height: 100%;
+  width: ${(props) => props.tablet ? Dimensions.get('window').width / 3- 50: Dimensions.get('window').width / 2- 50};
+  height: ${(props) => props.tablet ? Dimensions.get('window').width / 3 -45: Dimensions.get('window').width / 2 -30};
+  margin: auto;
 `;
 
+const ImageView = styled.View`
+  width: ${(props) => props.tablet ? Dimensions.get('window').width / 3- 45: Dimensions.get('window').width / 2- 45};
+  height: ${(props) => props.tablet ? Dimensions.get('window').width / 3 -30 : Dimensions.get('window').width / 2 -15};
+  margin: 0 auto;
+`;
+const Card = styled.View`
+  width: ${(props) => props.tablet ? Dimensions.get('window').width / 3 -15: Dimensions.get('window').width / 2 -15};
+  height: ${(props) => props.tablet ? Dimensions.get('window').width / 3 + 30 : Dimensions.get('window').width / 2 + 45};
+  margin: 5px;
+  background-color: #fff;
+  /* align-items: space-between; */
+`;
 const formatData = (data, numColumns) => {
   const numberOfFullRows = Math.floor(data.length / numColumns);
 
@@ -91,73 +105,42 @@ const numColumns = 2;
 class CompanyList extends React.Component {
   constructor(props) {
     super(props);
-
-    this.toggle = this.toggle.bind(this);
-
     this.state = {
       isOpen: false,
+      tablet: false,
     };
+    this.toggle = this.toggle.bind(this)
     this.handleBackButtonClick = this.handleBackButtonClick.bind(this);
   }
+  checkDevice() {
+    
+  }
   componentWillMount() {
+    if(Dimensions.get('window').width >568) {
+      this.setState({tablet: true},() =>console.log("will mount" , this.state.tablet))
+    }
+    console.log("will mount out" , this.state.tablet);
     BackHandler.addEventListener('hardwareBackPress', this.handleBackButtonClick);
   }
   handleBackButtonClick() {
-    // console.log("back button press on company list");
     this.props.history.goBack();
     return true;
   }
-  // componentWillUnmount() {
-  //   BackHandler.removeEventListener('hardwareBackPress', this.handleBackButtonClick);
-  // }
   closeControlPanel = () => {
     this._drawer.close();
   };
   openControlPanel = () => {
     this._drawer.open()
   };
-
   toggle = () =>  {
- 
     this.setState(prevState => ({ isOpen: !prevState.isOpen }));
   }
-
-  renderItem = ({ item, index }) => {
-    if (item.empty === true) {
-      return <View style={[styles.item, styles.itemInvisible]} />;
-    }
-    const history= this.props.history;
-    
-    return (
-      // <View style={styles.item} key={item.key}>
-      <TouchableHighlight 
-        underlayColor='rgba(245, 245, 245, 1)' onPress={() => {history.push("/search"); 
-        }}
-        style={styles.item} key={item.key}
-      >
-        <Fragment>
-          <View style={styles.imageView}>
-            <GridImage 
-              resizeMode={"center"}
-              // source={require('../../img/shirt-static.png')}
-              source={require('../img/shirt-static.png')}
-            />
-          </View>
-          <View style={styles.cardInfo}>
-            <Text style={styles.itemText}> {item.companyName} </Text>
-            <Text style={styles.itemText}> {item.userName} </Text>
-            <Text style={styles.itemText}> {item.userType} </Text>
-
-          </View>
-          </Fragment>
-        </TouchableHighlight>
-      // </View>
-    );
-  };
+ 
   render(){
     const { container, item, itemInvisible, itemText,} = styles;
     const history= this.props.history;
-    // console.log('company page history', history);
+    console.log("dimension",this.state.tablet);
+    // const tablet = this.state.tablet;
     return(
       
       <View style={{flex: 1}}>
@@ -185,12 +168,38 @@ class CompanyList extends React.Component {
               </TouchableOpacity>
             </View>
           </View>
-          <FlatList
-            data={formatData(data, numColumns)}
-            style={styles.container}
-            renderItem={this.renderItem}
-            numColumns={numColumns}
-          />
+          <View style={{backgroundColor: '#818181'}}>
+            <ScrollView>
+              <View style={{flexWrap: 'wrap', flexDirection: 'row', padding: 5}}>
+              {
+                CList.map(data => {
+                  return(
+                    
+                    <Card tablet={this.state.tablet} key={data.key}>
+                    <TouchableOpacity 
+                      underlayColor='rgba(245, 245, 245, 1)' onPress={() => {history.push("/search"); 
+                      }}
+                    >
+                        <ImageView tablet={this.state.tablet} >
+                          <GridImage 
+                            tablet={this.state.tablet}
+                            resizeMode={"center"}
+                            source={require('../img/shirt-static.png')}
+                          />
+                        </ImageView>
+                        <View style={styles.cardInfo}>
+                          <Text style={styles.itemText}> {data.companyName} </Text>
+                          <Text style={styles.itemText}> {data.userName} </Text>
+                          <Text style={styles.itemText}> {data.userType} </Text>
+                        </View>
+                    </TouchableOpacity>
+                      </Card>
+                  )
+                })
+              }
+              </View>
+            </ScrollView>
+          </View>
         </Drawer>
       </View>
     )
@@ -232,14 +241,6 @@ const styles = {
     width: '100%',
     justifyContent: 'center',
     padding: 5
-  },
-  imageView: {
-    width: Dimensions.get('window').width / 2- 30,
-    height: Dimensions.get('window').width / 2 -10 ,
-    // alignItems: 'center',
-    // justifyContent: 'center',
-    // paddingHorizontal: 5,
-    // backgroundColor: 'red',
   },
   button: {
     // padding: 10

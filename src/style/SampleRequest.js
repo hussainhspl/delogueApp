@@ -10,6 +10,7 @@ import SampleRequestSummary from './SampleRequestSummary';
 import ViewRequestedQuantity from './ViewRequestedQuantity';
 import CommonModal from '../shared/CommonModal';
 import Header from '../Header';
+// import console = require('console');
 const sizeXl = [
 	{
 		description: 'Shoulder',
@@ -125,17 +126,9 @@ const TableTextInput = styled.TextInput`
 const ApplyButtonText = styled.Text`
 	color: #fff;
 	text-transform: uppercase;
-	padding: 5px;
+	padding:0px 5px;
 `;
 
-const ApplyBar = styled.View`
-	padding: 15px;
-	align-items: center;
-	justify-content: flex-end;
-	flex-direction: row;
-	height: 50px;
-	background-color: #F1EFED;
-`;
 const FooterButton = styled.View`
 	padding: 15px;
 	align-items: center;
@@ -148,8 +141,13 @@ class SampleRequest extends React.Component {
 	state= {modalVisible : false}
 	setModalVisible(visible) {
     this.setState({modalVisible: visible});
-  }
+	}
+	redirectTo() {
+		console.log("redirect click");
+		this.props.apply();
+	}
   render() {
+		console.log("history sr", this.props.history);
 		return(
 			// <Header history={this.props.history}>
 				<ScrollView showsVerticalScrollIndicator={false}>
@@ -300,7 +298,8 @@ class SampleRequest extends React.Component {
 						<Button bordered light small danger>
 							<Text style={{color: "#d9534e"}}> CANCEL </Text> 
 						</Button>
-						<Button small style={{backgroundColor:"#849D7A", marginLeft: 15}}>
+						<Button small style={{backgroundColor:"#849D7A", marginLeft: 15}}
+						onPress={() => {this.redirectTo(this.props.apply)}}>
 							<ApplyButtonText>apply</ApplyButtonText>
 						</Button>
 					</FooterButton>

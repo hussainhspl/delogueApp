@@ -91,6 +91,12 @@ class Sample extends React.Component {
       sampleRequest :false,
     }
   }
+  saveChanges () {
+    console.log("parent function called", this.state.sampleRequest);
+    this.setState({
+      sampleRequest: false,
+    })
+  }
   render() {
     const history = this.props.history;
     console.log("sample req state ", this.state.sampleRequest);
@@ -163,7 +169,9 @@ class Sample extends React.Component {
         )}
         {this.state.sampleRequest == true && (
           <Fragment>
-            <SampleRequest history={this.props.history} />
+            <SampleRequest
+              apply={() =>this.saveChanges()}
+              history={this.props.history} />
             {/* <Text> hello </Text> */}
 
           </Fragment>

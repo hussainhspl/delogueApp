@@ -7,16 +7,16 @@ const colorArray = [
 ]
 
 const ImageView = styled.View`
-  width: ${Dimensions.get('window').width -70};
-  height: ${Dimensions.get('window').width - 70};
+  width: ${(props) => props.tablet ? Dimensions.get('window').width / 1.8 : Dimensions.get('window').width -70};
+  height: ${(props) => props.tablet ? Dimensions.get('window').width /1.8: Dimensions.get('window').width - 70};
   justify-content: center;
   align-items: center;
   border: 1px solid #ddd;
   margin : 20px auto;
 `;
 const StyleImage = styled.Image`
-  width: ${Dimensions.get('window').width -120};
-  height: ${Dimensions.get('window').width - 90};
+  width: ${(props) => props.tablet ? Dimensions.get('window').width /1.9 : Dimensions.get('window').width -120};
+  height: ${(props) => props.tablet ? Dimensions.get('window').width / 1.9 : Dimensions.get('window').width - 90};
 `;
 const ColorBar = styled.View`
   border: 1px solid #ccc;
@@ -52,17 +52,28 @@ const SubTitle = styled.Text`
 `;
 
 class General extends React.Component {
+  constructor(props){
+    super(props);
+    this.state={
+       tablet: false,
+    }
+  }
+  componentWillMount() {
+    if(Dimensions.get('window').width >568) {
+      this.setState({tablet: true},() =>console.log("will mount" , this.state.tablet))
+    }
+    console.log("will mount out" , this.state.tablet);
+  }
 	render() {
 		return(
 			<ScrollView 
         showsVerticalScrollIndicator={false}
       >
-        <ImageView>
+        <ImageView tablet={this.state.tablet}>
           <StyleImage
-
+            tablet={this.state.tablet}
             resizeMode={"center"}
             source={require('../../img/shirt-static.png')}
-
           />
         </ImageView>
         <ColorBar>
