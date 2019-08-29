@@ -1,17 +1,18 @@
 import React from 'react';
-import {View, Text, Image, TextInput, TouchableOpacity, TouchableHighlight, BackHandler } from 'react-native';
+import {View, Text, Image, TextInput, TouchableOpacity, TouchableHighlight, BackHandler, ToastAndroid } from 'react-native';
 import CompanyList from './companyList';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { withRouter } from 'react-router';
 
 
-
+let exitFlag= false;
 class Login extends React.Component {
   constructor(props) {
     super(props);
     this.state={
       text: '',
       password: '',
+      exit: false,
     }
   }
 
@@ -20,7 +21,19 @@ class Login extends React.Component {
   }
   handleBackButtonClick() {
     // console.log("exit app");
-    return BackHandler.exitApp();
+    
+    console.log("exit state", exitFlag);
+    if(exitFlag == true) {
+      exitFlag = false;
+      return BackHandler.exitApp();
+    } else { 
+      ToastAndroid.show('press back again to exit', ToastAndroid.SHORT);
+      exitFlag = true;
+
+    };
+    
+    
+    
   }
   componentWillUnmount() {
     BackHandler.removeEventListener('hardwareBackPress', this.handleBackButtonClick);
