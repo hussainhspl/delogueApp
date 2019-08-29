@@ -119,7 +119,7 @@ class CompanyList extends React.Component {
     if(Dimensions.get('window').width >568) {
       this.setState({tablet: true},() =>console.log("will mount" , this.state.tablet))
     }
-    console.log("will mount out" , this.state.tablet);
+    // console.log("will mount out" , this.state.tablet);
     BackHandler.addEventListener('hardwareBackPress', this.handleBackButtonClick);
   }
   handleBackButtonClick() {
@@ -139,7 +139,7 @@ class CompanyList extends React.Component {
   render(){
     const { container, item, itemInvisible, itemText,} = styles;
     const history= this.props.history;
-    console.log("dimension",this.state.tablet);
+    // console.log("dimension",this.state.tablet);
     // const tablet = this.state.tablet;
     return(
       

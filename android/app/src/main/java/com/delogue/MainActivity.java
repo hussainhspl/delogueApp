@@ -1,6 +1,7 @@
 package com.delogue;
-
+import android.os.Bundle; // <- add necessary import 
 import com.facebook.react.ReactActivity;
+import com.zoontek.rnbootsplash.RNBootSplash; // <- add necessary import
 
 public class MainActivity extends ReactActivity {
 
@@ -11,5 +12,10 @@ public class MainActivity extends ReactActivity {
     @Override
     protected String getMainComponentName() {
         return "delogue";
+    }
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        RNBootSplash.show(R.drawable.bootsplash, MainActivity.this); // <- display the "bootsplash" xml view over our MainActivity 
     }
 }

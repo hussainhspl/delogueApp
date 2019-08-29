@@ -62,7 +62,7 @@ class General extends React.Component {
     if(Dimensions.get('window').width >568) {
       this.setState({tablet: true},() =>console.log("will mount" , this.state.tablet))
     }
-    console.log("will mount out" , this.state.tablet);
+    // console.log("will mount out" , this.state.tablet);
   }
 	render() {
 		return(

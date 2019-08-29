@@ -92,14 +92,14 @@ class Sample extends React.Component {
     }
   }
   saveChanges () {
-    console.log("parent function called", this.state.sampleRequest);
+    // console.log("parent function called", this.state.sampleRequest);
     this.setState({
       sampleRequest: false,
     })
   }
   render() {
     const history = this.props.history;
-    console.log("sample req state ", this.state.sampleRequest);
+    // console.log("sample req state ", this.state.sampleRequest);
     // console.log("history on sample page:", history);
     return (
       <ScrollView showsVerticalScrollIndicator={false}>

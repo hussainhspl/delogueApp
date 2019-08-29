@@ -13,6 +13,8 @@ import java.util.ArrayList;
 import com.delogue.BuildConfig;
 import com.delogue.R;
 
+// react-native-bootsplash
+import com.zoontek.rnbootsplash.RNBootSplashPackage;
 // react-native-camera
 import org.reactnative.camera.RNCameraPackage;
 // react-native-vector-icons
@@ -50,6 +52,7 @@ public class PackageList {
   public ArrayList<ReactPackage> getPackages() {
     return new ArrayList<>(Arrays.<ReactPackage>asList(
       new MainReactPackage(),
+      new RNBootSplashPackage(),
       new RNCameraPackage(),
       new VectorIconsPackage()
     ));

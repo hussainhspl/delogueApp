@@ -6,7 +6,7 @@
  * @flow
  */
 
-import React, {Fragment} from 'react';
+import React, {Fragment, useEffect} from 'react';
 import {
   SafeAreaView,
   StyleSheet,
@@ -24,6 +24,8 @@ import {
 //   ReloadInstructions,
 // } from 'react-native/Libraries/NewAppScreen';
 import { NativeRouter, Switch, Route } from 'react-router-native';
+
+import RNBootSplash from "react-native-bootsplash";
 
 import Login from './src/login';
 import CompanyList from './src/companyList';
@@ -51,7 +53,15 @@ import SampleComponent from './src/style/sampleComponent';
 const store = configStore();
 
 const App = () => {
- 
+  let init = async () => {
+    // …do multiple async tasks
+  };
+  useEffect(() => {
+    init().finally(() => {
+      // without fadeout: RNBootSplash.hide()
+      RNBootSplash.hide({ duration: 250 });
+    });
+  }, []);
   return (
     <Provider store={ store }>
     <NativeRouter>
