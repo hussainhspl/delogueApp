@@ -1,3 +1,4 @@
+
 /**
  * Sample React Native App
  * https://github.com/facebook/react-native
@@ -24,7 +25,6 @@ import {
 //   ReloadInstructions,
 // } from 'react-native/Libraries/NewAppScreen';
 import { NativeRouter, Switch, Route } from 'react-router-native';
-
 import RNBootSplash from "react-native-bootsplash";
 
 import Login from './src/login';
@@ -49,6 +49,9 @@ import { Provider } from 'react-redux';
 import Files from './src/style/Files';
 import SampleComponent from './src/style/sampleComponent';
 
+import { ThemeProvider } from 'styled-components/native';
+import Theme from './data/theme';
+
 
 const store = configStore();
 
@@ -65,6 +68,7 @@ const App = () => {
   return (
     <Provider store={ store }>
     <NativeRouter>
+    <ThemeProvider theme={Theme}>
     <Fragment>
       <StatusBar barStyle="dark-content" />
       <SafeAreaView />
@@ -83,6 +87,7 @@ const App = () => {
         </View>
       <SafeAreaView/>
     </Fragment>
+    </ThemeProvider>
     </NativeRouter>
     </Provider>
   );

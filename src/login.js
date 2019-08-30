@@ -3,6 +3,24 @@ import {View, Text, Image, TextInput, TouchableOpacity, TouchableHighlight, Back
 import CompanyList from './companyList';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { withRouter } from 'react-router';
+import styled from 'styled-components';
+
+const Label = styled.Text`
+  color: white;
+  text-transform : capitalize;
+  margin-bottom: 10px;
+  margin-top: 30px;
+`;
+const Logo = styled.Image`
+   width: 100%;
+`;
+const Container = styled.View`
+  background-color: ${props =>props.theme.primaryColor};
+  flex: 1;
+  align-items: center;
+`;
+
+
 
 
 let exitFlag= false;
@@ -31,9 +49,6 @@ class Login extends React.Component {
       exitFlag = true;
 
     };
-    
-    
-    
   }
   componentWillUnmount() {
     BackHandler.removeEventListener('hardwareBackPress', this.handleBackButtonClick);
@@ -46,20 +61,20 @@ class Login extends React.Component {
     console.disableYellowBox = true;
     // console.log('login history', history);
     return(
-      <View style={container}>
+      <Container>
       <KeyboardAwareScrollView showsVerticalScrollIndicator={false}>
-      <View style={container}>
+      <Container>
         <View style={logoView}>
-          <Image style={logo} source={require('../img/logo-login.png')} />
+          <Logo source={require('../img/logo-login.png')} />
         </View>
         <View>
-          <Text style={label}> user name </Text>
+          <Label> user name </Label>
           <TextInput
             style={input}
             onChangeText={(text) => this.setState({text})}
             value={this.state.text}   
           />
-          <Text style={label}> password </Text>
+          <Label> password </Label>
           <TextInput
             style={input}
             secureTextEntry={true}
@@ -67,9 +82,9 @@ class Login extends React.Component {
             value={this.state.password}   
           />
         </View>
-        <Text style={label}>
+        <Label>
           forgot password?
-        </Text>
+        </Label>
 
         {/* <TouchableOpacity style={loginButton}>
           <Text style={loginText}>log in </Text>
@@ -78,33 +93,22 @@ class Login extends React.Component {
           <Text style={loginText}>log in </Text>
         </TouchableHighlight>
 
-      </View>
+      </Container>
       </KeyboardAwareScrollView>
-      </View>
+      </Container>
     )
   }
 }
 const styles = {
-  container: {
-    backgroundColor: '#818181',
-    flex: 1,
-    alignItems: 'center',
-  },
+  
   logoView: {
     // height: 80, 
     marginTop: 70,
     marginBottom: 50,
     width: 235,
   },
-  logo: {
-    width: '100%'
-  },
-  label: {
-    color: 'white',
-    textTransform : 'capitalize',
-    marginBottom: 10,
-    marginTop: 30
-  },
+ 
+  
   input: {
     height: 40, 
     width: 200, 
