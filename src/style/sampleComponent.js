@@ -14,8 +14,8 @@ import DateTimePicker from "react-native-modal-datetime-picker";
 const MainBox = styled.View`
   border: 1px solid #ddd;
   border-radius: 5px;
-  width: ${Dimensions.get("window").width / 2 - 10};
-  height: ${Dimensions.get("window").width / 2 + 80};
+  width: ${(props) => props.tablet ? Dimensions.get('window').width / 3 -10 : Dimensions.get("window").width / 2 - 10};
+  height: ${(props) => props.tablet ? Dimensions.get('window').width / 3 +40 : Dimensions.get("window").width / 2 + 80};
   margin: 5px;
 `;
 const TitleRow = styled.View`
@@ -92,7 +92,13 @@ class sampleComponent extends React.Component {
       etdText: '',
       sentText: '',
       receivedText: '',
+      tablet: '',
     };
+  }
+  componentWillMount() {
+    if(Dimensions.get('window').width >568) {
+      this.setState({tablet: true},() =>console.log("will mount" , this.state.tablet))
+    }
   }
   showDateTimePicker = (value) => {
     // console.log("value", value);
@@ -126,7 +132,7 @@ class sampleComponent extends React.Component {
   render() {
     // console.log("state",this.state.isDeadlineDateTimePickerVisible )
     return (
-      <MainBox>
+      <MainBox tablet={this.state.tablet}>
         <TitleRow>
           <Text> 1st proto sample </Text>
           <StatusDot style={{ backgroundColor: "#964F4C" }} />

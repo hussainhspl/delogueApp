@@ -7,7 +7,7 @@ const colorArray = [
 ]
 
 const ImageView = styled.View`
-  width: ${(props) => props.tablet ? Dimensions.get('window').width / 1.8 : Dimensions.get('window').width -70};
+  width: ${(props) => props.tablet ? Dimensions.get('window').width / 2 : Dimensions.get('window').width -70};
   height: ${(props) => props.tablet ? Dimensions.get('window').width /1.8: Dimensions.get('window').width - 70};
   justify-content: center;
   align-items: center;
@@ -15,7 +15,7 @@ const ImageView = styled.View`
   margin : 20px auto;
 `;
 const StyleImage = styled.Image`
-  width: ${(props) => props.tablet ? Dimensions.get('window').width /1.9 : Dimensions.get('window').width -120};
+  width: ${(props) => props.tablet ? Dimensions.get('window').width /2.1 : Dimensions.get('window').width -120};
   height: ${(props) => props.tablet ? Dimensions.get('window').width / 1.9 : Dimensions.get('window').width - 90};
 `;
 const ColorBar = styled.View`

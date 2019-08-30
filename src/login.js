@@ -120,7 +120,7 @@ const styles = {
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 4,
-    marginTop: 20
+    marginVertical: 20
 
   },
   loginText: {

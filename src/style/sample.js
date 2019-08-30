@@ -6,7 +6,7 @@ import SampleComponent from "./sampleComponent";
 import NewSampleRequest from './NewSampleRequest';
 import SampleRequest from './SampleRequest';
 // import console = require("console");
-
+const  sampleArr= [{key: 1}, {key: 2}, {key: 3}]
 const StyleDescriptionRow = styled.View`
   padding: 5px;
   flex-direction: row;
@@ -152,16 +152,17 @@ class Sample extends React.Component {
               </CommentedButton>
             </ButtonRow>
             <SampleRow>
-          <TouchableOpacity onPress={() => {
-            // history.push("/sampleRequest")
-            this.setState({sampleRequest: true})
-          }}>
-            <SampleComponent />
-          </TouchableOpacity>
-            {/* //open sample request on click */}
-          
-          <SampleComponent />
-          <SampleComponent />
+            {
+              sampleArr.map( data => {
+                return(
+                  <TouchableOpacity key={data.key} onPress={() => {
+                    this.setState({sampleRequest: true})
+                  }}>
+                    <SampleComponent />
+                  </TouchableOpacity>
+                )
+              })
+            }
           <NewSampleRequest history={this.props.history} />
 
         </SampleRow >

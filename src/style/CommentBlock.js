@@ -3,6 +3,9 @@ import {View, Text, Dimensions } from 'react-native';
 import styled from 'styled-components';
 import {Icon} from 'native-base';
 
+const imgArr = [
+	{key: 1}, {key: 2}, {key: 3},
+]
 const CommentBox = styled.View`
 	border: 1px solid #ddd;
 	padding: 15px;
@@ -62,15 +65,19 @@ const ImageRow = styled.View`
 	margin-bottom: 15px;
 `;
 const ImageView = styled.View`
-	width: ${Dimensions.get('window').width/ 3 -35};
-	padding: 10px;
-	height: ${Dimensions.get('window').width/ 3 + 50};
 	border: 1px solid #ddd;
-	margin: 5px;
+	margin: auto;
+	width: ${Dimensions.get('window').width/ 3 -35};
+	height: ${Dimensions.get('window').width/ 3 -20 };
+`;
+const MainBlock = styled.View`
+	width: ${Dimensions.get('window').width/ 3 -30};
+	height: ${Dimensions.get('window').width/ 3 };
 `;
 const StyleImage = styled.Image`
 		max-height: ${Dimensions.get('window').width/ 3 + 30};
-		max-width: ${Dimensions.get('window').width/ 3 - 60};
+		max-width: ${Dimensions.get('window').width/ 3 - 45};
+		margin: auto;
 `;
 
 const ImageName = styled.Text`
@@ -107,25 +114,22 @@ class CommentBlock extends React.Component {
 					Laboris consectetur id tempor do nostrud enim laboris exercitation exercitation ad. Deserunt incididunt tempor sit cillum veniam officia eu esse laboris quis aliqua ex cupidatat eu. Ad et tempor proident velit et nulla Lorem. Mollit ut magna aliqua ex mollit aute in Lorem. Voluptate esse ut exercitation deserunt excepteur eu. Id laborum culpa pariatur anim dolor ipsum ullamco exercitation.
 				</MessageBody>
 				<ImageRow>
-					<ImageView>
-						<StyleImage
-							resizeMode={"center"}
-							source={require('../../img/shirt-static.png')}
-						/>
-					</ImageView>
-					<ImageView>
-						<StyleImage
-							resizeMode={"center"}
-							source={require('../../img/shirt-static.png')}
-						/>
-					</ImageView>
-					<ImageView>
-						<StyleImage
-							resizeMode={"center"}
-							source={require('../../img/shirt-static.png')}
-						/>
-						<ImageName> sample.jpg </ImageName>
-					</ImageView>
+					{
+						imgArr.map(data => {
+							return(
+								<MainBlock>
+									<ImageView>
+										<StyleImage
+											resizeMode={"center"}
+											source={require('../../img/shirt-static.png')}
+										/>
+									</ImageView>
+									<ImageName numberOfLines={1} > sample.jpg </ImageName>
+								</MainBlock>
+							)
+
+						})
+					}
 				</ImageRow>
 			</CommentBox>
 		)

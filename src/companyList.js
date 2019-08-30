@@ -74,8 +74,8 @@ const CList = [
 ];
 
 const GridImage = styled.Image`
-  width: ${(props) => props.tablet ? Dimensions.get('window').width / 3- 50: Dimensions.get('window').width / 2- 50};
-  height: ${(props) => props.tablet ? Dimensions.get('window').width / 3 -45: Dimensions.get('window').width / 2 -30};
+  width: ${(props) => props.tablet ? Dimensions.get('window').width / 3- 60: Dimensions.get('window').width / 2- 50};
+  height: ${(props) => props.tablet ? Dimensions.get('window').width / 3 -30: Dimensions.get('window').width / 2 -30};
   margin: auto;
 `;
 

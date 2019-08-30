@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Fragment} from 'react';
 import {View, Text, TouchableHighlight, Alert, Dimensions, TouchableOpacity} from 'react-native';
 import styled from 'styled-components';
 import CommonModal from '../shared/CommonModal';
@@ -27,7 +27,7 @@ const ImageDetails = styled.View`
   margin: 20px 10px 20px 10px;
 `;
 const StyleImage = styled.Image`
-  max-height: 180px;
+  max-height: ${Dimensions.get('window').width/ 3};
   width: ${Dimensions.get('window').width/ 3-20};
 `;
 const StyleInfo = styled.View`
@@ -55,14 +55,12 @@ const ContentTitle = styled.Text`
   text-transform: uppercase;
   color: #8c8076;
   font-size: 12px;
-  margin-left: 15px;
+  padding-bottom: 5px;
 `;
 const StyledView = styled.View`
 	border: 1px solid #ddd;
 	height: 30px;
-	margin-top: 5px;
 	flex: 1;
-  margin: 5px 15px 10px 15px;
 `;
 const StyledPicker = styled(Picker)`
 	height: 30px;
@@ -71,7 +69,7 @@ const StyledPicker = styled(Picker)`
 
 const DateRow = styled.View`
   flex-direction: row;
-  margin: 0px 15px;
+  /* margin: 0px 15px; */
   align-items: center;
 `;
 const DateInput = styled.TextInput`
@@ -79,7 +77,6 @@ const DateInput = styled.TextInput`
   height: 30px;
   padding: 3px 6px;
   font-size: 14px;
-  margin: 5px 15px 10px 0px;
   flex: 1;
 `;
 
@@ -132,15 +129,25 @@ const CameraView = styled.View`
 `;
 const AddView = styled.View`
   border: 1px solid #ddd;
-  padding: 15px;
-  width: ${Dimensions.get("window").width / 2 - 10};
+  width: ${(props) => props.tablet ? Dimensions.get('window').width / 3-10 : Dimensions.get("window").width / 2 - 10};
   margin: 5px;
-  border-radius: 5px;
+  border-radius: 5px;  
+`;
+const AddInnerView = styled.View`
   flex-direction: row;
-  /* justify-content: center; */
   align-items: center;
-  /* flex: 1;
-  flex-wrap: wrap; */
+  padding: 15px;
+`;
+const MainContent = styled.View`
+  flex-direction: row;
+  flex-wrap: wrap;
+  flex: 1;
+`;
+const ContentBlock = styled.View`
+  flex-basis: ${(props) => props.tablet ? Dimensions.get('window').width / 2 : Dimensions.get('window').width};
+  padding: 15px;
+
+  /* background-color: #ccc; */
 `;
 class NewSampleRequest extends React.Component{
   constructor(props) {
@@ -150,6 +157,7 @@ class NewSampleRequest extends React.Component{
       textArea: '',
       isDeadlineDateTimePickerVisible: false,
       isEtdDateTimePickerVisible: false,
+      tablet: false,
     }
   }
   setModalVisible(visible) {
@@ -190,26 +198,33 @@ redirectTo =(history) => {
   // console.log('enter in  redirect function');
   history.push("/notificationModal")
 }
+componentWillMount() {
+  if(Dimensions.get('window').width >568) {
+    this.setState({tablet: true},() =>console.log("will mount" , this.state.tablet))
+  }
+}
   render(){
     const history= this.props.history;
     // console.log("camera on ",this.state.cameraOn);
     // console.log("calender etd ", this.state.isEtdDateTimePickerVisible);
     return(
       <View>
-        <TouchableHighlight
-          underlayColor='rgba(221, 221, 221, 0.4)'
-					onPress={() => {
-						this.setModalVisible(!this.state.modalVisible);
-					}}>
-            <AddView>
-              <View>
-                <Icon style={{fontSize: 30, marginRight: 10}} name="add" /> 
-              </View>
-              <View style={{flexDirection: 'row', flex: 1}}>
-						    <Text style={{flexWrap: 'wrap', flex: 1, marginRight: 5, }}>Add new sample request </Text>
-              </View>
-            </AddView>
-				</TouchableHighlight>
+        <AddView tablet={this.state.tablet}>
+          <TouchableHighlight
+            underlayColor='rgba(221, 221, 221, 0.4)'
+            onPress={() => {
+              this.setModalVisible(!this.state.modalVisible);
+            }}>
+              <AddInnerView>
+                <View>
+                  <Icon style={{fontSize: 30, marginRight: 10}} name="add" /> 
+                </View>
+                <View style={{flexDirection: 'row', flex: 1}}>
+                  <Text style={{flexWrap: 'wrap', flex: 1, marginRight: 5, }}>Add new sample request </Text>
+                </View>
+              </AddInnerView>
+				  </TouchableHighlight>
+        </AddView>
         <CommonModal    
 					title='Requested Quantity'
 					modalVisible={this.state.modalVisible}
@@ -220,10 +235,10 @@ redirectTo =(history) => {
 				>
           <SampleRequestRow>
             <ImageView>
-            <StyleImage
-              resizeMode={"center"}
-              source={require('../../img/shirt-static.png')}
-            />
+              <StyleImage
+                resizeMode={"center"}
+                source={require('../../img/shirt-static.png')}
+              />
             </ImageView>
             <ImageDetails>
               <StyleInfo>
@@ -248,109 +263,127 @@ redirectTo =(history) => {
               </StyleInfo>
             </ImageDetails>
           </SampleRequestRow>
-          <ContentTitle> status </ContentTitle>
-          <StyledView>
-            <StyledPicker
-              mode="dropdown"
-              iosIcon={<Icon name="arrow-down" />}
-              style={{ width: undefined }}
-              placeholder="select status"
-              placeholderStyle={{ color: "#bfc6ea" }}
-              placeholderIconColor="#007aff"
-              selectedValue={this.state.selected2}
-              onValueChange={this.onValueChange2.bind(this)}
-            >
-              <Picker.Item label="Requested" value="key0" />
-              <Picker.Item label="Sent" value="key1" />
-            </StyledPicker>
-          </StyledView>
-          <ContentTitle> sample type </ContentTitle>
-          <StyledView>
-            <StyledPicker
-              mode="dropdown"
-              iosIcon={<Icon name="arrow-down" />}
-              style={{ width: undefined }}
-              placeholder="select status"
-              placeholderStyle={{ color: "#bfc6ea" }}
-              placeholderIconColor="#007aff"
-              selectedValue={this.state.selected2}
-              onValueChange={this.onValueChange2.bind(this)}
-            >
-              <Picker.Item label="Requested" value="key0" />
-              <Picker.Item label="Sent" value="key1" />
-            </StyledPicker>
-          </StyledView>
-          <ContentTitle> deadline for sample </ContentTitle>
-          <DateRow>
-            <DateInput
-              onChangeText={text => this.setState({ text })}
-              value={this.state.text}
-              placeholder="dd-mm-yy"
-            />
-            <TouchableOpacity onPress={() => this.showDateTimePicker('deadline')}>
-              <Icon
-                style={{ color: "#8C8076", fontSize: 30 }}
-                name="calendar"
-              />
-            </TouchableOpacity>
-            <DateTimePicker
-              isVisible={this.state.isDeadlineDateTimePickerVisible}
-              onConfirm={(date) => this.handleDatePicked(date, 'deadline')}
-              onCancel={() => this.hideDateTimePicker('deadline')}
-            />
-          </DateRow>
-          <ContentTitle> ETD </ContentTitle>
-          <DateRow>
-            <DateInput
-              onChangeText={text => this.setState({ text })}
-              value={this.state.text}
-              placeholder="dd-mm-yy"
-            />
-            <TouchableOpacity onPress={() =>this.showDateTimePicker('etd')}>
-              <Icon
-                style={{ color: "#8C8076", fontSize: 30 }}
-                name="calendar"
-              />
-            </TouchableOpacity>
-            <DateTimePicker
-              isVisible={this.state.isEtdDateTimePickerVisible}
-              onConfirm={(date) => this.handleDatePicked(date, 'etd')}
-              onCancel={() => this.hideDateTimePicker('etd')}
-            />
-          </DateRow>
-          <ContentTitle> Tracking Number </ContentTitle>
-          <DateRow>
-            <DateInput
-              onChangeText={text => this.setState({ text })}
-              value={this.state.text}
-              placeholder="dd-mm-yy"
-            />
-          </DateRow>
-          <ContentTitle> Location </ContentTitle>
-          <StyledView>
-            <StyledPicker
-              mode="dropdown"
-              iosIcon={<Icon name="arrow-down" />}
-              style={{ width: undefined }}
-              placeholder="select status"
-              placeholderStyle={{ color: "#bfc6ea" }}
-              placeholderIconColor="#007aff"
-              selectedValue={this.state.selected2}
-              onValueChange={this.onValueChange2.bind(this)}
-            >
-              <Picker.Item label="Requested" value="key0" />
-              <Picker.Item label="Sent" value="key1" />
-            </StyledPicker>
-          </StyledView> 
-          <ContentTitle> Address </ContentTitle>
-          <Text style={{paddingLeft: 15}}> headfitted solutions pune</Text>
+          <MainContent>
+            <ContentBlock tablet={this.state.tablet}>
+              <ContentTitle> status </ContentTitle>
+              <StyledView>
+                <StyledPicker
+                  mode="dropdown"
+                  iosIcon={<Icon name="arrow-down" />}
+                  style={{ width: undefined }}
+                  placeholder="select status"
+                  placeholderStyle={{ color: "#bfc6ea" }}
+                  placeholderIconColor="#007aff"
+                  selectedValue={this.state.selected2}
+                  onValueChange={this.onValueChange2.bind(this)}
+                >
+                  <Picker.Item label="Requested" value="key0" />
+                  <Picker.Item label="Sent" value="key1" />
+                </StyledPicker>
+              </StyledView>
+            </ContentBlock>
+            <ContentBlock tablet={this.state.tablet}>
+              <ContentTitle> sample type </ContentTitle>
+              <StyledView>
+                <StyledPicker
+                  mode="dropdown"
+                  iosIcon={<Icon name="arrow-down" />}
+                  style={{ width: undefined }}
+                  placeholder="select status"
+                  placeholderStyle={{ color: "#bfc6ea" }}
+                  placeholderIconColor="#007aff"
+                  selectedValue={this.state.selected2}
+                  onValueChange={this.onValueChange2.bind(this)}
+                >
+                  <Picker.Item label="Requested" value="key0" />
+                  <Picker.Item label="Sent" value="key1" />
+                </StyledPicker>
+              </StyledView>
+            </ContentBlock>
+            <ContentBlock tablet={this.state.tablet}>
+              <ContentTitle> deadline for sample </ContentTitle>
+              <DateRow>
+                <DateInput
+                  onChangeText={text => this.setState({ text })}
+                  value={this.state.text}
+                  placeholder="dd-mm-yy"
+                />
+                <View>
+                  <TouchableOpacity onPress={() => this.showDateTimePicker('deadline')}>
+                    <Icon
+                      style={{ color: "#8C8076", fontSize: 20, paddingLeft: 10, paddingVertical: 5}}
+                      name="calendar"
+                    />
+                  </TouchableOpacity>
+                </View>
+                <DateTimePicker
+                  isVisible={this.state.isDeadlineDateTimePickerVisible}
+                  onConfirm={(date) => this.handleDatePicked(date, 'deadline')}
+                  onCancel={() => this.hideDateTimePicker('deadline')}
+                />
+              </DateRow>
+            </ContentBlock>
+            <ContentBlock tablet={this.state.tablet}>       
+              <ContentTitle> ETD </ContentTitle>
+              <DateRow>
+                <DateInput
+                  onChangeText={text => this.setState({ text })}
+                  value={this.state.text}
+                  placeholder="dd-mm-yy"
+                />
+                <TouchableOpacity onPress={() =>this.showDateTimePicker('etd')}>
+                  <Icon
+                    style={{ color: "#8C8076", fontSize: 20, paddingLeft: 10, paddingVertical: 5}}
+                    name="calendar"
+                  />
+                </TouchableOpacity>
+                <DateTimePicker
+                  isVisible={this.state.isEtdDateTimePickerVisible}
+                  onConfirm={(date) => this.handleDatePicked(date, 'etd')}
+                  onCancel={() => this.hideDateTimePicker('etd')}
+                />
+              </DateRow>
+            </ContentBlock>
+            <ContentBlock tablet={this.state.tablet}>
+              <ContentTitle> Tracking Number </ContentTitle>
+              <DateRow>
+                <DateInput
+                  onChangeText={text => this.setState({ text })}
+                  value={this.state.text}
+                  placeholder="Enter number"
+                />
+              </DateRow>
+            </ContentBlock>
+            <ContentBlock tablet={this.state.tablet}>
+              <ContentTitle> Location </ContentTitle>
+              <StyledView>
+                <StyledPicker
+                  mode="dropdown"
+                  iosIcon={<Icon name="arrow-down" />}
+                  style={{ width: undefined }}
+                  placeholder="select status"
+                  placeholderStyle={{ color: "#bfc6ea" }}
+                  placeholderIconColor="#007aff"
+                  selectedValue={this.state.selected2}
+                  onValueChange={this.onValueChange2.bind(this)}
+                >
+                  <Picker.Item label="Requested" value="key0" />
+                  <Picker.Item label="Sent" value="key1" />
+                </StyledPicker>
+              </StyledView> 
+            </ContentBlock>
+            <ContentBlock tablet={this.state.tablet}>
+              <ContentTitle> Address </ContentTitle>
+              <Text> headfitted solutions pune</Text>
+            </ContentBlock>
+          </MainContent>
           <CommentedButton small>
             <IconView>
               <Icon style={{ color: "#fff", fontSize: 15 }} name="tablet-portrait" />
             </IconView>
             <ButtonText> use template </ButtonText>
           </CommentedButton>
-          <ContentTitle> Comment </ContentTitle>
+          <ContentTitle style={{paddingLeft: 15}}> Comment </ContentTitle>
           <TextArea
 						multiline={true}
 						numberOfLines={4}

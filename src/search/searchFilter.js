@@ -86,8 +86,6 @@ class searchFilter extends Component {
             <View style={{flex: 1}}>
 
           <KeyboardAwareScrollView>
-              
-              
               <View style={resetBar}>
                 <Button small style={{backgroundColor: '#C2BEB6'}}><Text style={grayButtonText}>reset</Text></Button>
               </View>
@@ -123,7 +121,7 @@ class searchFilter extends Component {
                   {
                     filteredSeason.map(item => {
                       return(
-                        <View style={styleItem} key={item.name}><Text style={itemName}>{item.name}</Text></View>
+                        <View style={styleItem} key={item.name}><Text style={itemName}>{item.name} </Text></View>
                       )
                     })
                   }
