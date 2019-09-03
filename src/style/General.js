@@ -40,8 +40,9 @@ const Title = styled.Text`
   text-align: right;
   color: #9b9b9b;
   text-transform: uppercase;
-  font-weight: 600;
+  /* font-weight: 600; */
   padding-right: 5px;
+  font-family: ${ props => props.theme.bold};
 `;
 const SubTitle = styled.Text`
   text-align: left;
@@ -49,6 +50,7 @@ const SubTitle = styled.Text`
   color: #4a4a4a;
   padding-left: 5;
   text-transform : capitalize;
+  font-family: ${ props => props.theme.regular};
 `;
 
 class General extends React.Component {
@@ -73,7 +75,7 @@ class General extends React.Component {
           <StyleImage
             tablet={this.state.tablet}
             resizeMode={"center"}
-            source={require('../../img/shirt-static.png')}
+            source={require('../../assets/img/shirt-static.png')}
           />
         </ImageView>
         <ColorBar>

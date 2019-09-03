@@ -42,6 +42,8 @@ const ContentTitle = styled.Text`
   text-transform: uppercase;
   color: #8c8076;
   font-size: 12px;
+  font-family: ${ props => props.theme.regular};
+
 `;
 const DateRow = styled.View`
   flex-direction: row;
@@ -53,6 +55,8 @@ const DateInput = styled.TextInput`
   padding: 3px 6px;
   font-size: 13px;
   margin-right: 5px;
+  font-family: ${ props => props.theme.regular};
+
 `;
 const CardInfo = styled.View`
   flex-direction: row;
@@ -64,14 +68,18 @@ const CardTittle = styled.Text`
   font-weight: 700;
   font-size: 13px;
   color: #4a4a4a;
+  font-family: ${ props => props.theme.regular};
+
 `;
 const Pieces = styled.Text`
   background-color: #c2beb6;
-  width: 40px;
+  /* width: 40px; */
+  padding: 0px 5px;
   height: 20px;
   color: white;
   font-size: 13px;
   margin: 7px;
+  font-family: ${ props => props.theme.regular};
 `;
 const MessageRow = styled.View`
   flex-direction: row;
@@ -141,7 +149,7 @@ class sampleComponent extends React.Component {
           <MessageRow>
             <Image
               resizeMode={"cover"}
-              source={require("../../img/sample/receivedblack.png")}
+              source={require("../../assets/img/sample/receivedblack.png")}
             />
             <CardTittle>sent</CardTittle>
           </MessageRow>

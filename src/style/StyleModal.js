@@ -85,7 +85,7 @@ class StyleModal extends React.Component {
         <ImageBox>
           <StyleImage
             resizeMode={"contain"}
-            source={require("../../img/shirt-static.png")}
+            source={require("../../assets/img/shirt-static.png")}
           />
         </ImageBox>
         {/* {this.props.hideButton ? null : ( */}

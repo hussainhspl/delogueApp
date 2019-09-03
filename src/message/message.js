@@ -99,14 +99,14 @@ class Message extends React.Component {
 						<Image 
 							
 							style={{width: 30, height: 20}}
-							source={require('../../img/messageblack.png')}
+							source={require('../../assets/img/messageblack.png')}
 						/>
 					</IconBox>
 					<IconBox onPress={() => this.setState({currentView: 'chat'})}>
 						<Image 
 							
 							style={{width: 30, height: 20}}
-							source={require('../../img/chat.png')}
+							source={require('../../assets/img/chat.png')}
 						/>
 					</IconBox>
 				</IconRow>

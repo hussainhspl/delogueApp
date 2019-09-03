@@ -54,6 +54,10 @@
 		B826FA6BB287446F86F29B15 /* rubicon-icon-font.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0F165A0D5BFB4E0F9B667717 /* rubicon-icon-font.ttf */; };
 		D8358A6C35ED4F1EB476B05F /* SimpleLineIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 67AB4807AF734E70AB052B20 /* SimpleLineIcons.ttf */; };
 		494AED0AACF04429BB4655E0 /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 78F3E92AC43A4ECB95BF6FED /* Zocial.ttf */; };
+		41F8B035D8224D9491AF5802 /* Lato-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6FDB382448E64728936C87CE /* Lato-Black.ttf */; };
+		B6EE9B01353D4C9BA5D00FFA /* Lato-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A19BD2A512CE4757B6160F01 /* Lato-Bold.ttf */; };
+		3B7F573489ED46C1B19CCD38 /* Lato-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CDD5BA5EE7434B39B5C495BA /* Lato-Light.ttf */; };
+		D5F5D01467114B229AAB727B /* Lato-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4A08F0DC7A074F2EAF5FED83 /* Lato-Regular.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -136,6 +140,10 @@
 		0F165A0D5BFB4E0F9B667717 /* rubicon-icon-font.ttf */ = {isa = PBXFileReference; name = "rubicon-icon-font.ttf"; path = "../node_modules/native-base/Fonts/rubicon-icon-font.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		67AB4807AF734E70AB052B20 /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; name = "SimpleLineIcons.ttf"; path = "../node_modules/native-base/Fonts/SimpleLineIcons.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		78F3E92AC43A4ECB95BF6FED /* Zocial.ttf */ = {isa = PBXFileReference; name = "Zocial.ttf"; path = "../node_modules/native-base/Fonts/Zocial.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		6FDB382448E64728936C87CE /* Lato-Black.ttf */ = {isa = PBXFileReference; name = "Lato-Black.ttf"; path = "../assets/fonts/Lato-Black.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		A19BD2A512CE4757B6160F01 /* Lato-Bold.ttf */ = {isa = PBXFileReference; name = "Lato-Bold.ttf"; path = "../assets/fonts/Lato-Bold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		CDD5BA5EE7434B39B5C495BA /* Lato-Light.ttf */ = {isa = PBXFileReference; name = "Lato-Light.ttf"; path = "../assets/fonts/Lato-Light.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		4A08F0DC7A074F2EAF5FED83 /* Lato-Regular.ttf */ = {isa = PBXFileReference; name = "Lato-Regular.ttf"; path = "../assets/fonts/Lato-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -256,6 +264,10 @@
 				0F165A0D5BFB4E0F9B667717 /* rubicon-icon-font.ttf */,
 				67AB4807AF734E70AB052B20 /* SimpleLineIcons.ttf */,
 				78F3E92AC43A4ECB95BF6FED /* Zocial.ttf */,
+				6FDB382448E64728936C87CE /* Lato-Black.ttf */,
+				A19BD2A512CE4757B6160F01 /* Lato-Bold.ttf */,
+				CDD5BA5EE7434B39B5C495BA /* Lato-Light.ttf */,
+				4A08F0DC7A074F2EAF5FED83 /* Lato-Regular.ttf */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -490,6 +502,10 @@
 				B826FA6BB287446F86F29B15 /* rubicon-icon-font.ttf in Resources */,
 				D8358A6C35ED4F1EB476B05F /* SimpleLineIcons.ttf in Resources */,
 				494AED0AACF04429BB4655E0 /* Zocial.ttf in Resources */,
+				41F8B035D8224D9491AF5802 /* Lato-Black.ttf in Resources */,
+				B6EE9B01353D4C9BA5D00FFA /* Lato-Bold.ttf in Resources */,
+				3B7F573489ED46C1B19CCD38 /* Lato-Light.ttf in Resources */,
+				D5F5D01467114B229AAB727B /* Lato-Regular.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

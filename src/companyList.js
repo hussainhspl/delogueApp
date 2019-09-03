@@ -11,63 +11,63 @@ import { Grid, Section, Block } from 'react-native-responsive-layout';
 const CList = [
   { 
     key: 'A',
-    companyName: 'c name',
-    userName: 'user name',
+    companyName: 'c textiles',
+    userName: 'John Doe',
     userType: 'user type',
   },
   { 
     key: 'B',
-    companyName: 'c name',
-    userName: 'user name',
-    userType: 'user type',
+    companyName: 'c textiles',
+    userName: 'John Doe',
+    userType: 'Wholesaler',
   }, 
   { 
     key: 'C',
-    companyName: 'c name',
-    userName: 'user name',
-    userType: 'user type',
+    companyName: 'c textiles',
+    userName: 'John Doe',
+    userType: 'Wholesaler',
   }, 
   { 
     key: 'D',
-    companyName: 'c name',
-    userName: 'user name',
-    userType: 'user type',
+    companyName: 'c textiles',
+    userName: 'John Doe',
+    userType: 'Wholesaler',
   }, 
   { 
     key: 'E',
-    companyName: 'c name',
-    userName: 'user name',
-    userType: 'user type',
+    companyName: 'c textiles',
+    userName: 'John Doe',
+    userType: 'Wholesaler',
   }, 
   { 
     key: 'F',
-    companyName: 'c name',
-    userName: 'user name',
-    userType: 'user type',
+    companyName: 'c textiles',
+    userName: 'John Doe',
+    userType: 'Wholesaler',
   }, 
   { 
     key: 'G',
-    companyName: 'c name',
-    userName: 'user name',
-    userType: 'user type',
+    companyName: 'c textiles',
+    userName: 'John Doe',
+    userType: 'Wholesaler',
   }, 
   { 
     key: 'H',
-    companyName: 'c name',
-    userName: 'user name',
-    userType: 'user type',
+    companyName: 'c textiles',
+    userName: 'John Doe',
+    userType: 'Wholesaler',
   }, 
   { 
     key: 'I',
-    companyName: 'c name',
-    userName: 'user name',
-    userType: 'user type',
+    companyName: 'c textiles',
+    userName: 'John Doe',
+    userType: 'Wholesaler',
   }, 
   { 
     key: 'J',
-    companyName: 'c name',
-    userName: 'user name',
-    userType: 'user type',
+    companyName: 'c textiles',
+    userName: 'John Doe',
+    userType: 'Wholesaler',
   },
   // { key: 'K' },
   // { key: 'L' },
@@ -89,8 +89,22 @@ const Card = styled.View`
   height: ${(props) => props.tablet ? Dimensions.get('window').width / 3 + 30 : Dimensions.get('window').width / 2 + 45};
   margin: 5px;
   background-color: #fff;
-  /* align-items: space-between; */
 `;
+const SubHeader = styled.View`
+  flex-direction: row;
+  flex-grow: 1;
+  align-items: center;
+  justify-content: space-between;
+  padding-left: 10px;
+`;
+
+const HeaderText = styled.Text`
+  font-family: ${props => props.theme.bold};
+`;
+const CardText = styled.Text`
+  font-family: ${props => props.theme.regular};
+`;
+
 const formatData = (data, numColumns) => {
   const numberOfFullRows = Math.floor(data.length / numColumns);
 
@@ -158,8 +172,8 @@ class CompanyList extends React.Component {
         open={this.state.isOpen}
         tapToClose={true}
         >
-          <View style={styles.subHeader}>
-            <Text> Please Select Company </Text>
+          <SubHeader>
+            <HeaderText> Please Select Company </HeaderText>
             <View style={styles.button}>
               <TouchableOpacity
                 onPress={this.toggle}
@@ -167,7 +181,7 @@ class CompanyList extends React.Component {
                 <Icon style={{color: '#000', fontSize: 28, paddingHorizontal: 15, paddingVertical: 10}} name="ios-menu" />
               </TouchableOpacity>
             </View>
-          </View>
+          </SubHeader>
           <View style={{backgroundColor: '#818181'}}>
             <ScrollView>
               <View style={{flexWrap: 'wrap', flexDirection: 'row', padding: 5}}>
@@ -184,13 +198,13 @@ class CompanyList extends React.Component {
                           <GridImage 
                             tablet={this.state.tablet}
                             resizeMode={"center"}
-                            source={require('../img/shirt-static.png')}
+                            source={require('../assets/img/shirt-static.png')}
                           />
                         </ImageView>
                         <View style={styles.cardInfo}>
-                          <Text style={styles.itemText}> {data.companyName} </Text>
-                          <Text style={styles.itemText}> {data.userName} </Text>
-                          <Text style={styles.itemText}> {data.userType} </Text>
+                          <CardText numberOfLines={1} style={styles.itemText}> {data.companyName} </CardText>
+                          <CardText numberOfLines={1} style={styles.itemText}> {data.userName} </CardText>
+                          <CardText numberOfLines={1} style={styles.itemText}> {data.userType} </CardText>
                         </View>
                     </TouchableOpacity>
                       </Card>
@@ -242,17 +256,7 @@ const styles = {
     justifyContent: 'center',
     padding: 5
   },
-  button: {
-    // padding: 10
-  },
-  subHeader: {
-    flexDirection: 'row',
-    fleGrow: 1,
-    marginHorizontal: 'auto',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    paddingLeft: 10
-  }
+
 
 }
 export default withRouter(CompanyList);

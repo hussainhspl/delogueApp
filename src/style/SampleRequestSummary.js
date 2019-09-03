@@ -25,6 +25,7 @@ const SummaryTitle = styled.Text`
 	width: 130px;
 	text-align: right;
 	padding-top: 5px;
+  font-family: ${ props => props.theme.bold};
 `;
 //drop down
 const StyledView = styled.View`

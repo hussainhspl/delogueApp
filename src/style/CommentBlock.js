@@ -43,6 +43,7 @@ const ButtonText = styled.Text`
 	text-transform: uppercase;
 	width: 70;
 	text-align: center;
+  font-family: ${ props => props.theme.regular};
 `;
 const FromRow = styled.View`
 	flex-direction: row;
@@ -54,10 +55,12 @@ const FromRow = styled.View`
 const  HeaderText = styled.Text`
 	color: #9b9b9b;
 	line-height: 29px;
+  font-family: ${ props => props.theme.regular};
 `;
 const MessageBody = styled.Text`
 	padding: 20px 0px;
 	line-height: 20;
+  font-family: ${ props => props.theme.regular};
 `;
 const ImageRow = styled.View`
 	flex-direction: row;
@@ -84,6 +87,7 @@ const ImageName = styled.Text`
 	text-align: center;
 	padding: 10px 0px;
 	font-size: 12px;
+  font-family: ${ props => props.theme.regular};
 `;
 class CommentBlock extends React.Component {
 	render(){
@@ -121,7 +125,7 @@ class CommentBlock extends React.Component {
 									<ImageView>
 										<StyleImage
 											resizeMode={"center"}
-											source={require('../../img/shirt-static.png')}
+											source={require('../../assets/img/shirt-static.png')}
 										/>
 									</ImageView>
 									<ImageName numberOfLines={1} > sample.jpg </ImageName>

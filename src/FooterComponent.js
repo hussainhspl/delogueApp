@@ -13,6 +13,8 @@ import { DebugInstructions } from 'react-native/Libraries/NewAppScreen';
 
 const IconText = styled.Text`
   font-size: 10px;
+  font-family: ${ props => props.theme.regular};
+
 `;
 const StyledFooterTab = styled(FooterTab)`
   background-color: #eee;
@@ -48,7 +50,7 @@ class FooterComponent extends React.Component {
             >
               <Image 
                 resizeMode={"cover"}
-                source={this.props.currentTab === 'general' ? require('../img/footer/style.png') :require('../img/footer/styleblack.png')}
+                source={this.props.currentTab === 'general' ? require('../assets/img/footer/style.png') :require('../assets/img/footer/styleblack.png')}
               />
               <IconText style={{color: this.props.currentTab === 'general' ? '#fff' : '#444'}}>General </IconText>
             </Button>
@@ -59,7 +61,7 @@ class FooterComponent extends React.Component {
             >
               <Image 
                 resizeMode={"cover"}
-                source={this.props.currentTab === 'comments' ? require('../img/footer/message.png') :require('../img/footer/messageblack.png')}
+                source={this.props.currentTab === 'comments' ? require('../assets/img/footer/message.png') :require('../assets/img/footer/messageblack.png')}
               />
               <IconText style={{color: this.props.currentTab === 'comments' ? '#fff' : '#444'}}>Comments</IconText>
             </Button>
@@ -70,7 +72,7 @@ class FooterComponent extends React.Component {
             >
               <Image 
                 resizeMode={"cover"}
-                source={this.props.currentTab === 'files' ? require('../img/footer/files.png') :require('../img/footer/filesblack.png')}
+                source={this.props.currentTab === 'files' ? require('../assets/img/footer/files.png') :require('../assets/img/footer/filesblack.png')}
               />
               <IconText style={{color: this.props.currentTab === 'files' ? '#fff' : '#444'}}>Files</IconText>
             </Button>
@@ -81,7 +83,7 @@ class FooterComponent extends React.Component {
             >
               <Image 
                 resizeMode={"cover"}
-                source={this.props.currentTab === 'sample' ? require('../img/footer/sample.png') :require('../img/footer/sampleblack.png')}
+                source={this.props.currentTab === 'sample' ? require('../assets/img/footer/sample.png') :require('../assets/img/footer/sampleblack.png')}
               />
               <IconText style={{color: this.props.currentTab === 'sample' ? '#fff' : '#444'}}>Sample</IconText>
             </Button>
@@ -92,7 +94,7 @@ class FooterComponent extends React.Component {
             >
               <Image 
                 resizeMode={"cover"}
-                source={this.props.currentTab === 'pdf' ? require('../img/footer/pdf.png') :require('../img/footer/pdfblack.png')}
+                source={this.props.currentTab === 'pdf' ? require('../assets/img/footer/pdf.png') :require('../assets/img/footer/pdfblack.png')}
               />
               <IconText style={{color: this.props.currentTab === 'pdf' ? '#fff' : '#444'}}>PDF</IconText>
             </Button>

@@ -37,6 +37,8 @@ const ViewChart = styled.Text`
 	color: white;
 	text-align: center;
 	padding: 3px 6px;
+  font-family: ${ props => props.theme.regular};
+
 `;
 const HeaderRow = styled(Row)`
 	background-color: #C9C2BB;

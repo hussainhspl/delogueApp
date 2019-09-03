@@ -66,10 +66,14 @@ const Title = styled.Text`
   text-align: right;
   width: ${Dimensions.get("window").width / 5};
   padding-top: 2px;
+  font-family: ${ props => props.theme.bold};
+
 `;
 const SubTitle = styled.Text`
   font-size: 12;
   color: #222;
+  font-family: ${ props => props.theme.regular};
+
 `;
 const StyleFileTitle = styled.View`
   flex-direction: row;
@@ -86,30 +90,10 @@ const CameraView = styled.View`
   background-color: #849d7a;
 `;
 
-const Preview = styled(RNCamera)`
-  flex: 1;
-  justify-content: flex-end;
-  align-items: center;
-`;
-const CameraContainer = styled.View`
-  flex: 1;
-  flex-direction: column;
-  background-color: black;
-`;
-
-const Capture = styled.TouchableOpacity`
-  flex: 0;
-  background-color: #fff;
-  padding: 0px 40px;
-  align-self: center;
-  margin: 20px;
-  width: 80px;
-  height: 80px;
-  border-radius: 50px;
-`;
-
 const Capital = styled.Text`
   text-transform: uppercase;
+  font-family: ${ props => props.theme.regular};
+
 `;
 const Card = styled.TouchableOpacity`
   width: ${Dimensions.get("window").width / 3};
@@ -136,7 +120,11 @@ const ImageInfo = styled.View`
 const ImageRow = styled.View`
   flex-direction: row;
   flex-wrap: wrap;
-  margin-bottom: 15px;
+  margin-bottom: 15px; numberOfLines={1}
+`;
+
+const CardText = styled.Text`
+  font-family: ${ props => props.theme.regular};
 `;
 class Files extends React.Component {
   constructor(props) {
@@ -168,7 +156,7 @@ class Files extends React.Component {
             <ImageBox>
               <Image
                 resizeMode={"contain"}
-                source={require("../../img/styleblack.png")}
+                source={require("../../assets/img/styleblack.png")}
               />
             </ImageBox>
             <Flex>
@@ -203,7 +191,7 @@ class Files extends React.Component {
             </Flex>
           </StyleDescriptionRow>
           <StyleFileTitle>
-            <Capital> style files </Capital>
+            <Capital numberOfLines={1}> style files </Capital>
             <TouchableOpacity onPress={() => this.setState({ cameraFileOn: true })}>
               <CameraView>
                 <Icon style={{ color: "white", fontSize: 20 }} name="camera" />
@@ -229,13 +217,13 @@ class Files extends React.Component {
                       <ImageView>
                         <StyleImage
                           resizeMode={"center"}
-                          source={require("../../img/shirt-static.png")}
+                          source={require("../../assets/img/shirt-static.png")}
                         />
                       </ImageView>
                       <ImageInfo>
-                        <Text>{data.fileName}</Text>
-                        <Text>{data.imgInfo}</Text>
-                        <Text>{data.date}</Text>
+                        <CardText numberOfLines={1}>{data.fileName}</CardText>
+                        <CardText numberOfLines={1}>{data.imgInfo}</CardText>
+                        <CardText numberOfLines={1}>{data.date}</CardText>
                       </ImageInfo>
                     </Card>
                   )
@@ -280,13 +268,13 @@ class Files extends React.Component {
                       <ImageView>
                         <StyleImage
                           resizeMode={"center"}
-                          source={require("../../img/shirt-static.png")}
+                          source={require("../../assets/img/shirt-static.png")}
                         />
                       </ImageView>
                       <ImageInfo>
-                        <Text>{data.fileName}</Text>
-                        <Text>{data.imgInfo}</Text>
-                        <Text>{data.date}</Text>
+                        <CardText numberOfLines={1}>{data.fileName}</CardText>
+                        <CardText numberOfLines={1}>{data.imgInfo}</CardText>
+                        <CardText numberOfLines={1}>{data.date}</CardText>
                       </ImageInfo>
                     </Card>
                   )

@@ -78,10 +78,14 @@ const Title = styled.Text`
   text-align: right;
   width: ${Dimensions.get("window").width / 5};
   padding-top: 2px;
+  font-family: ${ props => props.theme.bold};
+
 `;
 const SubTitle = styled.Text`
   font-size: 12;
   color: #222;
+  font-family: ${ props => props.theme.regular};
+
 `;
 
 const Label = styled.Text`
@@ -91,6 +95,8 @@ const Label = styled.Text`
 	width: 140px;
 	text-align: right;
 	padding-right: 10px;
+  font-family: ${ props => props.theme.regular};
+
 `;
 const ViewChart = styled.Text`
 	background-color: #849D7A;
@@ -99,9 +105,13 @@ const ViewChart = styled.Text`
 	color: white;
 	text-align: center;
 	padding: 3px 6px;
+  font-family: ${ props => props.theme.regular};
+
 `;
 const SizeText = styled.Text`
 	color: #8D8177;
+  font-family: ${ props => props.theme.regular};
+
 `;
 const HeaderRow = styled(Row)`
 	background-color: #C9C2BB;
@@ -127,6 +137,10 @@ const ApplyButtonText = styled.Text`
 	color: #fff;
 	text-transform: uppercase;
 	padding:0px 5px;
+  font-family: ${ props => props.theme.regular};
+`;
+const CancelButtonText = styled.Text`
+  font-family: ${ props => props.theme.regular};
 `;
 
 const FooterButton = styled.View`
@@ -155,7 +169,7 @@ class SampleRequest extends React.Component {
 						<ImageBox>
 							<Image
 								resizeMode={"contain"}
-								source={require("../../img/styleblack.png")}
+								source={require("../../assets/img/styleblack.png")}
 							/>
 						</ImageBox>
 						<Flex>
@@ -296,7 +310,7 @@ class SampleRequest extends React.Component {
 					<ViewRequestedQuantity />
 					<FooterButton>
 						<Button bordered light small danger>
-							<Text style={{color: "#d9534e"}}> CANCEL </Text> 
+							<CancelButtonText style={{color: "#d9534e"}}> CANCEL </CancelButtonText> 
 						</Button>
 						<Button small style={{backgroundColor:"#849D7A", marginLeft: 15}}
 						onPress={() => {this.redirectTo(this.props.apply)}}>

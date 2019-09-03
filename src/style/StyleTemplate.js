@@ -171,7 +171,7 @@ class StyleTemplate extends React.Component {
 										<ImageView>
 											<StyleImage
 												resizeMode={"center"}
-												source={require('../../img/shirt-static.png')}
+												source={require('../../assets/img/shirt-static.png')}
 											/>
 										</ImageView>
 										<ImageInfo>

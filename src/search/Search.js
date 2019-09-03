@@ -42,7 +42,10 @@ const GirdImageView = styled.View`
   height: ${Dimensions.get('window').width / 3+50};
   border: 1px solid #ddd;
   align-self: flex-start;
-  /* background-color: #f00; */
+`;
+
+const CardText = styled.Text`
+  font-family: ${props => props.theme.regular};
 `;
 // flatlist start
 const formatData = (details, numColumns) => {
@@ -121,7 +124,7 @@ class Search extends React.Component {
           <Image 
             resizeMode={"center"}
             style={{maxHeight: Dimensions.get('window').width / numColumns -30, maxWidth: 150}}
-            source={require('../../img/shirt-static.png')}
+            source={require('../../assets/img/shirt-static.png')}
           />
         </View>
         <View style={styles.cardInfo}>
@@ -160,7 +163,7 @@ class Search extends React.Component {
           <TouchableOpacity onPress={this.changeView}>
           <View style={styles.ViewBox}>
             <Image resizeMode={"contain"} 
-              source={this.state.currentView === 'linear' ? require('../../img/squares.png') : require('../../img/lines.png')} 
+              source={this.state.currentView === 'linear' ? require('../../assets/img/squares.png') : require('../../assets/img/lines.png')} 
             /> 
           </View>
           </TouchableOpacity>
@@ -173,7 +176,7 @@ class Search extends React.Component {
               
               <TouchableOpacity onPress={() => {history.push("/style")}} key={data.styleNo} style={styles.touchableRow}>
                 <View style={imageBox}>
-                  <Image resizeMode={"contain"} source={require('../../img/styleblack.png')} /> 
+                  <Image resizeMode={"contain"} source={require('../../assets/img/styleblack.png')} /> 
                 </View>
                 <View style={styles.Flex}>
                   <View style={styles.row}>
@@ -219,11 +222,11 @@ class Search extends React.Component {
                   <TouchableOpacity onPress={() => {history.push("/style")}} key={data.key}>
                     <GridImage 
                       resizeMode={"center"}
-                      source={require('../../img/shirt-static.png')}
+                      source={require('../../assets/img/shirt-static.png')}
                     />
                     <View style={styles.cardInfo}>
-                      <Text style={styles.itemText}> {data.styleName} </Text>
-                      <Text style={styles.itemText}> {data.styleNo} </Text>
+                      <CardText numberOfLines={1}> {data.styleName} </CardText>  
+                      <CardText numberOfLines={1}> {data.styleNo} </CardText>
                     </View>
                     
                   </TouchableOpacity>

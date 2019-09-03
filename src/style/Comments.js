@@ -46,7 +46,7 @@ const Title = styled.Text`
   text-align: right;
   color: #9b9b9b;
   text-transform: uppercase;
-  font-weight: 600;
+  font-family: ${ props => props.theme.bold};
   padding-right: 5px;
   font-size: 13;
 `;
@@ -57,6 +57,7 @@ const SubTitle = styled.Text`
   padding-left: 5;
   text-transform : capitalize;
   font-size: 13;
+  font-family: ${ props => props.theme.regular};
 `;
 
 class Comments extends React.Component {
@@ -75,7 +76,7 @@ class Comments extends React.Component {
           <ImageView>
             <StyleImage
               resizeMode={"center"}
-              source={require('../../img/shirt-static.png')}
+              source={require('../../assets/img/shirt-static.png')}
             />
           </ImageView>
           <ImageDetails>
@@ -101,7 +102,7 @@ class Comments extends React.Component {
             </StyleInfo>
           </ImageDetails>
         </Row>
-        {/* <NewMessage /> */}
+        <NewMessage />
         <CommentBlock />
       </ScrollView>
 

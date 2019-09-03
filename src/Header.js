@@ -8,6 +8,15 @@ import Search from  './search/Search';
 import { connect } from "react-redux";
 import { searchButton, messageButton, styleButton} from './store/actions/index';
 import CompanyList from './companyList';
+import styled from 'styled-components';
+
+const Container = styled.View`
+  flex-direction: row;
+  height: 50px;
+  background-color: #818181;
+  justify-content: space-between;
+  align-items: center;
+`;
 
 class Header extends React.Component {
   constructor(props) {
@@ -45,14 +54,14 @@ class Header extends React.Component {
           open={this.state.isOpen}
           tapToClose={true}
         >
-          <View style={container}>
+          <Container>
             <View style={iconGroup}>
               <View>
                 <TouchableOpacity style={[icon,{backgroundColor: history.location.pathname == '/search' ? '#666': '#818181'}]}
                   // onPress= {() => this.props.searchButtonFunction()}
                   onPress={() => {history.push("/search")}}
                   >
-                  <Image resizeMode={"contain"} source={require('../img/search-icon.png')} /> 
+                  <Image resizeMode={"contain"} source={require('../assets/img/search-icon.png')} /> 
                 </TouchableOpacity>         
               </View>
               <View>
@@ -60,7 +69,7 @@ class Header extends React.Component {
                   // onPress= {() => this.props.messageButtFunction()}
                   onPress={() => {history.push("/message")}}
                   >
-                  <Image resizeMode={"contain"} source={require('../img/message-icon.png')} />
+                  <Image resizeMode={"contain"} source={require('../assets/img/message-icon.png')} />
                 </TouchableOpacity>          
               </View>
               <View>
@@ -68,7 +77,7 @@ class Header extends React.Component {
                 // onPress= {() => this.props.styleButtonFunction()}
                 onPress={() => {history.push("/style")}}
                 >
-                  <Image resizeMode={"contain"} source={require('../img/style-icon.png')} />  
+                  <Image resizeMode={"contain"} source={require('../assets/img/style-icon.png')} />  
                 </TouchableOpacity>        
               </View>
             </View>
@@ -79,7 +88,7 @@ class Header extends React.Component {
                 <Icon style={{color: '#eee', fontSize: 28, paddingHorizontal: 15, paddingVertical: 10}} name="ios-menu" />
               </TouchableOpacity>
             </View>
-          </View>
+          </Container>
           {this.props.children}
         </Drawer>
       </View>
@@ -92,11 +101,7 @@ const drawerStyles = {
 }
 const styles= {
   container: {
-    flexDirection: 'row',
-    height: 50,
-    backgroundColor: '#818181',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    
   },
   icon: {
     padding: 10,
@@ -120,7 +125,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     searchButtonFunction: () => dispatch(searchButton()),
-    messageButtFnunction: () => dispatch(messageButton()),
+    messageButtFunction: () => dispatch(messageButton()),
     styleButtonFunction: () => dispatch(styleButton()),
     
   };

@@ -64,7 +64,7 @@ class searchFilter extends Component {
 					}}
           style={styles.TouchableOpacityStyle}>
             <View style={filterButton}>
-              <Image resizeMode={"contain"} source={require('../../img/filter.png')} /> 
+              <Image resizeMode={"contain"} source={require('../../assets/img/filter.png')} /> 
             </View>
         </TouchableOpacity>
         {/* <Modal

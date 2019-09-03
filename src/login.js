@@ -10,18 +10,44 @@ const Label = styled.Text`
   text-transform : capitalize;
   margin-bottom: 10px;
   margin-top: 30px;
+  font-family: ${ props => props.theme.regular};
 `;
 const Logo = styled.Image`
-   width: 100%;
+   /* width: 98%; */
 `;
 const Container = styled.View`
   background-color: ${props =>props.theme.primaryColor};
   flex: 1;
   align-items: center;
 `;
-
-
-
+const ButtonText = styled.Text`
+  color: white;
+  font-size: 18px;
+  text-transform: uppercase;
+  font-family: ${ props => props.theme.regular};
+`;
+const LoginButton = styled.TouchableHighlight`
+  width: 220px;
+  height: 40px;
+  background-color: #617F5D;
+  justify-content: center;
+  align-items: center;
+  border-radius: 4px;
+  margin: 20px 0px;
+`;
+const LogoView = styled.View`
+  margin-top: 70px;
+  margin-bottom: 50px;
+  /* width: 200px; */
+`;
+const InputBox = styled.TextInput`
+  height: 40px; 
+  width: 220px; 
+  border-radius: 4;
+  border-color: white; 
+  border-width: 1px;
+  background-color: #fff;
+`;
 
 let exitFlag= false;
 class Login extends React.Component {
@@ -54,7 +80,6 @@ class Login extends React.Component {
     BackHandler.removeEventListener('hardwareBackPress', this.handleBackButtonClick);
   }
   render() {
-    const { container, logo, logoView, label, input, loginButton, loginText} = styles;
     const history= this.props.history;
     // const path = this.props.location.pathname;
     // console.log(" login path: ", history);
@@ -64,19 +89,19 @@ class Login extends React.Component {
       <Container>
       <KeyboardAwareScrollView showsVerticalScrollIndicator={false}>
       <Container>
-        <View style={logoView}>
-          <Logo source={require('../img/logo-login.png')} />
-        </View>
+        <LogoView>
+          <Logo 
+          resizeMode={"contain"}
+          source={require('../assets/img/logo-login.png')} />
+        </LogoView>
         <View>
           <Label> user name </Label>
-          <TextInput
-            style={input}
+          <InputBox
             onChangeText={(text) => this.setState({text})}
             value={this.state.text}   
           />
           <Label> password </Label>
-          <TextInput
-            style={input}
+          <InputBox
             secureTextEntry={true}
             onChangeText={(password) => this.setState({password})}
             value={this.state.password}   
@@ -85,13 +110,9 @@ class Login extends React.Component {
         <Label>
           forgot password?
         </Label>
-
-        {/* <TouchableOpacity style={loginButton}>
-          <Text style={loginText}>log in </Text>
-        </TouchableOpacity> */}
-        <TouchableHighlight underlayColor='rgba(221, 221, 221, 0.4)' style={loginButton} onPress={() => history.push("/companyList")}>
-          <Text style={loginText}>log in </Text>
-        </TouchableHighlight>
+        <LoginButton underlayColor='rgba(73, 95, 71, 0.4)' onPress={() => history.push("/companyList")}>
+          <ButtonText>log in </ButtonText>
+        </LoginButton>
 
       </Container>
       </KeyboardAwareScrollView>
@@ -99,39 +120,5 @@ class Login extends React.Component {
     )
   }
 }
-const styles = {
-  
-  logoView: {
-    // height: 80, 
-    marginTop: 70,
-    marginBottom: 50,
-    width: 235,
-  },
- 
-  
-  input: {
-    height: 40, 
-    width: 200, 
-    borderRadius: 4,
-    borderColor: 'white', 
-    borderWidth: 1, 
-    backgroundColor: '#fff',
-  },
-  loginButton: {
-    width: 200,
-    height: 40,
-    backgroundColor: '#617F5D',
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderRadius: 4,
-    marginVertical: 20
 
-  },
-  loginText: {
-    color: 'white',
-    fontSize: 18,
-    textTransform: 'uppercase',
-    
-  }
-}
 export default Login;

@@ -47,10 +47,12 @@ const Title = styled.Text`
   text-align: right;
   width: ${Dimensions.get("window").width / 5};
   padding-top: 2px;
+  font-family: ${ props => props.theme.bold};
 `;
 const SubTitle = styled.Text`
   font-size: 12;
   color: #222;
+  font-family: ${ props => props.theme.regular};
 `;
 // button css start
 const ButtonRow = styled.View`
@@ -78,6 +80,8 @@ const ButtonText = styled.Text`
   text-transform: uppercase;
   width: 150;
   text-align: center;
+  font-family: ${ props => props.theme.regular};
+
 `;
 // button css end
 const SampleRow = styled.View`
@@ -109,7 +113,7 @@ class Sample extends React.Component {
               <ImageBox>
                 <Image
                   resizeMode={"contain"}
-                  source={require("../../img/styleblack.png")}
+                  source={require("../../assets/img/styleblack.png")}
                 />
               </ImageBox>
               <Flex>
