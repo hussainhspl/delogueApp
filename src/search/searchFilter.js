@@ -1,5 +1,5 @@
 import React, {Component, Fragment} from 'react';
-import {Text, View, TouchableOpacity, TouchableHighlight, Image, Modal, FlatList, TextInput, ScrollView } from 'react-native';
+import {Text, View, TouchableOpacity, AppState, Image} from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import SearchInput, { createFilter } from 'react-native-search-filter';
 import { Button } from 'native-base';
@@ -31,7 +31,8 @@ class searchFilter extends Component {
     modalVisible: false,
     searchTerm: '',
     searchSeason: '',
-    text: 'Useless Placeholder'
+    text: 'Useless Placeholder',
+    appState: AppState.currentState,
   };
   searchUpdated(term) {
     this.setState({ 
@@ -46,13 +47,33 @@ class searchFilter extends Component {
   setModalVisible(visible) {
     this.setState({modalVisible: visible});
   }
-  
+  componentDidMount = () => {
+    AppState.addEventListener('change', this._handleAppStateChange);
+  }
+  componentWillUnmount= () => {
+    AppState.removeEventListener('change', this._handleAppStateChange);
+  }
+  _handleAppStateChange = (nextAppState) => {
+ 
+    this.setState({ appState: nextAppState });
+ 
+    if (nextAppState === 'background') {
+      // console.log('bg state', this.state.appState)
+      this.setState({modalVisible : false}, () => console.log(this.state.modalVisible));
+    }
+    if (nextAppState === 'active') {
+      // console.log('bg state', this.state.appState)
+    }
+  }
+
+
   render() {
     const { filterButton, filterArea, closeBox, filterBar, 
       modalTitle, grayButton, grayButtonText, resetBar, upper, searchBar, skillView, styleItem, itemName, applyBar, applyText } = styles;
      const filteredStyle = styleArray.filter(createFilter(this.state.searchTerm, KEYS_TO_FILTERS));
      const filteredSeason = seasonArray.filter(createFilter(this.state.searchSeason, SEASON_KEYS));
-    return (
+    // console.log("app state: ", this.state.appState);
+     return (
       <Fragment>
         <TouchableOpacity
           activeOpacity={0.7}

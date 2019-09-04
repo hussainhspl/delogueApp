@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, Image, Dimensions, TouchableOpacity, ScrollView
+import { View, Text, Image, Dimensions, TouchableOpacity, ScrollView, AppState
 } from "react-native";
 import styled from "styled-components";
 import { Icon } from "native-base";
@@ -7,8 +7,16 @@ import { RNCamera } from "react-native-camera";
 import StyleModal from "./StyleModal";
 import CameraComponent from '../shared/CameraComponent'; 
 import CommonModal from '../shared/CommonModal';
+import ItemDetail from "../shared/ItemDetail";
+import CameraView from '../styles/CameraView'
 
-
+const data =
+  {
+    styleNo: 'sty2211',
+    styleName: 'Casual Shirt',
+    supplier: 'head textiles',
+    season: 'summer'
+  }
 const styArr = [
   {
     fileName: 'File Name',
@@ -26,68 +34,13 @@ const styArr = [
     date: 'dd-mmm-yyyy',
   }
 ]
-const StyleDescriptionRow = styled.View`
-  padding: 5px;
-  flex-direction: row;
-  align-items: center;
-  border-bottom-width: 1px;
-  border-bottom-color: #ddd;
-  margin-bottom: 5px;
-`;
 
-const ImageBox = styled.View`
-  height: 40px;
-  width: 40px;
-  border-width: 1px;
-  border-color: #ddd;
-  border-radius: 4px;
-  justify-content: center;
-  align-items: center;
-`;
-
-const Flex = styled.View`
-  flex: 1;
-`;
-
-const Row = styled.View`
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  margin: auto;
-  width: 100%;
-`;
-
-const Title = styled.Text`
-  font-weight: 600;
-  font-size: 11px;
-  padding-right: 5px;
-  color: #7b7b7b;
-  text-transform: uppercase;
-  text-align: right;
-  width: ${Dimensions.get("window").width / 5};
-  padding-top: 2px;
-  font-family: ${ props => props.theme.bold};
-
-`;
-const SubTitle = styled.Text`
-  font-size: 12;
-  color: #222;
-  font-family: ${ props => props.theme.regular};
-
-`;
 const StyleFileTitle = styled.View`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
   background-color: #f1efed;
   border: 1px solid #dcd7d4;
-`;
-const CameraView = styled.View`
-  width: 40;
-  height: 40;
-  justify-content: center;
-  align-items: center;
-  background-color: #849d7a;
 `;
 
 const Capital = styled.Text`
@@ -133,6 +86,8 @@ class Files extends React.Component {
       cameraFileOn: false,
       cameraCommOn: false,
       modalVisible : false,
+      appState: AppState.currentState,
+
     };
   }
   takePicture = async () => {
@@ -146,50 +101,24 @@ class Files extends React.Component {
   setModalVisible(visible) {
     this.setState({modalVisible: visible});
   }
+  componentDidMount = () => {
+    AppState.addEventListener('change', this._handleAppStateChange);
+  }
+  componentWillUnmount= () => {
+    AppState.removeEventListener('change', this._handleAppStateChange);
+  }
+  _handleAppStateChange = (nextAppState) => {
+    if (nextAppState === 'background') {
+      this.setState({modalVisible : false}, () => console.log(this.state.modalVisible));
+    }
+  }
   render() {
     // console.log("camera:", this.state.cameraOn);
     // console.log("style modal", this.state.modalVisible);
     return (
       <ScrollView showsVerticalScrollIndicator={false}>
         <View>
-          <StyleDescriptionRow>
-            <ImageBox>
-              <Image
-                resizeMode={"contain"}
-                source={require("../../assets/img/styleblack.png")}
-              />
-            </ImageBox>
-            <Flex>
-              <Row>
-                <Title numberOfLines={1}>style no</Title>
-                <Flex>
-                  <SubTitle numberOfLines={1}>sty1100</SubTitle>
-                </Flex>
-                {/* <Text>hello</Text> */}
-              </Row>
-              <Row>
-                <Title numberOfLines={1}>style name</Title>
-                <Flex>
-                  <SubTitle numberOfLines={1}>sty1100uyuyyhkghgjgg</SubTitle>
-                </Flex>
-              </Row>
-            </Flex>
-
-            <Flex>
-              <Row>
-                <Title numberOfLines={1}>supplier</Title>
-                <Flex>
-                  <SubTitle numberOfLines={1}>sty1100</SubTitle>
-                </Flex>
-              </Row>
-              <Row>
-                <Title numberOfLines={1}>season</Title>
-                <Flex>
-                  <SubTitle numberOfLines={1}>sty1100uyuyyhkghgjgg</SubTitle>
-                </Flex>
-              </Row>
-            </Flex>
-          </StyleDescriptionRow>
+          <ItemDetail data= {data}/>
           <StyleFileTitle>
             <Capital numberOfLines={1}> style files </Capital>
             <TouchableOpacity onPress={() => this.setState({ cameraFileOn: true })}>

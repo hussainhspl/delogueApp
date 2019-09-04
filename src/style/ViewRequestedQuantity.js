@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, TouchableHighlight, Modal } from "react-native";
+import { View, Text, TouchableHighlight, AppState } from "react-native";
 import styled from 'styled-components';
 import CommonModal from '../shared/CommonModal';
 import { Col, Row, Grid } from "react-native-easy-grid";
@@ -65,9 +65,27 @@ const GetView = styled.View`
 
 `;
 class ViewRequestedQuantity extends React.Component {
-	state= {modalVisible : false}
+	constructor(props) {
+    super(props);
+    this.state = {
+      modalVisible : false,
+      appState: AppState.currentState,
+
+    };
+  }
 	setModalVisible(visible) {
     this.setState({modalVisible: visible});
+	}
+	componentDidMount = () => {
+    AppState.addEventListener('change', this._handleAppStateChange);
+  }
+  componentWillUnmount= () => {
+    AppState.removeEventListener('change', this._handleAppStateChange);
+  }
+  _handleAppStateChange = (nextAppState) => {
+    if (nextAppState === 'background') {
+      this.setState({modalVisible : false}, () => console.log(this.state.modalVisible));
+    }
   }
   render() {
     return (
@@ -82,7 +100,7 @@ class ViewRequestedQuantity extends React.Component {
 					</TouchableHighlight>
 				</GetView>
 				<CommonModal 
-					title='Requested Quantity'
+					title=' View Requested Quantity'
 					modalVisible={this.state.modalVisible}
 					close={() => {this.setModalVisible(!this.state.modalVisible);
 						}}

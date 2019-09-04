@@ -144,16 +144,6 @@ ADDED from /Users/commonuser/react-native/delogueApp/android/app/src/main/Androi
 		ADDED from /Users/commonuser/react-native/delogueApp/android/app/src/main/AndroidManifest.xml:21:9-79
 	android:name
 		ADDED from /Users/commonuser/react-native/delogueApp/android/app/src/main/AndroidManifest.xml:19:9-37
-intent-filter#action:name:android.intent.action.MAIN+category:name:android.intent.category.LAUNCHER
-ADDED from /Users/commonuser/react-native/delogueApp/android/app/src/main/AndroidManifest.xml:24:9-27:25
-action#android.intent.action.MAIN
-ADDED from /Users/commonuser/react-native/delogueApp/android/app/src/main/AndroidManifest.xml:25:13-65
-	android:name
-		ADDED from /Users/commonuser/react-native/delogueApp/android/app/src/main/AndroidManifest.xml:25:21-62
-category#android.intent.category.LAUNCHER
-ADDED from /Users/commonuser/react-native/delogueApp/android/app/src/main/AndroidManifest.xml:26:13-73
-	android:name
-		ADDED from /Users/commonuser/react-native/delogueApp/android/app/src/main/AndroidManifest.xml:26:23-70
 activity#com.facebook.react.devsupport.DevSettingsActivity
 ADDED from /Users/commonuser/react-native/delogueApp/android/app/src/main/AndroidManifest.xml:30:7-84
 	android:name
@@ -164,6 +154,16 @@ ADDED from /Users/commonuser/react-native/delogueApp/android/app/src/main/Androi
 		ADDED from /Users/commonuser/react-native/delogueApp/android/app/src/main/AndroidManifest.xml:34:9-41
 	android:name
 		ADDED from /Users/commonuser/react-native/delogueApp/android/app/src/main/AndroidManifest.xml:33:9-69
+intent-filter#action:name:android.intent.action.MAIN+category:name:android.intent.category.LAUNCHER
+ADDED from /Users/commonuser/react-native/delogueApp/android/app/src/main/AndroidManifest.xml:35:9-38:25
+action#android.intent.action.MAIN
+ADDED from /Users/commonuser/react-native/delogueApp/android/app/src/main/AndroidManifest.xml:36:11-63
+	android:name
+		ADDED from /Users/commonuser/react-native/delogueApp/android/app/src/main/AndroidManifest.xml:36:19-60
+category#android.intent.category.LAUNCHER
+ADDED from /Users/commonuser/react-native/delogueApp/android/app/src/main/AndroidManifest.xml:37:11-71
+	android:name
+		ADDED from /Users/commonuser/react-native/delogueApp/android/app/src/main/AndroidManifest.xml:37:21-68
 uses-sdk
 INJECTED from /Users/commonuser/react-native/delogueApp/android/app/src/main/AndroidManifest.xml reason: use-sdk injection requested
 INJECTED from /Users/commonuser/react-native/delogueApp/android/app/src/main/AndroidManifest.xml

@@ -5,7 +5,18 @@ import { Icon } from "native-base";
 import SampleComponent from "./sampleComponent";
 import NewSampleRequest from './NewSampleRequest';
 import SampleRequest from './SampleRequest';
+import ItemDetail from "../shared/ItemDetail";
 // import console = require("console");
+
+
+const data =
+  {
+    styleNo: 'sty2211',
+    styleName: 'Casual Shirt',
+    supplier: 'head textiles',
+    season: 'summer'
+  }
+
 const  sampleArr= [{key: 1}, {key: 2}, {key: 3}]
 const StyleDescriptionRow = styled.View`
   padding: 5px;
@@ -14,45 +25,6 @@ const StyleDescriptionRow = styled.View`
   border-bottom-width: 1px;
   border-bottom-color: #ddd;
   margin-bottom: 5px;
-`;
-
-const ImageBox = styled.View`
-  height: 40px;
-  width: 40px;
-  border-width: 1px;
-  border-color: #ddd;
-  border-radius: 4px;
-  justify-content: center;
-  align-items: center;
-`;
-
-const Flex = styled.View`
-  flex: 1;
-`;
-
-const Row = styled.View`
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  margin: auto;
-  width: 100%;
-`;
-
-const Title = styled.Text`
-  font-weight: 600;
-  font-size: 11px;
-  padding-right: 5px;
-  color: #7b7b7b;
-  text-transform: uppercase;
-  text-align: right;
-  width: ${Dimensions.get("window").width / 5};
-  padding-top: 2px;
-  font-family: ${ props => props.theme.bold};
-`;
-const SubTitle = styled.Text`
-  font-size: 12;
-  color: #222;
-  font-family: ${ props => props.theme.regular};
 `;
 // button css start
 const ButtonRow = styled.View`
@@ -109,44 +81,7 @@ class Sample extends React.Component {
       <ScrollView showsVerticalScrollIndicator={false}>
         {this.state.sampleRequest == false && (
           <Fragment>
-            <StyleDescriptionRow>
-              <ImageBox>
-                <Image
-                  resizeMode={"contain"}
-                  source={require("../../assets/img/styleblack.png")}
-                />
-              </ImageBox>
-              <Flex>
-                <Row>
-                  <Title numberOfLines={1}>style no</Title>
-                  <Flex>
-                    <SubTitle numberOfLines={1}>sty1100</SubTitle>
-                  </Flex>
-                  {/* <Text>hello</Text> */}
-                </Row>
-                <Row>
-                  <Title numberOfLines={1}>style name</Title>
-                  <Flex>
-                    <SubTitle numberOfLines={1}>sty1100uyuyyhkghgjgg</SubTitle>
-                  </Flex>
-                </Row>
-              </Flex>
-
-              <Flex>
-                <Row>
-                  <Title numberOfLines={1}>supplier</Title>
-                  <Flex>
-                    <SubTitle numberOfLines={1}>sty1100</SubTitle>
-                  </Flex>
-                </Row>
-                <Row>
-                  <Title numberOfLines={1}>season</Title>
-                  <Flex>
-                    <SubTitle numberOfLines={1}>sty1100uyuyyhkghgjgg</SubTitle>
-                  </Flex>
-                </Row>
-              </Flex>
-            </StyleDescriptionRow>
+            <ItemDetail data={data} />
             <ButtonRow>
               <CommentedButton small>
                 <IconView>

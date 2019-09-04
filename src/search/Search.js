@@ -5,6 +5,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import SearchFilter from './searchFilter';
 import Header from '../Header';
 import styled from 'styled-components';
+import ItemDetail from '../shared/ItemDetail';
 
 const details = [
   {
@@ -43,9 +44,24 @@ const GirdImageView = styled.View`
   border: 1px solid #ddd;
   align-self: flex-start;
 `;
-
+const SearchRow = styled.View`
+  flex-direction: row;
+  justify-content:space-between;
+`;
+const Flex = styled.View`
+   flex: 1;
+`;
 const CardText = styled.Text`
   font-family: ${props => props.theme.regular};
+`;
+
+const MainSearchInput = styled(SearchInput)`
+  padding: 11px;
+  border-color: #CCC;
+  border-width: 1px;
+  height: 50px;
+  margin: 15px;
+  margin-right: 10px;
 `;
 // flatlist start
 const formatData = (details, numColumns) => {
@@ -70,24 +86,9 @@ class Search extends React.Component {
       searchTerm: '',
     };
     this.myTextInput = React.createRef();
-    // this.handleBackButtonClick = this.handleBackButtonClick.bind(this);
-    // this.goBack = this.goBack.bind(this);
+    
   }
-  // componentWillMount() {
-  //   BackHandler.addEventListener('hardwareBackPress', this.handleBackButtonClick);
-  // }
-  // handleBackButtonClick() {
-  //   // this.props.navigation.goBack(null);
-  //   console.log("back button press");
-  //   this.props.history.goBack();
-  //   return true;
-  // }
-  // componentWillUnmount() {
-  //   console.log("unmount search");
-  //   BackHandler.removeEventListener('hardwareBackPress', this.handleBackButtonClick);
-  // }
   searchUpdated(term) {
-    // console.log("serach term called", term)
     this.setState({ 
       searchTerm: term,
     })
@@ -130,8 +131,6 @@ class Search extends React.Component {
         <View style={styles.cardInfo}>
           <Text style={styles.itemText}> {item.styleName} </Text>
           <Text style={styles.itemText}> {item.styleNo} </Text>
-          {/* <Text style={styles.itemText}> {item.userType} </Text> */}
-
         </View>
       </TouchableOpacity>
     );
@@ -150,16 +149,16 @@ class Search extends React.Component {
         <ScrollView 
         showsVerticalScrollIndicator={false}
       >
-        <View style={[row,{justifyContent:'space-between'}]}>
-          <View style={styles.Flex}>
-            <SearchInput 
+        <SearchRow>
+          <Flex>
+            <MainSearchInput 
               onChangeText={(term) => { this.searchUpdated(term) }} 
-              style={styles.mainSearchInput}
+              /* style={styles.mainSearchInput} */
               placeholder="Type a message to search"
               ref= {(el) => { this.term = el; }}
               value={this.state.searchTerm}
             />
-          </View>
+          </Flex>
           <TouchableOpacity onPress={this.changeView}>
           <View style={styles.ViewBox}>
             <Image resizeMode={"contain"} 
@@ -167,48 +166,14 @@ class Search extends React.Component {
             /> 
           </View>
           </TouchableOpacity>
-        </View>
+        </SearchRow>
         {this.state.currentView === 'linear' &&
           filteredStyle.map(data => {
             
             return(
-              // <Fragment>
-              
-              <TouchableOpacity onPress={() => {history.push("/style")}} key={data.styleNo} style={styles.touchableRow}>
-                <View style={imageBox}>
-                  <Image resizeMode={"contain"} source={require('../../assets/img/styleblack.png')} /> 
-                </View>
-                <View style={styles.Flex}>
-                  <View style={styles.row}>
-                    <Text numberOfLines={1} style={styles.title}>style no</Text>
-                    <View style={styles.Flex}>
-                      <Text numberOfLines={1} style={styles.subtitle}>{data.styleNo}</Text>
-                    </View>
-                  </View>
-                  <View style={styles.row}>
-                    <Text style={styles.title}>style name</Text>
-                    <View style={styles.Flex}>
-                      <Text numberOfLines={1} style={styles.subtitle}>{data.styleName}</Text>
-                    </View>
-                  </View>
-                </View>
-
-                <View style={styles.Flex}>
-                  <View style={styles.row}>
-                    <Text numberOfLines={1} style={styles.title}>supplier</Text>
-                    <View style={styles.Flex}>
-                      <Text numberOfLines={1} style={styles.subtitle}>{data.supplier}</Text>
-                    </View>
-                  </View>
-                  <View style={styles.row}>
-                    <Text numberOfLines={1} style={styles.title}> season</Text>
-                    <View style={styles.Flex}>
-                      <Text numberOfLines={1} style={styles.subtitle}>{data.season}</Text>
-                    </View>
-                  </View>
-                </View>
+              <TouchableOpacity onPress={() => {history.push("/style")}} key={data.styleNo}>
+                <ItemDetail data={data}/>
               </TouchableOpacity>
-              // {/* </Fragment> */}
             )
           })
         }
@@ -245,55 +210,18 @@ class Search extends React.Component {
 }
 
 const styles = {
-  imageBox: {
-    height: 40,
-    width: 40,
-    borderWidth: 1,
-    borderColor: '#ddd',
-    borderRadius: 4,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  row: {
-    flexDirection: 'row',
-  },
-  Flex: {
-    flex: 1,
-  },
-  title: {
-    fontWeight: '600',
-    fontSize: 11,
-    paddingRight: 5,
-    color: '#9b9b9b',
-    textTransform: 'uppercase',
-    textAlign: 'right',
-    width: 80,
-    paddingTop: 2
-  },
-  subtitle: {
-    fontSize: 12,
-    color: '#4A4A4A',
-    // Width: '100%',
-  },
-  iconView: {
-    width: 50,
-    padding: 5,
-    alignItems: 'center',
-    justifyContent: 'center'
-  },
+  // iconView: {
+  //   width: 50,
+  //   padding: 5,
+  //   alignItems: 'center',
+  //   justifyContent: 'center'
+  // },
   searchInput:{
     padding: 11,
     borderColor: '#CCC',
     borderWidth: 1,
     height: 50,
     margin: 15,
-  },
-  touchableRow:{
-    borderBottomWidth: 0.5,
-    borderColor: 'rgba(0,0,0,0.3)',
-    padding: 5,
-    flexDirection: 'row',
-    alignItems: 'center',
   },
   ViewBox: {
     height: 50,
@@ -306,13 +234,7 @@ const styles = {
     alignItems: 'center',
   },
   mainSearchInput: {
-    padding: 11,
-    borderColor: '#CCC',
-    borderWidth: 1,
-    height: 50,
-    margin: 15,
-    // width: '100%',
-    marginRight: 10,
+ 
   },
 
   // grid style

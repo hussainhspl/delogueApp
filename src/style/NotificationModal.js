@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, Picker} from 'react-native';
+import {View, Text, Picker, AppState} from 'react-native';
 import styled from 'styled-components';
 import {Icon} from 'native-base'
 import CommonModal from '../shared/CommonModal';
@@ -22,7 +22,9 @@ class NotificationModal extends React.Component{
     super(props);
     this.state= {
       selected2: 'undefined',
-      modalVisible : true,     
+      modalVisible : true,   
+      appState: AppState.currentState,
+
     }
   }
   onValueChange2(value: string) {
@@ -37,6 +39,17 @@ class NotificationModal extends React.Component{
   redirectTo =(history) => {
     // console.log('enter in  redirect function');
     history.push("/style")
+  }
+  componentDidMount = () => {
+    AppState.addEventListener('change', this._handleAppStateChange);
+  }
+  componentWillUnmount= () => {
+    AppState.removeEventListener('change', this._handleAppStateChange);
+  }
+  _handleAppStateChange = (nextAppState) => {
+    if (nextAppState === 'background') {
+      this.setState({modalVisible : false}, () => console.log(this.state.modalVisible));
+    }
   }
   render() {
     history = this.props.history;

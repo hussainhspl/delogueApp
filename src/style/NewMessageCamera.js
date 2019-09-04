@@ -3,15 +3,10 @@ import { View, Text, TouchableOpacity } from "react-native";
 import styled from "styled-components/native";
 import { Icon } from "native-base";
 import CameraComponent from "../shared/CameraComponent";
+import CameraView from '../styles/CameraView';
 // import console = require("console");
 
-const CameraView = styled.View`
-  width: 40px;
-  height: 40px;
-  justify-content: center;
-  align-items: center;
-  background-color: #849d7a;
-`;
+
 
 class NewMessageCamera extends React.Component {
   constructor(props) {

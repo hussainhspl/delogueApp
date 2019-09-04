@@ -1,11 +1,12 @@
 import React, {Fragment} from 'react';
-import {View, Text, TouchableHighlight, Alert, Dimensions, TouchableOpacity} from 'react-native';
+import {View, Text, TouchableHighlight, Alert, Dimensions, TouchableOpacity, AppState} from 'react-native';
 import styled from 'styled-components';
 import CommonModal from '../shared/CommonModal';
 import {Icon, Picker} from 'native-base';
 import DateTimePicker from "react-native-modal-datetime-picker";
 import CameraComponent from '../shared/CameraComponent';
 import SetRequestedQuantity from './SetRequestedQuantity';
+import CameraView from '../styles/CameraView';
 
 const SampleRequestRow = styled.View`
   flex-direction: row;
@@ -66,7 +67,6 @@ const StyledPicker = styled(Picker)`
 	height: 30px;
 	flex: 1;
 `;
-
 const DateRow = styled.View`
   flex-direction: row;
   /* margin: 0px 15px; */
@@ -120,13 +120,6 @@ const StyleFileTitle = styled.View`
 const Capital = styled.Text`
 	text-transform: uppercase;
 `;
-const CameraView = styled.View`
-	width: 40;
-	height: 40;
-	justify-content: center;
-	align-items: center;
-	background-color: #849d7a;
-`;
 const AddView = styled.View`
   border: 1px solid #ddd;
   width: ${(props) => props.tablet ? Dimensions.get('window').width / 3-10 : Dimensions.get("window").width / 2 - 10};
@@ -158,6 +151,7 @@ class NewSampleRequest extends React.Component{
       isDeadlineDateTimePickerVisible: false,
       isEtdDateTimePickerVisible: false,
       tablet: false,
+      appState: AppState.currentState,
     }
   }
   setModalVisible(visible) {
@@ -201,6 +195,17 @@ redirectTo =(history) => {
 componentWillMount() {
   if(Dimensions.get('window').width >568) {
     this.setState({tablet: true},() =>console.log("will mount" , this.state.tablet))
+  }
+}
+componentDidMount = () => {
+  AppState.addEventListener('change', this._handleAppStateChange);
+}
+componentWillUnmount= () => {
+  AppState.removeEventListener('change', this._handleAppStateChange);
+}
+_handleAppStateChange = (nextAppState) => {
+  if (nextAppState === 'background') {
+    this.setState({modalVisible : false}, () => console.log(this.state.modalVisible));
   }
 }
   render(){

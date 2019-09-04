@@ -10,7 +10,6 @@ import {
 import styled from "styled-components/native";
 import NewMessageCamera from './NewMessageCamera';
 
-
 const NewButton = styled.TouchableOpacity`
   background-color: #849d7a;
   margin-left: 15px;
@@ -111,13 +110,6 @@ const ButtonRow = styled.View`
   align-items: center;
 `;
 
-const CameraView = styled.View`
-  width: 40px;
-  height: 40px;
-  justify-content: center;
-  align-items: center;
-  background-color: #849d7a;
-`;
 
 const FooterButtonText = styled.Text`
   color: white;
@@ -141,7 +133,7 @@ class NewMessage extends React.Component {
     };
   }
 
-  onValueChange2(value: string) {
+  onValueChange2(value) {
     this.setState({
       selected2: value
     });

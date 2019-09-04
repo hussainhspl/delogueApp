@@ -2,7 +2,8 @@ import React from "react";
 import { View, Text, TouchableHighlight, Modal, Alert, SafeAreaView, TouchableNativeFeedback} from "react-native";
 import styled from 'styled-components';
 import {Icon, Button} from 'native-base';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import ApplyButton from '../styles/ApplyButton'
 // import console = require("console");
 
 
@@ -43,12 +44,6 @@ const ApplyButtonText = styled.Text`
 	
 	
 `;
-const ApplyButton = styled(Button)`
-	justify-content: center;
-	align-items: center;
-	padding: 0px 5px;
-	margin-left: 15px;
-`;
 class CommonModal extends React.Component {
 	constructor(props) {
 		super(props);
@@ -80,9 +75,6 @@ class CommonModal extends React.Component {
 										<TouchableHighlight
 											underlayColor='rgba(221, 221, 221, 0.4)'
 											onPress={
-												// () => {
-												// this.setModalVisible(!this.state.modalVisible);
-												// }
 												this.props.close
 											}>
 												<Icon style={{color: '#fff', fontSize: 28, paddingHorizontal: 10}} name="ios-close" />
@@ -90,7 +82,6 @@ class CommonModal extends React.Component {
 									</CloseBox>
 								</ModalTitle>
 							</View>
-							{/* <View></View> */}
 							{
 								this.props.children
 							}{
@@ -98,13 +89,10 @@ class CommonModal extends React.Component {
 									<ApplyBar>
 										<Button bordered light small danger 
 											onPress={() => {this.closeModal(this.props.close)}}
-											// background={TouchableNativeFeedback.Ripple('#818181', true)}
 										>
 											<Text style={{color: "#d9534e"}}> CANCEL </Text> 
 										</Button>
-										<ApplyButton 
-											// onPress={this.props.okClick ? this.props.okClick : ''} 
-											small style={{backgroundColor:"#849D7A", marginLeft: 15}}>
+										<ApplyButton>
 											<ApplyButtonText>{this.props.okButton ?this.props.okButton : 'apply'}</ApplyButtonText>
 										</ApplyButton>
 									</ApplyBar>

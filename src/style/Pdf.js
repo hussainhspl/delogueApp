@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, TouchableHighlight} from 'react-native';
+import {View, Text, TouchableHighlight, AppState} from 'react-native';
 import {ListItem, CheckBox, Body} from 'native-base';
 import CommonModal from '../shared/CommonModal';
 import styled from 'styled-components';
@@ -12,7 +12,13 @@ const SelectorBox = styled.View`
 `;
 
 class Pdf extends React.Component {
-  state= {modalVisible : true}
+  constructor(props) {
+    super(props);
+    this.state={
+      appState: AppState.currentState,
+      modalVisible : true
+    }
+  }
 	setModalVisible(visible) {
     this.setState({modalVisible: visible});
   }
@@ -27,20 +33,31 @@ class Pdf extends React.Component {
     //   this.props.generalTabFunction();
     // }
   }
+  componentDidMount = () => {
+    AppState.addEventListener('change', this._handleAppStateChange);
+  }
+  componentWillUnmount= () => {
+    AppState.removeEventListener('change', this._handleAppStateChange);
+  }
+  _handleAppStateChange = (nextAppState) => {
+    if (nextAppState === 'background') {
+      this.setState({modalVisible : false}, () => this.props.generalTabFunction());
+    }
+  }
   render() {
     // console.disableYellowBox = true
     history = this.props.history;
     // console.log('pdf history', this.props.history);
     return(
       <View style={{flex: 1}}> 
-       <TouchableHighlight
+       {/* <TouchableHighlight
 					onPress={() => {
 						this.setModalVisible(!this.state.modalVisible);
 					}}>
 
         <Text> pdf </Text>
           
-          </TouchableHighlight>
+          </TouchableHighlight> */}
         <CommonModal 
 					title='Print Style'
 					modalVisible={this.state.modalVisible}

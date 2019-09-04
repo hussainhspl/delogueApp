@@ -1,6 +1,6 @@
 import React from 'react';
 import {View, Text, ScrollView, Dimensions, Image, 
-	TouchableHighlight, Modal, Alert, TextInput, SafeAreaView} from 'react-native';
+	TouchableHighlight, AppState} from 'react-native';
 import styled from 'styled-components';
 import {Icon, Button} from 'native-base';
 import { Col, Row, Grid } from "react-native-easy-grid";
@@ -10,7 +10,16 @@ import SampleRequestSummary from './SampleRequestSummary';
 import ViewRequestedQuantity from './ViewRequestedQuantity';
 import CommonModal from '../shared/CommonModal';
 import Header from '../Header';
+import ApplyButton from '../styles/ApplyButton';
+import ItemDetail from '../shared/ItemDetail';
 // import console = require('console');
+
+const data = {
+	styleNo: 'sty2211',
+	styleName: 'Casual Shirt',
+	supplier: 'head textiles',
+	season: 'summer'
+}
 const sizeXl = [
 	{
 		description: 'Shoulder',
@@ -38,55 +47,6 @@ const sizeXl = [
 	},
 ];
 
-const StyleDescriptionRow = styled.View`
-  padding: 5px;
-  flex-direction: row;
-  align-items: center;
-  border-bottom-width: 1px;
-  border-bottom-color: #ddd;
-  margin-bottom: 5px;
-`;
-
-const ImageBox = styled.View`
-  height: 40px;
-  width: 40px;
-  border-width: 1px;
-  border-color: #ddd;
-  border-radius: 4px;
-  justify-content: center;
-  align-items: center;
-`;
-
-const Flex = styled.View`
-  flex: 1;
-`;
-
-const StyleRow = styled.View`
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  margin: auto;
-  width: 100%;
-`;
-
-const Title = styled.Text`
-  font-weight: 600;
-  font-size: 11px;
-  padding-right: 5px;
-  color: #7b7b7b;
-  text-transform: uppercase;
-  text-align: right;
-  width: ${Dimensions.get("window").width / 5};
-  padding-top: 2px;
-  font-family: ${ props => props.theme.bold};
-
-`;
-const SubTitle = styled.Text`
-  font-size: 12;
-  color: #222;
-  font-family: ${ props => props.theme.regular};
-
-`;
 
 const Label = styled.Text`
 	color: #8D8177;
@@ -152,7 +112,13 @@ const FooterButton = styled.View`
 	
 `;
 class SampleRequest extends React.Component {
-	state= {modalVisible : false}
+	constructor(props) {
+    super(props);
+    this.state={
+      appState: AppState.currentState,
+      modalVisible : false
+    }
+  }
 	setModalVisible(visible) {
     this.setState({modalVisible: visible});
 	}
@@ -160,47 +126,23 @@ class SampleRequest extends React.Component {
 		console.log("redirect click");
 		this.props.apply();
 	}
+	componentDidMount = () => {
+    AppState.addEventListener('change', this._handleAppStateChange);
+  }
+  componentWillUnmount= () => {
+    AppState.removeEventListener('change', this._handleAppStateChange);
+  }
+  _handleAppStateChange = (nextAppState) => {
+    if (nextAppState === 'background') {
+      this.setState({modalVisible : false}, () => console.log(this.state.modalVisible));
+    }
+  }
   render() {
-		console.log("history sr", this.props.history);
+		// console.log("history sr", this.props.history);
 		return(
 			// <Header history={this.props.history}>
 				<ScrollView showsVerticalScrollIndicator={false}>
-					<StyleDescriptionRow>
-						<ImageBox>
-							<Image
-								resizeMode={"contain"}
-								source={require("../../assets/img/styleblack.png")}
-							/>
-						</ImageBox>
-						<Flex>
-							<StyleRow>
-								<Title numberOfLines={1}>style no</Title>
-								<Flex>
-									<SubTitle numberOfLines={1}>sty1100</SubTitle>
-								</Flex>
-							</StyleRow>
-							<StyleRow>
-								<Title numberOfLines={1}>style name</Title>
-								<Flex>
-									<SubTitle numberOfLines={1}>sty1100uyuyyhkghgjgg</SubTitle>
-								</Flex>
-							</StyleRow>
-						</Flex>
-						<Flex>
-							<StyleRow>
-								<Title numberOfLines={1}>supplier</Title>
-								<Flex>
-									<SubTitle numberOfLines={1}>sty1100</SubTitle>
-								</Flex>
-							</StyleRow>
-							<StyleRow>
-								<Title numberOfLines={1}>season</Title>
-								<Flex>
-									<SubTitle numberOfLines={1}>sty1100uyuyyhkghgjgg</SubTitle>
-								</Flex>
-							</StyleRow>
-						</Flex>
-					</StyleDescriptionRow>
+					<ItemDetail data={data} />
 					<View style={{flexDirection: 'row', padding: 10}}>
 						<Label> sample type </Label>
 						<Text>photo sample</Text>
@@ -312,10 +254,10 @@ class SampleRequest extends React.Component {
 						<Button bordered light small danger>
 							<CancelButtonText style={{color: "#d9534e"}}> CANCEL </CancelButtonText> 
 						</Button>
-						<Button small style={{backgroundColor:"#849D7A", marginLeft: 15}}
+						<ApplyButton
 						onPress={() => {this.redirectTo(this.props.apply)}}>
 							<ApplyButtonText>apply</ApplyButtonText>
-						</Button>
+						</ApplyButton>
 					</FooterButton>
 				</ScrollView>
 			// </Header>

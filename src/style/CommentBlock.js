@@ -121,7 +121,7 @@ class CommentBlock extends React.Component {
 					{
 						imgArr.map(data => {
 							return(
-								<MainBlock>
+								<MainBlock key={Math.random().toFixed(3)}>
 									<ImageView>
 										<StyleImage
 											resizeMode={"center"}

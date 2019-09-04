@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, TouchableHighlight, Modal } from "react-native";
+import { View, Text, TouchableHighlight, AppState } from "react-native";
 import styled from "styled-components";
 import CommonModal from "../shared/CommonModal";
 import { Col, Row, Grid } from "react-native-easy-grid";
@@ -65,9 +65,27 @@ const TableTextInput = styled.TextInput`
 `;
 
 class SetRequestedQuantity extends React.Component {
-  state = { modalVisible: false };
+  constructor(props) {
+    super(props);
+    this.state={
+      appState: AppState.currentState,
+      modalVisible : false,
+    }
+  }
   setModalVisible(visible) {
     this.setState({ modalVisible: visible });
+  }
+  componentDidMount = () => {
+    AppState.addEventListener('change', this._handleAppStateChange);
+  }
+  componentWillUnmount= () => {
+    AppState.removeEventListener('change', this._handleAppStateChange);
+  }
+  _handleAppStateChange = (nextAppState) => {
+    if (nextAppState === 'background') {
+      // this.setState({modalVisible : !this.state.modalVisible}, () => console.log(this.state.modalVisible));
+      this.setModalVisible(!this.state.modalVisible);
+    }
   }
   render() {
     return (
