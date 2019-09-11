@@ -5,6 +5,7 @@ INJECTED from /Users/commonuser/react-native/delogueApp/android/app/src/main/And
 INJECTED from /Users/commonuser/react-native/delogueApp/android/app/src/main/AndroidManifest.xml:1:1-42:12
 INJECTED from /Users/commonuser/react-native/delogueApp/android/app/src/main/AndroidManifest.xml:1:1-42:12
 MERGED from /Users/commonuser/react-native/delogueApp/android/app/src/main/AndroidManifest.xml:1:1-42:12
+MERGED from [:@react-native-community_netinfo] /Users/commonuser/react-native/delogueApp/node_modules/@react-native-community/netinfo/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-12:12
 MERGED from [:react-native-vector-icons] /Users/commonuser/react-native/delogueApp/node_modules/react-native-vector-icons/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-11:12
 MERGED from [:react-native-camera] /Users/commonuser/react-native/delogueApp/node_modules/react-native-camera/android/build/intermediates/library_manifest/generalDebug/AndroidManifest.xml:2:1-18:12
 MERGED from [:react-native-bootsplash] /Users/commonuser/react-native/delogueApp/node_modules/react-native-bootsplash/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-9:12
@@ -186,6 +187,8 @@ uses-sdk
 INJECTED from /Users/commonuser/react-native/delogueApp/android/app/src/main/AndroidManifest.xml reason: use-sdk injection requested
 INJECTED from /Users/commonuser/react-native/delogueApp/android/app/src/main/AndroidManifest.xml
 INJECTED from /Users/commonuser/react-native/delogueApp/android/app/src/main/AndroidManifest.xml
+MERGED from [:@react-native-community_netinfo] /Users/commonuser/react-native/delogueApp/node_modules/@react-native-community/netinfo/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-7:41
+MERGED from [:@react-native-community_netinfo] /Users/commonuser/react-native/delogueApp/node_modules/@react-native-community/netinfo/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-7:41
 MERGED from [:react-native-vector-icons] /Users/commonuser/react-native/delogueApp/node_modules/react-native-vector-icons/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:7:5-9:41
 MERGED from [:react-native-vector-icons] /Users/commonuser/react-native/delogueApp/node_modules/react-native-vector-icons/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:7:5-9:41
 MERGED from [:react-native-camera] /Users/commonuser/react-native/delogueApp/node_modules/react-native-camera/android/build/intermediates/library_manifest/generalDebug/AndroidManifest.xml:5:5-7:41
@@ -300,6 +303,14 @@ uses-permission#android.permission.SYSTEM_ALERT_WINDOW
 ADDED from /Users/commonuser/react-native/delogueApp/android/app/src/debug/AndroidManifest.xml:5:5-77
 	android:name
 		ADDED from /Users/commonuser/react-native/delogueApp/android/app/src/debug/AndroidManifest.xml:5:22-75
+uses-permission#android.permission.ACCESS_NETWORK_STATE
+ADDED from [:@react-native-community_netinfo] /Users/commonuser/react-native/delogueApp/node_modules/@react-native-community/netinfo/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:9:5-79
+	android:name
+		ADDED from [:@react-native-community_netinfo] /Users/commonuser/react-native/delogueApp/node_modules/@react-native-community/netinfo/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:9:22-76
+uses-permission#android.permission.ACCESS_WIFI_STATE
+ADDED from [:@react-native-community_netinfo] /Users/commonuser/react-native/delogueApp/node_modules/@react-native-community/netinfo/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:10:5-76
+	android:name
+		ADDED from [:@react-native-community_netinfo] /Users/commonuser/react-native/delogueApp/node_modules/@react-native-community/netinfo/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:10:22-73
 uses-feature#android.hardware.camera
 ADDED from [:react-native-camera] /Users/commonuser/react-native/delogueApp/node_modules/react-native-camera/android/build/intermediates/library_manifest/generalDebug/AndroidManifest.xml:11:5-13:36
 	android:required

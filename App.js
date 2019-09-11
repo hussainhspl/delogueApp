@@ -15,6 +15,7 @@ import {
   View,
   Text,
   StatusBar,
+  NetInfo
 } from 'react-native';
 
 // import {
@@ -26,6 +27,7 @@ import {
 // } from 'react-native/Libraries/NewAppScreen';
 import { NativeRouter, Switch, Route } from 'react-router-native';
 import RNBootSplash from "react-native-bootsplash";
+// import NetInfo from "@react-native-community/netinfo";
 
 import Login from './src/login';
 import CompanyList from './src/companyList';
@@ -51,6 +53,7 @@ import SampleComponent from './src/style/sampleComponent';
 
 import { ThemeProvider } from 'styled-components/native';
 import Theme from './data/theme';
+import OfflineNotice from './src/shared/OfflineNotice';
 
 
 const store = configStore();
@@ -65,6 +68,25 @@ const App = () => {
       RNBootSplash.hide({ duration: 250 });
     });
   }, []);
+
+  // NetInfo.fetch().then(state => {
+  //   console.log("Connection type", state.type);
+  //   console.log("Is connected?", state.isConnected);
+  // });
+
+  // handleConnectivityChange = (isConnected) => {
+  //   this.setState({ isConnected });
+  // };
+
+  // componentDidMount = () => {
+  //   NetInfo.isConnected.addEventListener('connectionChange', this.handleConnectivityChange);
+  // };
+
+  // componentWillUnmount = () => {
+  //   NetInfo.isConnected.removeEventListener('connectionChange', this.handleConnectivityChange);
+  // };
+
+
   return (
     <Provider store={ store }>
     <NativeRouter>
@@ -72,7 +94,8 @@ const App = () => {
     <Fragment>
       <StatusBar barStyle="dark-content" />
       <SafeAreaView />
-        <View style={{flex: 1}}>
+          <View style={{flex: 1}}>
+        <OfflineNotice />
             <Switch>
               {/* <Route exact path="/" component={Style}></Route> */}
               <Route exact path="/" component={Login}></Route>

@@ -32,6 +32,8 @@ target 'delogue' do
   
   pod 'RNBootSplash', :path => '../node_modules/react-native-bootsplash'
 
+  pod 'react-native-netinfo', :path => '../node_modules/@react-native-community/netinfo'
+
   target 'delogueTests' do
     inherit! :search_paths
     # Pods for testing

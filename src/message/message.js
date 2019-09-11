@@ -71,7 +71,7 @@ const IconBox = styled.TouchableOpacity`
 	height: 40px;
 	justify-content: center;
 	align-items: center;
-	border: 1px solid #ddd;
+	border:  ${(props) => props.currentView ? `1px solid #818181` : `1px solid #ddd`};
 `;
 
 const StyleCol = styled(Col)`
@@ -80,6 +80,10 @@ const StyleCol = styled(Col)`
 	height: 40px;
 	justify-content: center;
 `;
+const StyleHeaderCol = styled(Col)`
+	background-color: #818181;
+`;
+
 class Message extends React.Component {
 	constructor(props) {
 		super(props);
@@ -88,21 +92,21 @@ class Message extends React.Component {
 		}
 	}
 	render() {
-		// console.log("comm state",this.state.currentView);
+		console.log("comm state",this.state.currentView);
 		history =this.props.history;
 		return(
 			<View style={{flex: 1}}>
 				<Header history ={this.props.history}>
 			 <ScrollView>
 				<IconRow >
-					<IconBox onPress={() => this.setState({currentView: 'message'})}>
+					<IconBox currentView={this.state.currentView == 'message' ?  true : false} onPress={() => this.setState({currentView: 'message'})}>
 						<Image 
 							
 							style={{width: 30, height: 20}}
 							source={require('../../assets/img/messageblack.png')}
 						/>
 					</IconBox>
-					<IconBox onPress={() => this.setState({currentView: 'chat'})}>
+					<IconBox currentView={this.state.currentView == 'chat' ?  true : false} onPress={() => this.setState({currentView: 'chat'})}>
 						<Image 
 							
 							style={{width: 30, height: 20}}
@@ -114,6 +118,17 @@ class Message extends React.Component {
 					this.state.currentView === 'message' ? 
 							<View style={{flex: 1}}>
 								<Grid style={{justifyContent: 'flex-start', alignItems: 'flex-start'}}>
+									<Row key={Math.random().toFixed(3)}>
+										<StyleHeaderCol size={1}> 
+											<Text>Brand Name</Text>
+										</StyleHeaderCol>
+										<StyleHeaderCol size={1}> 
+											<Text>Title</Text>
+										</StyleHeaderCol>
+										<StyleHeaderCol size={1}> 
+											<Text>Description</Text>
+										</StyleHeaderCol>
+									</Row>
 									{
 										messageArr.map(data => {
 											return (
