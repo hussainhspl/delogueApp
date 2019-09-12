@@ -4,6 +4,8 @@ import styled from 'styled-components';
 import { Col, Row, Grid } from "react-native-easy-grid";
 import Header from '../Header';
 
+let messageRow =0;
+
 const messageArr = [
 	{
 		brandName: 'brand',
@@ -75,15 +77,27 @@ const IconBox = styled.TouchableOpacity`
 `;
 
 const StyleCol = styled(Col)`
-	border: 1px solid #bbb;
-	padding-left: 10px;
+	border: 0.5px solid #aaa;
+	padding-left: 6px;
+	padding-right: 3px;
 	height: 40px;
 	justify-content: center;
 `;
-const StyleHeaderCol = styled(Col)`
-	background-color: #818181;
+
+const StyledText = styled.Text`
+  font-family: ${props => props.theme.regular};
+	color: #4A4A4A;
 `;
 
+const StyledRow = styled(Row)`
+	/* background-color: ${ props => props.highlight ? '#F1EFED' : '#fff'}; */
+	/* align-items: ${(props) => props.boolVar ? "flex-start" : "center"}; */
+	background-color: #f00;
+	width: 100%;
+	flex-direction: row;
+	flex-wrap: wrap;
+	flex: 1;
+`;
 class Message extends React.Component {
 	constructor(props) {
 		super(props);
@@ -117,30 +131,36 @@ class Message extends React.Component {
 				{
 					this.state.currentView === 'message' ? 
 							<View style={{flex: 1}}>
-								<Grid style={{justifyContent: 'flex-start', alignItems: 'flex-start'}}>
-									<Row key={Math.random().toFixed(3)}>
+								<Grid style={{ paddingHorizontal: 10}}>
+									{/* <Row>
 										<StyleHeaderCol size={1}> 
-											<Text>Brand Name</Text>
+											<HeaderText>Brand Name</HeaderText>
 										</StyleHeaderCol>
 										<StyleHeaderCol size={1}> 
-											<Text>Title</Text>
+											<HeaderText>Title</HeaderText>
 										</StyleHeaderCol>
 										<StyleHeaderCol size={1}> 
-											<Text>Description</Text>
+											<HeaderText>Description</HeaderText>
 										</StyleHeaderCol>
-									</Row>
+									</Row> */}
 									{
 										messageArr.map(data => {
+											messageRow +=1;
+											console.log("msg row", messageRow);
 											return (
-												<Row key={Math.random().toFixed(3)}>
+												<Row 
+													style={{backgroundColor: messageRow % 2 == 0 ? '#F1EFED' : '#fff'}} 
+													// highlight={messageRow % 2 == 0 ? true : false} 
+													key={Math.random().toFixed(3)}
+												>
 													<StyleCol size={1}> 
-														<Text>{data.brandName}</Text>
+														<StyledText>{data.brandName}</StyledText>
 													</StyleCol>
 													<StyleCol size={1}> 
-														<Text>{data.title}</Text>
+														<StyledText>{data.title}</StyledText>
 													</StyleCol>
 													<StyleCol size={1}> 
-														<Text>{data.description}</Text>
+														<StyledText>{data.description}</StyledText>
 													</StyleCol>
 												</Row>
 											)
@@ -150,22 +170,34 @@ class Message extends React.Component {
 							</View>
 						:
 						<View style={{flex: 1}}>
-								<Grid style={{justifyContent: 'flex-start', alignItems: 'flex-start'}}>
+								<Grid style={{justifyContent: 'flex-start', alignItems: 'flex-start', paddingHorizontal: 10}}>
+									{/* <Row>
+										<StyleHeaderCol size={1}> 
+											<HeaderText>Brand Name</HeaderText>
+										</StyleHeaderCol>
+										<StyleHeaderCol size={1}> 
+											<HeaderText>Title</HeaderText>
+										</StyleHeaderCol>
+										<StyleHeaderCol size={1}> 
+											<HeaderText>Description</HeaderText>
+										</StyleHeaderCol>
+									</Row> */}
 									{
 										chatArr.map(data => {
+											messageRow +=1;
 											return (
-												<Row key={Math.random().toFixed(3)}>
+												<Row style={{backgroundColor: messageRow % 2 == 0 ? '#F1EFED' : '#fff'}} key={Math.random().toFixed(3)}>
 													<StyleCol size={1}> 
-														<Text>{data.brandName}</Text>
+														<StyledText>{data.brandName}</StyledText>
 													</StyleCol>
 													<StyleCol size={1}> 
-														<Text>{data.styleNo}</Text>
+														<StyledText>{data.styleNo}</StyledText>
 													</StyleCol>
 													<StyleCol size={1}> 
-														<Text>{data.styleName}</Text>
+														<StyledText>{data.styleName}</StyledText>
 													</StyleCol>
 													<StyleCol size={1}> 
-														<Text>{data.sampleType}</Text>
+														<StyledText>{data.sampleType}</StyledText>
 													</StyleCol>
 												</Row>
 											)

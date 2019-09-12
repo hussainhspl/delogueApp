@@ -39,7 +39,7 @@ const StyleFileTitle = styled.View`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  background-color: #f1efed;
+  background-color: ${props => props.theme.lightBrown};
   border: 1px solid #dcd7d4;
 `;
 
@@ -73,7 +73,7 @@ const ImageInfo = styled.View`
 const ImageRow = styled.View`
   flex-direction: row;
   flex-wrap: wrap;
-  margin-bottom: 15px; numberOfLines={1}
+  margin-bottom: 15px;
 `;
 
 const CardText = styled.Text`

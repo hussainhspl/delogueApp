@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import {Icon, Button} from 'native-base';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import ApplyButton from '../styles/ApplyButton'
+import theme from "../../data/theme";
 // import console = require("console");
 
 
@@ -33,8 +34,7 @@ const ApplyBar = styled.View`
 	justify-content: flex-end;
 	flex-direction: row;
 	height: 50px;
-	background-color: ${(props) => props.bg ? props.bg : '#F1EFED'};
-	/* align-items: ${(props) => props.boolVar ? "flex-start" : "center"}; F1EFED*/
+	background-color: ${(props) => props.bg ? props.bg : props.theme.lightBrown};
 	padding-right: 15px;
 `;
 const ApplyButtonText = styled.Text`

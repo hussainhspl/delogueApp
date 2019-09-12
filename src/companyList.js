@@ -103,8 +103,32 @@ const HeaderText = styled.Text`
 `;
 const CardText = styled.Text`
   font-family: ${props => props.theme.regular};
+  color: ${props => props.theme.textColor};
 `;
 
+const CardInfo = styled.View`
+   background-color: #f6f6f6;
+    height: 60px;
+    width: 100%;
+    justify-content: center;
+    padding: 5px;
+`;
+
+const PageLayout = styled.View`
+  background-color: #818181;
+`;
+
+const HamburgerIcon = styled(Icon)`
+  color: #000;
+  font-size: 28px; 
+  padding: 10px 15px; 
+`;
+
+const ParentView = styled.View`
+  flex-wrap: wrap; 
+  flex-direction: row; 
+  padding: 5px;
+`;
 const formatData = (data, numColumns) => {
   const numberOfFullRows = Math.floor(data.length / numColumns);
 
@@ -151,7 +175,6 @@ class CompanyList extends React.Component {
   }
  
   render(){
-    const { container, item, itemInvisible, itemText,} = styles;
     const history= this.props.history;
     // console.log("dimension",this.state.tablet);
     // const tablet = this.state.tablet;
@@ -174,17 +197,17 @@ class CompanyList extends React.Component {
         >
           <SubHeader>
             <HeaderText> Please Select Company </HeaderText>
-            <View style={styles.button}>
+            <View>
               <TouchableOpacity
                 onPress={this.toggle}
               >
-                <Icon style={{color: '#000', fontSize: 28, paddingHorizontal: 15, paddingVertical: 10}} name="ios-menu" />
+                <HamburgerIcon name="ios-menu" />
               </TouchableOpacity>
             </View>
           </SubHeader>
-          <View style={{backgroundColor: '#818181'}}>
+          <PageLayout>
             <ScrollView>
-              <View style={{flexWrap: 'wrap', flexDirection: 'row', padding: 5}}>
+              <ParentView>
               {
                 CList.map(data => {
                   return(
@@ -201,19 +224,19 @@ class CompanyList extends React.Component {
                             source={require('../assets/img/shirt-static.png')}
                           />
                         </ImageView>
-                        <View style={styles.cardInfo}>
-                          <CardText numberOfLines={1} style={styles.itemText}> {data.companyName} </CardText>
-                          <CardText numberOfLines={1} style={styles.itemText}> {data.userName} </CardText>
-                          <CardText numberOfLines={1} style={styles.itemText}> {data.userType} </CardText>
-                        </View>
+                        <CardInfo>
+                          <CardText numberOfLines={1}> {data.companyName} </CardText>
+                          <CardText numberOfLines={1}> {data.userName} </CardText>
+                          <CardText numberOfLines={1}> {data.userType} </CardText>
+                        </CardInfo>
                     </TouchableOpacity>
                       </Card>
                   )
                 })
               }
-              </View>
+              </ParentView>
             </ScrollView>
-          </View>
+          </PageLayout>
         </Drawer>
       </View>
     )
@@ -223,40 +246,5 @@ const drawerStyles = {
   drawer: { shadowColor: '#aaaaaa', shadowOpacity: 0.4, shadowRadius: 3},
   main: {flex: 1},
 }
-const styles = {
-  searchInput:{
-    padding: 10,
-    borderColor: '#CCC',
-    borderWidth: 1
-  },
-  container: {
-    flex: 1,
-    paddingTop: 10,
-    paddingBottom: 40,
-    backgroundColor: '#818181'
-  },
-  item: {
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    flex: 1,
-    margin: 5,
-    height: Dimensions.get('window').width / numColumns +60, // approximate a square
-  },
-  itemInvisible: {
-    backgroundColor: 'transparent',
-  },
-  itemText: {
-    color: '#000',
-  },
-  cardInfo:{
-    backgroundColor: '#f6f6f6',
-    height: 60,
-    width: '100%',
-    justifyContent: 'center',
-    padding: 5
-  },
 
-
-}
 export default withRouter(CompanyList);

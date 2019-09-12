@@ -63,6 +63,30 @@ const MainSearchInput = styled(SearchInput)`
   margin: 15px;
   margin-right: 10px;
 `;
+
+const ViewBox = styled.View`
+  height: 50px;
+  width: 50px;
+  border-width: 1px;
+  border-color: #ddd;
+  border-radius: 4px;
+  margin: 15px;
+  justify-content: center;
+  align-items: center;
+`;
+
+const CardInfo = styled.View`
+  border-top-width: 1px;
+  border-color: #eee;
+  height: 50px;
+  width: 100%;
+  justify-content: center;
+  padding: 5px;
+`;
+
+const  ItemText = styled.Text`
+  color: ${props => props.theme.TextColor};
+`;
 // flatlist start
 const formatData = (details, numColumns) => {
   const numberOfFullRows = Math.floor(details.length / numColumns);
@@ -116,7 +140,7 @@ class Search extends React.Component {
 
   renderGridView = ({ item, index }) => {
     if (item.empty === true) {
-      return <View style={[styles.item, styles.itemInvisible]} />;
+      return <View style={styles.item} />;
     }
     const history= this.props.history;
     return (
@@ -128,10 +152,10 @@ class Search extends React.Component {
             source={require('../../assets/img/shirt-static.png')}
           />
         </View>
-        <View style={styles.cardInfo}>
-          <Text style={styles.itemText}> {item.styleName} </Text>
-          <Text style={styles.itemText}> {item.styleNo} </Text>
-        </View>
+        <CardInfo>
+          <ItemText> {item.styleName} </ItemText>
+          <ItemText> {item.styleNo} </ItemText>
+        </CardInfo>
       </TouchableOpacity>
     );
   };
@@ -160,11 +184,11 @@ class Search extends React.Component {
             />
           </Flex>
           <TouchableOpacity onPress={this.changeView}>
-          <View style={styles.ViewBox}>
+          <ViewBox>
             <Image resizeMode={"contain"} 
               source={this.state.currentView === 'linear' ? require('../../assets/img/squares.png') : require('../../assets/img/lines.png')} 
             /> 
-          </View>
+          </ViewBox>
           </TouchableOpacity>
         </SearchRow>
         {this.state.currentView === 'linear' &&
@@ -189,10 +213,10 @@ class Search extends React.Component {
                       resizeMode={"center"}
                       source={require('../../assets/img/shirt-static.png')}
                     />
-                    <View style={styles.cardInfo}>
+                    <CardInfo>
                       <CardText numberOfLines={1}> {data.styleName} </CardText>  
                       <CardText numberOfLines={1}> {data.styleNo} </CardText>
-                    </View>
+                    </CardInfo>
                     
                   </TouchableOpacity>
                 </GirdImageView>
@@ -210,12 +234,6 @@ class Search extends React.Component {
 }
 
 const styles = {
-  // iconView: {
-  //   width: 50,
-  //   padding: 5,
-  //   alignItems: 'center',
-  //   justifyContent: 'center'
-  // },
   searchInput:{
     padding: 11,
     borderColor: '#CCC',
@@ -223,20 +241,6 @@ const styles = {
     height: 50,
     margin: 15,
   },
-  ViewBox: {
-    height: 50,
-    width: 50,
-    borderWidth: 1,
-    borderColor: '#ddd',
-    borderRadius: 4,
-    margin: 15,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  mainSearchInput: {
- 
-  },
-
   // grid style
     item: {
     backgroundColor: '#fff',
@@ -248,22 +252,8 @@ const styles = {
     borderColor: '#ccc',
     height: Dimensions.get('window').width / numColumns +50, // approximate a square
   },
-  itemInvisible: {
-    backgroundColor: 'transparent',
-    borderColor: '#f6f6f6'
-  },
-  itemText: {
-    color: '#000',
-  },
-  cardInfo:{
-    // backgroundColor: '#f6f6f6',
-    borderTopWidth: 1,
-    borderColor: '#eee',
-    height: 50,
-    width: '100%',
-    justifyContent: 'center',
-    padding: 5
-  },
+ 
+  
   imageView: {
     height: Dimensions.get('window').width / numColumns,
     alignItems: 'center',

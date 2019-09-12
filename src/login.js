@@ -34,6 +34,7 @@ const LoginButton = styled.TouchableHighlight`
   align-items: center;
   border-radius: 4px;
   margin: 20px 0px;
+  border: 1px solid #546e50;
 `;
 const LogoView = styled.View`
   margin-top: 70px;

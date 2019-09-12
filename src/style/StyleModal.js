@@ -36,7 +36,7 @@ const ApplyBar = styled.View`
   padding: 15px;
   align-items: center;
   justify-content: center;
-  background-color: #f1efed;
+  background-color: ${props => props.theme.lightBrown};
   padding-right: 15px;
 `;
 const SummaryTitle = styled.Text`

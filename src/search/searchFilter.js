@@ -5,6 +5,7 @@ import SearchInput, { createFilter } from 'react-native-search-filter';
 import { Button } from 'native-base';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import CommonModal from '../shared/CommonModal';
+import styled from 'styled-components'
 
 const styleArray = [
   { name: "Superdry"}, 
@@ -25,6 +26,91 @@ const seasonArray = [
 
 const KEYS_TO_FILTERS = ['name'];
 const SEASON_KEYS = ['name'];
+
+const StyledTouchableOpacity = styled.TouchableOpacity`
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  align-items: center;
+  justify-content: center;
+  right: 20px;
+  bottom: 30px;
+`;
+
+const FilterButton = styled.View`
+  border: 1px solid #eee;
+  align-items:center;
+  justify-content:center;
+  width:50px;
+  height:50px;
+  background-color:#818181;
+  border-radius:50px;
+  /* shadow-color: #aaa;
+  shadow-offset: { width: 0; height: 3 };
+  shadow-opacity: 0.8;
+  shadow-radius: 2;  
+  elevation: 5; */
+  elevation: 5;
+  box-shadow: 50px 15px #aaa;
+  z-index: 2;
+  margin-top: 10px;
+`;
+const GrayButtonText = styled.Text`
+  color: white;
+  text-transform: uppercase;
+  font-size: 12px;
+  padding: 5px;
+`;
+const StyledSearchInput = styled(SearchInput)`
+  padding: 11px;
+  border: 1px solid #ccc;
+  height: 40px;
+  margin: 10px 0px;
+`;
+const ReserBar = styled.View`
+  padding: 10px;
+  border-bottom-width: 1px;
+  border-bottom-color:  #ccc;
+  justify-content: flex-end;
+  flex-direction: row;
+  align-items: center;
+`;
+
+const SearchBar = styled.View`
+  padding: 15px;
+  border-bottom-width: 1px;
+  border-bottom-color: #ddd;
+`;
+
+const StyledItem = styled.View`
+  margin-right: 10px;
+  border-radius: 15px;
+  border: 1px solid #9b9b9b;
+  background-color: #fff;
+  align-self: flex-start;
+  padding: 0px 5px 1px 0px;
+  justify-content: center;
+  margin-bottom:10px;
+`;
+
+const ItemName = styled.Text`
+  color: #9b9b9b;
+  font-weight: 300;
+  padding: 2px 4px;
+  font-family: ${props => props.theme.regular};
+`;
+
+const Capsule = styled.View`
+  justify-content: flex-start;
+  align-items: center;
+  margin: 20px 0px;
+  flex-wrap: wrap;
+  flex-direction: row;
+`;
+const Title = styled.Text`
+  text-transform: uppercase;
+  color: #8D8177;
+`;
 
 class searchFilter extends Component {
   state = {
@@ -68,14 +154,13 @@ class searchFilter extends Component {
 
 
   render() {
-    const { filterButton, filterArea, closeBox, filterBar, 
-      modalTitle, grayButton, grayButtonText, resetBar, upper, searchBar, skillView, styleItem, itemName, applyBar, applyText } = styles;
+    
      const filteredStyle = styleArray.filter(createFilter(this.state.searchTerm, KEYS_TO_FILTERS));
      const filteredSeason = seasonArray.filter(createFilter(this.state.searchSeason, SEASON_KEYS));
     // console.log("app state: ", this.state.appState);
      return (
       <Fragment>
-        <TouchableOpacity
+        <StyledTouchableOpacity
           activeOpacity={0.7}
           // onPress={() => {
           //   this.setModalVisible(true);
@@ -83,11 +168,11 @@ class searchFilter extends Component {
           onPress={() => {
 						this.setModalVisible(!this.state.modalVisible);
 					}}
-          style={styles.TouchableOpacityStyle}>
-            <View style={filterButton}>
+          >
+            <FilterButton>
               <Image resizeMode={"contain"} source={require('../../assets/img/filter.png')} /> 
-            </View>
-        </TouchableOpacity>
+            </FilterButton>
+        </StyledTouchableOpacity>
         {/* <Modal
           animationType="fade"
           transparent={false}
@@ -107,174 +192,58 @@ class searchFilter extends Component {
             <View style={{flex: 1}}>
 
           <KeyboardAwareScrollView>
-              <View style={resetBar}>
-                <Button small style={{backgroundColor: '#C2BEB6'}}><Text style={grayButtonText}>reset</Text></Button>
-              </View>
+              <ReserBar>
+                <Button small style={{backgroundColor: '#C2BEB6'}}>
+                  <GrayButtonText>
+                    reset
+                  </GrayButtonText>
+                </Button>
+              </ReserBar>
               
-              <View style={searchBar}>
-                <Text style={upper}>brand</Text>
-                <SearchInput 
+              <SearchBar>
+                <Title>brand</Title>
+                <StyledSearchInput 
                   onChangeText={(term) => { this.searchUpdated(term) }} 
-                  style={styles.searchInput}
                   placeholder="Enter Brand Name "
                 />
-                <View style={skillView}>
+                <Capsule>
                 {
                   filteredStyle.map(item => {
                     return(
-                      <View style={styleItem} key={item.name}>
-                        <Text style={itemName}>{item.name} </Text>
-                      </View>
+                      <StyledItem key={item.name}>
+                        <ItemName>{item.name} </ItemName>
+                      </StyledItem>
                     )
                   })
                 }
-                </View>
-              </View>
+                </Capsule>
+              </SearchBar>
 
-              <View style={searchBar}>
-                <Text style={upper}>season</Text>
-                <SearchInput 
+              <SearchBar>
+                <Title>season</Title>
+                <StyledSearchInput 
                   onChangeText={(term) => { this.seasonUpdated(term) }} 
-                  style={styles.searchInput}
                   placeholder="Enter Season"
                 />
-                <View style={skillView}>
+                <Capsule>
                   {
                     filteredSeason.map(item => {
                       return(
-                        <View style={styleItem} key={item.name}><Text style={itemName}>{item.name} </Text></View>
+                        <StyledItem key={item.name}>
+                          <ItemName>{item.name} 
+                          </ItemName>
+                        </StyledItem>
                       )
                     })
                   }
-                </View>
-              </View>
+                </Capsule>
+              </SearchBar>
           </KeyboardAwareScrollView>
 
             </View>
         </CommonModal>
       </Fragment>
     )
-  }
-}
-const styles = {
-  TouchableOpacityStyle: {
-    position: 'absolute',
-    width: 50,
-    height: 50,
-    alignItems: 'center',
-    justifyContent: 'center',
-    right: 20,
-    bottom: 30,
-  },
-  filterButton: {
-		borderWidth:1,
-		borderColor: '#eee',
-		alignItems:'center',
-		justifyContent:'center',
-		width:50,
-		height:50,
-		backgroundColor:'#818181',
-		borderRadius:50,
-		shadowColor: '#aaa',
-		shadowOffset: { width: 0, height: 3 },
-		shadowOpacity: 0.8,
-		shadowRadius: 2,  
-    elevation: 5,
-    zIndex: 2,
-    marginTop: 10
-  },
-  closeBox: {
-		marginLeft: 'auto',
-		paddingVertical: 5,
-    paddingHorizontal: 10,
-	},
-  filterBar: {
-    backgroundColor: '#415461',
-    heigth: 30,
-    flexDirection: 'row',
-    alignItems: 'center'
-  },
-  modalTitle: {
-    color: 'white',
-    paddingLeft: 10,
-    fontSize: 16,
-    textTransform :'uppercase'
-  },
-  grayButton: {
-    backgroundColor: '#C2BEB6',
-    alignSelf: 'flex-start',
-    paddingHorizontal: 6,
-    paddingVertical: 3,
-  },
-  grayButtonText: {
-    color: 'white',
-    textTransform: 'uppercase',
-    fontSize: 12,
-    padding: 5,
-  },
-  resetBar: {
-    padding: 10,
-    borderBottomWidth: 1,
-    borderColor: '#ccc',
-    justifyContent: 'flex-end',
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  upper: {
-    textTransform: 'uppercase',
-    color: '#8D8177',
-  },
-  searchBar: {
-    padding: 15,
-    borderBottomWidth: 1,
-    borderColor: '#ddd'
-  },
-  applyBar: {
-    padding: 15,
-    justifyContent: 'flex-end',
-    alignItems: 'center',
-    flexDirection: 'row',
-    // backgroundColor: 'red'
-    // zIndex:-1
-
-  },
-  searchInput:{
-    padding: 11,
-    borderColor: '#CCC',
-    borderWidth: 1,
-    height: 40,
-    marginVertical: 10,
-  },
-  skillView: {
-    justifyContent: 'flex-start',
-    alignItems: 'center',
-    marginVertical: 20,
-    flexWrap: 'wrap',
-    flexDirection: 'row'
-  },
-  styleItem: {
-    marginRight: 10,
-    borderRadius: 15,
-    borderColor: '#9b9b9b',
-    borderWidth: 1,
-    backgroundColor: '#fff',
-    alignSelf: 'flex-start',
-    paddingHorizontal: 5,
-    paddingBottom: 1,
-    justifyContent: 'center',
-    marginBottom:10,
-  },
-  itemName: {
-    color: '#9b9b9b',
-    fontWeight: '300',
-    paddingHorizontal: 4,
-    paddingVertical: 2,
-    // fontFamily: "",
-  },
-  applyText: {
-    color: 'white',
-    textTransform: 'uppercase',
-    padding: 5,
   }
 }
 export default searchFilter;

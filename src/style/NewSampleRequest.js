@@ -114,7 +114,7 @@ const StyleFileTitle = styled.View`
 	flex-direction: row;
 	justify-content: space-between;
 	align-items: center;
-	background-color: #F1EFED;
+	background-color: ${props => props.theme.lightBrown};
 	border: 1px solid #DCD7D4;
 `;
 const Capital = styled.Text`

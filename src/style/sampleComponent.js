@@ -24,7 +24,7 @@ const TitleRow = styled.View`
   align-items: center;
   border-bottom-color: #c6bfb8;
   border-bottom-width: 1px;
-  background-color: #f1efed;
+  background-color: ${props => props.theme.lightBrown};
 `;
 const StatusDot = styled.View`
   width: 10px;
