@@ -15,6 +15,8 @@ import com.delogue.R;
 
 // @react-native-community/netinfo
 import com.reactnativecommunity.netinfo.NetInfoPackage;
+// lottie-react-native
+import com.airbnb.android.react.lottie.LottiePackage;
 // react-native-bootsplash
 import com.zoontek.rnbootsplash.RNBootSplashPackage;
 // react-native-camera
@@ -55,6 +57,7 @@ public class PackageList {
     return new ArrayList<>(Arrays.<ReactPackage>asList(
       new MainReactPackage(),
       new NetInfoPackage(),
+      new LottiePackage(),
       new RNBootSplashPackage(),
       new RNCameraPackage(),
       new VectorIconsPackage()

@@ -1,0 +1,6 @@
+module Pods_delogue {
+  umbrella header "Pods-delogue-umbrella.h"
+
+  export *
+  module * { export * }
+}

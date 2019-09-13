@@ -6,6 +6,7 @@ import Drawer from 'react-native-drawer';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { withRouter } from 'react-router';
 import styled from 'styled-components';
+import Loader from './shared/Loader';
 import { Grid, Section, Block } from 'react-native-responsive-layout';
 
 const CList = [
@@ -146,6 +147,7 @@ class CompanyList extends React.Component {
     this.state = {
       isOpen: false,
       tablet: false,
+      loading: true,
     };
     this.toggle = this.toggle.bind(this)
     this.handleBackButtonClick = this.handleBackButtonClick.bind(this);
@@ -178,6 +180,13 @@ class CompanyList extends React.Component {
     const history= this.props.history;
     // console.log("dimension",this.state.tablet);
     // const tablet = this.state.tablet;
+    if(this.state.loading){
+      return (
+        <View style={{flex: 1, backgroundColor: '#fff'}}>
+          <Loader />
+        </View>
+      )
+    }
     return(
       
       <View style={{flex: 1}}>
