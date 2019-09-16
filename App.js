@@ -7,7 +7,7 @@
  * @flow
  */
 
-import React, {Fragment, useEffect} from 'react';
+import React, { Fragment, useEffect } from 'react';
 import {
   SafeAreaView,
   StyleSheet,
@@ -70,30 +70,30 @@ const App = () => {
   }, []);
 
   return (
-    <Provider store={ store }>
-    <NativeRouter>
-    <ThemeProvider theme={Theme}>
-    <Fragment>
-      <StatusBar barStyle="dark-content" />
-      <SafeAreaView />
-          <View style={{flex: 1}}>
-        <OfflineNotice />
-            <Switch>
-              {/* <Route exact path="/" component={Style}></Route> */}
-              <Route exact path="/" component={Login}></Route>
-              <Route exact path="/search" component={Search}></Route>
-              <Route exact path="/message" component={Message}></Route>
-              <Route exact path="/style" component={Style}></Route>
-              <Route exact path="/sampleRequest" component={SampleRequest}></Route> 
-              <Route exact path="/companyList" component={CompanyList}></Route>
-              <Route exact path="/notificationModal" component={NotificationModal}></Route>
-              
-            </Switch>
-        </View>
-      <SafeAreaView/>
-    </Fragment>
-    </ThemeProvider>
-    </NativeRouter>
+    <Provider store={store}>
+      <NativeRouter>
+        <ThemeProvider theme={Theme}>
+          <Fragment>
+            <StatusBar barStyle="dark-content" />
+            <SafeAreaView />
+            <View style={{ flex: 1 }}>
+              <OfflineNotice />
+              <Switch>
+                {/* <Route exact path="/" component={Style}></Route> */}
+                <Route exact path="/" component={Login}></Route>
+                <Route exact path="/search" component={Search}></Route>
+                <Route exact path="/message" component={Message}></Route>
+                <Route exact path="/style" component={Style}></Route>
+                <Route exact path="/sampleRequest" component={SampleRequest}></Route>
+                <Route exact path="/companyList" component={CompanyList}></Route>
+                <Route exact path="/notificationModal" component={NotificationModal}></Route>
+
+              </Switch>
+            </View>
+            <SafeAreaView />
+          </Fragment>
+        </ThemeProvider>
+      </NativeRouter>
     </Provider>
   );
 };

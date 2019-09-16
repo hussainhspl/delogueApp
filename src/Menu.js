@@ -13,7 +13,7 @@ const MenuText = styled.Text`
 const MenuContainer = styled.View`
   border-width: 1px;
   border-left-color: #ccc;
-  flex: 1px;
+  flex: 1;
   background-color: #eee;
 `;
 const CompanyHighlight = styled.View`
