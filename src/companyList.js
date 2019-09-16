@@ -1,5 +1,5 @@
 import React, {Fragment} from 'react';
-import { StyleSheet, Text, View, FlatList, Dimensions, TouchableOpacity, TouchableHighlight, BackHandler, ScrollView} from 'react-native';
+import {Text, View, FlatList, Dimensions, TouchableOpacity, BackHandler, ScrollView, RefreshControl,} from 'react-native';
 import Menu from './Menu';
 // import SideMenu from 'react-native-side-menu';
 import Drawer from 'react-native-drawer';
@@ -147,14 +147,12 @@ class CompanyList extends React.Component {
     this.state = {
       isOpen: false,
       tablet: false,
-      loading: true,
+      loading: false,
     };
     this.toggle = this.toggle.bind(this)
     this.handleBackButtonClick = this.handleBackButtonClick.bind(this);
   }
-  checkDevice() {
-    
-  }
+
   componentWillMount() {
     if(Dimensions.get('window').width >568) {
       this.setState({tablet: true},() =>console.log("will mount" , this.state.tablet))
@@ -182,7 +180,7 @@ class CompanyList extends React.Component {
     // const tablet = this.state.tablet;
     if(this.state.loading){
       return (
-        <View style={{flex: 1, backgroundColor: '#fff'}}>
+        <View style={{flex: 1, backgroundColor: '#fff', justifyContent: "center"}}>
           <Loader />
         </View>
       )

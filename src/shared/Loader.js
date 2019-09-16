@@ -7,7 +7,10 @@ export default class BasicExample extends React.Component {
     return (
       
         
-        <LottieView style={{flex: 1, flexBasis:1 }} source={require('../../assets/animation/68-loader.json')} autoPlay loop />
+        <LottieView 
+          source={require('../../assets/animation/68-loader.json')} 
+          autoPlay loop 
+        />
     )
   }
 }

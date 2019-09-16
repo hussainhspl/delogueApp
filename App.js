@@ -69,24 +69,6 @@ const App = () => {
     });
   }, []);
 
-  // NetInfo.fetch().then(state => {
-  //   console.log("Connection type", state.type);
-  //   console.log("Is connected?", state.isConnected);
-  // });
-
-  // handleConnectivityChange = (isConnected) => {
-  //   this.setState({ isConnected });
-  // };
-
-  // componentDidMount = () => {
-  //   NetInfo.isConnected.addEventListener('connectionChange', this.handleConnectivityChange);
-  // };
-
-  // componentWillUnmount = () => {
-  //   NetInfo.isConnected.removeEventListener('connectionChange', this.handleConnectivityChange);
-  // };
-
-
   return (
     <Provider store={ store }>
     <NativeRouter>
