@@ -51,7 +51,7 @@ const FilterButton = styled.View`
   shadow-radius: 2;  
   elevation: 5; */
   elevation: 5;
-  box-shadow: 50px 15px #aaa;
+  /* box-shadow: 50px 15px #aaa; */
   z-index: 2;
   margin-top: 10px;
 `;
@@ -67,7 +67,7 @@ const StyledSearchInput = styled(SearchInput)`
   height: 40px;
   margin: 10px 0px;
 `;
-const ReserBar = styled.View`
+const ResetBar = styled.View`
   padding: 10px;
   border-bottom-width: 1px;
   border-bottom-color:  #ccc;
@@ -192,13 +192,13 @@ class searchFilter extends Component {
             <View style={{flex: 1}}>
 
           <KeyboardAwareScrollView>
-              <ReserBar>
+              <ResetBar>
                 <Button small style={{backgroundColor: '#C2BEB6'}}>
                   <GrayButtonText>
                     reset
                   </GrayButtonText>
                 </Button>
-              </ReserBar>
+              </ResetBar>
               
               <SearchBar>
                 <Title>brand</Title>

@@ -38,6 +38,8 @@ target 'delogue' do
 
   pod 'lottie-react-native', :path => '../node_modules/lottie-react-native'
 
+  pod 'react-native-camera', path: '../node_modules/react-native-camera'
+
   target 'delogueTests' do
     inherit! :search_paths
     # Pods for testing

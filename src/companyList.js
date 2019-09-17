@@ -1,5 +1,6 @@
 import React, { Fragment } from 'react';
-import { Text, View, FlatList, Dimensions, TouchableOpacity, BackHandler, ScrollView, RefreshControl, SafeAreaView } from 'react-native';
+import { Text, View, FlatList, Dimensions, TouchableOpacity, BackHandler, 
+  ScrollView, RefreshControl, SafeAreaView } from 'react-native';
 import Menu from './Menu';
 // import SideMenu from 'react-native-side-menu';
 import Drawer from 'react-native-drawer';
@@ -74,22 +75,23 @@ const CList = [
   // { key: 'L' },
 ];
 
-const GridImage = styled.Image`
-  width: ${(props) => props.tablet ? Dimensions.get('window').width / 3 - 60 : Dimensions.get('window').width / 2 - 50};
-  height: ${(props) => props.tablet ? Dimensions.get('window').width / 3 - 30 : Dimensions.get('window').width / 2 - 30};
-  margin: auto;
+const Card = styled.View`
+  width: ${(props) => props.tablet ? Dimensions.get('window').width / 3 - 13.4 : Dimensions.get('window').width / 2 - 15};
+  height: ${(props) => props.tablet ? Dimensions.get('window').height / 3 - 37 : Dimensions.get('window').height / 2 - 50};
+  margin: 5px;
+  background-color: #fff;
 `;
 
 const ImageView = styled.View`
   width: ${(props) => props.tablet ? Dimensions.get('window').width / 3 - 45 : Dimensions.get('window').width / 2 - 45};
-  height: ${(props) => props.tablet ? Dimensions.get('window').width / 3 - 30 : Dimensions.get('window').width / 2 - 15};
+  height: ${(props) => props.tablet ? Dimensions.get('window').height / 3 - 98 : Dimensions.get('window').height / 2 - 110};
   margin: 0 auto;
 `;
-const Card = styled.View`
-  width: ${(props) => props.tablet ? Dimensions.get('window').width / 3 - 15 : Dimensions.get('window').width / 2 - 15};
-  height: ${(props) => props.tablet ? Dimensions.get('window').width / 3 + 30 : Dimensions.get('window').width / 2 + 45};
-  margin: 5px;
-  background-color: #fff;
+
+const GridImage = styled.Image`
+  width: ${(props) => props.tablet ? Dimensions.get('window').width / 3 - 60 : Dimensions.get('window').width / 2 - 50};
+  height: ${(props) => props.tablet ? Dimensions.get('window').height / 3 - 120 : Dimensions.get('window').height / 2 - 130};
+  margin: auto;
 `;
 const SubHeader = styled.View`
   flex-direction: row;
@@ -121,7 +123,7 @@ const PageLayout = styled.View`
 
 const HamburgerIcon = styled(Icon)`
   color: #000;
-  font-size: 28px; 
+  font-size: 30px; 
   padding: 10px 15px; 
 `;
 
@@ -130,17 +132,19 @@ const ParentView = styled.View`
   flex-direction: row; 
   padding: 5px;
 `;
-const formatData = (data, numColumns) => {
-  const numberOfFullRows = Math.floor(data.length / numColumns);
+// const formatData = (data, numColumns) => {
+//   const numberOfFullRows = Math.floor(data.length / numColumns);
 
-  let numberOfElementsLastRow = data.length - (numberOfFullRows * numColumns);
-  while (numberOfElementsLastRow !== numColumns && numberOfElementsLastRow !== 0) {
-    data.push({ key: `blank-${numberOfElementsLastRow}`, empty: true });
-    numberOfElementsLastRow++;
-  }
-  return data;
-};
-const numColumns = 2;
+//   let numberOfElementsLastRow = data.length - (numberOfFullRows * numColumns);
+//   while (numberOfElementsLastRow !== numColumns && numberOfElementsLastRow !== 0) {
+//     data.push({ key: `blank-${numberOfElementsLastRow}`, empty: true });
+//     numberOfElementsLastRow++;
+//   }
+//   return data;
+// };
+// const numColumns = 2;
+
+
 class CompanyList extends React.Component {
   constructor(props) {
     super(props);
@@ -148,11 +152,18 @@ class CompanyList extends React.Component {
       isOpen: false,
       tablet: false,
       loading: false,
+      refreshing: false,
     };
     this.toggle = this.toggle.bind(this)
     this.handleBackButtonClick = this.handleBackButtonClick.bind(this);
   }
-
+  //refresh code
+  onRefresh = () => {
+    this.setState({ refreshing: true });
+    setTimeout(() => {
+      this.setState({ refreshing: false });
+    },2000);
+  };
   componentWillMount() {
     if (Dimensions.get('window').width > 568) {
       this.setState({ tablet: true }, () => console.log("will mount", this.state.tablet))
@@ -215,7 +226,15 @@ class CompanyList extends React.Component {
             </SubHeader>
             <PageLayout>
               {/* <Text>hello</Text> */}
-              <ScrollView>
+              <ScrollView
+                refreshControl={
+                  <RefreshControl
+                    refreshing={this.state.refreshing}
+                    onRefresh={this.onRefresh}
+                    title="pull to refresh"
+                  />
+                }
+              >
                 <ParentView>
                   {
                     CList.map(data => {

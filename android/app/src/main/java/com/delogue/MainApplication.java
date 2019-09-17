@@ -3,12 +3,12 @@ package com.delogue;
 import android.app.Application;
 import android.util.Log;
 
-import org.reactnative.camera.RNCameraPackage;
 
 import com.facebook.react.PackageList;
 import com.facebook.hermes.reactexecutor.HermesExecutorFactory;
 import com.facebook.react.bridge.JavaScriptExecutorFactory;
 import com.facebook.react.ReactApplication;
+import org.reactnative.camera.RNCameraPackage;
 import com.airbnb.android.react.lottie.LottiePackage;
 import com.reactnativecommunity.netinfo.NetInfoPackage;
 import com.oblador.vectoricons.VectorIconsPackage;

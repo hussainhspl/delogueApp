@@ -3,7 +3,6 @@ import { View, Text, Image, Dimensions, TouchableOpacity, ScrollView, AppState
 } from "react-native";
 import styled from "styled-components";
 import { Icon } from "native-base";
-import { RNCamera } from "react-native-camera";
 import StyleModal from "./StyleModal";
 import CameraComponent from '../shared/CameraComponent'; 
 import CommonModal from '../shared/CommonModal';

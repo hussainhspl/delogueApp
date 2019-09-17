@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "/Users/headfitted/Documents/hussain/delogueApp/android/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-port/values-port.xml",
+            "outputFile": "/Users/commonuser/react-native/delogueApp/android/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-port/values-port.xml",
             "map": [
                 {
-                    "source": "/Users/headfitted/.gradle/caches/transforms-2/files-2.1/24c4d8404f6979054377dafd235d0d6f/res/values-port/values-port.xml",
+                    "source": "/Users/commonuser/.gradle/caches/transforms-2/files-2.1/1982458f6433dcd6ea089a2703272953/res/values-port/values-port.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",

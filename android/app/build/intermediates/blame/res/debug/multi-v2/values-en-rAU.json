@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "/Users/headfitted/Documents/hussain/delogueApp/android/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-en-rAU/values-en-rAU.xml",
+            "outputFile": "/Users/commonuser/react-native/delogueApp/android/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-en-rAU/values-en-rAU.xml",
             "map": [
                 {
-                    "source": "/Users/headfitted/.gradle/caches/transforms-2/files-2.1/24c4d8404f6979054377dafd235d0d6f/res/values-en-rAU/values-en-rAU.xml",
+                    "source": "/Users/commonuser/.gradle/caches/transforms-2/files-2.1/1982458f6433dcd6ea089a2703272953/res/values-en-rAU/values-en-rAU.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29",
                         "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
@@ -14,7 +14,7 @@
                     }
                 },
                 {
-                    "source": "/Users/headfitted/.gradle/caches/transforms-2/files-2.1/c1895063bb7e3162bb80d3ad70e5bd59/res/values-en-rAU/values-en-rAU.xml",
+                    "source": "/Users/commonuser/.gradle/caches/transforms-2/files-2.1/4512ba692dfcb0fe09a14af172cf4302/res/values-en-rAU/values-en-rAU.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",

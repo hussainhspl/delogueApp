@@ -9,8 +9,9 @@ import {
   ScrollView,
   BackHandler
 } from "react-native";
+import {Icon, Button} from 'native-base';
 import SearchInput, { createFilter } from "react-native-search-filter";
-import Icon from "react-native-vector-icons/Ionicons";
+// import Icon from "react-native-vector-icons/Ionicons";
 import SearchFilter from "./searchFilter";
 import Header from "../Header";
 import styled from "styled-components";
@@ -40,19 +41,53 @@ const details = [
     styleName: "t shirt",
     supplier: "Super textiles",
     season: "summer"
+  },
+  {
+    styleNo: "sty2217",
+    styleName: "t shirt",
+    supplier: "Super textiles",
+    season: "summer"
+  },
+  {
+    styleNo: "sty2217",
+    styleName: "t shirt",
+    supplier: "Super textiles",
+    season: "summer"
+  },
+  {
+    styleNo: "sty2217",
+    styleName: "t shirt",
+    supplier: "Super textiles",
+    season: "summer"
+  },
+  {
+    styleNo: "sty2217",
+    styleName: "t shirt",
+    supplier: "Super textiles",
+    season: "summer"
   }
 ];
-const GridImage = styled.Image`
-  width: ${Dimensions.get("window").width / 3 - 30};
-  height: ${Dimensions.get("window").width / 3};
-  margin: 0px auto;
-`;
-const GirdImageView = styled.View`
+
+const GirdCard = styled.View`
   width: ${Dimensions.get("window").width / 3};
-  height: ${Dimensions.get("window").width / 3 + 50};
+  height: ${Dimensions.get("window").height / 3 - 50};
   border: 1px solid #ddd;
   align-self: flex-start;
 `;
+
+const GirdImageView = styled.View`
+  width: ${Dimensions.get("window").width / 3};
+  height: ${Dimensions.get("window").height / 3 - 100};
+  /* margin: auto; */
+  justify-content: center;
+  align-items: center;
+`;
+
+const GridImage = styled.Image`
+  width: ${Dimensions.get("window").width / 3 - 54};
+  height: ${Dimensions.get("window").height / 3- 120};
+`;
+
 const SearchRow = styled.View`
   flex-direction: row;
   justify-content: space-between;
@@ -147,13 +182,21 @@ class Search extends React.Component {
     this.changeView = this.changeView.bind(this);
     this.state = {
       currentView: "grid",
-      searchTerm: ""
+      searchTerm: '',
+      tablet: false,
+
     };
-    this.myTextInput = React.createRef();
+    // this.myTextInput = React.createRef();
+  }
+  componentWillMount() {
+    if (Dimensions.get('window').width > 568) {
+      this.setState({ tablet: true }, () => console.log("will mount", this.state.tablet))
+    }
   }
   searchUpdated(term) {
     this.setState({
-      searchTerm: term
+      searchTerm: term,
+      renderSearch: 'linear'
     });
   }
   changeView = () => {
@@ -170,9 +213,7 @@ class Search extends React.Component {
         searchTerm: ""
       });
       this.searchUpdated("");
-      // this.myTextInput.val('');
       let term = this.state.searchTerm;
-      // var username= this.refs.username._lastNativeText;
     }
   };
 
@@ -205,6 +246,10 @@ class Search extends React.Component {
     const filteredStyle = details.filter(
       createFilter(this.state.searchTerm, KEYS_TO_FILTERS)
     );
+    if(this.state.currentView == 'linear' || 'grid'){
+      console.log("render successful");
+    }
+
     // console.log('current state', this.state.currentView);
     const history = this.props.history;
     // console.log("search history:", history);
@@ -219,11 +264,9 @@ class Search extends React.Component {
                   onChangeText={term => {
                     this.searchUpdated(term);
                   }}
-                  placeholder="Type a message to search"
-                  ref={el => {
-                    this.term = el;
-                  }}
-                  value={this.state.searchTerm}
+                  placeholder="Type a message to search linear"
+                  clearIcon={this.state.searchTerm!==''&&<Icon style={{fontSize: 28,color: '#777', paddingHorizontal: 10}} name="ios-close" />}
+                  clearIconViewStyles={{position:'absolute',top: 1,right: 2, padding: 25}}
                 />
               </Flex>
               <TouchableOpacity onPress={this.changeView}>
@@ -256,29 +299,25 @@ class Search extends React.Component {
               <GridView>
                 {filteredStyle.map(data => {
                   return (
-                    <GirdImageView key={data.styleNo}>
+                    <GirdCard key={data.styleNo}>
                       <TouchableOpacity
                         onPress={() => {
                           history.push("/style");
                         }}
                         key={data.key}
                       >
-                        <GridImage
-                          resizeMode={"center"}
-                          source={require("../../assets/img/shirt-static.png")}
-                        />
+                        <GirdImageView>
+                          <GridImage
+                            resizeMode={"center"}
+                            source={require("../../assets/img/shirt-static.png")}
+                          />
+                        </GirdImageView>
                         <CardInfo>
-                          <CardText numberOfLines={1}>
-                            {" "}
-                            {data.styleName}{" "}
-                          </CardText>
-                          <CardText numberOfLines={1}>
-                            {" "}
-                            {data.styleNo}{" "}
-                          </CardText>
+                          <CardText numberOfLines={1}> {data.styleName}</CardText>
+                          <CardText numberOfLines={1}> {data.styleNo}</CardText>
                         </CardInfo>
                       </TouchableOpacity>
-                    </GirdImageView>
+                    </GirdCard>
                   );
                 })}
               </GridView>
