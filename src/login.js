@@ -61,7 +61,7 @@ class Login extends React.Component {
     }
   }
 
-  componentWillMount() {
+  componentDidMount = () => {
     BackHandler.addEventListener('hardwareBackPress', this.handleBackButtonClick);
   }
   handleBackButtonClick() {

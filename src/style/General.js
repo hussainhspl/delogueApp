@@ -7,16 +7,16 @@ const colorArray = [
 ]
 
 const ImageView = styled.View`
-  width: ${(props) => props.tablet ? Dimensions.get('window').width / 2 : Dimensions.get('window').width -70};
-  height: ${(props) => props.tablet ? Dimensions.get('window').width /1.8: Dimensions.get('window').width - 70};
+  width: ${(props) => props.tablet ? Dimensions.get('window').width / 2.4 : Dimensions.get('window').width -70};
+  height: ${(props) => props.tablet ? Dimensions.get('window').height /2.6: Dimensions.get('window').width - 70};
   justify-content: center;
   align-items: center;
   border: 1px solid #ddd;
   margin : 20px auto;
 `;
 const StyleImage = styled.Image`
-  width: ${(props) => props.tablet ? Dimensions.get('window').width /2.1 : Dimensions.get('window').width -120};
-  height: ${(props) => props.tablet ? Dimensions.get('window').width / 1.9 : Dimensions.get('window').width - 90};
+  width: ${(props) => props.tablet ? Dimensions.get('window').width /2.7 : Dimensions.get('window').width -120};
+  height: ${(props) => props.tablet ? Dimensions.get('window').height / 2.2 : Dimensions.get('window').width - 90};
 `;
 const ColorBar = styled.View`
   border: 1px solid #ccc;
@@ -60,7 +60,7 @@ class General extends React.Component {
        tablet: false,
     }
   }
-  componentWillMount() {
+  componentDidMount = () => {
     if(Dimensions.get('window').width >568) {
       this.setState({tablet: true},() =>console.log("will mount" , this.state.tablet))
     }

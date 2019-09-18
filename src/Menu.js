@@ -1,6 +1,7 @@
 import React from 'react';
-import {View, Text, Dimensions, TouchableHighlight} from 'react-native';
+import {View, Text, Dimensions, TouchableHighlight, TouchableOpacity} from 'react-native';
 import styled from 'styled-components';
+import {Icon} from 'native-base';
 
 const MenuText = styled.Text`
   padding: 15px;
@@ -30,14 +31,30 @@ const CompanyText = styled.Text`
   padding: 5px;
   font-family: ${props => props.theme.regular};
 `;
-const window = Dimensions.get('window');
-
+const  CloseIcon = styled(Icon)`
+  color: #C2BEB6; 
+  font-size: 28px; 
+  padding: 0px 10px;
+  align-self: flex-end;
+`;
+const CloseView = styled.View`
+  width: 40px;
+  margin-left: auto;
+  /* background-color: #aaa; */
+`;
 export default class Menu extends React.Component {
   render() {
     const history= this.props.history;
     return (
       <MenuContainer>
         <View style={{paddingLeft: 15, paddingTop: 15,}}>
+            <CloseView style={{}}>
+              <TouchableOpacity
+                  onPress={this.props.close}
+                >
+                  <CloseIcon name="ios-close" /> 
+              </TouchableOpacity>       
+            </CloseView>
           <TouchableHighlight underlayColor='rgba(221, 221, 221, 0.4)' 
             onPress={() => history.push("/")}>
             <MenuText > Logout </MenuText>

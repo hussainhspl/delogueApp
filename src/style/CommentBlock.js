@@ -1,10 +1,11 @@
-import React from 'react';
+import React, {Fragment} from 'react';
 import {View, Text, Dimensions } from 'react-native';
 import styled from 'styled-components';
 import {Icon} from 'native-base';
+import ImageCard from '../shared/ImageCard';
 
 const imgArr = [
-	{key: 1}, {key: 2}, {key: 3},
+	{key: 1}, {key: 2}, {key: 3}, {key: 4}
 ]
 const CommentBox = styled.View`
 	border: 1px solid #ddd;
@@ -66,28 +67,16 @@ const ImageRow = styled.View`
 	flex-direction: row;
 	flex-wrap: wrap;
 	margin-bottom: 15px;
-`;
-const ImageView = styled.View`
-	border: 1px solid #ddd;
-	margin: auto;
-	width: ${Dimensions.get('window').width/ 3 -35};
-	height: ${Dimensions.get('window').width/ 3 -20 };
-`;
-const MainBlock = styled.View`
-	width: ${Dimensions.get('window').width/ 3 -30};
-	height: ${Dimensions.get('window').width/ 3 };
-`;
-const StyleImage = styled.Image`
-		max-height: ${Dimensions.get('window').width/ 3 + 30};
-		max-width: ${Dimensions.get('window').width/ 3 - 45};
-		margin: auto;
+	/* background-color: #000; */
+	padding: 0px 5px;
 `;
 
 const ImageName = styled.Text`
 	text-align: center;
-	padding: 10px 0px;
+	padding: 0px 10px 10px 10px ;
 	font-size: 12px;
   font-family: ${ props => props.theme.regular};
+	/* margin-bottom: 20px; */
 `;
 class CommentBlock extends React.Component {
 	render(){
@@ -121,15 +110,11 @@ class CommentBlock extends React.Component {
 					{
 						imgArr.map(data => {
 							return(
-								<MainBlock key={Math.random().toFixed(3)}>
-									<ImageView>
-										<StyleImage
-											resizeMode={"center"}
-											source={require('../../assets/img/shirt-static.png')}
-										/>
-									</ImageView>
-									<ImageName numberOfLines={1} > sample.jpg </ImageName>
-								</MainBlock>
+								<Fragment>
+									<ImageCard imgPath={require('../../assets/img/shirt-static.png')}>
+										<ImageName numberOfLines={1} > sample.jpg </ImageName>
+									</ImageCard>
+								</Fragment>
 							)
 
 						})

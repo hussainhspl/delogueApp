@@ -164,7 +164,7 @@ class CompanyList extends React.Component {
       this.setState({ refreshing: false });
     },2000);
   };
-  componentWillMount() {
+  componentDidMount = () => {
     if (Dimensions.get('window').width > 568) {
       this.setState({ tablet: true }, () => console.log("will mount", this.state.tablet))
     }
@@ -187,7 +187,7 @@ class CompanyList extends React.Component {
 
   render() {
     const history = this.props.history;
-    // console.log("dimension",this.state.tablet);
+    console.log("company list tablet",this.state.tablet);
     // const tablet = this.state.tablet;
     if (this.state.loading) {
       return (
@@ -203,7 +203,7 @@ class CompanyList extends React.Component {
           <Drawer
             type="overlay"
             ref={(ref) => this._drawer = ref}
-            content={<Menu history={history} />}
+            content={<Menu close={this.toggle} history={history} />}
             openDrawerOffset={0.4} // 20% gap on the right side of drawer
             panCloseMask={0.2}
             styles={drawerStyles}

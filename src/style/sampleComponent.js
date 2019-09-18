@@ -103,7 +103,7 @@ class sampleComponent extends React.Component {
       tablet: '',
     };
   }
-  componentWillMount() {
+  componentDidMount = () => {
     if(Dimensions.get('window').width >568) {
       this.setState({tablet: true},() =>console.log("will mount" , this.state.tablet))
     }

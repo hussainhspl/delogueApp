@@ -2,10 +2,6 @@ import React, {Fragment} from "react";
 import {
   View,
   Text,
-  TouchableHighlight,
-  Modal,
-  Alert,
-  SafeAreaView,
   Dimensions
 } from "react-native";
 import styled from "styled-components";
@@ -58,15 +54,17 @@ const Row = styled.View`
   padding-bottom: 10px;
 `;
 const StyleImage = styled.Image`
-  max-width: ${Dimensions.get("window").width - 30};
-  max-height: ${Dimensions.get("window").width - 30};
+  max-width: ${Dimensions.get("window").width/1.5 - 30};
+  max-height: ${Dimensions.get("window").height/1.8 - 30};
   padding: 10px;
 `;
 const ImageBox = styled.View`
-  width: ${Dimensions.get("window").width};
-  height: ${Dimensions.get("window").width};
+  width: ${Dimensions.get("window").width /1.5 };
+  height: ${Dimensions.get("window").height /1.8};
   justify-content: center;
   align-items: center;
+  margin: auto;
+  /* background-color: #f00; */
 `;
 class StyleModal extends React.Component {
   constructor(props) {

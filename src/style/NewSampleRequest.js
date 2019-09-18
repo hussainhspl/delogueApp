@@ -192,7 +192,7 @@ redirectTo =(history) => {
   // console.log('enter in  redirect function');
   history.push("/notificationModal")
 }
-componentWillMount() {
+componentDidMount = () => {
   if(Dimensions.get('window').width >568) {
     this.setState({tablet: true},() =>console.log("will mount" , this.state.tablet))
   }

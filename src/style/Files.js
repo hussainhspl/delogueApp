@@ -7,7 +7,8 @@ import StyleModal from "./StyleModal";
 import CameraComponent from '../shared/CameraComponent'; 
 import CommonModal from '../shared/CommonModal';
 import ItemDetail from "../shared/ItemDetail";
-import CameraView from '../styles/CameraView'
+import CameraView from '../styles/CameraView';
+import ImageCard from '../shared/ImageCard';
 
 const data =
   {
@@ -17,6 +18,11 @@ const data =
     season: 'summer'
   }
 const styArr = [
+  {
+    fileName: 'File Name',
+    imgInfo: 'Image Info',
+    date: 'dd-mmm-yyyy',
+  },
   {
     fileName: 'File Name',
     imgInfo: 'Image Info',
@@ -48,24 +54,19 @@ const Capital = styled.Text`
 
 `;
 const Card = styled.TouchableOpacity`
-  width: ${Dimensions.get("window").width / 3};
-  height: ${Dimensions.get("window").width / 3 + 100};
+  width: ${props =>
+    props.tablet
+    ? Dimensions.get("window").width / 4 
+    : Dimensions.get("window").width / 3};
+  height: ${props =>
+    props.tablet
+    ? Dimensions.get("window").height / 4 +20
+    : Dimensions.get("window").height / 3 + 20};
   border: 1px solid #ccc;
   justify-content: space-between;
   align-items: center;
 `;
-const ImageView = styled.View`
-  width: ${Dimensions.get("window").width / 3 - 20};
-  height: ${Dimensions.get("window").width / 3 + 20};
-  border: 1px solid #ddd;
-  justify-content: center;
-  align-items: center;
-  margin-top: 10px;
-`;
-const StyleImage = styled.Image`
-  width: ${Dimensions.get("window").width / 3 -40};
-  height: ${Dimensions.get("window").width / 3};
-`;
+
 const ImageInfo = styled.View`
   padding: 5px 10px;
 `;
@@ -77,7 +78,10 @@ const ImageRow = styled.View`
 
 const CardText = styled.Text`
   font-family: ${ props => props.theme.regular};
+  text-align: left;
+  /* align-self: flex-start; */
 `;
+
 class Files extends React.Component {
   constructor(props) {
     super(props);
@@ -86,7 +90,7 @@ class Files extends React.Component {
       cameraCommOn: false,
       modalVisible : false,
       appState: AppState.currentState,
-
+      tablet: false,
     };
   }
   takePicture = async () => {
@@ -109,6 +113,13 @@ class Files extends React.Component {
   _handleAppStateChange = (nextAppState) => {
     if (nextAppState === 'background') {
       this.setState({modalVisible : false}, () => console.log(this.state.modalVisible));
+    }
+  }
+  componentDidMount = () => {
+    if (Dimensions.get("window").width > 568) {
+      this.setState({ tablet: true }, () =>
+        console.log("tablet search", this.state.tablet)
+      );
     }
   }
   render() {
@@ -137,22 +148,19 @@ class Files extends React.Component {
                 styArr.map(data => {
                   return(
                     <Card
+                      tablet={this.state.tablet}
                       key={Math.random().toFixed(3)}
                       onPress={() => {
                         this.setModalVisible(true);
                       }}
                     >
-                      <ImageView>
-                        <StyleImage
-                          resizeMode={"center"}
-                          source={require("../../assets/img/shirt-static.png")}
-                        />
-                      </ImageView>
-                      <ImageInfo>
-                        <CardText numberOfLines={1}>{data.fileName}</CardText>
-                        <CardText numberOfLines={1}>{data.imgInfo}</CardText>
-                        <CardText numberOfLines={1}>{data.date}</CardText>
-                      </ImageInfo>
+                      <ImageCard imgPath={require('../../assets/img/shirt-static.png')}>
+                        <ImageInfo>
+                          <CardText numberOfLines={1}> {data.fileName} </CardText>
+                          <CardText numberOfLines={1}>{data.imgInfo}</CardText>
+                          <CardText numberOfLines={1}>{data.date}</CardText>
+                        </ImageInfo>
+                      </ImageCard>
                     </Card>
                   )
                 })
@@ -188,22 +196,19 @@ class Files extends React.Component {
                 styArr.map(data => {
                   return(
                     <Card
+                      tablet={this.state.tablet}
                       key={Math.random().toFixed(3)}
                       onPress={() => {
                         this.setModalVisible(true);
                       }}
                     >
-                      <ImageView>
-                        <StyleImage
-                          resizeMode={"center"}
-                          source={require("../../assets/img/shirt-static.png")}
-                        />
-                      </ImageView>
-                      <ImageInfo>
-                        <CardText numberOfLines={1}>{data.fileName}</CardText>
-                        <CardText numberOfLines={1}>{data.imgInfo}</CardText>
-                        <CardText numberOfLines={1}>{data.date}</CardText>
-                      </ImageInfo>
+                      <ImageCard imgPath={require('../../assets/img/shirt-static.png')}>
+                        <ImageInfo>
+                          <CardText numberOfLines={1}> {data.fileName} </CardText>
+                          <CardText numberOfLines={1}>{data.imgInfo}</CardText>
+                          <CardText numberOfLines={1}>{data.date}</CardText>
+                        </ImageInfo>
+                      </ImageCard>
                     </Card>
                   )
                 })
