@@ -36,7 +36,8 @@ class NotificationModal extends React.Component{
   setModalVisible(visible) {
     this.setState({modalVisible: visible});
   }
-  redirectTo =(history) => {
+  redirectTo =() => {
+    const { history } = this.props;
     // console.log('enter in  redirect function');
     history.push("/style")
   }

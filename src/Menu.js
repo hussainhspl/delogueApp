@@ -43,8 +43,27 @@ const CloseView = styled.View`
   /* background-color: #aaa; */
 `;
 export default class Menu extends React.Component {
+  constructor(props){
+    super(props);
+    this.state={}
+    // this.checkNredirect = this.checkNredirect.bind(this)
+  }
+  checkNredirect = () => {
+    const { history, close } = this.props;
+    // const close = this.props.close;
+    console.log("click demo", history.location.pathname)
+    if(history.location.pathname == '/companyList'){
+      console.log('same page', this.props.close);
+      {close}
+      close
+      this.props.close()
+      {this.props.close}
+    }
+    history.push("/companyList")
+  }
   render() {
     const history= this.props.history;
+    const close = this.props.close;
     return (
       <MenuContainer>
         <View style={{paddingLeft: 15, paddingTop: 15,}}>
@@ -60,7 +79,7 @@ export default class Menu extends React.Component {
             <MenuText > Logout </MenuText>
           </TouchableHighlight>
           <TouchableHighlight underlayColor='rgba(221, 221, 221, 0.4)' 
-            onPress={() => history.push("/companyList")}>
+            onPress={this.checkNredirect}>
               <CompanyHighlight style={{}}>
                 <CompanyText>demo company</CompanyText>
               </CompanyHighlight>

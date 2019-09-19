@@ -75,9 +75,9 @@ const App = () => {
         <ThemeProvider theme={Theme}>
           <Fragment>
             <StatusBar barStyle="dark-content" />
+              {/* <OfflineNotice /> */}
             <SafeAreaView />
             <View style={{ flex: 1 }}>
-              <OfflineNotice />
               <Switch>
                 {/* <Route exact path="/" component={Style}></Route> */}
                 <Route exact path="/" component={Login}></Route>

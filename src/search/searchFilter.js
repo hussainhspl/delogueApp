@@ -74,6 +74,17 @@ const ResetBar = styled.View`
   justify-content: flex-end;
   flex-direction: row;
   align-items: center;
+  
+`;
+
+const ResetButton = styled(Button)`
+	justify-content: center;
+	align-items: center;
+	padding: 0px 5px;
+	margin-left: 15px;
+  margin-left: 15px;
+  background-color: #C2BEB6;
+  height: 30px;
 `;
 
 const SearchBar = styled.View`
@@ -193,11 +204,11 @@ class searchFilter extends Component {
 
           <KeyboardAwareScrollView>
               <ResetBar>
-                <Button small style={{backgroundColor: '#C2BEB6'}}>
+                <ResetButton>
                   <GrayButtonText>
                     reset
                   </GrayButtonText>
-                </Button>
+                </ResetButton>
               </ResetBar>
               
               <SearchBar>

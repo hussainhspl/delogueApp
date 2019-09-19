@@ -4,6 +4,7 @@ import CompanyList from './companyList';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { withRouter } from 'react-router';
 import styled from 'styled-components';
+import OfflineNotice from './shared/OfflineNotice'
 
 const Label = styled.Text`
   color: white;
@@ -18,7 +19,7 @@ const Logo = styled.Image`
 const Container = styled.View`
   background-color: ${props =>props.theme.primaryColor};
   flex: 1;
-  align-items: center;
+  /* align-items: center; */
 `;
 const ButtonText = styled.Text`
   color: white;
@@ -48,6 +49,10 @@ const InputBox = styled.TextInput`
   border-color: white; 
   border-width: 1px;
   background-color: #fff;
+`;
+
+const MainView = styled.View`
+  align-items: center;
 `;
 
 let exitFlag= false;
@@ -84,12 +89,14 @@ class Login extends React.Component {
     const history= this.props.history;
     // const path = this.props.location.pathname;
     // console.log(" login path: ", history);
-    console.disableYellowBox = true;
+    // console.disableYellowBox = true;
     // console.log('login history', history);
     return(
       <Container>
       <KeyboardAwareScrollView showsVerticalScrollIndicator={false}>
-      <Container>
+      {/* <Container> */}
+      <OfflineNotice />
+      <MainView>
         <LogoView>
           <Logo 
           resizeMode={"contain"}
@@ -115,7 +122,8 @@ class Login extends React.Component {
           <ButtonText>log in </ButtonText>
         </LoginButton>
 
-      </Container>
+      {/* </Container> */}
+      </MainView>
       </KeyboardAwareScrollView>
       </Container>
     )

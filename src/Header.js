@@ -30,7 +30,7 @@ class Header extends React.Component {
     };
   }
   toggle = () =>  {
-    // console.log("toggle state");
+    console.log("toggle state");
     this.setState(prevState => ({ isOpen: !prevState.isOpen }),()=>console.log(this.state.isOpen));
   }
   render() {

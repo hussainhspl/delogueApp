@@ -129,19 +129,13 @@ class Search extends React.Component {
   }
   changeView = () => {
     if (this.state.currentView === "linear") {
-      let self = this;
       this.setState({
         currentView: "grid",
-        searchTerm: ""
       });
-      this.searchUpdated("");
     } else {
       this.setState({
         currentView: "linear",
-        searchTerm: ""
       });
-      this.searchUpdated("");
-      let term = this.state.searchTerm;
     }
   };
 
@@ -166,7 +160,7 @@ class Search extends React.Component {
                   onChangeText={term => {
                     this.searchUpdated(term);
                   }}
-                  placeholder="Type a message to search linear"
+                  placeholder="Type a message to search"
                   clearIcon={
                     this.state.searchTerm !== "" && (
                       <Icon

@@ -35,7 +35,7 @@ const ApplyBar = styled.View`
 	flex-direction: row;
 	height: 50px;
 	background-color: ${(props) => props.bg ? props.bg : props.theme.lightBrown};
-	padding-right: 15px;
+	/* padding-right: 15px; */
 `;
 const ApplyButtonText = styled.Text`
 	color: #fff;
@@ -66,7 +66,7 @@ class CommonModal extends React.Component {
 				onRequestClose={() => {
 					this.props.close
 				}}>
-					<SafeAreaView>
+					<SafeAreaView style={{ flex: 1 }}>
 							<KeyboardAwareScrollView>
 							<View style={{flex: 1}}>
 								<ModalTitle>
@@ -81,7 +81,6 @@ class CommonModal extends React.Component {
 										</TouchableHighlight>
 									</CloseBox>
 								</ModalTitle>
-							</View>
 							{
 								this.props.children
 							}{
@@ -97,6 +96,7 @@ class CommonModal extends React.Component {
 										</ApplyButton>
 									</ApplyBar>
 							}
+							</View>
 						</KeyboardAwareScrollView>
 					</SafeAreaView>	
 			</Modal>

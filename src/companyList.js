@@ -9,6 +9,7 @@ import { withRouter } from 'react-router';
 import styled from 'styled-components';
 import Loader from './shared/Loader';
 import { Grid, Section, Block } from 'react-native-responsive-layout';
+import OfflineNotice from './shared/OfflineNotice';
 
 const CList = [
   {
@@ -214,6 +215,7 @@ class CompanyList extends React.Component {
             open={this.state.isOpen}
             tapToClose={true}
           >
+            <OfflineNotice/>
             <SubHeader>
               <HeaderText> Please Select Company </HeaderText>
               <View>
