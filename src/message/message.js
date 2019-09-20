@@ -3,6 +3,7 @@ import {View, Text, TouchableOpacity, Image, ScrollView} from 'react-native';
 import styled from 'styled-components';
 import { Col, Row, Grid } from "react-native-easy-grid";
 import Header from '../Header';
+import {Card} from 'native-base';
 
 let messageRow =0;
 
@@ -123,15 +124,16 @@ class Message extends React.Component {
 					<IconBox currentView={this.state.currentView == 'chat' ?  true : false} onPress={() => this.setState({currentView: 'chat'})}>
 						<Image 
 							
-							style={{width: 30, height: 20}}
+							style={{width: 30, height: 25}}
 							source={require('../../assets/img/chat.png')}
 						/>
 					</IconBox>
 				</IconRow>
 				{
 					this.state.currentView === 'message' ? 
-							<View style={{flex: 1}}>
-								<Grid style={{ paddingHorizontal: 10}}>
+							<View style={{flex: 1, marginHorizontal: 10}}>
+								<Card>
+								<Grid>
 									{/* <Row>
 										<StyleHeaderCol size={1}> 
 											<HeaderText>Brand Name</HeaderText>
@@ -167,21 +169,12 @@ class Message extends React.Component {
 										})
 									}
 								</Grid>
+								</Card>
 							</View>
 						:
-						<View style={{flex: 1}}>
-								<Grid style={{justifyContent: 'flex-start', alignItems: 'flex-start', paddingHorizontal: 10}}>
-									{/* <Row>
-										<StyleHeaderCol size={1}> 
-											<HeaderText>Brand Name</HeaderText>
-										</StyleHeaderCol>
-										<StyleHeaderCol size={1}> 
-											<HeaderText>Title</HeaderText>
-										</StyleHeaderCol>
-										<StyleHeaderCol size={1}> 
-											<HeaderText>Description</HeaderText>
-										</StyleHeaderCol>
-									</Row> */}
+						<View style={{flex: 1, marginHorizontal:10}}>
+							<Card>
+								<Grid style={{borderCollapse: 'collapse', justifyContent: 'flex-start', alignItems: 'flex-start'}}>
 									{
 										chatArr.map(data => {
 											messageRow +=1;
@@ -204,6 +197,7 @@ class Message extends React.Component {
 										})
 									}
 								</Grid>
+								</Card>
 							</View>
 				}
 				</ScrollView>

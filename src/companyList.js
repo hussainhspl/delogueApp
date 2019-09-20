@@ -1,8 +1,7 @@
 import React, { Fragment } from 'react';
-import { Text, View, FlatList, Dimensions, TouchableOpacity, BackHandler, 
+import { Text, View, Dimensions, TouchableOpacity, BackHandler, 
   ScrollView, RefreshControl, SafeAreaView } from 'react-native';
 import Menu from './Menu';
-// import SideMenu from 'react-native-side-menu';
 import Drawer from 'react-native-drawer';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { withRouter } from 'react-router';

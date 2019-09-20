@@ -2,16 +2,11 @@ import React from "react";
 import { View, Text, Image } from "react-native";
 import {
   Container,
-  Header,
-  Content,
   Footer,
   FooterTab,
   Button,
-  Icon
 } from "native-base";
 import styled from "styled-components";
-
-import Comments from "./style/Comments";
 
 import { connect } from "react-redux";
 // import { counterAdd, counterSubtract } from '../store/actions/index';
@@ -31,9 +26,6 @@ const IconText = styled.Text`
 `;
 const StyledFooterTab = styled(FooterTab)`
   background-color: #eee;
-  :active {
-    background-color: "#f00";
-  }
 `;
 
 class FooterComponent extends React.Component {
@@ -43,14 +35,16 @@ class FooterComponent extends React.Component {
       tab2: "general"
     };
   }
-  componentWillReceiveProps = nextProps => {
-    if (
-      JSON.stringify(nextProps.currentTab) !=
-      JSON.stringify(this.props.currentTab)
-    ) {
-      // console.log('content change', this.props.currentTab, nextProps.currentTab);
-    }
-  };
+  static getDerivedStateFromProps(props, state) {
+    // if (
+    //   JSON.stringify(Props.currentTab) !=
+    //   JSON.stringify(this.props.currentTab)
+    // ) {
+    //   // console.log('content change', this.props.currentTab, nextProps.currentTab);
+    // }
+    return null
+  }
+ 
   render() {
     // console.log("footer state active:", this.props.currentTab);
     const currentTab = this.props.currentTab;

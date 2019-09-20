@@ -5,15 +5,15 @@ import {
   TouchableOpacity,
   Image,
   Dimensions,
-  ScrollView, 
+  ScrollView
 } from "react-native";
-import { Icon} from "native-base";
+import { Icon } from "native-base";
 import SearchInput, { createFilter } from "react-native-search-filter";
 import SearchFilter from "./searchFilter";
 import Header from "../Header";
 import styled from "styled-components";
 import ItemDetail from "../shared/ItemDetail";
-import SearchGridCard from './searchGridCard';
+import SearchGridCard from "./searchGridCard";
 
 const details = [
   {
@@ -35,31 +35,31 @@ const details = [
     season: "Winter"
   },
   {
-    styleNo: "sty2217",
+    styleNo: "sty2218",
     styleName: "t shirt",
     supplier: "Super textiles",
     season: "summer"
   },
   {
-    styleNo: "sty2217",
+    styleNo: "sty2219",
     styleName: "t shirt",
     supplier: "Super textiles",
     season: "summer"
   },
   {
-    styleNo: "sty2217",
+    styleNo: "sty2220",
     styleName: "t shirt",
     supplier: "Super textiles",
     season: "summer"
   },
   {
-    styleNo: "sty2217",
+    styleNo: "sty2221",
     styleName: "t shirt",
     supplier: "Super textiles",
     season: "summer"
   },
   {
-    styleNo: "sty2217",
+    styleNo: "sty2222",
     styleName: "t shirt",
     supplier: "Super textiles",
     season: "summer"
@@ -120,7 +120,7 @@ class Search extends React.Component {
     };
     // this.myTextInput = React.createRef();
   }
-  
+
   searchUpdated(term) {
     this.setState({
       searchTerm: term,
@@ -130,11 +130,11 @@ class Search extends React.Component {
   changeView = () => {
     if (this.state.currentView === "linear") {
       this.setState({
-        currentView: "grid",
+        currentView: "grid"
       });
     } else {
       this.setState({
-        currentView: "linear",
+        currentView: "linear"
       });
     }
   };
@@ -210,12 +210,7 @@ class Search extends React.Component {
             {this.state.currentView === "grid" && (
               <GridView>
                 {filteredStyle.map(data => {
-                  return (
-                    <SearchGridCard 
-                      data={data} 
-                      history={history}
-                    />
-                  );
+                  return <SearchGridCard key={data.styleNo} data={data} history={history} />;
                 })}
               </GridView>
             )}

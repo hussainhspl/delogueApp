@@ -1,7 +1,7 @@
 import React from 'react';
 import {View, Text, TouchableOpacity, Image, Dimensions} from 'react-native';
 import styled from "styled-components";
-import {Icon, Picker} from 'native-base';
+import {Icon, Picker, Card} from 'native-base';
 import CameraComponent from '../shared/CameraComponent';
 
 const CardArr = [
@@ -86,13 +86,14 @@ const ImageRow = styled.View`
 	flex-wrap: wrap;
 	margin-bottom: 15px;
 `;
-const Card = styled.View`
-  width: ${Dimensions.get('window').width/ 3};
-  height: ${Dimensions.get('window').width/ 3 + 100};
-  border: 1px solid #ccc;
-  justify-content: space-between;
-  align-items: center;
-`;
+// const Card = styled.View`
+//   width: ${Dimensions.get('window').width/ 3};
+//   height: ${Dimensions.get('window').width/ 3 + 100};
+//   border: 1px solid #ccc;
+//   justify-content: space-between;
+//   align-items: center;
+// `;
+
 const ImageView = styled.View`
 	width: ${Dimensions.get('window').width/ 3 -20};
 	height: ${Dimensions.get('window').width/ 3 + 20};
@@ -179,6 +180,7 @@ class StyleTemplate extends React.Component {
 											<Text>ImageInfo</Text>
 											<Text>dd-mmm-yyyy</Text>
 										</ImageInfo>
+										{/* <Text> hello </Text> */}
 									</Card>
 								)
 							})

@@ -69,7 +69,7 @@ class Header extends React.Component {
                   // onPress= {() => this.props.messageButtFunction()}
                   onPress={() => {history.push("/message")}}
                   >
-                  <Image resizeMode={"contain"} source={require('../assets/img/message-icon.png')} />
+                  <Image resizeMode={"contain"} source={require('../assets/img/footer/message.png')} />
                 </TouchableOpacity>          
               </View>
               <View>

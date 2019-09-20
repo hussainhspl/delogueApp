@@ -1,6 +1,6 @@
 import React, { Fragment } from "react";
 import { View, Text, Image, ScrollView } from "react-native";
-import styled from "styled-components/native";
+// import styled from "styled-components/native";
 import General from "./General";
 import { createStore } from "redux";
 import Comments from "./Comments";
@@ -36,7 +36,7 @@ class Style extends React.Component {
     // console.log("printing from render: ", params);
   }
   render() {
-    const history = this.props.history;
+    // const history = this.props.history;
     // console.log("History on style page:", history)
     // step 2 create reducer: it needs state and action
     //payload = newState/ command
