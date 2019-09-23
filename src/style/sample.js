@@ -1,23 +1,28 @@
-import React, {Fragment} from "react";
-import { View, Text, ScrollView, Dimensions, Image, TouchableOpacity } from "react-native";
+import React, { Fragment } from "react";
+import {
+  View,
+  Text,
+  ScrollView,
+  Dimensions,
+  Image,
+  TouchableOpacity
+} from "react-native";
 import styled from "styled-components";
 import { Icon } from "native-base";
 import SampleComponent from "./sampleComponent";
-import NewSampleRequest from './NewSampleRequest';
-import SampleRequest from './SampleRequest';
+import NewSampleRequest from "./NewSampleRequest";
+import SampleRequest from "./SampleRequest";
 import ItemDetail from "../shared/ItemDetail";
 // import console = require("console");
 
+const data = {
+  styleNo: "sty2211",
+  styleName: "Casual Shirt",
+  supplier: "head textiles",
+  season: "summer"
+};
 
-const data =
-  {
-    styleNo: 'sty2211',
-    styleName: 'Casual Shirt',
-    supplier: 'head textiles',
-    season: 'summer'
-  }
-
-const  sampleArr= [{key: 1}, {key: 2}, {key: 3}]
+const sampleArr = [{ key: 1 }, { key: 2 }, { key: 3 }];
 const StyleDescriptionRow = styled.View`
   padding: 5px;
   flex-direction: row;
@@ -52,8 +57,7 @@ const ButtonText = styled.Text`
   text-transform: uppercase;
   width: 150;
   text-align: center;
-  font-family: ${ props => props.theme.regular};
-
+  font-family: ${props => props.theme.regular};
 `;
 // button css end
 const SampleRow = styled.View`
@@ -61,26 +65,26 @@ const SampleRow = styled.View`
   flex-wrap: wrap;
 `;
 class Sample extends React.Component {
-  constructor(props){
+  constructor(props) {
     super(props);
-    this.state= {
-      sampleRequest :false,
-    }
+    this.state = {
+      sampleRequest: false
+    };
   }
-  saveChanges () {
+  saveChanges() {
     // console.log("parent function called", this.state.sampleRequest);
     this.setState({
-      sampleRequest: false,
-    })
+      sampleRequest: false
+    });
   }
   render() {
     const history = this.props.history;
     // console.log("sample req state ", this.state.sampleRequest);
     // console.log("history on sample page:", history);
     return (
-      <ScrollView showsVerticalScrollIndicator={false}>
+      <Fragment>
         {this.state.sampleRequest == false && (
-          <Fragment>
+          <ScrollView showsVerticalScrollIndicator={false}>
             <ItemDetail data={data} />
             <ButtonRow>
               <CommentedButton small>
@@ -91,33 +95,29 @@ class Sample extends React.Component {
               </CommentedButton>
             </ButtonRow>
             <SampleRow>
-            {
-              sampleArr.map( data => {
-                return(
-                  <TouchableOpacity key={data.key} onPress={() => {
-                    this.setState({sampleRequest: true})
-                  }}>
+              {sampleArr.map(data => {
+                return (
+                  <TouchableOpacity
+                    key={data.key}
+                    onPress={() => {
+                      this.setState({ sampleRequest: true });
+                    }}
+                  >
                     <SampleComponent />
                   </TouchableOpacity>
-                )
-              })
-            }
-          <NewSampleRequest history={this.props.history} />
-
-        </SampleRow >
-          </Fragment>
+                );
+              })}
+              <NewSampleRequest history={this.props.history} />
+            </SampleRow>
+          </ScrollView>
         )}
         {this.state.sampleRequest == true && (
-          <Fragment>
-            <SampleRequest
-              apply={() =>this.saveChanges()}
-              history={this.props.history} />
-            {/* <Text> hello </Text> */}
-
-          </Fragment>
-
+          <SampleRequest
+            apply={() => this.saveChanges()}
+            history={this.props.history}
+          />
         )}
-      </ScrollView>
+      </Fragment>
     );
   }
 }

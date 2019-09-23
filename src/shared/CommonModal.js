@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, TouchableHighlight, Modal, Alert, SafeAreaView, TouchableNativeFeedback} from "react-native";
+import { View, Text, TouchableHighlight, Modal, Alert, SafeAreaView, BackHandler} from "react-native";
 import styled from 'styled-components';
 import {Icon, Button} from 'native-base';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
@@ -35,7 +35,10 @@ const ApplyBar = styled.View`
 	flex-direction: row;
 	height: 50px;
 	background-color: ${(props) => props.bg ? props.bg : props.theme.lightBrown};
-	/* padding-right: 15px; */
+	position: absolute;
+	bottom: 0;
+	right: 0;
+	left: 0;
 `;
 const ApplyButtonText = styled.Text`
 	color: #fff;
@@ -54,6 +57,7 @@ class CommonModal extends React.Component {
 	closeModal() {
 		this.props.close();
 	}
+
   render() {
 		// console.log('hide button', this.props);
 		// const bg = this.props.bg;
@@ -64,11 +68,12 @@ class CommonModal extends React.Component {
 				visible={this.props.modalVisible}
 
 				onRequestClose={() => {
-					this.props.close
+					// this.props.close÷
+					{this.closeModal(this.props.close)}
 				}}>
-					<SafeAreaView style={{ flex: 1 }}>
-							<KeyboardAwareScrollView>
-							<View style={{flex: 1}}>
+					<SafeAreaView style={{ flex: 1}}>
+							<KeyboardAwareScrollView >
+							<View style={{flex: 1, marginBottom: 30}}>
 								<ModalTitle>
 									<HeaderText>{this.props.title}</HeaderText>
 									<CloseBox>
@@ -83,7 +88,10 @@ class CommonModal extends React.Component {
 								</ModalTitle>
 							{
 								this.props.children
-							}{
+							}
+							</View>
+						</KeyboardAwareScrollView>
+							{
 								this.props.hideButton ? null :
 									<ApplyBar>
 										<Button bordered light small danger 
@@ -96,8 +104,6 @@ class CommonModal extends React.Component {
 										</ApplyButton>
 									</ApplyBar>
 							}
-							</View>
-						</KeyboardAwareScrollView>
 					</SafeAreaView>	
 			</Modal>
 		);

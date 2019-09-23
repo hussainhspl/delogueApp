@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Fragment} from 'react';
 import {View, Text, ScrollView, Dimensions, Image, 
 	TouchableHighlight, AppState} from 'react-native';
 import styled from 'styled-components';
@@ -109,7 +109,11 @@ const FooterButton = styled.View`
 	justify-content: flex-end;
 	flex-direction: row;
 	height: 50px;
-	
+	position: absolute;
+	left: 0;
+	bottom: 50;
+	right: 0;
+	background-color: #ccc;
 `;
 class SampleRequest extends React.Component {
 	constructor(props) {
@@ -140,8 +144,9 @@ class SampleRequest extends React.Component {
   render() {
 		// console.log("history sr", this.props.history);
 		return(
-			// <Header history={this.props.history}>
-				<ScrollView showsVerticalScrollIndicator={false}>
+			<View style={{flex: 1}}>
+				<ScrollView style={{backgroundColor: '#f00'}} showsVerticalScrollIndicator={false}>
+					<View>
 					<ItemDetail data={data} />
 					<View style={{flexDirection: 'row', padding: 10}}>
 						<Label> sample type </Label>
@@ -250,17 +255,18 @@ class SampleRequest extends React.Component {
 					<StyleTemplate />
 					<SampleRequestSummary />
 					<ViewRequestedQuantity />
-					<FooterButton>
-						<Button bordered light small danger>
-							<CancelButtonText style={{color: "#d9534e"}}> CANCEL </CancelButtonText> 
-						</Button>
-						<ApplyButton
-						onPress={() => {this.redirectTo(this.props.apply)}}>
-							<ApplyButtonText>apply</ApplyButtonText>
-						</ApplyButton>
-					</FooterButton>
+					</View>
 				</ScrollView>
-			// </Header>
+				<FooterButton>
+					<Button bordered light small danger>
+						<CancelButtonText style={{color: "#d9534e"}}> CANCEL </CancelButtonText> 
+					</Button>
+					<ApplyButton
+					onPress={() => {this.redirectTo(this.props.apply)}}>
+						<ApplyButtonText>apply</ApplyButtonText>
+					</ApplyButton>
+				</FooterButton>
+			</View>
 		)
 	}
 }

@@ -5,7 +5,8 @@ import SearchInput, { createFilter } from 'react-native-search-filter';
 import { Button } from 'native-base';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import CommonModal from '../shared/CommonModal';
-import styled from 'styled-components'
+import styled from 'styled-components';
+
 
 const styleArray = [
   { name: "Superdry"}, 
@@ -45,13 +46,6 @@ const FilterButton = styled.View`
   height:50px;
   background-color:#818181;
   border-radius:50px;
-  /* shadow-color: #aaa;
-  shadow-offset: { width: 0; height: 3 };
-  shadow-opacity: 0.8;
-  shadow-radius: 2;  
-  elevation: 5; */
-  elevation: 5;
-  /* box-shadow: 50px 15px #aaa; */
   z-index: 2;
   margin-top: 10px;
 `;
@@ -74,7 +68,7 @@ const ResetBar = styled.View`
   justify-content: flex-end;
   flex-direction: row;
   align-items: center;
-  
+
 `;
 
 const ResetButton = styled(Button)`
@@ -85,6 +79,7 @@ const ResetButton = styled(Button)`
   margin-left: 15px;
   background-color: #C2BEB6;
   height: 30px;
+
 `;
 
 const SearchBar = styled.View`
@@ -135,6 +130,7 @@ class searchFilter extends Component {
     this.setState({ 
       searchTerm: term,
     })
+    console.log("called again");
   }
   seasonUpdated(term) {
     this.setState({
@@ -153,7 +149,9 @@ class searchFilter extends Component {
   _handleAppStateChange = (nextAppState) => {
  
     this.setState({ appState: nextAppState });
- 
+    if(this.state.modalVisible === true){
+      console.log('back clicked');
+    }
     if (nextAppState === 'background') {
       // console.log('bg state', this.state.appState)
       this.setState({modalVisible : false}, () => console.log(this.state.modalVisible));
@@ -162,20 +160,26 @@ class searchFilter extends Component {
       // console.log('bg state', this.state.appState)
     }
   }
+  restFilter = () => {
+    console.log("click on reset");
+    this.setState({
+      searchTerm: '',
+      searchSeason: '',
+    })
+    this.searchUpdated("");
+    this.forceUpdate()
+  }
 
 
   render() {
     
      const filteredStyle = styleArray.filter(createFilter(this.state.searchTerm, KEYS_TO_FILTERS));
      const filteredSeason = seasonArray.filter(createFilter(this.state.searchSeason, SEASON_KEYS));
-    // console.log("app state: ", this.state.appState);
+    console.log("rendered again");
      return (
       <Fragment>
         <StyledTouchableOpacity
           activeOpacity={0.7}
-          // onPress={() => {
-          //   this.setModalVisible(true);
-          // }} 
           onPress={() => {
 						this.setModalVisible(!this.state.modalVisible);
 					}}
@@ -184,13 +188,6 @@ class searchFilter extends Component {
               <Image resizeMode={"contain"} source={require('../../assets/img/filter.png')} /> 
             </FilterButton>
         </StyledTouchableOpacity>
-        {/* <Modal
-          animationType="fade"
-          transparent={false}
-          visible={this.state.modalVisible}
-          onRequestClose={() => {
-            Alert.alert('Modal has been closed.');
-          }}> */}
           <CommonModal    
             title='filter'
             modalVisible={this.state.modalVisible}
@@ -204,7 +201,7 @@ class searchFilter extends Component {
 
           <KeyboardAwareScrollView>
               <ResetBar>
-                <ResetButton>
+                <ResetButton onPress={this.restFilter}>
                   <GrayButtonText>
                     reset
                   </GrayButtonText>
@@ -215,7 +212,10 @@ class searchFilter extends Component {
                 <Title>brand</Title>
                 <StyledSearchInput 
                   onChangeText={(term) => { this.searchUpdated(term) }} 
-                  placeholder="Enter Brand Name "
+                  placeholder="Enter Brand Name"
+                  // value = ""
+                  
+                  // onSubmitEditing={()=>{this.searchUpdated()}}
                 />
                 <Capsule>
                 {
