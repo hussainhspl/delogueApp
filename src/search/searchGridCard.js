@@ -14,6 +14,9 @@ const GirdCard = styled.View`
       : Dimensions.get("window").height / 3 - 50};
   border: 1px solid #ddd;
   align-self: flex-start;
+  border-top-width: 0px;
+  border-left-width: 0px;
+
 `;
 
 const GirdImageView = styled.View`

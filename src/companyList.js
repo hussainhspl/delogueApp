@@ -1,96 +1,58 @@
-import React, { Fragment } from 'react';
-import { Text, View, Dimensions, TouchableOpacity, BackHandler, 
-  ScrollView, RefreshControl, SafeAreaView } from 'react-native';
-import Menu from './Menu';
-import Drawer from 'react-native-drawer';
-import Icon from 'react-native-vector-icons/Ionicons';
-import { withRouter } from 'react-router';
-import styled from 'styled-components';
-import Loader from './shared/Loader';
-import { Grid, Section, Block } from 'react-native-responsive-layout';
-import OfflineNotice from './shared/OfflineNotice';
-
-const CList = [
-  {
-    key: 'A',
-    companyName: 'c textiles',
-    userName: 'John Doe',
-    userType: 'user type',
-  },
-  {
-    key: 'B',
-    companyName: 'c textiles',
-    userName: 'John Doe',
-    userType: 'Wholesaler',
-  },
-  {
-    key: 'C',
-    companyName: 'c textiles',
-    userName: 'John Doe',
-    userType: 'Wholesaler',
-  },
-  {
-    key: 'D',
-    companyName: 'c textiles',
-    userName: 'John Doe',
-    userType: 'Wholesaler',
-  },
-  {
-    key: 'E',
-    companyName: 'c textiles',
-    userName: 'John Doe',
-    userType: 'Wholesaler',
-  },
-  {
-    key: 'F',
-    companyName: 'c textiles',
-    userName: 'John Doe',
-    userType: 'Wholesaler',
-  },
-  {
-    key: 'G',
-    companyName: 'c textiles',
-    userName: 'John Doe',
-    userType: 'Wholesaler',
-  },
-  {
-    key: 'H',
-    companyName: 'c textiles',
-    userName: 'John Doe',
-    userType: 'Wholesaler',
-  },
-  {
-    key: 'I',
-    companyName: 'c textiles',
-    userName: 'John Doe',
-    userType: 'Wholesaler',
-  },
-  {
-    key: 'J',
-    companyName: 'c textiles',
-    userName: 'John Doe',
-    userType: 'Wholesaler',
-  },
-  // { key: 'K' },
-  // { key: 'L' },
-];
+import React, { Fragment } from "react";
+import {
+  Text,
+  View,
+  Dimensions,
+  TouchableOpacity,
+  BackHandler,
+  ScrollView,
+  RefreshControl,
+  SafeAreaView
+} from "react-native";
+import Menu from "./Menu";
+import Drawer from "react-native-drawer";
+import Icon from "react-native-vector-icons/Ionicons";
+import { withRouter } from "react-router";
+import styled from "styled-components";
+import Loader from "./shared/Loader";
+import { Grid, Section, Block } from "react-native-responsive-layout";
+import OfflineNotice from "./shared/OfflineNotice";
+import CList from "../data/companyList";
 
 const Card = styled.View`
-  width: ${(props) => props.tablet ? Dimensions.get('window').width / 3 - 13.4 : Dimensions.get('window').width / 2 - 15};
-  height: ${(props) => props.tablet ? Dimensions.get('window').height / 3 - 37 : Dimensions.get('window').height / 2 - 50};
+  width: ${props =>
+    props.tablet
+      ? Dimensions.get("window").width / 3 - 13.4
+      : Dimensions.get("window").width / 2 - 15};
+  height: ${props =>
+    props.tablet
+      ? Dimensions.get("window").height / 3 - 37
+      : Dimensions.get("window").height / 2 - 50};
   margin: 5px;
   background-color: #fff;
 `;
 
 const ImageView = styled.View`
-  width: ${(props) => props.tablet ? Dimensions.get('window').width / 3 - 45 : Dimensions.get('window').width / 2 - 45};
-  height: ${(props) => props.tablet ? Dimensions.get('window').height / 3 - 98 : Dimensions.get('window').height / 2 - 110};
+  width: ${props =>
+    props.tablet
+      ? Dimensions.get("window").width / 3 - 45
+      : Dimensions.get("window").width / 2 - 45};
+  height: ${props =>
+    props.tablet
+      ? Dimensions.get("window").height / 3 - 98
+      : Dimensions.get("window").height / 2 - 110};
   margin: 0 auto;
 `;
 
 const GridImage = styled.Image`
-  width: ${(props) => props.tablet ? Dimensions.get('window').width / 3 - 60 : Dimensions.get('window').width / 2 - 50};
-  height: ${(props) => props.tablet ? Dimensions.get('window').height / 3 - 120 : Dimensions.get('window').height / 2 - 130};
+  width: ${props =>
+    props.tablet
+      ? Dimensions.get("window").width / 3 - 60
+      : Dimensions.get("window").width / 2 - 50};
+  height: ${props =>
+    props.tablet
+      ? Dimensions.get("window").height / 3 - 120
+      : Dimensions.get("window").height / 2 - 130};
   margin: auto;
 `;
 const SubHeader = styled.View`
@@ -109,11 +71,11 @@ const CardText = styled.Text`
 `;
 
 const CardInfo = styled.View`
-   background-color: #f6f6f6;
-    height: 60px;
-    width: 100%;
-    justify-content: center;
-    padding: 5px;
+  background-color: #f6f6f6;
+  height: 60px;
+  width: 100%;
+  justify-content: center;
+  padding: 5px;
 `;
 
 const PageLayout = styled.View`
@@ -123,27 +85,25 @@ const PageLayout = styled.View`
 
 const HamburgerIcon = styled(Icon)`
   color: #000;
-  font-size: 30px; 
-  padding: 10px 15px; 
+  font-size: 30px;
+  padding: 10px 15px;
 `;
 
 const ParentView = styled.View`
-  flex-wrap: wrap; 
-  flex-direction: row; 
+  flex-wrap: wrap;
+  flex-direction: row;
   padding: 5px;
 `;
-// const formatData = (data, numColumns) => {
-//   const numberOfFullRows = Math.floor(data.length / numColumns);
 
-//   let numberOfElementsLastRow = data.length - (numberOfFullRows * numColumns);
-//   while (numberOfElementsLastRow !== numColumns && numberOfElementsLastRow !== 0) {
-//     data.push({ key: `blank-${numberOfElementsLastRow}`, empty: true });
-//     numberOfElementsLastRow++;
-//   }
-//   return data;
-// };
-// const numColumns = 2;
+const LoaderView = styled.View`
+  flex: 1;
+  background-color: #fff;
+  justify-content: center;
+`;
 
+const MainView = styled.View`
+  flex: 1;
+`;
 
 class CompanyList extends React.Component {
   constructor(props) {
@@ -151,10 +111,10 @@ class CompanyList extends React.Component {
     this.state = {
       isOpen: false,
       tablet: false,
-      loading: false,
-      refreshing: false,
+      loading: true,
+      refreshing: false
     };
-    this.toggle = this.toggle.bind(this)
+    this.toggle = this.toggle.bind(this);
     this.handleBackButtonClick = this.handleBackButtonClick.bind(this);
   }
   //refresh code
@@ -162,15 +122,26 @@ class CompanyList extends React.Component {
     this.setState({ refreshing: true });
     setTimeout(() => {
       this.setState({ refreshing: false });
-    },2000);
+    }, 2000);
   };
   componentDidMount = () => {
-    if (Dimensions.get('window').width > 568) {
-      this.setState({ tablet: true }, () => console.log("will mount", this.state.tablet))
+    setTimeout(() => {
+      this.setState({ loading: false });
+    }, 3000);
+    if (Dimensions.get("window").width > 568) {
+      this.setState({ tablet: true }, () =>
+        console.log("will mount", this.state.tablet)
+      );
     }
     // console.log("will mount out" , this.state.tablet);
-    BackHandler.addEventListener('hardwareBackPress', this.handleBackButtonClick);
-  }
+    BackHandler.addEventListener(
+      "hardwareBackPress",
+      this.handleBackButtonClick
+    );
+  };
+  componentWillUnmount = () => {
+    clearTimeout();
+  };
   handleBackButtonClick() {
     this.props.history.goBack();
     return true;
@@ -179,106 +150,97 @@ class CompanyList extends React.Component {
     this._drawer.close();
   };
   openControlPanel = () => {
-    this._drawer.open()
+    this._drawer.open();
   };
   toggle = () => {
     this.setState(prevState => ({ isOpen: !prevState.isOpen }));
-  }
+  };
 
   render() {
     const history = this.props.history;
-    console.log("company list tablet",this.state.tablet);
+    console.log("company list tablet", this.state.tablet);
     // const tablet = this.state.tablet;
     if (this.state.loading) {
       return (
-        <View style={{ flex: 1, backgroundColor: '#fff', justifyContent: "center" }}>
+        <LoaderView>
           <Loader />
-        </View>
-      )
+        </LoaderView>
+      );
     }
     return (
-      <Fragment>
-        {/* <SafeAreaView/> */}
-        <View style={{ flex: 1 }}>
-          <Drawer
-            type="overlay"
-            ref={(ref) => this._drawer = ref}
-            content={<Menu close={this.toggle} history={history} />}
-            openDrawerOffset={0.4} // 20% gap on the right side of drawer
-            panCloseMask={0.2}
-            styles={drawerStyles}
-            side="right"
-            tweenHandler={(ratio) => ({
-              main: { opacity: (2 - ratio) / 2 }
-            })}
-            open={this.state.isOpen}
-            tapToClose={true}
-          >
-            <OfflineNotice/>
-            <SubHeader>
-              <HeaderText> Please Select Company </HeaderText>
-              <View>
-                <TouchableOpacity
-                  onPress={this.toggle}
-                >
-                  <HamburgerIcon name="ios-menu" />
-                </TouchableOpacity>
-              </View>
-            </SubHeader>
-            <PageLayout>
-              {/* <Text>hello</Text> */}
-              <ScrollView
-                refreshControl={
-                  <RefreshControl
-                    refreshing={this.state.refreshing}
-                    onRefresh={this.onRefresh}
-                    title="pull to refresh"
-                  />
-                }
-              >
-                <ParentView>
-                  {
-                    CList.map(data => {
-                      return (
-
-                        <Card tablet={this.state.tablet} key={data.key}>
-                          <TouchableOpacity
-                            underlayColor='rgba(245, 245, 245, 1)' onPress={() => {
-                              history.push("/search");
-                            }}
-                          >
-                            <ImageView tablet={this.state.tablet} >
-                              <GridImage
-                                tablet={this.state.tablet}
-                                resizeMode={"center"}
-                                source={require('../assets/img/shirt-static.png')}
-                              />
-                            </ImageView>
-                            <CardInfo>
-                              <CardText numberOfLines={1}> {data.companyName} </CardText>
-                              <CardText numberOfLines={1}> {data.userName} </CardText>
-                              <CardText numberOfLines={1}> {data.userType} </CardText>
-                            </CardInfo>
-                          </TouchableOpacity>
-                        </Card>
-                      )
-                    })
-                  }
-                </ParentView>
-              </ScrollView>
-            </PageLayout>
-          </Drawer>
-        </View>
-        {/* <SafeAreaView/> */}
-        {/* <SafeAreaView/> */}
-        
-      </Fragment>
-    )
+      <MainView>
+        <Drawer
+          type="overlay"
+          ref={ref => (this._drawer = ref)}
+          content={<Menu close={this.toggle} history={history} />}
+          openDrawerOffset={0.4} // 20% gap on the right side of drawer
+          panCloseMask={0.2}
+          styles={drawerStyles}
+          side="right"
+          tweenHandler={ratio => ({
+            main: { opacity: (2 - ratio) / 2 }
+          })}
+          open={this.state.isOpen}
+          tapToClose={true}
+        >
+          <OfflineNotice />
+          <SubHeader>
+            <HeaderText> Please Select Company </HeaderText>
+            <View>
+              <TouchableOpacity onPress={this.toggle}>
+                <HamburgerIcon name="ios-menu" />
+              </TouchableOpacity>
+            </View>
+          </SubHeader>
+          <PageLayout>
+            <ScrollView
+              refreshControl={
+                <RefreshControl
+                  refreshing={this.state.refreshing}
+                  onRefresh={this.onRefresh}
+                  title="pull to refresh"
+                />
+              }
+            >
+              <ParentView>
+                {CList.map(data => {
+                  return (
+                    <Card tablet={this.state.tablet} key={data.key}>
+                      <TouchableOpacity
+                        underlayColor="rgba(245, 245, 245, 1)"
+                        onPress={() => {
+                          history.push("/search");
+                        }}
+                      >
+                        <ImageView tablet={this.state.tablet}>
+                          <GridImage
+                            tablet={this.state.tablet}
+                            resizeMode={"center"}
+                            source={require("../assets/img/shirt-static.png")}
+                          />
+                        </ImageView>
+                        <CardInfo>
+                          <CardText numberOfLines={1}>
+                            {data.companyName}
+                          </CardText>
+                          <CardText numberOfLines={1}>{data.userName}</CardText>
+                          <CardText numberOfLines={1}>{data.userType}</CardText>
+                        </CardInfo>
+                      </TouchableOpacity>
+                    </Card>
+                  );
+                })}
+              </ParentView>
+            </ScrollView>
+          </PageLayout>
+        </Drawer>
+      </MainView>
+    );
   }
 }
 const drawerStyles = {
-  drawer: { shadowColor: '#aaaaaa', shadowOpacity: 0.4, shadowRadius: 3 },
+  drawer: { shadowColor: "#aaaaaa", shadowOpacity: 0.4, shadowRadius: 3 }
   // main: { flex: 1 },
-}
+};
 
 export default withRouter(CompanyList);

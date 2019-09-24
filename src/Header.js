@@ -18,6 +18,28 @@ const Container = styled.View`
   align-items: center;
 `;
 
+const MainView = styled.View`
+  flex: 1;
+`;
+
+const IconGroup = styled.View`
+  flex-direction: row;
+  align-items: center;
+`;
+
+const MenuIcon = styled(Icon)`
+  color: #eee;
+  font-size: 28px; 
+  padding: 10px 15px; 
+`;
+const TouchableIconView = styled.TouchableOpacity`
+  padding: 10px;
+  align-items: center;
+  justify-content: center;
+  height: 50px;
+  width: 40px;
+  background-color:${ (props) => props.highlight ? '#666': '#818181'};
+`;
 class Header extends React.Component {
   constructor(props) {
     super(props);
@@ -39,7 +61,7 @@ class Header extends React.Component {
     // const path = this.props.location.pathname;
     // console.log('header history: ', history);
     return(
-      <View style={{flex: 1 }}>
+      <MainView>
         <Drawer
           type="overlay"
           ref={(ref) => this._drawer = ref}
@@ -55,43 +77,41 @@ class Header extends React.Component {
           tapToClose={true}
         >
           <Container>
-            <View style={iconGroup}>
+            <IconGroup>
               <View>
-                <TouchableOpacity style={[icon,{backgroundColor: history.location.pathname == '/search' ? '#666': '#818181'}]}
-                  // onPress= {() => this.props.searchButtonFunction()}
+                <TouchableIconView highlight={ history.location.pathname == '/search' ? true: false }
                   onPress={() => {history.push("/search")}}
                   >
                   <Image resizeMode={"contain"} source={require('../assets/img/search-icon.png')} /> 
-                </TouchableOpacity>         
+                </TouchableIconView>         
               </View>
               <View>
-                <TouchableOpacity style={[icon,{backgroundColor: history.location.pathname == '/message' ? '#666': '#818181'}]}
-                  // onPress= {() => this.props.messageButtFunction()}
+                <TouchableIconView highlight={ history.location.pathname == '/message' ? true : false}
                   onPress={() => {history.push("/message")}}
                   >
                   <Image resizeMode={"contain"} source={require('../assets/img/footer/message.png')} />
-                </TouchableOpacity>          
+                </TouchableIconView>          
               </View>
               <View>
-                <TouchableOpacity style={[icon,{backgroundColor: history.location.pathname == '/style' ? '#666': '#818181'}]}
+                <TouchableIconView highlight={ history.location.pathname =='/style' ? true : false}
                 // onPress= {() => this.props.styleButtonFunction()}
                 onPress={() => {history.push("/style")}}
                 >
                   <Image resizeMode={"contain"} source={require('../assets/img/style-icon.png')} />  
-                </TouchableOpacity>        
+                </TouchableIconView>        
               </View>
-            </View>
+            </IconGroup>
             <View>
               <TouchableOpacity
                 onPress={this.toggle}
               >
-                <Icon style={{color: '#eee', fontSize: 28, paddingHorizontal: 15, paddingVertical: 10}} name="ios-menu" />
+                <MenuIcon name="ios-menu" />
               </TouchableOpacity>
             </View>
           </Container>
           {this.props.children}
         </Drawer>
-      </View>
+      </MainView>
     )
   }
 }
@@ -104,16 +124,8 @@ const styles= {
     
   },
   icon: {
-    padding: 10,
-    alignItems: 'center',
-    justifyContent: 'center',
-    height: 50,
-    width: 40
+    
   },
-  iconGroup: {
-    flexDirection: 'row',
-    alignItems: 'center'
-  }
 }
 
 const mapStateToProps = state => {

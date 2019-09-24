@@ -1,11 +1,6 @@
 import React from "react";
 import { View, Text, Image } from "react-native";
-import {
-  Container,
-  Footer,
-  FooterTab,
-  Button,
-} from "native-base";
+import { Container, Footer, FooterTab, Button } from "native-base";
 import styled from "styled-components";
 
 import { connect } from "react-redux";
@@ -23,9 +18,18 @@ import { DebugInstructions } from "react-native/Libraries/NewAppScreen";
 const IconText = styled.Text`
   font-size: 10px;
   font-family: ${props => props.theme.regular};
+  color: ${props => (props.active ? "#fff" : "#444")};
 `;
 const StyledFooterTab = styled(FooterTab)`
   background-color: #eee;
+`;
+const FooterRow = styled.View`
+  height: 50px;
+`;
+
+const StyledButton = styled(Button)`
+  background-color: ${props => (props.active ? "#818181" : "#eee")};
+  height: 55px;
 `;
 
 class FooterComponent extends React.Component {
@@ -36,30 +40,19 @@ class FooterComponent extends React.Component {
     };
   }
   static getDerivedStateFromProps(props, state) {
-    // if (
-    //   JSON.stringify(Props.currentTab) !=
-    //   JSON.stringify(this.props.currentTab)
-    // ) {
-    //   // console.log('content change', this.props.currentTab, nextProps.currentTab);
-    // }
-    return null
+    return null;
   }
- 
+
   render() {
     // console.log("footer state active:", this.props.currentTab);
     const currentTab = this.props.currentTab;
     return (
-      <View style={{ height: 50 }}>
+      <FooterRow>
         <Container>
           <Footer>
             <StyledFooterTab>
-              <Button
+              <StyledButton
                 vertical
-                style={{
-                  backgroundColor:
-                    this.props.currentTab === "general" ? "#818181" : "#eee",
-                  height: 55
-                }}
                 active={this.props.currentTab === "general" ? true : false}
                 onPress={() => this.props.generalTabFunction()}
               >
@@ -72,20 +65,14 @@ class FooterComponent extends React.Component {
                   }
                 />
                 <IconText
-                  style={{
-                    color: this.props.currentTab === "general" ? "#fff" : "#444"
-                  }}
+                  active={this.props.currentTab === "general" ? true : false}
                 >
                   General
                 </IconText>
-              </Button>
-              <Button
+              </StyledButton>
+              <StyledButton
                 vertical
-                style={{
-                  backgroundColor:
-                    this.props.currentTab === "comments" ? "#818181" : "#eee",
-                  height: 55
-                }}
+                highlight={this.props.currentTab === "comments" ? true : false}
                 active={this.props.currentTab === "comments" ? true : false}
                 onPress={() => this.props.commentTabFunction()}
               >
@@ -98,21 +85,13 @@ class FooterComponent extends React.Component {
                   }
                 />
                 <IconText
-                  style={{
-                    color:
-                      this.props.currentTab === "comments" ? "#fff" : "#444"
-                  }}
+                  active={this.props.currentTab === "comments" ? true : false}
                 >
                   Comments
                 </IconText>
-              </Button>
-              <Button
+              </StyledButton>
+              <StyledButton
                 vertical
-                style={{
-                  backgroundColor:
-                    this.props.currentTab === "files" ? "#818181" : "#eee",
-                  height: 55
-                }}
                 active={this.props.currentTab === "files" ? true : false}
                 onPress={() => this.props.filesTabFunction()}
               >
@@ -125,20 +104,13 @@ class FooterComponent extends React.Component {
                   }
                 />
                 <IconText
-                  style={{
-                    color: this.props.currentTab === "files" ? "#fff" : "#444"
-                  }}
+                  active={this.props.currentTab === "files" ? true : false}                  
                 >
                   Files
                 </IconText>
-              </Button>
-              <Button
+              </StyledButton>
+              <StyledButton
                 vertical
-                style={{
-                  backgroundColor:
-                    this.props.currentTab === "sample" ? "#818181" : "#eee",
-                  height: 55
-                }}
                 active={this.props.currentTab === "sample" ? true : false}
                 onPress={() => this.props.sampleTabFunction()}
               >
@@ -151,20 +123,13 @@ class FooterComponent extends React.Component {
                   }
                 />
                 <IconText
-                  style={{
-                    color: this.props.currentTab === "sample" ? "#fff" : "#444"
-                  }}
+                  active={this.props.currentTab === "sample" ? true : false}
                 >
                   Sample
                 </IconText>
-              </Button>
-              <Button
+              </StyledButton>
+              <StyledButton
                 vertical
-                style={{
-                  backgroundColor:
-                    this.props.currentTab === "pdf" ? "#818181" : "#eee",
-                  height: 55
-                }}
                 active={this.props.currentTab === "pdf" ? true : false}
                 onPress={() => this.props.pdfTabFunction()}
               >
@@ -177,17 +142,15 @@ class FooterComponent extends React.Component {
                   }
                 />
                 <IconText
-                  style={{
-                    color: this.props.currentTab === "pdf" ? "#fff" : "#444"
-                  }}
+                  active={this.props.currentTab === "pdf" ? true : false}
                 >
                   PDF
                 </IconText>
-              </Button>
+              </StyledButton>
             </StyledFooterTab>
           </Footer>
         </Container>
-      </View>
+      </FooterRow>
     );
   }
 }

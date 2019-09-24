@@ -1,32 +1,31 @@
-import React, {Component, Fragment} from 'react';
-import {Text, View, TouchableOpacity, AppState, Image} from 'react-native';
-import Icon from 'react-native-vector-icons/Ionicons';
-import SearchInput, { createFilter } from 'react-native-search-filter';
-import { Button } from 'native-base';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
-import CommonModal from '../shared/CommonModal';
-import styled from 'styled-components';
-
+import React, { Component, Fragment } from "react";
+import { Text, View, TouchableOpacity, AppState, Image } from "react-native";
+import Icon from "react-native-vector-icons/Ionicons";
+import SearchInput, { createFilter } from "react-native-search-filter";
+import { Button } from "native-base";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import CommonModal from "../shared/CommonModal";
+import styled from "styled-components";
 
 const styleArray = [
-  { name: "Superdry"}, 
-  { name: "Benetton"},
-  { name: "Adidas"},
-  { name: "Superdry 1"}, 
-  { name: "Benetton 1"},
-  {name: "Adidas 1"},
-]
+  { name: "Superdry" },
+  { name: "Benetton" },
+  { name: "Adidas" },
+  { name: "Superdry 1" },
+  { name: "Benetton 1" },
+  { name: "Adidas 1" }
+];
 
 const seasonArray = [
-  { name: "Summer"}, 
-  { name: "Winter"},
-  { name: "Rainy"},
-  { name: "Autumn"}, 
-  { name: "Fall"},
-]
+  { name: "Summer" },
+  { name: "Winter" },
+  { name: "Rainy" },
+  { name: "Autumn" },
+  { name: "Fall" }
+];
 
-const KEYS_TO_FILTERS = ['name'];
-const SEASON_KEYS = ['name'];
+const KEYS_TO_FILTERS = ["name"];
+const SEASON_KEYS = ["name"];
 
 const StyledTouchableOpacity = styled.TouchableOpacity`
   position: absolute;
@@ -40,12 +39,12 @@ const StyledTouchableOpacity = styled.TouchableOpacity`
 
 const FilterButton = styled.View`
   border: 1px solid #eee;
-  align-items:center;
-  justify-content:center;
-  width:50px;
-  height:50px;
-  background-color:#818181;
-  border-radius:50px;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 50px;
+  background-color: #818181;
+  border-radius: 50px;
   z-index: 2;
   margin-top: 10px;
 `;
@@ -64,22 +63,20 @@ const StyledSearchInput = styled(SearchInput)`
 const ResetBar = styled.View`
   padding: 10px;
   border-bottom-width: 1px;
-  border-bottom-color:  #ccc;
+  border-bottom-color: #ccc;
   justify-content: flex-end;
   flex-direction: row;
   align-items: center;
-
 `;
 
 const ResetButton = styled(Button)`
-	justify-content: center;
-	align-items: center;
-	padding: 0px 5px;
-	margin-left: 15px;
+  justify-content: center;
+  align-items: center;
+  padding: 0px 5px;
   margin-left: 15px;
-  background-color: #C2BEB6;
+  margin-left: 15px;
+  background-color: #c2beb6;
   height: 30px;
-
 `;
 
 const SearchBar = styled.View`
@@ -96,7 +93,7 @@ const StyledItem = styled.View`
   align-self: flex-start;
   padding: 0px 5px 1px 0px;
   justify-content: center;
-  margin-bottom:10px;
+  margin-bottom: 10px;
 `;
 
 const ItemName = styled.Text`
@@ -115,146 +112,145 @@ const Capsule = styled.View`
 `;
 const Title = styled.Text`
   text-transform: uppercase;
-  color: #8D8177;
+  color: #8d8177;
 `;
-
+const MainView = styled.View`
+  flex: 1;
+`;
 class searchFilter extends Component {
   state = {
     modalVisible: false,
-    searchTerm: '',
-    searchSeason: '',
-    text: 'Useless Placeholder',
-    appState: AppState.currentState,
+    searchTerm: "",
+    searchSeason: "",
+    text: "Useless Placeholder",
+    appState: AppState.currentState
   };
   searchUpdated(term) {
-    this.setState({ 
-      searchTerm: term,
-    })
+    this.setState({
+      searchTerm: term
+    });
     console.log("called again");
   }
   seasonUpdated(term) {
     this.setState({
       searchSeason: term
-    })
+    });
   }
   setModalVisible(visible) {
-    this.setState({modalVisible: visible});
+    this.setState({ modalVisible: visible });
   }
   componentDidMount = () => {
-    AppState.addEventListener('change', this._handleAppStateChange);
-  }
-  componentWillUnmount= () => {
-    AppState.removeEventListener('change', this._handleAppStateChange);
-  }
-  _handleAppStateChange = (nextAppState) => {
- 
+    AppState.addEventListener("change", this._handleAppStateChange);
+  };
+  componentWillUnmount = () => {
+    AppState.removeEventListener("change", this._handleAppStateChange);
+  };
+  _handleAppStateChange = nextAppState => {
     this.setState({ appState: nextAppState });
-    if(this.state.modalVisible === true){
-      console.log('back clicked');
+    if (this.state.modalVisible === true) {
+      console.log("back clicked");
     }
-    if (nextAppState === 'background') {
+    if (nextAppState === "background") {
       // console.log('bg state', this.state.appState)
-      this.setState({modalVisible : false}, () => console.log(this.state.modalVisible));
+      this.setState({ modalVisible: false }, () =>
+        console.log(this.state.modalVisible)
+      );
     }
-    if (nextAppState === 'active') {
+    if (nextAppState === "active") {
       // console.log('bg state', this.state.appState)
     }
-  }
+  };
   restFilter = () => {
     console.log("click on reset");
     this.setState({
-      searchTerm: '',
-      searchSeason: '',
-    })
+      searchTerm: "",
+      searchSeason: ""
+    });
     this.searchUpdated("");
-    this.forceUpdate()
-  }
-
+    this.forceUpdate();
+  };
 
   render() {
-    
-     const filteredStyle = styleArray.filter(createFilter(this.state.searchTerm, KEYS_TO_FILTERS));
-     const filteredSeason = seasonArray.filter(createFilter(this.state.searchSeason, SEASON_KEYS));
+    const filteredStyle = styleArray.filter(
+      createFilter(this.state.searchTerm, KEYS_TO_FILTERS)
+    );
+    const filteredSeason = seasonArray.filter(
+      createFilter(this.state.searchSeason, SEASON_KEYS)
+    );
     console.log("rendered again");
-     return (
+    return (
       <Fragment>
         <StyledTouchableOpacity
           activeOpacity={0.7}
           onPress={() => {
-						this.setModalVisible(!this.state.modalVisible);
-					}}
-          >
-            <FilterButton>
-              <Image resizeMode={"contain"} source={require('../../assets/img/filter.png')} /> 
-            </FilterButton>
+            this.setModalVisible(!this.state.modalVisible);
+          }}
+        >
+          <FilterButton>
+            <Image
+              resizeMode={"contain"}
+              source={require("../../assets/img/filter.png")}
+            />
+          </FilterButton>
         </StyledTouchableOpacity>
-          <CommonModal    
-            title='filter'
-            modalVisible={this.state.modalVisible}
-            close={() => {this.setModalVisible(!this.state.modalVisible);
-            }}
-            // okButton = "notification"
-            okClick = {() => this.redirectTo(history)}
-            // bg='#fff'
-          >
-            <View style={{flex: 1}}>
-
-          <KeyboardAwareScrollView>
+        <CommonModal
+          title="filter"
+          modalVisible={this.state.modalVisible}
+          close={() => {
+            this.setModalVisible(!this.state.modalVisible);
+          }}
+          okClick={() => this.redirectTo(history)}
+        >
+          <MainView>
+            <KeyboardAwareScrollView>
               <ResetBar>
                 <ResetButton onPress={this.restFilter}>
-                  <GrayButtonText>
-                    reset
-                  </GrayButtonText>
+                  <GrayButtonText>reset</GrayButtonText>
                 </ResetButton>
               </ResetBar>
-              
+
               <SearchBar>
                 <Title>brand</Title>
-                <StyledSearchInput 
-                  onChangeText={(term) => { this.searchUpdated(term) }} 
+                <StyledSearchInput
+                  onChangeText={term => {
+                    this.searchUpdated(term);
+                  }}
                   placeholder="Enter Brand Name"
-                  // value = ""
-                  
-                  // onSubmitEditing={()=>{this.searchUpdated()}}
                 />
                 <Capsule>
-                {
-                  filteredStyle.map(item => {
-                    return(
+                  {filteredStyle.map(item => {
+                    return (
                       <StyledItem key={item.name}>
                         <ItemName>{item.name} </ItemName>
                       </StyledItem>
-                    )
-                  })
-                }
+                    );
+                  })}
                 </Capsule>
               </SearchBar>
 
               <SearchBar>
                 <Title>season</Title>
-                <StyledSearchInput 
-                  onChangeText={(term) => { this.seasonUpdated(term) }} 
+                <StyledSearchInput
+                  onChangeText={term => {
+                    this.seasonUpdated(term);
+                  }}
                   placeholder="Enter Season"
                 />
                 <Capsule>
-                  {
-                    filteredSeason.map(item => {
-                      return(
-                        <StyledItem key={item.name}>
-                          <ItemName>{item.name} 
-                          </ItemName>
-                        </StyledItem>
-                      )
-                    })
-                  }
+                  {filteredSeason.map(item => {
+                    return (
+                      <StyledItem key={item.name}>
+                        <ItemName>{item.name}</ItemName>
+                      </StyledItem>
+                    );
+                  })}
                 </Capsule>
               </SearchBar>
-          </KeyboardAwareScrollView>
-
-            </View>
+            </KeyboardAwareScrollView>
+          </MainView>
         </CommonModal>
       </Fragment>
-    )
+    );
   }
 }
 export default searchFilter;

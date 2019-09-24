@@ -42,6 +42,10 @@ const CloseView = styled.View`
   margin-left: auto;
   /* background-color: #aaa; */
 `;
+
+const SidebarView = styled.View`
+  padding: 15px 15px 0px 0px;
+`;
 export default class Menu extends React.Component {
   constructor(props){
     super(props);
@@ -66,8 +70,8 @@ export default class Menu extends React.Component {
     const close = this.props.close;
     return (
       <MenuContainer>
-        <View style={{paddingLeft: 15, paddingTop: 15,}}>
-            <CloseView style={{}}>
+        <SidebarView>
+            <CloseView>
               <TouchableOpacity
                   onPress={this.props.close}
                 >
@@ -80,12 +84,12 @@ export default class Menu extends React.Component {
           </TouchableHighlight>
           <TouchableHighlight underlayColor='rgba(221, 221, 221, 0.4)' 
             onPress={this.checkNredirect}>
-              <CompanyHighlight style={{}}>
+              <CompanyHighlight>
                 <CompanyText>demo company</CompanyText>
               </CompanyHighlight>
           </TouchableHighlight>
           
-        </View>
+        </SidebarView>
       </MenuContainer>
     )
   }

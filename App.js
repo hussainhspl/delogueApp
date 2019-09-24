@@ -54,10 +54,14 @@ import SampleComponent from './src/style/sampleComponent';
 import { ThemeProvider } from 'styled-components/native';
 import Theme from './data/theme';
 import OfflineNotice from './src/shared/OfflineNotice';
+import styled from 'styled-components';
 
 
 const store = configStore();
 
+const MainView = styled.View`
+  flex: 1;
+`;
 const App = () => {
   let init = async () => {
     // …do multiple async tasks
@@ -77,7 +81,7 @@ const App = () => {
             <StatusBar barStyle="dark-content" />
               {/* <OfflineNotice /> */}
             <SafeAreaView />
-            <View style={{ flex: 1 }}>
+            <MainView>
               <Switch>
                 {/* <Route exact path="/" component={Style}></Route> */}
                 <Route exact path="/" component={Login}></Route>
@@ -89,7 +93,7 @@ const App = () => {
                 <Route exact path="/notificationModal" component={NotificationModal}></Route>
 
               </Switch>
-            </View>
+            </MainView>
             <SafeAreaView />
           </Fragment>
         </ThemeProvider>

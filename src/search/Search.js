@@ -9,6 +9,9 @@ import {
 } from "react-native";
 import { Icon } from "native-base";
 import SearchInput, { createFilter } from "react-native-search-filter";
+import GridList from 'react-native-grid-list';
+import { FlatGrid } from 'react-native-super-grid';
+
 import SearchFilter from "./searchFilter";
 import Header from "../Header";
 import styled from "styled-components";
@@ -69,6 +72,9 @@ const details = [
 const SearchRow = styled.View`
   flex-direction: row;
   justify-content: space-between;
+  background-color: #efefef;
+  border-bottom-width: 1px;
+  border-color: #ddd;
 `;
 const Flex = styled.View`
   flex: 1;
@@ -108,6 +114,16 @@ const GridView = styled.View`
   flex-wrap: wrap;
 `;
 
+const MainView = styled.View`
+  flex: 1;
+`;
+
+const ClearIcon = styled(Icon)`
+  font-size: 28px;
+  color: #777;
+  padding: 0px 10px;
+`;
+
 const KEYS_TO_FILTERS = ["styleNo", "styleName", "supplier", "season"];
 class Search extends React.Component {
   constructor(props) {
@@ -138,7 +154,7 @@ class Search extends React.Component {
       });
     }
   };
-
+ 
   render() {
     const filteredStyle = details.filter(
       createFilter(this.state.searchTerm, KEYS_TO_FILTERS)
@@ -151,7 +167,7 @@ class Search extends React.Component {
     // console.log("search history:", history);
     // console.log("history on search page", this.props.history);
     return (
-      <View style={{ flex: 1 }}>
+      <MainView>
         <Header history={this.props.history}>
           <ScrollView showsVerticalScrollIndicator={false}>
             <SearchRow>
@@ -163,14 +179,7 @@ class Search extends React.Component {
                   placeholder="Type a message to search"
                   clearIcon={
                     this.state.searchTerm !== "" && (
-                      <Icon
-                        style={{
-                          fontSize: 28,
-                          color: "#777",
-                          paddingHorizontal: 10
-                        }}
-                        name="ios-close"
-                      />
+                      <ClearIcon name="ios-close" />
                     )
                   }
                   clearIconViewStyles={{
@@ -217,7 +226,7 @@ class Search extends React.Component {
           </ScrollView>
           <SearchFilter />
         </Header>
-      </View>
+      </MainView>
     );
   }
 }

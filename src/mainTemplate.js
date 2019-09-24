@@ -14,9 +14,6 @@ class mainTemplate extends React.Component {
   render() {
     return(
       <Fragment>
-        {/* <View style={{flex: 1}}>
-          <Route exact path="/companyList" component={CompanyList} />
-        </View> */}
         <Header>
           {this.props.children}
         </Header>
