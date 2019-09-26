@@ -80,49 +80,40 @@ class Login extends React.Component {
       "hardwareBackPress",
       this.handleBackButtonClick
     );
-    // const data= { "grant_type": "password", "username": "profiler@headfitted.com", "password": "donttell" };
-    
-    // axios.get("http://test.delogue.com/auth/token",{
-    //   withCredentials: true,
-    //   crossDomain : true,
-    //   responseType: "application/json; charset=utf-8",
-    //   grant_type: "password", 
-    //   username: "profiler@headfitted.com", 
-    //   password: "donttell",
-      
-    // })
+
+    // axios.defaults.baseURL = 'https://api.example.com';
+    // axios.post('http://test.delogue.com/auth/token',{ 
+    //   headers: { 'content-type': 'application/x-www-form-urlencoded' },
+    //   data: {
+    //     grant_type: "password", 
+    //     username: "profiler@headfitted.com", 
+    //     password: "donttell" , 
+    //   }
+    //   })
     //   .then(res => {
-    //     console.log("response");
+    //     console.log("response",res);
     //   })
     //   .catch(function (error) {
     //     // handle error
-    //     console.log(error);
+    //     console.error(error);
     //   })
-    axios.post('http://test.delogue.com/auth/token"',{ "grant_type": "password", 
-    "username": "profiler@headfitted.com", "password": "donttell" }, {
+
+    axios.post('http://test.delogue.com/auth/token"',{
+      "grant_type": "password", 
+      "username": "profiler@headfitted.com", 
+      "password": "donttell" }, {
       "headers": {
-      'content-type': 'application/JSON',
+        'content-type': 'application/x-www-form-urlencoded',
       }
       })
       .then(res => {
-            console.log("response",res);
-          })
-          .catch(function (error) {
-            // handle error
-            console.log(error);
-          })
-      // .then((response) => {
-      // }).catch((err) => {
+        console.log("response",res);
+      })
+      .catch(function (error) {
+        //handle error
+        console.error(error);
+      })
       // });
-      // });
-    return fetch('http://test.delogue.com/auth/token')
-    // .then((response) => response)
-    .then((response) => {
-      return console.log("token", response);
-    })
-    .catch((error) => {
-      console.error(error);
-    });
   };
 
   submitLogin = () => {
