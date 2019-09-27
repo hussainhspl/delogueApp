@@ -11,7 +11,8 @@ import {
 } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import styled from "styled-components";
-import axios from 'axios';
+import axios from "axios";
+import qs from "qs";
 //Relative import
 import OfflineNotice from "./shared/OfflineNotice";
 
@@ -71,7 +72,8 @@ class Login extends React.Component {
     this.state = {
       text: "",
       password: "",
-      exit: false
+      exit: false,
+      token: '',
     };
   }
 
@@ -80,62 +82,50 @@ class Login extends React.Component {
       "hardwareBackPress",
       this.handleBackButtonClick
     );
-
-    // axios.defaults.baseURL = 'https://api.example.com';
-    // axios.post('http://test.delogue.com/auth/token',{ 
-    //   headers: { 'content-type': 'application/x-www-form-urlencoded' },
-    //   data: {
-    //     grant_type: "password", 
-    //     username: "profiler@headfitted.com", 
-    //     password: "donttell" , 
-    //   }
-    //   })
-    //   .then(res => {
-    //     console.log("response",res);
-    //   })
-    //   .catch(function (error) {
-    //     // handle error
-    //     console.error(error);
-    //   })
-
-    axios.post('http://test.delogue.com/auth/token"',{
-      "grant_type": "password", 
-      "username": "profiler@headfitted.com", 
-      "password": "donttell" }, {
-      "headers": {
-        'content-type': 'application/x-www-form-urlencoded',
-      }
-      })
-      .then(res => {
-        console.log("response",res);
-      })
-      .catch(function (error) {
-        //handle error
-        console.error(error);
-      })
-      // });
   };
 
   submitLogin = () => {
     console.log("click on submit");
-    // axios.post("http://test.delogue.com/auth/token",{
-    //   withCredentials: true,
-    //   crossDomain : true,
-    //   responseType: "application/json; charset=utf-8",
-    //   grant_type: "password", 
-    //   username: "profiler@headfitted.com", 
-    //   password: "donttell",
-      
-    // })
-    //   .then(res => {
-    //     console.log("response");
-    //   })
-    //   .catch(function (error) {
-    //     // handle error
-    //     console.log(error);
-    //   })
+    const data = {
+      username: "profiler@headfitted.com",
+      password: "donttell",
+      grant_type: "password"
+    };
+    // login code
+    const options = {
+      url: "http://test.delogue.com/auth/token",
+      method: "POST",
+      grant_type: "password",
+      responseType: "json",
+      headers: { "content-type": "application/x-www-form-urlencoded" },
+      data: qs.stringify(data)
+    };
+    axios(options)
+      .then(res => {
+        console.log("response", res);
+        this.setState({
+          token: res.data.access_token,
+        },() => console.log("token state", this.state.token))
+      })
+      .catch(function(error) {
+        console.error(error);
+      });
 
-  }
+    // get style
+    const options1 = {
+      url: "https://rc.delogue.com/export/style/16197",
+      method: "GET",
+      headers: { 'Authorization': `bearer ${this.state.token}` },
+    };
+    axios(options1)
+      .then(res => {
+        console.log("response", res);
+        
+      })
+      .catch(function(error) {
+        console.error(error);
+      });
+  };
   handleBackButtonClick() {
     // console.log("exit app");
 
