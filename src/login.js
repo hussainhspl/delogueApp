@@ -13,8 +13,11 @@ import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view
 import styled from "styled-components";
 import axios from "axios";
 import qs from "qs";
+import AsyncStorage from '@react-native-community/async-storage';
+import isAfter from 'date-fns/isAfter'
 //Relative import
 import OfflineNotice from "./shared/OfflineNotice";
+
 
 const Label = styled.Text`
   color: white;
@@ -24,12 +27,10 @@ const Label = styled.Text`
   font-family: ${props => props.theme.regular};
 `;
 const Logo = styled.Image`
-  /* width: 98%; */
 `;
 const Container = styled.View`
   background-color: ${props => props.theme.primaryColor};
   flex: 1;
-  /* align-items: center; */
 `;
 const ButtonText = styled.Text`
   color: white;
@@ -83,49 +84,6 @@ class Login extends React.Component {
       this.handleBackButtonClick
     );
   };
-
-  submitLogin = () => {
-    console.log("click on submit");
-    const data = {
-      username: "profiler@headfitted.com",
-      password: "donttell",
-      grant_type: "password"
-    };
-    // login code
-    const options = {
-      url: "http://test.delogue.com/auth/token",
-      method: "POST",
-      grant_type: "password",
-      responseType: "json",
-      headers: { "content-type": "application/x-www-form-urlencoded" },
-      data: qs.stringify(data)
-    };
-    axios(options)
-      .then(res => {
-        console.log("response", res);
-        this.setState({
-          token: res.data.access_token,
-        },() => console.log("token state", this.state.token))
-      })
-      .catch(function(error) {
-        console.error(error);
-      });
-
-    // get style
-    const options1 = {
-      url: "https://rc.delogue.com/export/style/16197",
-      method: "GET",
-      headers: { 'Authorization': `bearer ${this.state.token}` },
-    };
-    axios(options1)
-      .then(res => {
-        console.log("response", res);
-        
-      })
-      .catch(function(error) {
-        console.error(error);
-      });
-  };
   handleBackButtonClick() {
     // console.log("exit app");
 
@@ -143,6 +101,103 @@ class Login extends React.Component {
       "hardwareBackPress",
       this.handleBackButtonClick
     );
+  }
+  submitLogin = () => {
+    console.log("click on submit", this.props.history);
+    // login code
+    
+    this.checkToken()
+
+    // get style
+    // const options1 = {
+    //   url: "https://rc.delogue.com/export/style/16197",
+    //   method: "GET",
+    //   headers: { 'Authorization': `bearer ${this.state.token}` },
+    // };
+    // axios(options1)
+    //   .then(res => {
+    //     console.log("response", res);
+        
+    //   })
+    //   .catch(function(error) {
+    //     console.error(error);
+    //   });
+  };
+  checkToken() {
+    let tokenExp;
+    let currentDate = new Date().toUTCString();
+    console.log("india date", currentDate);
+    this.getData()
+    .then(res => {
+      console.log(".then11", res);
+      tokenExp = res;
+      var result = isAfter(new Date(currentDate), new Date(tokenExp))
+      console.log("result", result);
+
+    })
+    .catch(function(error) {
+      console.error(error)
+    })
+    
+    
+  }
+  checkCredential() {
+    const data = {
+      username: "profiler@headfitted.com",
+      password: "donttell",
+      grant_type: "password"
+    };
+    const options = {
+      url: "http://test.delogue.com/auth/token",
+      method: "POST",
+      grant_type: "password",
+      responseType: "json",
+      headers: { "content-type": "application/x-www-form-urlencoded" },
+      data: qs.stringify(data)
+    };
+    axios(options)
+      .then(res => {
+        console.log("response", res);
+        let  tokenExp = res.headers.date
+        this.setState({
+          token: res.data.access_token,
+          // tokenExpiry: res.headers.date
+        },() => this.storeData(tokenExp))
+
+      })
+      .catch(function(error) {
+        console.error(error);
+      });
+  }
+  
+  storeData = async (tokenExp) => {
+    console.log("Enter in async function", tokenExp);
+    try {
+      // await AsyncStorage.setItem('@token', this.state.token)
+      AsyncStorage.multiSet([
+        ['@token', this.state.token], 
+        ['@tokenExpiry', tokenExp]
+      ]);
+      console.log('data saved successfully');
+      this.props.history.push("/companyList")
+    } catch (e) {
+      //error
+      alert('error');
+    }
+    
+    // this.getData();
+  }
+  getData = async () => {
+    try {
+      const value = await AsyncStorage.getItem('@tokenExpiry')
+      if(value !== null) {
+        console.log("async token", value);
+        return value;
+      }
+    }
+    catch(error) {
+      alert(error)
+    }
   }
   render() {
     const history = this.props.history;

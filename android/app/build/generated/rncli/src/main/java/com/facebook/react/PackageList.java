@@ -13,6 +13,8 @@ import java.util.ArrayList;
 import com.delogue.BuildConfig;
 import com.delogue.R;
 
+// @react-native-community/async-storage
+import com.reactnativecommunity.asyncstorage.AsyncStoragePackage;
 // @react-native-community/netinfo
 import com.reactnativecommunity.netinfo.NetInfoPackage;
 // lottie-react-native
@@ -56,6 +58,7 @@ public class PackageList {
   public ArrayList<ReactPackage> getPackages() {
     return new ArrayList<>(Arrays.<ReactPackage>asList(
       new MainReactPackage(),
+      new AsyncStoragePackage(),
       new NetInfoPackage(),
       new LottiePackage(),
       new RNBootSplashPackage(),

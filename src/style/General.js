@@ -74,12 +74,24 @@ class General extends React.Component {
       tablet: false
     };
   }
+
   componentDidMount = () => {
     if (Dimensions.get("window").width > 568) {
       this.setState({ tablet: true }, () =>
         console.log("will mount", this.state.tablet)
       );
     }
+    // getData = async () => {
+    //   try {
+    //     const value = await AsyncStorage.getItem('@token')
+    //     if(value !== null) {
+    //       console.log("async token in style", value);
+    //     }
+    //   }
+    //   catch(error) {
+    //     alert(error)
+    //   }
+    // }
     // console.log("will mount out" , this.state.tablet);
   };
   render() {
@@ -94,7 +106,6 @@ class General extends React.Component {
         </ImageView>
         <ColorBar>
           {colorArray.map(item => {
-            console.log("color", item);
             return (
               <ColorBox
                 style={{ backgroundColor: item.color }}

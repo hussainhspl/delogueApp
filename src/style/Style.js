@@ -1,16 +1,17 @@
 import React, { Fragment } from "react";
 import { View, Text, Image, ScrollView } from "react-native";
 // import styled from "styled-components/native";
-import General from "./General";
 import { createStore } from "redux";
+import AsyncStorage from '@react-native-community/async-storage';
+
+
+import General from "./General";
 import Comments from "./Comments";
 import Files from "./Files";
 import Sample from "./sample";
 import Pdf from "./Pdf";
 import Header from "../Header";
-
 import { connect } from "react-redux";
-// import { FooterTab } from 'native-base';
 import FooterComponent from "../FooterComponent";
 
 class Style extends React.Component {
@@ -35,6 +36,24 @@ class Style extends React.Component {
     }
     // console.log("printing from render: ", params);
   }
+  componentDidMount = () => {
+    console.log('did mount in style');
+    this.getData();
+  }
+
+  getData = async () => {
+    try {
+      console.log("enter in get data")
+      const value = await AsyncStorage.getItem('@token')
+      if(value !== null) {
+        console.log("async token in style", value);
+      }
+    }
+    catch(error) {
+      alert(error)
+    }
+  }
+
   render() {
     // const history = this.props.history;
     // console.log("History on style page:", history)
