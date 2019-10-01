@@ -15,6 +15,8 @@ import axios from "axios";
 import qs from "qs";
 import AsyncStorage from '@react-native-community/async-storage';
 import isAfter from 'date-fns/isAfter'
+import parse from 'date-fns/parse';
+import toDate from 'date-fns/toDate'
 //Relative import
 import OfflineNotice from "./shared/OfflineNotice";
 
@@ -124,27 +126,34 @@ class Login extends React.Component {
     //   });
   };
   checkToken() {
-    let tokenExp;
+    // let tokenExp;
     let currentDate = new Date().toUTCString();
     console.log("india date", currentDate);
     this.getData()
-    .then(res => {
-      console.log(".then11", res);
-      tokenExp = res;
-      var result = isAfter(new Date(currentDate), new Date(tokenExp))
+    .then(tokenExpiryTime => {
+      console.log("expiry time :",new Date(currentDate),  new Date(tokenExpiryTime));
+      var result = isAfter(new Date(currentDate), new Date(tokenExpiryTime))
       console.log("result", result);
+      if(result) {
+        console.log("get token")
+        // this.checkCredential();
+      }
+      else {
+        console.log("no need");
+        this.checkCredential();
 
+        // this.props.history.push("/companyList")
+      }
     })
     .catch(function(error) {
       console.error(error)
     })
     
-    
   }
   checkCredential() {
     const data = {
       username: "profiler@headfitted.com",
-      password: "donttell",
+      password: "donttelld",
       grant_type: "password"
     };
     const options = {
@@ -157,17 +166,24 @@ class Login extends React.Component {
     };
     axios(options)
       .then(res => {
-        console.log("response", res);
-        let  tokenExp = res.headers.date
+        // console.log("response", res);
+        let tokenExp = new Date(res.headers.date);
+        // console.log("axios", res.headers.date, tokenExp);
+        let seconds = res.data.expires_in;
+        // console.log('seconds', typeof(seconds));
+        tokenExp.setSeconds(tokenExp.getSeconds() + seconds);
+        // console.log("adding second:", tokenExp, typeof(tokenExp))
         this.setState({
           token: res.data.access_token,
           // tokenExpiry: res.headers.date
         },() => this.storeData(tokenExp))
 
       })
-      .catch(function(error) {
-        console.error(error);
-      });
+      .catch(error => {
+        if (error.response) {
+          console.log("wrong credentials",error.response);
+        }
+      })
   }
   
   storeData = async (tokenExp) => {
@@ -179,7 +195,7 @@ class Login extends React.Component {
         ['@tokenExpiry', tokenExp]
       ]);
       console.log('data saved successfully');
-      this.props.history.push("/companyList")
+      // this.props.history.push("/companyList")
     } catch (e) {
       //error
       alert('error');
