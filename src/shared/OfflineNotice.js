@@ -3,29 +3,31 @@ import { View, Text, Dimensions, StyleSheet, Alert } from "react-native";
 import styled from "styled-components";
 import NetInfo from "@react-native-community/netinfo";
 import {Badge } from 'native-base';
+import ErrorMessage from '../styles/ErrorMessage';
+
 
 // const { width } = Dimensions.get('window');
 
-const OfflineContainer = styled.View`
+// const OfflineContainer = styled.View`
   
-  height: 30px;
-  justify-content: center;
-  align-items: center;
-  flex-direction: row;
-  width: ${Dimensions.get("window").width};
-  z-index: 10;
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  opacity: 1;
-`;
+//   height: 30px;
+//   justify-content: center;
+//   align-items: center;
+//   flex-direction: row;
+//   width: ${Dimensions.get("window").width};
+//   z-index: 10;
+//   position: absolute;
+//   top: 0;
+//   left: 0;
+//   right: 0;
+//   opacity: 1;
+// `;
 
 function MiniOfflineSign() {
   return (
-    <OfflineContainer style={{backgroundColor: '#f00'}}>
+    <ErrorMessage>
       <Text style={styles.offlineText}>No Internet Connection</Text>
-    </OfflineContainer>
+    </ErrorMessage>
   );
 }
 

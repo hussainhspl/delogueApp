@@ -1,4 +1,4 @@
-import React from "react";
+import React, {Fragment} from "react";
 import {
   View,
   Text,
@@ -13,12 +13,16 @@ import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view
 import styled from "styled-components";
 import axios from "axios";
 import qs from "qs";
-import AsyncStorage from '@react-native-community/async-storage';
-import isAfter from 'date-fns/isAfter'
-import parse from 'date-fns/parse';
-import toDate from 'date-fns/toDate'
+import AsyncStorage from "@react-native-community/async-storage";
+import isAfter from "date-fns/isAfter";
+import parse from "date-fns/parse";
+import toDate from "date-fns/toDate";
+import { connect } from "react-redux";
+
 //Relative import
 import OfflineNotice from "./shared/OfflineNotice";
+import FailMessage from "./shared/failMessage";
+import {token} from "./store/actions/index";
 
 
 const Label = styled.Text`
@@ -28,8 +32,7 @@ const Label = styled.Text`
   margin-top: 30px;
   font-family: ${props => props.theme.regular};
 `;
-const Logo = styled.Image`
-`;
+const Logo = styled.Image``;
 const Container = styled.View`
   background-color: ${props => props.theme.primaryColor};
   flex: 1;
@@ -76,7 +79,8 @@ class Login extends React.Component {
       text: "",
       password: "",
       exit: false,
-      token: '',
+      token: "",
+      loginFail: ""
     };
   }
 
@@ -85,6 +89,7 @@ class Login extends React.Component {
       "hardwareBackPress",
       this.handleBackButtonClick
     );
+    // this.clearAsyncStorage();
   };
   handleBackButtonClick() {
     // console.log("exit app");
@@ -107,8 +112,8 @@ class Login extends React.Component {
   submitLogin = () => {
     console.log("click on submit", this.props.history);
     // login code
-    
-    this.checkToken()
+
+    this.checkToken();
 
     // get style
     // const options1 = {
@@ -119,41 +124,59 @@ class Login extends React.Component {
     // axios(options1)
     //   .then(res => {
     //     console.log("response", res);
-        
+
     //   })
     //   .catch(function(error) {
     //     console.error(error);
     //   });
   };
   checkToken() {
-    // let tokenExp;
     let currentDate = new Date().toUTCString();
     console.log("india date", currentDate);
-    this.getData()
-    .then(tokenExpiryTime => {
-      console.log("expiry time :",new Date(currentDate),  new Date(tokenExpiryTime));
-      var result = isAfter(new Date(currentDate), new Date(tokenExpiryTime))
-      console.log("result", result);
-      if(result) {
-        console.log("get token")
-        // this.checkCredential();
-      }
-      else {
-        console.log("no need");
-        this.checkCredential();
-
-        // this.props.history.push("/companyList")
-      }
-    })
-    .catch(function(error) {
-      console.error(error)
-    })
-    
+    // const token = await AsyncStorage.getItem('@token');
+    // console.log
+    this.getToken()
+      .then(token => {
+        if (token) {
+          console.log("Token already exist");
+          this.getTokenExpiry()
+            .then(tokenExpiryTime => {
+              let tempDate = new Date(currentDate);
+              // tempDate.setSeconds(tempDate.getSeconds() + 36000);
+              console.log(
+                "expiry time :",
+                new Date(currentDate),
+                new Date(tokenExpiryTime)
+              );
+              var result = isAfter(
+                new Date(currentDate),
+                new Date(tokenExpiryTime)
+              );
+              // console.log("result", result);
+              if (result) {
+                console.log("Invalid token");
+                this.checkCredential();
+              } else {
+                console.log("Token is valid");
+                this.props.history.push("/companyList")
+              }
+            })
+            .catch(function(error) {
+              console.error(error);
+            });
+        } else {
+          console.log("no token found");
+          this.checkCredential();
+        }
+      })
+      .catch(function(error) {
+        console.error(error);
+      });
   }
   checkCredential() {
     const data = {
       username: "profiler@headfitted.com",
-      password: "donttelld",
+      password: "donttell",
       grant_type: "password"
     };
     const options = {
@@ -166,61 +189,94 @@ class Login extends React.Component {
     };
     axios(options)
       .then(res => {
-        // console.log("response", res);
         let tokenExp = new Date(res.headers.date);
-        // console.log("axios", res.headers.date, tokenExp);
         let seconds = res.data.expires_in;
-        // console.log('seconds', typeof(seconds));
         tokenExp.setSeconds(tokenExp.getSeconds() + seconds);
-        // console.log("adding second:", tokenExp, typeof(tokenExp))
-        this.setState({
-          token: res.data.access_token,
-          // tokenExpiry: res.headers.date
-        },() => this.storeData(tokenExp))
-
+        this.setState(
+          {
+            token: res.data.access_token
+            // tokenExpiry: res.headers.date
+          },
+          () => this.storeData(tokenExp)
+        );
       })
       .catch(error => {
         if (error.response) {
-          console.log("wrong credentials",error.response);
+          console.log("wrong credentials", error.response);
+          console.log("error", error.response.data.error_description);
+          this.setState({
+            loginFail: error.response.data.error_description
+          });
         }
-      })
+      });
   }
-  
-  storeData = async (tokenExp) => {
-    console.log("Enter in async function", tokenExp);
+
+  storeData = async tokenExp => {
+    console.log("Storing data in async function", tokenExp);
     try {
       // await AsyncStorage.setItem('@token', this.state.token)
       AsyncStorage.multiSet([
-        ['@token', this.state.token], 
-        ['@tokenExpiry', tokenExp]
+        ["@token", this.state.token],
+        ["@tokenExpiry", tokenExp]
       ]);
-      console.log('data saved successfully');
-      // this.props.history.push("/companyList")
+      console.log("data saved successfully");
+      this.props.history.push("/companyList")
     } catch (e) {
       //error
-      alert('error');
+      alert("error");
     }
-    
-    // this.getData();
-  }
-  getData = async () => {
+  };
+  getToken = async () => {
     try {
-      const value = await AsyncStorage.getItem('@tokenExpiry')
-      if(value !== null) {
-        console.log("async token", value);
-        return value;
+      const token = await AsyncStorage.getItem("@token");
+      if (token !== null) {
+        console.log("get token", token);
+        this.props.tokenFunction(token);
+        console.log('got here');
+        return token;
+      }
+    } catch (error) {
+      if (error.response) {
+        console.log("Error while checking token", error);
       }
     }
-    catch(error) {
-      alert(error)
+  };
+
+  getTokenExpiry = async () => {
+    try {
+      const tokenExpiry = await AsyncStorage.getItem("@tokenExpiry");
+      if (tokenExpiry !== null) {
+        console.log("get token expiry", tokenExpiry);
+        return tokenExpiry;
+      }
+    } catch (error) {
+      if (error.response) {
+        console.log("Error while checking token expiry", error);
+      }
     }
-  }
+  };
+
+  clearAsyncStorage = async () => {
+    AsyncStorage.clear();
+    console.log("async clear");
+  };
+
   render() {
     const history = this.props.history;
+    console.log("Enter in render",this.props.tokenData);
     return (
       <Container>
         <KeyboardAwareScrollView showsVerticalScrollIndicator={false}>
           <OfflineNotice />
+          <Fragment>
+          { this.state.loginFail ?
+
+            <FailMessage 
+              message={this.state.loginFail} 
+            />
+            : null
+          }
+          </Fragment>
           <MainView>
             <LogoView>
               <Logo
@@ -256,4 +312,19 @@ class Login extends React.Component {
   }
 }
 
-export default Login;
+const mapDispatchToProps = dispatch => {
+  return {
+    tokenFunction : () => dispatch(token()),
+  }
+}
+
+const mapStateToProps = state => {
+  return {
+    tokenData: state.async.tokenState
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Login);

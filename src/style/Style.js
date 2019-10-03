@@ -13,6 +13,7 @@ import Pdf from "./Pdf";
 import Header from "../Header";
 import { connect } from "react-redux";
 import FooterComponent from "../FooterComponent";
+import {token} from "../store/actions/index";
 
 class Style extends React.Component {
   constructor(props) {
@@ -55,6 +56,7 @@ class Style extends React.Component {
   }
 
   render() {
+    console.log("rendering style",this.props.tokenData);
     // const history = this.props.history;
     // console.log("History on style page:", history)
     // step 2 create reducer: it needs state and action
@@ -90,7 +92,8 @@ class Style extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    currentTab: state.tab.now
+    currentTab: state.tab.now,
+    tokenData: state.async.tokenState
   };
 };
 
