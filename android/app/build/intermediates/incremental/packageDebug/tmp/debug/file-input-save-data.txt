@@ -1,5 +1,5 @@
 #Internal package file, do not edit.
-#Wed Sep 18 18:03:38 IST 2019
+#Fri Oct 04 14:09:15 IST 2019
 60.set=NATIVE_RESOURCE
 52.set=NATIVE_RESOURCE
 53.base=/Users/commonuser/react-native/delogueApp/android/app/build/intermediates/transforms/mergeJniLibs/debug/0

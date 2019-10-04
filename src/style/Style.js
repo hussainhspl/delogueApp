@@ -3,6 +3,8 @@ import { View, Text, Image, ScrollView } from "react-native";
 // import styled from "styled-components/native";
 import { createStore } from "redux";
 import AsyncStorage from '@react-native-community/async-storage';
+import axios from "axios";
+import qs from "qs";
 
 
 import General from "./General";
@@ -39,20 +41,32 @@ class Style extends React.Component {
   }
   componentDidMount = () => {
     console.log('did mount in style');
-    this.getData();
+    this.getStyles();
   }
 
-  getData = async () => {
-    try {
-      console.log("enter in get data")
-      const value = await AsyncStorage.getItem('@token')
-      if(value !== null) {
-        console.log("async token in style", value);
-      }
+  getStyles() {
+    // get style
+    let token = `Bearer ${this.props.tokenData}`;
+    let data = {
+      // headers: {
+        'Authorization' : token
+        'content-type: "application/json; charset=utf-8"
+      // }
     }
-    catch(error) {
-      alert(error)
-    }
+    console.log("bearer token ", token)
+    const options1 = {
+      url: "https://rc.delogue.com/export/style/16197",
+      method: "GET",
+      headers: data
+    };
+    axios(options1)
+      .then(res => {
+        console.log("response in style", res);
+
+      })
+      .catch(function(error) {
+        console.error("error in style", error);
+      });
   }
 
   render() {

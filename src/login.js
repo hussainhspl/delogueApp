@@ -65,6 +65,7 @@ const InputBox = styled.TextInput`
   border-color: white;
   border-width: 1px;
   background-color: #fff;
+  padding-left: 5px;
 `;
 
 const MainView = styled.View`
@@ -76,8 +77,8 @@ class Login extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      text: "",
-      password: "",
+      username: "profiler@headfitted.com",
+      password: "donttell",
       exit: false,
       token: "",
       loginFail: ""
@@ -89,7 +90,7 @@ class Login extends React.Component {
       "hardwareBackPress",
       this.handleBackButtonClick
     );
-    // this.clearAsyncStorage();
+    this.clearAsyncStorage();
   };
   handleBackButtonClick() {
     // console.log("exit app");
@@ -174,9 +175,12 @@ class Login extends React.Component {
       });
   }
   checkCredential() {
+    console.log("username : ", this.state.username, this.state.password);
     const data = {
-      username: "profiler@headfitted.com",
-      password: "donttell",
+      // username: "profiler@headfitted.com",
+      // password: "donttell",
+      username: this.state.username,
+      password: this.state.password,
       grant_type: "password"
     };
     const options = {
@@ -220,10 +224,16 @@ class Login extends React.Component {
         ["@tokenExpiry", tokenExp]
       ]);
       console.log("data saved successfully");
+      this.props.tokenFunction(this.state.token);
       this.props.history.push("/companyList")
-    } catch (e) {
+    } 
+    catch (e) {
+ 
+        console.log("Error while saving token", e);
+        throw error;
+
       //error
-      alert("error");
+      // alert("error 11", e);
     }
   };
   getToken = async () => {
@@ -287,8 +297,8 @@ class Login extends React.Component {
             <View>
               <Label> user name </Label>
               <InputBox
-                onChangeText={text => this.setState({ text })}
-                value={this.state.text}
+                onChangeText={username => this.setState({ username })}
+                value={this.state.username}
               />
               <Label> password </Label>
               <InputBox
@@ -314,7 +324,7 @@ class Login extends React.Component {
 
 const mapDispatchToProps = dispatch => {
   return {
-    tokenFunction : () => dispatch(token()),
+    tokenFunction : (data) => dispatch(token(data)),
   }
 }
 

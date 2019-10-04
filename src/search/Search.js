@@ -160,7 +160,7 @@ class Search extends React.Component {
       createFilter(this.state.searchTerm, KEYS_TO_FILTERS)
     );
     if (this.state.currentView == "linear" || "grid") {
-      console.log("render successful");
+      // console.log("render successful");
     }
     // console.log('current state', this.state.currentView);
     const history = this.props.history;
