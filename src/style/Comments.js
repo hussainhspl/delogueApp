@@ -75,7 +75,7 @@ class Comments extends React.Component {
         <Row>
           <ImageView>
             <StyleImage
-              resizeMode={"center"}
+              resizeMode={"contain"}
               source={require('../../assets/img/shirt-static.png')}
             />
           </ImageView>

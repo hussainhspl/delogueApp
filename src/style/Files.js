@@ -46,6 +46,7 @@ const StyleFileTitle = styled.View`
   align-items: center;
   background-color: ${props => props.theme.lightBrown};
   border: 1px solid #dcd7d4;
+  
 `;
 
 const Capital = styled.Text`
@@ -62,7 +63,10 @@ const Card = styled.TouchableOpacity`
     props.tablet
     ? Dimensions.get("window").height / 4 +20
     : Dimensions.get("window").height / 3 + 20};
-  border: 1px solid #ccc;
+  /* border: 1px solid #ccc; */
+  border-bottom-width: 1px;
+  border-right-width: 1px;
+  border-color: #dcd7d4;
   justify-content: space-between;
   align-items: center;
 `;

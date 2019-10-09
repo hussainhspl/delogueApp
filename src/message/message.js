@@ -105,7 +105,7 @@ const MainView = styled.View`
 
 const StyleImage = styled.Image`
   width: 30px;
-  height: 20px;
+  height: 30px;
 `;
 
 const TableView = styled.View`
@@ -137,6 +137,7 @@ class Message extends React.Component {
                 onPress={() => this.setState({ currentView: "message" })}
               >
                 <StyleImage
+                  resizeMode={"contain"}
                   source={require("../../assets/img/messageblack.png")}
                 />
               </IconBox>
@@ -144,7 +145,9 @@ class Message extends React.Component {
                 currentView={this.state.currentView == "chat" ? true : false}
                 onPress={() => this.setState({ currentView: "chat" })}
               >
-                <StyleImage source={require("../../assets/img/chat.png")} />
+                <StyleImage 
+                  resizeMode={"contain"}
+                  source={require("../../assets/img/chat.png")} />
               </IconBox>
             </IconRow>
             {this.state.currentView === "message" ? (

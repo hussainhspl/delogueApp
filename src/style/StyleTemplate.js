@@ -1,7 +1,7 @@
 import React from 'react';
 import {View, Text, TouchableOpacity, Image, Dimensions} from 'react-native';
 import styled from "styled-components";
-import {Icon, Picker, Card} from 'native-base';
+import {Icon, Picker} from 'native-base';
 import CameraComponent from '../shared/CameraComponent';
 
 const CardArr = [
@@ -86,13 +86,15 @@ const ImageRow = styled.View`
 	flex-wrap: wrap;
 	margin-bottom: 15px;
 `;
-// const Card = styled.View`
-//   width: ${Dimensions.get('window').width/ 3};
-//   height: ${Dimensions.get('window').width/ 3 + 100};
-//   border: 1px solid #ccc;
-//   justify-content: space-between;
-//   align-items: center;
-// `;
+const Card = styled.View`
+  width: ${Dimensions.get('window').width/ 3};
+  height: ${Dimensions.get('window').width/ 3 + 100};
+  border: 1px solid #ccc;
+	border-top-width: 0px;
+  border-left-width: 0px;
+  justify-content: space-between;
+  align-items: center;
+`;
 
 const ImageView = styled.View`
 	width: ${Dimensions.get('window').width/ 3 -20};
@@ -171,12 +173,12 @@ class StyleTemplate extends React.Component {
 									<Card key={Math.random().toFixed(3)}>
 										<ImageView>
 											<StyleImage
-												resizeMode={"center"}
+												resizeMode={"contain"}
 												source={require('../../assets/img/shirt-static.png')}
 											/>
 										</ImageView>
 										<ImageInfo>
-											<Text>File Name</Text>
+											<Text>File Name aa</Text>
 											<Text>ImageInfo</Text>
 											<Text>dd-mmm-yyyy</Text>
 										</ImageInfo>

@@ -29,29 +29,33 @@ const data = {
 };
 const sizeXl = [
   {
+    id: 11,
     description: "Shoulder",
     req: 22,
     comp: 23,
     want: 75
   },
-  {
-    description: "Shoulder",
-    req: 22,
-    comp: 23,
-    want: 75
-  },
-  {
-    description: "Shoulder",
-    req: 22,
-    comp: 23,
-    want: 75
-  },
-  {
-    description: "Shoulder",
-    req: 22,
-    comp: 23,
-    want: 75
-  }
+  // {
+  //   id: 22,
+  //   description: "Shoulder",
+  //   req: 22,
+  //   comp: 23,
+  //   want: 75
+  // },
+  // {
+  //   id: 33,
+  //   description: "Shoulder",
+  //   req: 22,
+  //   comp: 23,
+  //   want: 75
+  // },
+  // {
+  //   id: 44,
+  //   description: "Shoulder",
+  //   req: 22,
+  //   comp: 23,
+  //   want: 75
+  // }
 ];
 
 const Label = styled.Text`
@@ -128,7 +132,8 @@ class SampleRequest extends React.Component {
     super(props);
     this.state = {
       appState: AppState.currentState,
-      modalVisible: false
+      modalVisible: false,
+      xlcomp: '',
     };
   }
   setModalVisible(visible) {
@@ -155,8 +160,8 @@ class SampleRequest extends React.Component {
     // console.log("history sr", this.props.history);
     return (
       <View style={{ flex: 1 }}>
-        <ScrollView
-          showsVerticalScrollIndicator={false}
+        <KeyboardAwareScrollView
+          showsVerticalScrollIndicator={true}
         >
           <MainView>
             <ItemDetail data={data} />
@@ -214,13 +219,31 @@ class SampleRequest extends React.Component {
                             <Text>{data.description}</Text>
                           </StyleCol>
                           <StyleCol size={1}>
-                            <TableTextInput>{data.comp}</TableTextInput>
+                            <TableTextInput
+                              onChangeText={req => this.setState({ req })}
+                              value={this.state.req}
+                              name="req" 
+                            >
+                              {/* {data.req} */}
+                            </TableTextInput>
                           </StyleCol>
                           <StyleCol size={1}>
-                            <TableTextInput>{data.comp}</TableTextInput>
+                            <TableTextInput
+                              onChangeText={xlcomp1 => this.setState({ xlcomp1 })}
+                              value={this.state.xlcomp1} 
+                              name="comp"
+                            >
+                            {/* {data.comp} */}
+                            </TableTextInput>
                           </StyleCol>
                           <StyleCol size={1}>
-                            <TableTextInput>{data.comp}</TableTextInput>
+                            <TableTextInput 
+                              onChangeText={want => this.setState({ want })}
+                              value={this.state.want}
+                              name="want"
+                            >
+                              {/* {data.want} */}
+                              </TableTextInput>
                           </StyleCol>
                         </Row>
                       );
@@ -252,7 +275,7 @@ class SampleRequest extends React.Component {
                         <Text> Want </Text>
                       </StyleCol>
                     </HeaderRow>
-                    {sizeXl.map(data => {
+                    {/* {sizeXl.map(data => {
                       return (
                         <Row
                           style={{ height: 40 }}
@@ -262,17 +285,17 @@ class SampleRequest extends React.Component {
                             <Text>{data.description}</Text>
                           </StyleCol>
                           <StyleCol size={1}>
-                            <TableTextInput>{data.comp}</TableTextInput>
+                            <TableTextInput>{data.req}</TableTextInput>
                           </StyleCol>
                           <StyleCol size={1}>
                             <TableTextInput>{data.comp}</TableTextInput>
                           </StyleCol>
                           <StyleCol size={1}>
-                            <TableTextInput>{data.comp}</TableTextInput>
+                            <TableTextInput>{data.want}</TableTextInput>
                           </StyleCol>
                         </Row>
                       );
-                    })}
+                    })} */}
                   </Grid>
                 </View>
               </CommonModal>
@@ -281,7 +304,7 @@ class SampleRequest extends React.Component {
             <SampleRequestSummary />
             <ViewRequestedQuantity />
           </MainView>
-        </ScrollView>
+        </KeyboardAwareScrollView>
         <FooterButton>
           <Button bordered light small danger>
             <CancelButtonText style={{ color: "#d9534e" }}>

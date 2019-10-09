@@ -22,18 +22,21 @@ const ImageView = styled.View`
     props.tablet
     ? Dimensions.get('window').height/ 4 -60
     : Dimensions.get('window').height/ 3 -60 };
+    padding: 3px;
+    align-items: center;
 `;
 
 const StyleImage = styled.Image`
 	  width : ${props =>
     props.tablet
     ? Dimensions.get('window').width/ 4 -50
-    : Dimensions.get('window').width/ 3 - 40};
+    : Dimensions.get('window').width/ 3 - 44};
 		height: ${props =>
     props.tablet
     ? Dimensions.get('window').height / 4 -50
     : Dimensions.get('window').height/ 3 - 50};
 		margin: auto;
+    
 `;
 
 class ClassName extends React.Component{
@@ -58,7 +61,7 @@ class ClassName extends React.Component{
       <MainBlock key={Math.random().toFixed(3)} tablet={this.state.tablet}>
         <ImageView tablet={this.state.tablet}>
           <StyleImage
-            resizeMode={"center"}
+            resizeMode={"contain"}
             source={this.props.imgPath}
             tablet={this.state.tablet}
           />

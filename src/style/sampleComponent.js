@@ -148,7 +148,7 @@ class sampleComponent extends React.Component {
         <CardInfo>
           <MessageRow>
             <Image
-              resizeMode={"cover"}
+              resizeMode={"contain"}
               source={require("../../assets/img/sample/receivedblack.png")}
             />
             <CardTittle>sent</CardTittle>

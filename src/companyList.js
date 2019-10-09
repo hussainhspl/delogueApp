@@ -215,7 +215,7 @@ class CompanyList extends React.Component {
                         <ImageView tablet={this.state.tablet}>
                           <GridImage
                             tablet={this.state.tablet}
-                            resizeMode={"center"}
+                            resizeMode={"contain"}
                             source={require("../assets/img/shirt-static.png")}
                           />
                         </ImageView>

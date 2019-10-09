@@ -143,7 +143,7 @@ class Login extends React.Component {
           console.log("Token already exist");
           this.getTokenExpiry()
             .then(tokenExpiryTime => {
-              let tempDate = new Date(currentDate);
+              // let tempDate = new Date(currentDate);
               // tempDate.setSeconds(tempDate.getSeconds() + 36000);
               console.log(
                 "expiry time :",
@@ -156,11 +156,11 @@ class Login extends React.Component {
               );
               // console.log("result", result);
               if (result) {
-                console.log("Invalid token");
+                console.log("Invalid token (expired)");
                 this.checkCredential();
               } else {
                 console.log("Token is valid");
-                Alert.alert('ready to move to next page');
+                // Alert.alert('ready to move to next page');
                 this.props.history.push("/companyList")
               }
             })
@@ -169,7 +169,7 @@ class Login extends React.Component {
             });
         } else {
           console.log("no token found");
-          Alert.alert('no prev token');
+          // Alert.alert('no prev token');
           this.checkCredential();
         }
       })
@@ -219,16 +219,17 @@ class Login extends React.Component {
   }
 
   storeData = async tokenExp => {
-    console.log("Storing data in async function", tokenExp);
+    let strTokenExp = JSON.stringify(tokenExp)
+    console.log("Storing data in async function", tokenExp, typeof(this.state.token), strTokenExp, typeof(strTokenExp));
     try {
       // await AsyncStorage.setItem('@token', this.state.token)
       AsyncStorage.multiSet([
         ["@token", this.state.token],
-        ["@tokenExpiry", tokenExp]
+        ["@tokenExpiry", strTokenExp]
       ]);
       console.log("data saved successfully");
       this.props.tokenFunction(this.state.token);
-      Alert.alert('token stored successfully and redirect')
+      // Alert.alert('token stored successfully and redirect')
       this.props.history.push("/companyList")
     } 
     catch (e) {
@@ -258,7 +259,8 @@ class Login extends React.Component {
 
   getTokenExpiry = async () => {
     try {
-      const tokenExpiry = await AsyncStorage.getItem("@tokenExpiry");
+      const strTokenExpiry = await AsyncStorage.getItem("@tokenExpiry");
+      const tokenExpiry = JSON.parse(strTokenExpiry);
       if (tokenExpiry !== null) {
         console.log("get token expiry", tokenExpiry);
         return tokenExpiry;
@@ -271,7 +273,7 @@ class Login extends React.Component {
   };
 
   clearAsyncStorage = async () => {
-    // AsyncStorage.clear();
+    AsyncStorage.clear();
     console.log("async clear");
   };
 

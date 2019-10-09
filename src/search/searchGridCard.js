@@ -84,7 +84,7 @@ class searchGridCard extends React.Component {
           <GirdImageView tablet={this.state.tablet}>
             <GridImage
               tablet={this.state.tablet}
-              resizeMode={"center"}
+              resizeMode={"contain"}
               source={require("../../assets/img/shirt-static.png")}
             />
           </GirdImageView>

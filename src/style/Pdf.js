@@ -45,7 +45,7 @@ class Pdf extends React.Component {
     }
   }
   render() {
-    // console.disableYellowBox = true
+    console.disableYellowBox = true
     history = this.props.history;
     // console.log('pdf history', this.props.history);
     return(

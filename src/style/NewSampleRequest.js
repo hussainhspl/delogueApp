@@ -241,7 +241,7 @@ _handleAppStateChange = (nextAppState) => {
           <SampleRequestRow>
             <ImageView>
               <StyleImage
-                resizeMode={"center"}
+                resizeMode={"contain"}
                 source={require('../../assets/img/shirt-static.png')}
               />
             </ImageView>
