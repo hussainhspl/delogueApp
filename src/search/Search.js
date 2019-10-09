@@ -195,7 +195,7 @@ class Search extends React.Component {
                   <Image
                     resizeMode={"contain"}
                     source={
-                      this.state.currentView === "linear"
+                      this.state.currentView == "linear"
                         ? require("../../assets/img/squares.png")
                         : require("../../assets/img/lines.png")
                     }

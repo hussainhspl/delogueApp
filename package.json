@@ -21,7 +21,7 @@
     "react": "16.8.6",
     "react-native": "0.60.4",
     "react-native-bootsplash": "^1.0.0",
-    "react-native-camera": "^3.4.0",
+    "react-native-camera": "^3.6.0",
     "react-native-drawer": "^2.5.1",
     "react-native-easy-grid": "^0.2.2",
     "react-native-grid-list": "^1.0.9",

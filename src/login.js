@@ -7,7 +7,8 @@ import {
   TouchableOpacity,
   TouchableHighlight,
   BackHandler,
-  ToastAndroid
+  ToastAndroid,
+  Alert
 } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import styled from "styled-components";
@@ -90,7 +91,7 @@ class Login extends React.Component {
       "hardwareBackPress",
       this.handleBackButtonClick
     );
-    this.clearAsyncStorage();
+    // this.clearAsyncStorage();
   };
   handleBackButtonClick() {
     // console.log("exit app");
@@ -159,6 +160,7 @@ class Login extends React.Component {
                 this.checkCredential();
               } else {
                 console.log("Token is valid");
+                Alert.alert('ready to move to next page');
                 this.props.history.push("/companyList")
               }
             })
@@ -167,6 +169,7 @@ class Login extends React.Component {
             });
         } else {
           console.log("no token found");
+          Alert.alert('no prev token');
           this.checkCredential();
         }
       })
@@ -184,7 +187,7 @@ class Login extends React.Component {
       grant_type: "password"
     };
     const options = {
-      url: "http://test.delogue.com/auth/token",
+      url: "https://rc.delogue.com/auth/token",
       method: "POST",
       grant_type: "password",
       responseType: "json",
@@ -225,12 +228,13 @@ class Login extends React.Component {
       ]);
       console.log("data saved successfully");
       this.props.tokenFunction(this.state.token);
+      Alert.alert('token stored successfully and redirect')
       this.props.history.push("/companyList")
     } 
     catch (e) {
  
         console.log("Error while saving token", e);
-        throw error;
+        // throw error;
 
       //error
       // alert("error 11", e);
@@ -267,7 +271,7 @@ class Login extends React.Component {
   };
 
   clearAsyncStorage = async () => {
-    AsyncStorage.clear();
+    // AsyncStorage.clear();
     console.log("async clear");
   };
 

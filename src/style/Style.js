@@ -16,17 +16,23 @@ import Header from "../Header";
 import { connect } from "react-redux";
 import FooterComponent from "../FooterComponent";
 import {token} from "../store/actions/index";
+import Loader from '../shared/Loader';
 
 class Style extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      styleData: []
+    };
   }
   renderSelectedTab(params) {
     // console.log()
     switch (params) {
       case "general":
-        return <General history={this.props.history} />;
+        return <General 
+          history={this.props.history}
+          styleData = {this.state.styleData}
+        />;
       case "comments":
         return <Comments />;
       case "files":
@@ -46,31 +52,34 @@ class Style extends React.Component {
 
   getStyles() {
     // get style
-    let token = `Bearer ${this.props.tokenData}`;
-    let data = {
-      // headers: {
-        'Authorization' : token
-        'content-type: "application/json; charset=utf-8"
-      // }
-    }
-    console.log("bearer token ", token)
-    const options1 = {
+
+    const AuthStr = `Bearer ${token}`;
+    console.log("bearer token ", AuthStr)
+ 
+    axios({
       url: "https://rc.delogue.com/export/style/16197",
       method: "GET",
-      headers: data
-    };
-    axios(options1)
+      contentType: "application/json; charset=utf-8",
+      headers: { 
+        Authorization: `Bearer ${this.props.tokenData}`,
+        responseType: 'json'
+      }
+    })
       .then(res => {
         console.log("response in style", res);
-
+        this.setState({
+          styleData : res.data,
+        })
       })
       .catch(function(error) {
         console.error("error in style", error);
+        // ADD THIS THROW error
+        // throw error;
       });
   }
 
   render() {
-    console.log("rendering style",this.props.tokenData);
+    console.log("style data",this.state.styleData);
     // const history = this.props.history;
     // console.log("History on style page:", history)
     // step 2 create reducer: it needs state and action
@@ -96,7 +105,14 @@ class Style extends React.Component {
     return (
       <Fragment>
         <Header history={this.props.history}>
-          {this.renderSelectedTab(this.props.currentTab)}
+          {
+            this.state.styleData.length < 1 ?
+            <View style={{flex: 1}}>
+              <Loader />
+            </View>
+            :
+            this.renderSelectedTab(this.props.currentTab)
+          }
           <FooterComponent />
         </Header>
       </Fragment>

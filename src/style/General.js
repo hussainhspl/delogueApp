@@ -71,8 +71,21 @@ class General extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      tablet: false
+      tablet: false,
+      data: []
     };
+    
+  }
+  static getDerivedStateFromProps(props, state) {
+    if (props.styleData !== state.data) {
+      console.log("enter in derived if", props.styleData)
+      return {
+        data: props.styleData,
+      };
+    }
+
+    // Return null if the state hasn't changed
+    return null;
   }
 
   componentDidMount = () => {
@@ -95,6 +108,8 @@ class General extends React.Component {
     // console.log("will mount out" , this.state.tablet);
   };
   render() {
+    // const data= this.props.styleData;
+    console.log("render in general :", this.state.data);
     return (
       <ScrollView showsVerticalScrollIndicator={false}>
         <ImageView tablet={this.state.tablet}>
@@ -116,7 +131,7 @@ class General extends React.Component {
         </ColorBar>
         <StyleInfo>
           <Title>brand</Title>
-          <SubTitle>demo brand</SubTitle>
+          <SubTitle>{this.state.data.brandName}</SubTitle>
         </StyleInfo>
         <StyleInfo>
           <Title>contact person</Title>
