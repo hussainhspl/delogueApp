@@ -66,6 +66,10 @@ const SubTitle = styled.Text`
   text-transform: capitalize;
   font-family: ${props => props.theme.regular};
 `;
+const Separator = styled.View`
+  border: 1px solid #f6f6f6;
+  margin: 15px;
+`;
 
 class General extends React.Component {
   constructor(props) {
@@ -110,6 +114,7 @@ class General extends React.Component {
   render() {
     // const data= this.props.styleData;
     console.log("render in general :", this.state.data);
+    
     return (
       <ScrollView showsVerticalScrollIndicator={false}>
         <ImageView tablet={this.state.tablet}>
@@ -120,12 +125,21 @@ class General extends React.Component {
           />
         </ImageView>
         <ColorBar>
-          {colorArray.map(item => {
+          {/* {colorArray.map(item => {
             return (
               <ColorBox
                 style={{ backgroundColor: item.color }}
                 key={Math.random().toFixed(3)}
               />
+            );
+          })} */}
+          {this.state.data.styleColors.map(item => {
+            return (
+              // <ColorBox
+              //   style={{ backgroundColor: item.color }}
+              //   key={Math.random().toFixed(3)}
+              // />
+              <Text style={{width: 100}}>{item.name} </Text>
             );
           })}
         </ColorBar>
@@ -135,51 +149,52 @@ class General extends React.Component {
         </StyleInfo>
         <StyleInfo>
           <Title>contact person</Title>
-          <SubTitle>delogue demo</SubTitle>
+          <SubTitle>{this.state.data.companyContactPersonName}</SubTitle>
         </StyleInfo>
         <StyleInfo>
           <Title>style name</Title>
-          <SubTitle>demo cool top</SubTitle>
+          <SubTitle>{this.state.data.styleName}</SubTitle>
         </StyleInfo>
         <StyleInfo>
           <Title>style no</Title>
-          <SubTitle>1250-demo</SubTitle>
+          <SubTitle>{this.state.data.id}</SubTitle>
         </StyleInfo>
         <StyleInfo>
           <Title>description</Title>
-          <SubTitle>top</SubTitle>
+          <SubTitle>{this.state.data.description}</SubTitle>
         </StyleInfo>
         <StyleInfo>
           <Title>state</Title>
-          <SubTitle>published</SubTitle>
+          <SubTitle>{this.state.data.styleState}</SubTitle>
         </StyleInfo>
         <StyleInfo>
           <Title>ready for export</Title>
           <SubTitle>yes</SubTitle>
         </StyleInfo>
+        <Separator />
         <StyleInfo>
           <Title>supplier</Title>
-          <SubTitle>demo supplier</SubTitle>
+          <SubTitle>{this.state.data.supplierName}</SubTitle>
         </StyleInfo>
         <StyleInfo>
           <Title>primary</Title>
-          <SubTitle>yes</SubTitle>
+          <SubTitle>{this.state.data.isPrimary? 'Yes' : 'No'}</SubTitle>
         </StyleInfo>
         <StyleInfo>
           <Title>contact person</Title>
-          <SubTitle>demo supplier</SubTitle>
+          <SubTitle>{this.state.data.supplierContactPerson.name}</SubTitle>
         </StyleInfo>
         <StyleInfo>
           <Title>season</Title>
-          <SubTitle>SS20</SubTitle>
+          <SubTitle>{this.state.data.seasonName}</SubTitle>
         </StyleInfo>
         <StyleInfo>
           <Title>group</Title>
-          <SubTitle>spring viscose</SubTitle>
+          <SubTitle>{this.state.data.groupName? this.state.data.groupName : '-'} </SubTitle>
         </StyleInfo>
         <StyleInfo>
           <Title>categories</Title>
-          <SubTitle>top</SubTitle>
+          <SubTitle>{this.state.data.categories.length > 1 ? this.state.data.categories : '-'}</SubTitle>
         </StyleInfo>
       </ScrollView>
     );

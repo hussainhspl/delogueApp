@@ -35,28 +35,30 @@ const sizeXl = [
     comp: 23,
     want: 75
   },
-  // {
-  //   id: 22,
-  //   description: "Shoulder",
-  //   req: 22,
-  //   comp: 23,
-  //   want: 75
-  // },
-  // {
-  //   id: 33,
-  //   description: "Shoulder",
-  //   req: 22,
-  //   comp: 23,
-  //   want: 75
-  // },
-  // {
-  //   id: 44,
-  //   description: "Shoulder",
-  //   req: 22,
-  //   comp: 23,
-  //   want: 75
-  // }
+  {
+    id: 22,
+    description: "Shoulder",
+    req: 22,
+    comp: 23,
+    want: 75
+  },
+  {
+    id: 33,
+    description: "Shoulder",
+    req: 22,
+    comp: 23,
+    want: 75
+  },
+  {
+    id: 44,
+    description: "Shoulder",
+    req: 22,
+    comp: 23,
+    want: 75
+  }
 ];
+
+const desc= ['Req', 'Comp', 'Want'];
 
 const Label = styled.Text`
   color: #8d8177;
@@ -158,6 +160,7 @@ class SampleRequest extends React.Component {
   };
   render() {
     // console.log("history sr", this.props.history);
+    const colCount = 4
     return (
       <View style={{ flex: 1 }}>
         <KeyboardAwareScrollView
@@ -199,15 +202,15 @@ class SampleRequest extends React.Component {
                       <StyleCol size={2}>
                         <Text> description </Text>
                       </StyleCol>
-                      <StyleCol size={1}>
-                        <Text> Req </Text>
-                      </StyleCol>
-                      <StyleCol size={1}>
-                        <Text> Comp </Text>
-                      </StyleCol>
-                      <StyleCol size={1}>
-                        <Text> Want </Text>
-                      </StyleCol>
+                      {
+                        desc.map( data => {
+                          return(
+                            <StyleCol size={1}>
+                              <Text> {data} </Text>
+                            </StyleCol>
+                          )
+                        })
+                      }
                     </HeaderRow>
                     {sizeXl.map(data => {
                       return (
@@ -218,33 +221,24 @@ class SampleRequest extends React.Component {
                           <StyleCol size={2}>
                             <Text>{data.description}</Text>
                           </StyleCol>
-                          <StyleCol size={1}>
-                            <TableTextInput
-                              onChangeText={req => this.setState({ req })}
-                              value={this.state.req}
-                              name="req" 
-                            >
-                              {/* {data.req} */}
-                            </TableTextInput>
-                          </StyleCol>
-                          <StyleCol size={1}>
-                            <TableTextInput
-                              onChangeText={xlcomp1 => this.setState({ xlcomp1 })}
-                              value={this.state.xlcomp1} 
-                              name="comp"
-                            >
-                            {/* {data.comp} */}
-                            </TableTextInput>
-                          </StyleCol>
-                          <StyleCol size={1}>
-                            <TableTextInput 
-                              onChangeText={want => this.setState({ want })}
-                              value={this.state.want}
-                              name="want"
-                            >
-                              {/* {data.want} */}
-                              </TableTextInput>
-                          </StyleCol>
+                          {
+                            colCount.map(data => {
+                              return(
+                                <StyleCol size={1}>
+                                  <TableTextInput
+                                    onChangeText={req => this.setState({ req })}
+                                    value={this.state.req}
+                                    name="req" 
+                                  >
+                                    {/* {data.req} */}
+                                  </TableTextInput>
+                                </StyleCol>
+                              )
+                            })
+
+                          }
+                          
+                          
                         </Row>
                       );
                     })}

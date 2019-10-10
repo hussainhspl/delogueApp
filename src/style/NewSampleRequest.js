@@ -192,12 +192,13 @@ redirectTo =(history) => {
   // console.log('enter in  redirect function');
   history.push("/notificationModal")
 }
+// componentDidMount = () => {
+  
+// }
 componentDidMount = () => {
   if(Dimensions.get('window').width >568) {
     this.setState({tablet: true},() =>console.log("will mount" , this.state.tablet))
   }
-}
-componentDidMount = () => {
   AppState.addEventListener('change', this._handleAppStateChange);
 }
 componentWillUnmount= () => {
@@ -210,7 +211,7 @@ _handleAppStateChange = (nextAppState) => {
 }
   render(){
     const history= this.props.history;
-    // console.log("camera on ",this.state.cameraOn);
+    console.log("tablet sample ",this.state.tablet);
     // console.log("calender etd ", this.state.isEtdDateTimePickerVisible);
     return(
       <View>
