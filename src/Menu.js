@@ -79,7 +79,7 @@ export default class Menu extends React.Component {
               </TouchableOpacity>       
             </CloseView>
           <TouchableHighlight underlayColor='rgba(221, 221, 221, 0.4)' 
-            onPress={() => history.push("/")}>
+            onPress={() => history.push("/login")}>
             <MenuText > Logout </MenuText>
           </TouchableHighlight>
           <TouchableHighlight underlayColor='rgba(221, 221, 221, 0.4)' 

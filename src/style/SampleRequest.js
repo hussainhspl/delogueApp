@@ -58,6 +58,15 @@ const sizeXl = [
   }
 ];
 
+// const table= [
+//   r1, {
+//     description: "Shoulder",
+//     req: 22,
+//     comp: 23,
+//     want: 75
+//   }
+// ]
+
 const desc= ['Req', 'Comp', 'Want'];
 
 const Label = styled.Text`

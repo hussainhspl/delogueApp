@@ -41,13 +41,20 @@ const ContentRow = styled.View`
 const ContentTitle = styled.Text`
   text-transform: uppercase;
   color: #8c8076;
-  font-size: 12px;
+  font-size: 11px;
   font-family: ${ props => props.theme.regular};
-
+`;
+CommentTitle = styled.Text`
+text-transform: uppercase;
+color: #8c8076;
+font-size: 11px;
+padding-top: 10px;
+font-family: ${ props => props.theme.regular};
 `;
 const DateRow = styled.View`
   flex-direction: row;
   align-items: center;
+  /* background-color:  #f0f; */
 `;
 const DateInput = styled.TextInput`
   border: 1px solid #ddd;
@@ -69,7 +76,6 @@ const CardTittle = styled.Text`
   font-size: 13px;
   color: #4a4a4a;
   font-family: ${ props => props.theme.regular};
-
 `;
 const Pieces = styled.Text`
   background-color: #c2beb6;
@@ -240,7 +246,7 @@ class sampleComponent extends React.Component {
           </DateRow>
         </ContentRow>
         <ContentRow>
-          <ContentTitle> commented </ContentTitle>
+          <CommentTitle> commented </CommentTitle>
         </ContentRow>
       </MainBox>
     );

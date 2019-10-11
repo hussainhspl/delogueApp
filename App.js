@@ -75,15 +75,15 @@ const App = () => {
 
   return (
     <Provider store={store}>
-      <NativeRouter>
+      {/* <NativeRouter> */}
         <ThemeProvider theme={Theme}>
           <Fragment>
             <StatusBar barStyle="dark-content" />
               {/* <OfflineNotice /> */}
             <SafeAreaView />
             <MainView>
-              <Switch>
-                {/* <Route exact path="/" component={Style}></Route> */}
+              <Template />
+              {/* <Switch>
                 <Route exact path="/" component={Login}></Route>
                 <Route exact path="/search" component={Search}></Route>
                 <Route exact path="/message" component={Message}></Route>
@@ -92,25 +92,14 @@ const App = () => {
                 <Route exact path="/companyList" component={CompanyList}></Route>
                 <Route exact path="/notificationModal" component={NotificationModal}></Route>
 
-              </Switch>
+              </Switch> */}
             </MainView>
             <SafeAreaView />
           </Fragment>
         </ThemeProvider>
-      </NativeRouter>
+      {/* </NativeRouter> */}
     </Provider>
   );
 };
-
-const styles = StyleSheet.create({
-  // footer: {
-  //   color: Colors.dark,
-  //   fontSize: 12,
-  //   fontWeight: '600',
-  //   padding: 4,
-  //   paddingRight: 12,
-  //   textAlign: 'right',
-  // },
-});
 
 export default App;

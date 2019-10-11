@@ -5,7 +5,9 @@ import {
   ScrollView,
   Dimensions,
   Image,
-  TouchableOpacity
+  TouchableOpacity,
+  TouchableHighlight
+  
 } from "react-native";
 import styled from "styled-components";
 import { Icon } from "native-base";
@@ -97,14 +99,18 @@ class Sample extends React.Component {
             <SampleRow>
               {sampleArr.map(data => {
                 return (
-                  <TouchableOpacity
+                  // <View>
+                  <TouchableHighlight
+                  underlayColor="#d3dede"
+                             
                     key={data.key}
                     onPress={() => {
-                      this.setState({ sampleRequest: true });
+                      this.setState({ sampleRequest: false });
                     }}
                   >
                     <SampleComponent />
-                  </TouchableOpacity>
+                  </TouchableHighlight>
+                  // </View>
                 );
               })}
               <NewSampleRequest history={this.props.history} />
