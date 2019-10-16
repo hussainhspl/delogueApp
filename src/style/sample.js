@@ -90,10 +90,10 @@ class Sample extends React.Component {
             <ItemDetail data={data} />
             <ButtonRow>
               <CommentedButton small>
-                <IconView>
-                  <Icon style={{ color: "#fff", fontSize: 15 }} name="undo" />
-                </IconView>
                 <ButtonText> hide commented </ButtonText>
+                <IconView>
+                  <Icon style={{ color: "#fff", fontSize: 15 }} name="eye" />
+                </IconView>
               </CommentedButton>
             </ButtonRow>
             <SampleRow>
@@ -101,7 +101,7 @@ class Sample extends React.Component {
                 return (
                   // <View>
                   <TouchableHighlight
-                  underlayColor="#d3dede"
+                  underlayColor="#42546033"
                              
                     key={data.key}
                     onPress={() => {

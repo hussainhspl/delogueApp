@@ -13,7 +13,7 @@ import DateTimePicker from "react-native-modal-datetime-picker";
 
 const MainBox = styled.View`
   border: 1px solid #ddd;
-  border-radius: 5px;
+  /* border-radius: 5px; */
   width: ${(props) => props.tablet ? Dimensions.get('window').width / 3 -10 : Dimensions.get("window").width / 2 - 10};
   height: ${(props) => props.tablet ? Dimensions.get('window').width / 3 +40 : Dimensions.get("window").width / 2 + 80};
   margin: 5px;
@@ -44,13 +44,13 @@ const ContentTitle = styled.Text`
   font-size: 11px;
   font-family: ${ props => props.theme.regular};
 `;
-CommentTitle = styled.Text`
-text-transform: uppercase;
-color: #8c8076;
-font-size: 11px;
-padding-top: 10px;
-font-family: ${ props => props.theme.regular};
-`;
+// CommentTitle = styled.Text`
+// text-transform: uppercase;
+// color: #8c8076;
+// font-size: 11px;
+// padding-top: 10px;
+// font-family: ${ props => props.theme.regular};
+// `;
 const DateRow = styled.View`
   flex-direction: row;
   align-items: center;
@@ -101,11 +101,13 @@ class sampleComponent extends React.Component {
       isEtdDateTimePickerVisible: false,
       isSentDateTimePickerVisible: false,
       isReceivedDateTimePickerVisible: false,
+      isCommentedDateTimePickerVisible: false,
       text: "",
       deadlineText: '',
       etdText: '',
       sentText: '',
       receivedText: '',
+      commentText: '',
       tablet: '',
     };
   }
@@ -124,6 +126,8 @@ class sampleComponent extends React.Component {
       this.setState({ isSentDateTimePickerVisible: true });
     }else if(value == 'received') {
       this.setState({ isReceivedDateTimePickerVisible: true });    
+    }else if(value == 'commented') {
+      this.setState({ isCommentedDateTimePickerVisible: true });    
     }
   };
 
@@ -135,6 +139,8 @@ class sampleComponent extends React.Component {
     }else if(value == 'sent') {
       this.setState({ isSentDateTimePickerVisible: false });
     }else if(value == 'received') {
+      this.setState({ isReceivedDateTimePickerVisible: false });    
+    }else if(value == 'commented') {
       this.setState({ isReceivedDateTimePickerVisible: false });    
     }
   };
@@ -246,7 +252,26 @@ class sampleComponent extends React.Component {
           </DateRow>
         </ContentRow>
         <ContentRow>
-          <CommentTitle> commented </CommentTitle>
+          {/* <CommentTitle> commented </CommentTitle> */}
+          <ContentTitle> commented </ContentTitle>
+          <DateRow>
+            <DateInput
+              onChangeText={commentText => this.setState({ commentText })}
+              value={this.state.commentText}
+              placeholder="dd-mm-yy"
+            />
+            <CalenderTouchableOpacity onPress={() => this.showDateTimePicker("commented")}>
+              <Icon
+                style={{ color: "#8C8076", fontSize: 18}}
+                name="calendar"
+              />
+            </CalenderTouchableOpacity>
+            <DateTimePicker
+              isVisible={this.state.isCommentedDateTimePickerVisible}
+              onConfirm={this.handleDatePicked}
+              onCancel={() => this.hideDateTimePicker("commented")}
+            />
+          </DateRow>
         </ContentRow>
       </MainBox>
     );

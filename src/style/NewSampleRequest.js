@@ -123,9 +123,12 @@ const Capital = styled.Text`
 const AddView = styled.View`
   border: 1px solid #ddd;
   width: ${(props) => props.tablet ? Dimensions.get('window').width / 3-10 : Dimensions.get("window").width / 2 - 10};
+  height: ${(props) => props.tablet ? Dimensions.get('window').width / 3 +40 : Dimensions.get("window").width / 2 + 80};  
   margin: 5px;
-  border-radius: 5px;  
+  /* border-radius: 5px;   */
+  justify-content: center;
 `;
+
 const AddInnerView = styled.View`
   flex-direction: row;
   align-items: center;

@@ -1,6 +1,7 @@
-import React from "react";
-import { View, Text, Image, ScrollView, Dimensions } from "react-native";
+import React, {Fragment} from "react";
+import { View, Text, Image, ScrollView, Dimensions, Modal } from "react-native";
 import styled from "styled-components";
+import ImageLayout from "react-native-image-layout";
 
 const colorArray = [
   { color: "#ffeedd" },
@@ -8,6 +9,16 @@ const colorArray = [
   { color: "#77aa22" }
 ];
 
+const colorArr = [
+  {id: "color id 2"},
+  {id: "color id 2"},
+  {id: "color id 2"},
+  {id: "color id 2"},
+  {id: "color id 2"},
+  {id: "color id 2"},
+  {id: "color id 2"},
+]
+let no =0;
 const ImageView = styled.View`
   width: ${props =>
     props.tablet
@@ -17,10 +28,11 @@ const ImageView = styled.View`
     props.tablet
       ? Dimensions.get("window").height / 2.6
       : Dimensions.get("window").width - 70};
-  justify-content: center;
-  align-items: center;
-  border: 1px solid #ddd;
-  margin: 20px auto;
+  /* justify-content: center;
+  align-items: center; */
+  /* border: 1px solid #ddd; */
+  /* z-index: -1; */
+  /* margin: 0px auto; */
 `;
 const StyleImage = styled.Image`
   width: ${props =>
@@ -40,35 +52,99 @@ const ColorBar = styled.View`
   flex-direction: row;
   margin-bottom: 10px;
 `;
-const ColorBox = styled.View`
-  height: 30px;
-  width: 30px;
-  margin: 0px 5px;
-  background-color: #ddd;
-`;
+// const ColorBox = styled.View`
+//   height: 30px;
+//   width: 30px;
+//   margin: 0px 5px;
+//   background-color: #ddd;
+// `;
 const StyleInfo = styled.View`
-  flex-direction: row;
   padding: 5px;
 `;
 const Title = styled.Text`
-  width: 50%;
-  text-align: right;
+  /* width: 50%; */
+  /* text-align: right; */
   color: #9b9b9b;
   text-transform: uppercase;
-  padding-right: 5px;
   font-family: ${props => props.theme.bold};
+  font-size: 10px;
 `;
 const SubTitle = styled.Text`
-  text-align: left;
-  width: 50%;
+  /* text-align: left; */
+  /* width: 50%; */
   color: #4a4a4a;
-  padding-left: 5px;
+  padding-top: 3px;
+  padding-bottom: 5px;
   text-transform: capitalize;
+  font-size: 14px;
   font-family: ${props => props.theme.regular};
 `;
-const Separator = styled.View`
-  border: 1px solid #f6f6f6;
-  margin: 15px;
+const SizeBox = styled.View`
+  border: 1px solid #ddd;
+  padding: 10px 20px;
+  
+`;
+const ColorContainer = styled.View`
+  flex-direction: row;
+  padding: 10px 20px;
+  flex-wrap: wrap;
+  /* background-color: #ddd; */
+`;
+
+const ItemInfoRow = styled.View`
+  flex-direction: row;
+  padding: 10px 20px;
+  border-top-width: 1px;
+  border-color: #ddd;
+`;
+
+const Block = styled.View`
+  width: 60px;
+  margin-bottom: 20px;
+  padding-right: 10px;
+`;
+
+const ColorBox = styled.View`
+  width: 50px;
+  height: 50px;
+  background-color: #ffcf9e;
+  /* margin-right: 10px; */
+  margin-bottom: 10px;
+`;
+
+const InactiveColorBox = styled.View`
+  width: 50px;
+  height: 50px;
+  background-color: #ffcf9e;
+  opacity:0.5;
+  margin-bottom: 10px;
+  position: relative;
+  border: 1px solid #ddd;
+`;
+const XView1 = styled.View`
+  border-left-width: 1px;
+  border-color: #ddd;
+  position: absolute;
+  width: 70px;
+  height: 70px;
+  bottom: 0px;
+  top: 15px;
+  right: 0px;
+  left: 15px;
+  transform: rotate(45deg);
+`;
+const XView2 = styled.View`
+  border-right-width: 1px;
+  border-color: #ddd;
+  position: absolute;
+  width: 70px;
+  height: 70px;
+  bottom: 0px;
+  top: 15px;
+  right: 45px;
+  left: -35px;
+  transform: rotate(-45deg);
+  /* background-color: #aaa; */
 `;
 
 class General extends React.Component {
@@ -78,13 +154,12 @@ class General extends React.Component {
       tablet: false,
       data: []
     };
-    
   }
   static getDerivedStateFromProps(props, state) {
     if (props.styleData !== state.data) {
-      console.log("enter in derived if", props.styleData)
+      console.log("enter in derived if", props.styleData);
       return {
-        data: props.styleData,
+        data: props.styleData
       };
     }
 
@@ -111,74 +186,100 @@ class General extends React.Component {
     // }
     // console.log("will mount out" , this.state.tablet);
   };
+
+  onTap = () => {};
+  pinZoomLayoutRef = React.createRef();
   render() {
     // const data= this.props.styleData;
     console.log("render in general :", this.state.data);
-    
     return (
       <ScrollView showsVerticalScrollIndicator={false}>
-        <ImageView tablet={this.state.tablet}>
-          <StyleImage
+        {/* <ImageView tablet={this.state.tablet}> */}
+        <ImageLayout
+          imageContainerStyle={{ backgroundColor: "#eee" }}
+          pageScrollViewStyle={{ backgroundColor: "#f00" }}
+          // imagePageComponent={ () => resizeMode: "contain"}
+          resizeMode={"contain"}
+          columns={"1"}
+          images={[
+            // { uri: "https://luehangs.site/pic-chat-app-images/beautiful-blond-blonde-hair-478544.jpg" },
+            {
+              uri:
+                "https://www.pngix.com/pngfile/middle/94-947216_aspinwall-outline-montana-t-shirt-pine-1-university.png"
+            }
+            // {source:require("../../assets/img/a.webp"),
+            //   dimensions: { width: 100, height: 280 }
+            // },
+          ]}
+        />
+        {/* <StyleImage
             tablet={this.state.tablet}
             resizeMode={"contain"}
-            source={require("../../assets/img/shirt-static.png")}
-          />
-        </ImageView>
-        <ColorBar>
-          {/* {colorArray.map(item => {
+            // source={require("../../assets/img/shirt-static.png")}
+            source={{
+              uri:'https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png'
+          }}
+          /> */}
+
+        {/* </ImageView> */}
+        {/* <ColorBar>
+          {colorArray.map(item => {
             return (
               <ColorBox
                 style={{ backgroundColor: item.color }}
                 key={Math.random().toFixed(3)}
               />
             );
-          })} */}
+          })}
           {this.state.data.styleColors.map(item => {
             return (
-              // <ColorBox
-              //   style={{ backgroundColor: item.color }}
-              //   key={Math.random().toFixed(3)}
-              // />
+              <ColorBox
+                style={{ backgroundColor: item.color }}
+                key={Math.random().toFixed(3)}
+              />
               <Text style={{width: 100}}>{item.name} </Text>
             );
           })}
-        </ColorBar>
-        <StyleInfo>
-          <Title>brand</Title>
-          <SubTitle>{this.state.data.brandName}</SubTitle>
-        </StyleInfo>
-        <StyleInfo>
-          <Title>contact person</Title>
-          <SubTitle>{this.state.data.companyContactPersonName}</SubTitle>
-        </StyleInfo>
-        <StyleInfo>
-          <Title>style name</Title>
-          <SubTitle>{this.state.data.styleName}</SubTitle>
-        </StyleInfo>
-        <StyleInfo>
-          <Title>style no</Title>
-          <SubTitle>{this.state.data.id}</SubTitle>
-        </StyleInfo>
-        <StyleInfo>
-          <Title>description</Title>
-          <SubTitle>{this.state.data.description}</SubTitle>
-        </StyleInfo>
-        <StyleInfo>
-          <Title>state</Title>
-          <SubTitle>{this.state.data.styleState}</SubTitle>
-        </StyleInfo>
-        <StyleInfo>
-          <Title>ready for export</Title>
-          <SubTitle>yes</SubTitle>
-        </StyleInfo>
-        <Separator />
-        <StyleInfo>
+        </ColorBar> */}
+        <ItemInfoRow>
+          <View style={{width: '50%'}}>
+            <StyleInfo>
+              <Title>brand</Title>
+              <SubTitle>{this.state.data.brandName}</SubTitle>
+            </StyleInfo>
+            <StyleInfo>
+              <Title>contact person</Title>
+              <SubTitle>{this.state.data.companyContactPersonName}</SubTitle>
+            </StyleInfo>
+            <StyleInfo>
+              <Title>style name</Title>
+              <SubTitle>{this.state.data.styleName}</SubTitle>
+            </StyleInfo>
+            <StyleInfo>
+              <Title>style no</Title>
+              <SubTitle>{this.state.data.id}</SubTitle>
+            </StyleInfo>
+            <StyleInfo>
+              <Title>description</Title>
+              <SubTitle>{this.state.data.description}</SubTitle>
+            </StyleInfo>
+            <StyleInfo>
+              <Title>state</Title>
+              <SubTitle>{this.state.data.styleState}</SubTitle>
+            </StyleInfo>
+            <StyleInfo>
+              <Title>ready for export</Title>
+              <SubTitle>yes</SubTitle>
+            </StyleInfo>
+          </View>
+          <View style={{width: '50%'}}>
+          <StyleInfo>
           <Title>supplier</Title>
           <SubTitle>{this.state.data.supplierName}</SubTitle>
         </StyleInfo>
         <StyleInfo>
           <Title>primary</Title>
-          <SubTitle>{this.state.data.isPrimary? 'Yes' : 'No'}</SubTitle>
+          <SubTitle>{this.state.data.isPrimary ? "Yes" : "No"}</SubTitle>
         </StyleInfo>
         <StyleInfo>
           <Title>contact person</Title>
@@ -190,12 +291,57 @@ class General extends React.Component {
         </StyleInfo>
         <StyleInfo>
           <Title>group</Title>
-          <SubTitle>{this.state.data.groupName? this.state.data.groupName : '-'} </SubTitle>
+          <SubTitle>
+            {this.state.data.groupName ? this.state.data.groupName : "-"}{" "}
+          </SubTitle>
         </StyleInfo>
         <StyleInfo>
           <Title>categories</Title>
-          <SubTitle>{this.state.data.categories.length > 1 ? this.state.data.categories : '-'}</SubTitle>
+          <SubTitle>
+            {this.state.data.categories.length > 1
+              ? this.state.data.categories
+              : "-"}
+          </SubTitle>
         </StyleInfo>
+          </View>
+        </ItemInfoRow>
+        <SizeBox>
+          <StyleInfo>
+            <Title>sizes</Title>
+            <SubTitle>
+              S, M, L, XL
+            </SubTitle>
+          </StyleInfo>
+        </SizeBox>
+        <ColorContainer>
+          {
+            
+            colorArr.map(data => {
+              no = no+1;
+              return(
+                <Block>
+                  {
+                    no == 3 ?
+                    <Fragment>
+                      <InactiveColorBox />
+                      <XView1 />
+                      <XView2 />
+                    </Fragment>
+                    // <View />
+                    :
+                    <ColorBox />
+                  }
+                  <Title noOfLine={1}>Color id 2</Title>
+                  <SubTitle>
+                    color name
+                  </SubTitle>
+                </Block>
+              )
+            })
+          }
+          
+          
+        </ColorContainer>
       </ScrollView>
     );
   }

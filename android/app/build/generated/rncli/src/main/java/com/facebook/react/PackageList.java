@@ -23,6 +23,8 @@ import com.airbnb.android.react.lottie.LottiePackage;
 import com.zoontek.rnbootsplash.RNBootSplashPackage;
 // react-native-camera
 import org.reactnative.camera.RNCameraPackage;
+// react-native-fast-image
+import com.dylanvann.fastimage.FastImageViewPackage;
 // react-native-vector-icons
 import com.oblador.vectoricons.VectorIconsPackage;
 
@@ -63,6 +65,7 @@ public class PackageList {
       new LottiePackage(),
       new RNBootSplashPackage(),
       new RNCameraPackage(),
+      new FastImageViewPackage(),
       new VectorIconsPackage()
     ));
   }

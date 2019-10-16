@@ -80,6 +80,7 @@ class Style extends React.Component {
 
   render() {
     console.log("style data",this.state.styleData);
+    console.log("process env", process.env.URL);
     console.log('token from store in style', this.props.tokenData);
     // const history = this.props.history;
     // console.log("History on style page:", history)

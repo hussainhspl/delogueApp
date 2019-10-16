@@ -22,9 +22,12 @@
     "react-native": "0.60.4",
     "react-native-bootsplash": "^1.0.0",
     "react-native-camera": "^3.6.0",
+    "react-native-dotenv": "^0.2.0",
     "react-native-drawer": "^2.5.1",
     "react-native-easy-grid": "^0.2.2",
+    "react-native-fast-image": "^7.0.2",
     "react-native-grid-list": "^1.0.9",
+    "react-native-image-layout": "^5.4.0",
     "react-native-keyboard-aware-scroll-view": "^0.9.1",
     "react-native-modal-datetime-picker": "^7.5.0",
     "react-native-responsive-layout": "^1.2.0",
@@ -40,11 +43,12 @@
   "devDependencies": {
     "@babel/core": "7.5.5",
     "@babel/runtime": "7.5.5",
+    "@bam.tech/react-native-make": "^1.0.3",
     "@react-native-community/eslint-config": "0.0.3",
     "babel-jest": "24.8.0",
     "eslint": "^6.1.0",
     "jest": "24.8.0",
-    "metro-react-native-babel-preset": "0.54.1",
+    "metro-react-native-babel-preset": "^0.54.1",
     "react-test-renderer": "16.8.6"
   },
   "jest": {

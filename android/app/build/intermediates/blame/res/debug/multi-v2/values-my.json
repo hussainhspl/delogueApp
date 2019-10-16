@@ -4,7 +4,7 @@
             "outputFile": "/Users/commonuser/react-native/delogueApp/android/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-my/values-my.xml",
             "map": [
                 {
-                    "source": "/Users/commonuser/.gradle/caches/transforms-2/files-2.1/a1381caefba683207ea7603d24ad8ddb/res/values-my/values.xml",
+                    "source": "/Users/commonuser/.gradle/caches/transforms-2/files-2.1/e0c9b2038a16976f11caff62ffa72eae/res/values-my/values.xml",
                     "from": {
                         "startLines": "4",
                         "startColumns": "0",
@@ -21,7 +21,7 @@
                     }
                 },
                 {
-                    "source": "/Users/commonuser/.gradle/caches/transforms-2/files-2.1/ab223f908f8dcf5a60909852a8cf27f4/res/values-my/values.xml",
+                    "source": "/Users/commonuser/.gradle/caches/transforms-2/files-2.1/787ffa954ae989c85cc724382644c8a9/res/values-my/values.xml",
                     "from": {
                         "startLines": "4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20",
                         "startColumns": "0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0",
