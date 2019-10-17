@@ -66,6 +66,13 @@ const SampleRow = styled.View`
   flex-direction: row;
   flex-wrap: wrap;
 `;
+const MainBox = styled.View`
+  border: 1px solid #ddd;
+  /* border-radius: 5px; */
+  width: ${(props) => props.tablet ? Dimensions.get('window').width / 3 -10 : Dimensions.get("window").width / 2 - 10};
+  height: ${(props) => props.tablet ? Dimensions.get('window').width / 3 +40 : Dimensions.get("window").width / 2 + 80};
+  margin: 5px;
+`;
 class Sample extends React.Component {
   constructor(props) {
     super(props);
@@ -99,10 +106,11 @@ class Sample extends React.Component {
             <SampleRow>
               {sampleArr.map(data => {
                 return (
-                  // <View>
+                  <MainBox tablet={this.state.tablet}>
+                  
                   <TouchableHighlight
                   underlayColor="#42546033"
-                             
+                    style={{paddingBottom: 33}}       
                     key={data.key}
                     onPress={() => {
                       this.setState({ sampleRequest: false });
@@ -110,7 +118,7 @@ class Sample extends React.Component {
                   >
                     <SampleComponent />
                   </TouchableHighlight>
-                  // </View>
+                  </MainBox>
                 );
               })}
               <NewSampleRequest history={this.props.history} />

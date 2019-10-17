@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from "react";
-import { Text, View, TouchableOpacity, AppState, Image } from "react-native";
-import Icon from "react-native-vector-icons/Ionicons";
+import { Text, View, TouchableOpacity, AppState, TouchableHighlight, Image } from "react-native";
+import { Icon } from "native-base";
 import SearchInput, { createFilter } from "react-native-search-filter";
 import { Button } from "native-base";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
@@ -27,26 +27,23 @@ const seasonArray = [
 const KEYS_TO_FILTERS = ["name"];
 const SEASON_KEYS = ["name"];
 
-const StyledTouchableOpacity = styled.TouchableOpacity`
-  position: absolute;
+const StyledTouchableOpacity = styled.TouchableHighlight`
   width: 50px;
   height: 50px;
   align-items: center;
   justify-content: center;
-  right: 20px;
-  bottom: 30px;
+  border-radius: 25px;
+  /* margin-top: 10px; */
 `;
 
 const FilterButton = styled.View`
-  border: 1px solid #eee;
-  align-items: center;
-  justify-content: center;
+  position: absolute;
   width: 50px;
   height: 50px;
-  background-color: #818181;
+  background-color: #425460;
   border-radius: 50px;
-  z-index: 2;
-  margin-top: 10px;
+  right: 20px;
+  bottom: 30px;
 `;
 const GrayButtonText = styled.Text`
   color: white;
@@ -54,11 +51,17 @@ const GrayButtonText = styled.Text`
   font-size: 12px;
   padding: 5px;
 `;
+
 const StyledSearchInput = styled(SearchInput)`
-  padding: 11px;
-  border: 1px solid #ccc;
+  padding-left: 10px;
+  border-color: #425460;
+  border-width: 1px;
   height: 40px;
-  margin: 10px 0px;
+  margin-right: 10px;
+  position: relative;
+  padding-right: 40px;
+  flex: 1;
+  width: 100%;
 `;
 const ResetBar = styled.View`
   padding: 10px;
@@ -117,17 +120,47 @@ const Title = styled.Text`
 const MainView = styled.View`
   flex: 1;
 `;
+const ClearIcon = styled(Icon)`
+  font-size: 20px;
+  color: #fff;
+`;
+
+const CloseView = styled.View`
+  align-items: center;
+  justify-content:center;
+  border-radius: 10px;
+  width: 20px;
+  height: 20px;
+  background-color: #a4a4a4;
+`;
+
+const SearchIcon = styled.View`
+  width: 41px;
+  height: 41px;
+  background-color: #425460;
+  justify-content: center;
+  align-items: center;
+`;
+const FlexRow = styled.View`
+  flex-direction: row;
+  flex: 1;
+  padding-top: 15px;
+  /* background-color: #f00; */
+`;
+const Flex = styled.View`
+  flex: 1;
+`;
 class searchFilter extends Component {
   state = {
     modalVisible: false,
-    searchTerm: "",
+    searchBrand: "",
     searchSeason: "",
     text: "Useless Placeholder",
     appState: AppState.currentState
   };
   searchUpdated(term) {
     this.setState({
-      searchTerm: term
+      searchBrand: term
     });
     console.log("called again");
   }
@@ -163,7 +196,7 @@ class searchFilter extends Component {
   restFilter = () => {
     console.log("click on reset");
     this.setState({
-      searchTerm: "",
+      searchBrand: "",
       searchSeason: ""
     });
     this.searchUpdated("");
@@ -172,7 +205,7 @@ class searchFilter extends Component {
 
   render() {
     const filteredStyle = styleArray.filter(
-      createFilter(this.state.searchTerm, KEYS_TO_FILTERS)
+      createFilter(this.state.searchBrand, KEYS_TO_FILTERS)
     );
     const filteredSeason = seasonArray.filter(
       createFilter(this.state.searchSeason, SEASON_KEYS)
@@ -180,19 +213,19 @@ class searchFilter extends Component {
     console.log("rendered again");
     return (
       <Fragment>
+        <FilterButton>
         <StyledTouchableOpacity
-          activeOpacity={0.7}
+          underlayColor="#32414A"
           onPress={() => {
             this.setModalVisible(!this.state.modalVisible);
           }}
         >
-          <FilterButton>
             <Image
               resizeMode={"contain"}
               source={require("../../assets/img/filter.png")}
             />
-          </FilterButton>
         </StyledTouchableOpacity>
+          </FilterButton>
         <CommonModal
           title="filter"
           modalVisible={this.state.modalVisible}
@@ -211,12 +244,33 @@ class searchFilter extends Component {
 
               <SearchBar>
                 <Title>brand</Title>
+                <FlexRow>
+                <SearchIcon>
+                <Icon style={{color:"#fff"}} name="ios-search"/>
+              </SearchIcon>
+                <Flex>
                 <StyledSearchInput
                   onChangeText={term => {
                     this.searchUpdated(term);
                   }}
                   placeholder="Enter Brand Name"
+                  clearIcon={
+                    this.state.searchBrand !== "" && (
+                      <CloseView>
+                        <ClearIcon name="ios-close" />
+                      </CloseView>
+                    )
+                  }
+                  clearIconViewStyles={{
+                    position: "absolute",
+                    top: 10,
+                    right: 20,
+                    bottom: 20,
+                    borderRadius: 10,
+                  }}
                 />
+                </Flex>
+                </FlexRow>
                 <Capsule>
                   {filteredStyle.map(item => {
                     return (
@@ -230,12 +284,33 @@ class searchFilter extends Component {
 
               <SearchBar>
                 <Title>season</Title>
+                <FlexRow>
+                <SearchIcon>
+                <Icon style={{color:"#fff"}} name="ios-search"/>
+              </SearchIcon>
+              <Flex>
                 <StyledSearchInput
                   onChangeText={term => {
                     this.seasonUpdated(term);
                   }}
                   placeholder="Enter Season"
+                  clearIcon={
+                    this.state.searchSeason !== "" && (
+                      <CloseView>
+                        <ClearIcon name="ios-close" />
+                      </CloseView>
+                    )
+                  }
+                  clearIconViewStyles={{
+                    position: "absolute",
+                    top: 10,
+                    right: 20,
+                    bottom: 20,
+                    borderRadius: 10,
+                  }}
                 />
+                </Flex>
+                </FlexRow>
                 <Capsule>
                   {filteredSeason.map(item => {
                     return (

@@ -2,7 +2,7 @@ import React, { Fragment } from "react";
 import {
   Text,
   View,
-  TouchableOpacity,
+  TouchableHighlight,
   Image,
   Dimensions,
   ScrollView
@@ -75,27 +75,28 @@ const SearchRow = styled.View`
   background-color: #efefef;
   border-bottom-width: 1px;
   border-color: #ddd;
+  padding: 15px;
+  height: 70px;
 `;
 const Flex = styled.View`
   flex: 1;
 `;
 
 const MainSearchInput = styled(SearchInput)`
-  padding: 11px;
-  border-color: #ccc;
+  padding-left: 10px;
+  border-color: #425460;
   border-width: 1px;
-  height: 50px;
-  margin: 15px;
+  height: 40px;
   margin-right: 10px;
+  position: relative;
+  padding-right: 40px;
 `;
 
 const ViewBox = styled.View`
-  height: 50px;
-  width: 50px;
+  height: 40px;
+  width: 40px;
   border-width: 1px;
-  border-color: #ddd;
-  border-radius: 4px;
-  margin: 15px;
+  border-color: #999;
   justify-content: center;
   align-items: center;
 `;
@@ -119,11 +120,25 @@ const MainView = styled.View`
 `;
 
 const ClearIcon = styled(Icon)`
-  font-size: 28px;
-  color: #777;
-  padding: 0px 10px;
+  font-size: 20px;
+  color: #fff;
 `;
 
+const CloseView = styled.View`
+  align-items: center;
+  justify-content:center;
+  border-radius: 10px;
+  width: 20px;
+  height: 20px;
+  background-color: #a4a4a4;
+`;
+const SearchIcon = styled.View`
+  width: 41px;
+  height: 41px;
+  background-color: #425460;
+  justify-content: center;
+  align-items: center;
+`;
 const KEYS_TO_FILTERS = ["styleNo", "styleName", "supplier", "season"];
 class Search extends React.Component {
   constructor(props) {
@@ -171,26 +186,32 @@ class Search extends React.Component {
         <Header history={this.props.history}>
           <ScrollView showsVerticalScrollIndicator={false}>
             <SearchRow>
+              <SearchIcon>
+                <Icon style={{color:"#fff"}} name="ios-search"/>
+              </SearchIcon>
               <Flex>
                 <MainSearchInput
                   onChangeText={term => {
                     this.searchUpdated(term);
                   }}
-                  placeholder="Type a message to search"
+                  placeholder="Search Style"
                   clearIcon={
                     this.state.searchTerm !== "" && (
-                      <ClearIcon name="ios-close" />
+                      <CloseView>
+                        <ClearIcon name="ios-close" />
+                      </CloseView>
                     )
                   }
                   clearIconViewStyles={{
                     position: "absolute",
-                    top: 1,
-                    right: 2,
-                    padding: 25
+                    top: 10,
+                    right: 20,
+                    bottom: 20,
+                    borderRadius: 10,
                   }}
                 />
               </Flex>
-              <TouchableOpacity onPress={this.changeView}>
+              <TouchableHighlight onPress={this.changeView} underlayColor="#42546033">
                 <ViewBox>
                   <Image
                     resizeMode={"contain"}
@@ -201,19 +222,20 @@ class Search extends React.Component {
                     }
                   />
                 </ViewBox>
-              </TouchableOpacity>
+              </TouchableHighlight>
             </SearchRow>
             {this.state.currentView === "linear" &&
               filteredStyle.map(data => {
                 return (
-                  <TouchableOpacity
+                  <TouchableHighlight
+                    underlayColor="#42546033"
                     onPress={() => {
                       history.push("/style");
                     }}
                     key={data.styleNo}
                   >
                     <ItemDetail data={data} />
-                  </TouchableOpacity>
+                  </TouchableHighlight>
                 );
               })}
             {this.state.currentView === "grid" && (

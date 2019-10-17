@@ -1,6 +1,6 @@
 import React, {Fragment} from 'react';
-import { View, Text, Image, ScrollView, Dimensions } from 'react-native';
-import { Accordion } from "native-base";
+import { View, Text, Image, ScrollView, Dimensions, TouchableOpacity } from 'react-native';
+import { Accordion, Icon } from "native-base";
 import styled from 'styled-components/native';
 import General from './General';
 import NewMessage from './NewMessage';
@@ -60,15 +60,39 @@ const SubTitle = styled.Text`
   font-family: ${ props => props.theme.regular};
 `;
 
+const StyledTouchableOpacity = styled.TouchableOpacity`
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  align-items: center;
+  justify-content: center;
+  right: 20px;
+  bottom: 70px;
+`;
+
+const FilterButton = styled.View`
+  border: 1px solid #eee;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 50px;
+  background-color: #849d7a;
+  border-radius: 50px;
+  z-index: 2;
+  margin-top: 10px;
+`;
+
 class Comments extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       accordiontab: 2,
+      ShowNewMsg: false,
     };
   }
   render() {
     return(
+      <Fragment>
       <ScrollView 
         showsVerticalScrollIndicator={false}
       >
@@ -102,10 +126,20 @@ class Comments extends React.Component {
             </StyleInfo>
           </ImageDetails>
         </Row>
-        <NewMessage />
+        {this.state.ShowNewMsg && (
+          <NewMessage />
+        )}
         <CommentBlock />
       </ScrollView>
-
+        <StyledTouchableOpacity
+        activeOpacity={0.7}
+        onPress={() => this.setState({ ShowNewMsg: true })}
+      >
+        <FilterButton>
+          <Icon style={{ color: "#fff" }} name="ios-add" />
+        </FilterButton>
+      </StyledTouchableOpacity>
+      </Fragment>
     )
   }
 }

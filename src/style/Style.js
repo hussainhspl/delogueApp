@@ -17,6 +17,7 @@ import { connect } from "react-redux";
 import FooterComponent from "../FooterComponent";
 import {token} from "../store/actions/index";
 import Loader from '../shared/Loader';
+// import { URL } from 'react-native-dotenv'
 
 class Style extends React.Component {
   constructor(props) {
@@ -80,7 +81,7 @@ class Style extends React.Component {
 
   render() {
     console.log("style data",this.state.styleData);
-    console.log("process env", process.env.URL);
+    console.log("process env", URL);
     console.log('token from store in style', this.props.tokenData);
     // const history = this.props.history;
     // console.log("History on style page:", history)

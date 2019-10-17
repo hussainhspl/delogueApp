@@ -1,5 +1,5 @@
 import React, { Fragment } from "react";
-import { Text, View, TextInput, TouchableOpacity, } from "react-native";
+import { Text, View, TextInput, TouchableOpacity, Image } from "react-native";
 import {
   Button,
   Icon,
@@ -118,9 +118,7 @@ const FooterButtonText = styled.Text`
   font-family: ${ props => props.theme.regular};
 `;
 
-// const CommentBlock = styled.View`
 
-// `;
 class NewMessage extends React.Component {
   constructor(props) {
     super(props);
@@ -128,7 +126,7 @@ class NewMessage extends React.Component {
       subject: "",
       selected2: "undefined",
       textArea: "",
-			ShowNewMsg: false,
+
 			cameraOn: false,
     };
   }
@@ -141,13 +139,6 @@ class NewMessage extends React.Component {
   render() {
     return (
       <View>
-        <NewButton onPress={() => this.setState({ ShowNewMsg: true })}>
-          <IconView>
-            <Icon style={{ color: "#fff" }} name="ios-add" />
-          </IconView>
-          <ButtonText>new message</ButtonText>
-        </NewButton>
-        {this.state.ShowNewMsg && (
           <MessageBlock>
             <Label> subject </Label>
             <SubjectInput
@@ -217,8 +208,7 @@ class NewMessage extends React.Component {
                 </Button>
               </Row>
             </ButtonRow>
-          </MessageBlock>
-        )}
+          </MessageBlock>     
       </View>
     );
   }

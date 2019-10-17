@@ -2,6 +2,7 @@ import React, {Fragment} from "react";
 import { View, Text, Image, ScrollView, Dimensions, Modal } from "react-native";
 import styled from "styled-components";
 import ImageLayout from "react-native-image-layout";
+import Title from "../styles/SmallText";
 
 const colorArray = [
   { color: "#ffeedd" },
@@ -18,7 +19,6 @@ const colorArr = [
   {id: "color id 2"},
   {id: "color id 2"},
 ]
-let no =0;
 const ImageView = styled.View`
   width: ${props =>
     props.tablet
@@ -28,11 +28,6 @@ const ImageView = styled.View`
     props.tablet
       ? Dimensions.get("window").height / 2.6
       : Dimensions.get("window").width - 70};
-  /* justify-content: center;
-  align-items: center; */
-  /* border: 1px solid #ddd; */
-  /* z-index: -1; */
-  /* margin: 0px auto; */
 `;
 const StyleImage = styled.Image`
   width: ${props =>
@@ -61,14 +56,7 @@ const ColorBar = styled.View`
 const StyleInfo = styled.View`
   padding: 5px;
 `;
-const Title = styled.Text`
-  /* width: 50%; */
-  /* text-align: right; */
-  color: #9b9b9b;
-  text-transform: uppercase;
-  font-family: ${props => props.theme.bold};
-  font-size: 10px;
-`;
+
 const SubTitle = styled.Text`
   /* text-align: left; */
   /* width: 50%; */
@@ -152,7 +140,7 @@ class General extends React.Component {
     super(props);
     this.state = {
       tablet: false,
-      data: []
+      data: [],
     };
   }
   static getDerivedStateFromProps(props, state) {
@@ -162,7 +150,6 @@ class General extends React.Component {
         data: props.styleData
       };
     }
-
     // Return null if the state hasn't changed
     return null;
   }
@@ -173,18 +160,6 @@ class General extends React.Component {
         console.log("will mount", this.state.tablet)
       );
     }
-    // getData = async () => {
-    //   try {
-    //     const value = await AsyncStorage.getItem('@token')
-    //     if(value !== null) {
-    //       console.log("async token in style", value);
-    //     }
-    //   }
-    //   catch(error) {
-    //     alert(error)
-    //   }
-    // }
-    // console.log("will mount out" , this.state.tablet);
   };
 
   onTap = () => {};
@@ -192,17 +167,17 @@ class General extends React.Component {
   render() {
     // const data= this.props.styleData;
     console.log("render in general :", this.state.data);
+    let no = 0;
     return (
       <ScrollView showsVerticalScrollIndicator={false}>
         {/* <ImageView tablet={this.state.tablet}> */}
         <ImageLayout
           imageContainerStyle={{ backgroundColor: "#eee" }}
-          pageScrollViewStyle={{ backgroundColor: "#f00" }}
+          pageScrollViewStyle={{ backgroundColor: "#000" }}
           // imagePageComponent={ () => resizeMode: "contain"}
           resizeMode={"contain"}
           columns={"1"}
           images={[
-            // { uri: "https://luehangs.site/pic-chat-app-images/beautiful-blond-blonde-hair-478544.jpg" },
             {
               uri:
                 "https://www.pngix.com/pngfile/middle/94-947216_aspinwall-outline-montana-t-shirt-pine-1-university.png"
@@ -212,15 +187,6 @@ class General extends React.Component {
             // },
           ]}
         />
-        {/* <StyleImage
-            tablet={this.state.tablet}
-            resizeMode={"contain"}
-            // source={require("../../assets/img/shirt-static.png")}
-            source={{
-              uri:'https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png'
-          }}
-          /> */}
-
         {/* </ImageView> */}
         {/* <ColorBar>
           {colorArray.map(item => {
@@ -318,6 +284,7 @@ class General extends React.Component {
             
             colorArr.map(data => {
               no = no+1;
+              console.log("number", no)
               return(
                 <Block>
                   {

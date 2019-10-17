@@ -1,4 +1,4 @@
-import React from "react";
+import React, {Fragment} from "react";
 import {
   View,
   Text,
@@ -11,13 +11,7 @@ import styled from "styled-components";
 import { Icon } from "native-base";
 import DateTimePicker from "react-native-modal-datetime-picker";
 
-const MainBox = styled.View`
-  border: 1px solid #ddd;
-  /* border-radius: 5px; */
-  width: ${(props) => props.tablet ? Dimensions.get('window').width / 3 -10 : Dimensions.get("window").width / 2 - 10};
-  height: ${(props) => props.tablet ? Dimensions.get('window').width / 3 +40 : Dimensions.get("window").width / 2 + 80};
-  margin: 5px;
-`;
+
 const TitleRow = styled.View`
   flex-direction: row;
   justify-content: space-between;
@@ -152,7 +146,7 @@ class sampleComponent extends React.Component {
   render() {
     // console.log("state",this.state.isDeadlineDateTimePickerVisible )
     return (
-      <MainBox tablet={this.state.tablet}>
+      <View style={{paddingBottom: "20px"}}>
         <TitleRow>
           <Text> 1st proto sample </Text>
           <StatusDot style={{ backgroundColor: "#964F4C" }} />
@@ -273,7 +267,7 @@ class sampleComponent extends React.Component {
             />
           </DateRow>
         </ContentRow>
-      </MainBox>
+      </View>
     );
   }
 }
