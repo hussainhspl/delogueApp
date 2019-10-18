@@ -5,6 +5,16 @@ import styled from 'styled-components/native';
 import General from './General';
 import NewMessage from './NewMessage';
 import CommentBlock from './CommentBlock';
+import ItemDetail from '../shared/ItemDetail';
+import CommentsList from './CommentsList';
+
+const data =
+  {
+    styleNo: 'sty2211',
+    styleName: 'Casual Shirt',
+    supplier: 'head textiles',
+    season: 'summer'
+  }
 
 const dataArray = [
   { title: "New Message", content:  <NewMessage/>},
@@ -67,7 +77,7 @@ const StyledTouchableOpacity = styled.TouchableOpacity`
   align-items: center;
   justify-content: center;
   right: 20px;
-  bottom: 70px;
+  bottom: 20px;
 `;
 
 const FilterButton = styled.View`
@@ -88,58 +98,48 @@ class Comments extends React.Component {
     this.state = {
       accordiontab: 2,
       ShowNewMsg: false,
+      showMessage: false,
+      showList:true,
     };
   }
   render() {
+    console.log('hello')
     return(
-      <Fragment>
-      <ScrollView 
-        showsVerticalScrollIndicator={false}
-      >
-        <Row>
-          <ImageView>
-            <StyleImage
-              resizeMode={"contain"}
-              source={require('../../assets/img/shirt-static.png')}
-            />
-          </ImageView>
-          <ImageDetails>
-            <StyleInfo>
-              <Title>brand</Title>
-              <SubTitle>demo brand</SubTitle>
-            </StyleInfo>
-            <StyleInfo>
-              <Title>style name</Title>
-              <SubTitle>demo cool top</SubTitle>
-            </StyleInfo>
-            <StyleInfo>
-              <Title>style no</Title>
-              <SubTitle>1250-demo</SubTitle>
-            </StyleInfo>
-            <StyleInfo>
-              <Title>supplier</Title>
-              <SubTitle>demo supplier</SubTitle>
-            </StyleInfo>
-            <StyleInfo>
-              <Title>season</Title>
-              <SubTitle>SS20</SubTitle>
-            </StyleInfo>
-          </ImageDetails>
-        </Row>
-        {this.state.ShowNewMsg && (
-          <NewMessage />
-        )}
-        <CommentBlock />
-      </ScrollView>
-        <StyledTouchableOpacity
-        activeOpacity={0.7}
-        onPress={() => this.setState({ ShowNewMsg: true })}
-      >
-        <FilterButton>
-          <Icon style={{ color: "#fff" }} name="ios-add" />
-        </FilterButton>
-      </StyledTouchableOpacity>
-      </Fragment>
+      <View style={{flex: 1}}>
+          <ScrollView 
+            showsVerticalScrollIndicator={false}
+          >
+            <ItemDetail data= {data} />
+            {
+              this.state.showList && (
+                <CommentsList 
+                  close={() => 
+                    // {this.setState({showList: false, showMessage: true})}
+                    console.log("hey")
+                  }
+                />
+              )
+            }
+            {this.state.ShowNewMsg && (
+              <NewMessage />
+            )}
+            {
+              this.state.showMessage && (
+                <CommentBlock />
+              )
+            }
+          </ScrollView>
+            <StyledTouchableOpacity
+            activeOpacity={0.7}
+            onPress={() => this.setState({ ShowNewMsg: true })}
+          >
+            <FilterButton>
+              <Icon style={{ color: "#fff" }} name="ios-add" />
+            </FilterButton>
+          </StyledTouchableOpacity>
+        
+        
+      </View>
     )
   }
 }

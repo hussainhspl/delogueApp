@@ -57,7 +57,7 @@ const sizeXl = [
     want: 75
   }
 ];
-
+const colCount = [key= 1, key= 2, key= 3, key= 4];
 // const table= [
 //   r1, {
 //     description: "Shoulder",
@@ -169,7 +169,7 @@ class SampleRequest extends React.Component {
   };
   render() {
     // console.log("history sr", this.props.history);
-    const colCount = 4
+    
     return (
       <View style={{ flex: 1 }}>
         <KeyboardAwareScrollView
@@ -230,7 +230,7 @@ class SampleRequest extends React.Component {
                           <StyleCol size={2}>
                             <Text>{data.description}</Text>
                           </StyleCol>
-                          {
+                          {/* {
                             colCount.map(data => {
                               return(
                                 <StyleCol size={1}>
@@ -239,13 +239,13 @@ class SampleRequest extends React.Component {
                                     value={this.state.req}
                                     name="req" 
                                   >
-                                    {/* {data.req} */}
+                                    {data.req}
                                   </TableTextInput>
                                 </StyleCol>
                               )
                             })
 
-                          }
+                          } */}
                           
                           
                         </Row>

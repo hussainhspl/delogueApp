@@ -33,7 +33,7 @@ const NewButton = styled(View)`
 const IconView = styled.View`
   width: 30;
   height: 30;
-  background-color: #415461;
+  background-color: ${props => props.theme.darkBlue};
   justify-content: center;
   align-items: center;
 `;
