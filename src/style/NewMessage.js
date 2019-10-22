@@ -1,5 +1,5 @@
 import React, { Fragment } from "react";
-import { Text, View, TextInput, TouchableOpacity, Image } from "react-native";
+import { Text, View, TextInput, TouchableOpacity, Image, TouchableHighlight } from "react-native";
 import {
   Button,
   Icon,
@@ -9,6 +9,9 @@ import {
 } from "native-base";
 import styled from "styled-components/native";
 import NewMessageCamera from './NewMessageCamera';
+import AttachmentPopup from "../shared/AttachmentPopup";
+import { withTheme } from 'styled-components';
+
 
 const NewButton = styled.TouchableOpacity`
   background-color: #849d7a;
@@ -48,6 +51,10 @@ const SubjectInput = styled(TextInput)`
   height: 30px;
   margin-top: 5px;
   margin-bottom: 10px;
+  flex: 1;
+  font-size: 18px;
+  font-weight: 700;
+  color: ${props => props.theme.darkBlue};
 `;
 const Row = styled.View`
   align-items: center;
@@ -56,19 +63,21 @@ const Row = styled.View`
 `;
 
 const CheckBoxText = styled.Text`
-  padding-left: 20px;
+  padding-left: 10px;
   font-family: ${ props => props.theme.regular};
 `;
 const Label = styled.Text`
   color: #8c8076;
+  font-size: 10px;
   font-family: ${ props => props.theme.regular};
-
+  padding-right: 5px;
+  align-self: center;
+  /* background-color: red; */
 `;
 const StyledView = styled.View`
   border: 1px solid #ddd;
   height: 30px;
-  margin-top: 5px;
-  margin-bottom: 30px;
+  flex: 1;
 `;
 const StyledPicker = styled(Picker)`
   height: 30px;
@@ -80,18 +89,18 @@ const NotifySelector = styled.View`
   border: 1px solid #ddd;
   border-radius: 4px;
   align-self: flex-start;
-  padding: 10px;
-  margin-right: 30px;
+  padding: 5px 25px 5px 5px;
+  margin-right: 10px;
 `;
 
 const CancelNotify = styled.View`
-  width: 20px;
-  height: 20px;
+  width: 15px;
+  height: 15px;
   justify-content: center;
   align-items: center;
   position: absolute;
-  right: -10px;
-  top: -10px;
+  right: 7px;
+  top: 7px;
   background-color: #ddd;
   border-radius: 15px;
 `;
@@ -108,6 +117,7 @@ const ButtonRow = styled.View`
   justify-content: space-between;
   margin-top: 20px;
   align-items: center;
+  z-index: 1;
 `;
 
 
@@ -116,9 +126,43 @@ const FooterButtonText = styled.Text`
   text-transform: uppercase;
   padding: 0px 5px;
   font-family: ${ props => props.theme.regular};
+  position: relative;
+  z-index: 2;
+`;
+const AttachImage = styled.View`
+  flex-direction: row;
+  flex-wrap: wrap;
 `;
 
+const AttachBox = styled.View`
+  width: 80px;
+  height: 90px;
+  padding: 5px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  margin-right: 20px;
+  margin-top: 20px;
+  position: relative;
+  justify-content: center;
+  align-items: center;
+`;
 
+const AttachmentImage = styled.Image`
+  width: 70px;
+  height: 80px;
+  margin: 5px;
+`;
+const AttachClose = styled.View`
+  width: 15px;
+  height: 15px;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  right: -7px;
+  top: -7px;
+  background-color: #ddd;
+  border-radius: 10px;
+`
 class NewMessage extends React.Component {
   constructor(props) {
     super(props);
@@ -126,7 +170,7 @@ class NewMessage extends React.Component {
       subject: "",
       selected2: "undefined",
       textArea: "",
-
+      modalVisible: false,      
 			cameraOn: false,
     };
   }
@@ -140,15 +184,14 @@ class NewMessage extends React.Component {
     return (
       <View>
           <MessageBlock>
-            <Label> subject </Label>
-            <SubjectInput
-              onChangeText={subject => this.setState({ subject })}
-              value={this.state.subject}
-            />
             <Row>
-              <CheckBox color="#aaa" checked={true} />
-              <CheckBoxText> Only internal </CheckBoxText>
+              <Label> subject </Label>
+              <SubjectInput
+                onChangeText={subject => this.setState({ subject })}
+                value={this.state.subject}
+              />
             </Row>
+            <Row>
             <Label> Notify </Label>
             <StyledView>
               <StyledPicker
@@ -167,19 +210,24 @@ class NewMessage extends React.Component {
                 <Picker.Item label="James" value="key3" />
               </StyledPicker>
             </StyledView>
+            </Row>
             <Row>
               <NotifySelector>
                 <CancelNotify>
-                  <Icon style={{ fontSize: 15 }} name="close" />
+                  <Icon style={{ fontSize: 12 }} name="close" />
                 </CancelNotify>
                 <Text> hussain </Text>
               </NotifySelector>
               <NotifySelector>
                 <CancelNotify>
-                  <Icon style={{ fontSize: 15 }} name="close" />
+                  <Icon style={{ fontSize: 12 }} name="close" />
                 </CancelNotify>
                 <Text> hussain </Text>
               </NotifySelector>
+            </Row>
+            <Row>
+              <CheckBox color="#aaa" checked={true} style={{left: 0, paddingLeft: 0}} />
+              <CheckBoxText> Only internal </CheckBoxText>
             </Row>
             <TextArea
               multiline={true}
@@ -189,6 +237,30 @@ class NewMessage extends React.Component {
               placeholder="type your message"
               textAlignVertical="top"
             />
+            <AttachImage>
+              <AttachBox>
+                <TouchableHighlight onPress={() => this.setState({modalVisible: true})}
+                  underlayColor={this.props.theme.overlayBlue}
+                >
+                  <AttachmentImage
+                    resizeMode={"contain"}
+                    source={require("../../assets/img/shirt-static.png")}
+                  />
+                </TouchableHighlight>
+                <AttachClose>
+                  <Icon style={{ fontSize: 15 }} name="close" />
+                </AttachClose>
+              </AttachBox>
+              <AttachBox>
+                <AttachmentImage
+                  resizeMode={"contain"}
+                  source={require("../../assets/img/shirt-static.png")}
+                />
+                <AttachClose>
+                  <Icon style={{ fontSize: 15 }} name="close" />
+                </AttachClose>
+              </AttachBox>
+            </AttachImage>
             <ButtonRow>
 							<NewMessageCamera />
               <Row>
@@ -208,9 +280,13 @@ class NewMessage extends React.Component {
                 </Button>
               </Row>
             </ButtonRow>
-          </MessageBlock>     
+          </MessageBlock>
+          {<AttachmentPopup 
+            modalVisible={this.state.modalVisible}
+            close={() => this.setState({modalVisible: false})}  
+          />}     
       </View>
     );
   }
 }
-export default NewMessage;
+export default withTheme(NewMessage);

@@ -1,8 +1,9 @@
 import React, {Fragment} from "react";
-import { View, Text, Image, ScrollView, Dimensions, Modal } from "react-native";
+import { View, Text, Image, ScrollView, Dimensions, Modal, TouchableHighlight } from "react-native";
 import styled from "styled-components";
 import ImageLayout from "react-native-image-layout";
 import Title from "../styles/SmallText";
+import {Icon} from 'native-base';
 
 const colorArray = [
   { color: "#ffeedd" },
@@ -135,6 +136,13 @@ const XView2 = styled.View`
   /* background-color: #aaa; */
 `;
 
+const CloseMessage = styled.Text`
+  color: #aaa;
+  font-size: 14px;
+  text-align:center;
+  padding: 5px;
+`;
+
 class General extends React.Component {
   constructor(props) {
     super(props);
@@ -142,6 +150,18 @@ class General extends React.Component {
       tablet: false,
       data: [],
     };
+  }
+  _renderPageHeader = (image, index, onClose) => {
+    // Individual image object data.
+    console.log(image);
+    return (
+        <View>
+          {/* <TouchableHighlight onPress={() => {onClose();}}>
+            <Text style={{color:'#f00'}}> x </Text>
+          </TouchableHighlight> */}
+          <CloseMessage> Swipe Up or Down to go Back </CloseMessage>
+        </View>
+    )
   }
   static getDerivedStateFromProps(props, state) {
     if (props.styleData !== state.data) {
@@ -166,12 +186,13 @@ class General extends React.Component {
   pinZoomLayoutRef = React.createRef();
   render() {
     // const data= this.props.styleData;
-    console.log("render in general :", this.state.data);
+    console.log("render in general :", this.state.data, this._renderPageHeader);
     let no = 0;
     return (
       <ScrollView showsVerticalScrollIndicator={false}>
         {/* <ImageView tablet={this.state.tablet}> */}
         <ImageLayout
+          renderPageHeader={this._renderPageHeader}
           imageContainerStyle={{ backgroundColor: "#eee" }}
           pageScrollViewStyle={{ backgroundColor: "#000" }}
           // imagePageComponent={ () => resizeMode: "contain"}

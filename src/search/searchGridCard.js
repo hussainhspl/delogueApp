@@ -102,7 +102,7 @@ class searchGridCard extends React.Component {
               <CardText numberOfLines={1}>{data.styleName}</CardText>
             </View>
             <View>
-              <Title>Style Name</Title>
+              <Title>Style No</Title>
               <CardText numberOfLines={1}>{data.styleNo}</CardText>
             </View>
           </CardInfo>

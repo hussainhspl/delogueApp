@@ -1,41 +1,45 @@
-import React, {Fragment} from 'react';
-import { View, Text, Image, ScrollView, Dimensions, TouchableOpacity } from 'react-native';
+import React, { Fragment } from "react";
+import {
+  View,
+  Text,
+  Image,
+  ScrollView,
+  Dimensions,
+  TouchableOpacity
+} from "react-native";
 import { Accordion, Icon } from "native-base";
-import styled from 'styled-components/native';
-import General from './General';
-import NewMessage from './NewMessage';
-import CommentBlock from './CommentBlock';
-import ItemDetail from '../shared/ItemDetail';
-import CommentsList from './CommentsList';
+import styled from "styled-components/native";
+import General from "./General";
+import NewMessage from "./NewMessage";
+import CommentBlock from "./CommentBlock";
+import ItemDetail from "../shared/ItemDetail";
+import CommentsList from "./CommentsList";
+import CommonModal from "../shared/CommonModal";
 
-const data =
-  {
-    styleNo: 'sty2211',
-    styleName: 'Casual Shirt',
-    supplier: 'head textiles',
-    season: 'summer'
-  }
+const data = {
+  styleNo: "sty2211",
+  styleName: "Casual Shirt",
+  supplier: "head textiles",
+  season: "summer"
+};
 
-const dataArray = [
-  { title: "New Message", content:  <NewMessage/>},
-];
+const dataArray = [{ title: "New Message", content: <NewMessage /> }];
 
 // const MessageAccordion = styled.Accordion`
 //   background-color: #f00;
 // `;
 
 const ImageView = styled.View`
-  height: ${Dimensions.get('window').width/ 3 +30};
-  width: ${Dimensions.get('window').width/ 3};
+  height: ${Dimensions.get("window").width / 3 + 30};
+  width: ${Dimensions.get("window").width / 3};
   justify-content: center;
   align-items: center;
   border: 1px solid #ddd;
-  margin : 20px 0px 20px 20px;
-  
+  margin: 20px 0px 20px 20px;
 `;
 const StyleImage = styled.Image`
-  height: ${Dimensions.get('window').width/ 3};
-  width: ${Dimensions.get('window').width/ 3-30};
+  height: ${Dimensions.get("window").width / 3};
+  width: ${Dimensions.get("window").width / 3 - 30};
 `;
 const Row = styled.View`
   flex-direction: row;
@@ -56,7 +60,7 @@ const Title = styled.Text`
   text-align: right;
   color: #9b9b9b;
   text-transform: uppercase;
-  font-family: ${ props => props.theme.bold};
+  font-family: ${props => props.theme.bold};
   padding-right: 5px;
   font-size: 13;
 `;
@@ -65,12 +69,12 @@ const SubTitle = styled.Text`
   width: 55%;
   color: #4a4a4a;
   padding-left: 5;
-  text-transform : capitalize;
+  text-transform: capitalize;
   font-size: 13;
-  font-family: ${ props => props.theme.regular};
+  font-family: ${props => props.theme.regular};
 `;
 
-const StyledTouchableOpacity = styled.TouchableOpacity`
+const StyledTouchableOpacity = styled.TouchableHighlight`
   position: absolute;
   width: 50px;
   height: 50px;
@@ -78,69 +82,87 @@ const StyledTouchableOpacity = styled.TouchableOpacity`
   justify-content: center;
   right: 20px;
   bottom: 20px;
+  border-radius: 25px;
 `;
 
-const FilterButton = styled.View`
-  border: 1px solid #eee;
+const AddButton = styled.View`
+  /* border: 1px solid #eee; */
   align-items: center;
   justify-content: center;
   width: 50px;
   height: 50px;
   background-color: #849d7a;
-  border-radius: 50px;
-  z-index: 2;
-  margin-top: 10px;
+  border-radius: 25px;
+`;
+
+const BackRow = styled.View`
+  flex-direction: row;
+  padding: 15px 0px 5px 15px;
+  align-items: center;
+`;
+const BackText = styled.Text`
+  color: #aaa;
+  padding-left: 5px;
+  font-size: 12px;
 `;
 
 class Comments extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      accordiontab: 2,
       ShowNewMsg: false,
       showMessage: false,
-      showList:true,
+      showList: true,
     };
   }
   render() {
-    console.log('hello')
-    return(
-      <View style={{flex: 1}}>
-          <ScrollView 
-            showsVerticalScrollIndicator={false}
-          >
-            <ItemDetail data= {data} />
-            {
-              this.state.showList && (
-                <CommentsList 
-                  close={() => 
-                    // {this.setState({showList: false, showMessage: true})}
-                    console.log("hey")
-                  }
-                />
-              )
-            }
-            {this.state.ShowNewMsg && (
-              <NewMessage />
-            )}
-            {
-              this.state.showMessage && (
-                <CommentBlock />
-              )
-            }
-          </ScrollView>
-            <StyledTouchableOpacity
-            activeOpacity={0.7}
+    console.log("hello");
+    return (
+      <View style={{ flex: 1 }}>
+        <ScrollView showsVerticalScrollIndicator={false}>
+          <ItemDetail data={data} />
+          {this.state.showList && (
+            <CommentsList
+              close={() => {
+                this.setState({ showList: false, showMessage: true });
+                console.log("hey", this.state.showList);
+              }}
+            />
+          )}
+          {this.state.ShowNewMsg && <Fragment>
+                <TouchableOpacity activeOpacity={0.3} onPress={ () => this.setState({showList: true})}>
+              <BackRow>
+                  <Icon style={{color: '#aaa', fontSize: 22}} name="arrow-back" />
+                  <BackText> back </BackText>
+              </BackRow>
+                </TouchableOpacity>
+                <NewMessage />
+                </Fragment>}
+          {this.state.showMessage && 
+            <Fragment>
+                <TouchableOpacity activeOpacity={0.3} onPress={ () => this.setState({showList: true})}>
+              <BackRow>
+                  <Icon style={{color: '#aaa', fontSize: 22}} name="arrow-back" />
+                  <BackText> back </BackText>
+              </BackRow>
+                </TouchableOpacity>
+              <CommentBlock />
+            </Fragment>
+          }
+          
+        </ScrollView>
+        {this.state.ShowNewMsg == false ? (
+          <StyledTouchableOpacity
+            underlayColor="#354733"
             onPress={() => this.setState({ ShowNewMsg: true })}
           >
-            <FilterButton>
+            <AddButton>
               <Icon style={{ color: "#fff" }} name="ios-add" />
-            </FilterButton>
+            </AddButton>
           </StyledTouchableOpacity>
-        
-        
+        ) : null}
       </View>
-    )
+    );
   }
 }
 

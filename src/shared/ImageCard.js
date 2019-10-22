@@ -1,6 +1,8 @@
 import React from "react";
-import { View, Text, Dimensions, Image} from "react-native";
+import { View, Text, Dimensions, Image, TouchableHighlight} from "react-native";
 import styled from 'styled-components';
+import { withTheme } from 'styled-components';
+import AttachmentPopup from '../shared/AttachmentPopup';
 
 const MainBlock = styled.View`
 	width: ${props =>
@@ -10,10 +12,11 @@ const MainBlock = styled.View`
 	height: auto;
   justify-content: center;
   align-items: center;
+  padding: 5px;
 `;
 const ImageView = styled.View`
 	border: 1px solid #ddd;
-	margin: 5px;
+	
 	width: ${props =>
     props.tablet
     ? Dimensions.get('window').width/ 4 -34
@@ -39,11 +42,12 @@ const StyleImage = styled.Image`
     
 `;
 
-class ClassName extends React.Component{
+class ImageCard extends React.Component{
   constructor(props){
     super(props);
     this.state={
-      tablet: false
+      tablet: false,
+      modalVisible: false,      
     }
   }
   //require('../../assets/img/shirt-static.png')
@@ -59,6 +63,7 @@ class ClassName extends React.Component{
     console.log('tablet state :', this.state.tablet);
     return(
       <MainBlock key={Math.random().toFixed(3)} tablet={this.state.tablet}>
+        <TouchableHighlight underlayColor={this.props.theme.overlayBlue} onPress={() => this.setState({modalVisible: true})}>
         <ImageView tablet={this.state.tablet}>
           <StyleImage
             resizeMode={"contain"}
@@ -66,9 +71,15 @@ class ClassName extends React.Component{
             tablet={this.state.tablet}
           />
         </ImageView>
+        </TouchableHighlight>
         {this.props.children}
+      
+          <AttachmentPopup 
+            modalVisible={this.state.modalVisible}
+            close={() => this.setState({modalVisible: false})} 
+          /> 
       </MainBlock>
     )
   }
 }
-export default ClassName;
+export default withTheme(ImageCard);
