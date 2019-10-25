@@ -9,6 +9,7 @@ import CommonModal from '../shared/CommonModal';
 import ItemDetail from "../shared/ItemDetail";
 import CameraView from '../styles/CameraView';
 import ImageCard from '../shared/ImageCard';
+import FileCard from '../shared/FileCard';
 
 const data =
   {
@@ -63,7 +64,6 @@ const Card = styled.TouchableOpacity`
     props.tablet
     ? Dimensions.get("window").height / 4 +20
     : Dimensions.get("window").height / 3 + 20};
-  /* border: 1px solid #ccc; */
   border-bottom-width: 1px;
   border-right-width: 1px;
   border-color: #dcd7d4;
@@ -129,6 +129,7 @@ class Files extends React.Component {
   render() {
     // console.log("camera:", this.state.cameraOn);
     // console.log("style modal", this.state.modalVisible);
+    let no = 0;
     return (
       <ScrollView showsVerticalScrollIndicator={false}>
         <View>
@@ -148,24 +149,16 @@ class Files extends React.Component {
           )}
           <View>
             <ImageRow>
+              
               {
                 styArr.map(data => {
+                  no = no + 1;
                   return(
-                    <Card
-                      tablet={this.state.tablet}
-                      key={Math.random().toFixed(3)}
-                      onPress={() => {
-                        this.setModalVisible(true);
-                      }}
-                    >
-                      <ImageCard imgPath={require('../../assets/img/shirt-static.png')}>
-                        <ImageInfo>
-                          <CardText numberOfLines={1}> {data.fileName} </CardText>
-                          <CardText numberOfLines={1}>{data.imgInfo}</CardText>
-                          <CardText numberOfLines={1}>{data.date}</CardText>
-                        </ImageInfo>
-                      </ImageCard>
-                    </Card>
+                      
+                      <FileCard 
+                        imageName="test.xls"
+                        no={no}
+                      />
                   )
                 })
               }
@@ -182,7 +175,7 @@ class Files extends React.Component {
             </CommonModal>
           </View>
           <StyleFileTitle>
-            <Capital> Communication files </Capital>
+            <Capital> Custom Folder </Capital>
             <TouchableOpacity onPress={() => this.setState({ cameraCommOn: true })}>
               <CameraView>
                 <Icon style={{ color: "white", fontSize: 20 }} name="camera" />
@@ -196,7 +189,7 @@ class Files extends React.Component {
           )}
           <View>
           <ImageRow>
-              {
+              {/* {
                 styArr.map(data => {
                   return(
                     <Card
@@ -216,7 +209,55 @@ class Files extends React.Component {
                     </Card>
                   )
                 })
-              }
+              } */}
+            </ImageRow>
+          </View>
+          <StyleFileTitle>
+            <Capital> Communication files </Capital>
+            <TouchableOpacity onPress={() => this.setState({ cameraCommOn: true })}>
+              <CameraView>
+                <Icon style={{ color: "white", fontSize: 20 }} name="camera" />
+              </CameraView>
+            </TouchableOpacity>
+          </StyleFileTitle>
+          {this.state.cameraCommOn && (
+            <CameraComponent 
+							close={() => this.setState({cameraCommOn: false})}
+						/>
+          )}
+          <View>
+          <ImageRow>
+              {/* {
+                styArr.map(data => {
+                  return(
+                    <Tex> hey </Text>
+                  )
+                })
+              } */}
+            </ImageRow>
+          </View>
+          <StyleFileTitle>
+            <Capital> Internal files </Capital>
+            <TouchableOpacity onPress={() => this.setState({ cameraCommOn: true })}>
+              <CameraView>
+                <Icon style={{ color: "white", fontSize: 20 }} name="camera" />
+              </CameraView>
+            </TouchableOpacity>
+          </StyleFileTitle>
+          {this.state.cameraCommOn && (
+            <CameraComponent 
+							close={() => this.setState({cameraCommOn: false})}
+						/>
+          )}
+          <View>
+          <ImageRow>
+              {/* {
+                styArr.map(data => {
+                  return(
+                    <Tex> hey </Text>
+                  )
+                })
+              } */}
             </ImageRow>
           </View>
         </View>

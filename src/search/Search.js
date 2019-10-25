@@ -9,9 +9,6 @@ import {
 } from "react-native";
 import { Icon } from "native-base";
 import SearchInput, { createFilter } from "react-native-search-filter";
-import GridList from 'react-native-grid-list';
-import { FlatGrid } from 'react-native-super-grid';
-
 import SearchFilter from "./searchFilter";
 import Header from "../Header";
 import styled from "styled-components";
@@ -133,8 +130,8 @@ const CloseView = styled.View`
   background-color: #a4a4a4;
 `;
 const SearchIcon = styled.View`
-  width: 41px;
-  height: 41px;
+  width: 40px;
+  height: 40px;
   background-color: #425460;
   justify-content: center;
   align-items: center;
@@ -194,7 +191,8 @@ class Search extends React.Component {
                   onChangeText={term => {
                     this.searchUpdated(term);
                   }}
-                  placeholder="Search Style"
+                  placeholder="SEARCH"
+                  placeholderTextColor="#C9DBDB"
                   clearIcon={
                     this.state.searchTerm !== "" && (
                       <CloseView>

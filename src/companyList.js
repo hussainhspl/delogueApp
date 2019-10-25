@@ -18,6 +18,8 @@ import Loader from "./shared/Loader";
 import { Grid, Section, Block } from "react-native-responsive-layout";
 import OfflineNotice from "./shared/OfflineNotice";
 import CList from "../data/companyList";
+import Title from "./styles/SmallText";
+
 
 const Card = styled.View`
   width: ${props =>
@@ -36,24 +38,26 @@ const ImageView = styled.View`
   width: ${props =>
     props.tablet
       ? Dimensions.get("window").width / 3 - 45
-      : Dimensions.get("window").width / 2 - 45};
+      : Dimensions.get("window").width / 2 - 25};
   height: ${props =>
     props.tablet
       ? Dimensions.get("window").height / 3 - 98
-      : Dimensions.get("window").height / 2 - 110};
+      : Dimensions.get("window").height / 2 - 155};
   margin: 0 auto;
+  /* background-color: #f66; */
 `;
 
 const GridImage = styled.Image`
   width: ${props =>
     props.tablet
       ? Dimensions.get("window").width / 3 - 60
-      : Dimensions.get("window").width / 2 - 50};
+      : Dimensions.get("window").width / 2 - 30};
   height: ${props =>
     props.tablet
       ? Dimensions.get("window").height / 3 - 120
-      : Dimensions.get("window").height / 2 - 130};
+      : Dimensions.get("window").height / 2 - 165};
   margin: auto;
+  /* background-color: #ddd; */
 `;
 const SubHeader = styled.View`
   flex-direction: row;
@@ -72,14 +76,14 @@ const CardText = styled.Text`
 
 const CardInfo = styled.View`
   background-color: #f6f6f6;
-  height: 60px;
+  height: 105px;
   width: 100%;
-  justify-content: center;
-  padding: 5px;
+  justify-content: space-between;
+  padding: 2px 5px;
 `;
 
 const PageLayout = styled.View`
-  background-color: #818181;
+  background-color: #444;
   flex: 1;
 `;
 
@@ -220,11 +224,18 @@ class CompanyList extends React.Component {
                           />
                         </ImageView>
                         <CardInfo>
-                          <CardText numberOfLines={1}>
-                            {data.companyName}
-                          </CardText>
-                          <CardText numberOfLines={1}>{data.userName}</CardText>
-                          <CardText numberOfLines={1}>{data.userType}</CardText>
+                          <View>
+                            <Title>Company Name</Title>
+                            <CardText numberOfLines={1}>{data.companyName}</CardText>
+                          </View>
+                          <View>
+                            <Title>User Name</Title>
+                            <CardText numberOfLines={1}>{data.userName}</CardText>
+                          </View>
+                          <View>
+                            <Title>User Type</Title>
+                            <CardText numberOfLines={1}>{data.userType}</CardText>
+                          </View>
                         </CardInfo>
                       </TouchableOpacity>
                     </Card>

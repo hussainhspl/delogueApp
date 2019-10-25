@@ -123,11 +123,11 @@ class AttachmentPopup extends React.Component {
               imageContainerStyle={{ backgroundColor: "#eee", position: 'relative'}}
               pageScrollViewStyle={{ backgroundColor: "#000" }}
               resizeMode={"center"}
-              columns={"1"}
+              columns={1}
+              enableScale
               images={[
                 {
-                  uri:
-                    "https://www.pngix.com/pngfile/middle/94-947216_aspinwall-outline-montana-t-shirt-pine-1-university.png",
+                  uri: this.props.path,
                 }
               ]}
             />

@@ -6,5 +6,5 @@ export default {
   overlayBlue: '#42546033',
   regular: 'Lato-Regular',
   bold: 'Lato-Bold',
-  textColor: '#4A4A4A',
+  textColor: '#57504A',
 }

@@ -20,20 +20,22 @@ const Row = styled.View`
 const Flex = styled.View`
   flex: 1;
   flex-direction: row;
+  height: 70px;
   /* width: 100%; */
-  /* background-color: #ddd; */
+  background-color: #ff0;
+  /* align-items: space-between; */
 `;
 
 const SubTitle = styled.Text`
   font-size: 12px;
   color: #4a4a4a;
-  padding-bottom: 10px;
+  /* padding-bottom: 10px; */
 `;
 
 const MainRow = styled.View`
   border-bottom-width: 0.5px;
   border-color: rgba(0, 0, 0, 0.3);
-  padding: 5px 5px 10px 5px;
+  padding: 5px 5px 5px 5px;
   flex-direction: row;
   align-items: center;
   /* margin-bottom: 5px; */

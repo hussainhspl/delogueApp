@@ -22,7 +22,7 @@ let MsgData = [
 const SearchRow = styled.View`
   flex-direction: row;
   justify-content: space-between;
-  padding: 20px;
+  padding: 10px 10px 20px 20px;
 `;
 const MarkAllReadBox = styled.View`
   width: 40px;
@@ -37,7 +37,7 @@ const StyleImage = styled.Image`
 `;
 const MessageBox = styled.View`
   flex: 1;
-  margin: 15px 20px;
+  margin: 0px 10px 20px 20px;
   border: 1px solid #bbb;
   position: relative;
 `;
@@ -47,7 +47,7 @@ const Row = styled.View`
   justify-content: space-between;
   /* background-color: */
 `;
-const Title = styled.Text`
+const Subject = styled.Text`
   color: ${props => props.theme.darkBlue};
   font-weight: 700;
 `;
@@ -84,7 +84,7 @@ const IconBox = styled.View`
   position: absolute;
   top: 5;
   left: -35;
-  background-color: ${props => props.theme.darkBlue};
+  background-color: ${props => props.read ? '#fff' : props.theme.darkBlue};
   align-items: center;
   justify-content: center;
 `;
@@ -92,11 +92,17 @@ const MailIcon= styled(Icon)`
   /* font-size: 12; */
   color: #ddd;
 `;
+const MsgImage = styled.Image`
+  width: 20px;
+  height: 15px;
+`;
 
 class CommentsList extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      read: false,
+    };
   }
   render() {
     return (
@@ -105,13 +111,17 @@ class CommentsList extends React.Component {
           <SearchIcon>
             <Icon style={{ color: "#fff" }} name="ios-search" />
           </SearchIcon>
-          <SearchInput placeholder="Search" />
+          <SearchInput placeholder="SEARCH" placeholderTextColor="#C9DBDB" />
           <MarkAllReadBox>
             <StyleImage source={require("../../assets/img/glass.png")} />
           </MarkAllReadBox>
         </SearchRow>
         {
           MsgData.map(data => {
+            // if(data.key == 2) {
+            //   console.log("key match");
+            //   ()=> this.setState({read: true})
+            // }
             return(
               <MessageBox>
               <TouchableHighlight
@@ -122,10 +132,12 @@ class CommentsList extends React.Component {
               >
                 <Row>
                 <MainContent>
-                  <IconBox>
-                    <Icon style={{color: '#fff', fontSize: 18}} name={data.iconName} />
+                  <IconBox read={data.key == 2 ? true : false }>
+                    <MsgImage 
+                      resizeMode={"contain"}
+                      source={require("../../assets/img/message-icon.png")} />
                   </IconBox>
-                  <Title>Swatch samples </Title>
+                  <Subject>Swatch samples </Subject>
                   <ContentText numberOfLines={2}>Dear nando, please find a new style and if you have any doubt or queries then please ask</ContentText>
                 </MainContent>
                 <InfoContent>

@@ -90,7 +90,6 @@ class Login extends React.Component {
       "hardwareBackPress",
       this.handleBackButtonClick
     );
-    // this.clearAsyncStorage();
   };
   handleBackButtonClick() {
     // console.log("exit app");
@@ -117,49 +116,7 @@ class Login extends React.Component {
     // this.checkToken();
     this.checkCredential()
   };
-  // checkToken() {
-  //   let currentDate = new Date().toUTCString();
-  //   console.log("india date", currentDate);
-  //   this.getToken()
-  //     .then(token => {
-  //       if (token) {
-  //         console.log("Token already exist");
-  //         this.getTokenExpiry()
-  //           .then(tokenExpiryTime => {
-  //             // let tempDate = new Date(currentDate);
-  //             // tempDate.setSeconds(tempDate.getSeconds() + 36000);
-  //             console.log(
-  //               "expiry time :",
-  //               new Date(currentDate),
-  //               new Date(tokenExpiryTime)
-  //             );
-  //             var result = isAfter(
-  //               new Date(currentDate),
-  //               new Date(tokenExpiryTime)
-  //             );
-  //             // console.log("result", result);
-  //             if (result) {
-  //               console.log("Invalid token (expired)");
-  //               this.checkCredential();
-  //             } else {
-  //               console.log("Token is valid");
-  //               // Alert.alert('ready to move to next page');
-  //               this.props.history.push("/companyList")
-  //             }
-  //           })
-  //           .catch(function(error) {
-  //             console.error(error);
-  //           });
-  //       } else {
-  //         console.log("no token found");
-  //         // Alert.alert('no prev token');
-  //         this.checkCredential();
-  //       }
-  //     })
-  //     .catch(function(error) {
-  //       console.error(error);
-  //     });
-  // }
+  
   checkCredential() {
     console.log("username : ", this.state.username, this.state.password);
     const data = {
@@ -224,36 +181,6 @@ class Login extends React.Component {
       // alert("error 11", e);
     }
   };
-  // getToken = async () => {
-  //   try {
-  //     const token = await AsyncStorage.getItem("@token");
-  //     if (token !== null) {
-  //       console.log("get token", token);
-  //       this.props.tokenFunction(token);
-  //       console.log('got here');
-  //       return token;
-  //     }
-  //   } catch (error) {
-  //     if (error.response) {
-  //       console.log("Error while checking token", error);
-  //     }
-  //   }
-  // };
-
-  // getTokenExpiry = async () => {
-  //   try {
-  //     const strTokenExpiry = await AsyncStorage.getItem("@tokenExpiry");
-  //     const tokenExpiry = JSON.parse(strTokenExpiry);
-  //     if (tokenExpiry !== null) {
-  //       console.log("get token expiry", tokenExpiry);
-  //       return tokenExpiry;
-  //     }
-  //   } catch (error) {
-  //     if (error.response) {
-  //       console.log("Error while checking token expiry", error);
-  //     }
-  //   }
-  // };
 
   render() {
     const history = this.props.history;
@@ -264,7 +191,6 @@ class Login extends React.Component {
           <OfflineNotice />
           <Fragment>
           { this.state.loginFail ?
-
             <FailMessage 
               message={this.state.loginFail} 
             />

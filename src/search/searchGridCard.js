@@ -61,6 +61,7 @@ const CardInfo = styled.View`
 const CardText = styled.Text`
   font-family: ${props => props.theme.regular};
   /* padding-bottom: 4px; */
+  color: ${props => props.theme.textColor};
 `;
 
 class searchGridCard extends React.Component {
@@ -85,6 +86,7 @@ class searchGridCard extends React.Component {
           underlayColor="#42546033"
           onPress={() => {
             history.push("/style");
+            // console.log('hey');
           }}
           key={data.key}
         >

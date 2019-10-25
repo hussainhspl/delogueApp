@@ -18,7 +18,7 @@ import { DebugInstructions } from "react-native/Libraries/NewAppScreen";
 const IconText = styled.Text`
   font-size: 10px;
   font-family: ${props => props.theme.regular};
-  color: ${props => (props.active ? "#fff" : "#444")};
+  color: ${props => (props.active ? "#fff" : "#eee")};
 `;
 const StyledFooterTab = styled(FooterTab)`
   background-color: #eee;
@@ -28,8 +28,9 @@ const FooterRow = styled.View`
 `;
 
 const StyledButton = styled(Button)`
-  background-color: ${props => (props.active ? "#818181" : "#eee")};
+  background-color: ${props => (props.active ? "#333" : "#444")};
   height: 55px;
+  border-radius: 0px;
 `;
 
 class FooterComponent extends React.Component {
@@ -61,7 +62,7 @@ class FooterComponent extends React.Component {
                   source={
                     this.props.currentTab === "general"
                       ? require("../assets/img/footer/style.png")
-                      : require("../assets/img/footer/styleblack.png")
+                      : require("../assets/img/footer/style.png")
                   }
                 />
                 <IconText
@@ -81,7 +82,7 @@ class FooterComponent extends React.Component {
                   source={
                     this.props.currentTab === "comments"
                       ? require("../assets/img/footer/message.png")
-                      : require("../assets/img/footer/messageblack.png")
+                      : require("../assets/img/footer/message.png")
                   }
                 />
                 <IconText
@@ -100,7 +101,7 @@ class FooterComponent extends React.Component {
                   source={
                     this.props.currentTab === "files"
                       ? require("../assets/img/footer/files.png")
-                      : require("../assets/img/footer/filesblack.png")
+                      : require("../assets/img/footer/files.png")
                   }
                 />
                 <IconText
@@ -119,7 +120,7 @@ class FooterComponent extends React.Component {
                   source={
                     this.props.currentTab === "sample"
                       ? require("../assets/img/footer/sample.png")
-                      : require("../assets/img/footer/sampleblack.png")
+                      : require("../assets/img/footer/sample.png")
                   }
                 />
                 <IconText
@@ -138,7 +139,7 @@ class FooterComponent extends React.Component {
                   source={
                     this.props.currentTab === "pdf"
                       ? require("../assets/img/footer/pdf.png")
-                      : require("../assets/img/footer/pdfblack.png")
+                      : require("../assets/img/footer/pdf.png")
                   }
                 />
                 <IconText

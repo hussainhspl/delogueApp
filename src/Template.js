@@ -5,7 +5,6 @@ import { NativeRouter, Switch, Route } from "react-router-native";
 import CompanyList from "./companyList";
 import Search from "./search/Search";
 import Message from "./message/message";
-// import Search from './style/Style';
 import Login from "./login";
 import Style from "./style/Style";
 import HeaderTemplate from "./HeaderTemplate";

@@ -12,6 +12,7 @@ import {
 import styled from "styled-components";
 import { Icon } from "native-base";
 import DateTimePicker from "react-native-modal-datetime-picker";
+import OpacityView from '../styles/OpacityView';
 
 const TitleRow = styled.View`
   flex-direction: row;
@@ -102,15 +103,6 @@ const MainBox = styled.View`
   margin: 5px;
   /* background-color: #ddd; */
   position: relative;
-`;
-const OpacityView = styled.View`
-  background-color: #42546033; 
-  z-index: 1; 
-  position: absolute; 
-  top: 0; 
-  bottom: 0; 
-  left:0; 
-  right: 0;
 `;
 
 class sampleComponent extends React.Component {

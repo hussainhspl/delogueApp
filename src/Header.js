@@ -13,7 +13,7 @@ import styled from 'styled-components';
 const Container = styled.View`
   flex-direction: row;
   height: 50px;
-  background-color: #818181;
+  background-color: #444;
   justify-content: space-between;
   align-items: center;
 `;
@@ -37,8 +37,8 @@ const TouchableIconView = styled.TouchableOpacity`
   align-items: center;
   justify-content: center;
   height: 50px;
-  width: 40px;
-  background-color:${ (props) => props.highlight ? '#666': '#818181'};
+  width: 50px;
+  background-color:${ (props) => props.highlight ? '#333': '#444'};
 `;
 class Header extends React.Component {
   constructor(props) {

@@ -11,37 +11,13 @@ import styled from "styled-components/native";
 import NewMessageCamera from './NewMessageCamera';
 import AttachmentPopup from "../shared/AttachmentPopup";
 import { withTheme } from 'styled-components';
+import ApplyButton from '../styles/ApplyButton'
 
-
-const NewButton = styled.TouchableOpacity`
-  background-color: #849d7a;
-  margin-left: 15px;
-  width: 150px;
-  margin-left: auto;
-  margin-right: 20px;
-  padding: 0px;
-  flex-direction: row;
-  align-items: center;
-`;
-const IconView = styled.View`
-  width: 30px;
-  background-color: #354733;
-  justify-content: center;
-  align-items: center;
-`;
-const ButtonText = styled.Text`
-  color: white;
-  text-transform: uppercase;
-  width: 120px;
-  text-align: center;
-  font-family: ${ props => props.theme.regular};
-
-`;
 
 const MessageBlock = styled.View`
   border: 1px solid #849d7a;
   border-radius: 5px;
-  padding: 15px;
+  padding: 5px 15px;
   margin: 15px;
 `;
 
@@ -50,11 +26,21 @@ const SubjectInput = styled(TextInput)`
   padding: 5px 10px;
   height: 30px;
   margin-top: 5px;
-  margin-bottom: 10px;
+  margin-left: 5px;
+  margin-bottom: 5px;
   flex: 1;
   font-size: 18px;
   font-weight: 700;
   color: ${props => props.theme.darkBlue};
+`;
+const Separator = styled.View`
+  border-bottom-width: 1px;
+  border-color: #ddd;
+  margin-bottom: 5px;
+
+`;
+const ButtonSet = styled.View`
+  flex-direction: row;
 `;
 const Row = styled.View`
   align-items: center;
@@ -117,7 +103,8 @@ const ButtonRow = styled.View`
   justify-content: space-between;
   margin-top: 20px;
   align-items: center;
-  z-index: 1;
+  /* z-index: 1; */
+  /* background-color: #ddd; */
 `;
 
 
@@ -162,7 +149,23 @@ const AttachClose = styled.View`
   top: -7px;
   background-color: #ddd;
   border-radius: 10px;
-`
+`;
+const IconBox = styled.View`
+  width: 30px;
+  height: 30px;
+  border-radius: 15px;
+  border: 1px solid #bbb;
+  position: absolute;
+  top: 10;
+  left: -15;
+  background-color: #fff;
+  align-items: center;
+  justify-content: center;
+`;
+const MsgImage = styled.Image`
+  width: 20px;
+  height: 15px;
+`;
 class NewMessage extends React.Component {
   constructor(props) {
     super(props);
@@ -184,15 +187,19 @@ class NewMessage extends React.Component {
     return (
       <View>
           <MessageBlock>
+            <IconBox>
+              <MsgImage 
+                resizeMode={"contain"}
+                source={require("../../assets/img/message-icon.png")} />
+            </IconBox>
+            <SubjectInput
+              onChangeText={subject => this.setState({ subject })}
+              value={this.state.subject}
+              // autoFocus={true}
+            />
+            <Separator/>
             <Row>
-              <Label> subject </Label>
-              <SubjectInput
-                onChangeText={subject => this.setState({ subject })}
-                value={this.state.subject}
-              />
-            </Row>
-            <Row>
-            <Label> Notify </Label>
+            <Label> Notify: </Label>
             <StyledView>
               <StyledPicker
                 mode="dropdown"
@@ -226,7 +233,7 @@ class NewMessage extends React.Component {
               </NotifySelector>
             </Row>
             <Row>
-              <CheckBox color="#aaa" checked={true} style={{left: 0, paddingLeft: 0}} />
+              <CheckBox color="#aaa" checked={true} style={{left: 0, paddingLeft: 2}} />
               <CheckBoxText> Only internal </CheckBoxText>
             </Row>
             <TextArea
@@ -234,7 +241,7 @@ class NewMessage extends React.Component {
               numberOfLines={4}
               onChangeText={textArea => this.setState({ textArea })}
               value={this.state.textArea}
-              placeholder="type your message"
+              placeholder="Type your message"
               textAlignVertical="top"
             />
             <AttachImage>
@@ -263,22 +270,19 @@ class NewMessage extends React.Component {
             </AttachImage>
             <ButtonRow>
 							<NewMessageCamera />
-              <Row>
+              <ButtonSet>
                 <Button
                   bordered
                   light
                   small
-                  style={{ backgroundColor: "#C2BEB6" }}
+                  style={{ backgroundColor: "#C2BEB6", marginBottom: 0 }}
                 >
                   <FooterButtonText>cancel</FooterButtonText>
                 </Button>
-                <Button
-                  small
-                  style={{ backgroundColor: "#849D7A", marginLeft: 15 }}
-                >
+                <ApplyButton>
                   <FooterButtonText>apply</FooterButtonText>
-                </Button>
-              </Row>
+                </ApplyButton>
+              </ButtonSet>
             </ButtonRow>
           </MessageBlock>
           {<AttachmentPopup 

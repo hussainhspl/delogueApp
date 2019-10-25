@@ -75,6 +75,7 @@ class ImageCard extends React.Component{
         {this.props.children}
       
           <AttachmentPopup 
+            path = "https://www.pngix.com/pngfile/middle/94-947216_aspinwall-outline-montana-t-shirt-pine-1-university.png"
             modalVisible={this.state.modalVisible}
             close={() => this.setState({modalVisible: false})} 
           /> 

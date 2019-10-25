@@ -143,6 +143,10 @@ const CloseMessage = styled.Text`
   padding: 5px;
 `;
 
+const SImageLayout = styled(ImageLayout)`
+  position: relative;
+`;
+
 class General extends React.Component {
   constructor(props) {
     super(props);
@@ -191,13 +195,15 @@ class General extends React.Component {
     return (
       <ScrollView showsVerticalScrollIndicator={false}>
         {/* <ImageView tablet={this.state.tablet}> */}
-        <ImageLayout
+        <View>
+        <SImageLayout
           renderPageHeader={this._renderPageHeader}
           imageContainerStyle={{ backgroundColor: "#eee" }}
           pageScrollViewStyle={{ backgroundColor: "#000" }}
           // imagePageComponent={ () => resizeMode: "contain"}
           resizeMode={"contain"}
           columns={"1"}
+          enableScale
           images={[
             {
               uri:
@@ -208,6 +214,8 @@ class General extends React.Component {
             // },
           ]}
         />
+        <Icon  style={{position: 'absolute', right: 10, bottom: 10, color: '#999' }} name="expand" />
+        </View>
         {/* </ImageView> */}
         {/* <ColorBar>
           {colorArray.map(item => {
