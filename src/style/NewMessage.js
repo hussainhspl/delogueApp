@@ -116,7 +116,7 @@ const FooterButtonText = styled.Text`
   position: relative;
   z-index: 2;
 `;
-const AttachImage = styled.View`
+const AttachImageRow = styled.View`
   flex-direction: row;
   flex-wrap: wrap;
 `;
@@ -244,7 +244,7 @@ class NewMessage extends React.Component {
               placeholder="Type your message"
               textAlignVertical="top"
             />
-            <AttachImage>
+            <AttachImageRow>
               <AttachBox>
                 <TouchableHighlight onPress={() => this.setState({modalVisible: true})}
                   underlayColor={this.props.theme.overlayBlue}
@@ -267,7 +267,7 @@ class NewMessage extends React.Component {
                   <Icon style={{ fontSize: 15 }} name="close" />
                 </AttachClose>
               </AttachBox>
-            </AttachImage>
+            </AttachImageRow>
             <ButtonRow>
 							<NewMessageCamera />
               <ButtonSet>

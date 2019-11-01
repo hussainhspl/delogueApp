@@ -1,8 +1,10 @@
 import React from 'react';
-import {View, Text, TouchableOpacity, Image, Dimensions} from 'react-native';
+import {View, Text, TouchableOpacity, Image, Dimensions, TouchableHighlight} from 'react-native';
 import styled from "styled-components";
 import {Icon, Picker} from 'native-base';
 import CameraComponent from '../shared/CameraComponent';
+import { withTheme } from 'styled-components';
+
 
 const CardArr = [
 	{
@@ -69,7 +71,9 @@ const StyleFileTitle = styled.View`
 	justify-content: space-between;
 	align-items: center;
 	background-color: ${props => props.theme.lightBrown};
-	border: 1px solid #DCD7D4;
+	/* border: 1px solid #DCD7D4; */
+	padding: 10px ;
+	margin-bottom: 5px;
 `;
 const Capital = styled.Text`
 	text-transform: uppercase;
@@ -118,6 +122,60 @@ const CommentBox = styled.View`
 	padding: 15px;
 `;
 
+const AttachImageRow = styled.View`
+  flex-direction: row;
+  flex-wrap: wrap;
+	margin-bottom: 10px;
+`;
+
+const AttachBox = styled.View`
+  width: 80px;
+  height: 90px;
+  padding: 5px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  margin-right: 20px;
+  margin-top: 20px;
+  position: relative;
+  justify-content: center;
+  align-items: center;
+`;
+
+const AttachmentImage = styled.Image`
+  width: 70px;
+  height: 80px;
+  margin: 5px;
+`;
+const AttachClose = styled.View`
+  width: 15px;
+  height: 15px;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  right: -7px;
+  top: -7px;
+  background-color: #ddd;
+  border-radius: 10px;
+`;
+const IconBox = styled.View`
+  width: 30px;
+  height: 30px;
+  border-radius: 15px;
+  border: 1px solid #bbb;
+  position: absolute;
+  top: 10;
+  left: -15;
+  background-color: #fff;
+  align-items: center;
+  justify-content: center;
+`;
+
+const Flex = styled.View`
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+`;
+
 class StyleTemplate extends React.Component {
 	constructor(props) {
     super(props);
@@ -131,17 +189,23 @@ class StyleTemplate extends React.Component {
 	render() {
 		return(
 			<View>
-				<ButtonRow>
+				{/* <ButtonRow>
           <CommentedButton small>
             <IconView>
               <Icon style={{ color: "#fff", fontSize: 15 }} name="tablet-portrait" />
             </IconView>
             <ButtonText> use template </ButtonText>
           </CommentedButton>
-        </ButtonRow>
-				
+        </ButtonRow> */}
+				<StyleFileTitle>
+					<Capital> style files </Capital>
+					<Flex>
+						<Icon style={{ color: "#555", fontSize: 15, marginRight: 10 }} name="remove" />
+						<Text>show less</Text>
+					</Flex>
+				</StyleFileTitle>
 				<Box>
-					<Label> Comment </Label>
+					<Label> Comment By Company </Label>
 					<TextArea
 						multiline={true}
 						numberOfLines={4}
@@ -150,15 +214,7 @@ class StyleTemplate extends React.Component {
 						placeholder="type your message"
 						textAlignVertical= 'top'
 					/>
-				</Box>
-				<StyleFileTitle>
-					<Capital> style files </Capital>
-					<TouchableOpacity onPress={() => this.setState({cameraOn: true})}>
-						<CameraView>
-							<Icon style={{color: 'white', fontSize: 20}} name="camera" />
-						</CameraView>
-					</TouchableOpacity>
-				</StyleFileTitle>
+				</Box>	
 				{
 					this.state.cameraOn &&
 					<CameraComponent
@@ -166,28 +222,37 @@ class StyleTemplate extends React.Component {
 					 />
 				}
 				<View>
-          <ImageRow>
-						{
-							CardArr.map(data => {
-								return(
-									<Card key={Math.random().toFixed(3)}>
-										<ImageView>
-											<StyleImage
-												resizeMode={"contain"}
-												source={require('../../assets/img/shirt-static.png')}
-											/>
-										</ImageView>
-										<ImageInfo>
-											<Text>File Name aa</Text>
-											<Text>ImageInfo</Text>
-											<Text>dd-mmm-yyyy</Text>
-										</ImageInfo>
-										{/* <Text> hello </Text> */}
-									</Card>
-								)
-							})
-						}
-          </ImageRow>
+					<AttachImageRow>
+						<View style={{flexDirection: 'row', flex: 1}}>
+						<AttachBox>
+							<TouchableHighlight onPress={() => this.setState({modalVisible: true})}
+								underlayColor={this.props.theme.overlayBlue}
+							>
+								<AttachmentImage
+									resizeMode={"contain"}
+									source={require("../../assets/img/shirt-static.png")}
+								/>
+							</TouchableHighlight>
+							<AttachClose>
+								<Icon style={{ fontSize: 15 }} name="close" />
+							</AttachClose>
+						</AttachBox>
+						<AttachBox>
+							<AttachmentImage
+								resizeMode={"contain"}
+								source={require("../../assets/img/shirt-static.png")}
+							/>
+							<AttachClose>
+								<Icon style={{ fontSize: 15 }} name="close" />
+							</AttachClose>
+						</AttachBox>
+						</View>
+						<TouchableOpacity onPress={() => this.setState({cameraOn: true})}>
+							<CameraView>
+								<Icon style={{color: 'white', fontSize: 20}} name="camera" />
+							</CameraView>
+						</TouchableOpacity>
+					</AttachImageRow>
 					<Label> Comment by supplier </Label>
 					<CommentBox>
 						<Text>
@@ -195,8 +260,50 @@ class StyleTemplate extends React.Component {
 						</Text>
 					</CommentBox>
         </View>
+				<StyleFileTitle>
+					<Capital> Design </Capital>
+					<Flex>
+						<Icon style={{ color: "#555", fontSize: 15, marginRight: 10 }} name="add" />
+						<Text>show more</Text>
+					</Flex>
+				</StyleFileTitle>
+				<StyleFileTitle>
+					<Capital> Finish </Capital>
+					<Flex>
+						<Icon style={{ color: "#555", fontSize: 15, marginRight: 10 }} name="add" />
+						<Text>show more</Text>
+					</Flex>
+				</StyleFileTitle>
+				<StyleFileTitle>
+					<Capital> Item Placement </Capital>
+					<Flex>
+						<Icon style={{ color: "#555", fontSize: 15, marginRight: 10 }} name="add" />
+						<Text>show more</Text>
+					</Flex>
+				</StyleFileTitle>
+				<StyleFileTitle>
+					<Capital> Custom Comment Files </Capital>
+					<Flex>
+						<Icon style={{ color: "#555", fontSize: 15, marginRight: 10 }} name="add" />
+						<Text>show more</Text>
+					</Flex>
+				</StyleFileTitle>
+				<StyleFileTitle>
+					<Capital> style files </Capital>
+					<Flex>
+						<Icon style={{ color: "#555", fontSize: 15, marginRight: 10 }} name="add" />
+						<Text>show more</Text>
+					</Flex>
+				</StyleFileTitle>
+				<StyleFileTitle>
+					<Capital> Sample Status </Capital>
+					<Flex>
+						<Icon style={{ color: "#555", fontSize: 15, marginRight: 10 }} name="add" />
+						<Text>show more</Text>
+					</Flex>
+				</StyleFileTitle>
 			</View>
 		)
 	}
 }
-export default StyleTemplate;
+export default withTheme(StyleTemplate);

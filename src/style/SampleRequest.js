@@ -32,35 +32,45 @@ const data = {
 };
 const sizeXl = [
   {
-    id: 11,
-    description: "Shoulder",
     req: 22,
     comp: 23,
     want: 75
   },
   {
-    id: 22,
-    description: "Shoulder",
     req: 22,
     comp: 23,
     want: 75
   },
   {
-    id: 33,
-    description: "Shoulder",
     req: 22,
     comp: 23,
     want: 75
   },
   {
-    id: 44,
-    description: "Shoulder",
     req: 22,
     comp: 23,
     want: 75
   }
 ];
-const colCount = [key= 1, key= 2, key= 3, key= 4];
+const descCol = [
+  {
+    title: "A) 1/2 Chest measurement from the top"
+  },
+  {
+    title: "A) 1/2 Waist measurement from the top"
+  },
+  {
+    title: "A) 1/2 Bottom measurement from the top"
+  },
+  {
+    title: "Sleeve"
+  },
+  {
+    title: "1/2 Cuff"
+  }
+
+]
+const colCount = [key= 1, key= 2, key= 3];
 // const table= [
 //   r1, {
 //     description: "Shoulder",
@@ -175,14 +185,67 @@ const Block = styled.View`
 `;
 const CurrentStage = styled.View`
   background-color: ${props => props.theme.brown};
-  padding: 30px 0px;
+  padding: 10px 0px;
+  align-items: center;
 `;
+const CurrentStageTitle = styled.Text`
+  color: ${props => props.theme.darkBrown};
+  font-family: ${props => props.theme.bold};
+`;
+const TabRow = styled.View`
+  flex-direction: row;
+  border-bottom-width: 3px;
+  border-top-width: 3px;
+  border-color: #fff;
+`;
+const RightTriangle = styled.View`
+  width: 0px;
+  height: 0px;
+  background-color: transparent;
+  border-style: solid;
+  border-top-width: 10px;
+  border-top-color: transparent;
+  border-bottom-width: 10px;
+  border-bottom-color: transparent;
+  border-left-width: 10px;
+  border-left-color: ${props => props.active ? props => props.theme.darkBrown : props => props.theme.brown};
+  border-right-width: 10px;
+  border-right-color: transparent;
+  position: absolute;
+  right: -20px;
+  z-index: 1;
+`;
+const TabTail = styled.View`
+  width: 0px;
+  height: 0px;
+  background-color:  transparent;
+  border-style: solid;
+  border-top-width: 10px;
+  border-top-color: ${props => props.active ? props => props.theme.darkBrown : props => props.theme.brown};
+  border-bottom-width: 10px;
+  border-bottom-color: ${props => props.active ? props => props.theme.darkBrown : props => props.theme.brown};
+  border-left-width: 10px;
+  border-left-color: transparent;
+  border-right-width: 10px;
+  border-right-color: ${props => props.active ? props => props.theme.darkBrown : props => props.theme.brown};
+  margin-left: -5px;
+  position: absolute;
+  left:-15px;
+`;
+const Tab= styled.View`
+  width: 50px;
+  height: 20px;
+  background-color: ${props => props.active ? props => props.theme.darkBrown : props => props.theme.brown};
+  position: relative;
+  margin-right: 25px;
+`;
+
 class SampleRequest extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      appState: AppState.currentState,
-      modalVisible: false,
+      appState: AppState.currentState0px,
+      modalVisible: true,
       xlcomp: '',
     };
   }
@@ -239,14 +302,44 @@ class SampleRequest extends React.Component {
                 </Pieces>
               </FirstRow>
               <CurrentStage>
-                <Text>hello</Text>
+                <CurrentStageTitle>Planned</CurrentStageTitle>
               </CurrentStage>
+              <ScrollView
+                horizontal={true}
+                showsHorizontalScrollIndicator={false}
+              >
+              <TabRow>
+                <Tab active={true}>
+                  <RightTriangle active={true} />
+                  <TabTail active={true} />
+                </Tab>
+                <Tab active={true}>
+                  <TabTail active={true} />
+                  <RightTriangle active={true} />
+                </Tab>
+                <Tab>
+                  <TabTail />
+                  <RightTriangle />
+                </Tab>
+                <Tab>
+                  <TabTail />
+                  <RightTriangle />
+                </Tab>
+                <Tab>
+                  <TabTail />
+                  <RightTriangle />
+                </Tab>
+                <Tab>
+                  <TabTail />
+                  <RightTriangle />
+                </Tab>
+              </TabRow>
+                </ScrollView>
             <View style={{ flexDirection: "row", padding: 10 }}>
-              <Label> measurement </Label>
+              {/* <Label> measurement </Label> */}
               <TouchableHighlight
                 onPress={() => {
                   this.setModalVisible(!this.state.modalVisible);
-                  // this.setState({modalVisible: true})
                 }}
               >
                 <ViewChart>view chart</ViewChart>
@@ -262,15 +355,18 @@ class SampleRequest extends React.Component {
                 <View>
                   <Grid>
                     <View
-                      style={{ flexDirection: "row", padding: 5, height: 30 }}
+                      style={{ padding: 5 }}
                     >
-                      <SizeText> Size: </SizeText>
-                      <Text> XL </Text>
+                      <SmallText>Size</SmallText>
+                      <CardText numberOfLines={1}>L</CardText>
                     </View>
                     <HeaderRow>
-                      <StyleCol size={2}>
+                      <StyleCol size={4}>
                         <Text> description </Text>
+                      <SmallText>measured in centimeter </SmallText>
+
                       </StyleCol>
+                      
                       {
                         desc.map( data => {
                           return(
@@ -281,16 +377,16 @@ class SampleRequest extends React.Component {
                         })
                       }
                     </HeaderRow>
-                    {sizeXl.map(data => {
+                    {descCol.map(data => {
                       return (
                         <Row
                           style={{ height: 40 }}
                           key={Math.random().toFixed(3)}
                         >
-                          <StyleCol size={2}>
-                            <Text>{data.description}</Text>
+                          <StyleCol size={4}>
+                            <Text>{data.title}</Text>
                           </StyleCol>
-                          {/* {
+                          {
                             colCount.map(data => {
                               return(
                                 <StyleCol size={1}>
@@ -298,6 +394,7 @@ class SampleRequest extends React.Component {
                                     onChangeText={req => this.setState({ req })}
                                     value={this.state.req}
                                     name="req" 
+                                    keyboardType="numeric"
                                   >
                                     {data.req}
                                   </TableTextInput>
@@ -305,75 +402,25 @@ class SampleRequest extends React.Component {
                               )
                             })
 
-                          } */}
+                          }
                           
                           
                         </Row>
                       );
                     })}
 
-                    <View
-                      style={{
-                        flexDirection: "row",
-                        padding: 5,
-                        height: 30,
-                        marginTop: 20
-                      }}
-                    >
-                      <SizeText> Size: </SizeText>
-                      <Text> Large </Text>
-                    </View>
-
-                    <HeaderRow>
-                      <StyleCol size={2}>
-                        <Text> description </Text>
-                      </StyleCol>
-                      <StyleCol size={1}>
-                        <Text> Req </Text>
-                      </StyleCol>
-                      <StyleCol size={1}>
-                        <Text> Comp </Text>
-                      </StyleCol>
-                      <StyleCol size={1}>
-                        <Text> Want </Text>
-                      </StyleCol>
-                    </HeaderRow>
-                    {/* {sizeXl.map(data => {
-                      return (
-                        <Row
-                          style={{ height: 40 }}
-                          key={Math.random().toFixed(3)}
-                        >
-                          <StyleCol size={2}>
-                            <Text>{data.description}</Text>
-                          </StyleCol>
-                          <StyleCol size={1}>
-                            <TableTextInput>{data.req}</TableTextInput>
-                          </StyleCol>
-                          <StyleCol size={1}>
-                            <TableTextInput>{data.comp}</TableTextInput>
-                          </StyleCol>
-                          <StyleCol size={1}>
-                            <TableTextInput>{data.want}</TableTextInput>
-                          </StyleCol>
-                        </Row>
-                      );
-                    })} */}
                   </Grid>
                 </View>
               </CommonModal>
             </View>
             <StyleTemplate />
-            <SampleRequestSummary />
-            <ViewRequestedQuantity />
+            {/* <SampleRequestSummary /> */}
+            {/* <ViewRequestedQuantity /> */}
           </MainView>
         </KeyboardAwareScrollView>
         <FooterButton>
           <Button bordered light small danger>
-            <CancelButtonText style={{ color: "#d9534e" }}>
-              {" "}
-              CANCEL{" "}
-            </CancelButtonText>
+            <CancelButtonText style={{ color: "#d9534e" }}> CANCEL </CancelButtonText>
           </Button>
           <ApplyButton
             onPress={() => {
