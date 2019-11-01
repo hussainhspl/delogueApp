@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, Modal, TouchableHighlight } from "react-native";
+import { View, Text, Modal, TouchableHighlight, TouchableOpacity } from "react-native";
 import styled from "styled-components";
 import { Icon } from "native-base";
 import ImageLayout from "react-native-image-layout";
@@ -66,6 +66,11 @@ const CloseMessage = styled.Text`
   font-size: 14px;
   text-align:center;
   padding: 5px;
+  bottom: 20;
+`;
+
+const SImageLayout = styled(ImageLayout)`
+  position: relative;
 `;
 
 class AttachmentPopup extends React.Component {
@@ -79,11 +84,19 @@ class AttachmentPopup extends React.Component {
     console.log(image);
     return (
         <View>
-          {/* <TouchableHighlight onPress={() => {onClose();}}>
-            <Text style={{color:'#f00'}}> x </Text>
-          </TouchableHighlight> */}
-          <CloseMessage> Swipe Up or Down to go Back </CloseMessage>
+          <TouchableOpacity 
+            onPress={() => {onClose();}} 
+            underlayColor="#777">
+            <Icon name='arrow-back' style={{color: '#ccc', padding: 20}} />
+          </TouchableOpacity>
         </View>
+    )
+  }
+  _renderPageFooter = (image, index, onClose) => {
+    // Individual image object data.
+    console.log(image);
+    return (
+      <CloseMessage> Swipe Up or Down to go Back </CloseMessage>
     )
   }
   render() {
@@ -120,7 +133,8 @@ class AttachmentPopup extends React.Component {
             </ModalTitle>
             <ImageLayout
               renderPageHeader={this._renderPageHeader}
-              imageContainerStyle={{ backgroundColor: "#eee", position: 'relative'}}
+              renderPageFooter={this._renderPageFooter}
+              imageContainerStyle={{ backgroundColor: "#fff", position: 'relative'}}
               pageScrollViewStyle={{ backgroundColor: "#000" }}
               resizeMode={"center"}
               columns={1}
@@ -131,7 +145,7 @@ class AttachmentPopup extends React.Component {
                 }
               ]}
             />
-            <Icon  style={{position: 'absolute', right: 10, top: 360, color: '#999' }} name="expand" />
+            <Icon  style={{position: 'absolute', right: 10, bottom: 105, color: '#999' }} name="expand" />
             <FooterBar>
               <View>
                 <Title>File Name</Title>

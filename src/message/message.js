@@ -5,6 +5,7 @@ import styled from "styled-components";
 import Header from "../Header";
 import { Card, Icon } from "native-base";
 import Title from '../styles/SmallText';
+import CardText from '../styles/CardText';
 
 
 
@@ -127,10 +128,7 @@ const TitleRow = styled.View`
   border-color: #ddd;
   padding-bottom: 5px;
 `;
-const CardText = styled.Text`
-font-family: ${props => props.theme.regular};
-color: ${props => props.theme.textColor};
-`;
+
 const Subject = styled.Text`
   color: ${props => props.theme.darkBlue};
   font-weight: 700;

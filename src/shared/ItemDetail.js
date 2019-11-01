@@ -21,15 +21,12 @@ const Flex = styled.View`
   flex: 1;
   flex-direction: row;
   height: 70px;
-  /* width: 100%; */
-  background-color: #ff0;
-  /* align-items: space-between; */
 `;
 
 const SubTitle = styled.Text`
   font-size: 12px;
-  color: #4a4a4a;
-  /* padding-bottom: 10px; */
+  color: ${props => props.theme.textColor};
+  font-size:  ${props => props.theme.large};
 `;
 
 const MainRow = styled.View`
@@ -43,6 +40,7 @@ const MainRow = styled.View`
 
 const StyledView = styled.View`
   width: 50%;
+  justify-content: space-between;
 `;
 
 const StyleImage = styled.Image`

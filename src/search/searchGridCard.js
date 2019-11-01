@@ -2,6 +2,7 @@ import React from "react";
 import { View, Text, TouchableHighlight, Image, Dimensions } from "react-native";
 import styled from "styled-components";
 import Title from "../styles/SmallText";
+import CardText from '../styles/CardText';
 
 const GirdCard = styled.View`
   width: ${props =>
@@ -56,12 +57,6 @@ const CardInfo = styled.View`
   /* align-items: space-between; */
   padding: 2px 5px;
   /* background-color: #ddd; */
-`;
-
-const CardText = styled.Text`
-  font-family: ${props => props.theme.regular};
-  /* padding-bottom: 4px; */
-  color: ${props => props.theme.textColor};
 `;
 
 class searchGridCard extends React.Component {

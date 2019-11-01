@@ -94,6 +94,7 @@ class FooterComponent extends React.Component {
               <StyledButton
                 vertical
                 active={this.props.currentTab === "files" ? true : false}
+                active={this.props.currentTab === "files" ? true : false}
                 onPress={() => this.props.filesTabFunction()}
               >
                 <Image

@@ -1,5 +1,5 @@
 import React, {Fragment} from "react";
-import { View, Text, Image, ScrollView, Dimensions, Modal, TouchableHighlight } from "react-native";
+import { View, Text, Image, ScrollView, Dimensions, Modal,TouchableOpacity, TouchableHighlight } from "react-native";
 import styled from "styled-components";
 import ImageLayout from "react-native-image-layout";
 import Title from "../styles/SmallText";
@@ -141,6 +141,7 @@ const CloseMessage = styled.Text`
   font-size: 14px;
   text-align:center;
   padding: 5px;
+  bottom: 20;
 `;
 
 const SImageLayout = styled(ImageLayout)`
@@ -160,11 +161,19 @@ class General extends React.Component {
     console.log(image);
     return (
         <View>
-          {/* <TouchableHighlight onPress={() => {onClose();}}>
-            <Text style={{color:'#f00'}}> x </Text>
-          </TouchableHighlight> */}
-          <CloseMessage> Swipe Up or Down to go Back </CloseMessage>
+          <TouchableOpacity 
+            onPress={() => {onClose();}} 
+            underlayColor="#777">
+            <Icon name='arrow-back' style={{color: '#ccc', padding: 20}} />
+          </TouchableOpacity>
         </View>
+    )
+  }
+  _renderPageFooter = (image, index, onClose) => {
+    // Individual image object data.
+    console.log(image);
+    return (
+      <CloseMessage> Swipe Up or Down to go Back </CloseMessage>
     )
   }
   static getDerivedStateFromProps(props, state) {
@@ -198,6 +207,7 @@ class General extends React.Component {
         <View>
         <SImageLayout
           renderPageHeader={this._renderPageHeader}
+          renderPageFooter={this._renderPageFooter}
           imageContainerStyle={{ backgroundColor: "#eee" }}
           pageScrollViewStyle={{ backgroundColor: "#000" }}
           // imagePageComponent={ () => resizeMode: "contain"}

@@ -19,6 +19,7 @@ import { Grid, Section, Block } from "react-native-responsive-layout";
 import OfflineNotice from "./shared/OfflineNotice";
 import CList from "../data/companyList";
 import Title from "./styles/SmallText";
+import CardText from './styles/CardText';
 
 
 const Card = styled.View`
@@ -68,10 +69,6 @@ const SubHeader = styled.View`
 
 const HeaderText = styled.Text`
   font-family: ${props => props.theme.bold};
-`;
-const CardText = styled.Text`
-  font-family: ${props => props.theme.regular};
-  color: ${props => props.theme.textColor};
 `;
 
 const CardInfo = styled.View`

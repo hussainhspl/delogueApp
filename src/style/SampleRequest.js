@@ -19,6 +19,9 @@ import CommonModal from "../shared/CommonModal";
 import Header from "../Header";
 import ApplyButton from "../styles/ApplyButton";
 import ItemDetail from "../shared/ItemDetail";
+import SmallText from '../styles/SmallText';
+import CardText from '../styles/CardText';
+
 // import console = require('console');
 
 const data = {
@@ -138,6 +141,42 @@ const FooterButton = styled.View`
 const MainView = styled.View`
 	padding-bottom: 60px;
 `;
+const SampleName = styled.Text`
+  color: ${props => props.theme.darkBlue};
+  font-weight: 700;
+  padding-bottom: 5px;
+`;
+
+const FirstRow = styled.View`
+  padding: 15px;
+  flex-direction: row;
+  justify-content: space-between;
+  flex: 1;
+  /* background-color: #f00; */
+`;
+
+const Pieces = styled.View`
+  background-color: #c2beb6;
+  padding: 5px 10px;
+  /* margin: 7px; */
+  align-self: flex-start;
+`;
+const PiecesText = styled.Text`
+  height: 20px;
+  color: white;
+  font-size: 13px;
+  font-family: ${props => props.theme.regular};
+`;
+const DetailRow = styled.View`
+  flex-direction: row;
+`;
+const Block = styled.View`
+  width: 100px;
+`;
+const CurrentStage = styled.View`
+  background-color: ${props => props.theme.brown};
+  padding: 30px 0px;
+`;
 class SampleRequest extends React.Component {
   constructor(props) {
     super(props);
@@ -177,10 +216,31 @@ class SampleRequest extends React.Component {
         >
           <MainView>
             <ItemDetail data={data} />
-            <View style={{ flexDirection: "row", padding: 10 }}>
-              <Label> sample type </Label>
-              <Text>photo sample</Text>
-            </View>
+              <FirstRow>
+                <View style={{ flex: 1}}>
+                  <SampleName numberOfLine={1}>photo sample</SampleName>
+                  <DetailRow>
+                    <Block>
+                      <SmallText>Deadline</SmallText>
+                      <CardText numberOfLines={1}> 31-Oct-2019</CardText>
+                    </Block>
+                    <Block>
+                      <SmallText>ETD</SmallText>
+                      <CardText numberOfLines={1}>Add</CardText>
+                    </Block>
+                    <Block>
+                      <SmallText>Tracking #</SmallText>
+                      <CardText numberOfLines={1}>13-oct-2019</CardText>
+                    </Block>
+                  </DetailRow>
+                </View>
+                <Pieces> 
+                  <PiecesText>2 pcs</PiecesText>
+                </Pieces>
+              </FirstRow>
+              <CurrentStage>
+                <Text>hello</Text>
+              </CurrentStage>
             <View style={{ flexDirection: "row", padding: 10 }}>
               <Label> measurement </Label>
               <TouchableHighlight

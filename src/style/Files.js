@@ -77,14 +77,10 @@ const ImageInfo = styled.View`
 const ImageRow = styled.View`
   flex-direction: row;
   flex-wrap: wrap;
-  margin-bottom: 15px;
+  margin-bottom: 10px;
+  padding: 0px 5px;
 `;
 
-const CardText = styled.Text`
-  font-family: ${ props => props.theme.regular};
-  text-align: left;
-  /* align-self: flex-start; */
-`;
 
 class Files extends React.Component {
   constructor(props) {
@@ -149,16 +145,15 @@ class Files extends React.Component {
           )}
           <View>
             <ImageRow>
-              
               {
                 styArr.map(data => {
                   no = no + 1;
                   return(
-                      
-                      <FileCard 
-                        imageName="test.xls"
-                        no={no}
-                      />
+                    <FileCard 
+                      imageName="test.xls"
+                      no={no}
+                      key={Math.random().toFixed(3)}
+                    />
                   )
                 })
               }
@@ -187,31 +182,7 @@ class Files extends React.Component {
 							close={() => this.setState({cameraCommOn: false})}
 						/>
           )}
-          <View>
-          <ImageRow>
-              {/* {
-                styArr.map(data => {
-                  return(
-                    <Card
-                      tablet={this.state.tablet}
-                      key={Math.random().toFixed(3)}
-                      onPress={() => {
-                        this.setModalVisible(true);
-                      }}
-                    >
-                      <ImageCard imgPath={require('../../assets/img/shirt-static.png')}>
-                        <ImageInfo>
-                          <CardText numberOfLines={1}> {data.fileName} </CardText>
-                          <CardText numberOfLines={1}>{data.imgInfo}</CardText>
-                          <CardText numberOfLines={1}>{data.date}</CardText>
-                        </ImageInfo>
-                      </ImageCard>
-                    </Card>
-                  )
-                })
-              } */}
-            </ImageRow>
-          </View>
+          <ImageRow />
           <StyleFileTitle>
             <Capital> Communication files </Capital>
             <TouchableOpacity onPress={() => this.setState({ cameraCommOn: true })}>

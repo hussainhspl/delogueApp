@@ -71,7 +71,7 @@ class Sample extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      sampleRequest: false
+      sampleRequest: true
     };
   }
   saveChanges() {
