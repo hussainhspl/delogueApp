@@ -245,7 +245,7 @@ class SampleRequest extends React.Component {
     super(props);
     this.state = {
       appState: AppState.currentState0px,
-      modalVisible: true,
+      modalVisible: false,
       xlcomp: '',
     };
   }
@@ -342,7 +342,7 @@ class SampleRequest extends React.Component {
                   this.setModalVisible(!this.state.modalVisible);
                 }}
               >
-                <ViewChart>view chart</ViewChart>
+                <ViewChart>view measurement chart</ViewChart>
               </TouchableHighlight>
 
               <CommonModal

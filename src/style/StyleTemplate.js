@@ -126,6 +126,7 @@ const AttachImageRow = styled.View`
   flex-direction: row;
   flex-wrap: wrap;
 	margin-bottom: 10px;
+	padding: 0px 15px;
 `;
 
 const AttachBox = styled.View`

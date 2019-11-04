@@ -1,4 +1,4 @@
-module Pods_delogue {
+framework module Pods_delogue {
   umbrella header "Pods-delogue-umbrella.h"
 
   export *

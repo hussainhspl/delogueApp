@@ -5,6 +5,41 @@
 	<key>logFormatVersion</key>
 	<integer>10</integer>
 	<key>logs</key>
-	<dict/>
+	<dict>
+		<key>5A503D6A-4410-46D6-B6E5-2B49AF7BAB2A</key>
+		<dict>
+			<key>className</key>
+			<string>IDECommandLineBuildLog</string>
+			<key>documentTypeString</key>
+			<string>&lt;nil&gt;</string>
+			<key>domainType</key>
+			<string>Xcode.IDEActivityLogDomainType.BuildLog</string>
+			<key>fileName</key>
+			<string>5A503D6A-4410-46D6-B6E5-2B49AF7BAB2A.xcactivitylog</string>
+			<key>hasPrimaryLog</key>
+			<true/>
+			<key>primaryObservable</key>
+			<dict>
+				<key>highLevelStatus</key>
+				<string>E</string>
+			</dict>
+			<key>schemeIdentifier-containerName</key>
+			<string>delogue project</string>
+			<key>schemeIdentifier-schemeName</key>
+			<string>delogue</string>
+			<key>schemeIdentifier-sharedScheme</key>
+			<integer>1</integer>
+			<key>signature</key>
+			<string>Building workspace delogue with scheme delogue and configuration Debug</string>
+			<key>timeStartedRecording</key>
+			<real>594551121.303303</real>
+			<key>timeStoppedRecording</key>
+			<real>594551163.04854906</real>
+			<key>title</key>
+			<string>Building workspace delogue with scheme delogue and configuration Debug</string>
+			<key>uniqueIdentifier</key>
+			<string>5A503D6A-4410-46D6-B6E5-2B49AF7BAB2A</string>
+		</dict>
+	</dict>
 </dict>
 </plist>

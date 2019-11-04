@@ -87,6 +87,8 @@ const MainSearchInput = styled(SearchInput)`
   margin-right: 10px;
   position: relative;
   padding-right: 40px;
+  font-family: ${props => props.theme.regular};
+  color: ${props => props.theme.textColor};
 `;
 
 const ViewBox = styled.View`
