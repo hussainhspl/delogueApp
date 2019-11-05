@@ -278,7 +278,7 @@ class SampleRequest extends React.Component {
           showsVerticalScrollIndicator={true}
         >
           <MainView>
-            <ItemDetail data={data} />
+            {/* <ItemDetail data={data} /> */}
               <FirstRow>
                 <View style={{ flex: 1}}>
                   <SampleName numberOfLine={1}>photo sample</SampleName>

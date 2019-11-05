@@ -9,8 +9,8 @@ import ReplyComponent from './ReplyComponent';
 const imgArr = [{ key: 1 }, { key: 2 }, { key: 3 }, { key: 4 }];
 const CommentBox = styled.View`
   border: 1px solid #ddd;
-  padding: 15px;
-  margin: 15px;
+  padding: 10px 10px;
+  margin: 0px 15px 10px 15px;
   position: relative;
 `;
 
@@ -22,10 +22,10 @@ const IconBox = styled.View`
   position: absolute;
   top: 15;
   left: -15;
-  background-color: ${props => props.theme.darkBlue};
   align-items: center;
   justify-content: center;
 `;
+
 
 const FirstRow = styled.View`
   flex-direction: row;
@@ -63,18 +63,23 @@ const ButtonText = styled.Text`
 const FromRow = styled.View`
   flex-direction: row;
   justify-content: flex-end;
-  padding: 10px 5px 0px 10px;
+  padding: 10px 0px 0px 10px;
   flex-wrap: wrap;
+  width: 35%;
+  /* background-color: #f00; */
 `;
 const HeaderText = styled.Text`
   color: #9b9b9b;
-  line-height: 29px;
+  /* line-height: 29px; */
   font-family: ${props => props.theme.regular};
+  text-align: right;
+  padding-top:10px;
 `;
 const MessageBody = styled.Text`
   padding: 20px 0px;
   line-height: 20;
   font-family: ${props => props.theme.regular};
+  width: 65%;
 `;
 const ImageRow = styled.View`
   flex-direction: row;
@@ -107,6 +112,37 @@ const BackText = styled.Text`
   padding-left: 5px;
   font-size: 12px;
 `;
+const MsgImage = styled.Image`
+  width: 20px;
+  height: 15px;
+`;
+const BodyArea = styled.View`
+  flex-direction: row;
+`;
+
+const Name = styled.Text`
+  color: #777;
+  font-weight: 700;
+  text-align: right;
+  font-size: 12;
+`;
+const Date =styled.Text`
+  color: #777;
+  font-size: 12;
+  text-align: right;
+`;
+const InternalText = styled.Text`
+  color: #aaa;
+  padding-left: 5px;
+`;
+
+
+const InternalView = styled.View`
+  align-items: center;
+  flex-direction: row;
+  align-self: flex-start;
+`;
+
 class CommentBlock extends React.Component {
   constructor (props) {
     super(props);
@@ -119,11 +155,13 @@ class CommentBlock extends React.Component {
       <Fragment>
         <CommentBox>
           <IconBox>
-            <Icon style={{color: '#fff', fontSize: 18}} name="mail-open" />
+            <MsgImage 
+              resizeMode={"contain"}
+              source={require("../../assets/img/message-icon.png")} />
           </IconBox>
           <FirstRow>
             <View style={{ flex: 1, paddingRight: 2 }}>
-              <Title numberOfLines={1}> The title of message or comment </Title>
+              <Title numberOfLines={1}> Swatch samples </Title>
             </View>
             <TouchableHighlight 
               onPress={() => this.setState({reply: true})}
@@ -142,24 +180,25 @@ class CommentBlock extends React.Component {
               <ReplyComponent />
             )             
           }
-          <FromRow>
-            <HeaderText> From </HeaderText>
-            <HeaderText> hussain badri </HeaderText>
-            <HeaderText> 21 Sept 2019 </HeaderText>
-            <HeaderText> 9.10</HeaderText>
-            <HeaderText> NOTIFIED: Hussain, Siya, Deepakshi </HeaderText>
-          </FromRow>
-          <FromRow>
-            {/* <HeaderText> NOTIFIED: Hussain, Siya, Deepakshi </HeaderText> */}
-          </FromRow>
-          <MessageBody>
-            Laboris consectetur id tempor do nostrud enim laboris exercitation
-            exercitation ad. Deserunt incididunt tempor sit cillum veniam officia
-            eu esse laboris quis aliqua ex cupidatat eu. Ad et tempor proident
-            velit et nulla Lorem. Mollit ut magna aliqua ex mollit aute in Lorem.
-            Voluptate esse ut exercitation deserunt excepteur eu. Id laborum culpa
-            pariatur anim dolor ipsum ullamco exercitation.
-          </MessageBody>
+          <BodyArea>
+            <MessageBody>
+              Laboris consectetur id tempor do nostrud enim laboris exercitation
+              exercitation ad. Deserunt incididunt tempor sit cillum veniam officia
+              eu esse laboris quis aliqua ex cupidatat eu. Ad et tempor proident
+              velit et nulla Lorem. Mollit ut magna aliqua ex mollit aute in Lorem.
+              Voluptate esse ut exercitation deserunt excepteur eu. Id laborum culpa
+              pariatur anim dolor ipsum ullamco exercitation.
+            </MessageBody>
+            <FromRow>
+                <Name>Richel Smith</Name>
+                <Date>13-oct-2019 13.42</Date>
+              <HeaderText> NOTIFIED: Hussain, Siya, Deepakshi </HeaderText>
+              <InternalView>
+                <Icon style={{color: '#ddd'}} name="home" />
+                <InternalText>Internal</InternalText>
+              </InternalView>
+            </FromRow>
+          </BodyArea>
           <ImageRow>
             {imgArr.map(data => {
               return (

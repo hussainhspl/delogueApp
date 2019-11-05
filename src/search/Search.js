@@ -69,11 +69,10 @@ const details = [
 const SearchRow = styled.View`
   flex-direction: row;
   justify-content: space-between;
-  background-color: #efefef;
   border-bottom-width: 1px;
   border-color: #ddd;
-  padding: 15px;
-  height: 70px;
+  padding: 10px;
+  /* height: 70px; */
 `;
 const Flex = styled.View`
   flex: 1;

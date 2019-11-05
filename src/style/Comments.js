@@ -75,7 +75,6 @@ const SubTitle = styled.Text`
 `;
 
 const StyledTouchableHighlight = styled.TouchableHighlight`
-  
   width: 50px;
   height: 50px;
   align-items: center;
@@ -98,7 +97,7 @@ const AddButton = styled.View`
 
 const BackRow = styled.View`
   flex-direction: row;
-  padding: 15px 0px 5px 15px;
+  padding: 5px 15px;
   align-items: center;
 `;
 const BackText = styled.Text`
@@ -113,25 +112,38 @@ class Comments extends React.Component {
     this.state = {
       ShowNewMsg: false,
       showMessage: false,
-      showList: true,
+      showList: true
     };
   }
   render() {
     console.log("hello");
     return (
       <View style={{ flex: 1 }}>
+        <ItemDetail data={data} />
         <ScrollView showsVerticalScrollIndicator={false}>
-          <ItemDetail data={data} />
-          {this.state.ShowNewMsg && <Fragment>
-            <TouchableOpacity activeOpacity={0.3} 
-              onPress={ () => this.setState({showList: true, ShowNewMsg: false})}>
+          {/* <Fragment> */}
+          {this.state.ShowNewMsg || this.state.showMessage ? (
+            <TouchableOpacity
+              activeOpacity={0.3}
+              onPress={() =>
+                this.setState({
+                  showList: true,
+                  ShowNewMsg: false,
+                  showMessage: false
+                })
+              }
+            >
               <BackRow>
-                <Icon style={{color: '#aaa', fontSize: 22}} name="arrow-back" />
+                <Icon
+                  style={{ color: "#aaa", fontSize: 22 }}
+                  name="arrow-back"
+                />
                 <BackText> back </BackText>
               </BackRow>
             </TouchableOpacity>
-            <NewMessage />
-            </Fragment>}
+          ) : null}
+          {this.state.ShowNewMsg && <NewMessage />}
+
           {this.state.showList && (
             <CommentsList
               close={() => {
@@ -140,35 +152,24 @@ class Comments extends React.Component {
               }}
             />
           )}
-          {this.state.showMessage && 
+          {this.state.showMessage && (
             <Fragment>
-              {this.state.ShowNewMsg == false ?
-                <TouchableOpacity activeOpacity={0.3} onPress={ () => this.setState({showList: true, showMessage: false,})}>
-                  <BackRow>
-                      <Icon style={{color: '#aaa', fontSize: 22}} name="arrow-back" />
-                      <BackText> back </BackText>
-                  </BackRow>
-                </TouchableOpacity>
-                :null
-              }
               <CommentBlock />
             </Fragment>
-          }
-          
+          )}
         </ScrollView>
-        {this.state.ShowNewMsg == false ? (
+        {this.state.ShowNewMsg == false && this.state.showMessage == false ? (
           <AddButton>
-          <StyledTouchableHighlight
-            underlayColor="#354733"
-            onPress={() => 
-              this.setState({ ShowNewMsg: true, showList: false })
-              // console.log('msg button click')
-
-            }
-          >
+            <StyledTouchableHighlight
+              underlayColor="#354733"
+              onPress={
+                () => this.setState({ ShowNewMsg: true, showList: false })
+                // console.log('msg button click')
+              }
+            >
               <Icon style={{ color: "#fff" }} name="ios-add" />
-          </StyledTouchableHighlight>
-            </AddButton>
+            </StyledTouchableHighlight>
+          </AddButton>
         ) : null}
       </View>
     );

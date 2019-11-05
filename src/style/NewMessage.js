@@ -18,7 +18,7 @@ const MessageBlock = styled.View`
   border: 1px solid #849d7a;
   border-radius: 5px;
   padding: 5px 15px;
-  margin: 15px;
+  margin: 0px 15px 15px 15px;
 `;
 
 const SubjectInput = styled(TextInput)`

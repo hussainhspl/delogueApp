@@ -82,13 +82,12 @@ class Sample extends React.Component {
   }
   render() {
     const history = this.props.history;
-    // console.log("sample req state ", this.state.sampleRequest);
-    // console.log("history on sample page:", history);
     return (
       <Fragment>
+        <ItemDetail data={data} />
         {this.state.sampleRequest == false && (
+          <Fragment>
           <ScrollView showsVerticalScrollIndicator={false}>
-            <ItemDetail data={data} />
             <ButtonRow>
               <CommentedButton small>
                 <ButtonText> hide commented </ButtonText>
@@ -112,6 +111,7 @@ class Sample extends React.Component {
               <NewSampleRequest history={this.props.history} />
             </SampleRow>
           </ScrollView>
+          </Fragment>
         )}
         {this.state.sampleRequest == true && (
           <SampleRequest

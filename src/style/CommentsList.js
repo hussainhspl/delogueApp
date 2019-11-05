@@ -69,7 +69,6 @@ const Name = styled.Text`
   font-weight: 700;
   text-align: right;
   font-size: 12;
-
 `;
 const Date =styled.Text`
   color: #777;
