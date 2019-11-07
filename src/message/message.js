@@ -1,13 +1,20 @@
-import React, {Fragment} from "react";
-import { View, Text, TouchableOpacity, TouchableHighlight, Image, ScrollView } from "react-native";
+import React, { Fragment } from "react";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  TouchableWithoutFeedback,
+  TouchableHighlight,
+  Image,
+  ScrollView
+} from "react-native";
 import styled from "styled-components";
 // import { Col, Row, Grid } from "react-native-easy-grid";
 import Header from "../Header";
 import { Card, Icon } from "native-base";
-import Title from '../styles/SmallText';
-import CardText from '../styles/CardText';
-
-
+import Title from "../styles/SmallText";
+import CardText from "../styles/CardText";
+import { withTheme } from 'styled-components';
 
 
 const IconRow = styled.View`
@@ -25,9 +32,8 @@ const IconBox = styled.TouchableOpacity`
   height: 40px;
   justify-content: center;
   align-items: center;
-  background-color: ${props => props.currentView? '#eeecea' : '#fff'};
-  border: ${props =>
-    props.currentView ? `1px solid #ccc` : `1px solid #ddd`};
+  background-color: ${props => (props.currentView ? "#eeecea" : "#fff")};
+  border: ${props => (props.currentView ? `1px solid #ccc` : `1px solid #ddd`)};
 `;
 
 const StyledText = styled.Text`
@@ -45,8 +51,8 @@ const StyleImage = styled.Image`
 `;
 
 const TableView = styled.View`
-	flex: 1;
-	margin: 0px 10px;
+  flex: 1;
+  margin: 0px 10px;
 `;
 const Flex = styled.View`
   flex-direction: row;
@@ -55,8 +61,19 @@ const Flex = styled.View`
 const ButtonRow = styled.View`
   justify-content: center;
   align-items: center;
-  flex-direction:row;
+  flex-direction: row;
+  position: relative;
 `;
+const ButtonOverlay = styled.View`
+  position: absolute;
+  top: 15px;
+  bottom: 15px;
+  left: 0;
+  right: 0;
+  background-color: #dddddd33;
+  z-index: 1;
+`;
+
 const CommentedButton = styled(View)`
   background-color: #99afaf;
   margin-left: 15;
@@ -107,8 +124,16 @@ const MsgIconBox = styled.View`
   align-items: center;
   justify-content: center;
 `;
+const STouchableHighlight = styled.TouchableHighlight`
+  width: 30px;
+  height: 30px;
+  border-radius: 15px;
+  border: 1px solid #bbb;
+  align-items: center;
+  justify-content: center;
+`;
 const Row = styled.View`
-  padding: 0px 20px 10px 20px ;
+  padding: 0px 20px 10px 20px;
   flex-direction: row;
   justify-content: space-between;
   /* background-color: */
@@ -121,7 +146,7 @@ const InternalView = styled.View`
 `;
 
 const TitleRow = styled.View`
-  margin: 10px 10px 10px 20px ;
+  margin: 10px 10px 10px 20px;
   flex-direction: row;
   justify-content: space-between;
   border-bottom-width: 1px;
@@ -147,17 +172,25 @@ const DetailsButton = styled.Text`
   color: white;
   font-size: 13px;
   margin-right: 10px;
-`
+`;
+
+const MsgImage = styled.Image`
+  width: 20px;
+  height: 15px;
+`;
+
 class Message extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       chat: false,
       message: true,
+      showOpacity: false,
+      read: false
     };
   }
   render() {
-    console.log("comm state", this.state.currentView);
+    console.log("read state", this.state.read);
     history = this.props.history;
     return (
       <MainView>
@@ -167,7 +200,9 @@ class Message extends React.Component {
               <Flex>
                 <IconBox
                   currentView={this.state.message == true ? true : false}
-                  onPress={() => this.setState({ message: !this.state.message })}
+                  onPress={() =>
+                    this.setState({ message: !this.state.message })
+                  }
                 >
                   <StyleImage
                     resizeMode={"contain"}
@@ -178,29 +213,42 @@ class Message extends React.Component {
                   currentView={this.state.chat == true ? true : false}
                   onPress={() => this.setState({ chat: !this.state.chat })}
                 >
-                  <StyleImage 
+                  <StyleImage
                     resizeMode={"contain"}
-                    source={require("../../assets/img/conversation.png")} />
+                    source={require("../../assets/img/conversation.png")}
+                  />
                 </IconBox>
               </Flex>
-              <ButtonRow>
-                <IconView>
-                  <Icon style={{ color: "#fff", fontSize: 15 }} name="eye" />
-                </IconView>
-                <CommentedButton small>
-                  <ButtonText> hide read </ButtonText>
-                </CommentedButton>
-              </ButtonRow>
+              <TouchableWithoutFeedback
+                onPressIn={() => this.setState({ showOpacity: true })}
+                onPressOut={() => this.setState({ showOpacity: false })}
+                onPress={() => {}}
+              >
+                <ButtonRow>
+                  {this.state.showOpacity && <ButtonOverlay />}
+                  <IconView>
+                    <Icon style={{ color: "#fff", fontSize: 15 }} name="eye" />
+                  </IconView>
+                  <CommentedButton small>
+                    <ButtonText> hide read </ButtonText>
+                  </CommentedButton>
+                </ButtonRow>
+              </TouchableWithoutFeedback>
             </IconRow>
             {this.state.message && (
               <MessageBox>
                 <TouchableHighlight
-                  underlayColor="#42546033"
-                  onPress={ () => console.log('click on message box')}
+                  underlayColor={this.props.theme.overlayBlue}
+                  onPress={() => console.log("click on message box")}
                 >
                   <Fragment>
                     <MsgIconBox>
-                      <Icon style={{color: '#fff', fontSize: 18}} name="mail" />
+                      <STouchableHighlight underlayColor={this.props.theme.overlayBlue} onPress={() => {this.setState({read : !this.state.read })}}>
+                        <MsgImage
+                          resizeMode={"contain"}
+                          source={require("../../assets/img/message-icon.png")}
+                        />
+                      </STouchableHighlight>
                     </MsgIconBox>
                     <TitleRow>
                       <View>
@@ -219,10 +267,13 @@ class Message extends React.Component {
                     <Row>
                       <MainContent>
                         <Subject>Swatch samples </Subject>
-                        <ContentText numberOfLines={2}>Dear nando, please find a new style and if you have any doubt or queries then please ask</ContentText>
+                        <ContentText numberOfLines={2}>
+                          Dear nando, please find a new style and if you have
+                          any doubt or queries then please ask
+                        </ContentText>
                       </MainContent>
                       <InternalView>
-                        <Icon style={{color: '#ddd'}} name="home" />
+                        <Icon style={{ color: "#ddd" }} name="home" />
                         <InternalText>Internal</InternalText>
                       </InternalView>
                     </Row>
@@ -230,15 +281,18 @@ class Message extends React.Component {
                 </TouchableHighlight>
               </MessageBox>
             )}
-            { this.state.chat && (
+            {this.state.chat && (
               <MessageBox>
                 <TouchableHighlight
                   underlayColor="#42546033"
-                  onPress={ () => console.log('click on message box')}
+                  onPress={() => console.log("click on message box")}
                 >
                   <Fragment>
                     <MsgIconBox>
-                      <Icon style={{color: '#fff', fontSize: 18}} name="text" />
+                      <Icon
+                        style={{ color: "#fff", fontSize: 18 }}
+                        name="text"
+                      />
                       {/* <StyleImage 
                         resizeMode={"contain"}
                         source={require("../../assets/img/conversation.png")} /> */}
@@ -260,18 +314,36 @@ class Message extends React.Component {
                     <Row>
                       <MainContent>
                         <Subject>Sales samples </Subject>
-                        <ContentText numberOfLines={2}>Has been <Text style={{fontWeight: '700'}}> Planned </Text> </ContentText>
-                        <ContentText numberOfLines={2}>Has been <Text style={{fontWeight: '700'}}> Requested </Text> </ContentText>
-                        <ContentText numberOfLines={2}>Status changed to <Text style={{fontWeight: '700'}}> Confirmed</Text> </ContentText>
+                        <ContentText numberOfLines={2}>
+                          Has been{" "}
+                          <Text style={{ fontWeight: "700" }}> Planned </Text>{" "}
+                        </ContentText>
+                        <ContentText numberOfLines={2}>
+                          Has been{" "}
+                          <Text style={{ fontWeight: "700" }}> Requested </Text>{" "}
+                        </ContentText>
+                        <ContentText numberOfLines={2}>
+                          Status changed to{" "}
+                          <Text style={{ fontWeight: "700" }}> Confirmed</Text>{" "}
+                        </ContentText>
                         <Title>ETD: 13-oct-2019</Title>
                         <Title>ETD was not added</Title>
-                        <ContentText numberOfLines={2}>Status changed to <Text style={{fontWeight: '700'}}> Sent</Text> </ContentText>
+                        <ContentText numberOfLines={2}>
+                          Status changed to{" "}
+                          <Text style={{ fontWeight: "700" }}> Sent</Text>{" "}
+                        </ContentText>
                         <Title>Tracking #: SWF7939248937498</Title>
                         <Title>Tracking was not added </Title>
                         <Title>ETD updated to : 13-oct-2019</Title>
-                        <Title>Tracking # updated to : SWF7939248937498</Title>                      
-                        <ContentText numberOfLines={2}>Status changed to <Text style={{fontWeight: '700'}}> Received</Text> </ContentText>
-                        <ContentText numberOfLines={2}>Status changed to <Text style={{fontWeight: '700'}}> Commented</Text> </ContentText>
+                        <Title>Tracking # updated to : SWF7939248937498</Title>
+                        <ContentText numberOfLines={2}>
+                          Status changed to{" "}
+                          <Text style={{ fontWeight: "700" }}> Received</Text>{" "}
+                        </ContentText>
+                        <ContentText numberOfLines={2}>
+                          Status changed to{" "}
+                          <Text style={{ fontWeight: "700" }}> Commented</Text>{" "}
+                        </ContentText>
                       </MainContent>
                       <InternalView>
                         <DetailsButton> Show Details </DetailsButton>
@@ -288,4 +360,4 @@ class Message extends React.Component {
   }
 }
 
-export default Message;
+export default withTheme(Message);
