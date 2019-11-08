@@ -19,8 +19,8 @@ import CommonModal from "../shared/CommonModal";
 import Header from "../Header";
 import ApplyButton from "../styles/ApplyButton";
 import ItemDetail from "../shared/ItemDetail";
-import SmallText from '../styles/SmallText';
-import CardText from '../styles/CardText';
+import SmallText from "../styles/SmallText";
+import CardText from "../styles/CardText";
 
 import DateTimePicker from "react-native-modal-datetime-picker";
 import PiecesPopup from "../shared/PiecesPopup";
@@ -71,9 +71,8 @@ const descCol = [
   {
     title: "1/2 Cuff"
   }
-
-]
-const colCount = [key= 1, key= 2, key= 3];
+];
+const colCount = [(key = 1), (key = 2), (key = 3)];
 // const table= [
 //   r1, {
 //     description: "Shoulder",
@@ -83,7 +82,7 @@ const colCount = [key= 1, key= 2, key= 3];
 //   }
 // ]
 
-const desc= ['Req', 'Comp', 'Want'];
+const desc = ["Req", "Comp", "Want"];
 
 const Label = styled.Text`
   color: #8d8177;
@@ -102,6 +101,7 @@ const ViewChart = styled.Text`
   text-align: center;
   padding: 3px 6px;
   font-family: ${props => props.theme.regular};
+  /* justify-content: center; */
 `;
 const SizeText = styled.Text`
   color: #8d8177;
@@ -148,11 +148,11 @@ const FooterButton = styled.View`
   bottom: 0;
   right: 0;
   border: 1px solid #efefef;
-	background-color: #fff;
+  background-color: #fff;
 `;
 
 const MainView = styled.View`
-	padding-bottom: 60px;
+  padding-bottom: 60px;
 `;
 const SampleName = styled.Text`
   color: ${props => props.theme.darkBlue};
@@ -168,7 +168,7 @@ const FirstRow = styled.View`
   /* background-color: #f00; */
 `;
 
-const Pieces = styled.View`
+const Pieces = styled.TouchableHighlight`
   background-color: #c2beb6;
   padding: 5px 10px;
   /* margin: 7px; */
@@ -211,7 +211,8 @@ const RightTriangle = styled.View`
   border-bottom-width: 10px;
   border-bottom-color: transparent;
   border-left-width: 10px;
-  border-left-color: ${props => props.active ? props => props.theme.darkBrown : props => props.theme.brown};
+  border-left-color: ${props =>
+    props.active ? props => props.theme.darkBrown : props => props.theme.brown};
   border-right-width: 10px;
   border-right-color: transparent;
   position: absolute;
@@ -221,24 +222,28 @@ const RightTriangle = styled.View`
 const TabTail = styled.View`
   width: 0px;
   height: 0px;
-  background-color:  transparent;
+  background-color: transparent;
   border-style: solid;
   border-top-width: 10px;
-  border-top-color: ${props => props.active ? props => props.theme.darkBrown : props => props.theme.brown};
+  border-top-color: ${props =>
+    props.active ? props => props.theme.darkBrown : props => props.theme.brown};
   border-bottom-width: 10px;
-  border-bottom-color: ${props => props.active ? props => props.theme.darkBrown : props => props.theme.brown};
+  border-bottom-color: ${props =>
+    props.active ? props => props.theme.darkBrown : props => props.theme.brown};
   border-left-width: 10px;
   border-left-color: transparent;
   border-right-width: 10px;
-  border-right-color: ${props => props.active ? props => props.theme.darkBrown : props => props.theme.brown};
+  border-right-color: ${props =>
+    props.active ? props => props.theme.darkBrown : props => props.theme.brown};
   margin-left: -5px;
   position: absolute;
-  left:-15px;
+  left: -15px;
 `;
-const Tab= styled.View`
+const Tab = styled.View`
   width: 50px;
   height: 20px;
-  background-color: ${props => props.active ? props => props.theme.darkBrown : props => props.theme.brown};
+  background-color: ${props =>
+    props.active ? props => props.theme.darkBrown : props => props.theme.brown};
   position: relative;
   margin-right: 25px;
 `;
@@ -249,19 +254,19 @@ class SampleRequest extends React.Component {
     this.state = {
       appState: AppState.currentState0px,
       modalVisible: false,
-      xlcomp: '',
+      xlcomp: "",
       isDateTimePickerVisible: false,
-      piecesModal: true,
+      piecesModal: false
     };
   }
   showDateTimePicker = () => {
     this.setState({ isDateTimePickerVisible: true });
   };
- 
+
   hideDateTimePicker = () => {
     this.setState({ isDateTimePickerVisible: false });
   };
- 
+
   handleDatePicked = date => {
     console.log("A date has been picked: ", date);
     this.hideDateTimePicker();
@@ -288,49 +293,50 @@ class SampleRequest extends React.Component {
   };
   render() {
     // console.log("history sr", this.props.history);
-    
+
     return (
       <View style={{ flex: 1 }}>
-        <KeyboardAwareScrollView
-          showsVerticalScrollIndicator={true}
-        >
+        <KeyboardAwareScrollView showsVerticalScrollIndicator={true}>
           <MainView>
             {/* <ItemDetail data={data} /> */}
-              <FirstRow>
-                <View style={{ flex: 1}}>
-                  <SampleName numberOfLine={1}>photo sample</SampleName>
-                  <DateTimePicker
-                    isVisible={this.state.isDateTimePickerVisible}
-                    onConfirm={this.handleDatePicked}
-                    onCancel={this.hideDateTimePicker}
-                  />
-                  <DetailRow>
-                    <Block onPress={this.showDateTimePicker}>
-                      <SmallText>Deadline</SmallText>
-                      <CardText numberOfLines={1}> 31-Oct-2019</CardText>
-                    </Block>
-                    <Block>
-                      <SmallText>ETD</SmallText>
-                      <CardText numberOfLines={1}>Add</CardText>
-                    </Block>
-                    <Block>
-                      <SmallText>Tracking #</SmallText>
-                      <CardText numberOfLines={1}>13-oct-2019</CardText>
-                    </Block>
-                  </DetailRow>
-                </View>
-                <Pieces> 
-                  <PiecesText>2 pcs</PiecesText>
-                </Pieces>
-              </FirstRow>
-              <PiecesPopup modalVisible={true} />
-              <CurrentStage>
-                <CurrentStageTitle>Planned</CurrentStageTitle>
-              </CurrentStage>
-              <ScrollView
-                horizontal={true}
-                showsHorizontalScrollIndicator={false}
-              >
+            <FirstRow>
+              <View style={{ flex: 1 }}>
+                <SampleName numberOfLine={1}>photo sample</SampleName>
+                <DateTimePicker
+                  isVisible={this.state.isDateTimePickerVisible}
+                  onConfirm={this.handleDatePicked}
+                  onCancel={this.hideDateTimePicker}
+                />
+                <DetailRow>
+                  <Block onPress={this.showDateTimePicker}>
+                    <SmallText>Deadline</SmallText>
+                    <CardText numberOfLines={1}> 31-Oct-2019</CardText>
+                  </Block>
+                  <Block>
+                    <SmallText>ETD</SmallText>
+                    <CardText numberOfLines={1}>Add</CardText>
+                  </Block>
+                  <Block>
+                    <SmallText>Tracking #</SmallText>
+                    <CardText numberOfLines={1}>13-oct-2019</CardText>
+                  </Block>
+                </DetailRow>
+              </View>
+              <Pieces onPress={() => this.setState({ piecesModal: true })}>
+                <PiecesText>2 pcs</PiecesText>
+              </Pieces>
+            </FirstRow>
+            <PiecesPopup
+              modalVisible={this.state.piecesModal}
+              close={() => this.setState({ piecesModal: false })}
+            />
+            <CurrentStage>
+              <CurrentStageTitle>Planned</CurrentStageTitle>
+            </CurrentStage>
+            <ScrollView
+              horizontal={true}
+              showsHorizontalScrollIndicator={false}
+            >
               <TabRow>
                 <Tab active={true}>
                   <RightTriangle active={true} />
@@ -357,14 +363,16 @@ class SampleRequest extends React.Component {
                   <RightTriangle />
                 </Tab>
               </TabRow>
-                </ScrollView>
-            <View style={{ flexDirection: "row", padding: 10 }}>
+            </ScrollView>
+            <View style={{ flexDirection: "row", padding: 10, justifyContent: "center" }}>
               {/* <Label> measurement </Label> */}
               <TouchableHighlight
                 onPress={() => {
                   this.setModalVisible(!this.state.modalVisible);
                 }}
+                
               >
+
                 <ViewChart>view measurement chart</ViewChart>
               </TouchableHighlight>
 
@@ -377,28 +385,23 @@ class SampleRequest extends React.Component {
               >
                 <View>
                   <Grid>
-                    <View
-                      style={{ padding: 5 }}
-                    >
+                    <View style={{ padding: 5 }}>
                       <SmallText>Size</SmallText>
                       <CardText numberOfLines={1}>L</CardText>
                     </View>
                     <HeaderRow>
                       <StyleCol size={4}>
                         <Text> description </Text>
-                      <SmallText>measured in centimeter </SmallText>
-
+                        <SmallText>measured in centimeter </SmallText>
                       </StyleCol>
-                      
-                      {
-                        desc.map( data => {
-                          return(
-                            <StyleCol size={1}>
-                              <Text> {data} </Text>
-                            </StyleCol>
-                          )
-                        })
-                      }
+
+                      {desc.map(data => {
+                        return (
+                          <StyleCol size={1}>
+                            <Text> {data} </Text>
+                          </StyleCol>
+                        );
+                      })}
                     </HeaderRow>
                     {descCol.map(data => {
                       return (
@@ -409,29 +412,23 @@ class SampleRequest extends React.Component {
                           <StyleCol size={4}>
                             <Text>{data.title}</Text>
                           </StyleCol>
-                          {
-                            colCount.map(data => {
-                              return(
-                                <StyleCol size={1}>
-                                  <TableTextInput
-                                    onChangeText={req => this.setState({ req })}
-                                    value={this.state.req}
-                                    name="req" 
-                                    keyboardType="numeric"
-                                  >
-                                    {data.req}
-                                  </TableTextInput>
-                                </StyleCol>
-                              )
-                            })
-
-                          }
-                          
-                          
+                          {colCount.map(data => {
+                            return (
+                              <StyleCol size={1}>
+                                <TableTextInput
+                                  onChangeText={req => this.setState({ req })}
+                                  value={this.state.req}
+                                  name="req"
+                                  keyboardType="numeric"
+                                >
+                                  {data.req}
+                                </TableTextInput>
+                              </StyleCol>
+                            );
+                          })}
                         </Row>
                       );
                     })}
-
                   </Grid>
                 </View>
               </CommonModal>
@@ -443,7 +440,10 @@ class SampleRequest extends React.Component {
         </KeyboardAwareScrollView>
         <FooterButton>
           <Button bordered light small danger>
-            <CancelButtonText style={{ color: "#d9534e" }}> CANCEL </CancelButtonText>
+            <CancelButtonText style={{ color: "#d9534e" }}>
+              {" "}
+              CANCEL{" "}
+            </CancelButtonText>
           </Button>
           <ApplyButton
             onPress={() => {

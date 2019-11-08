@@ -213,8 +213,8 @@ class Message extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      chat: true,
-      message: false,
+      chat: false,
+      message: true,
       showOpacity: false,
       read: false,
       chatRead: false

@@ -44,8 +44,6 @@ const ApplyButtonText = styled.Text`
 	color: #fff;
 	text-transform: uppercase;
 	padding-bottom: -5px;
-	
-	
 `;
 class CommonModal extends React.Component {
 	constructor(props) {
