@@ -22,6 +22,9 @@ import ItemDetail from "../shared/ItemDetail";
 import SmallText from '../styles/SmallText';
 import CardText from '../styles/CardText';
 
+import DateTimePicker from "react-native-modal-datetime-picker";
+import PiecesPopup from "../shared/PiecesPopup";
+
 // import console = require('console');
 
 const data = {
@@ -180,7 +183,7 @@ const PiecesText = styled.Text`
 const DetailRow = styled.View`
   flex-direction: row;
 `;
-const Block = styled.View`
+const Block = styled.TouchableOpacity`
   width: 100px;
 `;
 const CurrentStage = styled.View`
@@ -247,8 +250,22 @@ class SampleRequest extends React.Component {
       appState: AppState.currentState0px,
       modalVisible: false,
       xlcomp: '',
+      isDateTimePickerVisible: false,
+      piecesModal: true,
     };
   }
+  showDateTimePicker = () => {
+    this.setState({ isDateTimePickerVisible: true });
+  };
+ 
+  hideDateTimePicker = () => {
+    this.setState({ isDateTimePickerVisible: false });
+  };
+ 
+  handleDatePicked = date => {
+    console.log("A date has been picked: ", date);
+    this.hideDateTimePicker();
+  };
   setModalVisible(visible) {
     this.setState({ modalVisible: visible });
   }
@@ -282,8 +299,13 @@ class SampleRequest extends React.Component {
               <FirstRow>
                 <View style={{ flex: 1}}>
                   <SampleName numberOfLine={1}>photo sample</SampleName>
+                  <DateTimePicker
+                    isVisible={this.state.isDateTimePickerVisible}
+                    onConfirm={this.handleDatePicked}
+                    onCancel={this.hideDateTimePicker}
+                  />
                   <DetailRow>
-                    <Block>
+                    <Block onPress={this.showDateTimePicker}>
                       <SmallText>Deadline</SmallText>
                       <CardText numberOfLines={1}> 31-Oct-2019</CardText>
                     </Block>
@@ -301,6 +323,7 @@ class SampleRequest extends React.Component {
                   <PiecesText>2 pcs</PiecesText>
                 </Pieces>
               </FirstRow>
+              <PiecesPopup modalVisible={true} />
               <CurrentStage>
                 <CurrentStageTitle>Planned</CurrentStageTitle>
               </CurrentStage>

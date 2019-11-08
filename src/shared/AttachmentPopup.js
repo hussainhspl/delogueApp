@@ -12,12 +12,8 @@ const StyledModal = styled.Modal`
 `;
 const BgView = styled.View`
   background-color: #77777766;
-  /* height: 50px; */
   flex: 1;
-  /* height: 250px; */
-  /* align-self: flex-end; */
   justify-content: flex-end;
-  /* position : absolute; */
 `;
 const ModalView = styled.View`
   height: 70%;
@@ -31,7 +27,6 @@ const ModalTitle = styled.View`
 const CloseBox = styled.View`
   margin-left: auto;
   padding: 10px;
-  /* background-color: green; */
   justify-content: center;
   align-items: center;
 `;
@@ -47,7 +42,6 @@ const FooterBar = styled.View`
   align-items: center;
   justify-content: space-between;
   flex-direction: row;
-  /* height: 50px; */
   border-top-width: 1px;
   border-color: #ccc;
   background-color: ${props => (props.bg ? props.bg : props.theme.lightBrown)};

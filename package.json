@@ -30,7 +30,7 @@
     "react-native-grid-list": "^1.0.9",
     "react-native-image-layout": "^5.4.0",
     "react-native-keyboard-aware-scroll-view": "^0.9.1",
-    "react-native-modal-datetime-picker": "^7.5.0",
+    "react-native-modal-datetime-picker": "^7.6.0",
     "react-native-responsive-layout": "^1.2.0",
     "react-native-search-filter": "^0.1.5",
     "react-native-super-grid": "^3.1.0",

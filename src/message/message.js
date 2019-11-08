@@ -15,6 +15,8 @@ import { Card, Icon } from "native-base";
 import Title from "../styles/SmallText";
 import CardText from "../styles/CardText";
 import { withTheme } from 'styled-components';
+import { connect } from "react-redux";
+import { commentTab } from "../store/actions/index";
 
 
 const IconRow = styled.View`
@@ -79,14 +81,15 @@ const CommentedButton = styled(View)`
   margin-left: 15;
   /* width: 100; */
   margin: 15px auto;
-  padding: 7px 10px;
+  padding: 6px 10px;
   align-self: flex-start;
   flex-direction: row;
   align-items: center;
+  height: 32px;
 `;
 const IconView = styled.View`
   width: 30;
-  height: 30;
+  height: 32;
   background-color: #415461;
   justify-content: center;
   align-items: center;
@@ -102,7 +105,7 @@ const ButtonText = styled.Text`
 
 const MessageBox = styled.View`
   flex: 1;
-  margin: 15px 5px 15px 20px;
+  margin: 10px 5px 5px 20px;
   border: 1px solid #bbb;
   position: relative;
 `;
@@ -120,10 +123,23 @@ const MsgIconBox = styled.View`
   position: absolute;
   top: 5;
   left: -15;
-  background-color: ${props => props.theme.darkBlue};
+  background-color: ${props => props.readMsg ? '#fff': props => props.theme.darkBlue};
   align-items: center;
   justify-content: center;
 `;
+
+const ChatIconBox = styled.View`
+  width: 30px;
+  height: 30px;
+  border-radius: 15px;
+  border: 1px solid #bbb;
+  position: absolute;
+  top: 5;
+  left: -15;
+  background-color: ${props => props.readChat ? '#fff': props => props.theme.darkBlue};
+  align-items: center;
+  justify-content: center;
+`
 const STouchableHighlight = styled.TouchableHighlight`
   width: 30px;
   height: 30px;
@@ -156,22 +172,32 @@ const TitleRow = styled.View`
 
 const Subject = styled.Text`
   color: ${props => props.theme.darkBlue};
-  font-weight: 700;
+  font-size: ${props => props.theme.xl};
+  font-family: ${props => props.theme.bold};
+  padding-bottom: 5px;
 `;
 
 const ContentText = styled.Text`
   color: #777;
+  font-family: ${props => props.theme.regular};
+  font-size: ${props => props.theme.large};
+
 `;
 const InternalText = styled.Text`
   color: #aaa;
   padding-left: 5px;
+  font-size: ${props => props.theme.small};
+  font-family: ${props => props.theme.regular};
+
 `;
 const DetailsButton = styled.Text`
   background-color: #c2beb6;
   padding: 5px 10px;
-  color: white;
-  font-size: 13px;
+  color: #fff;
+  font-size: 12px;
   margin-right: 10px;
+  font-family: ${props => props.theme.regular};
+
 `;
 
 const MsgImage = styled.Image`
@@ -179,14 +205,19 @@ const MsgImage = styled.Image`
   height: 15px;
 `;
 
+const HighlightText = styled.Text`
+  font-family: ${props => props.theme.bold};
+`
+
 class Message extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      chat: false,
-      message: true,
+      chat: true,
+      message: false,
       showOpacity: false,
-      read: false
+      read: false,
+      chatRead: false
     };
   }
   render() {
@@ -229,7 +260,7 @@ class Message extends React.Component {
                   <IconView>
                     <Icon style={{ color: "#fff", fontSize: 15 }} name="eye" />
                   </IconView>
-                  <CommentedButton small>
+                  <CommentedButton>
                     <ButtonText> hide read </ButtonText>
                   </CommentedButton>
                 </ButtonRow>
@@ -239,10 +270,10 @@ class Message extends React.Component {
               <MessageBox>
                 <TouchableHighlight
                   underlayColor={this.props.theme.overlayBlue}
-                  onPress={() => console.log("click on message box")}
+                  onPress={() => {this.props.commentTabFunction(); history.push('/style')}}
                 >
                   <Fragment>
-                    <MsgIconBox>
+                    <MsgIconBox readMsg={this.state.read}>
                       <STouchableHighlight underlayColor={this.props.theme.overlayBlue} onPress={() => {this.setState({read : !this.state.read })}}>
                         <MsgImage
                           resizeMode={"contain"}
@@ -260,8 +291,8 @@ class Message extends React.Component {
                         <CardText numberOfLines={1}>Styl 2213</CardText>
                       </View>
                       <View>
-                        <CardText numberOfLines={1}>Richel Smith</CardText>
                         <Title>13-oct-2019 13.49</Title>
+                        <CardText numberOfLines={1}>Richel Smith</CardText>
                       </View>
                     </TitleRow>
                     <Row>
@@ -273,7 +304,7 @@ class Message extends React.Component {
                         </ContentText>
                       </MainContent>
                       <InternalView>
-                        <Icon style={{ color: "#ddd" }} name="home" />
+                        <Icon style={{ color: "#ddd",fontSize: 18 }} name="home" />
                         <InternalText>Internal</InternalText>
                       </InternalView>
                     </Row>
@@ -288,15 +319,14 @@ class Message extends React.Component {
                   onPress={() => console.log("click on message box")}
                 >
                   <Fragment>
-                    <MsgIconBox>
-                      <Icon
-                        style={{ color: "#fff", fontSize: 18 }}
-                        name="text"
-                      />
-                      {/* <StyleImage 
-                        resizeMode={"contain"}
-                        source={require("../../assets/img/conversation.png")} /> */}
-                    </MsgIconBox>
+                    <ChatIconBox readChat={this.state.chatRead}>
+                    <STouchableHighlight underlayColor={this.props.theme.overlayBlue} onPress={() => {this.setState({chatRead : !this.state.chatRead })}}>
+                        <MsgImage
+                          resizeMode={"contain"}
+                          source={require("../../assets/img/comment.png")}
+                        />
+                      </STouchableHighlight>
+                    </ChatIconBox>
                     <TitleRow>
                       <View>
                         <Title>Style Name</Title>
@@ -307,8 +337,8 @@ class Message extends React.Component {
                         <CardText numberOfLines={1}>Styl 2213</CardText>
                       </View>
                       <View>
-                        <CardText numberOfLines={1}>Richel Smith</CardText>
                         <Title>13-oct-2019 13.49</Title>
+                        <CardText numberOfLines={1}>Richel Smith</CardText>
                       </View>
                     </TitleRow>
                     <Row>
@@ -316,21 +346,21 @@ class Message extends React.Component {
                         <Subject>Sales samples </Subject>
                         <ContentText numberOfLines={2}>
                           Has been{" "}
-                          <Text style={{ fontWeight: "700" }}> Planned </Text>{" "}
+                          <HighlightText> Planned </HighlightText>{" "}
                         </ContentText>
                         <ContentText numberOfLines={2}>
                           Has been{" "}
-                          <Text style={{ fontWeight: "700" }}> Requested </Text>{" "}
+                          <HighlightText> Requested </HighlightText>{" "}
                         </ContentText>
                         <ContentText numberOfLines={2}>
                           Status changed to{" "}
-                          <Text style={{ fontWeight: "700" }}> Confirmed</Text>{" "}
+                          <HighlightText> Confirmed</HighlightText>{" "}
                         </ContentText>
                         <Title>ETD: 13-oct-2019</Title>
                         <Title>ETD was not added</Title>
                         <ContentText numberOfLines={2}>
                           Status changed to{" "}
-                          <Text style={{ fontWeight: "700" }}> Sent</Text>{" "}
+                          <HighlightText> Sent</HighlightText>{" "}
                         </ContentText>
                         <Title>Tracking #: SWF7939248937498</Title>
                         <Title>Tracking was not added </Title>
@@ -338,11 +368,11 @@ class Message extends React.Component {
                         <Title>Tracking # updated to : SWF7939248937498</Title>
                         <ContentText numberOfLines={2}>
                           Status changed to{" "}
-                          <Text style={{ fontWeight: "700" }}> Received</Text>{" "}
+                          <HighlightText> Received</HighlightText>{" "}
                         </ContentText>
                         <ContentText numberOfLines={2}>
                           Status changed to{" "}
-                          <Text style={{ fontWeight: "700" }}> Commented</Text>{" "}
+                          <HighlightText> Commented</HighlightText>{" "}
                         </ContentText>
                       </MainContent>
                       <InternalView>
@@ -360,4 +390,16 @@ class Message extends React.Component {
   }
 }
 
-export default withTheme(Message);
+const mapStateToProps = state => {
+  // console.log(" footer map state to props");
+  return {};
+};
+const mapDispatchToProps = dispatch => {
+  return {
+    commentTabFunction: () => dispatch(commentTab()),
+  }
+}
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withTheme(Message));
