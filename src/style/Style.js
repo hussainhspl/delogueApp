@@ -110,7 +110,7 @@ class Style extends React.Component {
         <Header history={this.props.history}>
           {
             this.state.styleData.length < 1 ?
-            <View style={{flex: 1}}>
+            <View style={{flex: 1, backgroundColor: 'white'}}>
               <Loader />
             </View>
             :

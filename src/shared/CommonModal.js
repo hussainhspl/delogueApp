@@ -24,7 +24,8 @@ const CloseBox = styled.View`
 const HeaderText = styled.Text`
 	color: white;
 	padding: 10px;
-	font-size: 16px;
+	font-size: ${props => props.theme.xl};
+	font-family: ${props => props.theme.regular};
 	text-transform : uppercase;
 	line-height: 25px;
 `;
@@ -44,6 +45,13 @@ const ApplyButtonText = styled.Text`
 	color: #fff;
 	text-transform: uppercase;
 	padding-bottom: -5px;
+	font-family: ${props => props.theme.regular};
+	font-size: ${props => props.theme.large};
+`;
+const CancelText = styled.Text`
+	color: ${props => props.theme.redColor};
+	font-family: ${props => props.theme.regular};
+	font-size: ${props => props.theme.large};
 `;
 class CommonModal extends React.Component {
 	constructor(props) {
@@ -95,7 +103,7 @@ class CommonModal extends React.Component {
 										<Button bordered light small danger 
 											onPress={() => {this.closeModal(this.props.close)}}
 										>
-											<Text style={{color: "#d9534e"}}> CANCEL </Text> 
+											<CancelText> CANCEL </CancelText> 
 										</Button>
 										<ApplyButton>
 											<ApplyButtonText>{this.props.okButton ?this.props.okButton : 'apply'}</ApplyButtonText>

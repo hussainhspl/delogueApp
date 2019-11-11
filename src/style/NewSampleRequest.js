@@ -7,6 +7,8 @@ import DateTimePicker from "react-native-modal-datetime-picker";
 import CameraComponent from '../shared/CameraComponent';
 import SetRequestedQuantity from './SetRequestedQuantity';
 import CameraView from '../styles/CameraView';
+import { withTheme } from 'styled-components';
+
 
 const SampleRequestRow = styled.View`
   flex-direction: row;
@@ -123,8 +125,8 @@ const Capital = styled.Text`
 const AddView = styled.View`
   border: 1px solid #ddd;
   width: ${(props) => props.tablet ? Dimensions.get('window').width / 3-10 : Dimensions.get("window").width / 2 - 10};
-  height: ${(props) => props.tablet ? Dimensions.get('window').width / 3 +40 : Dimensions.get("window").width / 2 + 80};  
-  margin: 5px;
+  height: ${(props) => props.tablet ? Dimensions.get('window').width / 3 +40 : Dimensions.get("window").width / 2 + 50};  
+  margin: 3px;
   /* border-radius: 5px;   */
   justify-content: center;
 `;
@@ -142,8 +144,14 @@ const MainContent = styled.View`
 const ContentBlock = styled.View`
   flex-basis: ${(props) => props.tablet ? Dimensions.get('window').width / 2 : Dimensions.get('window').width};
   padding: 15px;
-
   /* background-color: #ccc; */
+`;
+const AddText = styled.Text`
+  flex-wrap: wrap;
+  flex: 1;
+  margin-right: 5px;
+  font-family: ${props => props.theme.regular};
+  color: ${props => props.theme.textColor};
 `;
 class NewSampleRequest extends React.Component{
   constructor(props) {
@@ -218,22 +226,22 @@ _handleAppStateChange = (nextAppState) => {
     // console.log("calender etd ", this.state.isEtdDateTimePickerVisible);
     return(
       <View>
-        <AddView tablet={this.state.tablet}>
           <TouchableHighlight
-            underlayColor='rgba(221, 221, 221, 0.4)'
+            underlayColor={this.props.theme.overlayBlue}
             onPress={() => {
               this.setModalVisible(!this.state.modalVisible);
             }}>
+        <AddView tablet={this.state.tablet}>
               <AddInnerView>
                 <View>
                   <Icon style={{fontSize: 30, marginRight: 10}} name="add" /> 
                 </View>
                 <View style={{flexDirection: 'row', flex: 1}}>
-                  <Text style={{flexWrap: 'wrap', flex: 1, marginRight: 5, }}>Add new sample request </Text>
+                  <AddText>Add new sample request </AddText>
                 </View>
               </AddInnerView>
-				  </TouchableHighlight>
         </AddView>
+				  </TouchableHighlight>
         <CommonModal    
 					title='Requested Quantity'
 					modalVisible={this.state.modalVisible}
@@ -422,4 +430,4 @@ _handleAppStateChange = (nextAppState) => {
   }
 }
 
-export default NewSampleRequest;
+export default withTheme(NewSampleRequest);

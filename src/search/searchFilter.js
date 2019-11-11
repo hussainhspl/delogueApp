@@ -62,6 +62,8 @@ const StyledSearchInput = styled(SearchInput)`
   padding-right: 40px;
   flex: 1;
   width: 100%;
+  font-family: ${props => props.theme.regular};
+  color: ${props => props.theme.textColor};
 `;
 const ResetBar = styled.View`
   padding: 10px;
@@ -250,6 +252,7 @@ class searchFilter extends Component {
               </SearchIcon>
                 <Flex>
                 <StyledSearchInput
+                  placeholderTextColor="#C9DBDB"
                   onChangeText={term => {
                     this.searchUpdated(term);
                   }}
@@ -290,6 +293,7 @@ class searchFilter extends Component {
               </SearchIcon>
               <Flex>
                 <StyledSearchInput
+                  placeholderTextColor="#C9DBDB"
                   onChangeText={term => {
                     this.seasonUpdated(term);
                   }}

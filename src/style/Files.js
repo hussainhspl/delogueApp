@@ -58,6 +58,8 @@ const StyleFileTitle = styled.View`
 const Capital = styled.Text`
   text-transform: uppercase;
   font-family: ${props => props.theme.regular};
+  font-size: ${props => props.theme.large};
+  color: ${props => props.theme.textColor};
 `;
 const Card = styled.TouchableOpacity`
   width: ${props =>

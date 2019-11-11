@@ -135,6 +135,7 @@ const ApplyButtonText = styled.Text`
 `;
 const CancelButtonText = styled.Text`
   font-family: ${props => props.theme.regular};
+  color: ${props => props.theme.redColor};
 `;
 
 const FooterButton = styled.View`
@@ -292,8 +293,6 @@ class SampleRequest extends React.Component {
     }
   };
   render() {
-    // console.log("history sr", this.props.history);
-
     return (
       <View style={{ flex: 1 }}>
         <KeyboardAwareScrollView showsVerticalScrollIndicator={true}>
@@ -440,10 +439,7 @@ class SampleRequest extends React.Component {
         </KeyboardAwareScrollView>
         <FooterButton>
           <Button bordered light small danger>
-            <CancelButtonText style={{ color: "#d9534e" }}>
-              {" "}
-              CANCEL{" "}
-            </CancelButtonText>
+            <CancelButtonText>CANCEL</CancelButtonText>
           </Button>
           <ApplyButton
             onPress={() => {

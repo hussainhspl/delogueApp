@@ -9,15 +9,15 @@ import {
   ScrollView
 } from "react-native";
 import styled from "styled-components";
-// import { Col, Row, Grid } from "react-native-easy-grid";
 import Header from "../Header";
-import { Card, Icon } from "native-base";
+import { Icon } from "native-base";
 import Title from "../styles/SmallText";
 import CardText from "../styles/CardText";
 import { withTheme } from 'styled-components';
 import { connect } from "react-redux";
 import { commentTab } from "../store/actions/index";
-
+import ChatMessage from './ChatMessage';
+import Subject from '../styles/Subject';
 
 const IconRow = styled.View`
   flex-direction: row;
@@ -78,8 +78,7 @@ const ButtonOverlay = styled.View`
 
 const CommentedButton = styled(View)`
   background-color: #99afaf;
-  margin-left: 15;
-  /* width: 100; */
+  margin-left: 15px;
   margin: 15px auto;
   padding: 6px 10px;
   align-self: flex-start;
@@ -88,8 +87,8 @@ const CommentedButton = styled(View)`
   height: 32px;
 `;
 const IconView = styled.View`
-  width: 30;
-  height: 32;
+  width: 30px;
+  height: 32px;
   background-color: #415461;
   justify-content: center;
   align-items: center;
@@ -98,9 +97,9 @@ const IconView = styled.View`
 const ButtonText = styled.Text`
   color: white;
   text-transform: uppercase;
-  /* width: 80px; */
   text-align: center;
   font-family: ${props => props.theme.regular};
+  font-size: ${props => props.theme.large};
 `;
 
 const MessageBox = styled.View`
@@ -112,7 +111,6 @@ const MessageBox = styled.View`
 
 const MainContent = styled.View`
   width: 70%;
-  /* background-color: #ddd; */
 `;
 
 const MsgIconBox = styled.View`
@@ -134,12 +132,12 @@ const ChatIconBox = styled.View`
   border-radius: 15px;
   border: 1px solid #bbb;
   position: absolute;
-  top: 5;
-  left: -15;
+  top: 5px;
+  left: -15px;
   background-color: ${props => props.readChat ? '#fff': props => props.theme.darkBlue};
   align-items: center;
   justify-content: center;
-`
+`;
 const STouchableHighlight = styled.TouchableHighlight`
   width: 30px;
   height: 30px;
@@ -152,7 +150,6 @@ const Row = styled.View`
   padding: 0px 20px 10px 20px;
   flex-direction: row;
   justify-content: space-between;
-  /* background-color: */
 `;
 
 const InternalView = styled.View`
@@ -170,44 +167,23 @@ const TitleRow = styled.View`
   padding-bottom: 5px;
 `;
 
-const Subject = styled.Text`
-  color: ${props => props.theme.darkBlue};
-  font-size: ${props => props.theme.xl};
-  font-family: ${props => props.theme.bold};
-  padding-bottom: 5px;
-`;
-
 const ContentText = styled.Text`
-  color: #777;
+  color: ${props => props.theme.textColor};
   font-family: ${props => props.theme.regular};
   font-size: ${props => props.theme.large};
-
 `;
+
 const InternalText = styled.Text`
   color: #aaa;
   padding-left: 5px;
   font-size: ${props => props.theme.small};
   font-family: ${props => props.theme.regular};
-
-`;
-const DetailsButton = styled.Text`
-  background-color: #c2beb6;
-  padding: 5px 10px;
-  color: #fff;
-  font-size: 12px;
-  margin-right: 10px;
-  font-family: ${props => props.theme.regular};
-
 `;
 
 const MsgImage = styled.Image`
   width: 20px;
   height: 15px;
 `;
-
-const HighlightText = styled.Text`
-  font-family: ${props => props.theme.bold};
-`
 
 class Message extends React.Component {
   constructor(props) {
@@ -313,75 +289,7 @@ class Message extends React.Component {
               </MessageBox>
             )}
             {this.state.chat && (
-              <MessageBox>
-                <TouchableHighlight
-                  underlayColor="#42546033"
-                  onPress={() => console.log("click on message box")}
-                >
-                  <Fragment>
-                    <ChatIconBox readChat={this.state.chatRead}>
-                    <STouchableHighlight underlayColor={this.props.theme.overlayBlue} onPress={() => {this.setState({chatRead : !this.state.chatRead })}}>
-                        <MsgImage
-                          resizeMode={"contain"}
-                          source={require("../../assets/img/comment.png")}
-                        />
-                      </STouchableHighlight>
-                    </ChatIconBox>
-                    <TitleRow>
-                      <View>
-                        <Title>Style Name</Title>
-                        <CardText numberOfLines={1}>Casual Shirt</CardText>
-                      </View>
-                      <View>
-                        <Title>Style Number</Title>
-                        <CardText numberOfLines={1}>Styl 2213</CardText>
-                      </View>
-                      <View>
-                        <Title>13-oct-2019 13.49</Title>
-                        <CardText numberOfLines={1}>Richel Smith</CardText>
-                      </View>
-                    </TitleRow>
-                    <Row>
-                      <MainContent>
-                        <Subject>Sales samples </Subject>
-                        <ContentText numberOfLines={2}>
-                          Has been{" "}
-                          <HighlightText> Planned </HighlightText>{" "}
-                        </ContentText>
-                        <ContentText numberOfLines={2}>
-                          Has been{" "}
-                          <HighlightText> Requested </HighlightText>{" "}
-                        </ContentText>
-                        <ContentText numberOfLines={2}>
-                          Status changed to{" "}
-                          <HighlightText> Confirmed</HighlightText>{" "}
-                        </ContentText>
-                        <Title>ETD: 13-oct-2019</Title>
-                        <Title>ETD was not added</Title>
-                        <ContentText numberOfLines={2}>
-                          Status changed to{" "}
-                          <HighlightText> Sent</HighlightText>{" "}
-                        </ContentText>
-                        <Title>Tracking #: SWF7939248937498</Title>
-                        <Title>Tracking was not added </Title>
-                        <Title>ETD updated to : 13-oct-2019</Title>
-                        <Title>Tracking # updated to : SWF7939248937498</Title>
-                        <ContentText numberOfLines={2}>
-                          Status changed to{" "}
-                          <HighlightText> Received</HighlightText>{" "}
-                        </ContentText>
-                        <ContentText numberOfLines={2}>
-                          Status changed to{" "}
-                          <HighlightText> Commented</HighlightText>{" "}
-                        </ContentText>
-                      </MainContent>
-                      <InternalView>
-                        <DetailsButton> Show Details </DetailsButton>
-                      </InternalView>
-                    </Row>
-                  </Fragment>
-                </TouchableHighlight>
-              </MessageBox>
+              <ChatMessage />
             )}
           </ScrollView>
         </Header>
@@ -391,7 +299,6 @@ class Message extends React.Component {
 }
 
 const mapStateToProps = state => {
-  // console.log(" footer map state to props");
   return {};
 };
 const mapDispatchToProps = dispatch => {

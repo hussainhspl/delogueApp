@@ -12,7 +12,7 @@ import {
 import styled from "styled-components";
 import { Icon } from "native-base";
 import DateTimePicker from "react-native-modal-datetime-picker";
-import OpacityView from '../styles/OpacityView';
+import OpacityView from "../styles/OpacityView";
 
 const TitleRow = styled.View`
   flex-direction: row;
@@ -27,18 +27,18 @@ const StatusDot = styled.View`
   width: 10px;
   height: 10px;
   border-radius: 5px;
-  margin: 15px;
+  margin: 15px 10px;
 `;
 const ContentRow = styled.View`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  padding: 3px;
+  padding: 2px;
 `;
 const ContentTitle = styled.Text`
   text-transform: uppercase;
   color: #8c8076;
-  font-size: 11px;
+  font-size: ${props => props.theme.xs};
   font-family: ${props => props.theme.regular};
 `;
 // CommentTitle = styled.Text`
@@ -68,26 +68,26 @@ const CardInfo = styled.View`
 `;
 const CardTittle = styled.Text`
   text-transform: uppercase;
-  font-weight: 700;
-  font-size: 13px;
-  color: #4a4a4a;
-  font-family: ${props => props.theme.regular};
+  font-size: ${props => props.theme.large};
+  color: ${props => props.theme.textColor};
+  font-family: ${props => props.theme.bold};
 `;
 const Pieces = styled.Text`
   background-color: #c2beb6;
-  /* width: 40px; */
   padding: 0px 5px;
+  max-width: 60px;
   height: 20px;
   color: white;
-  font-size: 13px;
+  font-size: ${props => props.theme.large};
   margin: 7px;
   font-family: ${props => props.theme.regular};
 `;
 const MessageRow = styled.View`
   flex-direction: row;
+  width: 65%;
 `;
 const CalenderTouchableOpacity = styled.TouchableOpacity`
-  padding: 5px;
+  padding: 4px;
 `;
 const MainBox = styled.View`
   border: 1px solid #ddd;
@@ -99,10 +99,16 @@ const MainBox = styled.View`
   height: ${props =>
     props.tablet
       ? Dimensions.get("window").width / 3 + 40
-      : Dimensions.get("window").width / 2 + 80};
-  margin: 5px;
+      : Dimensions.get("window").width / 2 + 50};
+  margin: 3px;
   /* background-color: #ddd; */
   position: relative;
+`;
+
+const TitleRowText = styled.Text`
+  font-family: ${props => props.theme.regular};
+  color: ${props => props.theme.textColor};
+  width: 85%;
 `;
 
 class sampleComponent extends React.Component {
@@ -121,7 +127,7 @@ class sampleComponent extends React.Component {
       receivedText: "",
       commentText: "",
       tablet: "",
-      showOpacity: false,
+      showOpacity: false
     };
   }
   componentDidMount = () => {
@@ -169,164 +175,152 @@ class sampleComponent extends React.Component {
     let data = this.props.data;
     return (
       <Fragment>
-      <MainBox tablet={this.state.tablet}>
-        {
-          this.state.showOpacity && (
-            <OpacityView />
-          )
-        }
-        <TouchableWithoutFeedback
-          key={data.key}
-          onPressIn= {
-            () => this.setState({showOpacity: true})
-          }
-          onPressOut= {
-            () => this.setState({showOpacity: false})            
-          }
-          onPress={ 
-            this.props.close
-          }
-        >
-          <View 
-            
-            >
-          <TitleRow>
-            <Text> 1st proto sample </Text>
-            <StatusDot style={{ backgroundColor: "#964F4C" }} />
-          </TitleRow>
-          <CardInfo>
-            <MessageRow>
-              <Image
-                resizeMode={"contain"}
-                source={require("../../assets/img/sample/receivedblack.png")}
-              />
-              <CardTittle>sent</CardTittle>
-            </MessageRow>
-            <Pieces> 2 pcs </Pieces>
-          </CardInfo>
-          <ContentRow>
-            <ContentTitle>deadline</ContentTitle>
-            <DateRow>
-              <DateInput
-                onChangeText={deadlineText => this.setState({ deadlineText })}
-                value={this.state.deadlineText}
-                placeholder="dd-mm-yy"
-              />
-              <CalenderTouchableOpacity
-                onPress={() => this.showDateTimePicker("deadline")}
-              >
-                <Icon
-                  style={{ color: "#8C8076", fontSize: 18 }}
-                  name="calendar"
-                />
-              </CalenderTouchableOpacity>
-              <DateTimePicker
-                isVisible={this.state.isDeadlineDateTimePickerVisible}
-                onConfirm={this.handleDatePicked}
-                onCancel={() => this.hideDateTimePicker("deadline")}
-              />
-            </DateRow>
-          </ContentRow>
-          <ContentRow>
-            <ContentTitle> etd</ContentTitle>
-            <DateRow>
-              <DateInput
-                onChangeText={etdText => this.setState({ etdText })}
-                value={this.state.etdText}
-                placeholder="dd-mm-yy"
-              />
-              <CalenderTouchableOpacity
-                onPress={() => this.showDateTimePicker("etd")}
-              >
-                <Icon
-                  style={{ color: "#8C8076", fontSize: 18 }}
-                  name="calendar"
-                />
-              </CalenderTouchableOpacity>
-              <DateTimePicker
-                isVisible={this.state.isEtdDateTimePickerVisible}
-                onConfirm={this.handleDatePicked}
-                onCancel={() => this.hideDateTimePicker("etd")}
-              />
-            </DateRow>
-          </ContentRow>
-          <ContentRow>
-            <ContentTitle> sent </ContentTitle>
-            <DateRow>
-              <DateInput
-                onChangeText={sentText => this.setState({ sentText })}
-                value={this.state.sentText}
-                placeholder="dd-mm-yy"
-              />
-              <CalenderTouchableOpacity
-                onPress={() => this.showDateTimePicker("sent")}
-              >
-                <Icon
-                  style={{ color: "#8C8076", fontSize: 18 }}
-                  name="calendar"
-                />
-              </CalenderTouchableOpacity>
-              <DateTimePicker
-                isVisible={this.state.isSentDateTimePickerVisible}
-                onConfirm={this.handleDatePicked}
-                onCancel={() => this.hideDateTimePicker("sent")}
-              />
-            </DateRow>
-          </ContentRow>
-          <ContentRow>
-            <ContentTitle> received </ContentTitle>
-            <DateRow>
-              <DateInput
-                onChangeText={receivedText => this.setState({ receivedText })}
-                value={this.state.receivedText}
-                placeholder="dd-mm-yy"
-              />
-              <CalenderTouchableOpacity
-                onPress={() => this.showDateTimePicker("received")}
-              >
-                <Icon
-                  style={{ color: "#8C8076", fontSize: 18 }}
-                  name="calendar"
-                />
-              </CalenderTouchableOpacity>
-              <DateTimePicker
-                isVisible={this.state.isReceivedDateTimePickerVisible}
-                onConfirm={this.handleDatePicked}
-                onCancel={() => this.hideDateTimePicker("received")}
-              />
-            </DateRow>
-          </ContentRow>
-          <ContentRow>
-            {/* <CommentTitle> commented </CommentTitle> */}
-            <ContentTitle> commented </ContentTitle>
-            <DateRow>
-              <DateInput
-                onChangeText={commentText => this.setState({ commentText })}
-                value={this.state.commentText}
-                placeholder="dd-mm-yy"
-              />
-              <CalenderTouchableOpacity
-                onPress={() => this.showDateTimePicker("commented")}
-              >
-                <Icon
-                  style={{ color: "#8C8076", fontSize: 18 }}
-                  name="calendar"
-                />
-              </CalenderTouchableOpacity>
-              <DateTimePicker
-                isVisible={this.state.isCommentedDateTimePickerVisible}
-                onConfirm={this.handleDatePicked}
-                onCancel={() => this.hideDateTimePicker("commented")}
-              />
-            </DateRow>
-          </ContentRow>
-          </View>
-        </TouchableWithoutFeedback>
-      </MainBox>
-      
-
-        
-      
+        <MainBox tablet={this.state.tablet}>
+          {this.state.showOpacity && <OpacityView />}
+          <TouchableWithoutFeedback
+            key={data.key}
+            onPressIn={() => this.setState({ showOpacity: true })}
+            onPressOut={() => this.setState({ showOpacity: false })}
+            onPress={this.props.close}
+          >
+            <View>
+              <TitleRow>
+                <TitleRowText numberOfLines={1}> 1st proto sample </TitleRowText>
+                <StatusDot style={{ backgroundColor: "#964F4C" }} />
+              </TitleRow>
+              <CardInfo>
+                <MessageRow>
+                  <Image
+                    resizeMode={"contain"}
+                    source={require("../../assets/img/sample/receivedblack.png")}
+                  />
+                  <CardTittle numberOfLines={1}> sent </CardTittle>
+                </MessageRow>
+                <Pieces numberOfLines={1}> 2 pcs </Pieces>
+              </CardInfo>
+              <ContentRow>
+                <ContentTitle>deadline</ContentTitle>
+                <DateRow>
+                  <DateInput
+                    onChangeText={deadlineText =>
+                      this.setState({ deadlineText })
+                    }
+                    value={this.state.deadlineText}
+                    placeholder="dd-mm-yy"
+                  />
+                  <CalenderTouchableOpacity
+                    onPress={() => this.showDateTimePicker("deadline")}
+                  >
+                    <Icon
+                      style={{ color: "#8C8076", fontSize: 18 }}
+                      name="calendar"
+                    />
+                  </CalenderTouchableOpacity>
+                  <DateTimePicker
+                    isVisible={this.state.isDeadlineDateTimePickerVisible}
+                    onConfirm={this.handleDatePicked}
+                    onCancel={() => this.hideDateTimePicker("deadline")}
+                  />
+                </DateRow>
+              </ContentRow>
+              <ContentRow>
+                <ContentTitle> etd</ContentTitle>
+                <DateRow>
+                  <DateInput
+                    onChangeText={etdText => this.setState({ etdText })}
+                    value={this.state.etdText}
+                    placeholder="dd-mm-yy"
+                  />
+                  <CalenderTouchableOpacity
+                    onPress={() => this.showDateTimePicker("etd")}
+                  >
+                    <Icon
+                      style={{ color: "#8C8076", fontSize: 18 }}
+                      name="calendar"
+                    />
+                  </CalenderTouchableOpacity>
+                  <DateTimePicker
+                    isVisible={this.state.isEtdDateTimePickerVisible}
+                    onConfirm={this.handleDatePicked}
+                    onCancel={() => this.hideDateTimePicker("etd")}
+                  />
+                </DateRow>
+              </ContentRow>
+              <ContentRow>
+                <ContentTitle> sent </ContentTitle>
+                <DateRow>
+                  <DateInput
+                    onChangeText={sentText => this.setState({ sentText })}
+                    value={this.state.sentText}
+                    placeholder="dd-mm-yy"
+                  />
+                  <CalenderTouchableOpacity
+                    onPress={() => this.showDateTimePicker("sent")}
+                  >
+                    <Icon
+                      style={{ color: "#8C8076", fontSize: 18 }}
+                      name="calendar"
+                    />
+                  </CalenderTouchableOpacity>
+                  <DateTimePicker
+                    isVisible={this.state.isSentDateTimePickerVisible}
+                    onConfirm={this.handleDatePicked}
+                    onCancel={() => this.hideDateTimePicker("sent")}
+                  />
+                </DateRow>
+              </ContentRow>
+              <ContentRow>
+                <ContentTitle> received </ContentTitle>
+                <DateRow>
+                  <DateInput
+                    onChangeText={receivedText =>
+                      this.setState({ receivedText })
+                    }
+                    value={this.state.receivedText}
+                    placeholder="dd-mm-yy"
+                  />
+                  <CalenderTouchableOpacity
+                    onPress={() => this.showDateTimePicker("received")}
+                  >
+                    <Icon
+                      style={{ color: "#8C8076", fontSize: 18 }}
+                      name="calendar"
+                    />
+                  </CalenderTouchableOpacity>
+                  <DateTimePicker
+                    isVisible={this.state.isReceivedDateTimePickerVisible}
+                    onConfirm={this.handleDatePicked}
+                    onCancel={() => this.hideDateTimePicker("received")}
+                  />
+                </DateRow>
+              </ContentRow>
+              <ContentRow>
+                {/* <CommentTitle> commented </CommentTitle> */}
+                <ContentTitle> commented </ContentTitle>
+                <DateRow>
+                  <DateInput
+                    onChangeText={commentText => this.setState({ commentText })}
+                    value={this.state.commentText}
+                    placeholder="dd-mm-yy"
+                  />
+                  <CalenderTouchableOpacity
+                    onPress={() => this.showDateTimePicker("commented")}
+                  >
+                    <Icon
+                      style={{ color: "#8C8076", fontSize: 18 }}
+                      name="calendar"
+                    />
+                  </CalenderTouchableOpacity>
+                  <DateTimePicker
+                    isVisible={this.state.isCommentedDateTimePickerVisible}
+                    onConfirm={this.handleDatePicked}
+                    onCancel={() => this.hideDateTimePicker("commented")}
+                  />
+                </DateRow>
+              </ContentRow>
+            </View>
+          </TouchableWithoutFeedback>
+        </MainBox>
       </Fragment>
     );
   }

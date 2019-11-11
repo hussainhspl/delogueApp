@@ -2,6 +2,7 @@ import React from "react";
 import { View, Text, Image, Dimensions } from "react-native";
 import styled from "styled-components";
 import Title from "../styles/SmallText";
+import CardText from '../styles/CardText';
 
 const ImageBox = styled.View`
   height: 80px;
@@ -21,12 +22,6 @@ const Flex = styled.View`
   flex: 1;
   flex-direction: row;
   height: 70px;
-`;
-
-const SubTitle = styled.Text`
-  font-size: 12px;
-  color: ${props => props.theme.textColor};
-  font-size:  ${props => props.theme.large};
 `;
 
 const MainRow = styled.View`
@@ -68,21 +63,21 @@ class ItemDetail extends React.Component {
           <StyledView>
             <View>
               <Title numberOfLines={1}>style no</Title>
-              <SubTitle numberOfLines={1}>{data.styleNo}</SubTitle>
+              <CardText numberOfLines={1}>{data.styleNo}</CardText>
             </View>
             <View>
               <Title>style name</Title>
-              <SubTitle numberOfLines={1}>{data.styleName}</SubTitle>
+              <CardText numberOfLines={1}>{data.styleName}</CardText>
             </View>
           </StyledView>
           <StyledView>
             <View>
               <Title numberOfLines={1}>supplier</Title>
-              <SubTitle numberOfLines={1}>{data.supplier}</SubTitle>
+              <CardText numberOfLines={1}>{data.supplier}</CardText>
             </View>
             <View>
               <Title numberOfLines={1}>season</Title>
-              <SubTitle numberOfLines={1}>{data.season}</SubTitle>
+              <CardText numberOfLines={1}>{data.season}</CardText>
             </View>
           </StyledView>
         </Flex>

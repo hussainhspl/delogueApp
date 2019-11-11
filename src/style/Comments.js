@@ -64,15 +64,6 @@ const Title = styled.Text`
   padding-right: 5px;
   font-size: 13;
 `;
-const SubTitle = styled.Text`
-  text-align: left;
-  width: 55%;
-  color: #4a4a4a;
-  padding-left: 5;
-  text-transform: capitalize;
-  font-size: 13;
-  font-family: ${props => props.theme.regular};
-`;
 
 const StyledTouchableHighlight = styled.TouchableHighlight`
   width: 50px;
@@ -121,7 +112,6 @@ class Comments extends React.Component {
       <View style={{ flex: 1 }}>
         <ItemDetail data={data} />
         <ScrollView showsVerticalScrollIndicator={false}>
-          {/* <Fragment> */}
           {this.state.ShowNewMsg || this.state.showMessage ? (
             <TouchableOpacity
               activeOpacity={0.3}

@@ -25,7 +25,6 @@ const InactiveColorBox = styled.View`
   right: 0;
   left: 0;
   z-index: 1;
-  /* border: 1px solid #ddd; */
 `;
 
 const CrossImage = styled.Image`

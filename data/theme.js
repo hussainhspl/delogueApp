@@ -9,11 +9,15 @@ export default {
 
   darkBlue: '#415461',
   overlayBlue: '#42546033',
+
+  redColor: '#d9534e',
+  
+  textColor: '#57504A',
+  greyText: '#9b9b9b',
   
   regular: 'Lato-Regular',
   bold: 'Lato-Bold',
-  textColor: '#57504A',
-
+  
   xs: 10,
   small: 12,
   large: 14,

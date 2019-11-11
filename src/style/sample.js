@@ -6,7 +6,8 @@ import {
   Dimensions,
   Image,
   TouchableOpacity,
-  TouchableHighlight
+  TouchableHighlight,
+  TouchableWithoutFeedback
   
 } from "react-native";
 import styled from "styled-components";
@@ -37,19 +38,20 @@ const StyleDescriptionRow = styled.View`
 const ButtonRow = styled.View`
   justify-content: center;
   align-items: center;
+  flex-direction: row;
+  position: relative;
+  margin: 10px auto;
 `;
 const CommentedButton = styled(View)`
   background-color: #99afaf;
-  margin-left: 15;
-  width: 180;
-  margin: 15px auto;
   padding: 0;
-  flex-direction: row;
+  justify-content: center;
   align-items: center;
+  height: 30;
 `;
 const IconView = styled.View`
-  width: 30;
-  height: 30;
+  width: 30px;
+  height: 30px;
   background-color: #415461;
   justify-content: center;
   align-items: center;
@@ -57,7 +59,7 @@ const IconView = styled.View`
 const ButtonText = styled.Text`
   color: white;
   text-transform: uppercase;
-  width: 150;
+  padding: 0px 10px;
   text-align: center;
   font-family: ${props => props.theme.regular};
 `;
@@ -66,12 +68,21 @@ const SampleRow = styled.View`
   flex-direction: row;
   flex-wrap: wrap;
 `;
-
+const ButtonOverlay = styled.View`
+  position: absolute;
+  top: 0;
+  bottom: 0px;
+  left: 0;
+  right: 0;
+  background-color: #dddddd33;
+  z-index: 1;
+`;
 class Sample extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      sampleRequest: false
+      sampleRequest: false,
+      showOpacity: false,
     };
   }
   saveChanges() {
@@ -88,14 +99,23 @@ class Sample extends React.Component {
         {this.state.sampleRequest == false && (
           <Fragment>
           <ScrollView showsVerticalScrollIndicator={false}>
-            <ButtonRow>
-              <CommentedButton small>
-                <ButtonText> hide commented </ButtonText>
-                <IconView>
-                  <Icon style={{ color: "#fff", fontSize: 15 }} name="eye" />
-                </IconView>
-              </CommentedButton>
-            </ButtonRow>
+            <View>
+            <TouchableWithoutFeedback
+              onPressIn={() => this.setState({ showOpacity: true })}
+              onPressOut={() => this.setState({ showOpacity: false })}
+              onPress={() => {}}
+            >
+              <ButtonRow>
+                 {this.state.showOpacity && <ButtonOverlay />}
+                <CommentedButton>
+                  <ButtonText> hide commented </ButtonText>
+                </CommentedButton>
+                  <IconView>
+                    <Icon style={{ color: "#fff", fontSize: 15 }} name="eye" />
+                  </IconView>
+              </ButtonRow>
+            </TouchableWithoutFeedback>
+              </View>
             <SampleRow>
               {sampleArr.map(data => {
                 return (

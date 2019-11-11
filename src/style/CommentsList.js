@@ -4,7 +4,8 @@ import {Icon} from 'native-base';
 import styled from "styled-components";
 import SearchInput from "../styles/SearchInput";
 import SearchIcon from '../styles/SearchIcon';
-
+import Subject from '../styles/Subject';
+import Title from '../styles/SmallText';
 let MsgData = [
   {
     key: 1,
@@ -47,10 +48,6 @@ const Row = styled.View`
   justify-content: space-between;
   /* background-color: */
 `;
-const Subject = styled.Text`
-  color: ${props => props.theme.darkBlue};
-  font-weight: 700;
-`;
 const MainContent = styled.View`
   width: 60%;
 `;
@@ -62,19 +59,17 @@ const InfoContent = styled.View`
   flex-direction: column;
 `;
 const ContentText = styled.Text`
-  color: #777;
+  color: ${props => props.theme.textColor};
+  font-family: ${props => props.theme.regular};
+  font-size: ${props => props.theme.large};
+
 `;
 const Name = styled.Text`
   color: #777;
-  font-weight: 700;
-  text-align: right;
-  font-size: 12;
+  font-family: ${props => props.theme.bold};
+  font-size: ${props => props.theme.small};
 `;
-const Date =styled.Text`
-  color: #777;
-  font-size: 12;
-  text-align: right;
-`;
+
 const IconBox = styled.View`
   width: 30px;
   height: 30px;
@@ -117,10 +112,6 @@ class CommentsList extends React.Component {
         </SearchRow>
         {
           MsgData.map(data => {
-            // if(data.key == 2) {
-            //   console.log("key match");
-            //   ()=> this.setState({read: true})
-            // }
             return(
               <MessageBox>
               <TouchableHighlight
@@ -141,7 +132,7 @@ class CommentsList extends React.Component {
                 </MainContent>
                 <InfoContent>
                   <Name>Richel Smith</Name>
-                  <Date>13-oct-2019 13.42</Date>
+                  <Title>13-oct-2019 13.42</Title>
                 </InfoContent>
                 </Row>
               </TouchableHighlight>

@@ -4,6 +4,7 @@ import styled from "styled-components";
 import ImageLayout from "react-native-image-layout";
 import Title from "../styles/SmallText";
 import {Icon} from 'native-base';
+import SubTitle from '../styles/CardText';
 
 const colorArray = [
   { color: "#ffeedd" },
@@ -48,26 +49,10 @@ const ColorBar = styled.View`
   flex-direction: row;
   margin-bottom: 10px;
 `;
-// const ColorBox = styled.View`
-//   height: 30px;
-//   width: 30px;
-//   margin: 0px 5px;
-//   background-color: #ddd;
-// `;
 const StyleInfo = styled.View`
   padding: 5px;
 `;
 
-const SubTitle = styled.Text`
-  /* text-align: left; */
-  /* width: 50%; */
-  color: #4a4a4a;
-  padding-top: 3px;
-  padding-bottom: 5px;
-  text-transform: capitalize;
-  font-size: 14px;
-  font-family: ${props => props.theme.regular};
-`;
 const SizeBox = styled.View`
   border: 1px solid #ddd;
   padding: 10px 20px;
@@ -77,7 +62,6 @@ const ColorContainer = styled.View`
   flex-direction: row;
   padding: 10px 20px;
   flex-wrap: wrap;
-  /* background-color: #ddd; */
 `;
 
 const ItemInfoRow = styled.View`
@@ -97,7 +81,6 @@ const ColorBox = styled.View`
   width: 50px;
   height: 50px;
   background-color: #ffcf9e;
-  /* margin-right: 10px; */
   margin-bottom: 10px;
 `;
 
@@ -133,7 +116,6 @@ const XView2 = styled.View`
   right: 45px;
   left: -35px;
   transform: rotate(-45deg);
-  /* background-color: #aaa; */
 `;
 
 const CloseMessage = styled.Text`
@@ -219,33 +201,10 @@ class General extends React.Component {
               uri:
                 "https://www.pngix.com/pngfile/middle/94-947216_aspinwall-outline-montana-t-shirt-pine-1-university.png"
             }
-            // {source:require("../../assets/img/a.webp"),
-            //   dimensions: { width: 100, height: 280 }
-            // },
           ]}
         />
         <Icon  style={{position: 'absolute', right: 10, bottom: 10, color: '#999' }} name="expand" />
         </View>
-        {/* </ImageView> */}
-        {/* <ColorBar>
-          {colorArray.map(item => {
-            return (
-              <ColorBox
-                style={{ backgroundColor: item.color }}
-                key={Math.random().toFixed(3)}
-              />
-            );
-          })}
-          {this.state.data.styleColors.map(item => {
-            return (
-              <ColorBox
-                style={{ backgroundColor: item.color }}
-                key={Math.random().toFixed(3)}
-              />
-              <Text style={{width: 100}}>{item.name} </Text>
-            );
-          })}
-        </ColorBar> */}
         <ItemInfoRow>
           <View style={{width: '50%'}}>
             <StyleInfo>
@@ -319,8 +278,7 @@ class General extends React.Component {
           </StyleInfo>
         </SizeBox>
         <ColorContainer>
-          {
-            
+          { 
             colorArr.map(data => {
               no = no+1;
               console.log("number", no)
@@ -333,7 +291,6 @@ class General extends React.Component {
                       <XView1 />
                       <XView2 />
                     </Fragment>
-                    // <View />
                     :
                     <ColorBox />
                   }

@@ -10,7 +10,7 @@ const imgArr = [{ key: 1 }, { key: 2 }, { key: 3 }, { key: 4 }];
 const CommentBox = styled.View`
   border: 1px solid #ddd;
   padding: 10px 10px;
-  margin: 0px 15px 10px 15px;
+  margin: 0px 10px 20px 20px;
   position: relative;
 `;
 
@@ -134,6 +134,8 @@ const Date =styled.Text`
 const InternalText = styled.Text`
   color: #aaa;
   padding-left: 5px;
+  font-size: ${props => props.theme.small};
+  font-family: ${props => props.theme.regular};
 `;
 
 
@@ -194,7 +196,7 @@ class CommentBlock extends React.Component {
                 <Date>13-oct-2019 13.42</Date>
               <HeaderText> NOTIFIED: Hussain, Siya, Deepakshi </HeaderText>
               <InternalView>
-                <Icon style={{color: '#ddd'}} name="home" />
+                <Icon style={{color: '#ddd', fontSize: 15}} name="home" />
                 <InternalText>Internal</InternalText>
               </InternalView>
             </FromRow>

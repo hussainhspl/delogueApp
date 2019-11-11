@@ -63,7 +63,9 @@ const Box = styled.View`
 `;
 const Label = styled.Text`
 	color: #8D8177;
-	font-weight: 600;
+	font-family: ${props => props.theme.regular};
+	color: ${props => props.theme.textColor};
+	font-size: ${props => props.theme.large}
 	text-transform: uppercase;
 `;
 const StyleFileTitle = styled.View`
@@ -77,6 +79,9 @@ const StyleFileTitle = styled.View`
 `;
 const Capital = styled.Text`
 	text-transform: uppercase;
+	font-family: ${props => props.theme.regular};
+	color: ${props => props.theme.textColor};
+	font-size: ${props => props.theme.large};
 `;
 const CameraView = styled.View`
 	width: 40;
@@ -177,6 +182,23 @@ const Flex = styled.View`
 	align-items: center;
 `;
 
+const LessText = styled.Text`
+	font-family: ${props => props.theme.regular};
+	color: ${props => props.theme.textColor};
+	font-size: ${props => props.theme.large};
+`;
+
+const CommentText = styled.Text`
+	font-family: ${props => props.theme.regular};
+	color: ${props => props.theme.textColor};
+	font-size: ${props => props.theme.large};
+`;
+
+const STextArea = styled(TextArea)`
+	font-family: ${props => props.theme.regular};
+	color: ${props => props.theme.textColor};
+	font-size: ${props => props.theme.large};
+`;
 class StyleTemplate extends React.Component {
 	constructor(props) {
     super(props);
@@ -202,17 +224,17 @@ class StyleTemplate extends React.Component {
 					<Capital> style files </Capital>
 					<Flex>
 						<Icon style={{ color: "#555", fontSize: 15, marginRight: 10 }} name="remove" />
-						<Text>show less</Text>
+						<LessText>show less</LessText>
 					</Flex>
 				</StyleFileTitle>
 				<Box>
 					<Label> Comment By Company </Label>
-					<TextArea
+					<STextArea
 						multiline={true}
 						numberOfLines={4}
 						onChangeText={(textArea) => this.setState({textArea})}
 						value={this.state.textArea}
-						placeholder="type your message"
+						placeholder="Enter Comment"
 						textAlignVertical= 'top'
 					/>
 				</Box>	
@@ -256,9 +278,9 @@ class StyleTemplate extends React.Component {
 					</AttachImageRow>
 					<Label> Comment by supplier </Label>
 					<CommentBox>
-						<Text>
+						<CommentText>
 						Dolor deserunt nulla elit consequat commodo ex consectetur consectetur officia do in consequat laborum. Est occaecat aliqua est quis officia ad labore ex anim. Officia officia eiusmod culpa ex pariatur reprehenderit irure minim laborum nisi tempor excepteur ipsum. Deserunt deserunt sit anim ad esse voluptate quis id ex aliqua. Fugiat excepteur irure ea excepteur reprehenderit.
-						</Text>
+						</CommentText>
 					</CommentBox>
         </View>
 				<StyleFileTitle>

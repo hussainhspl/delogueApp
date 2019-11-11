@@ -1,12 +1,18 @@
 import React from "react";
-import { View, Text, TouchableWithoutFeedback, Image, Dimensions } from "react-native";
+import {
+  View,
+  Text,
+  TouchableWithoutFeedback,
+  Image,
+  Dimensions
+} from "react-native";
 import styled from "styled-components";
 import Title from "../styles/SmallText";
-import CardText from '../styles/CardText';
-import GridCard from '../styles/GridCard';
-import GridImageView from '../styles/GridImageView';
-import GridImage from '../styles/GridImage';
-import GridCardInfo from '../styles/GridCardInfo';
+import CardText from "../styles/CardText";
+import GridCard from "../styles/GridCard";
+import GridImageView from "../styles/GridImageView";
+import GridImage from "../styles/GridImage";
+import GridCardInfo from "../styles/GridCardInfo";
 import OpacityView from "../styles/OpacityView";
 
 class searchGridCard extends React.Component {
@@ -15,13 +21,9 @@ class searchGridCard extends React.Component {
     this.state = {
       tablet: false,
       showOpacity: false,
-      modalVisible: false 
+      modalVisible: false
     };
   }
-  // showPopup = () => {
-  //   console.log("Enter");
-  //   this.setState({ modalVisible: true });
-  // };
   componentDidMount = () => {
     if (Dimensions.get("window").width > 568) {
       this.setState({ tablet: true }, () =>
@@ -33,20 +35,14 @@ class searchGridCard extends React.Component {
     let data = this.props.data;
     const history = this.props.history;
     return (
-        // <TouchableHighlight
-        //   underlayColor="#42546033"
-        //   onPress={() => {
-        //     history.push("/style");
-        //     // console.log('hey');
-        //   }}
-        //   key={data.key}
-        // >
-        <TouchableWithoutFeedback
-          onPressIn={() => this.setState({ showOpacity: true })}
-          onPressOut={() => this.setState({ showOpacity: false })}
-          onPress={() => {history.push("/style");}}
-        >
-      <GridCard key={data.styleNo} tablet={this.state.tablet}>
+      <TouchableWithoutFeedback
+        onPressIn={() => this.setState({ showOpacity: true })}
+        onPressOut={() => this.setState({ showOpacity: false })}
+        onPress={() => {
+          history.push("/style");
+        }}
+      >
+        <GridCard key={data.styleNo} tablet={this.state.tablet}>
           {this.state.showOpacity && <OpacityView />}
           <GridImageView tablet={this.state.tablet}>
             <GridImage
@@ -65,8 +61,8 @@ class searchGridCard extends React.Component {
               <CardText numberOfLines={1}>{data.styleNo}</CardText>
             </View>
           </GridCardInfo>
-      </GridCard>
-        </TouchableWithoutFeedback>
+        </GridCard>
+      </TouchableWithoutFeedback>
     );
   }
 }
