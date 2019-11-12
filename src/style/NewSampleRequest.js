@@ -8,7 +8,15 @@ import CameraComponent from '../shared/CameraComponent';
 import SetRequestedQuantity from './SetRequestedQuantity';
 import CameraView from '../styles/CameraView';
 import { withTheme } from 'styled-components';
+import ItemDetail from '../shared/ItemDetail';
+import Title from '../styles/SmallText';
 
+const data = {
+  styleNo: "sty2211",
+  styleName: "Casual Shirt",
+  supplier: "head textiles",
+  season: "summer"
+};
 
 const SampleRequestRow = styled.View`
   flex-direction: row;
@@ -23,12 +31,12 @@ const ImageView = styled.View`
   
   
 `;
-const ImageDetails = styled.View`
-  text-align: center;
-  flex: 1;
-  align-items: center;
-  margin: 20px 10px 20px 10px;
-`;
+// const ImageDetails = styled.View`
+//   text-align: center;
+//   flex: 1;
+//   align-items: center;
+//   margin: 20px 10px 20px 10px;
+// `;
 const StyleImage = styled.Image`
   max-height: ${Dimensions.get('window').width/ 3};
   width: ${Dimensions.get('window').width/ 3-20};
@@ -37,15 +45,15 @@ const StyleInfo = styled.View`
   flex-direction: row;
   padding-bottom: 10px;
 `;
-const Title = styled.Text`
-  width: 45%;
-  text-align: right;
-  color: #9b9b9b;
-  text-transform: uppercase;
-  font-weight: 600;
-  padding-right: 5px;
-  font-size: 13;
-`;
+// const Title = styled.Text`
+//   width: 45%;
+//   text-align: right;
+//   color: #9b9b9b;
+//   text-transform: uppercase;
+//   font-weight: 600;
+//   padding-right: 5px;
+//   font-size: 13;
+// `;
 const SubTitle = styled.Text`
   text-align: left;
   width: 55%;
@@ -56,13 +64,15 @@ const SubTitle = styled.Text`
 `;
 const ContentTitle = styled.Text`
   text-transform: uppercase;
-  color: #8c8076;
-  font-size: 12px;
+  color: ${props => props.theme.textColor};
+  font-size: ${props => props.theme.large};
+  font-family: ${props => props.theme.regular};
   padding-bottom: 5px;
 `;
 const StyledView = styled.View`
 	border: 1px solid #ddd;
 	height: 30px;
+  margin-top: 5px;
 	flex: 1;
 `;
 const StyledPicker = styled(Picker)`
@@ -71,7 +81,7 @@ const StyledPicker = styled(Picker)`
 `;
 const DateRow = styled.View`
   flex-direction: row;
-  /* margin: 0px 15px; */
+  margin-top: 5px;
   align-items: center;
 `;
 const DateInput = styled.TextInput`
@@ -250,14 +260,15 @@ _handleAppStateChange = (nextAppState) => {
           okButton = "notification"
           okClick = {() => this.redirectTo(history)}
 				>
-          <SampleRequestRow>
-            <ImageView>
+          <ItemDetail data={data} />
+          {/* <SampleRequestRow> */}
+            {/* <ImageView>
               <StyleImage
                 resizeMode={"contain"}
                 source={require('../../assets/img/shirt-static.png')}
               />
-            </ImageView>
-            <ImageDetails>
+            </ImageView> */}
+            {/* <ImageDetails>
               <StyleInfo>
                 <Title>brand</Title>
                 <SubTitle numberOfLines={1} >demo brand</SubTitle>
@@ -278,11 +289,11 @@ _handleAppStateChange = (nextAppState) => {
                 <Title>season</Title>
                 <SubTitle numberOfLines={1}>SS20</SubTitle>
               </StyleInfo>
-            </ImageDetails>
-          </SampleRequestRow>
+            </ImageDetails> */}
+          {/* </SampleRequestRow> */}
           <MainContent>
             <ContentBlock tablet={this.state.tablet}>
-              <ContentTitle> status </ContentTitle>
+              <Title> status </Title>
               <StyledView>
                 <StyledPicker
                   mode="dropdown"
@@ -300,7 +311,7 @@ _handleAppStateChange = (nextAppState) => {
               </StyledView>
             </ContentBlock>
             <ContentBlock tablet={this.state.tablet}>
-              <ContentTitle> sample type </ContentTitle>
+              <Title> sample type </Title>
               <StyledView>
                 <StyledPicker
                   mode="dropdown"
@@ -318,7 +329,7 @@ _handleAppStateChange = (nextAppState) => {
               </StyledView>
             </ContentBlock>
             <ContentBlock tablet={this.state.tablet}>
-              <ContentTitle> deadline for sample </ContentTitle>
+              <Title> deadline for sample </Title>
               <DateRow>
                 <DateInput
                   onChangeText={text => this.setState({ text })}
@@ -341,7 +352,7 @@ _handleAppStateChange = (nextAppState) => {
               </DateRow>
             </ContentBlock>
             <ContentBlock tablet={this.state.tablet}>       
-              <ContentTitle> ETD </ContentTitle>
+              <Title> ETD </Title>
               <DateRow>
                 <DateInput
                   onChangeText={text => this.setState({ text })}
@@ -362,7 +373,7 @@ _handleAppStateChange = (nextAppState) => {
               </DateRow>
             </ContentBlock>
             <ContentBlock tablet={this.state.tablet}>
-              <ContentTitle> Tracking Number </ContentTitle>
+              <Title> Tracking Number </Title>
               <DateRow>
                 <DateInput
                   onChangeText={text => this.setState({ text })}
@@ -372,7 +383,7 @@ _handleAppStateChange = (nextAppState) => {
               </DateRow>
             </ContentBlock>
             <ContentBlock tablet={this.state.tablet}>
-              <ContentTitle> Location </ContentTitle>
+              <Title> Location </Title>
               <StyledView>
                 <StyledPicker
                   mode="dropdown"
@@ -390,7 +401,7 @@ _handleAppStateChange = (nextAppState) => {
               </StyledView> 
             </ContentBlock>
             <ContentBlock tablet={this.state.tablet}>
-              <ContentTitle> Address </ContentTitle>
+              <Title> Address </Title>
               <Text> headfitted solutions pune</Text>
             </ContentBlock>
           </MainContent>
@@ -400,7 +411,7 @@ _handleAppStateChange = (nextAppState) => {
             </IconView>
             <ButtonText> use template </ButtonText>
           </CommentedButton>
-          <ContentTitle style={{paddingLeft: 15}}> Comment </ContentTitle>
+          <Title style={{paddingLeft: 15}}> Comment </Title>
           <TextArea
 						multiline={true}
 						numberOfLines={4}

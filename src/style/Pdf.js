@@ -10,6 +10,17 @@ import { generalTab } from '../store/actions/index';
 const SelectorBox = styled.View`
   padding: 10px;
 `;
+const TitleText = styled.Text`
+  font-family: ${props => props.theme.regular};
+  color: ${props => props.theme.textColor};
+  font-size: ${props => props.theme.large};
+  padding-bottom: 20px;
+`;
+const CheckBoxText = styled.Text`
+  font-family: ${props => props.theme.bold};
+  color: ${props => props.theme.textColor};
+  font-size: ${props => props.theme.large};
+`;
 
 class Pdf extends React.Component {
   constructor(props) {
@@ -66,71 +77,71 @@ class Pdf extends React.Component {
           okButton = "print pdf"
 				>
           <SelectorBox>
-            <Text style={{paddingBottom: 20}}> Please select which parts of this style you would like to print </Text>
+            <TitleText> Please select which parts of this style you would like to print </TitleText>
             <ListItem>
               <CheckBox checked={false} color="#415461"/>
               <Body>
-                <Text style={{paddingLeft: 15}}>All</Text>
+                <CheckBoxText style={{paddingLeft: 15}}>All</CheckBoxText>
               </Body>
             </ListItem>
             <ListItem>
               <CheckBox checked={true} color="#415461"/>
               <Body>
-                <Text style={{paddingLeft: 15}}>Finish list Screen</Text>
+                <CheckBoxText style={{paddingLeft: 15}}>Finish list Screen</CheckBoxText>
               </Body>
             </ListItem>
             <ListItem>
               <CheckBox checked={true} color="#415461"/>
               <Body>
-                <Text style={{paddingLeft: 15}}>Item List</Text>
+                <CheckBoxText style={{paddingLeft: 15}}>Item List</CheckBoxText>
               </Body>
             </ListItem>
             <ListItem>
               <CheckBox checked={true} color="#415461"/>
               <Body>
-                <Text style={{paddingLeft: 15}}>Style Files</Text>
+                <CheckBoxText style={{paddingLeft: 15}}>Style Files</CheckBoxText>
               </Body>
             </ListItem>
             <ListItem>
               <CheckBox checked={true} color="#415461"/>
               <Body>
-                <Text style={{paddingLeft: 15}}>Measurement Chart</Text>
+                <CheckBoxText style={{paddingLeft: 15}}>Measurement Chart</CheckBoxText>
               </Body>
             </ListItem>
             <ListItem>
               <CheckBox checked={true} color="#415461"/>
               <Body>
-                <Text style={{paddingLeft: 15}}>Item Artwork</Text>
+                <CheckBoxText style={{paddingLeft: 15}}>Item Artwork</CheckBoxText>
               </Body>
             </ListItem>
             <ListItem>
               <CheckBox checked={true} color="#415461"/>
               <Body>
-                <Text style={{paddingLeft: 15}}>Pending Sample Requests</Text>
+                <CheckBoxText style={{paddingLeft: 15}}>Pending Sample Requests</CheckBoxText>
               </Body>
             </ListItem>
             <ListItem>
               <CheckBox checked={true} color="#415461"/>
               <Body>
-                <Text style={{paddingLeft: 15}}>Sample Comments</Text>
-              </Body>
-            </ListItem>
-            <ListItem>
-              <CheckBox checked={false} color="#415461"/>
-              <Body>
-                <Text style={{paddingLeft: 15}}>Communication Message</Text>
+                <CheckBoxText style={{paddingLeft: 15}}>Sample Comments</CheckBoxText>
               </Body>
             </ListItem>
             <ListItem>
               <CheckBox checked={false} color="#415461"/>
               <Body>
-                <Text style={{paddingLeft: 15}}>Custom Fields</Text>
+                <CheckBoxText style={{paddingLeft: 15}}>Communication Message</CheckBoxText>
+              </Body>
+            </ListItem>
+            <ListItem>
+              <CheckBox checked={false} color="#415461"/>
+              <Body>
+                <CheckBoxText style={{paddingLeft: 15}}>Custom Fields</CheckBoxText>
               </Body>
             </ListItem>
             <ListItem>
               <CheckBox checked={true} color="#415461"/>
               <Body>
-                <Text style={{paddingLeft: 15}}> Description + Artwork matrix</Text>
+                <CheckBoxText style={{paddingLeft: 15}}> Description + Artwork matrix</CheckBoxText>
               </Body>
             </ListItem>
           </SelectorBox>

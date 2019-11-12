@@ -40,7 +40,10 @@ const ButtonRow = styled.View`
   align-items: center;
   flex-direction: row;
   position: relative;
-  margin: 10px auto;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  margin-left: auto;
+  margin-right: 10px;
 `;
 const CommentedButton = styled(View)`
   background-color: #99afaf;
