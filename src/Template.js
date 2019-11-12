@@ -37,21 +37,21 @@ class Template extends React.Component {
   }
   checkToken() {
     let currentDate = new Date().toUTCString();
-    console.log("india date", currentDate);
+    // console.log("india date", currentDate);
     this.getToken()
       .then(token => {
-        console.log("hello",token);
+        // console.log("hello",token);
         if (token) {
-          console.log("Token already exist");
+          // console.log("Token already exist");
           this.getTokenExpiry()
             .then(tokenExpiryTime => {
               // let tempDate = new Date(currentDate);
               // tempDate.setSeconds(tempDate.getSeconds() + 36000);
-              console.log(
-                "expiry time :",
-                new Date(currentDate),
-                new Date(tokenExpiryTime)
-              );
+              // console.log(
+              //   "expiry time :",
+              //   new Date(currentDate),
+              //   new Date(tokenExpiryTime)
+              // );
               var result = isAfter(
                 new Date(currentDate),
                 new Date(tokenExpiryTime)
@@ -65,7 +65,7 @@ class Template extends React.Component {
                 })
                 // this.checkCredential();
               } else {
-                console.log("Token is valid");
+                // console.log("Token is valid");
                 // Alert.alert('ready to move to next page');
                 this.setState({
                   token: true,
@@ -97,9 +97,9 @@ class Template extends React.Component {
       const token = await AsyncStorage.getItem("@token");
       // console.log("token from ")
       if (token !== null) {
-        console.log("get token ", token);
+        // console.log("get token ", token);
         this.props.tokenFunction(token);
-        console.log('got here');
+        // console.log('got here');
         return token;
       }
     } catch (error) {
@@ -114,7 +114,7 @@ class Template extends React.Component {
       const strTokenExpiry = await AsyncStorage.getItem("@tokenExpiry");
       const tokenExpiry = JSON.parse(strTokenExpiry);
       if (tokenExpiry !== null) {
-        console.log("get token expiry", tokenExpiry);
+        // console.log("get token expiry", tokenExpiry);
         return tokenExpiry;
       }
     } catch (error) {
@@ -133,7 +133,7 @@ class Template extends React.Component {
 
   render() {
     console.disableYellowBox = true;
-    console.log("this. props", this.props, this.state.token);
+    // console.log("this. props", this.props, this.state.token);
     return (
       <Fragment>
         {

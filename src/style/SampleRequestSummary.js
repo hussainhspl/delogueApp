@@ -50,7 +50,7 @@ class SampleRequestSummary extends React.Component {
       boolVar: true
     };
   }
-  onValueChange2(value: string) {
+  onValueChange2(value) {
     this.setState({
       selected2: value
     });

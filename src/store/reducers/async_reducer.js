@@ -7,7 +7,7 @@ const initialState = {
 const asyncReducer = (state = initialState, action) => {
   switch ( action.type) {
     case TOKEN: 
-      console.log("in reducer", action.payload);
+      // console.log("in reducer", action.payload);
       return {
         ...state,
         tokenState: action.payload

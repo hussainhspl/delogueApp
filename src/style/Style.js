@@ -47,7 +47,7 @@ class Style extends React.Component {
     // console.log("printing from render: ", params);
   }
   componentDidMount = () => {
-    console.log('did mount in style');
+    // console.log('did mount in style');
     this.getStyles();
   }
 
@@ -55,7 +55,7 @@ class Style extends React.Component {
     // get style
 
     const AuthStr = `Bearer ${token}`;
-    console.log("bearer token ", AuthStr)
+    // console.log("bearer token ", AuthStr)
  
     axios({
       url: "https://rc.delogue.com/export/style/16197",
@@ -67,7 +67,7 @@ class Style extends React.Component {
       }
     })
       .then(res => {
-        console.log("response in style", res);
+        // console.log("response in style", res);
         this.setState({
           styleData : res.data,
         })
@@ -80,9 +80,9 @@ class Style extends React.Component {
   }
 
   render() {
-    console.log("style data",this.state.styleData);
-    console.log("process env", URL);
-    console.log('token from store in style', this.props.tokenData);
+    // console.log("style data",this.state.styleData);
+    // console.log("process env", URL);
+    // console.log('token from store in style', this.props.tokenData);
     // const history = this.props.history;
     // console.log("History on style page:", history)
     // step 2 create reducer: it needs state and action

@@ -160,7 +160,7 @@ class General extends React.Component {
   }
   static getDerivedStateFromProps(props, state) {
     if (props.styleData !== state.data) {
-      console.log("enter in derived if", props.styleData);
+      // console.log("enter in derived if", props.styleData);
       return {
         data: props.styleData
       };
@@ -181,7 +181,7 @@ class General extends React.Component {
   pinZoomLayoutRef = React.createRef();
   render() {
     // const data= this.props.styleData;
-    console.log("render in general :", this.state.data, this._renderPageHeader);
+    // console.log("render in general :", this.state.data, this._renderPageHeader);
     let no = 0;
     return (
       <ScrollView showsVerticalScrollIndicator={false}>
@@ -281,7 +281,7 @@ class General extends React.Component {
           { 
             colorArr.map(data => {
               no = no+1;
-              console.log("number", no)
+              // console.log("number", no)
               return(
                 <Block>
                   {
