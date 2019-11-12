@@ -3,7 +3,10 @@ import { View, Text, TouchableHighlight, Modal, Alert, SafeAreaView, BackHandler
 import styled from 'styled-components';
 import {Icon, Button} from 'native-base';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import ApplyButton from '../styles/ApplyButton'
+import ApplyButton from '../styles/ApplyButton';
+import CancelButton from '../styles/CancelButton';
+import ButtonText from '../styles/ButtonText';
+
 import theme from "../../data/theme";
 // import console = require("console");
 
@@ -41,13 +44,7 @@ const ApplyBar = styled.View`
 	right: 0;
 	left: 0;
 `;
-const ApplyButtonText = styled.Text`
-	color: #fff;
-	text-transform: uppercase;
-	padding-bottom: -5px;
-	font-family: ${props => props.theme.regular};
-	font-size: ${props => props.theme.large};
-`;
+
 const CancelText = styled.Text`
 	color: ${props => props.theme.redColor};
 	font-family: ${props => props.theme.regular};
@@ -100,13 +97,13 @@ class CommonModal extends React.Component {
 							{
 								this.props.hideButton ? null :
 									<ApplyBar>
-										<Button bordered light small danger 
+										<CancelButton
 											onPress={() => {this.closeModal(this.props.close)}}
 										>
-											<CancelText> CANCEL </CancelText> 
-										</Button>
+											<ButtonText> CANCEL </ButtonText> 
+										</CancelButton>
 										<ApplyButton>
-											<ApplyButtonText>{this.props.okButton ?this.props.okButton : 'apply'}</ApplyButtonText>
+											<ButtonText>{this.props.okButton ?this.props.okButton : 'apply'}</ButtonText>
 										</ApplyButton>
 									</ApplyBar>
 							}

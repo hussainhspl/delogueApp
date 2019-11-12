@@ -5,6 +5,7 @@ import { Icon } from "native-base";
 import ImageCard from "../shared/ImageCard";
 import { withTheme } from 'styled-components';
 import ReplyComponent from './ReplyComponent';
+import Subject from '../styles/Subject';
 
 const imgArr = [{ key: 1 }, { key: 2 }, { key: 3 }, { key: 4 }];
 const CommentBox = styled.View`
@@ -79,6 +80,7 @@ const MessageBody = styled.Text`
   padding: 20px 0px;
   line-height: 20;
   font-family: ${props => props.theme.regular};
+  font-size: ${props => props.theme.large};
   width: 65%;
 `;
 const ImageRow = styled.View`
@@ -100,7 +102,7 @@ const ImageName = styled.Text`
 `;
 const Title = styled.Text`
   color: ${props => props.theme.darkBlue};
-  font-weight: 700;
+  font-family: ${props => props.theme.bold};  
 `;
 const BackRow = styled.View`
   flex-direction: row;
@@ -161,22 +163,25 @@ class CommentBlock extends React.Component {
               resizeMode={"contain"}
               source={require("../../assets/img/message-icon.png")} />
           </IconBox>
-          <FirstRow>
-            <View style={{ flex: 1, paddingRight: 2 }}>
-              <Title numberOfLines={1}> Swatch samples </Title>
-            </View>
-            <TouchableHighlight 
-              onPress={() => this.setState({reply: true})}
-              underlayColor={this.props.theme.overlayBlue} 
-            >
-              <NewButton small >
-                <IconView>
-                  <Icon style={{ color: "#fff", fontSize: 15 }} name="undo" />
-                </IconView>
-                <ButtonText> reply </ButtonText>
-              </NewButton>
-            </TouchableHighlight>
-          </FirstRow>
+          {
+            this.state.reply === false && (
+            <FirstRow>
+              <View style={{ flex: 1, paddingRight: 2 }}>
+                <Subject numberOfLines={1}> Swatch samples </Subject>
+              </View>
+              <TouchableHighlight 
+                onPress={() => this.setState({reply: true})}
+                underlayColor={this.props.theme.overlayBlue} 
+              >
+                <NewButton small >
+                  <IconView>
+                    <Icon style={{ color: "#fff", fontSize: 15 }} name="undo" />
+                  </IconView>
+                  <ButtonText> reply </ButtonText>
+                </NewButton>
+              </TouchableHighlight>
+            </FirstRow>
+          )}
           {
             this.state.reply && (
               <ReplyComponent />

@@ -115,6 +115,7 @@ class Style extends React.Component {
             </View>
             :
             this.renderSelectedTab(this.props.currentTab)
+            
           }
           <FooterComponent />
         </Header>

@@ -3,6 +3,8 @@ import { View, Text } from "react-native";
 import styled from 'styled-components';
 import { Picker, Icon, Button } from 'native-base';
 import ApplyButton from '../styles/ApplyButton';
+import CancelButton from '../styles/CancelButton';
+import ButtonText from '../styles/ButtonText';
 import NewMessageCamera from './NewMessageCamera';
 
 
@@ -187,12 +189,12 @@ class ReplyComponent extends React.Component{
             <NewMessageCamera />
           </Row>
           <Row>
-          <Button bordered light small danger
+          <CancelButton bordered light small danger
           >
-            <Text style={{color: "#d9534e"}}> CANCEL </Text>
-          </Button>
+            <ButtonText> CANCEL </ButtonText>
+          </CancelButton>
           <ApplyButton>
-            <FooterButtonText>apply</FooterButtonText>
+            <ButtonText>apply</ButtonText>
           </ApplyButton>
           </Row>
         </ButtonRow>

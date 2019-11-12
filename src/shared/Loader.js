@@ -1,5 +1,5 @@
 import React, {Fragment} from 'react';
-import { View, Text} from 'react-native';
+import { View, Text, Image} from 'react-native';
 import LottieView from 'lottie-react-native';
  
 export default class BasicExample extends React.Component {
@@ -7,10 +7,16 @@ export default class BasicExample extends React.Component {
     return (
       
         
-        <LottieView 
-          source={require('../../assets/animation/68-loader.json')} 
-          autoPlay loop 
-        />
+        // <LottieView 
+        //   source={require('../../assets/animation/68-loader.json')} 
+        //   autoPlay loop 
+        // />
+        <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+          <Image
+            // source={require('../../assets/img/LoadingG64.gif')}
+            source={require('../../assets/img/delogue-loader.gif')}
+          />
+        </View>
     )
   }
 }

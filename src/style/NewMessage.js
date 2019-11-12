@@ -11,7 +11,9 @@ import styled from "styled-components/native";
 import NewMessageCamera from './NewMessageCamera';
 import AttachmentPopup from "../shared/AttachmentPopup";
 import { withTheme } from 'styled-components';
-import ApplyButton from '../styles/ApplyButton'
+import ApplyButton from '../styles/ApplyButton';
+import CancelButton from '../styles/CancelButton';
+import ButtonText from '../styles/ButtonText';
 
 
 const MessageBlock = styled.View`
@@ -271,16 +273,11 @@ class NewMessage extends React.Component {
             <ButtonRow>
 							<NewMessageCamera />
               <ButtonSet>
-                <Button
-                  bordered
-                  light
-                  small
-                  style={{ backgroundColor: "#C2BEB6", marginBottom: 0 }}
-                >
-                  <FooterButtonText>cancel</FooterButtonText>
-                </Button>
+                <CancelButton>
+                  <ButtonText>cancel</ButtonText>
+                </CancelButton>
                 <ApplyButton>
-                  <FooterButtonText>apply</FooterButtonText>
+                  <ButtonText>apply</ButtonText>
                 </ApplyButton>
               </ButtonSet>
             </ButtonRow>

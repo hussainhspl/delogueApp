@@ -18,6 +18,8 @@ import ViewRequestedQuantity from "./ViewRequestedQuantity";
 import CommonModal from "../shared/CommonModal";
 import Header from "../Header";
 import ApplyButton from "../styles/ApplyButton";
+import CancelButton from '../styles/CancelButton';
+import ButtonText from '../styles/ButtonText';
 import ItemDetail from "../shared/ItemDetail";
 import SmallText from "../styles/SmallText";
 import CardText from "../styles/CardText";
@@ -241,7 +243,7 @@ const TabTail = styled.View`
   left: -15px;
 `;
 const Tab = styled.View`
-  width: 50px;
+  width: ${Dimensions.get("window").width/9};
   height: 20px;
   background-color: ${props =>
     props.active ? props => props.theme.darkBrown : props => props.theme.brown};
@@ -256,16 +258,27 @@ class SampleRequest extends React.Component {
       appState: AppState.currentState0px,
       modalVisible: false,
       xlcomp: "",
-      isDateTimePickerVisible: false,
+      isDeadlineDateTimePickerVisible: false,
+      isEtdDateTimePickerVisible: false,
+      deadlineText: "",
+      etdText: "",
       piecesModal: false
     };
   }
-  showDateTimePicker = () => {
-    this.setState({ isDateTimePickerVisible: true });
+  showDateTimePicker = value => {
+    if (value == "deadline") {
+      this.setState({ isDeadlineDateTimePickerVisible: true });
+    } else if (value == "etd") {
+      this.setState({ isEtdDateTimePickerVisible: true });
+    }
   };
 
-  hideDateTimePicker = () => {
-    this.setState({ isDateTimePickerVisible: false });
+  hideDateTimePicker = value => {
+    if (value == "deadline") {
+      this.setState({ isDeadlineDateTimePickerVisible: false });
+    } else if (value == "etd") {
+      this.setState({ isEtdDateTimePickerVisible: false });
+    }
   };
 
   handleDatePicked = date => {
@@ -302,16 +315,21 @@ class SampleRequest extends React.Component {
               <View style={{ flex: 1 }}>
                 <SampleName numberOfLine={1}>photo sample</SampleName>
                 <DateTimePicker
-                  isVisible={this.state.isDateTimePickerVisible}
+                  isVisible={this.state.isDeadlineDateTimePickerVisible}
                   onConfirm={this.handleDatePicked}
-                  onCancel={this.hideDateTimePicker}
+                  onCancel={() => this.hideDateTimePicker("deadline")}
+                />
+                <DateTimePicker
+                  isVisible={this.state.isEtdDateTimePickerVisible}
+                  onConfirm={this.handleDatePicked}
+                  onCancel={() => this.hideDateTimePicker("etd")}
                 />
                 <DetailRow>
-                  <Block onPress={this.showDateTimePicker}>
+                  <Block onPress={() => this.showDateTimePicker("deadline")}>
                     <SmallText>Deadline</SmallText>
                     <CardText numberOfLines={1}> 31-Oct-2019</CardText>
                   </Block>
-                  <Block>
+                  <Block onPress={() => this.showDateTimePicker("etd")}>
                     <SmallText>ETD</SmallText>
                     <CardText numberOfLines={1}>Add</CardText>
                   </Block>
@@ -332,10 +350,10 @@ class SampleRequest extends React.Component {
             <CurrentStage>
               <CurrentStageTitle>Planned</CurrentStageTitle>
             </CurrentStage>
-            <ScrollView
+            {/* <ScrollView
               horizontal={true}
               showsHorizontalScrollIndicator={false}
-            >
+            > */}
               <TabRow>
                 <Tab active={true}>
                   <RightTriangle active={true} />
@@ -362,7 +380,7 @@ class SampleRequest extends React.Component {
                   <RightTriangle />
                 </Tab>
               </TabRow>
-            </ScrollView>
+            {/* </ScrollView> */}
             <View style={{ flexDirection: "row", padding: 10, justifyContent: "center" }}>
               {/* <Label> measurement </Label> */}
               <TouchableHighlight
@@ -438,15 +456,15 @@ class SampleRequest extends React.Component {
           </MainView>
         </KeyboardAwareScrollView>
         <FooterButton>
-          <Button bordered light small danger>
-            <CancelButtonText>CANCEL</CancelButtonText>
-          </Button>
+          <CancelButton>
+            <ButtonText>CANCEL</ButtonText>
+          </CancelButton>
           <ApplyButton
             onPress={() => {
               this.redirectTo(this.props.apply);
             }}
           >
-            <ApplyButtonText>apply</ApplyButtonText>
+            <ButtonText>apply</ButtonText>
           </ApplyButton>
         </FooterButton>
       </View>

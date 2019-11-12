@@ -107,7 +107,7 @@ class Comments extends React.Component {
     };
   }
   render() {
-    console.log("hello");
+    // console.log("hello");
     return (
       <View style={{ flex: 1 }}>
         <ItemDetail data={data} />
