@@ -27,6 +27,8 @@ import CardText from "../styles/CardText";
 import DateTimePicker from "react-native-modal-datetime-picker";
 import PiecesPopup from "../shared/PiecesPopup";
 
+import Swipeable from 'react-native-gesture-handler/Swipeable';
+
 // import console = require('console');
 
 const data = {
@@ -350,6 +352,12 @@ class SampleRequest extends React.Component {
             <CurrentStage>
               <CurrentStageTitle>Planned</CurrentStageTitle>
             </CurrentStage>
+            <Swipeable
+              renderLeftActions={this.renderLeftActions}>
+              <Text>
+                "hello"
+              </Text>
+            </Swipeable>
             {/* <ScrollView
               horizontal={true}
               showsHorizontalScrollIndicator={false}

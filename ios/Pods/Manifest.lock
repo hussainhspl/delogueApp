@@ -240,7 +240,7 @@ PODS:
     - React-cxxreact (= 0.61.3)
     - React-jsi (= 0.61.3)
     - ReactCommon/jscallinvoker (= 0.61.3)
-  - RNBootSplash (1.0.0):
+  - RNBootSplash (1.0.3):
     - React
   - RNCAsyncStorage (1.6.2):
     - React
@@ -402,7 +402,7 @@ SPEC CHECKSUMS:
   React-RCTText: b8f895b94aa0e7778fef28d13f3d71eed4a10c3d
   React-RCTVibration: 262588c97551b0b1c675468cda857466ba5af18f
   ReactCommon: c2c63d9290b422ca6ad5b3663073a015dd892ae9
-  RNBootSplash: 0a379d0b4568aacd6b243dcde2054d1e5082ea1b
+  RNBootSplash: bba8b884b667778b0fd0c34a5f909046ff0f2237
   RNCAsyncStorage: 5ae4d57458804e99f73d427214442a6b10a53856
   RNFastImage: 9b0c22643872bb7494c8d87bbbb66cc4c0d9e7a2
   RNVectorIcons: 0bb4def82230be1333ddaeee9fcba45f0b288ed4

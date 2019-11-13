@@ -6,11 +6,12 @@ import ImageCard from "../shared/ImageCard";
 import { withTheme } from 'styled-components';
 import ReplyComponent from './ReplyComponent';
 import Subject from '../styles/Subject';
+import Title from '../styles/SmallText';
 
 const imgArr = [{ key: 1 }, { key: 2 }, { key: 3 }, { key: 4 }];
 const CommentBox = styled.View`
   border: 1px solid #ddd;
-  padding: 10px 10px;
+  padding: 0px 10px;
   margin: 0px 10px 20px 20px;
   position: relative;
 `;
@@ -23,6 +24,7 @@ const IconBox = styled.View`
   position: absolute;
   top: 15;
   left: -15;
+  background-color: #fff;
   align-items: center;
   justify-content: center;
 `;
@@ -34,8 +36,10 @@ const FirstRow = styled.View`
   align-items: center;
   border-bottom-color: #ddd;
   border-bottom-width: 1px;
-  padding-bottom: 15px;
+  padding: 10px 0px ;
   margin: 0px 10px;
+  /* background-color: #ddd; */
+  /* padding-bottom: 10px; */
 `;
 
 const NewButton = styled(View)`
@@ -89,20 +93,16 @@ const ImageRow = styled.View`
   margin-bottom: 15px;
   /* background-color: #000; */
   padding: 0px 5px;
-  border-bottom-width: 1px;
-  border-color: #ddd;
+  /* border-bottom-width: 1px;
+  border-color: #ddd; */
 `;
 
 const ImageName = styled.Text`
   text-align: center;
   padding: 0px 10px 10px 10px;
-  font-size: 12px;
+  font-size: ${props => props.theme.small};
   font-family: ${props => props.theme.regular};
   /* margin-bottom: 20px; */
-`;
-const Title = styled.Text`
-  color: ${props => props.theme.darkBlue};
-  font-family: ${props => props.theme.bold};  
 `;
 const BackRow = styled.View`
   flex-direction: row;
@@ -124,9 +124,9 @@ const BodyArea = styled.View`
 
 const Name = styled.Text`
   color: #777;
-  font-weight: 700;
-  text-align: right;
-  font-size: 12;
+  font-family: ${props => props.theme.bold};
+  font-size: ${props => props.theme.small};
+  padding-bottom: 3px;
 `;
 const Date =styled.Text`
   color: #777;
@@ -144,9 +144,14 @@ const InternalText = styled.Text`
 const InternalView = styled.View`
   align-items: center;
   flex-direction: row;
-  align-self: flex-start;
+  width: 100%;
+  justify-content: flex-end;
+  padding-top: 5px;
 `;
-
+const NotifyView = styled.View`
+  padding: 6px 0px;
+  align-items: flex-end;
+`;
 class CommentBlock extends React.Component {
   constructor (props) {
     super(props);
@@ -198,12 +203,15 @@ class CommentBlock extends React.Component {
             </MessageBody>
             <FromRow>
                 <Name>Richel Smith</Name>
-                <Date>13-oct-2019 13.42</Date>
-              <HeaderText> NOTIFIED: Hussain, Siya, Deepakshi </HeaderText>
-              <InternalView>
-                <Icon style={{color: '#ddd', fontSize: 15}} name="home" />
-                <InternalText>Internal</InternalText>
-              </InternalView>
+                <Title>13-oct-2019 13.42</Title>
+                <NotifyView>
+                  <Title> NOTIFIED</Title>
+                  <Title> Hussain, Siya, Rikke</Title>
+                <InternalView>
+                  <Icon style={{color: '#ddd', fontSize: 15}} name="home" />
+                  <InternalText>Internal</InternalText>
+                </InternalView>
+                </NotifyView>
             </FromRow>
           </BodyArea>
           <ImageRow>

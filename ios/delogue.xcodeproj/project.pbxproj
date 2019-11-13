@@ -11,7 +11,6 @@
 		111161A39A404B78A6DAC0ED /* MaterialIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 84090AFDEB424FD9AC0A1A72 /* MaterialIcons.ttf */; };
 		1341C6540C48431F999A19D5 /* Roboto_medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F7CB6A05BB714E699A359C66 /* Roboto_medium.ttf */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
-		13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB11A68108700A75B9A /* LaunchScreen.xib */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		1D68234DB63A431C84F39619 /* FontAwesome5_Solid.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 868090EE618D4D0DAF3B5336 /* FontAwesome5_Solid.ttf */; };
 		1F1963152AA14D9D9C47DBED /* Roboto.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B1B04B840CAC45B496483BA4 /* Roboto.ttf */; };
@@ -27,7 +26,7 @@
 		557847BCE4154B92B9C47A54 /* FontAwesome5_Brands.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FA53EADDA45D47C9AB4E8866 /* FontAwesome5_Brands.ttf */; };
 		55ADBEFB70004B459AFC115E /* AntDesign.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 61E96342E0BB431F8D3955FA /* AntDesign.ttf */; };
 		7D0086A26A0946BDBF177051 /* Entypo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 297509901F6543DC98E229EB /* Entypo.ttf */; };
-		7EE8E1C6232F9B34009EA634 /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 7EE8E1C5232F9B33009EA634 /* icon.png */; };
+		7EC7F5F0237BE5E700BBAE42 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7EC7F5EF237BE5E700BBAE42 /* LaunchScreen.xib */; };
 		88AA9842C8A444D3BA64929B /* Foundation.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 77CBAF4BF3AC47F7A4FBDC56 /* Foundation.ttf */; };
 		8DA29200214A4C98A911013F /* Feather.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1DB6397B549F463B8A0C8842 /* Feather.ttf */; };
 		A7DC9C5B14390E2C7E894E10 /* Pods_delogue.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9ABD87124805863C678FABF5 /* Pods_delogue.framework */; };
@@ -72,7 +71,6 @@
 		13B07F961A680F5B00A75B9A /* delogue.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = delogue.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = delogue/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = delogue/AppDelegate.m; sourceTree = "<group>"; };
-		13B07FB21A68108700A75B9A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = delogue/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = delogue/Info.plist; sourceTree = "<group>"; };
 		17D3502194E94D2B82A6BD8F /* Ionicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Ionicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Ionicons.ttf"; sourceTree = "<group>"; };
@@ -92,7 +90,7 @@
 		7362DCA3D0F50BECC960054E /* Pods-delogue.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-delogue.release.xcconfig"; path = "Target Support Files/Pods-delogue/Pods-delogue.release.xcconfig"; sourceTree = "<group>"; };
 		77CBAF4BF3AC47F7A4FBDC56 /* Foundation.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Foundation.ttf; path = "../node_modules/native-base/Fonts/Foundation.ttf"; sourceTree = "<group>"; };
 		78F3E92AC43A4ECB95BF6FED /* Zocial.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Zocial.ttf; path = "../node_modules/native-base/Fonts/Zocial.ttf"; sourceTree = "<group>"; };
-		7EE8E1C5232F9B33009EA634 /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = icon.png; path = ../assets/img/icon.png; sourceTree = "<group>"; };
+		7EC7F5EF237BE5E700BBAE42 /* LaunchScreen.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LaunchScreen.xib; sourceTree = "<group>"; };
 		84090AFDEB424FD9AC0A1A72 /* MaterialIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialIcons.ttf; path = "../node_modules/native-base/Fonts/MaterialIcons.ttf"; sourceTree = "<group>"; };
 		868090EE618D4D0DAF3B5336 /* FontAwesome5_Solid.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Solid.ttf; path = "../node_modules/native-base/Fonts/FontAwesome5_Solid.ttf"; sourceTree = "<group>"; };
 		9ABD87124805863C678FABF5 /* Pods_delogue.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_delogue.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -165,16 +163,15 @@
 		13B07FAE1A68108700A75B9A /* delogue */ = {
 			isa = PBXGroup;
 			children = (
-				7EE8E1C5232F9B33009EA634 /* icon.png */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
 				13B07FB61A68108700A75B9A /* Info.plist */,
-				13B07FB11A68108700A75B9A /* LaunchScreen.xib */,
 				BCD049C4232BA71200A3C883 /* File.swift */,
 				BCD049C6232BA79D00A3C883 /* delogue-Bridgeing-Header.h */,
 				BCD049C8232BA8AC00A3C883 /* main.m */,
+				7EC7F5EF237BE5E700BBAE42 /* LaunchScreen.xib */,
 			);
 			name = delogue;
 			sourceTree = "<group>";
@@ -358,7 +355,7 @@
 					13B07F861A680F5B00A75B9A = {
 						DevelopmentTeam = 67M7AF3WR5;
 						LastSwiftMigration = 1030;
-						ProvisioningStyle = Manual;
+						ProvisioningStyle = Automatic;
 					};
 					2D02E48F1E0B4A5D006451C7 = {
 						CreatedOnToolsVersion = 8.2.1;
@@ -415,9 +412,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7EE8E1C6232F9B34009EA634 /* icon.png in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
-				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
 				55ADBEFB70004B459AFC115E /* AntDesign.ttf in Resources */,
 				C3C98A2746C047D1ADA7857B /* EvilIcons.ttf in Resources */,
 				8DA29200214A4C98A911013F /* Feather.ttf in Resources */,
@@ -426,6 +421,7 @@
 				5155C2F421F845389D0BC6C1 /* SimpleLineIcons.ttf in Resources */,
 				7D0086A26A0946BDBF177051 /* Entypo.ttf in Resources */,
 				557847BCE4154B92B9C47A54 /* FontAwesome5_Brands.ttf in Resources */,
+				7EC7F5F0237BE5E700BBAE42 /* LaunchScreen.xib in Resources */,
 				40372CFF7FE64963B2B8A611 /* FontAwesome5_Regular.ttf in Resources */,
 				1D68234DB63A431C84F39619 /* FontAwesome5_Solid.ttf in Resources */,
 				88AA9842C8A444D3BA64929B /* Foundation.ttf in Resources */,
@@ -674,18 +670,6 @@
 		};
 /* End PBXTargetDependency section */
 
-/* Begin PBXVariantGroup section */
-		13B07FB11A68108700A75B9A /* LaunchScreen.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				13B07FB21A68108700A75B9A /* Base */,
-			);
-			name = LaunchScreen.xib;
-			path = delogue;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
-
 /* Begin XCBuildConfiguration section */
 		00E356F61AD99517003FC87E /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -743,11 +727,11 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				BUILD_LIBRARY_FOR_DISTRIBUTION = YES;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
-				DEVELOPMENT_TEAM = 67M7AF3WR5;
+				DEVELOPMENT_TEAM = "";
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = delogue/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -759,7 +743,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.headfitted.delogue;
 				PRODUCT_NAME = delogue;
-				PROVISIONING_PROFILE_SPECIFIER = "Daysi Adhoc profile";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_INSTALL_OBJC_HEADER = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -776,10 +760,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				BUILD_LIBRARY_FOR_DISTRIBUTION = YES;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 67M7AF3WR5;
+				DEVELOPMENT_TEAM = "";
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = delogue/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -791,7 +775,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.headfitted.delogue;
 				PRODUCT_NAME = delogue;
-				PROVISIONING_PROFILE_SPECIFIER = "Daysi Adhoc profile";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_INSTALL_OBJC_HEADER = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_VERSION = 5.0;
