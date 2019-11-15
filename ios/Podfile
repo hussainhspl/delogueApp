@@ -57,6 +57,8 @@ target 'delogue' do
 
   pod 'RNFastImage', :path => '../node_modules/react-native-fast-image'
 
+  pod 'RNGestureHandler', :podspec => '../node_modules/react-native-gesture-handler/RNGestureHandler.podspec'
+  
   # Pods for delogue
   # pod 'React', :path => '../node_modules/react-native/'
   # pod 'React-Core', :path => '../node_modules/react-native/'
@@ -87,6 +89,7 @@ target 'delogue' do
   target 'delogue-tvOSTests' do
     inherit! :search_paths
     # Pods for testing
+
   end
 
   target 'delogueTests' do

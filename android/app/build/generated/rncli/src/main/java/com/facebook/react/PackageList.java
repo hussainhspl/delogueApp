@@ -26,6 +26,8 @@ import com.zoontek.rnbootsplash.RNBootSplashPackage;
 import org.reactnative.camera.RNCameraPackage;
 // react-native-fast-image
 import com.dylanvann.fastimage.FastImageViewPackage;
+// react-native-gesture-handler
+import com.swmansion.gesturehandler.react.RNGestureHandlerPackage;
 // react-native-vector-icons
 import com.oblador.vectoricons.VectorIconsPackage;
 
@@ -79,6 +81,7 @@ public class PackageList {
       new RNBootSplashPackage(),
       new RNCameraPackage(),
       new FastImageViewPackage(),
+      new RNGestureHandlerPackage(),
       new VectorIconsPackage()
     ));
   }

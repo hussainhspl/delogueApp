@@ -50,6 +50,20 @@
 			remoteGlobalIDString = 13B07F861A680F5B00A75B9A;
 			remoteInfo = delogue;
 		};
+		7E1B764F237D586B00886771 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7E1B7649237D586B00886771 /* RNGestureHandler.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 134814201AA4EA6300B7C361;
+			remoteInfo = RNGestureHandler;
+		};
+		7E1B7651237D586B00886771 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7E1B7649237D586B00886771 /* RNGestureHandler.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = B5C32A36220C603B000FFB8D;
+			remoteInfo = "RNGestureHandler-tvOS";
+		};
 		BCD90E952343306E00B8E56F /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = BCD90E8F2343306E00B8E56F /* RNCAsyncStorage.xcodeproj */;
@@ -90,6 +104,7 @@
 		7362DCA3D0F50BECC960054E /* Pods-delogue.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-delogue.release.xcconfig"; path = "Target Support Files/Pods-delogue/Pods-delogue.release.xcconfig"; sourceTree = "<group>"; };
 		77CBAF4BF3AC47F7A4FBDC56 /* Foundation.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Foundation.ttf; path = "../node_modules/native-base/Fonts/Foundation.ttf"; sourceTree = "<group>"; };
 		78F3E92AC43A4ECB95BF6FED /* Zocial.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Zocial.ttf; path = "../node_modules/native-base/Fonts/Zocial.ttf"; sourceTree = "<group>"; };
+		7E1B7649237D586B00886771 /* RNGestureHandler.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNGestureHandler.xcodeproj; path = "../node_modules/react-native-gesture-handler/ios/RNGestureHandler.xcodeproj"; sourceTree = "<group>"; };
 		7EC7F5EF237BE5E700BBAE42 /* LaunchScreen.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LaunchScreen.xib; sourceTree = "<group>"; };
 		84090AFDEB424FD9AC0A1A72 /* MaterialIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialIcons.ttf; path = "../node_modules/native-base/Fonts/MaterialIcons.ttf"; sourceTree = "<group>"; };
 		868090EE618D4D0DAF3B5336 /* FontAwesome5_Solid.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Solid.ttf; path = "../node_modules/native-base/Fonts/FontAwesome5_Solid.ttf"; sourceTree = "<group>"; };
@@ -222,9 +237,19 @@
 			name = Resources;
 			sourceTree = "<group>";
 		};
+		7E1B764A237D586B00886771 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				7E1B7650237D586B00886771 /* libRNGestureHandler.a */,
+				7E1B7652237D586B00886771 /* libRNGestureHandler-tvOS.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				7E1B7649237D586B00886771 /* RNGestureHandler.xcodeproj */,
 				BCD90E8F2343306E00B8E56F /* RNCAsyncStorage.xcodeproj */,
 			);
 			name = Libraries;
@@ -380,6 +405,10 @@
 					ProductGroup = BCD90E902343306E00B8E56F /* Products */;
 					ProjectRef = BCD90E8F2343306E00B8E56F /* RNCAsyncStorage.xcodeproj */;
 				},
+				{
+					ProductGroup = 7E1B764A237D586B00886771 /* Products */;
+					ProjectRef = 7E1B7649237D586B00886771 /* RNGestureHandler.xcodeproj */;
+				},
 			);
 			projectRoot = "";
 			targets = (
@@ -391,6 +420,20 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
+		7E1B7650237D586B00886771 /* libRNGestureHandler.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRNGestureHandler.a;
+			remoteRef = 7E1B764F237D586B00886771 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		7E1B7652237D586B00886771 /* libRNGestureHandler-tvOS.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libRNGestureHandler-tvOS.a";
+			remoteRef = 7E1B7651237D586B00886771 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		BCD90E962343306E00B8E56F /* libRNCAsyncStorage.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;

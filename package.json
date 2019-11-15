@@ -34,6 +34,7 @@
     "react-native-modal-datetime-picker": "^7.6.0",
     "react-native-responsive-layout": "^1.2.0",
     "react-native-search-filter": "^0.1.5",
+    "react-native-snap-carousel": "^3.8.4",
     "react-native-super-grid": "^3.1.0",
     "react-native-vector-icons": "^6.6.0",
     "react-redux": "^7.1.1",

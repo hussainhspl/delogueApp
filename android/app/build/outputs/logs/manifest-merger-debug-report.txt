@@ -12,6 +12,7 @@ MERGED from [:lottie-react-native] /Users/headfitted/Documents/hussain/delogueAp
 MERGED from [:@react-native-community_netinfo] /Users/headfitted/Documents/hussain/delogueApp/node_modules/@react-native-community/netinfo/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-12:12
 MERGED from [:react-native-vector-icons] /Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native-vector-icons/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-11:12
 MERGED from [:react-native-bootsplash] /Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native-bootsplash/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-9:12
+MERGED from [:react-native-gesture-handler] /Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native-gesture-handler/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-11:12
 MERGED from [com.facebook.react:react-native:0.61.3] /Users/headfitted/.gradle/caches/transforms-2/files-2.1/58575fc78edf2dd31bf2ad4180887b6d/AndroidManifest.xml:2:1-13:12
 MERGED from [com.facebook.fresco:animated-gif:2.0.0] /Users/headfitted/.gradle/caches/transforms-2/files-2.1/3272c56f38af9cf67c6f29ce8d930973/AndroidManifest.xml:2:1-9:12
 MERGED from [org.webkit:android-jsc:r245459] /Users/headfitted/.gradle/caches/transforms-2/files-2.1/1ead779f42bfbd085a4b5b9c8e3baa92/AndroidManifest.xml:2:1-11:12
@@ -218,6 +219,8 @@ MERGED from [:react-native-vector-icons] /Users/headfitted/Documents/hussain/del
 MERGED from [:react-native-vector-icons] /Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native-vector-icons/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:7:5-9:41
 MERGED from [:react-native-bootsplash] /Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native-bootsplash/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-7:41
 MERGED from [:react-native-bootsplash] /Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native-bootsplash/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-7:41
+MERGED from [:react-native-gesture-handler] /Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native-gesture-handler/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:7:5-9:41
+MERGED from [:react-native-gesture-handler] /Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native-gesture-handler/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:7:5-9:41
 MERGED from [com.facebook.react:react-native:0.61.3] /Users/headfitted/.gradle/caches/transforms-2/files-2.1/58575fc78edf2dd31bf2ad4180887b6d/AndroidManifest.xml:7:5-9:41
 MERGED from [com.facebook.react:react-native:0.61.3] /Users/headfitted/.gradle/caches/transforms-2/files-2.1/58575fc78edf2dd31bf2ad4180887b6d/AndroidManifest.xml:7:5-9:41
 MERGED from [com.facebook.fresco:animated-gif:2.0.0] /Users/headfitted/.gradle/caches/transforms-2/files-2.1/3272c56f38af9cf67c6f29ce8d930973/AndroidManifest.xml:5:5-7:41

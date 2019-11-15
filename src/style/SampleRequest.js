@@ -2,7 +2,9 @@ import React, { Fragment } from "react";
 import {
   View,
   Text,
+  Animated,
   ScrollView,
+  StyleSheet,
   Dimensions,
   Image,
   TouchableHighlight,
@@ -28,7 +30,10 @@ import DateTimePicker from "react-native-modal-datetime-picker";
 import PiecesPopup from "../shared/PiecesPopup";
 
 import Swipeable from 'react-native-gesture-handler/Swipeable';
+import {RectButton} from 'react-native-gesture-handler';
+import Carousel from 'react-native-snap-carousel';
 
+// import Swipe from './swipe';
 // import console = require('console');
 
 const data = {
@@ -76,6 +81,7 @@ const descCol = [
     title: "1/2 Cuff"
   }
 ];
+const StageArray = ['planned', 'requested', 'confirmed', 'sent', 'received','commented']
 const colCount = [(key = 1), (key = 2), (key = 3)];
 // const table= [
 //   r1, {
@@ -199,6 +205,8 @@ const CurrentStage = styled.View`
 const CurrentStageTitle = styled.Text`
   color: ${props => props.theme.darkBrown};
   font-family: ${props => props.theme.bold};
+  /* background-color: #f00; */
+  text-align: center;
 `;
 const TabRow = styled.View`
   flex-direction: row;
@@ -307,7 +315,34 @@ class SampleRequest extends React.Component {
       );
     }
   };
+  renderLeftActions = (progress, dragX) => {
+    const trans = dragX.interpolate({
+      inputRange: [0, 50, 100, 101],
+      outputRange: [-20, 0, 0, 1],
+    });
+    return (
+      <RectButton onPress={this.close}>
+        <Animated.Text
+          style={[
+            styles.actionText,
+            {
+              transform: [{ translateX: trans }],
+            },
+          ]}>
+          Archive
+        </Animated.Text>
+      </RectButton>
+    );
+  };
+  _renderItem ({item, index}) {
+    return (
+      
+        <CurrentStageTitle>{item}</CurrentStageTitle>
+    );
+  }
   render() {
+    const screenWidth = Math.round(Dimensions.get('window').width);
+    const slideWidth = Math.round(Dimensions.get('window').width/2)
     return (
       <View style={{ flex: 1 }}>
         <KeyboardAwareScrollView showsVerticalScrollIndicator={true}>
@@ -350,14 +385,23 @@ class SampleRequest extends React.Component {
               close={() => this.setState({ piecesModal: false })}
             />
             <CurrentStage>
-              <CurrentStageTitle>Planned</CurrentStageTitle>
+              <Carousel
+                ref={(c) => { this._carousel = c; }}
+                data={StageArray}
+                renderItem={this._renderItem}
+                itemWidth={slideWidth}
+                sliderWidth={screenWidth}
+                callbackOffsetMargin={0}
+                // activeSlideAlignment={'center'}
+                // activeSlideOffset={'center'}
+                // layout={'tinder'}
+              />
             </CurrentStage>
-            <Swipeable
-              renderLeftActions={this.renderLeftActions}>
-              <Text>
-                "hello"
-              </Text>
-            </Swipeable>
+            
+              {/* <CurrentStage>
+                <CurrentStageTitle>Planned</CurrentStageTitle>
+              </CurrentStage> */}
+
             {/* <ScrollView
               horizontal={true}
               showsHorizontalScrollIndicator={false}
@@ -480,3 +524,22 @@ class SampleRequest extends React.Component {
   }
 }
 export default SampleRequest;
+
+const styles = StyleSheet.create({
+  leftAction: {
+    flex: 1,
+    backgroundColor: '#497AFC',
+    justifyContent: 'center',
+  },
+  actionText: {
+    color: 'white',
+    fontSize: 16,
+    backgroundColor: 'red',
+    padding: 10,
+  },
+  rightAction: {
+    alignItems: 'center',
+    flex: 1,
+    justifyContent: 'center',
+  },
+});
