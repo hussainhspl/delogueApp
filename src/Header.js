@@ -3,11 +3,8 @@ import { Text, View, Image, TouchableOpacity } from 'react-native';
 import Drawer from 'react-native-drawer';
 import Icon from 'react-native-vector-icons/Ionicons';
 import Menu from './Menu';
-import Search from  './search/Search';
-
 import { connect } from "react-redux";
 import { searchButton, messageButton, styleButton} from './store/actions/index';
-import CompanyList from './companyList';
 import styled from 'styled-components';
 
 const Container = styled.View`
@@ -56,7 +53,6 @@ class Header extends React.Component {
     this.setState(prevState => ({ isOpen: !prevState.isOpen }),()=>console.log(this.state.isOpen));
   }
   render() {
-    const {container, icon, iconGroup } = styles;
     const history= this.props.history;
     // const path = this.props.location.pathname;
     // console.log('header history: ', history);
@@ -118,14 +114,6 @@ class Header extends React.Component {
 const drawerStyles = {
   drawer: { shadowColor: '#aaaaaa', shadowOpacity: 0.4, shadowRadius: 3},
   main: {flex: 1},
-}
-const styles= {
-  container: {
-    
-  },
-  icon: {
-    
-  },
 }
 
 const mapStateToProps = state => {

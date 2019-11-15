@@ -1,24 +1,19 @@
 import React, { Fragment } from "react";
 import { View, Text } from "react-native";
 import { NativeRouter, Switch, Route } from "react-router-native";
-
-import CompanyList from "./companyList";
-import Search from "./search/Search";
-import Message from "./message/message";
-import Login from "./login";
-import Style from "./style/Style";
-import HeaderTemplate from "./HeaderTemplate";
-import Header from "./Header";
-import SampleRequest from "./style/SampleRequest";
-import NotificationModal from "./style/NotificationModal";
 import { connect } from "react-redux";
-import AsyncStorage from "@react-native-community/async-storage";
-import Loader from './shared/Loader';
 import {token} from "./store/actions/index";
+import AsyncStorage from "@react-native-community/async-storage";
 import isAfter from "date-fns/isAfter";
-
-
-
+// relative import
+import CompanyList from "./companyList";
+import Search from "./components/search/Search";
+import Message from "./components/message/message";
+import Login from "./login";
+import Style from "./components/style/Style";
+import SampleRequest from "./components/style/SampleRequest";
+import NotificationModal from "./components/style/NotificationModal";
+import Loader from './shared/Loader';
 
 import { withRouter } from "react-router";
 
@@ -32,7 +27,7 @@ class Template extends React.Component {
     this.checkToken = this.checkToken.bind(this);
   }
   componentDidMount = () => {
-    // this.clearAsyncStorage();
+    // this.clearAsyncStorage();=
     this.checkToken();
   }
   checkToken() {

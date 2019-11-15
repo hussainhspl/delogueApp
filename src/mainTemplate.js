@@ -3,7 +3,7 @@ import { View, Text } from 'react-native';
 import { NativeRouter, Switch, Route } from 'react-router-native';
 
 import CompanyList from './companyList';
-import Search from './search/Search';
+import Search from './components/search/Search';
 import Header from './Header';
 // import Header from './src/Header';
 

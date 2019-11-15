@@ -4,8 +4,8 @@ import { NativeRouter, Switch, Route } from 'react-router-native';
 import Header from './Header';
 import FooterComponent from './FooterComponent';
 import Style from "./style/Style";
-import Search  from './search/Search';
-import Message from './message/message';
+import Search  from './components/search/Search';
+import Message from './components/message/message';
 // import FooterComponent from './FooterComponent'
 import { connect } from "react-redux";
 import SampleRequest from "./style/SampleRequest";

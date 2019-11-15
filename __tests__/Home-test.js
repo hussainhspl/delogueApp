@@ -1,6 +1,6 @@
 import 'react-native';
 import React from 'react';
-import Search from '../src/search/Search';
+import Search from '../src/components/search/Search';
 import renderer from 'react-test-renderer';
 
 test('search snapshot', () =>{
