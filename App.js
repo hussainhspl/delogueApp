@@ -23,6 +23,7 @@ import styled from "styled-components";
 
 const store = configStore();
 
+global.baseUrl = "https://rc.delogue.com/"
 const MainView = styled.View`
   flex: 1;
 `;

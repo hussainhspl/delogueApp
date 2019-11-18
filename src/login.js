@@ -127,7 +127,7 @@ class Login extends React.Component {
       grant_type: "password"
     };
     const options = {
-      url: "https://rc.delogue.com/auth/token",
+      url: `${baseUrl}auth/token`,
       method: "POST",
       grant_type: "password",
       responseType: "json",

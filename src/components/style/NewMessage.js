@@ -9,12 +9,14 @@ import {
 } from "native-base";
 import { withTheme } from 'styled-components';
 import styled from "styled-components/native";
-// relative import
+//relative import
 import NewMessageCamera from './NewMessageCamera';
 import AttachmentPopup from "../../shared/AttachmentPopup";
 import ApplyButton from '../../styles/ApplyButton';
 import CancelButton from '../../styles/CancelButton';
 import ButtonText from '../../styles/ButtonText';
+import Close from '../../styles/Close';
+
 
 
 const MessageBlock = styled.View`
@@ -142,17 +144,7 @@ const AttachmentImage = styled.Image`
   height: 80px;
   margin: 5px;
 `;
-const AttachClose = styled.View`
-  width: 15px;
-  height: 15px;
-  justify-content: center;
-  align-items: center;
-  position: absolute;
-  right: -7px;
-  top: -7px;
-  background-color: #ddd;
-  border-radius: 10px;
-`;
+
 const IconBox = styled.View`
   width: 30px;
   height: 30px;
@@ -257,18 +249,18 @@ class NewMessage extends React.Component {
                     source={require("../../../assets/img/shirt-static.png")}
                   />
                 </TouchableHighlight>
-                <AttachClose>
+                <Close>
                   <Icon style={{ fontSize: 15 }} name="close" />
-                </AttachClose>
+                </Close>
               </AttachBox>
               <AttachBox>
                 <AttachmentImage
                   resizeMode={"contain"}
                   source={require("../../../assets/img/shirt-static.png")}
                 />
-                <AttachClose>
+                <Close>
                   <Icon style={{ fontSize: 15 }} name="close" />
-                </AttachClose>
+                </Close>
               </AttachBox>
             </AttachImageRow>
             <ButtonRow>

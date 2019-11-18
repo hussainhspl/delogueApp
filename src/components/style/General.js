@@ -194,7 +194,7 @@ class General extends React.Component {
           pageScrollViewStyle={{ backgroundColor: "#000" }}
           // imagePageComponent={ () => resizeMode: "contain"}
           resizeMode={"contain"}
-          columns={"1"}
+          columns={1}
           enableScale
           images={[
             {

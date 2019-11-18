@@ -5,6 +5,10 @@ import SearchInput, { createFilter } from "react-native-search-filter";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import styled from "styled-components";
 import CommonModal from "../../shared/CommonModal";
+import Capsule from '../../styles/Capsule';
+import Title from '../../styles/CardText';
+import SearchedItem from '../../styles/SearchedItem';
+import Close from '../../styles/Close'; 
 
 const styleArray = [
   { name: "Superdry" },
@@ -65,10 +69,10 @@ const StyledSearchInput = styled(SearchInput)`
   color: ${props => props.theme.textColor};
 `;
 const ResetBar = styled.View`
-  padding: 10px;
+  padding: 10px 15px;
   border-bottom-width: 1px;
   border-bottom-color: #ccc;
-  justify-content: flex-end;
+  justify-content: space-between;
   flex-direction: row;
   align-items: center;
 `;
@@ -77,27 +81,15 @@ const ResetButton = styled(Button)`
   justify-content: center;
   align-items: center;
   padding: 0px 5px;
-  margin-left: 15px;
-  margin-left: 15px;
   background-color: #c2beb6;
   height: 30px;
 `;
 
 const SearchBar = styled.View`
-  padding: 15px;
+  padding: 10px 15px 0px;
   border-bottom-width: 1px;
   border-bottom-color: #ddd;
-`;
 
-const StyledItem = styled.View`
-  margin-right: 10px;
-  border-radius: 15px;
-  border: 1px solid #9b9b9b;
-  background-color: #fff;
-  align-self: flex-start;
-  padding: 0px 5px 1px 0px;
-  justify-content: center;
-  margin-bottom: 10px;
 `;
 
 const ItemName = styled.Text`
@@ -107,17 +99,6 @@ const ItemName = styled.Text`
   font-family: ${props => props.theme.regular};
 `;
 
-const Capsule = styled.View`
-  justify-content: flex-start;
-  align-items: center;
-  margin: 20px 0px;
-  flex-wrap: wrap;
-  flex-direction: row;
-`;
-const Title = styled.Text`
-  text-transform: uppercase;
-  color: #8d8177;
-`;
 const MainView = styled.View`
   flex: 1;
 `;
@@ -145,12 +126,23 @@ const SearchIcon = styled.View`
 const FlexRow = styled.View`
   flex-direction: row;
   flex: 1;
-  padding-top: 15px;
+  padding-top: 5px;
   /* background-color: #f00; */
 `;
 const Flex = styled.View`
   flex: 1;
 `;
+
+const StyledItem = styled.View`
+  
+  
+`;
+const CapsuleView = styled.View`
+  flex-direction: row; 
+  flex-wrap: wrap;
+  margin: 10px 0px;
+`;
+
 class searchFilter extends Component {
   state = {
     modalVisible: false,
@@ -211,7 +203,7 @@ class searchFilter extends Component {
     const filteredSeason = seasonArray.filter(
       createFilter(this.state.searchSeason, SEASON_KEYS)
     );
-    console.log("rendered again");
+    // console.log("rendered again");
     return (
       <Fragment>
         <FilterButton>
@@ -238,6 +230,9 @@ class searchFilter extends Component {
           <MainView>
             <KeyboardAwareScrollView>
               <ResetBar>
+                <ResetButton>
+                  <GrayButtonText>show only my styles </GrayButtonText>
+                </ResetButton>
                 <ResetButton onPress={this.restFilter}>
                   <GrayButtonText>reset</GrayButtonText>
                 </ResetButton>
@@ -273,15 +268,23 @@ class searchFilter extends Component {
                 />
                 </Flex>
                 </FlexRow>
-                <Capsule>
+
+                <CapsuleView>
                   {filteredStyle.map(item => {
                     return (
-                      <StyledItem key={item.name}>
-                        <ItemName>{item.name} </ItemName>
-                      </StyledItem>
+                      // <Capsule key={item.name}>
+                      //   <ItemName>{item.name} </ItemName>
+                      // </Capsule>
+                      <SearchedItem key={Math.random().toFixed(3)}>
+                        <Close>
+                          <Icon style={{ fontSize: 10 }} name="close" />
+                        </Close>
+                        <Text> hey</Text>
+                        {/* <SearchedText>{item.name}</SearchedText> */}
+                      </SearchedItem>
                     );
                   })}
-                </Capsule>
+                </CapsuleView>
               </SearchBar>
 
               <SearchBar>
@@ -314,15 +317,15 @@ class searchFilter extends Component {
                 />
                 </Flex>
                 </FlexRow>
-                <Capsule>
+                <CapsuleView>
                   {filteredSeason.map(item => {
                     return (
-                      <StyledItem key={item.name}>
-                        <ItemName>{item.name}</ItemName>
-                      </StyledItem>
+                      <Capsule key={item.name}>
+                        <ItemName>{item.name} </ItemName>
+                      </Capsule>
                     );
                   })}
-                </Capsule>
+                </CapsuleView>
               </SearchBar>
             </KeyboardAwareScrollView>
           </MainView>

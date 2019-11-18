@@ -57,7 +57,7 @@ class Style extends React.Component {
     // console.log("bearer token ", AuthStr)
  
     axios({
-      url: "https://rc.delogue.com/export/style/16197",
+      url: `${baseUrl}export/style/16197`,
       method: "GET",
       contentType: "application/json; charset=utf-8",
       headers: { 

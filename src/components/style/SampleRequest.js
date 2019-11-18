@@ -392,6 +392,7 @@ class SampleRequest extends React.Component {
                 itemWidth={slideWidth}
                 sliderWidth={screenWidth}
                 callbackOffsetMargin={0}
+                // onLayout={ () => console.log("swipe")}
                 // activeSlideAlignment={'center'}
                 // activeSlideOffset={'center'}
                 // layout={'tinder'}

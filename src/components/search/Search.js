@@ -14,6 +14,7 @@ import Header from "../../Header";
 import ItemDetail from "../../shared/ItemDetail";
 import SearchFilter from "./searchFilter";
 import SearchGridCard from "./searchGridCard";
+import LoadMoreButton from "../../styles/LoadMoreButton";
 
 const details = [
   {
@@ -238,11 +239,16 @@ class Search extends React.Component {
                 );
               })}
             {this.state.currentView === "grid" && (
+              <Fragment>
               <GridView>
                 {filteredStyle.map(data => {
                   return <SearchGridCard key={data.styleNo} data={data} history={history} />;
                 })}
               </GridView>
+              <LoadMoreButton>
+                <Text> Load More </Text>
+              </LoadMoreButton>
+              </Fragment>
             )}
           </ScrollView>
           <SearchFilter />
