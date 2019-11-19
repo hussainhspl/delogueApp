@@ -267,7 +267,9 @@ class NewMessage extends React.Component {
 							<NewMessageCamera />
               <ButtonSet>
                 <CancelButton>
-                  <ButtonText>cancel</ButtonText>
+                  <ButtonText onPress={() => {this.closeModal(this.props.close)}}>
+                    cancel
+                  </ButtonText>
                 </CancelButton>
                 <ApplyButton>
                   <ButtonText>apply</ButtonText>

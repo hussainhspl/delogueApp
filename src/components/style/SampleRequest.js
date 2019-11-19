@@ -199,7 +199,7 @@ const Block = styled.TouchableOpacity`
 `;
 const CurrentStage = styled.View`
   background-color: ${props => props.theme.brown};
-  padding: 10px 0px;
+  padding: 5px 0px;
   align-items: center;
 `;
 const CurrentStageTitle = styled.Text`
@@ -207,6 +207,7 @@ const CurrentStageTitle = styled.Text`
   font-family: ${props => props.theme.bold};
   /* background-color: #f00; */
   text-align: center;
+  padding: 5px 0px;
 `;
 const TabRow = styled.View`
   flex-direction: row;
@@ -253,7 +254,7 @@ const TabTail = styled.View`
   left: -15px;
 `;
 const Tab = styled.View`
-  width: ${Dimensions.get("window").width/9};
+  width: ${Dimensions.get("window").width/6-20.9};
   height: 20px;
   background-color: ${props =>
     props.active ? props => props.theme.darkBrown : props => props.theme.brown};
@@ -272,7 +273,8 @@ class SampleRequest extends React.Component {
       isEtdDateTimePickerVisible: false,
       deadlineText: "",
       etdText: "",
-      piecesModal: false
+      piecesModal: false,
+      currentIndex:0,
     };
   }
   showDateTimePicker = value => {
@@ -334,10 +336,15 @@ class SampleRequest extends React.Component {
       </RectButton>
     );
   };
-  _renderItem ({item, index}) {
+  changeIndex = (currentIndex) => {
+    console.log("Enter in ")
+    this.setState({ currentIndex}, () => console.log('current Index', this.state.currentIndex));
+  }
+  _renderItem = ({item, index}) => {
+    // console.log("render", index, item, this._carousel);
     return (
       
-        <CurrentStageTitle>{item}</CurrentStageTitle>
+        <CurrentStageTitle>{item}{this.state.currentIndex}</CurrentStageTitle>
     );
   }
   render() {
@@ -392,6 +399,8 @@ class SampleRequest extends React.Component {
                 itemWidth={slideWidth}
                 sliderWidth={screenWidth}
                 callbackOffsetMargin={0}
+                onBeforeSnapToItem={this.changeIndex}
+                // onSnapToItem={(index) => console.log('hello')}
                 // onLayout={ () => console.log("swipe")}
                 // activeSlideAlignment={'center'}
                 // activeSlideOffset={'center'}
@@ -408,29 +417,29 @@ class SampleRequest extends React.Component {
               showsHorizontalScrollIndicator={false}
             > */}
               <TabRow>
-                <Tab active={true}>
-                  <RightTriangle active={true} />
-                  <TabTail active={true} />
+                <Tab active={this.state.currentIndex >= 0 ? true : false}>
+                  <RightTriangle active={this.state.currentIndex >= 0 ? true : false}/>
+                  <TabTail active={this.state.currentIndex >= 0 ? true : false}/>
                 </Tab>
-                <Tab active={true}>
-                  <TabTail active={true} />
-                  <RightTriangle active={true} />
+                <Tab active={this.state.currentIndex >= 1 ? true : false}>
+                  <TabTail active={this.state.currentIndex >= 1 ? true : false}/>
+                  <RightTriangle active={this.state.currentIndex >= 1 ? true : false}/>
                 </Tab>
-                <Tab>
-                  <TabTail />
-                  <RightTriangle />
+                <Tab active={this.state.currentIndex >= 2 ? true : false}>
+                  <TabTail active={this.state.currentIndex >= 2 ? true : false}/>
+                  <RightTriangle active={this.state.currentIndex >= 2 ? true : false}/>
                 </Tab>
-                <Tab>
-                  <TabTail />
-                  <RightTriangle />
+                <Tab active={this.state.currentIndex >= 3 ? true : false}>
+                  <TabTail active={this.state.currentIndex >= 3 ? true : false}/>
+                  <RightTriangle active={this.state.currentIndex >= 3 ? true : false}/>
                 </Tab>
-                <Tab>
-                  <TabTail />
-                  <RightTriangle />
+                <Tab active={this.state.currentIndex >= 4 ? true : false}>
+                  <TabTail active={this.state.currentIndex >= 4 ? true : false}/>
+                  <RightTriangle active={this.state.currentIndex >= 4 ? true : false}/>
                 </Tab>
-                <Tab>
-                  <TabTail />
-                  <RightTriangle />
+                <Tab active={this.state.currentIndex >= 5 ? true : false}>
+                  <TabTail active={this.state.currentIndex >= 5 ? true : false}/>
+                  {/* <RightTriangle active={this.state.currentIndex >= 5 ? true : false}/> */}
                 </Tab>
               </TabRow>
             {/* </ScrollView> */}

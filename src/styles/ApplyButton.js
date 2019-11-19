@@ -8,7 +8,8 @@ const ApplyButton = styled.View`
 	margin-left: 15px;
   background-color: #849D7A;
   height: 30px;
-	width: 80px;
+  min-width: 80px;
+  max-width: 150px;
 `;
 
 export default ApplyButton;

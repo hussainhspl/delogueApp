@@ -4,7 +4,7 @@ import {
   View,
   TouchableHighlight,
   Image,
-  Dimensions,
+  FlatList,
   ScrollView
 } from "react-native";
 import { Icon } from "native-base";
@@ -224,20 +224,35 @@ class Search extends React.Component {
                 </ViewBox>
               </TouchableHighlight>
             </SearchRow>
-            {this.state.currentView === "linear" &&
-              filteredStyle.map(data => {
-                return (
+            {this.state.currentView === "linear" &&(
+              // filteredStyle.map(data => {
+              //   return (
+              //     <TouchableHighlight
+              //       underlayColor="#42546033"
+              //       onPress={() => {
+              //         history.push("/style");
+              //       }}
+              //       key={data.styleNo}
+              //     >
+              //       <ItemDetail data={data} />
+              //     </TouchableHighlight>
+              //   );
+              // })
+              // <Text>helo</Text>
+              <FlatList
+                data={filteredStyle}
+                renderItem={({ item }) => 
                   <TouchableHighlight
                     underlayColor="#42546033"
                     onPress={() => {
                       history.push("/style");
                     }}
-                    key={data.styleNo}
                   >
-                    <ItemDetail data={data} />
-                  </TouchableHighlight>
-                );
-              })}
+                    <ItemDetail data={item} />
+                  </TouchableHighlight>}
+                keyExtractor={item => item.styleNo}
+              />
+            )}
             {this.state.currentView === "grid" && (
               <Fragment>
               <GridView>
