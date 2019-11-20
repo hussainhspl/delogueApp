@@ -12,10 +12,10 @@ import Files from "./Files";
 import Sample from "./sample";
 import Pdf from "./Pdf";
 import Header from "../../Header";
-import { connect } from "react-redux";
 import FooterComponent from "../../FooterComponent";
-import {token} from "../../store/actions/index";
 import Loader from '../../shared/Loader';
+import { connect } from "react-redux";
+import {token} from "../../store/actions/index";
 // import { URL } from 'react-native-dotenv'
 
 class Style extends React.Component {
@@ -57,7 +57,7 @@ class Style extends React.Component {
     // console.log("bearer token ", AuthStr)
  
     axios({
-      url: `${baseUrl}export/style/16197`,
+      url: 'https://rc.delogue.com/export/style/16197',
       method: "GET",
       contentType: "application/json; charset=utf-8",
       headers: { 

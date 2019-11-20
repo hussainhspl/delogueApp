@@ -1,14 +1,19 @@
 import React, { Component, Fragment } from "react";
-import { Text, View, TouchableOpacity, AppState, TouchableHighlight, Image } from "react-native";
+import { Text, View,ScrollView, TouchableOpacity, AppState, TouchableHighlight, Image } from "react-native";
 import { Icon, Button } from "native-base";
-import SearchInput, { createFilter } from "react-native-search-filter";
+import Searchinput, { createFilter } from "react-native-search-filter";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import styled from "styled-components";
 import CommonModal from "../../shared/CommonModal";
 import Capsule from '../../styles/Capsule';
 import Title from '../../styles/CardText';
 import SearchedItem from '../../styles/SearchedItem';
-import Close from '../../styles/Close'; 
+import Close from '../../styles/Close';
+import SearchInput from "../../styles/SearchInput";
+import axios from 'axios';
+import { connect } from "react-redux";
+import {token} from "../../store/actions/index";
+// import { ScrollView } from "react-native-gesture-handler";
 
 const styleArray = [
   { name: "Superdry" },
@@ -55,7 +60,7 @@ const GrayButtonText = styled.Text`
   padding: 5px;
 `;
 
-const StyledSearchInput = styled(SearchInput)`
+const StyledSearchInput = styled(Searchinput)`
   padding-left: 10px;
   border-color: #425460;
   border-width: 1px;
@@ -86,7 +91,7 @@ const ResetButton = styled(Button)`
 `;
 
 const SearchBar = styled.View`
-  padding: 10px 15px 0px;
+  padding: 10px 15px;
   border-bottom-width: 1px;
   border-bottom-color: #ddd;
 
@@ -127,6 +132,7 @@ const FlexRow = styled.View`
   flex-direction: row;
   flex: 1;
   padding-top: 5px;
+  padding-bottom: 10px;
   /* background-color: #f00; */
 `;
 const Flex = styled.View`
@@ -134,15 +140,20 @@ const Flex = styled.View`
 `;
 
 const StyledItem = styled.View`
-  
-  
 `;
 const CapsuleView = styled.View`
   flex-direction: row; 
   flex-wrap: wrap;
   margin: 10px 0px;
+  /* background-color: #d00; */
 `;
-
+const StyledScrollView = styled.ScrollView`
+  /* min-height: 50px; */
+  max-height: 200px;
+  padding: 0px;
+  margin: 0px;
+  /* background-color: #0f0; */
+`;
 class searchFilter extends Component {
   state = {
     modalVisible: false,
@@ -151,11 +162,31 @@ class searchFilter extends Component {
     text: "Useless Placeholder",
     appState: AppState.currentState
   };
+  getBrands =() => {
+    console.log("hurry", this.state.searchBrand);
+    axios({
+      url: `http://test.delogue.com/api/v2.0/Brands/${this.state.searchBrand}`,
+      method: "GET",
+      contentType: "application/json; charset=utf-8",
+      headers: { 
+        Authorization: `Bearer ${this.props.tokenData}`,
+        responseType: 'json'
+      }
+    })
+      .then(res => {
+        console.log("response in search", res);
+        // let newRes = [...this.state.filteredBrand, res]
+        this.setState({ filteredBrand: res.data})
+      })
+      .catch(function(error) {
+        console.error("error in search", error);
+      })
+  }
   searchUpdated(term) {
     this.setState({
       searchBrand: term
     });
-    console.log("called again");
+    // console.log("called again");
   }
   seasonUpdated(term) {
     this.setState({
@@ -190,6 +221,7 @@ class searchFilter extends Component {
     console.log("click on reset");
     this.setState({
       searchBrand: "",
+      filteredBrand: [],
       searchSeason: ""
     });
     this.searchUpdated("");
@@ -241,10 +273,18 @@ class searchFilter extends Component {
               <SearchBar>
                 <Title>brand</Title>
                 <FlexRow>
-                <SearchIcon>
-                <Icon style={{color:"#fff"}} name="ios-search"/>
-              </SearchIcon>
-                <Flex>
+                  <SearchIcon>
+                    <Icon style={{color:"#fff"}} name="ios-search"/>
+                  </SearchIcon>
+                <SearchInput 
+                  placeholder="SEARCH" 
+                  placeholderTextColor="#C9DBDB"
+                  onChangeText={term => {
+                    this.searchUpdated(term);
+                  }}
+                  onSubmitEditing={this.getBrands}
+                />
+                {/* <Flex>
                 <StyledSearchInput
                   placeholderTextColor="#C9DBDB"
                   onChangeText={term => {
@@ -266,25 +306,32 @@ class searchFilter extends Component {
                     borderRadius: 10,
                   }}
                 />
-                </Flex>
+                </Flex> */}
                 </FlexRow>
-
-                <CapsuleView>
-                  {filteredStyle.map(item => {
-                    return (
-                      // <Capsule key={item.name}>
-                      //   <ItemName>{item.name} </ItemName>
-                      // </Capsule>
-                      <SearchedItem key={Math.random().toFixed(3)}>
-                        <Close>
-                          <Icon style={{ fontSize: 10 }} name="close" />
-                        </Close>
-                        <Text> hey</Text>
-                        {/* <SearchedText>{item.name}</SearchedText> */}
-                      </SearchedItem>
-                    );
-                  })}
-                </CapsuleView>
+                {
+                  this.state.filteredBrand && (
+                    <StyledScrollView
+                      scrollToOverflowEnabled
+                    >
+                    <CapsuleView>
+                      {this.state.filteredBrand.map(brand => {
+                        return (
+                          // <Capsule key={item.name}>
+                          //   <ItemName>{item.name} </ItemName>
+                          // </Capsule>
+                          <SearchedItem key={brand.id}>
+                            <Close>
+                              <Icon style={{ fontSize: 10 }} name="close" />
+                            </Close>
+                            <Text> {brand.name} </Text>
+                            {/* <SearchedText>{item.name}</SearchedText> */}
+                          </SearchedItem>
+                        );
+                      })}
+                    </CapsuleView>
+                    </StyledScrollView>
+                  )
+                }
               </SearchBar>
 
               <SearchBar>
@@ -334,4 +381,10 @@ class searchFilter extends Component {
     );
   }
 }
-export default searchFilter;
+const mapStateToProps = state => {
+  return {
+    currentTab: state.tab.now,
+    tokenData: state.async.tokenState
+  };
+};
+export default connect(mapStateToProps)(searchFilter);

@@ -15,6 +15,11 @@ import ItemDetail from "../../shared/ItemDetail";
 import SearchFilter from "./searchFilter";
 import SearchGridCard from "./searchGridCard";
 import LoadMoreButton from "../../styles/LoadMoreButton";
+import { connect } from "react-redux";
+import {token} from "../../store/actions/index";
+
+
+import axios from "axios";
 
 const details = [
   {
@@ -150,7 +155,28 @@ class Search extends React.Component {
     };
     // this.myTextInput = React.createRef();
   }
-
+  componentDidMount = () => {
+    // console.log('did mount in style');
+    // this.getBrands();
+  }
+  // getBrands() {
+  //   console.log("hurry");
+  //   // axios({
+  //   //   url: 'http://test.delogue.com/api/v2.0/Brands/s',
+  //   //   method: "GET",
+  //   //   contentType: "application/json; charset=utf-8",
+  //   //   headers: { 
+  //   //     Authorization: `Bearer ${this.props.tokenData}`,
+  //   //     responseType: 'json'
+  //   //   }
+  //   // })
+  //   //   .then(res => {
+  //   //     console.log("response in search", res);
+  //   //   })
+  //   //   .catch(function(error) {
+  //   //     console.error("error in search", error);
+  //   //   })
+  // }
   searchUpdated(term) {
     this.setState({
       searchTerm: term,
@@ -272,5 +298,10 @@ class Search extends React.Component {
     );
   }
 }
-
-export default Search;
+const mapStateToProps = state => {
+  return {
+    currentTab: state.tab.now,
+    tokenData: state.async.tokenState
+  };
+};
+export default connect(mapStateToProps)(Search);
