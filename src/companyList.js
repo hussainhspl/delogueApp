@@ -15,7 +15,6 @@ import Icon from "react-native-vector-icons/Ionicons";
 import { withRouter } from "react-router";
 import styled from "styled-components";
 import Loader from "./shared/Loader";
-import { Grid, Section, Block } from "react-native-responsive-layout";
 import OfflineNotice from "./shared/OfflineNotice";
 import CList from "../data/companyList";
 import Title from "./styles/SmallText";

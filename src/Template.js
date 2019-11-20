@@ -27,7 +27,7 @@ class Template extends React.Component {
     this.checkToken = this.checkToken.bind(this);
   }
   componentDidMount = () => {
-    // this.clearAsyncStorage();=
+    // this.clearAsyncStorage();
     this.checkToken();
   }
   checkToken() {
@@ -129,7 +129,7 @@ class Template extends React.Component {
   render() {
     console.disableYellowBox = true;
     // console.log("this. props", this.props, this.state.token);
-    console.log("global variable", baseUrl);
+    // console.log("global variable", baseUrl);
     return (
       <Fragment>
         {
