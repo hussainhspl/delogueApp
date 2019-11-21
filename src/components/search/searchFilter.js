@@ -13,6 +13,7 @@ import SearchInput from "../../styles/SearchInput";
 import axios from 'axios';
 import { connect } from "react-redux";
 import {token} from "../../store/actions/index";
+import GetSeason from '../../api/getSeason';
 // import { ScrollView } from "react-native-gesture-handler";
 
 const styleArray = [
@@ -162,6 +163,23 @@ class searchFilter extends Component {
     text: "Useless Placeholder",
     appState: AppState.currentState
   };
+  Season = () => {
+    GetSeason()
+      .then(res => {
+        // if(res) {
+        //   console.log('res', res);
+        // }
+      }
+      )
+    // GetSeason((res) =>{   
+    //   console.log('search term', this.state.searchSeason);
+    //   this.setState({
+    //     filteredSeason: res.data
+    //   })
+    // },this.state.searchSeason => {console.log('hello')}
+    // )
+    
+  }
   getBrands =() => {
     console.log("hurry", this.state.searchBrand);
     axios({
@@ -188,16 +206,19 @@ class searchFilter extends Component {
     });
     // console.log("called again");
   }
-  seasonUpdated(term) {
-    this.setState({
-      searchSeason: term
-    });
-  }
+  // seasonUpdated(term) {
+  //   this.setState({
+  //     searchSeason: term
+  //   });
+  // }
   setModalVisible(visible) {
     this.setState({ modalVisible: visible });
   }
   componentDidMount = () => {
     AppState.addEventListener("change", this._handleAppStateChange);
+    console.log("enter in did mount");
+    
+    // console.log('res in filter', res);
   };
   componentWillUnmount = () => {
     AppState.removeEventListener("change", this._handleAppStateChange);
@@ -222,6 +243,7 @@ class searchFilter extends Component {
     this.setState({
       searchBrand: "",
       filteredBrand: [],
+      filteredSeason: [],
       searchSeason: ""
     });
     this.searchUpdated("");
@@ -232,9 +254,9 @@ class searchFilter extends Component {
     const filteredStyle = styleArray.filter(
       createFilter(this.state.searchBrand, KEYS_TO_FILTERS)
     );
-    const filteredSeason = seasonArray.filter(
-      createFilter(this.state.searchSeason, SEASON_KEYS)
-    );
+    // const filteredSeason = seasonArray.filter(
+    //   createFilter(this.state.searchSeason, SEASON_KEYS)
+    // );
     // console.log("rendered again");
     return (
       <Fragment>
@@ -338,9 +360,18 @@ class searchFilter extends Component {
                 <Title>season</Title>
                 <FlexRow>
                 <SearchIcon>
-                <Icon style={{color:"#fff"}} name="ios-search"/>
-              </SearchIcon>
-              <Flex>
+                  <Icon style={{color:"#fff"}} name="ios-search"/>
+                </SearchIcon>
+                <SearchInput 
+                  placeholder="SEARCH" 
+                  placeholderTextColor="#C9DBDB"
+                  onChangeText={term => {
+                    // this.seasonUpdated(term);
+                    this.setState({searchSeason :term})
+                  }}
+                  onSubmitEditing={this.Season}
+                />
+              {/* <Flex>
                 <StyledSearchInput
                   placeholderTextColor="#C9DBDB"
                   onChangeText={term => {
@@ -362,9 +393,33 @@ class searchFilter extends Component {
                     borderRadius: 10,
                   }}
                 />
-                </Flex>
+                </Flex> */}
                 </FlexRow>
-                <CapsuleView>
+                {
+                  this.state.filteredSeason && (
+                    <StyledScrollView
+                      scrollToOverflowEnabled
+                    >
+                    <CapsuleView>
+                      {this.state.filteredSeason.map(season => {
+                        return (
+                          // <Capsule key={item.name}>
+                          //   <ItemName>{item.name} </ItemName>
+                          // </Capsule>
+                          <SearchedItem key={season.id}>
+                            <Close>
+                              <Icon style={{ fontSize: 10 }} name="close" />
+                            </Close>
+                            <Text> {season.name} </Text>
+                            {/* <SearchedText>{item.name}</SearchedText> */}
+                          </SearchedItem>
+                        );
+                      })}
+                    </CapsuleView>
+                    </StyledScrollView>
+                  )
+                }
+                {/* <CapsuleView>
                   {filteredSeason.map(item => {
                     return (
                       <Capsule key={item.name}>
@@ -372,7 +427,7 @@ class searchFilter extends Component {
                       </Capsule>
                     );
                   })}
-                </CapsuleView>
+                </CapsuleView> */}
               </SearchBar>
             </KeyboardAwareScrollView>
           </MainView>
