@@ -16,26 +16,6 @@ import {token} from "../../store/actions/index";
 import GetSeason from '../../api/getSeason';
 // import { ScrollView } from "react-native-gesture-handler";
 
-const styleArray = [
-  { name: "Superdry" },
-  { name: "Benetton" },
-  { name: "Adidas" },
-  { name: "Superdry 1" },
-  { name: "Benetton 1" },
-  { name: "Adidas 1" }
-];
-
-const seasonArray = [
-  { name: "Summer" },
-  { name: "Winter" },
-  { name: "Rainy" },
-  { name: "Autumn" },
-  { name: "Fall" }
-];
-
-const KEYS_TO_FILTERS = ["name"];
-const SEASON_KEYS = ["name"];
-
 const StyledTouchableOpacity = styled.TouchableHighlight`
   width: 50px;
   height: 50px;
@@ -164,24 +144,16 @@ class searchFilter extends Component {
     appState: AppState.currentState
   };
   Season = () => {
-    GetSeason()
-      .then(res => {
-        // if(res) {
-        //   console.log('res', res);
-        // }
-      }
-      )
-    // GetSeason((res) =>{   
-    //   console.log('search term', this.state.searchSeason);
-    //   this.setState({
-    //     filteredSeason: res.data
-    //   })
-    // },this.state.searchSeason => {console.log('hello')}
-    // )
+    console.log('season called');
+    GetSeason(this.state.searchSeason, this.props.tokenData)
+      .then((res) => {
+        console.log('res', res);
+        this.setState({ filteredSeason: res.data})
+      })
     
   }
   getBrands =() => {
-    console.log("hurry", this.state.searchBrand);
+    console.log("hurry", this.props.tokenData);
     axios({
       url: `http://test.delogue.com/api/v2.0/Brands/${this.state.searchBrand}`,
       method: "GET",
@@ -204,21 +176,14 @@ class searchFilter extends Component {
     this.setState({
       searchBrand: term
     });
-    // console.log("called again");
+    
   }
-  // seasonUpdated(term) {
-  //   this.setState({
-  //     searchSeason: term
-  //   });
-  // }
+
   setModalVisible(visible) {
     this.setState({ modalVisible: visible });
   }
   componentDidMount = () => {
     AppState.addEventListener("change", this._handleAppStateChange);
-    console.log("enter in did mount");
-    
-    // console.log('res in filter', res);
   };
   componentWillUnmount = () => {
     AppState.removeEventListener("change", this._handleAppStateChange);
@@ -246,18 +211,11 @@ class searchFilter extends Component {
       filteredSeason: [],
       searchSeason: ""
     });
-    this.searchUpdated("");
-    this.forceUpdate();
   };
 
   render() {
-    const filteredStyle = styleArray.filter(
-      createFilter(this.state.searchBrand, KEYS_TO_FILTERS)
-    );
-    // const filteredSeason = seasonArray.filter(
-    //   createFilter(this.state.searchSeason, SEASON_KEYS)
-    // );
-    // console.log("rendered again");
+
+  
     return (
       <Fragment>
         <FilterButton>
@@ -306,29 +264,6 @@ class searchFilter extends Component {
                   }}
                   onSubmitEditing={this.getBrands}
                 />
-                {/* <Flex>
-                <StyledSearchInput
-                  placeholderTextColor="#C9DBDB"
-                  onChangeText={term => {
-                    this.searchUpdated(term);
-                  }}
-                  placeholder="Enter Brand Name"
-                  clearIcon={
-                    this.state.searchBrand !== "" && (
-                      <CloseView>
-                        <ClearIcon name="ios-close" />
-                      </CloseView>
-                    )
-                  }
-                  clearIconViewStyles={{
-                    position: "absolute",
-                    top: 10,
-                    right: 20,
-                    bottom: 20,
-                    borderRadius: 10,
-                  }}
-                />
-                </Flex> */}
                 </FlexRow>
                 {
                   this.state.filteredBrand && (

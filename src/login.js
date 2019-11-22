@@ -1,11 +1,6 @@
 import React, {Fragment} from "react";
 import {
   View,
-  Text,
-  Image,
-  TextInput,
-  TouchableOpacity,
-  TouchableHighlight,
   BackHandler,
   ToastAndroid,
   Alert
@@ -23,6 +18,8 @@ import { connect } from "react-redux";
 import OfflineNotice from "./shared/OfflineNotice";
 import FailMessage from "./shared/failMessage";
 import {token} from "./store/actions/index";
+
+import LoginStep1 from './api/loginStep1';
 
 
 const Label = styled.Text`
@@ -77,7 +74,7 @@ class Login extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      username: "profiler@headfitted.com",
+      username: "test@headfitted.com",
       password: "donttell",
       exit: false,
       token: "",
@@ -119,6 +116,8 @@ class Login extends React.Component {
   
   checkCredential() {
     console.log("username : ", this.state.username, this.state.password);
+    LoginStep1(this.state.username, this.state.password, this.props.tokenData)
+      .then(res => console.log('login res', res))
     const data = {
       // username: "profiler@headfitted.com",
       // password: "donttell",
@@ -142,7 +141,6 @@ class Login extends React.Component {
         this.setState(
           {
             token: res.data.access_token
-            // tokenExpiry: res.headers.date
           },
           () => this.storeData(tokenExp)
         );
