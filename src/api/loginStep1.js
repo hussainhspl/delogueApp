@@ -5,20 +5,19 @@ const LoginStep1 = (username, password, token) => {
 	return new Promise(function(resolve, reject) {
 			console.log('user', username);
 			const data = {
-				Username: "test@headfitted.com",
-    		Password: "donttell"
+				Username: username,
+    			Password: password
 			};
 			
 			axios({
-				url: 'http://test.delogue.com/api/v2.0/Login',
-				method: "GET",
-				contentType: "application/json;",
-				// headers: { 'content-type': 'application/json'},
-				params: data
+				url: `${baseUrl}Login`,
+				method: "POST",
+				headers: { 'Content-Type': 'application/json'},
+				data: data
 			})
 				.then(res => {
 					resolve(res);
-					console.log('response of login: ', res)
+					// console.log('response of login: ', res)
 				})
 				.catch(function(error) {
 					console.error('error in login', error)

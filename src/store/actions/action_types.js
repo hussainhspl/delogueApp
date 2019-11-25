@@ -10,3 +10,5 @@ export const MESSAGE = 'MESSAGE';
 export const STYLE = 'STYLE';
 
 export const TOKEN = 'TOKEN';
+
+export const USER = "USER"

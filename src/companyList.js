@@ -12,13 +12,16 @@ import {
 import Menu from "./Menu";
 import Drawer from "react-native-drawer";
 import Icon from "react-native-vector-icons/Ionicons";
-import { withRouter } from "react-router";
+// import { withRouter } from "react-router";
 import styled from "styled-components";
+import {connect} from 'react-redux';
+
 import Loader from "./shared/Loader";
 import OfflineNotice from "./shared/OfflineNotice";
 import CList from "../data/companyList";
 import Title from "./styles/SmallText";
 import CardText from './styles/CardText';
+import { isConnected } from "@react-native-community/netinfo";
 
 
 const Card = styled.View`
@@ -112,7 +115,8 @@ class CompanyList extends React.Component {
       isOpen: false,
       tablet: false,
       loading: true,
-      refreshing: false
+      refreshing: false,
+      companyData: [],
     };
     this.toggle = this.toggle.bind(this);
     this.handleBackButtonClick = this.handleBackButtonClick.bind(this);
@@ -124,6 +128,17 @@ class CompanyList extends React.Component {
       this.setState({ refreshing: false });
     }, 2000);
   };
+  static getDerivedStateFromProps(nextProps, prevState) {
+    if (nextProps.companyData !== prevState.companyData) {
+      console.log("Entered nextProps");
+      // console.log("Entered prevState", prevState);
+
+      return{
+        companyData: nextProps.userData,
+      }
+    }
+    return null;
+  }
   componentDidMount = () => {
     setTimeout(() => {
       this.setState({ loading: false });
@@ -158,7 +173,9 @@ class CompanyList extends React.Component {
 
   render() {
     const history = this.props.history;
-    console.log("company list tablet", this.state.tablet);
+    console.log("company list tablet", this.state.tablet, 
+    this.state.companyData.data.length);
+    // console.log('user data from redux', this.props.userData)
     // const tablet = this.state.tablet;
     if (this.state.loading) {
       return (
@@ -203,9 +220,10 @@ class CompanyList extends React.Component {
               }
             >
               <ParentView>
-                {CList.map(data => {
+                {this.state.companyData.data.length < 0 ? 
+                  this.state.companyData.map((data, i) => {
                   return (
-                    <Card tablet={this.state.tablet} key={data.key}>
+                    <Card tablet={this.state.tablet} key={i}>
                       <TouchableOpacity
                         underlayColor="rgba(245, 245, 245, 1)"
                         onPress={() => {
@@ -236,7 +254,7 @@ class CompanyList extends React.Component {
                       </TouchableOpacity>
                     </Card>
                   );
-                })}
+                }) : <Text style={{color: "#fff", padding: 20}}> loader</Text>}
               </ParentView>
             </ScrollView>
           </PageLayout>
@@ -249,5 +267,9 @@ const drawerStyles = {
   drawer: { shadowColor: "#aaaaaa", shadowOpacity: 0.4, shadowRadius: 3 }
   // main: { flex: 1 },
 };
-
-export default withRouter(CompanyList);
+const mapStateToProps = state => {
+  return {
+    userData: state.user.userState
+  };
+};
+export default connect(mapStateToProps)(CompanyList);

@@ -139,7 +139,7 @@ class Template extends React.Component {
           <NativeRouter>
             <Switch>
               {this.state.token ? (
-                <Route exact path="/" component={Search}></Route>
+                <Route exact path="/" component={CompanyList}></Route>
               ) : (
                 <Route exact path="/" component={Login}></Route>
               )}

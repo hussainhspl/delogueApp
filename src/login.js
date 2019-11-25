@@ -17,10 +17,9 @@ import { connect } from "react-redux";
 //Relative import
 import OfflineNotice from "./shared/OfflineNotice";
 import FailMessage from "./shared/failMessage";
-import {token} from "./store/actions/index";
+import {token, userData} from "./store/actions/index";
 
 import LoginStep1 from './api/loginStep1';
-
 
 const Label = styled.Text`
   color: white;
@@ -117,7 +116,11 @@ class Login extends React.Component {
   checkCredential() {
     console.log("username : ", this.state.username, this.state.password);
     LoginStep1(this.state.username, this.state.password, this.props.tokenData)
-      .then(res => console.log('login res', res))
+      .then(res =>{
+        this.props.userFunction(res)
+        // console.log('login res', res);
+      }
+      )
     const data = {
       // username: "profiler@headfitted.com",
       // password: "donttell",
@@ -126,7 +129,7 @@ class Login extends React.Component {
       grant_type: "password"
     };
     const options = {
-      url: `${baseUrl}auth/token`,
+      url: `http://test.delogue.com/auth/token`,
       method: "POST",
       grant_type: "password",
       responseType: "json",
@@ -233,6 +236,7 @@ class Login extends React.Component {
 const mapDispatchToProps = dispatch => {
   return {
     tokenFunction : (data) => dispatch(token(data)),
+    userFunction: (u) => dispatch(userData(u))
   }
 }
 

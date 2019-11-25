@@ -23,7 +23,7 @@ import styled from "styled-components";
 
 const store = configStore();
 
-global.baseUrl = "http://test.delogue.com/"
+global.baseUrl = "http://test.delogue.com/api/v2.0/"
 const MainView = styled.View`
   flex: 1;
 `;
