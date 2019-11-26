@@ -209,62 +209,62 @@ class General extends React.Component {
           <View style={{width: '50%'}}>
             <StyleInfo>
               <Title>brand</Title>
-              <SubTitle>{this.state.data.brandName}</SubTitle>
+              {/* <SubTitle>{this.state.data.brandName}</SubTitle> */}
             </StyleInfo>
             <StyleInfo>
               <Title>contact person</Title>
-              <SubTitle>{this.state.data.companyContactPersonName}</SubTitle>
+              {/* <SubTitle>{this.state.data.companyContactPersonName}</SubTitle> */}
             </StyleInfo>
             <StyleInfo>
               <Title>style name</Title>
-              <SubTitle>{this.state.data.styleName}</SubTitle>
+              {/* <SubTitle>{this.state.data.styleName}</SubTitle> */}
             </StyleInfo>
             <StyleInfo>
               <Title>style no</Title>
-              <SubTitle>{this.state.data.id}</SubTitle>
+              {/* <SubTitle>{this.state.data.id}</SubTitle> */}
             </StyleInfo>
             <StyleInfo>
               <Title>description</Title>
-              <SubTitle>{this.state.data.description}</SubTitle>
+              {/* <SubTitle>{this.state.data.description}</SubTitle> */}
             </StyleInfo>
             <StyleInfo>
               <Title>state</Title>
-              <SubTitle>{this.state.data.styleState}</SubTitle>
+              {/* <SubTitle>{this.state.data.styleState}</SubTitle> */}
             </StyleInfo>
             <StyleInfo>
               <Title>ready for export</Title>
-              <SubTitle>yes</SubTitle>
+              {/* <SubTitle>yes</SubTitle> */}
             </StyleInfo>
           </View>
           <View style={{width: '50%'}}>
           <StyleInfo>
           <Title>supplier</Title>
-          <SubTitle>{this.state.data.supplierName}</SubTitle>
+          {/* <SubTitle>{this.state.data.supplierName}</SubTitle> */}
         </StyleInfo>
         <StyleInfo>
           <Title>primary</Title>
-          <SubTitle>{this.state.data.isPrimary ? "Yes" : "No"}</SubTitle>
+          {/* <SubTitle>{this.state.data.isPrimary ? "Yes" : "No"}</SubTitle> */}
         </StyleInfo>
         <StyleInfo>
           <Title>contact person</Title>
-          <SubTitle>{this.state.data.supplierContactPerson.name}</SubTitle>
+          {/* <SubTitle>{this.state.data.supplierContactPerson.name}</SubTitle> */}
         </StyleInfo>
         <StyleInfo>
           <Title>season</Title>
-          <SubTitle>{this.state.data.seasonName}</SubTitle>
+          {/* <SubTitle>{this.state.data.seasonName}</SubTitle> */}
         </StyleInfo>
         <StyleInfo>
           <Title>group</Title>
           <SubTitle>
-            {this.state.data.groupName ? this.state.data.groupName : "-"}{" "}
+            {/* {this.state.data.groupName ? this.state.data.groupName : "-"}{" "} */}
           </SubTitle>
         </StyleInfo>
         <StyleInfo>
           <Title>categories</Title>
           <SubTitle>
-            {this.state.data.categories.length > 1
+            {/* {this.state.data.categories.length > 1
               ? this.state.data.categories
-              : "-"}
+              : "-"} */}
           </SubTitle>
         </StyleInfo>
           </View>

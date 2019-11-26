@@ -27,12 +27,13 @@ class Template extends React.Component {
     this.checkToken = this.checkToken.bind(this);
   }
   componentDidMount = () => {
-    this.clearAsyncStorage();
+    // this.clearAsyncStorage();
     this.checkToken();
   }
   checkToken() {
     let currentDate = new Date().toUTCString();
     // console.log("india date", currentDate);
+    console.log('enter in check token');
     this.getToken()
       .then(token => {
         // console.log("hello",token);
@@ -88,13 +89,12 @@ class Template extends React.Component {
   }
 
   getToken = async () => {
+    console.log('enter in get token');
     try {
       const token = await AsyncStorage.getItem("@token");
-      // console.log("token from ")
       if (token !== null) {
-        // console.log("get token ", token);
+        console.log('token is ======', token);
         this.props.tokenFunction(token);
-        // console.log('got here');
         return token;
       }
     } catch (error) {
@@ -109,7 +109,6 @@ class Template extends React.Component {
       const strTokenExpiry = await AsyncStorage.getItem("@tokenExpiry");
       const tokenExpiry = JSON.parse(strTokenExpiry);
       if (tokenExpiry !== null) {
-        // console.log("get token expiry", tokenExpiry);
         return tokenExpiry;
       }
     } catch (error) {
@@ -128,8 +127,6 @@ class Template extends React.Component {
 
   render() {
     console.disableYellowBox = true;
-    // console.log("this. props", this.props, this.state.token);
-    // console.log("global variable", baseUrl);
     return (
       <Fragment>
         {
@@ -139,7 +136,7 @@ class Template extends React.Component {
           <NativeRouter>
             <Switch>
               {this.state.token ? (
-                <Route exact path="/" component={CompanyList}></Route>
+                <Route exact path="/" component={Style}></Route>
               ) : (
                 <Route exact path="/" component={Login}></Route>
               )}

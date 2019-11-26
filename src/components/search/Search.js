@@ -142,6 +142,7 @@ const SearchIcon = styled.View`
   background-color: #425460;
   justify-content: center;
   align-items: center;
+  padding: 10px;
 `;
 const KEYS_TO_FILTERS = ["styleNo", "styleName", "supplier", "season"];
 class Search extends React.Component {

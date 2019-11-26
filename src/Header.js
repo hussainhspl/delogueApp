@@ -26,8 +26,8 @@ const IconGroup = styled.View`
 
 const MenuIcon = styled(Icon)`
   color: #eee;
-  font-size: 28px; 
-  padding: 10px 15px; 
+  font-size: 34px; 
+  padding: 5px 10px; 
 `;
 const TouchableIconView = styled.TouchableOpacity`
   padding: 10px;
@@ -78,14 +78,14 @@ class Header extends React.Component {
                 <TouchableIconView highlight={ history.location.pathname == '/search' ? true: false }
                   onPress={() => {history.push("/search")}}
                   >
-                  <Image resizeMode={"contain"} source={require('../assets/img/header/ic_search.png')} /> 
+                  <Image resizeMode={"center"} source={require('../assets/img/header/ic_search.png')} /> 
                 </TouchableIconView>         
               </View>
               <View>
                 <TouchableIconView highlight={ history.location.pathname == '/message' ? true : false}
                   onPress={() => {history.push("/message")}}
                   >
-                  <Image resizeMode={"contain"} source={require('../assets/img/header/ic_message.png')} />
+                  <Image resizeMode={"center"} source={require('../assets/img/header/ic_message.png')} />
                 </TouchableIconView>          
               </View>
               <View>
@@ -93,7 +93,7 @@ class Header extends React.Component {
                 // onPress= {() => this.props.styleButtonFunction()}
                 onPress={() => {history.push("/style")}}
                 >
-                  <Image resizeMode={"contain"} source={require('../assets/img/header/ic_style.png')} />  
+                  <Image resizeMode={"center"} source={require('../assets/img/header/ic_general.png')} />  
                 </TouchableIconView>        
               </View>
             </IconGroup>

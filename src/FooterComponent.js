@@ -21,6 +21,7 @@ const IconText = styled.Text`
   font-size: 10px;
   font-family: ${props => props.theme.regular};
   color: ${props => (props.active ? "#fff" : "#eee")};
+  padding-bottom: 10px;
 `;
 const StyledFooterTab = styled(FooterTab)`
   background-color: #eee;
@@ -33,10 +34,14 @@ const StyledButton = styled(Button)`
   background-color: ${props => (props.active ? "#333" : "#444")};
   height: 55px;
   border-radius: 0px;
+  justify-content: space-between;
+
 `;
 const IconView = styled.View`
   height: 30px;
-  background-color: #f00;
+  /* background-color: #f00; */
+  justify-content: center;
+  align-items: center;
   width: 100%;
 `;
 class FooterComponent extends React.Component {

@@ -15,13 +15,15 @@ import Icon from "react-native-vector-icons/Ionicons";
 // import { withRouter } from "react-router";
 import styled from "styled-components";
 import {connect} from 'react-redux';
+import AsyncStorage from "@react-native-community/async-storage";
 
 import Loader from "./shared/Loader";
 import OfflineNotice from "./shared/OfflineNotice";
 import CList from "../data/companyList";
 import Title from "./styles/SmallText";
 import CardText from './styles/CardText';
-import { isConnected } from "@react-native-community/netinfo";
+import LoginStep2 from './api/loginStep2';
+import Message from './components/message/message'
 
 
 const Card = styled.View`
@@ -116,7 +118,7 @@ class CompanyList extends React.Component {
       tablet: false,
       loading: true,
       refreshing: false,
-      companyData: [],
+      companyData: null,
     };
     this.toggle = this.toggle.bind(this);
     this.handleBackButtonClick = this.handleBackButtonClick.bind(this);
@@ -170,11 +172,50 @@ class CompanyList extends React.Component {
   toggle = () => {
     this.setState(prevState => ({ isOpen: !prevState.isOpen }));
   };
-
+  GetToken = (desinerId, uid) => {
+    console.log('get token called', desinerId, uid, this.props.location.username,
+    this.props.location.password);
+    LoginStep2(desinerId, uid, 
+      this.props.location.username,
+      this.props.location.password
+    )
+      .then(res => {
+        let tokenExp = new Date(res.headers.date);
+        let seconds = res.data.expires_in;
+        tokenExp.setSeconds(tokenExp.getSeconds() + seconds);
+        this.setState(
+          {
+            token: res.data.access_token
+          },
+          () => this.storeToken(tokenExp)
+        );
+      })
+  }
+  storeToken = async tokenExp => {
+    let strTokenExp = JSON.stringify(tokenExp)
+    console.log("Storing data in async function", tokenExp, typeof(this.state.token), strTokenExp, typeof(strTokenExp));
+    try {
+      // await AsyncStorage.setItem('@token', this.state.token)
+      AsyncStorage.multiSet([
+        ["@token", this.state.token],
+        ["@tokenExpiry", strTokenExp]
+      ]);
+      console.log("data saved successfully");
+      // this.props.tokenFunction(this.state.token);
+      // Alert.alert('token stored successfully and redirect')
+      this.props.history.push({
+        pathname:"/message",
+      })
+    } 
+    catch (e) {
+ 
+        console.log("Error while saving token", e);
+    }
+  };
   render() {
     const history = this.props.history;
     console.log("company list tablet", this.state.tablet, 
-    this.state.companyData.data.length);
+    this.state.companyData, this.props.location, this.props.location.password);
     // console.log('user data from redux', this.props.userData)
     // const tablet = this.state.tablet;
     if (this.state.loading) {
@@ -220,14 +261,23 @@ class CompanyList extends React.Component {
               }
             >
               <ParentView>
-                {this.state.companyData.data.length < 0 ? 
-                  this.state.companyData.map((data, i) => {
+                {this.state.companyData != null ? 
+                  this.state.companyData.data.loginContexts.map((data, i) => {
                   return (
                     <Card tablet={this.state.tablet} key={i}>
                       <TouchableOpacity
                         underlayColor="rgba(245, 245, 245, 1)"
-                        onPress={() => {
-                          history.push("/search");
+                        onPress={() => { 
+                          // history.push("/search");
+                          this.GetToken(
+                            data.designerOrganizationId, data.id,
+                          )
+                          // console.log('clicked on', data.designerOrganizationId, data.id, this.props.location.password)
+                          // LoginStep2(
+                          //   data.designerOrganizationId, data.id,
+                          //   this.props.location.username,
+                          //   this.props.location.password
+                          // )
                         }}
                       >
                         <ImageView tablet={this.state.tablet}>
@@ -235,26 +285,33 @@ class CompanyList extends React.Component {
                             tablet={this.state.tablet}
                             resizeMode={"contain"}
                             source={require("../assets/img/shirt-static.png")}
+                            // source={{uri: data.}}
                           />
                         </ImageView>
                         <CardInfo>
                           <View>
                             <Title>Company Name</Title>
-                            <CardText numberOfLines={1}>{data.companyName}</CardText>
+                            <CardText numberOfLines={1}>{data.organizationName}</CardText>
                           </View>
                           <View>
                             <Title>User Name</Title>
-                            <CardText numberOfLines={1}>{data.userName}</CardText>
+                            <CardText numberOfLines={1}>{data.name}</CardText>
                           </View>
                           <View>
                             <Title>User Type</Title>
-                            <CardText numberOfLines={1}>{data.userType}</CardText>
+                            {
+                              data.organizationType == 1 ?
+                                <CardText numberOfLines={1}>Designer User</CardText>
+                              :
+                                <CardText numberOfLines={1}>Supplier User</CardText>
+                            }
                           </View>
                         </CardInfo>
                       </TouchableOpacity>
                     </Card>
                   );
-                }) : <Text style={{color: "#fff", padding: 20}}> loader</Text>}
+                }) 
+                : <Text style={{color: "#fff", padding: 20}}> loader</Text>}
               </ParentView>
             </ScrollView>
           </PageLayout>

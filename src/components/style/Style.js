@@ -66,13 +66,14 @@ class Style extends React.Component {
       }
     })
       .then(res => {
-        // console.log("response in style", res);
+        console.log("response in style", res);
         this.setState({
           styleData : res.data,
         })
       })
       .catch(function(error) {
         console.error("error in style", error);
+        console.log('error in style');
         // ADD THIS THROW error
         // throw error;
       });
@@ -104,6 +105,7 @@ class Style extends React.Component {
     //step 4 Dispatch action
     // store.dispatch({ type: "ATTACK", payload: "Iron Man" });
     // console.log("store state:", this.props.currentTab);
+    console.log('style array:', this.state.styleData.length);
     return (
       <Fragment>
         <Header history={this.props.history}>
