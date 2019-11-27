@@ -19,6 +19,7 @@ import OfflineNotice from "./shared/OfflineNotice";
 import FailMessage from "./shared/failMessage";
 import {token, userData} from "./store/actions/index";
 
+import loginStep2 from './api/loginStep2';
 import LoginStep1 from './api/loginStep1';
 
 const Label = styled.Text`
@@ -105,7 +106,7 @@ class Login extends React.Component {
     );
   }
   submitLogin = () => {
-    console.log("click on submit", this.props.history);
+    // console.log("click on submit", this.props.history);
     // login code
     // this.checkToken();
     this.checkCredential()
@@ -115,11 +116,34 @@ class Login extends React.Component {
     LoginStep1(this.state.username, this.state.password, this.props.tokenData)
       .then(res =>{
         this.props.userFunction(res)
-        this.props.history.push({
-          pathname:"/companyList",
-          username: this.state.username,
-          password: this.state.password
-        })
+        console.log('context', res.data)
+        AsyncStorage.multiSet([
+          ["@username", this.state.username],
+          ["@password", this.state.password]
+        ])
+        console.log('multiUser : ', res.data.isMultiselect)
+        if(res.data.isMultiselect) {
+          this.props.history.push({
+            pathname:"/companyList",
+          })
+        }else {
+          console.log('single user designerOrganizationId :', res.data.loginContexts[0].designerOrganizationId)
+          console.log('single user id :', res.data.loginContexts[0].id)
+          let designerId = res.data.loginContexts[0].designerOrganizationId;
+          let id = res.data.loginContexts[0].id
+          loginStep2(designerId, id, this.state.username, this.state.password)
+            .then(() => {
+              let tokenExp = new Date(res.headers.date);
+              let seconds = res.data.expires_in;
+              tokenExp.setSeconds(tokenExp.getSeconds() + seconds);
+              this.setState(
+                {
+                  token: res.data.access_token
+                },
+                () => this.storeToken(tokenExp)
+              );
+            })
+        }
       }
       )
     // const data = {
@@ -158,6 +182,24 @@ class Login extends React.Component {
     //   });
   }
 
+  storeToken = async tokenExp => {
+    let strTokenExp = JSON.stringify(tokenExp)
+    console.log("Storing data in async function", tokenExp, typeof(this.state.token), strTokenExp, typeof(strTokenExp));
+    try {
+      AsyncStorage.multiSet([
+        ["@token", this.state.token],
+        ["@tokenExpiry", strTokenExp]
+      ]);
+      console.log("data saved successfully");
+      this.props.history.push({
+        pathname:"/message",
+      })
+    } 
+    catch (e) {
+      console.log("Error while saving token", e);
+    }
+  };
+
   // storeData = async tokenExp => {
   //   let strTokenExp = JSON.stringify(tokenExp)
   //   console.log("Storing data in async function", tokenExp, typeof(this.state.token), strTokenExp, typeof(strTokenExp));
@@ -181,7 +223,7 @@ class Login extends React.Component {
 
   render() {
     const history = this.props.history;
-    console.log("Enter in render",this.props.tokenData);
+    // console.log("Enter in render",this.props.tokenData);
     return (
       <Container>
         <KeyboardAwareScrollView showsVerticalScrollIndicator={false}>
@@ -230,7 +272,7 @@ class Login extends React.Component {
 
 const mapDispatchToProps = dispatch => {
   return {
-    tokenFunction : (data) => dispatch(token(data)),
+    // tokenFunction : (data) => dispatch(token(data)),
     userFunction: (u) => dispatch(userData(u))
   }
 }

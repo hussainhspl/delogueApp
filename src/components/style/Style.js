@@ -66,7 +66,7 @@ class Style extends React.Component {
       }
     })
       .then(res => {
-        console.log("response in style", res);
+        // console.log("response in style", res);
         this.setState({
           styleData : res.data,
         })

@@ -27,7 +27,7 @@ class Template extends React.Component {
     this.checkToken = this.checkToken.bind(this);
   }
   componentDidMount = () => {
-    // this.clearAsyncStorage();
+    this.clearAsyncStorage();
     this.checkToken();
   }
   checkToken() {

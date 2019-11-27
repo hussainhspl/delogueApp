@@ -47,7 +47,7 @@ const ImageView = styled.View`
   height: ${props =>
     props.tablet
       ? Dimensions.get("window").height / 3 - 98
-      : Dimensions.get("window").height / 2 - 155};
+      : Dimensions.get("window").height / 2 - 180};
   margin: 0 auto;
   /* background-color: #f66; */
 `;
@@ -60,7 +60,7 @@ const GridImage = styled.Image`
   height: ${props =>
     props.tablet
       ? Dimensions.get("window").height / 3 - 120
-      : Dimensions.get("window").height / 2 - 165};
+      : Dimensions.get("window").height / 2 - 190};
   margin: auto;
   /* background-color: #ddd; */
 `;
@@ -77,7 +77,7 @@ const HeaderText = styled.Text`
 
 const CardInfo = styled.View`
   background-color: #f6f6f6;
-  height: 105px;
+  height: 130px;
   width: 100%;
   justify-content: space-between;
   padding: 2px 5px;
@@ -119,6 +119,8 @@ class CompanyList extends React.Component {
       loading: true,
       refreshing: false,
       companyData: null,
+      token: "",
+      imgSrc: null,
     };
     this.toggle = this.toggle.bind(this);
     this.handleBackButtonClick = this.handleBackButtonClick.bind(this);
@@ -131,6 +133,7 @@ class CompanyList extends React.Component {
     }, 2000);
   };
   static getDerivedStateFromProps(nextProps, prevState) {
+    // if()
     if (nextProps.companyData !== prevState.companyData) {
       console.log("Entered nextProps");
       // console.log("Entered prevState", prevState);
@@ -172,28 +175,43 @@ class CompanyList extends React.Component {
   toggle = () => {
     this.setState(prevState => ({ isOpen: !prevState.isOpen }));
   };
-  GetToken = (desinerId, uid) => {
-    console.log('get token called', desinerId, uid, this.props.location.username,
-    this.props.location.password);
-    LoginStep2(desinerId, uid, 
-      this.props.location.username,
-      this.props.location.password
-    )
-      .then(res => {
-        let tokenExp = new Date(res.headers.date);
-        let seconds = res.data.expires_in;
-        tokenExp.setSeconds(tokenExp.getSeconds() + seconds);
-        this.setState(
-          {
-            token: res.data.access_token
-          },
-          () => this.storeToken(tokenExp)
-        );
+  getCredential = async () => {
+    try {
+      const username = await AsyncStorage.getItem("@username");
+      const pass = await AsyncStorage.getItem("@password");
+
+      if(username && pass)
+        return [username, pass];
+    }
+    catch (error) {
+      if(error)
+        console.log('no username found', error);
+    }
+  }
+  GetToken = (desinerId, uid)  => {
+    this.getCredential()
+      .then(cred =>{
+        const [username, password] = cred;
+        // console.log("async cred", cred,uname, pass, uid);
+        LoginStep2(desinerId, uid, username, password)
+        .then(res => {
+          let tokenExp = new Date(res.headers.date);
+          let seconds = res.data.expires_in;
+          tokenExp.setSeconds(tokenExp.getSeconds() + seconds);
+          this.setState(
+            {
+              token: res.data.access_token
+            },
+            () => this.storeToken(tokenExp)
+          );
+        })
       })
+    console.log('get token called', desinerId, uid);
+    
   }
   storeToken = async tokenExp => {
     let strTokenExp = JSON.stringify(tokenExp)
-    console.log("Storing data in async function", tokenExp, typeof(this.state.token), strTokenExp, typeof(strTokenExp));
+    console.log("Storing data in async function", tokenExp, this.state.token, typeof(this.state.token), strTokenExp, typeof(strTokenExp));
     try {
       // await AsyncStorage.setItem('@token', this.state.token)
       AsyncStorage.multiSet([
@@ -201,21 +219,17 @@ class CompanyList extends React.Component {
         ["@tokenExpiry", strTokenExp]
       ]);
       console.log("data saved successfully");
-      // this.props.tokenFunction(this.state.token);
-      // Alert.alert('token stored successfully and redirect')
       this.props.history.push({
         pathname:"/message",
       })
     } 
     catch (e) {
- 
-        console.log("Error while saving token", e);
+      console.log("Error while saving token 11", e);
     }
   };
   render() {
     const history = this.props.history;
-    console.log("company list tablet", this.state.tablet, 
-    this.state.companyData, this.props.location, this.props.location.password);
+    console.log("company list tablet", this.state.tablet);
     // console.log('user data from redux', this.props.userData)
     // const tablet = this.state.tablet;
     if (this.state.loading) {
@@ -263,6 +277,14 @@ class CompanyList extends React.Component {
               <ParentView>
                 {this.state.companyData != null ? 
                   this.state.companyData.data.loginContexts.map((data, i) => {
+                    this.state.imgSrc = null;
+                    data.brands.some(img => {
+                      if(img.logo !=null) {
+                        this.state.imgSrc = img.logo.url
+                        return true;
+                      }
+                      return false;
+                    })
                   return (
                     <Card tablet={this.state.tablet} key={i}>
                       <TouchableOpacity
@@ -284,13 +306,17 @@ class CompanyList extends React.Component {
                           <GridImage
                             tablet={this.state.tablet}
                             resizeMode={"contain"}
-                            source={require("../assets/img/shirt-static.png")}
-                            // source={{uri: data.}}
+                            // source={require("../assets/img/shirt-static.png")}
+                            source={{uri: this.state.imgSrc ? this.state.imgSrc: "http://test.delogue.com/images/image_missing.png"}}
                           />
                         </ImageView>
                         <CardInfo>
                           <View>
                             <Title>Company Name</Title>
+                            <CardText numberOfLines={1}>{data.designerOrganizationName}</CardText>
+                          </View>
+                          <View>
+                            <Title>Supplier Company</Title>
                             <CardText numberOfLines={1}>{data.organizationName}</CardText>
                           </View>
                           <View>
@@ -324,6 +350,11 @@ const drawerStyles = {
   drawer: { shadowColor: "#aaaaaa", shadowOpacity: 0.4, shadowRadius: 3 }
   // main: { flex: 1 },
 };
+// const mapDispatchToProps = dispatch => {
+//   return {
+//     tokenFunction : (data) => dispatch(token(data)),
+//   }
+// }
 const mapStateToProps = state => {
   return {
     userData: state.user.userState

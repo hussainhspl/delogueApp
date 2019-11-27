@@ -13,7 +13,7 @@ const GetSeason = (string, token) => {
     console.log("string", string);
     console.log("Promise token", token);
     if (token !== null) {
-      console.log("url", `http://test.delogue.com/api/v2.0/Seasons/${string}`);
+      console.log("url", `${baseUrl}Seasons/${string}`);
       axios({
         url: `http://test.delogue.com/api/v2.0/Seasons/${string}`,
         method: "GET",

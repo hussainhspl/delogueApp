@@ -14,6 +14,7 @@ import axios from 'axios';
 import { connect } from "react-redux";
 import {token} from "../../store/actions/index";
 import GetSeason from '../../api/getSeason';
+import AsyncStorage from "@react-native-community/async-storage";
 // import { ScrollView } from "react-native-gesture-handler";
 
 const StyledTouchableOpacity = styled.TouchableHighlight`
@@ -152,17 +153,32 @@ class searchFilter extends Component {
       })
     
   }
-  getBrands =() => {
-    console.log("hurry", this.props.tokenData);
-    axios({
-      url: `http://test.delogue.com/api/v2.0/Brands/${this.state.searchBrand}`,
-      method: "GET",
-      contentType: "application/json; charset=utf-8",
-      headers: { 
-        Authorization: `Bearer ${this.props.tokenData}`,
-        responseType: 'json'
+  getAsyncToken = async () => {
+    try {
+      const token = await AsyncStorage.getItem("@token");
+      if(token)
+        return token
+    }
+    catch (error) {
+      if(error) {
+        console.log('async token absent', error)
       }
-    })
+    }
+  }
+  getBrands =() => {
+    this.getAsyncToken()
+    .then(token => {
+        console.log("hurry", token);
+        axios({
+          url: 'http://test.delogue.com/api/v2.0/Brands/',
+          method: "GET",
+          // data: {},
+          headers: { 
+            Authorization: `Bearer ${token}`,
+            contentType: "application/json"
+          }
+        })
+      })
       .then(res => {
         console.log("response in search", res);
         // let newRes = [...this.state.filteredBrand, res]
@@ -374,7 +390,7 @@ class searchFilter extends Component {
 const mapStateToProps = state => {
   return {
     currentTab: state.tab.now,
-    tokenData: state.async.tokenState
+    // tokenData: state.async.tokenState
   };
 };
 export default connect(mapStateToProps)(searchFilter);

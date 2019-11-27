@@ -46,7 +46,13 @@ const CloseView = styled.View`
 const SidebarView = styled.View`
   padding: 15px 15px 0px 0px;
 `;
-export default class Menu extends React.Component {
+
+// getUserName = async () => {
+//   try {
+//     const username = await Asy
+//   }
+// }
+class Menu extends React.Component {
   constructor(props){
     super(props);
     this.state={}
@@ -94,5 +100,5 @@ export default class Menu extends React.Component {
     )
   }
 }
-
+export default Menu
 

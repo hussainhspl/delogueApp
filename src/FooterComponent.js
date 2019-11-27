@@ -72,7 +72,7 @@ class FooterComponent extends React.Component {
                   <StyledImage
                     resizeMode={"contain"}
                     // style={{maxWidth: '30%'}}
-                    source={ require("../assets/img/footer/ic_style.png")}
+                    source={ require("../assets/img/footer/ic_general.png")}
                   />
                 </IconView>
                 <IconText
@@ -87,10 +87,12 @@ class FooterComponent extends React.Component {
                 active={this.props.currentTab === "comments" ? true : false}
                 onPress={() => this.props.commentTabFunction()}
               >
-                <StyledImage
-                  resizeMode={"contain"}
-                  source={require("../assets/img/footer/ic_comments.png")}
-                />
+                <IconView>
+                  <StyledImage
+                    resizeMode={"contain"}
+                    source={require("../assets/img/footer/ic_comments.png")}
+                  />
+                </IconView>
                 <IconText
                   active={this.props.currentTab === "comments" ? true : false}
                 >
@@ -103,11 +105,13 @@ class FooterComponent extends React.Component {
                 active={this.props.currentTab === "files" ? true : false}
                 onPress={() => this.props.filesTabFunction()}
               >
+                <IconView>
                 <StyledImage
                   resizeMode={"contain"}
                   source={require("../assets/img/footer/ic_files.png")
                   }
                 />
+                </IconView>
                 <IconText
                   active={this.props.currentTab === "files" ? true : false}                  
                 >
@@ -119,11 +123,13 @@ class FooterComponent extends React.Component {
                 active={this.props.currentTab === "sample" ? true : false}
                 onPress={() => this.props.sampleTabFunction()}
               >
+                <IconView>
                 <StyledImage
                   resizeMode={"contain"}
                   source={require("../assets/img/footer/ic_information.png")
                   }
                 />
+                </IconView>
                 <IconText
                   active={this.props.currentTab === "sample" ? true : false}
                 >
@@ -135,11 +141,13 @@ class FooterComponent extends React.Component {
                 active={this.props.currentTab === "pdf" ? true : false}
                 onPress={() => this.props.pdfTabFunction()}
               >
+                <IconView>
                 <StyledImage
                   resizeMode={"contain"}
                   source={require("../assets/img/footer/ic_pdf.png")
                   }
                 />
+                </IconView>
                 <IconText
                   active={this.props.currentTab === "pdf" ? true : false}
                 >
