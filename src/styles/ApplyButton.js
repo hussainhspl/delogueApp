@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import {Button} from 'native-base';
+import {View} from 'react-native'
 
 
 const ApplyButton = styled.View`

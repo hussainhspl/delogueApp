@@ -4,7 +4,9 @@ import styled from 'styled-components';
 import {Icon, Button} from 'native-base';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import ApplyButton from '../styles/ApplyButton';
+import TouchableApply from '../styles/TouchableApply';
 import CancelButton from '../styles/CancelButton';
+import TouchableCancel from '../styles/ToucaableCancel';
 import ButtonText from '../styles/ButtonText';
 
 import theme from "../../data/theme";
@@ -97,13 +99,17 @@ class CommonModal extends React.Component {
 							{
 								this.props.hideButton ? null :
 									<ApplyBar>
-										<CancelButton
-											onPress={() => {this.closeModal(this.props.close)}}
-										>
-											<ButtonText> CANCEL </ButtonText> 
+										<CancelButton>
+											<TouchableCancel 
+												underlayColor="#8f8c86"
+												onPress={() => {this.closeModal(this.props.close)}}>
+												<ButtonText> CANCEL </ButtonText> 
+											</TouchableCancel>
 										</CancelButton>
 										<ApplyButton>
-											<ButtonText>{this.props.okButton ?this.props.okButton : 'apply'}</ButtonText>
+											<TouchableApply underlayColor="#354733" onPress={() => this.props.okClick()}>
+												<ButtonText>{this.props.okButtonText ?this.props.okButtonText : 'apply'}</ButtonText>
+											</TouchableApply>
 										</ApplyButton>
 									</ApplyBar>
 							}

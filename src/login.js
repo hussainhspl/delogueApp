@@ -116,7 +116,7 @@ class Login extends React.Component {
     LoginStep1(this.state.username, this.state.password, this.props.tokenData)
       .then(res =>{
         this.props.userFunction(res)
-        console.log('context', res.data)
+        // console.log('context', res.data)
         AsyncStorage.multiSet([
           ["@username", this.state.username],
           ["@password", this.state.password]

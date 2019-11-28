@@ -74,7 +74,7 @@ class Pdf extends React.Component {
 					modalVisible={this.state.modalVisible}
           // close={() => {this.props.generalTabFunction()}}
           close={() => {this.closeModal()}}
-          okButton = "print pdf"
+          okButtonText = "print pdf"
 				>
           <SelectorBox>
             <TitleText> Please select which parts of this style you would like to print </TitleText>

@@ -27,7 +27,7 @@ class Template extends React.Component {
     this.checkToken = this.checkToken.bind(this);
   }
   componentDidMount = () => {
-    this.clearAsyncStorage();
+    // this.clearAsyncStorage();
     this.checkToken();
   }
   checkToken() {
@@ -36,7 +36,7 @@ class Template extends React.Component {
     console.log('enter in check token');
     this.getToken()
       .then(token => {
-        // console.log("hello",token);
+        console.log("hello",token);
         if (token) {
           // console.log("Token already exist");
           this.getTokenExpiry()
@@ -136,7 +136,7 @@ class Template extends React.Component {
           <NativeRouter>
             <Switch>
               {this.state.token ? (
-                <Route exact path="/" component={Style}></Route>
+                <Route exact path="/" component={Search}></Route>
               ) : (
                 <Route exact path="/" component={Login}></Route>
               )}

@@ -8,7 +8,7 @@ import {
   ScrollView
 } from "react-native";
 import { Icon } from "native-base";
-import SearchInput, { createFilter } from "react-native-search-filter";
+// import SearchInput, { createFilter } from "react-native-search-filter";
 import styled from "styled-components";
 import Header from "../../Header";
 import ItemDetail from "../../shared/ItemDetail";
@@ -16,7 +16,9 @@ import SearchFilter from "./searchFilter";
 import SearchGridCard from "./searchGridCard";
 import LoadMoreButton from "../../styles/LoadMoreButton";
 import { connect } from "react-redux";
-import {token} from "../../store/actions/index";
+import SearchInput from '../../styles/SearchInput';
+import GetStyles from '../../api/getStyles';
+import AsyncStorage from "@react-native-community/async-storage";
 
 
 import axios from "axios";
@@ -103,6 +105,7 @@ const ViewBox = styled.View`
   border-color: #999;
   justify-content: center;
   align-items: center;
+  margin-left: 10px;
 `;
 
 const CardInfo = styled.View`
@@ -152,32 +155,12 @@ class Search extends React.Component {
     this.state = {
       currentView: "grid",
       searchTerm: "",
-      tablet: false
+      tablet: false,
+      filteredStyle: []
     };
-    // this.myTextInput = React.createRef();
   }
   componentDidMount = () => {
-    // console.log('did mount in style');
-    // this.getBrands();
   }
-  // getBrands() {
-  //   console.log("hurry");
-  //   // axios({
-  //   //   url: 'http://test.delogue.com/api/v2.0/Brands/s',
-  //   //   method: "GET",
-  //   //   contentType: "application/json; charset=utf-8",
-  //   //   headers: { 
-  //   //     Authorization: `Bearer ${this.props.tokenData}`,
-  //   //     responseType: 'json'
-  //   //   }
-  //   // })
-  //   //   .then(res => {
-  //   //     console.log("response in search", res);
-  //   //   })
-  //   //   .catch(function(error) {
-  //   //     console.error("error in search", error);
-  //   //   })
-  // }
   searchUpdated(term) {
     this.setState({
       searchTerm: term,
@@ -195,11 +178,31 @@ class Search extends React.Component {
       });
     }
   };
+  styles = () => {
+    this.getAsyncToken().then(token => {
+      console.log('get style api')
+      GetStyles(this.state.searchTerm, token)
+        .then(res => {
+          console.log('success', res)
+        })
+    })
+  }
+
+  getAsyncToken = async () => {
+    try {
+      const token = await AsyncStorage.getItem("@token");
+      if (token) return token;
+    } catch (error) {
+      if (error) {
+        console.log("async token absent", error);
+      }
+    }
+  };
  
   render() {
-    const filteredStyle = details.filter(
-      createFilter(this.state.searchTerm, KEYS_TO_FILTERS)
-    );
+    // const filteredStyle = details.filter(
+    //   createFilter(this.state.searchTerm, KEYS_TO_FILTERS)
+    // );
     if (this.state.currentView == "linear" || "grid") {
       // console.log("render successful");
     }
@@ -216,7 +219,7 @@ class Search extends React.Component {
                 <Icon style={{color:"#fff"}} name="ios-search"/>
               </SearchIcon>
               <Flex>
-                <MainSearchInput
+                {/* <MainSearchInput
                   onChangeText={term => {
                     this.searchUpdated(term);
                   }}
@@ -236,6 +239,14 @@ class Search extends React.Component {
                     bottom: 20,
                     borderRadius: 10,
                   }}
+                /> */}
+                <SearchInput
+                  placeholder="SEARCH"
+                  placeholderTextColor="#C9DBDB"
+                  onChangeText={term => {
+                    this.searchUpdated(term);
+                  }}
+                  onSubmitEditing={this.styles}
                 />
               </Flex>
               <TouchableHighlight onPress={this.changeView} underlayColor="#42546033">
@@ -267,7 +278,7 @@ class Search extends React.Component {
               // })
               // <Text>helo</Text>
               <FlatList
-                data={filteredStyle}
+                data={this.state.filteredStyle}
                 renderItem={({ item }) => 
                   <TouchableHighlight
                     underlayColor="#42546033"
@@ -283,7 +294,7 @@ class Search extends React.Component {
             {this.state.currentView === "grid" && (
               <Fragment>
               <GridView>
-                {filteredStyle.map(data => {
+                {this.state.filteredStyle.map(data => {
                   return <SearchGridCard key={data.styleNo} data={data} history={history} />;
                 })}
               </GridView>

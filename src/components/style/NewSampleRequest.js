@@ -258,7 +258,7 @@ _handleAppStateChange = (nextAppState) => {
 					modalVisible={this.state.modalVisible}
           close={() => {this.setModalVisible(!this.state.modalVisible);
           }}
-          okButton = "notification"
+          okButtonText = "notification"
           okClick = {() => this.redirectTo(history)}
 				>
           <ItemDetail data={data} />

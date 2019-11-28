@@ -1,22 +1,29 @@
 import React, { Component, Fragment } from "react";
-import { Text, View,ScrollView, TouchableOpacity, AppState, TouchableHighlight, Image } from "react-native";
+import {
+  Text,
+  View,
+  ScrollView,
+  TouchableOpacity,
+  AppState,
+  TouchableHighlight,
+  Image
+} from "react-native";
 import { Icon, Button } from "native-base";
-import Searchinput, { createFilter } from "react-native-search-filter";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import styled from "styled-components";
 import CommonModal from "../../shared/CommonModal";
-import Capsule from '../../styles/Capsule';
-import Title from '../../styles/CardText';
-import SearchedItem from '../../styles/SearchedItem';
-import Close from '../../styles/Close';
+import Capsule from "../../styles/Capsule";
+import Title from "../../styles/CardText";
+import SearchedItemBox from "../../styles/SearchedItem";
+import Close from "../../styles/Close";
 import SearchInput from "../../styles/SearchInput";
-import axios from 'axios';
+import axios from "axios";
 import { connect } from "react-redux";
-import {token} from "../../store/actions/index";
-import GetSeason from '../../api/getSeason';
+// import {token} from "../../store/actions/index";
+import GetSeason from "../../api/getSeason";
 import AsyncStorage from "@react-native-community/async-storage";
 // import { ScrollView } from "react-native-gesture-handler";
-
+// S_sTlM_5rwnULiUcRx0pAhZGc4eF7AUqgnC299VIMJ021kj76D3o96ZHsSMKdPHchlll5VeL7bnBi7h2epLaedT9pLmxBwSomb8AErxn1czXZDhJM1_LoyILZyoJAqJl2hvy3aSAHwAMbdtij4B98z6nDO2y96wWTm87RBen29n3-eS3--E0e1r6238VbIS8P2nbqiTsR7UKyVjyrKCUBpeKPGmh4B94-6gYZlyjVG-WwYUJKC4-dvSLTNsDMyluco4zJ7NS7aNfn-PdZW6X83nPNbiO5lutlXxppUdhXdGzxqVQsbVmszNfJ9uZ4dbz
 const StyledTouchableOpacity = styled.TouchableHighlight`
   width: 50px;
   height: 50px;
@@ -42,19 +49,19 @@ const GrayButtonText = styled.Text`
   padding: 5px;
 `;
 
-const StyledSearchInput = styled(Searchinput)`
-  padding-left: 10px;
-  border-color: #425460;
-  border-width: 1px;
-  height: 40px;
-  margin-right: 10px;
-  position: relative;
-  padding-right: 40px;
-  flex: 1;
-  width: 100%;
-  font-family: ${props => props.theme.regular};
-  color: ${props => props.theme.textColor};
-`;
+// const StyledSearchInput = styled(Searchinput)`
+//   padding-left: 10px;
+//   border-color: #425460;
+//   border-width: 1px;
+//   height: 40px;
+//   margin-right: 10px;
+//   position: relative;
+//   padding-right: 40px;
+//   flex: 1;
+//   width: 100%;
+//   font-family: ${props => props.theme.regular};
+//   color: ${props => props.theme.textColor};
+// `;
 const ResetBar = styled.View`
   padding: 10px 15px;
   border-bottom-width: 1px;
@@ -76,7 +83,6 @@ const SearchBar = styled.View`
   padding: 10px 15px;
   border-bottom-width: 1px;
   border-bottom-color: #ddd;
-
 `;
 
 const ItemName = styled.Text`
@@ -96,7 +102,7 @@ const ClearIcon = styled(Icon)`
 
 const CloseView = styled.View`
   align-items: center;
-  justify-content:center;
+  justify-content: center;
   border-radius: 10px;
   width: 20px;
   height: 20px;
@@ -121,10 +127,9 @@ const Flex = styled.View`
   flex: 1;
 `;
 
-const StyledItem = styled.View`
-`;
+const StyledItem = styled.View``;
 const CapsuleView = styled.View`
-  flex-direction: row; 
+  flex-direction: row;
   flex-wrap: wrap;
   margin: 10px 0px;
   /* background-color: #d00; */
@@ -145,54 +150,63 @@ class searchFilter extends Component {
     appState: AppState.currentState
   };
   Season = () => {
-    console.log('season called');
-    GetSeason(this.state.searchSeason, this.props.tokenData)
-      .then((res) => {
-        console.log('res', res);
-        this.setState({ filteredSeason: res.data})
-      })
-    
-  }
+    this.getAsyncToken().then(token => {
+      console.log("season called");
+      GetSeason(this.state.searchSeason, token).then(res => {
+        console.log("res", res);
+        this.setState({ filteredSeason: res.data });
+      });
+    })
+  };
   getAsyncToken = async () => {
     try {
       const token = await AsyncStorage.getItem("@token");
-      if(token)
-        return token
-    }
-    catch (error) {
-      if(error) {
-        console.log('async token absent', error)
+      if (token) return token;
+    } catch (error) {
+      if (error) {
+        console.log("async token absent", error);
       }
     }
-  }
-  getBrands =() => {
-    this.getAsyncToken()
-    .then(token => {
-        console.log("hurry", token);
-        axios({
-          url: 'http://test.delogue.com/api/v2.0/Brands/',
-          method: "GET",
-          // data: {},
-          headers: { 
-            Authorization: `Bearer ${token}`,
-            contentType: "application/json"
-          }
+  };
+
+  // getBrandx = () =>{
+  //   this.getAsyncToken()
+  //   .then(token => {
+  //     axios.get('http://test.delogue.com/api/v2.0/Brands/',{
+  //       headers : {
+  //         Authorization :'Bearer ' + token
+  //       }
+  //     }).then((res)=>{
+  //       console.log(res);
+  //     })
+  //   });
+  // }
+
+  getBrands = () => {
+    this.getAsyncToken().then(token => {
+      let string = this.state.searchBrand;
+      axios({
+        url: `${baseUrl}Brands/${string}`,
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      })
+        .then(res => {
+          // if (res != undefined) {
+            this.setState({ filteredBrand: res.data });
+            // console.log("res", res);
+          // }
         })
-      })
-      .then(res => {
-        console.log("response in search", res);
-        // let newRes = [...this.state.filteredBrand, res]
-        this.setState({ filteredBrand: res.data})
-      })
-      .catch(function(error) {
-        console.error("error in search", error);
-      })
-  }
+        .catch(function(error) {
+          console.error("error in search", error);
+        });
+    });
+  };
   searchUpdated(term) {
     this.setState({
       searchBrand: term
     });
-    
   }
 
   setModalVisible(visible) {
@@ -230,30 +244,28 @@ class searchFilter extends Component {
   };
 
   render() {
-
-  
     return (
       <Fragment>
         <FilterButton>
-        <StyledTouchableOpacity
-          underlayColor="#32414A"
-          onPress={() => {
-            this.setModalVisible(!this.state.modalVisible);
-          }}
-        >
+          <StyledTouchableOpacity
+            underlayColor="#32414A"
+            onPress={() => {
+              this.setModalVisible(!this.state.modalVisible);
+            }}
+          >
             <Image
               resizeMode={"contain"}
               source={require("../../../assets/img/filter.png")}
             />
-        </StyledTouchableOpacity>
-          </FilterButton>
+          </StyledTouchableOpacity>
+        </FilterButton>
         <CommonModal
           title="filter"
           modalVisible={this.state.modalVisible}
           close={() => {
             this.setModalVisible(!this.state.modalVisible);
           }}
-          okClick={() => this.redirectTo(history)}
+          okClick={() => console.log('getting data')}
         >
           <MainView>
             <KeyboardAwareScrollView>
@@ -270,59 +282,55 @@ class searchFilter extends Component {
                 <Title>brand</Title>
                 <FlexRow>
                   <SearchIcon>
-                    <Icon style={{color:"#fff"}} name="ios-search"/>
+                    <Icon style={{ color: "#fff" }} name="ios-search" />
                   </SearchIcon>
-                <SearchInput 
-                  placeholder="SEARCH" 
-                  placeholderTextColor="#C9DBDB"
-                  onChangeText={term => {
-                    this.searchUpdated(term);
-                  }}
-                  onSubmitEditing={this.getBrands}
-                />
+                  <SearchInput
+                    placeholder="SEARCH"
+                    placeholderTextColor="#C9DBDB"
+                    onChangeText={term => {
+                      this.searchUpdated(term);
+                    }}
+                    onSubmitEditing={this.getBrands}
+                  />
                 </FlexRow>
-                {
-                  this.state.filteredBrand && (
-                    <StyledScrollView
-                      scrollToOverflowEnabled
-                    >
+                {this.state.filteredBrand && (
+                  <StyledScrollView scrollToOverflowEnabled>
                     <CapsuleView>
                       {this.state.filteredBrand.map(brand => {
                         return (
                           // <Capsule key={item.name}>
                           //   <ItemName>{item.name} </ItemName>
                           // </Capsule>
-                          <SearchedItem key={brand.id}>
+                          <SearchedItemBox key={brand.id}>
                             <Close>
                               <Icon style={{ fontSize: 10 }} name="close" />
                             </Close>
                             <Text> {brand.name} </Text>
                             {/* <SearchedText>{item.name}</SearchedText> */}
-                          </SearchedItem>
+                          </SearchedItemBox>
                         );
                       })}
                     </CapsuleView>
-                    </StyledScrollView>
-                  )
-                }
+                  </StyledScrollView>
+                )}
               </SearchBar>
 
               <SearchBar>
                 <Title>season</Title>
                 <FlexRow>
-                <SearchIcon>
-                  <Icon style={{color:"#fff"}} name="ios-search"/>
-                </SearchIcon>
-                <SearchInput 
-                  placeholder="SEARCH" 
-                  placeholderTextColor="#C9DBDB"
-                  onChangeText={term => {
-                    // this.seasonUpdated(term);
-                    this.setState({searchSeason :term})
-                  }}
-                  onSubmitEditing={this.Season}
-                />
-              {/* <Flex>
+                  <SearchIcon>
+                    <Icon style={{ color: "#fff" }} name="ios-search" />
+                  </SearchIcon>
+                  <SearchInput
+                    placeholder="SEARCH"
+                    placeholderTextColor="#C9DBDB"
+                    onChangeText={term => {
+                      // this.seasonUpdated(term);
+                      this.setState({ searchSeason: term });
+                    }}
+                    onSubmitEditing={this.Season}
+                  />
+                  {/* <Flex>
                 <StyledSearchInput
                   placeholderTextColor="#C9DBDB"
                   onChangeText={term => {
@@ -346,30 +354,26 @@ class searchFilter extends Component {
                 />
                 </Flex> */}
                 </FlexRow>
-                {
-                  this.state.filteredSeason && (
-                    <StyledScrollView
-                      scrollToOverflowEnabled
-                    >
+                {this.state.filteredSeason && (
+                  <StyledScrollView scrollToOverflowEnabled>
                     <CapsuleView>
                       {this.state.filteredSeason.map(season => {
                         return (
                           // <Capsule key={item.name}>
                           //   <ItemName>{item.name} </ItemName>
                           // </Capsule>
-                          <SearchedItem key={season.id}>
+                          <SearchedItemBox key={season.id}>
                             <Close>
                               <Icon style={{ fontSize: 10 }} name="close" />
                             </Close>
                             <Text> {season.name} </Text>
                             {/* <SearchedText>{item.name}</SearchedText> */}
-                          </SearchedItem>
+                          </SearchedItemBox>
                         );
                       })}
                     </CapsuleView>
-                    </StyledScrollView>
-                  )
-                }
+                  </StyledScrollView>
+                )}
                 {/* <CapsuleView>
                   {filteredSeason.map(item => {
                     return (
@@ -389,7 +393,7 @@ class searchFilter extends Component {
 }
 const mapStateToProps = state => {
   return {
-    currentTab: state.tab.now,
+    currentTab: state.tab.now
     // tokenData: state.async.tokenState
   };
 };
