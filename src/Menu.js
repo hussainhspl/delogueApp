@@ -2,15 +2,11 @@ import React from 'react';
 import {View, Text, Dimensions, TouchableHighlight, TouchableOpacity} from 'react-native';
 import styled from 'styled-components';
 import {Icon} from 'native-base';
+import ClearAsync from '../src/script/clearAsync';
+import CardText from '../src/styles/CardText';
+import SmallText from '../src/styles/SmallText';
+import Close from '../src/styles/Close';
 
-const MenuText = styled.Text`
-  padding: 15px;
-  color: black;
-  text-transform: uppercase;
-  font-size: 12px;
-  padding: 5px;
-  font-family: ${props => props.theme.regular};
-`;
 const MenuContainer = styled.View`
   border-width: 1px;
   border-left-color: #ccc;
@@ -19,9 +15,10 @@ const MenuContainer = styled.View`
 `;
 const CompanyHighlight = styled.View`
   background-color: #C2BEB6;
-  height: 40px;
   justify-content: center;
-  margin-top: 10px;
+  margin-top: 5px;
+  padding: 5px 10px;
+  align-self: flex-start;
 `;
 const CompanyText = styled.Text`
   padding: 15px;
@@ -32,21 +29,24 @@ const CompanyText = styled.Text`
   font-family: ${props => props.theme.regular};
 `;
 const  CloseIcon = styled(Icon)`
-  color: #C2BEB6; 
-  font-size: 28px; 
-  padding: 0px 10px;
-  align-self: flex-end;
+  color: #333; 
+  font-size: 15px; 
+  /* padding: 0px 10px; */
 `;
 const CloseView = styled.View`
   width: 40px;
   margin-left: auto;
   /* background-color: #aaa; */
 `;
-
 const SidebarView = styled.View`
-  padding: 15px 15px 0px 0px;
+  padding: 15px;
 `;
-
+const LoginTouchableHighlight = styled.TouchableHighlight`
+  padding: 10px 5px 10px 0px;
+  margin-bottom: 5px;
+  align-self: flex-start;
+  /* background-color: #ddd; */
+`;
 // getUserName = async () => {
 //   try {
 //     const username = await Asy
@@ -78,16 +78,25 @@ class Menu extends React.Component {
       <MenuContainer>
         <SidebarView>
             <CloseView>
-              <TouchableOpacity
+              {/* <TouchableOpacity
                   onPress={this.props.close}
-                >
-                  <CloseIcon name="ios-close" /> 
-              </TouchableOpacity>       
+                > */}
+                  <Close>
+                    <CloseIcon name="ios-close" /> 
+                  </Close>
+              {/* </TouchableOpacity>        */}
             </CloseView>
-          <TouchableHighlight underlayColor='rgba(221, 221, 221, 0.4)' 
-            onPress={() => history.push("/login")}>
-            <MenuText > Logout </MenuText>
-          </TouchableHighlight>
+          <LoginTouchableHighlight underlayColor='rgba(221, 221, 221, 0.4)' 
+            underlayColor="#ddd"
+            onPress={() => {
+              // ClearAsync();
+              // console.log('login called');
+              // history.push("/login")
+              }
+            }>
+            <CardText > Logout </CardText>
+          </LoginTouchableHighlight>
+          <SmallText>Switch Company</SmallText>
           <TouchableHighlight underlayColor='rgba(221, 221, 221, 0.4)' 
             onPress={this.checkNredirect}>
               <CompanyHighlight>
@@ -100,5 +109,5 @@ class Menu extends React.Component {
     )
   }
 }
-export default Menu
+export default Menu;
 

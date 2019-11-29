@@ -5,7 +5,6 @@ const SearchInput = styled.TextInput`
   border-color: #425460;
   border-width: 1px;
   height: 40px;
-  margin-right: 10px;
   position: relative;
   padding-right: 40px;
   flex: 1;

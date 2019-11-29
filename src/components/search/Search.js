@@ -19,60 +19,58 @@ import { connect } from "react-redux";
 import SearchInput from '../../styles/SearchInput';
 import GetStyles from '../../api/getStyles';
 import AsyncStorage from "@react-native-community/async-storage";
+import {styleList } from '../../store/actions/index';
 
-
-import axios from "axios";
-
-const details = [
-  {
-    styleNo: "sty2211",
-    styleName: "Casual Shirt",
-    supplier: "head textiles",
-    season: "summer"
-  },
-  {
-    styleNo: "sty2212",
-    styleName: "Formal Shirt",
-    supplier: "Pune textiles",
-    season: "Autumn"
-  },
-  {
-    styleNo: "sty2214",
-    styleName: "Casual Shirt",
-    supplier: "head textiles",
-    season: "Winter"
-  },
-  {
-    styleNo: "sty2218",
-    styleName: "t shirt",
-    supplier: "Super textiles",
-    season: "summer"
-  },
-  {
-    styleNo: "sty2219",
-    styleName: "t shirt",
-    supplier: "Super textiles",
-    season: "summer"
-  },
-  {
-    styleNo: "sty2220",
-    styleName: "t shirt",
-    supplier: "Super textiles",
-    season: "summer"
-  },
-  {
-    styleNo: "sty2221",
-    styleName: "t shirt",
-    supplier: "Super textiles",
-    season: "summer"
-  },
-  {
-    styleNo: "sty2222",
-    styleName: "t shirt",
-    supplier: "Super textiles",
-    season: "summer"
-  }
-];
+// const details = [
+//   {
+//     styleNo: "sty2211",
+//     styleName: "Casual Shirt",
+//     supplier: "head textiles",
+//     season: "summer"
+//   },
+//   {
+//     styleNo: "sty2212",
+//     styleName: "Formal Shirt",
+//     supplier: "Pune textiles",
+//     season: "Autumn"
+//   },
+//   {
+//     styleNo: "sty2214",
+//     styleName: "Casual Shirt",
+//     supplier: "head textiles",
+//     season: "Winter"
+//   },
+//   {
+//     styleNo: "sty2218",
+//     styleName: "t shirt",
+//     supplier: "Super textiles",
+//     season: "summer"
+//   },
+//   {
+//     styleNo: "sty2219",
+//     styleName: "t shirt",
+//     supplier: "Super textiles",
+//     season: "summer"
+//   },
+//   {
+//     styleNo: "sty2220",
+//     styleName: "t shirt",
+//     supplier: "Super textiles",
+//     season: "summer"
+//   },
+//   {
+//     styleNo: "sty2221",
+//     styleName: "t shirt",
+//     supplier: "Super textiles",
+//     season: "summer"
+//   },
+//   {
+//     styleNo: "sty2222",
+//     styleName: "t shirt",
+//     supplier: "Super textiles",
+//     season: "summer"
+//   }
+// ];
 
 const SearchRow = styled.View`
   flex-direction: row;
@@ -105,7 +103,6 @@ const ViewBox = styled.View`
   border-color: #999;
   justify-content: center;
   align-items: center;
-  margin-left: 10px;
 `;
 
 const CardInfo = styled.View`
@@ -119,6 +116,7 @@ const CardInfo = styled.View`
 
 const GridView = styled.View`
   flex-direction: row;
+  padding-left: 5px;
   flex-wrap: wrap;
 `;
 
@@ -147,6 +145,9 @@ const SearchIcon = styled.View`
   align-items: center;
   padding: 10px;
 `;
+const Box = styled.View`
+  margin-left: 10px;
+`;
 const KEYS_TO_FILTERS = ["styleNo", "styleName", "supplier", "season"];
 class Search extends React.Component {
   constructor(props) {
@@ -156,7 +157,7 @@ class Search extends React.Component {
       currentView: "grid",
       searchTerm: "",
       tablet: false,
-      filteredStyle: []
+      filteredStyle: null,
     };
   }
   componentDidMount = () => {
@@ -183,7 +184,11 @@ class Search extends React.Component {
       console.log('get style api')
       GetStyles(this.state.searchTerm, token)
         .then(res => {
-          console.log('success', res)
+          // console.log('success', res.data.styles);
+          // this.setState({
+          //   filteredStyle : res.data.styles
+          // })
+          this.props.styleListFunction(res)
         })
     })
   }
@@ -198,16 +203,19 @@ class Search extends React.Component {
       }
     }
   };
- 
-  render() {
-    // const filteredStyle = details.filter(
-    //   createFilter(this.state.searchTerm, KEYS_TO_FILTERS)
-    // );
-    if (this.state.currentView == "linear" || "grid") {
-      // console.log("render successful");
+  static getDerivedStateFromProps(nextProps, prevState) {
+    if (nextProps.filteredStyle !== prevState.filteredStyle) {
+      console.log("Entered nextProps");
+      // console.log("Entered prevState", prevState);
+      return{
+        filteredStyle: nextProps.styleList,
+      }
     }
-    // console.log('current state', this.state.currentView);
+    return null;
+  }
+  render() {
     const history = this.props.history;
+    console.log('style data from store', this.state.filteredStyle);
     // console.log("search history:", history);
     // console.log("history on search page", this.props.history);
     return (
@@ -219,27 +227,6 @@ class Search extends React.Component {
                 <Icon style={{color:"#fff"}} name="ios-search"/>
               </SearchIcon>
               <Flex>
-                {/* <MainSearchInput
-                  onChangeText={term => {
-                    this.searchUpdated(term);
-                  }}
-                  placeholder="SEARCH"
-                  placeholderTextColor="#C9DBDB"
-                  clearIcon={
-                    this.state.searchTerm !== "" && (
-                      <CloseView>
-                        <ClearIcon name="ios-close" />
-                      </CloseView>
-                    )
-                  }
-                  clearIconViewStyles={{
-                    position: "absolute",
-                    top: 10,
-                    right: 20,
-                    bottom: 20,
-                    borderRadius: 10,
-                  }}
-                /> */}
                 <SearchInput
                   placeholder="SEARCH"
                   placeholderTextColor="#C9DBDB"
@@ -249,34 +236,23 @@ class Search extends React.Component {
                   onSubmitEditing={this.styles}
                 />
               </Flex>
-              <TouchableHighlight onPress={this.changeView} underlayColor="#42546033">
-                <ViewBox>
-                  <Image
-                    resizeMode={"contain"}
-                    source={
-                      this.state.currentView == "linear"
-                        ? require("../../../assets/img/squares.png")
-                        : require("../../../assets/img/lines.png")
-                    }
-                  />
-                </ViewBox>
-              </TouchableHighlight>
+              <Box>
+                <TouchableHighlight onPress={this.changeView} underlayColor="#42546033">
+                  <ViewBox>
+                    <Image
+                      resizeMode={"contain"}
+                      source={
+                        this.state.currentView == "linear"
+                          ? require("../../../assets/img/squares.png")
+                          : require("../../../assets/img/lines.png")
+                      }
+                    />
+                  </ViewBox>
+                </TouchableHighlight>
+              </Box>
             </SearchRow>
             {this.state.currentView === "linear" &&(
-              // filteredStyle.map(data => {
-              //   return (
-              //     <TouchableHighlight
-              //       underlayColor="#42546033"
-              //       onPress={() => {
-              //         history.push("/style");
-              //       }}
-              //       key={data.styleNo}
-              //     >
-              //       <ItemDetail data={data} />
-              //     </TouchableHighlight>
-              //   );
-              // })
-              // <Text>helo</Text>
+              
               <FlatList
                 data={this.state.filteredStyle}
                 renderItem={({ item }) => 
@@ -288,15 +264,20 @@ class Search extends React.Component {
                   >
                     <ItemDetail data={item} />
                   </TouchableHighlight>}
-                keyExtractor={item => item.styleNo}
+                keyExtractor={item => item.id}
               />
             )}
             {this.state.currentView === "grid" && (
               <Fragment>
               <GridView>
-                {this.state.filteredStyle.map(data => {
-                  return <SearchGridCard key={data.styleNo} data={data} history={history} />;
-                })}
+                {this.state.filteredStyle != null ?
+                  this.state.filteredStyle.data.styles.map(data => {
+                    return <SearchGridCard key={data.styleNo} data={data} history={history} />;
+                  }) 
+                  // <Text>entering</Text>
+                  :
+                  <Text style={{color: "#fff", padding: 20}}> loader</Text>
+                }
               </GridView>
               <LoadMoreButton>
                 <Text> Load More </Text>
@@ -310,10 +291,14 @@ class Search extends React.Component {
     );
   }
 }
+const mapDispatchToProps = dispatch => {
+  return {
+    styleListFunction :(s) => dispatch(styleList(s))
+  }
+}
 const mapStateToProps = state => {
   return {
-    currentTab: state.tab.now,
-    tokenData: state.async.tokenState
+    styleList: state.styleList.styleListState
   };
 };
-export default connect(mapStateToProps)(Search);
+export default connect(mapStateToProps, mapDispatchToProps)(Search);

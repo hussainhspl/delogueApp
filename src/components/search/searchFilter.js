@@ -237,12 +237,25 @@ class searchFilter extends Component {
     console.log("click on reset");
     this.setState({
       searchBrand: "",
-      filteredBrand: [],
+      filteredBrand: null,
       filteredSeason: [],
       searchSeason: ""
     });
   };
-
+  sendFilters () {
+    console.log('getting data');
+    if(this.state.filteredBrand != null) {
+      let brandArray = [];
+      let seasonArray = []
+      this.state.filteredBrand.map(d => {
+        let id = d.id
+        console.log('filter present', d.id, id);
+        brandArray.push(id)
+      })
+      console.log("array ",brandArray);
+    }
+    
+  }
   render() {
     return (
       <Fragment>
@@ -265,7 +278,7 @@ class searchFilter extends Component {
           close={() => {
             this.setModalVisible(!this.state.modalVisible);
           }}
-          okClick={() => console.log('getting data')}
+          okClick={() => this.sendFilters()}
         >
           <MainView>
             <KeyboardAwareScrollView>

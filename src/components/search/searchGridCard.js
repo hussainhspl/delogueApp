@@ -48,17 +48,20 @@ class searchGridCard extends React.Component {
             <GridImage
               tablet={this.state.tablet}
               resizeMode={"contain"}
-              source={require("../../../assets/img/shirt-static.png")}
+              source={{uri: data.logo ? data.logo.url: 
+                "http://test.delogue.com/images/image_missing.png"
+              }}
+              // source={require("../../../assets/img/shirt-static.png")}
             />
           </GridImageView>
           <GridCardInfo>
             <View>
               <Title>Style Name</Title>
-              <CardText numberOfLines={1}>{data.styleName}</CardText>
+              <CardText numberOfLines={1}>{data.name}</CardText>
             </View>
             <View>
               <Title>Style No</Title>
-              <CardText numberOfLines={1}>{data.styleNo}</CardText>
+              <CardText numberOfLines={1}>{data.userDefinedId}</CardText>
             </View>
           </GridCardInfo>
         </GridCard>

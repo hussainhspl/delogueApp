@@ -133,12 +133,10 @@ class CompanyList extends React.Component {
     }, 2000);
   };
   static getDerivedStateFromProps(nextProps, prevState) {
-    // if()
     if (nextProps.companyData !== prevState.companyData) {
       console.log("Entered nextProps");
       // console.log("Entered prevState", prevState);
-
-      return{
+      return {
         companyData: nextProps.userData,
       }
     }
@@ -350,11 +348,7 @@ const drawerStyles = {
   drawer: { shadowColor: "#aaaaaa", shadowOpacity: 0.4, shadowRadius: 3 }
   // main: { flex: 1 },
 };
-// const mapDispatchToProps = dispatch => {
-//   return {
-//     tokenFunction : (data) => dispatch(token(data)),
-//   }
-// }
+
 const mapStateToProps = state => {
   return {
     userData: state.user.userState

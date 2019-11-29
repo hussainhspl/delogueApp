@@ -7,8 +7,8 @@ import CardText from '../styles/CardText';
 const ImageBox = styled.View`
   height: 80px;
   width: 80px;
-  justify-content: center;
-  align-items: center;
+  /* justify-content: center;
+  align-items: center; */
   margin-right: 20px;
 `;
 const Row = styled.View`
@@ -39,8 +39,8 @@ const StyledView = styled.View`
 `;
 
 const StyleImage = styled.Image`
-  max-width: 80px;
-  max-height: 80px;
+  width: 80px;
+  height: 80px;
 `;
 
 class ItemDetail extends React.Component {
@@ -50,34 +50,37 @@ class ItemDetail extends React.Component {
   }
   render() {
     let data = this.props.data;
-    // console.log("data",data);
+    console.log("data",data.logo);
     return (
       <MainRow>
         <ImageBox>
           <StyleImage
-            resizeMode="contain"
-            source={require("../../assets/img/shirt-static.png")}
+            resizeMode={"contain"}
+            source={{uri: data.logo ? data.logo.url: 
+              "http://test.delogue.com/images/image_missing.png"
+            }}
+            // source={require("../../assets/img/shirt-static.png")}
           />
         </ImageBox>
         <Flex>
           <StyledView>
             <View>
               <Title numberOfLines={1}>style no</Title>
-              <CardText numberOfLines={1}>{data.styleNo}</CardText>
+              <CardText numberOfLines={1}>{data.userDefinedId}</CardText>
             </View>
             <View>
               <Title>style name</Title>
-              <CardText numberOfLines={1}>{data.styleName}</CardText>
+              <CardText numberOfLines={1}>{data.name}</CardText>
             </View>
           </StyledView>
           <StyledView>
             <View>
               <Title numberOfLines={1}>supplier</Title>
-              <CardText numberOfLines={1}>{data.supplier}</CardText>
+              <CardText numberOfLines={1}>{data.supplierName}</CardText>
             </View>
             <View>
               <Title numberOfLines={1}>season</Title>
-              <CardText numberOfLines={1}>{data.season}</CardText>
+              <CardText numberOfLines={1}>{data.seasonName}</CardText>
             </View>
           </StyledView>
         </Flex>
