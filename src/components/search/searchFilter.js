@@ -148,7 +148,7 @@ class searchFilter extends Component {
       modalVisible: false,
       searchBrand: "",
       searchSeason: "",
-      filteredBrand: null,
+      filteredBrand: [],
       filteredSeason: [],
       text: "Useless Placeholder",
       appState: AppState.currentState,
@@ -198,16 +198,11 @@ class searchFilter extends Component {
         }
       })
         .then(res => {
-          if (this.state.filteredBrand != null) {
-            this.setState(previousState =>({ 
-              filteredBrand: [...previousState.filteredBrand, res.data] 
-            }));
-            // console.log("res", res);
-          } else {
-            this.setState({
-              filteredBrand: res.data
-            })
-          }
+          let res1 = res.data;
+          console.log('this.state.filteredBrand', this.state.filteredBrand, res1)
+          this.setState({ 
+            filteredBrand: [...this.state.filteredBrand].concat(res1)
+          },()=> console.log("res 1", this.state.filteredBrand));
         })
         .catch(function(error) {
           console.error("error in search", error);
@@ -257,12 +252,13 @@ class searchFilter extends Component {
     console.log('getting data');
     if(this.state.filteredBrand != null) {
       let brandArray = [];
-      let seasonArray = []
-      this.state.filteredBrand.map(d => {
-        let id = d.id
-        console.log('filter present', d.id, id);
-        brandArray.push(id)
-      })
+      let seasonArray = [];
+      console.log('this.state.filteredBrand',this.state.filteredBrand);
+      // this.state.filteredBrand.map(d => {
+      //   let id = d.id
+      //   console.log('filter present', d.id, id);
+      //   brandArray.push(id)
+      // })
       console.log("array ",brandArray);
       if(brandArray != null) {
         console.log('Brand array present');
@@ -324,24 +320,21 @@ class searchFilter extends Component {
                 </FlexRow>
                 {this.state.filteredBrand != null ?
                 this.state.filteredBrand && (
-                  <StyledScrollView scrollToOverflowEnabled>
-                    <CapsuleView>
-                      {this.state.filteredBrand.map(brand => {
-                        return (
-                          // <Capsule key={item.name}>
-                          //   <ItemName>{item.name} </ItemName>
-                          // </Capsule>
-                          <SearchedItemBox key={brand.id}>
-                            <Close>
-                              <Icon style={{ fontSize: 10 }} name="close" />
-                            </Close>
-                            <Text> {brand.name} </Text>
-                            {/* <SearchedText>{item.name}</SearchedText> */}
-                          </SearchedItemBox>
-                        );
-                      })}
-                    </CapsuleView>
-                  </StyledScrollView>
+                  // <StyledScrollView scrollToOverflowEnabled>
+                  //   <CapsuleView>
+                  //     {this.state.filteredBrand.map(brand => {
+                  //       return (
+                  //         <SearchedItemBox key={brand.id}>
+                  //           <Close>
+                  //             <Icon style={{ fontSize: 10 }} name="close" />
+                  //           </Close>
+                  //           <Text> {brand.name} </Text>
+                  //         </SearchedItemBox>
+                  //       );
+                  //     })}
+                  //   </CapsuleView>
+                  // </StyledScrollView>
+                  <Text> loading </Text>
                 ): null}
               </SearchBar>
 
