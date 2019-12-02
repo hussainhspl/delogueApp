@@ -21,57 +21,6 @@ import GetStyles from '../../api/getStyles';
 import AsyncStorage from "@react-native-community/async-storage";
 import {styleList } from '../../store/actions/index';
 
-// const details = [
-//   {
-//     styleNo: "sty2211",
-//     styleName: "Casual Shirt",
-//     supplier: "head textiles",
-//     season: "summer"
-//   },
-//   {
-//     styleNo: "sty2212",
-//     styleName: "Formal Shirt",
-//     supplier: "Pune textiles",
-//     season: "Autumn"
-//   },
-//   {
-//     styleNo: "sty2214",
-//     styleName: "Casual Shirt",
-//     supplier: "head textiles",
-//     season: "Winter"
-//   },
-//   {
-//     styleNo: "sty2218",
-//     styleName: "t shirt",
-//     supplier: "Super textiles",
-//     season: "summer"
-//   },
-//   {
-//     styleNo: "sty2219",
-//     styleName: "t shirt",
-//     supplier: "Super textiles",
-//     season: "summer"
-//   },
-//   {
-//     styleNo: "sty2220",
-//     styleName: "t shirt",
-//     supplier: "Super textiles",
-//     season: "summer"
-//   },
-//   {
-//     styleNo: "sty2221",
-//     styleName: "t shirt",
-//     supplier: "Super textiles",
-//     season: "summer"
-//   },
-//   {
-//     styleNo: "sty2222",
-//     styleName: "t shirt",
-//     supplier: "Super textiles",
-//     season: "summer"
-//   }
-// ];
-
 const SearchRow = styled.View`
   flex-direction: row;
   justify-content: space-between;
@@ -158,6 +107,8 @@ class Search extends React.Component {
       searchTerm: "",
       tablet: false,
       filteredStyle: null,
+      brandArrFilter: null,
+      brandIds: null,
     };
   }
   componentDidMount = () => {
@@ -180,14 +131,12 @@ class Search extends React.Component {
     }
   };
   styles = () => {
+    console.log("calling api again");
     this.getAsyncToken().then(token => {
       console.log('get style api')
-      GetStyles(this.state.searchTerm, token)
+      GetStyles(this.state.searchTerm, token, this.state.brandIds)
         .then(res => {
-          // console.log('success', res.data.styles);
-          // this.setState({
-          //   filteredStyle : res.data.styles
-          // })
+          console.log('response');
           this.props.styleListFunction(res)
         })
     })
@@ -204,14 +153,23 @@ class Search extends React.Component {
     }
   };
   static getDerivedStateFromProps(nextProps, prevState) {
+    
     if (nextProps.filteredStyle !== prevState.filteredStyle) {
       console.log("Entered nextProps");
-      // console.log("Entered prevState", prevState);
       return{
         filteredStyle: nextProps.styleList,
       }
     }
     return null;
+  }
+  shouldComponentUpdate(nextProps, nextState) {
+    if(this.state.brandIds != nextState.brandIds) {
+      this.styles()
+      return false;
+    }
+    else {
+      return true;
+    }
   }
   render() {
     const history = this.props.history;
@@ -251,22 +209,7 @@ class Search extends React.Component {
                 </TouchableHighlight>
               </Box>
             </SearchRow>
-            {this.state.currentView === "linear" &&(
-              
-              <FlatList
-                data={this.state.filteredStyle}
-                renderItem={({ item }) => 
-                  <TouchableHighlight
-                    underlayColor="#42546033"
-                    onPress={() => {
-                      history.push("/style");
-                    }}
-                  >
-                    <ItemDetail data={item} />
-                  </TouchableHighlight>}
-                keyExtractor={item => item.id}
-              />
-            )}
+            
             {this.state.currentView === "grid" && (
               <Fragment>
               <GridView>
@@ -285,7 +228,31 @@ class Search extends React.Component {
               </Fragment>
             )}
           </ScrollView>
-          <SearchFilter />
+          {this.state.currentView === "linear" &&(
+              
+              <FlatList
+                data={this.state.filteredStyle.data.styles}
+                renderItem={({ item }) => 
+                  <TouchableHighlight
+                    underlayColor="#42546033"
+                    onPress={() => {
+                      history.push("/style");
+                    }}
+                  >
+                    <ItemDetail data={item} />
+                  </TouchableHighlight>}
+                keyExtractor={item => item.id}
+              />
+            )}
+          <SearchFilter 
+            BrandIdArr= {(bid) => {
+              console.log("yipee", bid);
+              this.setState({
+                brandIds : bid
+              }, () => this.styles)
+              
+            }}
+          />
         </Header>
       </MainView>
     );

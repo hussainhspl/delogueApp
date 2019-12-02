@@ -142,12 +142,17 @@ const StyledScrollView = styled.ScrollView`
   /* background-color: #0f0; */
 `;
 class searchFilter extends Component {
-  state = {
-    modalVisible: false,
-    searchBrand: "",
-    searchSeason: "",
-    text: "Useless Placeholder",
-    appState: AppState.currentState
+  constructor(props) {
+    super(props);
+    this.state = {
+      modalVisible: false,
+      searchBrand: "",
+      searchSeason: "",
+      filteredBrand: null,
+      filteredSeason: [],
+      text: "Useless Placeholder",
+      appState: AppState.currentState,
+    }
   };
   Season = () => {
     this.getAsyncToken().then(token => {
@@ -193,10 +198,16 @@ class searchFilter extends Component {
         }
       })
         .then(res => {
-          // if (res != undefined) {
-            this.setState({ filteredBrand: res.data });
+          if (this.state.filteredBrand != null) {
+            this.setState(previousState =>({ 
+              filteredBrand: [...previousState.filteredBrand, res.data] 
+            }));
             // console.log("res", res);
-          // }
+          } else {
+            this.setState({
+              filteredBrand: res.data
+            })
+          }
         })
         .catch(function(error) {
           console.error("error in search", error);
@@ -253,7 +264,12 @@ class searchFilter extends Component {
         brandArray.push(id)
       })
       console.log("array ",brandArray);
+      if(brandArray != null) {
+        console.log('Brand array present');
+        this.props.BrandIdArr(brandArray)
+      }
     }
+    this.setModalVisible(!this.state.modalVisible);
     
   }
   render() {
@@ -306,7 +322,8 @@ class searchFilter extends Component {
                     onSubmitEditing={this.getBrands}
                   />
                 </FlexRow>
-                {this.state.filteredBrand && (
+                {this.state.filteredBrand != null ?
+                this.state.filteredBrand && (
                   <StyledScrollView scrollToOverflowEnabled>
                     <CapsuleView>
                       {this.state.filteredBrand.map(brand => {
@@ -325,7 +342,7 @@ class searchFilter extends Component {
                       })}
                     </CapsuleView>
                   </StyledScrollView>
-                )}
+                ): null}
               </SearchBar>
 
               <SearchBar>
