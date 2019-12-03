@@ -159,7 +159,10 @@ class searchFilter extends Component {
       console.log("season called");
       GetSeason(this.state.searchSeason, token).then(res => {
         console.log("res", res);
-        this.setState({ filteredSeason: res.data });
+        let res1 = res.data;
+        temp = [...this.state.filteredSeason];
+        temp1 = temp.concat(res1);
+        this.setState({ filteredSeason: temp1 });
       });
     })
   };
@@ -174,20 +177,9 @@ class searchFilter extends Component {
     }
   };
 
-  // getBrandx = () =>{
-  //   this.getAsyncToken()
-  //   .then(token => {
-  //     axios.get('http://test.delogue.com/api/v2.0/Brands/',{
-  //       headers : {
-  //         Authorization :'Bearer ' + token
-  //       }
-  //     }).then((res)=>{
-  //       console.log(res);
-  //     })
-  //   });
-  // }
 
   getBrands = () => {
+    console.log(this.state.filteredBrand);
     this.getAsyncToken().then(token => {
       let string = this.state.searchBrand;
       axios({
@@ -199,10 +191,13 @@ class searchFilter extends Component {
       })
         .then(res => {
           let res1 = res.data;
-          console.log('this.state.filteredBrand', this.state.filteredBrand, res1)
+          temp = [...this.state.filteredBrand];
+          // temp.filter((v, i) => a.indexOf(v) == i)
+          temp1 = temp.concat(res1);
           this.setState({ 
-            filteredBrand: [...this.state.filteredBrand].concat(res1)
-          },()=> console.log("res 1", this.state.filteredBrand));
+            filteredBrand:temp1
+          },() => console.log('hello', this.state.filteredBrand));
+          
         })
         .catch(function(error) {
           console.error("error in search", error);
@@ -243,30 +238,48 @@ class searchFilter extends Component {
     console.log("click on reset");
     this.setState({
       searchBrand: "",
-      filteredBrand: null,
+      filteredBrand: [],
       filteredSeason: [],
       searchSeason: ""
     });
   };
   sendFilters () {
     console.log('getting data');
+    if(this.state.filteredSeason != null) {
+      let seasonArray = [];
+      this.state.filteredSeason.map(s => {
+        let id = s.id
+        seasonArray.push(id)
+      })
+      if(seasonArray != null){
+        this.props.SeasonIdArr(seasonArray)
+      }
+    }
     if(this.state.filteredBrand != null) {
       let brandArray = [];
-      let seasonArray = [];
       console.log('this.state.filteredBrand',this.state.filteredBrand);
-      // this.state.filteredBrand.map(d => {
-      //   let id = d.id
-      //   console.log('filter present', d.id, id);
-      //   brandArray.push(id)
-      // })
+      this.state.filteredBrand.map(d => {
+        let id = d.id
+        console.log('filter present', d.id, id);
+        brandArray.push(id)
+      })
       console.log("array ",brandArray);
       if(brandArray != null) {
         console.log('Brand array present');
         this.props.BrandIdArr(brandArray)
       }
     }
-    this.setModalVisible(!this.state.modalVisible);
-    
+    this.setModalVisible(!this.state.modalVisible);  
+  }
+  popBrandId (pid) {
+    console.log('pid', pid, this.state.filteredBrand);
+    let filteredArray = this.state.filteredBrand.filter(item => item.id !== pid)
+    console.log('after filter', filteredArray);
+    this.setState({filteredBrand: filteredArray});
+  }
+  popSeasonId (pid) {
+    let filteredArray = this.state.filteredSeason.filter(item => item.id !== pid)
+    this.setState({filteredSeason: filteredArray});
   }
   render() {
     return (
@@ -320,21 +333,21 @@ class searchFilter extends Component {
                 </FlexRow>
                 {this.state.filteredBrand != null ?
                 this.state.filteredBrand && (
-                  // <StyledScrollView scrollToOverflowEnabled>
-                  //   <CapsuleView>
-                  //     {this.state.filteredBrand.map(brand => {
-                  //       return (
-                  //         <SearchedItemBox key={brand.id}>
-                  //           <Close>
-                  //             <Icon style={{ fontSize: 10 }} name="close" />
-                  //           </Close>
-                  //           <Text> {brand.name} </Text>
-                  //         </SearchedItemBox>
-                  //       );
-                  //     })}
-                  //   </CapsuleView>
-                  // </StyledScrollView>
-                  <Text> loading </Text>
+                  <StyledScrollView scrollToOverflowEnabled>
+                    <CapsuleView>
+                      {this.state.filteredBrand.map(brand => {
+                        return (
+                          <SearchedItemBox key={brand.id}>
+                            <Close underlayColor={"#362119"} onPress={() => this.popBrandId(brand.id)}>
+                              <Icon style={{ fontSize: 13 }} name="close" />
+                            </Close>
+                            <Text> {brand.name} </Text>
+                          </SearchedItemBox>
+                        );
+                      })}
+                    </CapsuleView>
+                  </StyledScrollView>
+                  // <Text> loading </Text>
                 ): null}
               </SearchBar>
 
@@ -377,7 +390,8 @@ class searchFilter extends Component {
                 />
                 </Flex> */}
                 </FlexRow>
-                {this.state.filteredSeason && (
+                {this.state.filteredBrand != null ?
+                  this.state.filteredSeason && (
                   <StyledScrollView scrollToOverflowEnabled>
                     <CapsuleView>
                       {this.state.filteredSeason.map(season => {
@@ -386,8 +400,8 @@ class searchFilter extends Component {
                           //   <ItemName>{item.name} </ItemName>
                           // </Capsule>
                           <SearchedItemBox key={season.id}>
-                            <Close>
-                              <Icon style={{ fontSize: 10 }} name="close" />
+                            <Close underlayColor={"#362119"} onPress={() => this.popSeasonId(season.id)}>
+                              <Icon style={{ fontSize: 13 }} name="close" />
                             </Close>
                             <Text> {season.name} </Text>
                             {/* <SearchedText>{item.name}</SearchedText> */}
@@ -396,7 +410,7 @@ class searchFilter extends Component {
                       })}
                     </CapsuleView>
                   </StyledScrollView>
-                )}
+                ): null}
                 {/* <CapsuleView>
                   {filteredSeason.map(item => {
                     return (

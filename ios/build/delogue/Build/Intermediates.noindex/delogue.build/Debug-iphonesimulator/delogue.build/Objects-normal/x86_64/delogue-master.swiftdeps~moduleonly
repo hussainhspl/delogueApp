@@ -1,0 +1,5 @@
+version: "Apple Swift version 5.1.2 (swiftlang-1100.0.278 clang-1100.0.33.9)"
+options: "17dbd89d988371825094d0d916eba541"
+build_time: [1575352022, 512455000]
+inputs:
+  "/Users/headfitted/Documents/hussain/delogueApp/ios/File.swift": [1568625508, 0]

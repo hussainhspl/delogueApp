@@ -1,15 +1,18 @@
 import styled from 'styled-components';
+import {TouchableHighlight} from 'react-native'
 
-const Close = styled.View`
-  width: 15px;
-  height: 15px;
+const Close = styled.TouchableHighlight`
+  width: 20px;
+  height: 20px;
   justify-content: center;
   align-items: center;
   position: absolute;
-  right: -7px;
-  top: -7px;
+  right: -10px;
+  top: -10px;
   background-color: #ddd;
-  border-radius: 10px;
+  border-radius: 15px;
+  margin: 5px;
+  border: 1px solid #bbb
 `;
 
 export default Close;

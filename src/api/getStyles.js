@@ -1,14 +1,14 @@
 import axios from "axios";
 import qs from "qs";
 
-const GetStyles = (string, token, brand) => {
+const GetStyles = (string, token, brand, season) => {
   console.log('token styles 12', token)
   return new Promise(function(resolve, reject) {
     // let string = this.state.searchBrand;
     const data1 = {
       "searchString": string,
       "brandIds": brand,
-      "seasonIds": null,
+      "seasonIds": season,
       "showOnlyMyStyles": false,
       "pageNumber":1
     }

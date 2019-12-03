@@ -1,0 +1,37 @@
+dependencies: \
+  /Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/Libraries/FBReactNativeSpec/FBReactNativeSpec/FBReactNativeSpec-generated.mm \
+  /Users/headfitted/Documents/hussain/delogueApp/ios/Pods/Target\ Support\ Files/FBReactNativeSpec/FBReactNativeSpec-prefix.pch \
+  /Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/Libraries/FBReactNativeSpec/FBReactNativeSpec/FBReactNativeSpec.h \
+  /Users/headfitted/Documents/hussain/delogueApp/ios/Pods/Headers/Public/RCTRequired/RCTRequired/RCTRequired.h \
+  /Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/Libraries/TypeSafety/RCTConvertHelpers.h \
+  /Users/headfitted/Documents/hussain/delogueApp/ios/Pods/Headers/Public/FBLazyVector/FBLazyVector/FBLazyVector.h \
+  /Users/headfitted/Documents/hussain/delogueApp/ios/Pods/Headers/Public/FBLazyVector/FBLazyVector/FBLazyIterator.h \
+  /Users/headfitted/Documents/hussain/delogueApp/ios/Pods/Folly/folly/Optional.h \
+  /Users/headfitted/Documents/hussain/delogueApp/ios/Pods/Folly/folly/Portability.h \
+  /Users/headfitted/Documents/hussain/delogueApp/ios/Pods/Folly/folly/portability/Config.h \
+  /Users/headfitted/Documents/hussain/delogueApp/ios/Pods/Folly/folly/CPortability.h \
+  /Users/headfitted/Documents/hussain/delogueApp/ios/Pods/Folly/folly/Traits.h \
+  /Users/headfitted/Documents/hussain/delogueApp/ios/Pods/Folly/folly/Utility.h \
+  /Users/headfitted/Documents/hussain/delogueApp/ios/Pods/Folly/folly/lang/Exception.h \
+  /Users/headfitted/Documents/hussain/delogueApp/ios/Pods/Folly/folly/CppAttributes.h \
+  /Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/Libraries/TypeSafety/RCTTypedModuleConstants.h \
+  /Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/Base/RCTBridgeModule.h \
+  /Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/Base/RCTDefines.h \
+  /Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/DevSupport/RCTInspectorDevServerHelper.h \
+  /Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/DevSupport/RCTPackagerConnection.h \
+  /Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/Base/RCTCxxConvert.h \
+  /Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/Base/RCTManagedPointer.h \
+  /Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/ReactCommon/turbomodule/core/platform/ios/RCTTurboModule.h \
+  /Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/Base/RCTBridge.h \
+  /Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/Base/RCTBridgeDelegate.h \
+  /Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/Base/RCTJavaScriptLoader.h \
+  /Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/Base/RCTFrameUpdate.h \
+  /Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/Base/RCTInvalidating.h \
+  /Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/Base/RCTModuleMethod.h \
+  /Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/Base/RCTBridgeMethod.h \
+  /Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/Base/RCTNullability.h \
+  /Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/ReactCommon/jscallinvoker/ReactCommon/JSCallInvoker.h \
+  /Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/ReactCommon/turbomodule/core/TurboModule.h \
+  /Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/ReactCommon/jsi/jsi/jsi.h \
+  /Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/ReactCommon/jsi/jsi/jsi-inl.h \
+  /Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/ReactCommon/cxxreact/MessageQueueThread.h

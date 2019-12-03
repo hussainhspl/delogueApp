@@ -1,0 +1,56 @@
+dependencies: \
+  /Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/Modules/RCTUIManager.m \
+  /Users/headfitted/Documents/hussain/delogueApp/ios/build/delogue/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/React-Core.build/module.modulemap \
+  /Users/headfitted/Documents/hussain/delogueApp/ios/Pods/Target\ Support\ Files/React-Core/React-Core-prefix.pch \
+  /Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/Modules/RCTUIManager.h \
+  /Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/Base/RCTBridge.h \
+  /Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/Base/RCTBridgeDelegate.h \
+  /Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/Base/RCTJavaScriptLoader.h \
+  /Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/Base/RCTDefines.h \
+  /Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/DevSupport/RCTInspectorDevServerHelper.h \
+  /Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/DevSupport/RCTPackagerConnection.h \
+  /Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/Base/RCTBridgeModule.h \
+  /Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/Base/RCTFrameUpdate.h \
+  /Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/Base/RCTInvalidating.h \
+  /Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/Base/RCTRootView.h \
+  /Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/Views/RCTViewManager.h \
+  /Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/Base/RCTConvert.h \
+  /Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/Views/RCTAnimationType.h \
+  /Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/Views/RCTBorderStyle.h \
+  /Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/Base/RCTLog.h \
+  /Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/Base/RCTAssert.h \
+  /Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/Base/RCTUtils.h \
+  /Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/Views/RCTPointerEvents.h \
+  /Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/Views/RCTTextDecorationLineType.h \
+  /Users/headfitted/Documents/hussain/delogueApp/ios/build/delogue/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Yoga.build/module.modulemap \
+  /Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/ReactCommon/yoga/yoga/Yoga.h \
+  /Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/ReactCommon/yoga/yoga/YGValue.h \
+  /Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/ReactCommon/yoga/yoga/YGMacros.h \
+  /Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/ReactCommon/yoga/yoga/YGEnums.h \
+  /Users/headfitted/Documents/hussain/delogueApp/ios/Pods/Target\ Support\ Files/Yoga/Yoga-umbrella.h \
+  /Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/Base/RCTEventDispatcher.h \
+  /Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/Views/UIView+React.h \
+  /Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/Views/RCTComponent.h \
+  /Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/Modules/RCTAccessibilityManager.h \
+  /Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/Base/RCTBridge+Private.h \
+  /Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/Views/RCTComponentData.h \
+  /Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/Modules/RCTLayoutAnimation.h \
+  /Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/Modules/RCTLayoutAnimationGroup.h \
+  /Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/Base/RCTModuleData.h \
+  /Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/Base/RCTModuleMethod.h \
+  /Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/Base/RCTBridgeMethod.h \
+  /Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/Base/RCTNullability.h \
+  /Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/Profiler/RCTProfile.h \
+  /Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/Base/RCTRootContentView.h \
+  /Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/Views/RCTView.h \
+  /Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/Views/RCTRootShadowView.h \
+  /Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/Views/RCTShadowView.h \
+  /Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/Views/RCTLayout.h \
+  /Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/Base/RCTRootViewInternal.h \
+  /Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/Views/ScrollView/RCTScrollableProtocol.h \
+  /Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/Views/RCTShadowView+Internal.h \
+  /Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/Base/Surface/RCTSurfaceRootShadowView.h \
+  /Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/Base/Surface/RCTSurfaceRootShadowViewDelegate.h \
+  /Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/Base/Surface/RCTSurfaceRootView.h \
+  /Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/Modules/RCTUIManagerObserverCoordinator.h \
+  /Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/Modules/RCTUIManagerUtils.h

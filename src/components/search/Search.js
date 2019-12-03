@@ -109,6 +109,9 @@ class Search extends React.Component {
       filteredStyle: null,
       brandArrFilter: null,
       brandIds: null,
+      SeasonIdArr: null,
+      popBrandId: '',
+
     };
   }
   componentDidMount = () => {
@@ -134,7 +137,8 @@ class Search extends React.Component {
     console.log("calling api again");
     this.getAsyncToken().then(token => {
       console.log('get style api')
-      GetStyles(this.state.searchTerm, token, this.state.brandIds)
+      GetStyles(this.state.searchTerm, token, this.state.brandIds,
+        this.state.seasonIds)
         .then(res => {
           console.log('response');
           this.props.styleListFunction(res)
@@ -170,6 +174,10 @@ class Search extends React.Component {
     else {
       return true;
     }
+  }
+  removeBrand = (pid) => {
+    console.log('remove brand', pid);
+    
   }
   render() {
     const history = this.props.history;
@@ -252,6 +260,17 @@ class Search extends React.Component {
               }, () => this.styles)
               
             }}
+            SeasonIdArr= {(sid) => {
+              this.setState({
+                seasonIds: sid
+              })
+            }}
+            popBrand={
+              (pid) => {
+                console.log("pop called", pid);
+                this.removeBrand(pid)
+              }
+            }
           />
         </Header>
       </MainView>
