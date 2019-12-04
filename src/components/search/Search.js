@@ -20,6 +20,7 @@ import SearchInput from '../../styles/SearchInput';
 import GetStyles from '../../api/getStyles';
 import AsyncStorage from "@react-native-community/async-storage";
 import {styleList } from '../../store/actions/index';
+import GetSelectedStyle from '../../api/getStyle'; 
 
 const SearchRow = styled.View`
   flex-direction: row;
@@ -133,6 +134,7 @@ class Search extends React.Component {
       });
     }
   };
+  
   styles = () => {
     console.log("calling api again");
     this.getAsyncToken().then(token => {
@@ -145,7 +147,19 @@ class Search extends React.Component {
         })
     })
   }
+  getCurrentStyle (id) {
+    console.log('style clicked', id)
+    this.getAsyncToken()
+      .then(token => {
+        GetSelectedStyle(token, id)
+          .then( res => {
+            this.props.styleFunction(res)
+            // console.log('got single style : ', res)
+            this.props.history.push('/style')
+          })
+      })
 
+  }
   getAsyncToken = async () => {
     try {
       const token = await AsyncStorage.getItem("@token");
@@ -179,6 +193,7 @@ class Search extends React.Component {
     console.log('remove brand', pid);
     
   }
+  
   render() {
     const history = this.props.history;
     console.log('style data from store', this.state.filteredStyle);
@@ -223,7 +238,12 @@ class Search extends React.Component {
               <GridView>
                 {this.state.filteredStyle != null ?
                   this.state.filteredStyle.data.styles.map(data => {
-                    return <SearchGridCard key={data.styleNo} data={data} history={history} />;
+                    return (<SearchGridCard 
+                      key={data.styleNo} 
+                      data={data} 
+                      history={history} 
+                      GetStyleClicked = {(id) => {this.getCurrentStyle(id)}}
+                    />);
                   }) 
                   // <Text>entering</Text>
                   :
@@ -277,9 +297,12 @@ class Search extends React.Component {
     );
   }
 }
+
 const mapDispatchToProps = dispatch => {
   return {
-    styleListFunction :(s) => dispatch(styleList(s))
+    styleListFunction :(s) => dispatch(styleList(s)),
+    styleFunction : (s) => dispatch(singleStyle(s))
+
   }
 }
 const mapStateToProps = state => {

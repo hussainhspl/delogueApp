@@ -15,3 +15,6 @@ export const TOKEN = 'TOKEN';
 export const USER = "USER";
 // Storing style list
 export const STYLE_LIST = "STYLE_LIST";
+// Specific style
+export const SINGLESTYLE = 'SINGLESTYLE';
+

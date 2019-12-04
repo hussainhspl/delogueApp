@@ -37,6 +37,9 @@ const TouchableIconView = styled.TouchableOpacity`
   width: 50px;
   background-color:${ (props) => props.highlight ? '#333': '#444'};
 `;
+const SImage = styled.Image`
+  width: 30px;
+`;
 class Header extends React.Component {
   constructor(props) {
     super(props);
@@ -78,14 +81,14 @@ class Header extends React.Component {
                 <TouchableIconView highlight={ history.location.pathname == '/search' ? true: false }
                   onPress={() => {history.push("/search")}}
                   >
-                  <Image resizeMode={"center"} source={require('../assets/img/header/ic_search.png')} /> 
+                  <SImage resizeMode={"center"} source={require('../assets/img/header/ic_search.png')} /> 
                 </TouchableIconView>         
               </View>
               <View>
                 <TouchableIconView highlight={ history.location.pathname == '/message' ? true : false}
                   onPress={() => {history.push("/message")}}
                   >
-                  <Image resizeMode={"center"} source={require('../assets/img/header/ic_message.png')} />
+                  <SImage resizeMode={"center"} source={require('../assets/img/header/ic_message.png')} />
                 </TouchableIconView>          
               </View>
               <View>
@@ -93,7 +96,7 @@ class Header extends React.Component {
                 // onPress= {() => this.props.styleButtonFunction()}
                 onPress={() => {history.push("/style")}}
                 >
-                  <Image resizeMode={"center"} source={require('../assets/img/header/ic_general.png')} />  
+                  <SImage resizeMode={"center"} source={require('../assets/img/header/ic_general.png')} />  
                 </TouchableIconView>        
               </View>
             </IconGroup>

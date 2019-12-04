@@ -33,14 +33,13 @@ class searchGridCard extends React.Component {
   };
   render() {
     let data = this.props.data;
+    // console.log('prop style data ', data);
     const history = this.props.history;
     return (
       <TouchableWithoutFeedback
         onPressIn={() => this.setState({ showOpacity: true })}
         onPressOut={() => this.setState({ showOpacity: false })}
-        onPress={() => {
-          history.push("/style");
-        }}
+        onPress={() => this.props.GetStyleClicked(data.id)}
       >
         <GridCard key={data.styleNo} tablet={this.state.tablet}>
           {this.state.showOpacity && <OpacityView />}

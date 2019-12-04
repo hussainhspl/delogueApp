@@ -47,7 +47,7 @@ const ImageView = styled.View`
   height: ${props =>
     props.tablet
       ? Dimensions.get("window").height / 3 - 98
-      : Dimensions.get("window").height / 2 - 180};
+      : Dimensions.get("window").height / 2 -190};
   margin: 0 auto;
   /* background-color: #f66; */
 `;
@@ -60,7 +60,7 @@ const GridImage = styled.Image`
   height: ${props =>
     props.tablet
       ? Dimensions.get("window").height / 3 - 120
-      : Dimensions.get("window").height / 2 - 190};
+      : Dimensions.get("window").height / 2 - 200};
   margin: auto;
   /* background-color: #ddd; */
 `;
@@ -77,7 +77,7 @@ const HeaderText = styled.Text`
 
 const CardInfo = styled.View`
   background-color: #f6f6f6;
-  height: 130px;
+  height: 140px;
   width: 100%;
   justify-content: space-between;
   padding: 2px 5px;

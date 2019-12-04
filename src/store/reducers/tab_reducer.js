@@ -3,7 +3,7 @@ import { } from '../actions/action_types';
 // import console = require('console');
 
 const initialState = {
-  now: 'comments'
+  now: 'general'
 };
 
 

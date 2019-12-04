@@ -16,13 +16,12 @@ import FooterComponent from "../../FooterComponent";
 import Loader from '../../shared/Loader';
 import { connect } from "react-redux";
 import {token} from "../../store/actions/index";
-// import { URL } from 'react-native-dotenv'
 
 class Style extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      styleData: []
+      styleData: null
     };
   }
   renderSelectedTab(params) {
@@ -43,41 +42,23 @@ class Style extends React.Component {
         return <Pdf/>;
       default:
     }
-    // console.log("printing from render: ", params);
   }
+  static getDerivedStateFromProps(nextProps, prevState) {
+    if (nextProps.styleData !== prevState.styleData) {
+      console.log('entered style nextProps');
+      return {
+        styleData: nextProps.style,
+      }
+    } 
+  }
+
   componentDidMount = () => {
     // console.log('did mount in style');
-    this.getStyles();
+    // this.getStyles();
   }
 
-  getStyles() {
-    // get style
 
-    const AuthStr = `Bearer ${token}`;
-    // console.log("bearer token ", AuthStr)
- 
-    axios({
-      url: 'https://rc.delogue.com/export/style/16197',
-      method: "GET",
-      contentType: "application/json; charset=utf-8",
-      headers: { 
-        Authorization: `Bearer ${this.props.tokenData}`,
-        responseType: 'json'
-      }
-    })
-      .then(res => {
-        // console.log("response in style", res);
-        this.setState({
-          styleData : res.data,
-        })
-      })
-      .catch(function(error) {
-        console.error("error in style", error);
-        console.log('error in style');
-        // ADD THIS THROW error
-        // throw error;
-      });
-  }
+
 
   render() {
     // console.log("style data",this.state.styleData);
@@ -106,11 +87,12 @@ class Style extends React.Component {
     // store.dispatch({ type: "ATTACK", payload: "Iron Man" });
     // console.log("store state:", this.props.currentTab);
     console.log('style array:', this.state.styleData.length);
+    console.log('single style from store', this.props.style);
     return (
       <Fragment>
         <Header history={this.props.history}>
           {
-            this.state.styleData.length < 1 ?
+            this.state.styleData == null ?
             <View style={{flex: 1, backgroundColor: 'white'}}>
               <Loader />
             </View>
@@ -128,7 +110,9 @@ class Style extends React.Component {
 const mapStateToProps = state => {
   return {
     currentTab: state.tab.now,
-    tokenData: state.async.tokenState
+    tokenData: state.async.tokenState,
+    style: state.style.singleStyleState
+
   };
 };
 
