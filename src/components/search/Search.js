@@ -93,7 +93,7 @@ const SearchIcon = styled.View`
   background-color: #425460;
   justify-content: center;
   align-items: center;
-  padding: 10px;
+  /* padding: 10px; */
 `;
 const Box = styled.View`
   margin-left: 10px;
@@ -205,7 +205,7 @@ class Search extends React.Component {
           <ScrollView showsVerticalScrollIndicator={false}>
             <SearchRow>
               <SearchIcon>
-                <Icon style={{color:"#fff"}} name="ios-search"/>
+                <Icon style={{color:"#fff", fontSize: 25}} name="ios-search"/>
               </SearchIcon>
               <Flex>
                 <SearchInput
@@ -242,7 +242,7 @@ class Search extends React.Component {
                       key={data.styleNo} 
                       data={data} 
                       history={history} 
-                      GetStyleClicked = {(id) => {this.getCurrentStyle(id)}}
+                      GetStyleClicked = {() => {this.getCurrentStyle(data.id)}}
                     />);
                   }) 
                   // <Text>entering</Text>
@@ -263,9 +263,9 @@ class Search extends React.Component {
                 renderItem={({ item }) => 
                   <TouchableHighlight
                     underlayColor="#42546033"
-                    onPress={() => {
-                      history.push("/style");
-                    }}
+                    onPress={() => {this.getCurrentStyle(item.id)}
+                      // history.push("/style");
+                    }
                   >
                     <ItemDetail data={item} />
                   </TouchableHighlight>}

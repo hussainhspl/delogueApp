@@ -86,7 +86,7 @@ class Style extends React.Component {
     //step 4 Dispatch action
     // store.dispatch({ type: "ATTACK", payload: "Iron Man" });
     // console.log("store state:", this.props.currentTab);
-    console.log('style array:', this.state.styleData.length);
+    console.log('style array:', this.state.styleData);
     console.log('single style from store', this.props.style);
     return (
       <Fragment>

@@ -39,6 +39,9 @@ const TouchableIconView = styled.TouchableOpacity`
 `;
 const SImage = styled.Image`
   width: 30px;
+  max-height: 35px;
+  height: 30px;
+  max-width: 35px;
 `;
 class Header extends React.Component {
   constructor(props) {

@@ -1,26 +1,24 @@
-import React, {Fragment} from "react";
-import { View, Text, Image, ScrollView, Dimensions, Modal,TouchableOpacity, TouchableHighlight } from "react-native";
+import React, { Fragment } from "react";
+import {
+  View,
+  Text,
+  Image,
+  ScrollView,
+  Dimensions,
+  Modal,
+  TouchableOpacity,
+  TouchableHighlight
+} from "react-native";
 import styled from "styled-components";
 import ImageLayout from "react-native-image-layout";
 import Title from "../../styles/SmallText";
-import {Icon} from 'native-base';
-import SubTitle from '../../styles/CardText';
+import { Icon } from "native-base";
+import SubTitle from "../../styles/CardText";
+import AsyncStorage from "@react-native-community/async-storage";
+import StyleFollow from '../../api/styleFollow';
+import StyleNeglect from '../../api/styleNeglect';
 
-const colorArray = [
-  { color: "#ffeedd" },
-  { color: "#fdafda" },
-  { color: "#77aa22" }
-];
 
-const colorArr = [
-  {id: "color id 2"},
-  {id: "color id 2"},
-  {id: "color id 2"},
-  {id: "color id 2"},
-  {id: "color id 2"},
-  {id: "color id 2"},
-  {id: "color id 2"},
-]
 const ImageView = styled.View`
   width: ${props =>
     props.tablet
@@ -56,7 +54,6 @@ const StyleInfo = styled.View`
 const SizeBox = styled.View`
   border: 1px solid #ddd;
   padding: 10px 20px;
-  
 `;
 const ColorContainer = styled.View`
   flex-direction: row;
@@ -88,7 +85,7 @@ const InactiveColorBox = styled.View`
   width: 50px;
   height: 50px;
   background-color: #${props => props.color};
-  opacity:0.5;
+  opacity: 0.5;
   margin-bottom: 10px;
   position: relative;
   border: 1px solid #ddd;
@@ -121,7 +118,7 @@ const XView2 = styled.View`
 const CloseMessage = styled.Text`
   color: #aaa;
   font-size: 14px;
-  text-align:center;
+  text-align: center;
   padding: 5px;
   bottom: 20;
 `;
@@ -133,7 +130,7 @@ const FollowView = styled.View`
   width: 40px;
   height: 40px;
   position: absolute;
-  bottom : 10;
+  bottom: 10;
   left: 10;
   background-color: #eeeeee6e;
   border-radius: 20px;
@@ -153,37 +150,77 @@ class General extends React.Component {
     super(props);
     this.state = {
       tablet: false,
-      dataArray: null,
+      dataArray: null
     };
   }
   _renderPageHeader = (image, index, onClose) => {
     // Individual image object data.
     console.log(image);
     return (
-        <View>
-          <TouchableOpacity 
-            onPress={() => {onClose();}} 
-            underlayColor="#777">
-            <Icon name='arrow-back' style={{color: '#ccc', padding: 20}} />
-          </TouchableOpacity>
-        </View>
-    )
-  }
+      <View>
+        <TouchableOpacity
+          onPress={() => {
+            onClose();
+          }}
+          underlayColor="#777"
+        >
+          <Icon name="arrow-back" style={{ color: "#ccc", padding: 20 }} />
+        </TouchableOpacity>
+      </View>
+    );
+  };
   _renderPageFooter = (image, index, onClose) => {
     // Individual image object data.
     console.log(image);
-    return (
-      <CloseMessage> Swipe Up or Down to go Back </CloseMessage>
-    )
+    return <CloseMessage> Swipe Up or Down to go Back </CloseMessage>;
+  };
+  getAsyncToken = async () => {
+    try {
+      const token = await AsyncStorage.getItem("@token");
+      if (token) return token;
+    } catch (error) {
+      if (error) {
+        console.log("async token absent", error);
+      }
+    }
+  };
+  toggleFollow(id, follower) {
+    console.log('follow toggle', id, follower);
+    this.getAsyncToken().then(token => {
+      if(follower === false) {
+        StyleFollow(token, id)
+          .then(res => {
+            console.log('styled followed', this.state.dataArray.data.isFollower);
+            this.setState(prevState =>({
+              ...prevState,
+              dataArray: {
+                ...prevState.dataArray,
+                data: {
+                  ...prevState.dataArray.data,
+                  isFollower: true
+                }
+              }
+            }))
+          })
+      }
+      else {
+        StyleNeglect(token, id)
+          .then(res => {
+            console.log("style deleted");
+            this.setState(prevState =>({
+              ...prevState,
+              dataArray: {
+                ...prevState.dataArray,
+                data: {
+                  ...prevState.dataArray.data,
+                  isFollower: false
+                }
+              }
+            }))
+          })
+      }
+    })
   }
-  // static getDerivedStateFromProps(props, state) {
-  //   if (props.styleData !== state.data) {
-  //     return {
-  //       data: props.styleData
-  //     };
-  //   }
-  //   return null;
-  // }
 
   componentDidMount = () => {
     if (Dimensions.get("window").width > 568) {
@@ -191,23 +228,26 @@ class General extends React.Component {
         console.log("will mount", this.state.tablet)
       );
     }
+    console.log('component did mount called')
     this.setState({
       dataArray: this.props.styleData
-    })
+    });
   };
 
   onTap = () => {};
   pinZoomLayoutRef = React.createRef();
+
   render() {
-    
     console.log("render in general :", this.state.dataArray);
-    let no = 0;
+    let state = this.state.dataArray;
     return (
       <Fragment>
-        {
-          this.state.dataArray != null ?
+        {state != null ? (
           <ScrollView showsVerticalScrollIndicator={false}>
-            {console.log('this.state.dataArray.data.brandName', this.state.dataArray.data.brandName)}
+            {console.log(
+              "this.state.dataArray.data.brand.name",
+              state.data.brand.name
+            )}
             <View>
               <SImageLayout
                 renderPageHeader={this._renderPageHeader}
@@ -220,122 +260,164 @@ class General extends React.Component {
                 enableScale
                 images={[
                   {
-                    uri: this.state.dataArray.data.logo.url
+                    uri: state.data.logo ? state.data.logo.url : 
+                    "http://test.delogue.com/images/image_missing.png"
                   }
                 ]}
               />
-              <Icon  style={{position: 'absolute', right: 10, bottom: 10, color: '#999' }} name="expand" />
+              <Icon
+                style={{
+                  position: "absolute",
+                  right: 10,
+                  bottom: 10,
+                  color: "#999"
+                }}
+                name="expand"
+              />
               <FollowView>
-                {/* <FollowTouchableHighlight underlayColor="#42546033" onPress={() => console.log('style followed')}> */}
-                  <Icon style={{color: this.state.dataArray.data.isFollower === false ? '#ccc':'#f00'}} name="heart" />
-                {/* </FollowTouchableHighlight> */}
+                <FollowTouchableHighlight underlayColor="#42546033" onPress={() => this.toggleFollow(state.data.id, state.data.isFollower)}>
+                <Icon
+                  style={{
+                    color:
+                      state.data.isFollower === false
+                        ? "#ccc"
+                        : "#f00"
+                  }}
+                  name="heart"
+                />
+                </FollowTouchableHighlight>
               </FollowView>
             </View>
             <ItemInfoRow>
-              <View style={{width: '50%'}}>
+              <View style={{ width: "50%" }}>
                 <StyleInfo>
                   <Title>brand</Title>
-                  <SubTitle>{this.state.dataArray.data.brand.name}</SubTitle>
+                  <SubTitle>
+                    {state.data.brand
+                      ? state.data.brand.name
+                      : "-"}
+                  </SubTitle>
                 </StyleInfo>
                 <StyleInfo>
                   <Title>contact person</Title>
-                  <SubTitle>{this.state.dataArray.data.companyContactPerson.name}</SubTitle>
+                  <SubTitle>
+                    {state.data.companyContactPerson
+                      ? state.data.companyContactPerson.name
+                      : "-"}
+                  </SubTitle>
                 </StyleInfo>
                 <StyleInfo>
                   <Title>style name</Title>
-                  <SubTitle>{this.state.dataArray.data.name}</SubTitle>
+                  <SubTitle>
+                    {state.data.name
+                      ? state.data.name
+                      : "-"}
+                  </SubTitle>
                 </StyleInfo>
                 <StyleInfo>
                   <Title>style no</Title>
-                  <SubTitle>{this.state.dataArray.data.userDefinedId}</SubTitle>
+                  <SubTitle>{state.data.userDefinedId ? state.data.userDefinedId: "-"}</SubTitle>
                 </StyleInfo>
                 <StyleInfo>
                   <Title>description</Title>
-                  <SubTitle>{this.state.dataArray.data.description}</SubTitle>
+                  <SubTitle>{state.data.description ? state.data.description : "-"}</SubTitle>
                 </StyleInfo>
                 <StyleInfo>
                   <Title>state</Title>
-                  <SubTitle>{this.state.dataArray.data.state}</SubTitle>
+                  <SubTitle>{state.data.state ? state.data.state : "-"}</SubTitle>
                 </StyleInfo>
                 <StyleInfo>
                   <Title>ready for export</Title>
-                  <SubTitle>{this.state.dataArray.data.readyForExport == false ? "No" : "Yes"}</SubTitle>
+                  <SubTitle>
+                    {state.data.readyForExport == false
+                      ? "No"
+                      : "Yes"}
+                  </SubTitle>
                 </StyleInfo>
               </View>
-              <View style={{width: '50%'}}>
-              <StyleInfo>
-              <Title>supplier</Title>
-              <SubTitle>{this.state.dataArray.data.supplier.userDefinedSupplierId} | {this.state.dataArray.data.supplier.name}</SubTitle>
-            </StyleInfo>
-            <StyleInfo>
-              <Title>primary</Title>
-              <SubTitle>{this.state.dataArray.data.IsPrimary == false ? "No" : "Yes"}</SubTitle>
-            </StyleInfo>
-            <StyleInfo>
-              <Title>contact person</Title>
-              <SubTitle>{this.state.dataArray.data.supplierContactPerson.name}</SubTitle>
-            </StyleInfo>
-            <StyleInfo>
-              <Title>season</Title>
-              <SubTitle>{this.state.dataArray.data.season.name} - {this.state.dataArray.data.season.projectName}</SubTitle>
-            </StyleInfo>
-            <StyleInfo>
-              <Title>group</Title>
-              <SubTitle>
-                {this.state.dataArray.data.group.name? this.state.dataArray.data.group.name : "-"}
-              </SubTitle>
-            </StyleInfo>
-            <StyleInfo>
-              <Title>categories</Title>
-              {
-                this.state.dataArray.data.categories.map( d=> {
-                  return(
-                    <SubTitle>
-                      {d.name}
-                    </SubTitle>
-                  )
-                })
-              }
-            </StyleInfo>
+              <View style={{ width: "50%" }}>
+                <StyleInfo>
+                  <Title>supplier</Title>
+                  <SubTitle>
+                    {state.data.supplier.userDefinedSupplierId} |{" "}
+                    {state.data.supplier? state.data.supplier.name : "-"}
+                  </SubTitle>
+                </StyleInfo>
+                <StyleInfo>
+                  <Title>primary</Title>
+                  <SubTitle>
+                    {state.data.IsPrimary == false
+                      ? "No"
+                      : "Yes"}
+                  </SubTitle>
+                </StyleInfo>
+                <StyleInfo>
+                  <Title>contact person</Title>
+                  <SubTitle>
+                    {state.data.supplierContactPerson ? state.data.supplierContactPerson.name : "-"}
+                  </SubTitle>
+                </StyleInfo>
+                <StyleInfo>
+                  <Title>season</Title>
+                  <SubTitle>
+                    {state.data.season ? state.data.season.name : " "} - {" "}
+                    {state.data.season.projectName ? state.data.season.projectName : " "}
+                  </SubTitle>
+                </StyleInfo>
+                <StyleInfo>
+                  <Title>group</Title>
+                  <SubTitle>
+                    {state.data.group
+                      ? state.data.group.name
+                      : "-"}
+                  </SubTitle>
+                </StyleInfo>
+                <StyleInfo>
+                  <Title>categories</Title>
+                  {
+                    state.data.categories ?
+                    state.data.categories.map(d => {
+                      return <SubTitle>{d.name}</SubTitle>;
+                    })
+                    : <SubTitle> - </SubTitle>
+                  }
+                </StyleInfo>
               </View>
             </ItemInfoRow>
             <SizeBox>
               <StyleInfo>
                 <Title>sizes</Title>
-                <SubTitle>
-                  {this.state.dataArray.data.styleSizes}
-                </SubTitle>
+                <SubTitle>{state.data.styleSizes ? state.data.styleSizes : "-"}</SubTitle>
               </StyleInfo>
             </SizeBox>
             <ColorContainer>
-              { 
-                this.state.dataArray.data.styleColors.map(color => {
-                  no = no+1;
-                  // console.log("number", no)
-                  return(
+              {state.data.styleColors ?
+                state.data.styleColors.map(color => {
+                  return (
                     <Block>
-                      {
-                        color.adminColor.isActive == false ?
+                      {color.adminColor.isActive == false ? (
                         <Fragment>
-                          <InactiveColorBox color= {color.adminColor.rgb} />
+                          <InactiveColorBox color={color.adminColor.rgb ? color.adminColor.rgb: "fff"} />
                           <XView1 />
                           <XView2 />
                         </Fragment>
-                        :
-                        <ColorBox color= {color.adminColor.rgb} />
-                      }
-                      <Title numberOfLines={1}>{color.id}</Title>
-                      <SubTitle numberOfLines={2}>
-                        {color.name}
-                      </SubTitle>
+                      ) : (
+                        <ColorBox color={color.adminColor.rgb ? color.adminColor.rgb: "fff"} />
+                      )}
+                      <Title numberOfLines={1}>
+                        {color.adminColor.userDefinedId2 ? color.adminColor.userDefinedId2 : "-"}
+                      </Title>
+                      <SubTitle numberOfLines={2}>{color.name ? color.name : '-'}</SubTitle>
                     </Block>
-                  )
-                })
+                  )})
+                :
+                <SubTitle> - </SubTitle>
               }
             </ColorContainer>
-      </ScrollView>
-      : <Text>loading</Text>
-      }
+          </ScrollView>
+        ) : (
+          <Text>loading</Text>
+        )}
       </Fragment>
     );
   }

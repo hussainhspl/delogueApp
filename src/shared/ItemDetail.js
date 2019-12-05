@@ -50,7 +50,7 @@ class ItemDetail extends React.Component {
   }
   render() {
     let data = this.props.data;
-    console.log("data",data.logo);
+    // console.log("data",data.logo);
     return (
       <MainRow>
         <ImageBox>
