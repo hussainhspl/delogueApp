@@ -13,7 +13,7 @@ const GetStyles = (string, token, brand, season) => {
       "pageNumber":1
     }
     axios({
-      url: `http://test.delogue.com/api/v2.0/Styles`,
+      url: `${baseUrl}Styles`,
       method: 'POST',
       headers: {
         Authorization: `Bearer ${token}`,

@@ -89,9 +89,9 @@ class Menu extends React.Component {
           <LoginTouchableHighlight underlayColor='rgba(221, 221, 221, 0.4)' 
             underlayColor="#ddd"
             onPress={() => {
-              // ClearAsync();
-              // console.log('login called');
-              // history.push("/login")
+              ClearAsync();
+              console.log('login called');
+              history.push("/login")
               }
             }>
             <CardText > Logout </CardText>

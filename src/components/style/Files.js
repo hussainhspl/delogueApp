@@ -17,6 +17,9 @@ import ItemDetail from "../../shared/ItemDetail";
 import CameraView from "../../styles/CameraView";
 import ImageCard from "../../shared/ImageCard";
 import FileCard from "../../shared/FileCard";
+import GetStyleFiles from '../../api/getStyleFiles';
+import GetAsyncToken from '../../script/getAsyncToken';
+import { connect } from 'react-redux';
 
 const data = {
   styleNo: "sty2211",
@@ -61,21 +64,21 @@ const Capital = styled.Text`
   font-size: ${props => props.theme.large};
   color: ${props => props.theme.textColor};
 `;
-const Card = styled.TouchableOpacity`
-  width: ${props =>
-    props.tablet
-      ? Dimensions.get("window").width / 4
-      : Dimensions.get("window").width / 3};
-  height: ${props =>
-    props.tablet
-      ? Dimensions.get("window").height / 4 + 20
-      : Dimensions.get("window").height / 3 + 20};
-  border-bottom-width: 1px;
-  border-right-width: 1px;
-  border-color: #dcd7d4;
-  justify-content: space-between;
-  align-items: center;
-`;
+// const Card = styled.TouchableOpacity`
+//   width: ${props =>
+//     props.tablet
+//       ? Dimensions.get("window").width / 4
+//       : Dimensions.get("window").width / 3};
+//   height: ${props =>
+//     props.tablet
+//       ? Dimensions.get("window").height / 4 + 20
+//       : Dimensions.get("window").height / 3 + 20};
+//   border-bottom-width: 1px;
+//   border-right-width: 1px;
+//   border-color: #dcd7d4;
+//   justify-content: space-between;
+//   align-items: center;
+// `;
 
 const ImageInfo = styled.View`
   padding: 5px 10px;
@@ -111,6 +114,22 @@ class Files extends React.Component {
   }
   componentDidMount = () => {
     AppState.addEventListener("change", this._handleAppStateChange);
+    if (Dimensions.get("window").width > 568) {
+      this.setState({ tablet: true }, () =>
+        console.log("tablet search", this.state.tablet)
+      );
+    }
+    console.log('enter in files did mount')
+    GetAsyncToken()
+      .then(token => {
+        console.log('script token', token, this.props.styleID)
+        GetStyleFiles(token, this.props.styleID)
+          .then( res => {
+            console.log('response', res);
+            // this.set
+          })
+      })
+  
   };
   componentWillUnmount = () => {
     AppState.removeEventListener("change", this._handleAppStateChange);
@@ -122,15 +141,9 @@ class Files extends React.Component {
       );
     }
   };
-  componentDidMount = () => {
-    if (Dimensions.get("window").width > 568) {
-      this.setState({ tablet: true }, () =>
-        console.log("tablet search", this.state.tablet)
-      );
-    }
-  };
+
   render() {
-    // console.log("camera:", this.state.cameraOn);
+    console.log("style id from props", this.props.styleID);
     // console.log("style modal", this.state.modalVisible);
     let no = 0;
     return (
@@ -249,4 +262,9 @@ class Files extends React.Component {
     );
   }
 }
+// const mapDispatchToProps = dispatch => {
+//   return {
+//     // styleFileListFunction: (s) => dispatch(styleFileList(s))
+//   }
+// }
 export default Files;

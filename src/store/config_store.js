@@ -5,7 +5,7 @@ import asyncReducer from './reducers/async_reducer';
 import userReducer from './reducers/user_reducer';
 import styleReducer from './reducers/style_reducer';
 import singleStyle from './reducers/singleStyle_reducer';
-
+import styleFileListReducer from './reducers/styleFileList_reducer';
 
 const rootReducer = combineReducers({
   tab: tabReducer,
@@ -13,7 +13,8 @@ const rootReducer = combineReducers({
   async: asyncReducer,
   user: userReducer,
   styleList: styleReducer,
-  style: singleStyle 
+  style: singleStyle,
+  styleFileList: styleFileListReducer,
 });
 
 const configStore = () => {

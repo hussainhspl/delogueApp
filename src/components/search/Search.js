@@ -217,20 +217,24 @@ class Search extends React.Component {
                   onSubmitEditing={this.styles}
                 />
               </Flex>
-              <Box>
-                <TouchableHighlight onPress={this.changeView} underlayColor="#42546033">
-                  <ViewBox>
-                    <Image
-                      resizeMode={"contain"}
-                      source={
-                        this.state.currentView == "linear"
-                          ? require("../../../assets/img/squares.png")
-                          : require("../../../assets/img/lines.png")
-                      }
-                    />
-                  </ViewBox>
-                </TouchableHighlight>
-              </Box>
+                {
+                  this.state.filteredStyle != null ? 
+                  <Box>
+                    <TouchableHighlight onPress={this.changeView} underlayColor="#42546033">
+                      <ViewBox>
+                        <Image
+                          resizeMode={"contain"}
+                          source={
+                            this.state.currentView == "linear"
+                              ? require("../../../assets/img/squares.png")
+                              : require("../../../assets/img/lines.png")
+                          }
+                        />
+                      </ViewBox>
+                    </TouchableHighlight>
+                  </Box>
+                  : null
+                }
             </SearchRow>
             
             {this.state.currentView === "grid" && (
@@ -250,9 +254,9 @@ class Search extends React.Component {
                   <Text style={{color: "#fff", padding: 20}}> loader</Text>
                 }
               </GridView>
-              <LoadMoreButton>
+              {/* <LoadMoreButton>
                 <Text> Load More </Text>
-              </LoadMoreButton>
+              </LoadMoreButton> */}
               </Fragment>
             )}
           </ScrollView>
@@ -302,7 +306,6 @@ const mapDispatchToProps = dispatch => {
   return {
     styleListFunction :(s) => dispatch(styleList(s)),
     styleFunction : (s) => dispatch(singleStyle(s))
-
   }
 }
 const mapStateToProps = state => {

@@ -24,8 +24,8 @@ class Style extends React.Component {
       styleData: null
     };
   }
-  renderSelectedTab(params) {
-    // console.log()
+  renderSelectedTab(params, data) {
+    console.log("switch data", data.id);
     switch (params) {
       case "general":
         return <General 
@@ -35,7 +35,9 @@ class Style extends React.Component {
       case "comments":
         return <Comments />;
       case "files":
-        return <Files />;
+        return <Files 
+          styleID= {data.id}
+        />;
       case "sample":
         return <Sample history={this.props.history} />;
       case "pdf":
@@ -97,10 +99,17 @@ class Style extends React.Component {
               <Loader />
             </View>
             :
-            this.renderSelectedTab(this.props.currentTab)
+            this.renderSelectedTab(this.props.currentTab, this.state.styleData.data)
             
           }
-          <FooterComponent />
+          {
+            this.state.styleData == null ?
+            null
+            :
+            <FooterComponent />
+            
+          }
+          
         </Header>
       </Fragment>
     );
