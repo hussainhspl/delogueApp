@@ -24,6 +24,7 @@ import styled from "styled-components";
 const store = configStore();
 
 global.baseUrl = "http://test.delogue.com/api/v2.0/"
+global.noImage = 'http://test.delogue.com/images/image_missing.png'
 const MainView = styled.View`
   flex: 1;
 `;

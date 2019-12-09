@@ -152,6 +152,10 @@
         "source": "/Users/headfitted/.gradle/caches/transforms-2/files-2.1/24c4d8404f6979054377dafd235d0d6f/res/drawable-v21/abc_dialog_material_background.xml"
     },
     {
+        "merged": "/Users/headfitted/Documents/hussain/delogueApp/android/app/build/intermediates/res/merged/debug/xml_provider_paths.xml.flat",
+        "source": "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native-image-picker/android/build/intermediates/packaged_res/debug/xml/provider_paths.xml"
+    },
+    {
         "merged": "/Users/headfitted/Documents/hussain/delogueApp/android/app/build/intermediates/res/merged/debug/layout_notification_template_media_custom.xml.flat",
         "source": "/Users/headfitted/.gradle/caches/transforms-2/files-2.1/3c9d7417cfd8f8f262233e51b51cca28/res/layout/notification_template_media_custom.xml"
     },
@@ -806,6 +810,10 @@
     {
         "merged": "/Users/headfitted/Documents/hussain/delogueApp/android/app/build/intermediates/res/merged/debug/drawable-xhdpi-v4_abc_textfield_search_default_mtrl_alpha.9.png.flat",
         "source": "/Users/headfitted/.gradle/caches/transforms-2/files-2.1/24c4d8404f6979054377dafd235d0d6f/res/drawable-xhdpi-v4/abc_textfield_search_default_mtrl_alpha.9.png"
+    },
+    {
+        "merged": "/Users/headfitted/Documents/hussain/delogueApp/android/app/build/intermediates/res/merged/debug/layout_list_item.xml.flat",
+        "source": "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native-image-picker/android/build/intermediates/packaged_res/debug/layout/list_item.xml"
     },
     {
         "merged": "/Users/headfitted/Documents/hussain/delogueApp/android/app/build/intermediates/res/merged/debug/drawable_common_google_signin_btn_text_dark.xml.flat",

@@ -28,6 +28,8 @@ import org.reactnative.camera.RNCameraPackage;
 import com.dylanvann.fastimage.FastImageViewPackage;
 // react-native-gesture-handler
 import com.swmansion.gesturehandler.react.RNGestureHandlerPackage;
+// react-native-image-picker
+import com.imagepicker.ImagePickerPackage;
 // react-native-vector-icons
 import com.oblador.vectoricons.VectorIconsPackage;
 
@@ -82,6 +84,7 @@ public class PackageList {
       new RNCameraPackage(),
       new FastImageViewPackage(),
       new RNGestureHandlerPackage(),
+      new ImagePickerPackage(),
       new VectorIconsPackage()
     ));
   }

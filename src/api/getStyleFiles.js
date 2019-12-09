@@ -1,10 +1,10 @@
 import axios from "axios";
 
-const GetStyleFiles = (token) => {
-  console.log('token styles 12', token)
+const GetStyleFiles = (token, styleID) => {
+  console.log('token styles 12', token, styleID)
   return new Promise(function(resolve, reject) {
     axios({
-      url: `${baseUrl}Styles/44/StyleFiles`,
+      url: `${baseUrl}Styles/${styleID}/StyleFiles`,
       method: 'GET',
       headers: {
         Authorization: `Bearer ${token}`,

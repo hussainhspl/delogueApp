@@ -82,14 +82,14 @@ class Header extends React.Component {
                 <TouchableIconView highlight={ history.location.pathname == '/search' ? true: false }
                   onPress={() => {history.push("/search")}}
                   >
-                  <SImage resizeMode={"center"} source={require('../assets/img/header/ic_search.png')} /> 
+                  <SImage resizeMode={"contain"} source={require('../assets/img/header/ic_search.png')} /> 
                 </TouchableIconView>         
               </View>
               <View>
                 <TouchableIconView highlight={ history.location.pathname == '/message' ? true : false}
                   onPress={() => {history.push("/message")}}
                   >
-                  <SImage resizeMode={"center"} source={require('../assets/img/header/ic_message.png')} />
+                  <SImage resizeMode={"contain"} source={require('../assets/img/header/ic_message.png')} />
                 </TouchableIconView>          
               </View>
               <View>
@@ -97,7 +97,7 @@ class Header extends React.Component {
                 // onPress= {() => this.props.styleButtonFunction()}
                 onPress={() => {history.push("/style")}}
                 >
-                  <SImage resizeMode={"center"} source={require('../assets/img/header/ic_general.png')} />  
+                  <SImage resizeMode={"contain"} source={require('../assets/img/header/ic_general.png')} />  
                 </TouchableIconView>        
               </View>
             </IconGroup>

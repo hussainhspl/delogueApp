@@ -20,7 +20,11 @@ import FileCard from "../../shared/FileCard";
 import GetStyleFiles from '../../api/getStyleFiles';
 import GetAsyncToken from '../../script/getAsyncToken';
 import { connect } from 'react-redux';
-
+import {styleFileList} from '../../store/actions/index';
+import { format, parseISO } from 'date-fns';
+import ImagePicker from 'react-native-image-picker';
+import ImageUpload from '../../api/imageUpload';
+// import format from 'date-fns/format'
 const data = {
   styleNo: "sty2211",
   styleName: "Casual Shirt",
@@ -98,8 +102,48 @@ class Files extends React.Component {
       cameraCommOn: false,
       modalVisible: false,
       appState: AppState.currentState,
-      tablet: false
+      tablet: false,
+      fileArr: null,
+      avatarSource: null
     };
+  }
+  selectPhotoTapped() {
+    const options = {
+      quality: 1.0,
+      maxWidth: 500,
+      maxHeight: 500,
+      storageOptions: {
+        skipBackup: true,
+      },
+    };
+
+    ImagePicker.showImagePicker(options, response => {
+      console.log('Response = ', response);
+
+      if (response.didCancel) {
+        console.log('User cancelled photo picker');
+      } else if (response.error) {
+        console.log('ImagePicker Error: ', response.error);
+      } else if (response.customButton) {
+        console.log('User tapped custom button: ', response.customButton);
+      } else {
+        let source = {uri: response.uri};
+        // let type = {type: response.type}
+        GetAsyncToken()
+          .then(token => {
+            ImageUpload(token)
+              .then( res => {
+                console.log('response in upload success', res);
+              })
+          })
+        // You can also display the image using data:
+        // let source = { uri: 'data:image/jpeg;base64,' + response.data };
+        console.log('source', source);
+        // this.setState({
+        //   avatarSource: source,
+        // });
+      }
+    });
   }
   takePicture = async () => {
     if (this.camera) {
@@ -122,11 +166,11 @@ class Files extends React.Component {
     console.log('enter in files did mount')
     GetAsyncToken()
       .then(token => {
-        console.log('script token', token, this.props.styleID)
+        // console.log('script token', token, this.props.styleID)
         GetStyleFiles(token, this.props.styleID)
           .then( res => {
             console.log('response', res);
-            // this.set
+            this.props.styleFileListFunction(res.data)
           })
       })
   
@@ -141,43 +185,72 @@ class Files extends React.Component {
       );
     }
   };
-
+  static getDerivedStateFromProps(nextProps, prevState) {
+    if (nextProps.fileArr !== prevState.fileArr)
+      console.log("Entered file nextProps");
+      return{
+        fileArr: nextProps.styleFileList,
+      }
+    return null;
+  }
   render() {
-    console.log("style id from props", this.props.styleID);
+    console.log("file state", this.state.fileArr);
     // console.log("style modal", this.state.modalVisible);
     let no = 0;
     return (
       <View style={{ flex: 1 }}>
         <ItemDetail data={data} />
         <ScrollView showsVerticalScrollIndicator={false}>
-          <StyleFileTitle>
-            <Capital numberOfLines={1}> style files </Capital>
-            <TouchableOpacity
-              onPress={() => this.setState({ cameraFileOn: true })}
-            >
-              <CameraView>
-                <Icon style={{ color: "white", fontSize: 20 }} name="camera" />
-              </CameraView>
-            </TouchableOpacity>
-          </StyleFileTitle>
+          {
+            this.state.fileArr != null ? 
+              this.state.fileArr.map(data => {
+                return (
+                  <View>
+                  <StyleFileTitle>
+                    <Capital numberOfLines={1}>
+                      {data.delogueFolderResponse.name}
+                    </Capital>
+                    <TouchableOpacity
+                      // onPress={() => this.setState({ cameraFileOn: true })}
+                      onPress={this.selectPhotoTapped}
+                    >
+                      <CameraView>
+                        <Icon style={{ color: "white", fontSize: 20 }} name="camera" />
+                      </CameraView>
+                    </TouchableOpacity>
+                  </StyleFileTitle>
+                  <ImageRow>
+                    {data.delogueFileResponse.length > 0 ?
+                      data.delogueFileResponse.map(d => {
+                      no = no + 1;
+                      let src = d.existingThumbnails.length > 0 ? d.existingThumbnails[0].url : noImage
+                      console.log('hey source : ', src);
+                      let formatedDate = format(parseISO(d.createdOn),"d-MMM-yyyy")
+                      console.log('data in file',d.createdOn, formatedDate)
+                      return (
+                        <FileCard
+                          imageName={d.fileName}
+                          imgSrc={src}
+                          date= {formatedDate}
+                          no={d.status}
+                          key={Math.random().toFixed(3)}
+                        />
+                      );
+                    })
+                    : null
+                  }
+                  </ImageRow>
+                  </View>
+                )
+              })
+              : null
+          }
           {this.state.cameraFileOn && (
             <CameraComponent
               close={() => this.setState({ cameraFileOn: false })}
             />
           )}
           <View>
-            <ImageRow>
-              {styArr.map(data => {
-                no = no + 1;
-                return (
-                  <FileCard
-                    imageName="test.xls"
-                    no={no}
-                    key={Math.random().toFixed(3)}
-                  />
-                );
-              })}
-            </ImageRow>
             <CommonModal
               title="Style File"
               modalVisible={this.state.modalVisible}
@@ -262,9 +335,14 @@ class Files extends React.Component {
     );
   }
 }
-// const mapDispatchToProps = dispatch => {
-//   return {
-//     // styleFileListFunction: (s) => dispatch(styleFileList(s))
-//   }
-// }
-export default Files;
+const mapDispatchToProps = dispatch => {
+  return {
+    styleFileListFunction: (s) => dispatch(styleFileList(s))
+  }
+}
+const mapStateToProps = state => {
+  return {
+    styleFileList : state.styleFileList.styleFileListState
+  }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(Files);

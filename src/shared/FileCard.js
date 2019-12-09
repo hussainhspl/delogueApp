@@ -56,7 +56,7 @@ class FileCard extends React.Component {
     this.setState({ modalVisible: true });
   };
   render() {
-    console.log("show  popup: ", this.state.modalVisible);
+    // console.log("show  popup: ", this.state.modalVisible);
     return (
       <View >
         <TouchableWithoutFeedback
@@ -66,7 +66,7 @@ class FileCard extends React.Component {
         >
           <GridCard tablet={this.state.tablet}>
             {this.state.showOpacity && <OpacityView />}
-            {this.props.no == 2 ? (
+            {this.props.status == 0 ? (
               <Fragment>
                 <InactiveColorBox>
                   <CrossImage
@@ -82,8 +82,7 @@ class FileCard extends React.Component {
                 tablet={this.state.tablet}
                 resizeMode={"contain"}
                 source={{
-                  uri:
-                    "https://upload.wikimedia.org/wikipedia/commons/thumb/8/86/Microsoft_Excel_2013_logo.svg/1043px-Microsoft_Excel_2013_logo.svg.png"
+                  uri: this.props.imgSrc
                 }}
               />
             </GridImageView>
@@ -94,7 +93,7 @@ class FileCard extends React.Component {
               </View>
               <View>
                 <Title>Date</Title>
-                <CardText numberOfLines={1}>13-oct-2019</CardText>
+              <CardText numberOfLines={1}>{this.props.date}</CardText>
               </View>
             </GridCardInfo>
             <AttachmentPopup

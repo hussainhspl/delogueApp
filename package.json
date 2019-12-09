@@ -29,6 +29,7 @@
     "react-native-fast-image": "^7.0.2",
     "react-native-gesture-handler": "^1.5.0",
     "react-native-image-layout": "^5.4.0",
+    "react-native-image-picker": "^1.1.0",
     "react-native-keyboard-aware-scroll-view": "^0.9.1",
     "react-native-modal-datetime-picker": "^7.6.0",
     "react-native-search-filter": "^0.1.5",
