@@ -5,7 +5,6 @@ const initialState = {
 };
 
 const styleFileListReducer = (state = initialState, action) => {
-      console.log("file list array", action.payload, action.type);
   switch (action.type) {
     case STYLE_FILE_LIST:
       return {

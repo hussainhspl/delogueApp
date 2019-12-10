@@ -9,7 +9,7 @@ const GridImage = styled.Image`
   height: ${props =>
     props.tablet
       ? Dimensions.get("window").height / 4 - 90
-      : Dimensions.get("window").height / 3 - 115};
+      : Dimensions.get("window").height / 3 - 125};
   /* background-color: #dedede; */
 `;
 export default GridImage;

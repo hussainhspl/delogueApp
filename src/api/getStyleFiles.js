@@ -12,7 +12,7 @@ const GetStyleFiles = (token, styleID) => {
     })
       .then(res => {
         resolve(res);
-        console.log("response in style files", res);
+        // console.log("response in style files", res);
       })
       .catch(function(error) {
         console.error("error in style files", error);

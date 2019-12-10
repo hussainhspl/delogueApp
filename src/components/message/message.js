@@ -197,7 +197,7 @@ class Message extends React.Component {
     };
   }
   render() {
-    console.log("read state", this.state.read);
+    // console.log("read state", this.state.read);
     history = this.props.history;
     return (
       <MainView>

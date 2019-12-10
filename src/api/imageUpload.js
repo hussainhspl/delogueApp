@@ -1,16 +1,16 @@
 import axios from 'axios';
 
 const ImageUpload = (token) => {
-  console.log('token in upload');
+  // console.log('token in upload');
   const data1 = new FormData();
   data1.append('photo', {
     uri: "file:///storage/emulated/0/Pictures/image-2f224ef7-5ba4-4159-8b8f-1be23289f1cb.jpg",
     type: 'image/jpeg', // or photo.type
     name: 'image-2f224ef7-5ba4-4159-8b8f-1be23289f1cb.jpg',
-    folderId: 43745,
-    EntityType: "Style",
-    EntityTypeId: 26,
   })
+  data1.append("FolderId", "43745");
+  data1.append("EntityType", "Style");
+  data1.append("EntityTypeId", "26");
   return new Promise(function(resolve, reject) {
     axios({
       url: `${baseUrl}fileupload`,

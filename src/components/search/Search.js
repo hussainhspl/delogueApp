@@ -154,7 +154,7 @@ class Search extends React.Component {
         GetSelectedStyle(token, id)
           .then( res => {
             this.props.styleFunction(res)
-            // console.log('got single style : ', res)
+            console.log('got single style : ', res)
             this.props.history.push('/style')
           })
       })

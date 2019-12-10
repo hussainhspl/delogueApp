@@ -14,6 +14,7 @@ import GridCard from '../styles/GridCard';
 import GridImageView from '../styles/GridImageView';
 import GridImage from '../styles/GridImage';
 import GridCardInfo from '../styles/GridCardInfo';
+import { format, parseISO } from 'date-fns';
 
 
 const InactiveColorBox = styled.View`
@@ -48,17 +49,96 @@ class FileCard extends React.Component {
     super(props);
     this.state = {
       showOpacity: false,
-      modalVisible: false
+      modalVisible: false,
+      imgSrc: null,
     };
   }
   showPopup = () => {
     console.log("Enter");
     this.setState({ modalVisible: true });
   };
+  checkExtension (url) {
+    console.log('enter in check extensions', url);
+    let ext = url.split('.').pop()
+    console.log('ext===', ext);
+    if(ext == 'xls' || ext == 'XLS' || ext == 'xlsx' || ext == 'XLSX') {
+      src = "http://test.delogue.com/images/Excel-Icon.png"
+      console.log('new src', src);
+      return src;
+    }
+    else if(ext == 'doc' || ext == 'DOC' || ext == 'docx' || ext == 'DOCX') {
+      src = "http://test.delogue.com/images/Word-Icon.png"
+      console.log('new src', src);
+      return src;
+    }
+    else if(ext == 'txt' || ext == 'TXT') {
+      src = "http://test.delogue.com/images/File-Icon.png"
+      console.log('new src', src);
+      return src;
+    }
+    else {
+      return null;
+    }
+  }
+  getThumbnail = (thumbnails) => {
+    console.log("get thumbnail called")
+    if(thumbnails != null) {
+      thumbnails.some(s => {
+
+          if(s.size > 70000) {
+            this.setState({
+              imgSrc : s.url
+            }, () => console.log('large image resp', this.state.imgSrc))
+            console.log("perfect size:", s.size);
+            return true;
+          }
+          else if (s.size > 40000) {
+            this.setState({
+              imgSrc : s.url
+            })
+            console.log("perfect size 4:", s.size);
+            return true;
+          }
+          return false
+      })
+    }
+  }
+  componentDidMount = () => {
+    let newUrl = this.checkExtension(this.props.logo)
+    console.log('new url', newUrl);
+    if(newUrl == null) {
+      if(this.props.thumbnails.length > 0) {
+        this.getThumbnail(this.props.thumbnails)
+      }
+    }
+  }
   render() {
+    console.log('large image', this.state.imgSrc);
     // console.log("show  popup: ", this.state.modalVisible);
+    let formatedDate = format(parseISO(this.props.date),"d-MMM-yyyy");
+    let src = this.props.thumbnails.length > 0 ? 
+      this.props.thumbnails[0].url : 
+      this.props.logo != null ? 
+        this.props.logo : 
+          noImage
+      let ext = src.split('.').pop()
+      if(ext == 'xls' || ext == 'XLS' || ext == 'xlsx' || ext == 'XLSX') {
+        src = "http://test.delogue.com/images/Excel-Icon.png"
+        // console.log('new src', src);
+      }
+      if(ext == 'doc' || ext == 'DOC' || ext == 'docx' || ext == 'DOCX') {
+        src = "http://test.delogue.com/images/Word-Icon.png"
+        // console.log('new src', src);
+      }
+      if(ext == 'txt' || ext == 'TXT') {
+        src = "http://test.delogue.com/images/File-Icon.png"
+        // console.log('new src', src);
+      }
+
+
+    // console.log('hey source : ', src, ext);
     return (
-      <View >
+      <View>
         <TouchableWithoutFeedback
           onPressIn={() => this.setState({ showOpacity: true })}
           onPressOut={() => this.setState({ showOpacity: false })}
@@ -82,7 +162,7 @@ class FileCard extends React.Component {
                 tablet={this.state.tablet}
                 resizeMode={"contain"}
                 source={{
-                  uri: this.props.imgSrc
+                  uri: src
                 }}
               />
             </GridImageView>
@@ -93,13 +173,13 @@ class FileCard extends React.Component {
               </View>
               <View>
                 <Title>Date</Title>
-              <CardText numberOfLines={1}>{this.props.date}</CardText>
+              <CardText numberOfLines={1}>{formatedDate}</CardText>
               </View>
             </GridCardInfo>
             <AttachmentPopup
               modalVisible={this.state.modalVisible}
               close={() => this.setState({ modalVisible: false })}
-              path="https://upload.wikimedia.org/wikipedia/commons/thumb/8/86/Microsoft_Excel_2013_logo.svg/1043px-Microsoft_Excel_2013_logo.svg.png"
+              path={this.state.imgSrc ? this.state.imgSrc : this.props.logo}
             />
           </GridCard>
         </TouchableWithoutFeedback>

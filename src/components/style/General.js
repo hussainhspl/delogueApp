@@ -150,7 +150,8 @@ class General extends React.Component {
     super(props);
     this.state = {
       tablet: false,
-      dataArray: null
+      dataArray: null,
+      imgSrc: null,
     };
   }
   _renderPageHeader = (image, index, onClose) => {
@@ -231,23 +232,48 @@ class General extends React.Component {
     console.log('component did mount called')
     this.setState({
       dataArray: this.props.styleData
-    });
+    }, () => this.getThumbnail(this.state.dataArray.data.styleLogoThumbnails));
+    
   };
 
   onTap = () => {};
   pinZoomLayoutRef = React.createRef();
 
+  getThumbnail = (thumbnails) => {
+    console.log("get thumbnail called")
+    if(thumbnails != null) {
+      thumbnails.some(s => {
+        if(s.size > 70000) {
+          this.setState({
+            imgSrc : s.url
+          })
+          console.log("perfect size:", s.size);
+          return true;
+        }
+        else if (s.size > 40000) {
+          this.setState({
+            imgSrc : s.url
+          })
+          console.log("perfect size 4:", s.size);
+          return true;
+        }
+        return false
+      })
+    }
+  }
   render() {
     console.log("render in general :", this.state.dataArray);
-    let state = this.state.dataArray;
+    let state = null
+    if(this.state.dataArray != null) {
+      state = this.state.dataArray.data;
+    }
     return (
       <Fragment>
         {state != null ? (
           <ScrollView showsVerticalScrollIndicator={false}>
-            {console.log(
-              "this.state.dataArray.data.brand.name",
-              state.data.brand.name
-            )}
+            {
+               console.log('thumbnail found', this.state.imgSrc)
+            }
             <View>
               <SImageLayout
                 renderPageHeader={this._renderPageHeader}
@@ -260,8 +286,9 @@ class General extends React.Component {
                 enableScale
                 images={[
                   {
-                    uri: state.data.logo ? state.data.logo.url : 
-                    "http://test.delogue.com/images/image_missing.png"
+                    // uri: state.logo ? state.logo.url : 
+                    // noImage
+                    uri: this.state.imgSrc ? this.state.imgSrc : state.logo ? state.logo.url : noImage
                   }
                 ]}
               />
@@ -275,11 +302,11 @@ class General extends React.Component {
                 name="expand"
               />
               <FollowView>
-                <FollowTouchableHighlight underlayColor="#42546033" onPress={() => this.toggleFollow(state.data.id, state.data.isFollower)}>
+                <FollowTouchableHighlight underlayColor="#42546033" onPress={() => this.toggleFollow(state.id, state.isFollower)}>
                 <Icon
                   style={{
                     color:
-                      state.data.isFollower === false
+                      state.isFollower === false
                         ? "#ccc"
                         : "#f00"
                   }}
@@ -293,43 +320,43 @@ class General extends React.Component {
                 <StyleInfo>
                   <Title>brand</Title>
                   <SubTitle>
-                    {state.data.brand
-                      ? state.data.brand.name
+                    {state.brand
+                      ? state.brand.name
                       : "-"}
                   </SubTitle>
                 </StyleInfo>
                 <StyleInfo>
                   <Title>contact person</Title>
                   <SubTitle>
-                    {state.data.companyContactPerson
-                      ? state.data.companyContactPerson.name
+                    {state.companyContactPerson
+                      ? state.companyContactPerson.name
                       : "-"}
                   </SubTitle>
                 </StyleInfo>
                 <StyleInfo>
                   <Title>style name</Title>
                   <SubTitle>
-                    {state.data.name
-                      ? state.data.name
+                    {state.name
+                      ? state.name
                       : "-"}
                   </SubTitle>
                 </StyleInfo>
                 <StyleInfo>
                   <Title>style no</Title>
-                  <SubTitle>{state.data.userDefinedId ? state.data.userDefinedId: "-"}</SubTitle>
+                  <SubTitle>{state.userDefinedId ? state.userDefinedId: "-"}</SubTitle>
                 </StyleInfo>
                 <StyleInfo>
                   <Title>description</Title>
-                  <SubTitle>{state.data.description ? state.data.description : "-"}</SubTitle>
+                  <SubTitle>{state.description ? state.description : "-"}</SubTitle>
                 </StyleInfo>
                 <StyleInfo>
                   <Title>state</Title>
-                  <SubTitle>{state.data.state ? state.data.state : "-"}</SubTitle>
+                  <SubTitle>{state.state ? state.state : "-"}</SubTitle>
                 </StyleInfo>
                 <StyleInfo>
                   <Title>ready for export</Title>
                   <SubTitle>
-                    {state.data.readyForExport == false
+                    {state.readyForExport == false
                       ? "No"
                       : "Yes"}
                   </SubTitle>
@@ -339,14 +366,14 @@ class General extends React.Component {
                 <StyleInfo>
                   <Title>supplier</Title>
                   <SubTitle>
-                    {state.data.supplier.userDefinedSupplierId} |{" "}
-                    {state.data.supplier? state.data.supplier.name : "-"}
+                    {state.supplier ? `${state.supplier.userDefinedSupplierId} | `: ' '}
+                    {state.supplier? state.supplier.name : " "}
                   </SubTitle>
                 </StyleInfo>
                 <StyleInfo>
                   <Title>primary</Title>
                   <SubTitle>
-                    {state.data.IsPrimary == false
+                    {state.IsPrimary == false
                       ? "No"
                       : "Yes"}
                   </SubTitle>
@@ -354,29 +381,29 @@ class General extends React.Component {
                 <StyleInfo>
                   <Title>contact person</Title>
                   <SubTitle>
-                    {state.data.supplierContactPerson ? state.data.supplierContactPerson.name : "-"}
+                    {state.supplierContactPerson ? state.supplierContactPerson.name : "-"}
                   </SubTitle>
                 </StyleInfo>
                 <StyleInfo>
                   <Title>season</Title>
                   <SubTitle>
-                    {state.data.season ? state.data.season.name : " "} - {" "}
-                    {state.data.season.projectName ? state.data.season.projectName : " "}
+                    {state.season ? state.season.name : " "} - {" "}
+                    {state.season.projectName ? state.season.projectName : " "}
                   </SubTitle>
                 </StyleInfo>
                 <StyleInfo>
                   <Title>group</Title>
                   <SubTitle>
-                    {state.data.group
-                      ? state.data.group.name
+                    {state.group
+                      ? state.group.name
                       : "-"}
                   </SubTitle>
                 </StyleInfo>
                 <StyleInfo>
                   <Title>categories</Title>
                   {
-                    state.data.categories ?
-                    state.data.categories.map(d => {
+                    state.categories ?
+                    state.categories.map(d => {
                       return <SubTitle>{d.name}</SubTitle>;
                     })
                     : <SubTitle> - </SubTitle>
@@ -387,12 +414,12 @@ class General extends React.Component {
             <SizeBox>
               <StyleInfo>
                 <Title>sizes</Title>
-                <SubTitle>{state.data.styleSizes ? state.data.styleSizes : "-"}</SubTitle>
+                <SubTitle>{state.styleSizes ? state.styleSizes : "-"}</SubTitle>
               </StyleInfo>
             </SizeBox>
             <ColorContainer>
-              {state.data.styleColors ?
-                state.data.styleColors.map(color => {
+              {state.styleColors ?
+                state.styleColors.map(color => {
                   return (
                     <Block>
                       {color.adminColor.isActive == false ? (

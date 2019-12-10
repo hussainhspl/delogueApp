@@ -21,9 +21,9 @@ import GetStyleFiles from '../../api/getStyleFiles';
 import GetAsyncToken from '../../script/getAsyncToken';
 import { connect } from 'react-redux';
 import {styleFileList} from '../../store/actions/index';
-import { format, parseISO } from 'date-fns';
 import ImagePicker from 'react-native-image-picker';
 import ImageUpload from '../../api/imageUpload';
+import GetThumbnail from '../../script/getThumbnail'
 // import format from 'date-fns/format'
 const data = {
   styleNo: "sty2211",
@@ -223,16 +223,15 @@ class Files extends React.Component {
                     {data.delogueFileResponse.length > 0 ?
                       data.delogueFileResponse.map(d => {
                       no = no + 1;
-                      let src = d.existingThumbnails.length > 0 ? d.existingThumbnails[0].url : noImage
-                      console.log('hey source : ', src);
-                      let formatedDate = format(parseISO(d.createdOn),"d-MMM-yyyy")
-                      console.log('data in file',d.createdOn, formatedDate)
+                                            
                       return (
                         <FileCard
                           imageName={d.fileName}
-                          imgSrc={src}
-                          date= {formatedDate}
+                          // imgSrc={src}
+                          date= {d.createdOn}
                           no={d.status}
+                          logo={d.url}
+                          thumbnails={d.existingThumbnails}
                           key={Math.random().toFixed(3)}
                         />
                       );

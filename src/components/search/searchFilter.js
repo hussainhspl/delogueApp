@@ -196,7 +196,7 @@ class searchFilter extends Component {
           temp1 = temp.concat(res1);
           this.setState({ 
             filteredBrand:temp1
-          },() => console.log('hello', this.state.filteredBrand));
+          });
           
         })
         .catch(function(error) {

@@ -94,6 +94,7 @@ class AttachmentPopup extends React.Component {
     )
   }
   render() {
+    console.log('path', this.props.path)
     return (
       <Modal
         animationType="fade"

@@ -134,7 +134,7 @@ class CompanyList extends React.Component {
   };
   static getDerivedStateFromProps(nextProps, prevState) {
     if (nextProps.companyData !== prevState.companyData) {
-      console.log("Entered nextProps");
+      // console.log("Entered nextProps");
       // console.log("Entered prevState", prevState);
       return {
         companyData: nextProps.userData,
@@ -147,9 +147,7 @@ class CompanyList extends React.Component {
       this.setState({ loading: false });
     }, 3000);
     if (Dimensions.get("window").width > 568) {
-      this.setState({ tablet: true }, () =>
-        console.log("will mount", this.state.tablet)
-      );
+      this.setState({ tablet: true });
     }
     // console.log("will mount out" , this.state.tablet);
     BackHandler.addEventListener(
@@ -305,7 +303,7 @@ class CompanyList extends React.Component {
                             tablet={this.state.tablet}
                             resizeMode={"contain"}
                             // source={require("../assets/img/shirt-static.png")}
-                            source={{uri: this.state.imgSrc ? this.state.imgSrc: "http://test.delogue.com/images/image_missing.png"}}
+                            source={{uri: this.state.imgSrc ? this.state.imgSrc: noImage}}
                           />
                         </ImageView>
                         <CardInfo>

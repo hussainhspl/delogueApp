@@ -3,7 +3,7 @@ import qs from "qs";
 
 const LoginStep1 = (username, password, token) => {
 	return new Promise(function(resolve, reject) {
-			console.log('user', username);
+			// console.log('user', username);
 			const data = {
 				Username: username,
     			Password: password

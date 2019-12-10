@@ -16,7 +16,7 @@ const GetStyle = (token, styleId) => {
       })
       .then(res => {
         resolve(res);
-        console.log("response in style", res);
+        // console.log("response in style", res);
       })
       .catch(function(error) {
         console.error("error in style", error);

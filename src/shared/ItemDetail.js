@@ -57,7 +57,7 @@ class ItemDetail extends React.Component {
           <StyleImage
             resizeMode={"contain"}
             source={{uri: data.logo ? data.logo.url: 
-              "http://test.delogue.com/images/image_missing.png"
+              noImage
             }}
             // source={require("../../assets/img/shirt-static.png")}
           />

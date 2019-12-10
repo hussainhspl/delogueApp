@@ -16,7 +16,7 @@ const StyleFollow =(token, styleId) => {
       })
         .then(res => {
           resolve(res);
-          console.log('response in follow', res);
+          // console.log('response in follow', res);
         })
         .catch(function(error) {
           console.log("error in style", error);
