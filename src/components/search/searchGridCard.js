@@ -21,8 +21,32 @@ class searchGridCard extends React.Component {
     this.state = {
       tablet: false,
       showOpacity: false,
-      modalVisible: false
+      modalVisible: false,
+      imgSrc: null,
     };
+  }
+  getThumbnail = (thumbnails) => {
+    console.log("get thumbnail called")
+    if(thumbnails != null) {
+      thumbnails.some(s => {
+
+          if(s.size > 20000) {
+            this.setState({
+              imgSrc : s.url
+            }, () => console.log('large image resp 7', this.state.imgSrc))
+            console.log("perfect size 20:", s.size);
+            return true;
+          }
+          else if (s.size > 10000) {
+            this.setState({
+              imgSrc : s.url
+            }, () => console.log('large image resp 4', this.state.imgSrc))
+            console.log("perfect size 10:", s.size);
+            return true;
+          }
+          return false
+      })
+    }
   }
   componentDidMount = () => {
     if (Dimensions.get("window").width > 568) {
@@ -30,10 +54,13 @@ class searchGridCard extends React.Component {
         console.log("tablet search", this.state.tablet)
       );
     }
+    if(this.props.data.logoThumbnails != null) {
+      this.getThumbnail(this.props.data.logoThumbnails)
+    }
   };
   render() {
     let data = this.props.data;
-    // console.log('prop style data ', data);
+    // console.log('this.state.imgSrc ', this.state.imgSrc);
     const history = this.props.history;
     return (
       <TouchableWithoutFeedback
@@ -47,9 +74,8 @@ class searchGridCard extends React.Component {
             <GridImage
               tablet={this.state.tablet}
               resizeMode={"contain"}
-              source={{uri: data.logo ? data.logo.url: 
-                noImage
-              }}
+              source={{uri: this.state.imgSrc ? this.state.imgSrc :
+                data.logo ? data.logo.url : noImage }}
               // source={require("../../../assets/img/shirt-static.png")}
             />
           </GridImageView>

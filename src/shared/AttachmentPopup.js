@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { Icon } from "native-base";
 import ImageLayout from "react-native-image-layout";
 import Title from '../styles/SmallText';
-
+import RNFetchBlob from 'rn-fetch-blob'
 
 const StyledModal = styled.Modal`
   /* height: 100px;
@@ -66,13 +66,47 @@ const CloseMessage = styled.Text`
 const SImageLayout = styled(ImageLayout)`
   position: relative;
 `;
-
+let PictureDir = RNFetchBlob.fs.dirs.PictureDir
+let fileNo = Math.random().toFixed(5)
 class AttachmentPopup extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
     };
   }
+  handleDownload = () => {
+    RNFetchBlob
+    .config({
+      fileCache: true,
+      path: RNFetchBlob.fs.dirs.DocumentDir + '/Delogue/' + fileNo + '.png',
+      appendExt : 'png',
+      addAndroidDownloads : {
+        useDownloadManager : true, // setting it to true will use the device's native download manager and will be shown in the notification bar.
+        notification : false,
+        path:  PictureDir + "/me_"+fileNo, // this is the path where your downloaded file will live in
+        description : 'Downloading image.',
+      }
+    })
+    .fetch('GET', 'https://s3-eu-west-1.amazonaws.com/designhubtest/organization_2/style_26/b3674f45-cb80-4618-a32a-cc75a242e685/bold_thumb_2.png')
+    .then(res => {
+      console.log('the file saved to', res);
+      let filePath = RNFetchBlob.fs.dirs.DocumentDir + '/Delogue/' + fileNo + '.png';
+      console.log('file path = ', filePath)
+      // fileUri is a string like "file:///var/mobile/Containers/Data/Application/9B754FAA-2588-4FEC-B0F7-6D890B7B4681/Documents/filename"
+      // let fileUri = res.data;
+      // if (Platform.OS === 'ios') {
+      //   let arr = fileUri.split('/')
+      //   const dirs = RNFetchBlob.fs.dirs
+      //   filePath = `${dirs.DocumentDir}/${arr[arr.length - 1]}`
+      // } else {
+      //   filePath = audioDataUri
+      // }
+    })
+    .catch(function(error) {
+      console.error("error in download file", error);
+    });
+  }
+  
   _renderPageHeader = (image, index, onClose) => {
     // Individual image object data.
     console.log(image);
@@ -148,7 +182,7 @@ class AttachmentPopup extends React.Component {
                 <Title>Attached</Title>
                 <InfoText numberOfLines={1}>13-Oct-2019</InfoText>
               </View>
-              <TouchableHighlight onPress={() => console.log("hey")}>
+              <TouchableHighlight onPress={this.handleDownload}>
                 <Icon style={{color: '#999', padding: 10}} name="download" />
               </TouchableHighlight>
             </FooterBar>

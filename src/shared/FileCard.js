@@ -63,7 +63,7 @@ class FileCard extends React.Component {
     console.log('ext===', ext);
     if(ext == 'xls' || ext == 'XLS' || ext == 'xlsx' || ext == 'XLSX') {
       src = "http://test.delogue.com/images/Excel-Icon.png"
-      console.log('new src', src);
+      console.log('new src xls', src);
       return src;
     }
     else if(ext == 'doc' || ext == 'DOC' || ext == 'docx' || ext == 'DOCX') {
@@ -88,14 +88,14 @@ class FileCard extends React.Component {
           if(s.size > 70000) {
             this.setState({
               imgSrc : s.url
-            }, () => console.log('large image resp', this.state.imgSrc))
+            }, () => console.log('large image resp 7', this.state.imgSrc))
             console.log("perfect size:", s.size);
             return true;
           }
           else if (s.size > 40000) {
             this.setState({
               imgSrc : s.url
-            })
+            }, () => console.log('large image resp 4', this.state.imgSrc))
             console.log("perfect size 4:", s.size);
             return true;
           }
@@ -110,6 +110,14 @@ class FileCard extends React.Component {
       if(this.props.thumbnails.length > 0) {
         this.getThumbnail(this.props.thumbnails)
       }
+    }
+    else {
+      console.log('not an image')
+      // newUrl = this.props.logo;
+      this.setState({
+        imgSrc : newUrl
+      }, () => console.log('assigned img for non image file', this.state.imgSrc))
+      console.log('logo assigned', newUrl);
     }
   }
   render() {

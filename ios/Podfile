@@ -56,9 +56,12 @@ target 'delogue' do
   pod 'RNCAsyncStorage', :path => '../node_modules/@react-native-community/async-storage'
 
   pod 'RNFastImage', :path => '../node_modules/react-native-fast-image'
+  
+  pod 'rn-fetch-blob', :path => '../node_modules/rn-fetch-blob'
 
   pod 'RNGestureHandler', :podspec => '../node_modules/react-native-gesture-handler/RNGestureHandler.podspec'
   
+  pod 'react-native-image-picker', :path => '../node_modules/react-native-image-picker'
   # Pods for delogue
   # pod 'React', :path => '../node_modules/react-native/'
   # pod 'React-Core', :path => '../node_modules/react-native/'

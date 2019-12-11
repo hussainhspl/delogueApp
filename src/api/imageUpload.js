@@ -1,10 +1,10 @@
 import axios from 'axios';
 
-const ImageUpload = (token) => {
-  // console.log('token in upload');
+const ImageUpload = (token, imgSrc) => {
+  console.log('source in upload', imgSrc);
   const data1 = new FormData();
   data1.append('photo', {
-    uri: "file:///storage/emulated/0/Pictures/image-2f224ef7-5ba4-4159-8b8f-1be23289f1cb.jpg",
+    uri: imgSrc,
     type: 'image/jpeg', // or photo.type
     name: 'image-2f224ef7-5ba4-4159-8b8f-1be23289f1cb.jpg',
   })

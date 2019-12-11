@@ -116,10 +116,8 @@ class Files extends React.Component {
         skipBackup: true,
       },
     };
-
     ImagePicker.showImagePicker(options, response => {
       console.log('Response = ', response);
-
       if (response.didCancel) {
         console.log('User cancelled photo picker');
       } else if (response.error) {
@@ -127,11 +125,11 @@ class Files extends React.Component {
       } else if (response.customButton) {
         console.log('User tapped custom button: ', response.customButton);
       } else {
-        let source = {uri: response.uri};
+        let source = response.uri;
         // let type = {type: response.type}
         GetAsyncToken()
           .then(token => {
-            ImageUpload(token)
+            ImageUpload(token, source)
               .then( res => {
                 console.log('response in upload success', res);
               })

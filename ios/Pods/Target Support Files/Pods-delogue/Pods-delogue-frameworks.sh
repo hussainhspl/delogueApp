@@ -194,7 +194,9 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/lottie-ios/Lottie.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/lottie-react-native/lottie_react_native.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/react-native-camera/react_native_camera.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/react-native-image-picker/react_native_image_picker.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/react-native-netinfo/react_native_netinfo.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/rn-fetch-blob/rn_fetch_blob.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/DoubleConversion/DoubleConversion.framework"
@@ -230,7 +232,9 @@ if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/lottie-ios/Lottie.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/lottie-react-native/lottie_react_native.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/react-native-camera/react_native_camera.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/react-native-image-picker/react_native_image_picker.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/react-native-netinfo/react_native_netinfo.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/rn-fetch-blob/rn_fetch_blob.framework"
 fi
 if [ "${COCOAPODS_PARALLEL_CODE_SIGN}" == "true" ]; then
   wait
