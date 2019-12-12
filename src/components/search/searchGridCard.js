@@ -26,22 +26,20 @@ class searchGridCard extends React.Component {
     };
   }
   getThumbnail = (thumbnails) => {
-    console.log("get thumbnail called")
+    // console.log("get thumbnail called")
     if(thumbnails != null) {
       thumbnails.some(s => {
 
           if(s.size > 20000) {
             this.setState({
               imgSrc : s.url
-            }, () => console.log('large image resp 7', this.state.imgSrc))
-            console.log("perfect size 20:", s.size);
+            })
             return true;
           }
           else if (s.size > 10000) {
             this.setState({
               imgSrc : s.url
-            }, () => console.log('large image resp 4', this.state.imgSrc))
-            console.log("perfect size 10:", s.size);
+            })
             return true;
           }
           return false

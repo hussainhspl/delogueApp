@@ -1,10 +1,11 @@
 import React from "react";
-import { View, Text, Modal, TouchableHighlight, TouchableOpacity } from "react-native";
+import { View, Text, Modal, TouchableHighlight, TouchableOpacity, Platform } from "react-native";
 import styled from "styled-components";
 import { Icon } from "native-base";
 import ImageLayout from "react-native-image-layout";
 import Title from '../styles/SmallText';
-import RNFetchBlob from 'rn-fetch-blob'
+import RNFetchBlob from 'rn-fetch-blob';
+import Share from 'react-native-share';
 
 const StyledModal = styled.Modal`
   /* height: 100px;
@@ -74,24 +75,51 @@ class AttachmentPopup extends React.Component {
     this.state = {
     };
   }
+  shareSingleImage = async (filePath) => {
+    console.log('hey', filePath)
+    let finalPath = Platform.OS === 'android' ? 'file://' + filePath : filePath
+    console.log('final path', Platform.OS === 'android' ? 'file://' + filePath : filePath, finalPath)
+    let shareOptions = {
+      title: 'Share file',
+      url: finalPath,
+      failOnCancel: false,
+    };
+
+    try {
+      // const ShareResponse = 
+      await Share.open(shareOptions);
+      // await RNFS.unlink(filePath);
+      // console.log('ShareResponse', ShareResponse);
+      // setResult(JSON.stringify(ShareResponse, null, 2));
+    } catch (error) {
+      console.log('Error =>', error);
+      // setResult('error: '.concat(getErrorString(error)));
+    }
+  };
+
   handleDownload = () => {
     RNFetchBlob
     .config({
       fileCache: true,
-      path: RNFetchBlob.fs.dirs.DocumentDir + '/Delogue/' + fileNo + '.png',
+      path: RNFetchBlob.fs.dirs.PictureDir + '/delogue/'+ fileNo + '.png',
+      // path: RNFetchBlob.fs.dirs.DocumentDir + '/delogue/'+ fileNo + '.png',
+
       appendExt : 'png',
-      addAndroidDownloads : {
-        useDownloadManager : true, // setting it to true will use the device's native download manager and will be shown in the notification bar.
-        notification : false,
-        path:  PictureDir + "/me_"+fileNo, // this is the path where your downloaded file will live in
-        description : 'Downloading image.',
-      }
+      // addAndroidDownloads : {
+      //   useDownloadManager : true, // setting it to true will use the device's native download manager and will be shown in the notification bar.
+      //   notification : false,
+      //   path:  PictureDir + "/me_"+fileNo, // this is the path where your downloaded file will live in
+      //   description : 'Downloading image.',
+      // }
     })
     .fetch('GET', 'https://s3-eu-west-1.amazonaws.com/designhubtest/organization_2/style_26/b3674f45-cb80-4618-a32a-cc75a242e685/bold_thumb_2.png')
     .then(res => {
-      console.log('the file saved to', res);
-      let filePath = RNFetchBlob.fs.dirs.DocumentDir + '/Delogue/' + fileNo + '.png';
+      console.log('the file saved to', res.data);
+      let filePath = res.data;
       console.log('file path = ', filePath)
+      this.shareSingleImage(filePath)
+      // let filePath = RNFetchBlob.fs.dirs.DocumentDir + '/Delogue/' + fileNo + '.png';
+      // /storage/emulated/0/Pictures/delogue/0.15383.png
       // fileUri is a string like "file:///var/mobile/Containers/Data/Application/9B754FAA-2588-4FEC-B0F7-6D890B7B4681/Documents/filename"
       // let fileUri = res.data;
       // if (Platform.OS === 'ios') {
@@ -106,7 +134,9 @@ class AttachmentPopup extends React.Component {
       console.error("error in download file", error);
     });
   }
+
   
+
   _renderPageHeader = (image, index, onClose) => {
     // Individual image object data.
     console.log(image);

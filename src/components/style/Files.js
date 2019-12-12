@@ -127,9 +127,10 @@ class Files extends React.Component {
       } else {
         let source = response.uri;
         // let type = {type: response.type}
+        console.log('response from picker', response)
         GetAsyncToken()
           .then(token => {
-            ImageUpload(token, source)
+            ImageUpload(token, source, response.fileName)
               .then( res => {
                 console.log('response in upload success', res);
               })

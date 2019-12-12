@@ -60,20 +60,20 @@ class FileCard extends React.Component {
   checkExtension (url) {
     console.log('enter in check extensions', url);
     let ext = url.split('.').pop()
-    console.log('ext===', ext);
+    // console.log('ext===', ext);
     if(ext == 'xls' || ext == 'XLS' || ext == 'xlsx' || ext == 'XLSX') {
       src = "http://test.delogue.com/images/Excel-Icon.png"
-      console.log('new src xls', src);
+      // console.log('new src xls', src);
       return src;
     }
     else if(ext == 'doc' || ext == 'DOC' || ext == 'docx' || ext == 'DOCX') {
       src = "http://test.delogue.com/images/Word-Icon.png"
-      console.log('new src', src);
+      // console.log('new src', src);
       return src;
     }
     else if(ext == 'txt' || ext == 'TXT') {
       src = "http://test.delogue.com/images/File-Icon.png"
-      console.log('new src', src);
+      // console.log('new src', src);
       return src;
     }
     else {
@@ -89,14 +89,14 @@ class FileCard extends React.Component {
             this.setState({
               imgSrc : s.url
             }, () => console.log('large image resp 7', this.state.imgSrc))
-            console.log("perfect size:", s.size);
+            // console.log("perfect size:", s.size);
             return true;
           }
           else if (s.size > 40000) {
             this.setState({
               imgSrc : s.url
             }, () => console.log('large image resp 4', this.state.imgSrc))
-            console.log("perfect size 4:", s.size);
+            // console.log("perfect size 4:", s.size);
             return true;
           }
           return false
@@ -117,11 +117,11 @@ class FileCard extends React.Component {
       this.setState({
         imgSrc : newUrl
       }, () => console.log('assigned img for non image file', this.state.imgSrc))
-      console.log('logo assigned', newUrl);
+      // console.log('logo assigned', newUrl);
     }
   }
   render() {
-    console.log('large image', this.state.imgSrc);
+    // console.log('large image', this.state.imgSrc);
     // console.log("show  popup: ", this.state.modalVisible);
     let formatedDate = format(parseISO(this.props.date),"d-MMM-yyyy");
     let src = this.props.thumbnails.length > 0 ? 
