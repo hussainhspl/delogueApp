@@ -30,8 +30,6 @@ import com.dylanvann.fastimage.FastImageViewPackage;
 import com.swmansion.gesturehandler.react.RNGestureHandlerPackage;
 // react-native-image-picker
 import com.imagepicker.ImagePickerPackage;
-// react-native-share
-import cl.json.RNSharePackage;
 // react-native-vector-icons
 import com.oblador.vectoricons.VectorIconsPackage;
 // rn-fetch-blob
@@ -89,7 +87,6 @@ public class PackageList {
       new FastImageViewPackage(),
       new RNGestureHandlerPackage(),
       new ImagePickerPackage(),
-      new RNSharePackage(),
       new VectorIconsPackage(),
       new RNFetchBlobPackage()
     ));

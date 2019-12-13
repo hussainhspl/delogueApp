@@ -1,11 +1,11 @@
 import React from "react";
-import { View, Text, Modal, TouchableHighlight, TouchableOpacity, Platform } from "react-native";
+import { View, Text, Modal, TouchableHighlight, TouchableOpacity, Platform, Linking } from "react-native";
 import styled from "styled-components";
 import { Icon } from "native-base";
 import ImageLayout from "react-native-image-layout";
 import Title from '../styles/SmallText';
 import RNFetchBlob from 'rn-fetch-blob';
-import Share from 'react-native-share';
+// import Share from 'react-native-share';
 
 const StyledModal = styled.Modal`
   /* height: 100px;
@@ -75,36 +75,41 @@ class AttachmentPopup extends React.Component {
     this.state = {
     };
   }
-  shareSingleImage = async (filePath) => {
-    console.log('hey', filePath)
-    let finalPath = Platform.OS === 'android' ? 'file://' + filePath : filePath
-    console.log('final path', Platform.OS === 'android' ? 'file://' + filePath : filePath, finalPath)
-    let shareOptions = {
-      title: 'Share file',
-      url: finalPath,
-      failOnCancel: false,
-    };
-
-    try {
-      // const ShareResponse = 
-      await Share.open(shareOptions);
-      // await RNFS.unlink(filePath);
-      // console.log('ShareResponse', ShareResponse);
-      // setResult(JSON.stringify(ShareResponse, null, 2));
-    } catch (error) {
-      console.log('Error =>', error);
-      // setResult('error: '.concat(getErrorString(error)));
-    }
-  };
-
+  // shareSingleImage = async (filePath) => {
+  //   console.log('hey', filePath)
+  //   let finalPath = Platform.OS === 'android' ? 'file://' + filePath : filePath
+  //   console.log('final path', Platform.OS === 'android' ? 'file://' + filePath : filePath, finalPath)
+  //   let shareOptions = {
+  //     title: 'Share file',
+  //     url: finalPath,
+  //     failOnCancel: false,
+  //   };
+  //   try {
+  //     await Share.open(shareOptions);
+  //   } catch (error) {
+  //     console.log('Error =>', error);
+  //   }
+  // };
+  handleFile (fileUrl) {
+    console.log('file url', fileUrl);
+    Linking.canOpenURL(fileUrl)
+      .then((supported) => {
+        if (!supported) {
+          console.log("Can't handle url: " + fileUrl);
+        } else {
+          return Linking.openURL(fileUrl);
+        }
+      })
+      .catch((err) => console.error('An error occurred', err));
+  }
   handleDownload = () => {
     RNFetchBlob
     .config({
       fileCache: true,
-      path: RNFetchBlob.fs.dirs.PictureDir + '/delogue/'+ fileNo + '.png',
+      path: RNFetchBlob.fs.dirs.DocumentDir+'/'+fileNo+'.png',
       // path: RNFetchBlob.fs.dirs.DocumentDir + '/delogue/'+ fileNo + '.png',
 
-      appendExt : 'png',
+      // appendExt : 'png',
       // addAndroidDownloads : {
       //   useDownloadManager : true, // setting it to true will use the device's native download manager and will be shown in the notification bar.
       //   notification : false,
@@ -115,9 +120,8 @@ class AttachmentPopup extends React.Component {
     .fetch('GET', 'https://s3-eu-west-1.amazonaws.com/designhubtest/organization_2/style_26/b3674f45-cb80-4618-a32a-cc75a242e685/bold_thumb_2.png')
     .then(res => {
       console.log('the file saved to', res.data);
-      let filePath = res.data;
-      console.log('file path = ', filePath)
-      this.shareSingleImage(filePath)
+    
+      // this.shareSingleImage(filePath)
       // let filePath = RNFetchBlob.fs.dirs.DocumentDir + '/Delogue/' + fileNo + '.png';
       // /storage/emulated/0/Pictures/delogue/0.15383.png
       // fileUri is a string like "file:///var/mobile/Containers/Data/Application/9B754FAA-2588-4FEC-B0F7-6D890B7B4681/Documents/filename"
@@ -158,7 +162,7 @@ class AttachmentPopup extends React.Component {
     )
   }
   render() {
-    console.log('path', this.props.path)
+    // console.log('path', this.props.path)
     return (
       <Modal
         animationType="fade"
@@ -208,11 +212,11 @@ class AttachmentPopup extends React.Component {
             <FooterBar>
               <View>
                 <Title>File Name</Title>
-                <InfoText numberOfLines={1}>Sample.jpg</InfoText>
+                <InfoText numberOfLines={1}>{this.props.Name}</InfoText>
                 <Title>Attached</Title>
-                <InfoText numberOfLines={1}>13-Oct-2019</InfoText>
+            <InfoText numberOfLines={1}>{this.props.Date}</InfoText>
               </View>
-              <TouchableHighlight onPress={this.handleDownload}>
+              <TouchableHighlight onPress={() => this.handleFile(this.props.fileSrc)}>
                 <Icon style={{color: '#999', padding: 10}} name="download" />
               </TouchableHighlight>
             </FooterBar>

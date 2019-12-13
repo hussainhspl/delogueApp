@@ -23,7 +23,7 @@ import { connect } from 'react-redux';
 import {styleFileList} from '../../store/actions/index';
 import ImagePicker from 'react-native-image-picker';
 import ImageUpload from '../../api/imageUpload';
-import GetThumbnail from '../../script/getThumbnail'
+import Toast from 'react-native-simple-toast';
 // import format from 'date-fns/format'
 const data = {
   styleNo: "sty2211",
@@ -31,28 +31,6 @@ const data = {
   supplier: "head textiles",
   season: "summer"
 };
-const styArr = [
-  {
-    fileName: "File Name",
-    imgInfo: "Image Info",
-    date: "dd-mmm-yyyy"
-  },
-  {
-    fileName: "File Name",
-    imgInfo: "Image Info",
-    date: "dd-mmm-yyyy"
-  },
-  {
-    fileName: "File Name",
-    imgInfo: "Image Info",
-    date: "dd-mmm-yyyy"
-  },
-  {
-    fileName: "File Name",
-    imgInfo: "Image Info",
-    date: "dd-mmm-yyyy"
-  }
-];
 
 const StyleFileTitle = styled.View`
   flex-direction: row;
@@ -68,21 +46,6 @@ const Capital = styled.Text`
   font-size: ${props => props.theme.large};
   color: ${props => props.theme.textColor};
 `;
-// const Card = styled.TouchableOpacity`
-//   width: ${props =>
-//     props.tablet
-//       ? Dimensions.get("window").width / 4
-//       : Dimensions.get("window").width / 3};
-//   height: ${props =>
-//     props.tablet
-//       ? Dimensions.get("window").height / 4 + 20
-//       : Dimensions.get("window").height / 3 + 20};
-//   border-bottom-width: 1px;
-//   border-right-width: 1px;
-//   border-color: #dcd7d4;
-//   justify-content: space-between;
-//   align-items: center;
-// `;
 
 const ImageInfo = styled.View`
   padding: 5px 10px;
@@ -107,7 +70,8 @@ class Files extends React.Component {
       avatarSource: null
     };
   }
-  selectPhotoTapped() {
+  selectPhotoTapped(folderId) {
+    console.log('folder id in select picker', folderId, this.props.styleID);
     const options = {
       quality: 1.0,
       maxWidth: 500,
@@ -117,22 +81,25 @@ class Files extends React.Component {
       },
     };
     ImagePicker.showImagePicker(options, response => {
-      console.log('Response = ', response);
+      // console.log('Response = ', response);
       if (response.didCancel) {
-        console.log('User cancelled photo picker');
+        // console.log('User cancelled photo picker');
       } else if (response.error) {
-        console.log('ImagePicker Error: ', response.error);
+        // console.log('ImagePicker Error: ', response.error);
       } else if (response.customButton) {
-        console.log('User tapped custom button: ', response.customButton);
+        // console.log('User tapped custom button: ', response.customButton);
       } else {
         let source = response.uri;
         // let type = {type: response.type}
-        console.log('response from picker', response)
+        // console.log('response from picker', response)
         GetAsyncToken()
           .then(token => {
-            ImageUpload(token, source, response.fileName)
+
+
+            ImageUpload(token, source, response.fileName, folderId, this.props.styleID)
               .then( res => {
                 console.log('response in upload success', res);
+                Toast.show('Image uploaded successfully');
               })
           })
         // You can also display the image using data:
@@ -158,17 +125,23 @@ class Files extends React.Component {
   componentDidMount = () => {
     AppState.addEventListener("change", this._handleAppStateChange);
     if (Dimensions.get("window").width > 568) {
-      this.setState({ tablet: true }, () =>
-        console.log("tablet search", this.state.tablet)
+      this.setState({ tablet: true }
       );
     }
     console.log('enter in files did mount')
+    if(this.state.fileArr) {
+      console.log("hurray")
+    }
     GetAsyncToken()
       .then(token => {
         // console.log('script token', token, this.props.styleID)
+        // if(this.state.fileArr.delogueFolderResponse != null){
+        //   console.log('folder details', this.state.fileArr.delogueFolderResponse.id, this.props.styleID);
+        // }
+        
         GetStyleFiles(token, this.props.styleID)
           .then( res => {
-            console.log('response', res);
+            // console.log('response', res);
             this.props.styleFileListFunction(res.data)
           })
       })
@@ -179,8 +152,7 @@ class Files extends React.Component {
   };
   _handleAppStateChange = nextAppState => {
     if (nextAppState === "background") {
-      this.setState({ modalVisible: false }, () =>
-        console.log(this.state.modalVisible)
+      this.setState({ modalVisible: false }
       );
     }
   };
@@ -194,6 +166,9 @@ class Files extends React.Component {
   }
   render() {
     console.log("file state", this.state.fileArr);
+    // if(this.state.fileArr.delogueFolderResponse != null) {
+      
+    // }
     // console.log("style modal", this.state.modalVisible);
     let no = 0;
     return (
@@ -211,7 +186,7 @@ class Files extends React.Component {
                     </Capital>
                     <TouchableOpacity
                       // onPress={() => this.setState({ cameraFileOn: true })}
-                      onPress={this.selectPhotoTapped}
+                      onPress={() => this.selectPhotoTapped(data.delogueFolderResponse.id)}
                     >
                       <CameraView>
                         <Icon style={{ color: "white", fontSize: 20 }} name="camera" />
@@ -229,7 +204,7 @@ class Files extends React.Component {
                           // imgSrc={src}
                           date= {d.createdOn}
                           no={d.status}
-                          logo={d.url}
+                          url={d.url}
                           thumbnails={d.existingThumbnails}
                           key={Math.random().toFixed(3)}
                         />
@@ -243,80 +218,6 @@ class Files extends React.Component {
               })
               : null
           }
-          {this.state.cameraFileOn && (
-            <CameraComponent
-              close={() => this.setState({ cameraFileOn: false })}
-            />
-          )}
-          <View>
-            <CommonModal
-              title="Style File"
-              modalVisible={this.state.modalVisible}
-              close={() => {
-                this.setModalVisible(!this.state.modalVisible);
-              }}
-              hideButton={true}
-            >
-              <StyleModal />
-            </CommonModal>
-          </View>
-          <StyleFileTitle>
-            <Capital> Custom Folder </Capital>
-            <TouchableOpacity
-              onPress={() => this.setState({ cameraCommOn: true })}
-            >
-              <CameraView>
-                <Icon style={{ color: "white", fontSize: 20 }} name="camera" />
-              </CameraView>
-            </TouchableOpacity>
-          </StyleFileTitle>
-          {this.state.cameraCommOn && (
-            <CameraComponent
-              close={() => this.setState({ cameraCommOn: false })}
-            />
-          )}
-          <ImageRow />
-          <StyleFileTitle>
-            <Capital> Communication files </Capital>
-            <TouchableOpacity
-              onPress={() => this.setState({ cameraCommOn: true })}
-            >
-              <CameraView>
-                <Icon style={{ color: "white", fontSize: 20 }} name="camera" />
-              </CameraView>
-            </TouchableOpacity>
-          </StyleFileTitle>
-          {this.state.cameraCommOn && (
-            <CameraComponent
-              close={() => this.setState({ cameraCommOn: false })}
-            />
-          )}
-          <View>
-            <ImageRow>
-              {/* {
-                styArr.map(data => {
-                  return(
-                    <Tex> hey </Text>
-                  )
-                })
-              } */}
-            </ImageRow>
-          </View>
-          <StyleFileTitle>
-            <Capital> Internal files </Capital>
-            <TouchableOpacity
-              onPress={() => this.setState({ cameraCommOn: true })}
-            >
-              <CameraView>
-                <Icon style={{ color: "white", fontSize: 20 }} name="camera" />
-              </CameraView>
-            </TouchableOpacity>
-          </StyleFileTitle>
-          {this.state.cameraCommOn && (
-            <CameraComponent
-              close={() => this.setState({ cameraCommOn: false })}
-            />
-          )}
           <View>
             <ImageRow>
               {/* {

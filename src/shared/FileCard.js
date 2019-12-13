@@ -54,26 +54,22 @@ class FileCard extends React.Component {
     };
   }
   showPopup = () => {
-    console.log("Enter");
+    // console.log("Enter");
     this.setState({ modalVisible: true });
   };
   checkExtension (url) {
-    console.log('enter in check extensions', url);
+    // console.log('enter in check extensions', url);
     let ext = url.split('.').pop()
-    // console.log('ext===', ext);
     if(ext == 'xls' || ext == 'XLS' || ext == 'xlsx' || ext == 'XLSX') {
       src = "http://test.delogue.com/images/Excel-Icon.png"
-      // console.log('new src xls', src);
       return src;
     }
     else if(ext == 'doc' || ext == 'DOC' || ext == 'docx' || ext == 'DOCX') {
       src = "http://test.delogue.com/images/Word-Icon.png"
-      // console.log('new src', src);
       return src;
     }
     else if(ext == 'txt' || ext == 'TXT') {
       src = "http://test.delogue.com/images/File-Icon.png"
-      // console.log('new src', src);
       return src;
     }
     else {
@@ -81,21 +77,21 @@ class FileCard extends React.Component {
     }
   }
   getThumbnail = (thumbnails) => {
-    console.log("get thumbnail called")
+    // console.log("get thumbnail called")
     if(thumbnails != null) {
       thumbnails.some(s => {
 
           if(s.size > 70000) {
             this.setState({
               imgSrc : s.url
-            }, () => console.log('large image resp 7', this.state.imgSrc))
+            })
             // console.log("perfect size:", s.size);
             return true;
           }
           else if (s.size > 40000) {
             this.setState({
               imgSrc : s.url
-            }, () => console.log('large image resp 4', this.state.imgSrc))
+            })
             // console.log("perfect size 4:", s.size);
             return true;
           }
@@ -104,43 +100,35 @@ class FileCard extends React.Component {
     }
   }
   componentDidMount = () => {
-    let newUrl = this.checkExtension(this.props.logo)
-    console.log('new url', newUrl);
+    let newUrl = this.checkExtension(this.props.url)
     if(newUrl == null) {
       if(this.props.thumbnails.length > 0) {
         this.getThumbnail(this.props.thumbnails)
       }
     }
     else {
-      console.log('not an image')
-      // newUrl = this.props.logo;
+      // newUrl = this.props.url;
       this.setState({
         imgSrc : newUrl
-      }, () => console.log('assigned img for non image file', this.state.imgSrc))
-      // console.log('logo assigned', newUrl);
+      })
     }
   }
   render() {
-    // console.log('large image', this.state.imgSrc);
-    // console.log("show  popup: ", this.state.modalVisible);
     let formatedDate = format(parseISO(this.props.date),"d-MMM-yyyy");
     let src = this.props.thumbnails.length > 0 ? 
       this.props.thumbnails[0].url : 
-      this.props.logo != null ? 
-        this.props.logo : 
+      this.props.url != null ? 
+        this.props.url : 
           noImage
       let ext = src.split('.').pop()
       if(ext == 'xls' || ext == 'XLS' || ext == 'xlsx' || ext == 'XLSX') {
         src = "http://test.delogue.com/images/Excel-Icon.png"
-        // console.log('new src', src);
       }
       if(ext == 'doc' || ext == 'DOC' || ext == 'docx' || ext == 'DOCX') {
         src = "http://test.delogue.com/images/Word-Icon.png"
-        // console.log('new src', src);
       }
       if(ext == 'txt' || ext == 'TXT') {
         src = "http://test.delogue.com/images/File-Icon.png"
-        // console.log('new src', src);
       }
 
 
@@ -187,7 +175,10 @@ class FileCard extends React.Component {
             <AttachmentPopup
               modalVisible={this.state.modalVisible}
               close={() => this.setState({ modalVisible: false })}
-              path={this.state.imgSrc ? this.state.imgSrc : this.props.logo}
+              path={this.state.imgSrc ? this.state.imgSrc : this.props.url}
+              Name= {this.props.imageName}
+              Date = {formatedDate}
+              fileSrc = {this.props.url}
             />
           </GridCard>
         </TouchableWithoutFeedback>

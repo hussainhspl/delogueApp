@@ -15,7 +15,6 @@ import Header from "../../Header";
 import FooterComponent from "../../FooterComponent";
 import Loader from '../../shared/Loader';
 import { connect } from "react-redux";
-import {token} from "../../store/actions/index";
 
 class Style extends React.Component {
   constructor(props) {

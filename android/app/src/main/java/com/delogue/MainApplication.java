@@ -20,12 +20,12 @@ import com.facebook.soloader.SoLoader;
 
 import com.zoontek.rnbootsplash.RNBootSplashPackage; 
 
-import cl.json.RNSharePackage;
-import cl.json.ShareApplication;
+// import cl.json.RNSharePackage;
+// import cl.json.ShareApplication;
 
 import java.util.List;
 
-public class MainApplication extends Application implements ReactApplication, ShareApplication {
+public class MainApplication extends Application implements ReactApplication {
 
   private final ReactNativeHost mReactNativeHost = new ReactNativeHost(this) {
     @Override
@@ -59,9 +59,4 @@ public class MainApplication extends Application implements ReactApplication, Sh
     super.onCreate();
     SoLoader.init(this, /* native exopackage */ false);
   }
-
-  @Override
-     public String getFileProviderAuthority() {
-            return BuildConfig.APPLICATION_ID + ".provider";
-     }
 }
