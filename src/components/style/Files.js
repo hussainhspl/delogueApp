@@ -23,7 +23,7 @@ import { connect } from 'react-redux';
 import {styleFileList} from '../../store/actions/index';
 import ImagePicker from 'react-native-image-picker';
 import ImageUpload from '../../api/imageUpload';
-import Toast from 'react-native-simple-toast';
+// import Toast from 'react-native-simple-toast';
 // import format from 'date-fns/format'
 const data = {
   styleNo: "sty2211",
@@ -95,11 +95,10 @@ class Files extends React.Component {
         GetAsyncToken()
           .then(token => {
 
-
             ImageUpload(token, source, response.fileName, folderId, this.props.styleID)
               .then( res => {
                 console.log('response in upload success', res);
-                Toast.show('Image uploaded successfully');
+                // Toast.show('Image uploaded successfully');
               })
           })
         // You can also display the image using data:

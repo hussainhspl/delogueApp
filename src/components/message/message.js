@@ -18,6 +18,10 @@ import Subject from '../../styles/Subject';
 import Title from "../../styles/SmallText";
 import CardText from "../../styles/CardText";
 import ChatMessage from './ChatMessage';
+import UnreadMessageList from '../../api/message/unreadMessageList';
+import GetAsyncToken from '../../script/getAsyncToken';
+import { format, parseISO } from 'date-fns';
+
 
 const IconRow = styled.View`
   flex-direction: row;
@@ -191,10 +195,29 @@ class Message extends React.Component {
     this.state = {
       chat: false,
       message: true,
+      MessageList: null,
       showOpacity: false,
       read: false,
       chatRead: false
     };
+  }
+  componentDidMount = () => {
+    GetAsyncToken()
+      .then(token => {
+        // console.log('script token', token, this.props.styleID)
+        // if(this.state.fileArr.delogueFolderResponse != null){
+        //   console.log('folder details', this.state.fileArr.delogueFolderResponse.id, this.props.styleID);
+        // }
+        
+        UnreadMessageList(token)
+          .then( res => {
+            console.log('response in unread message', res);
+            this.setState({
+              MessageList: res.data,
+            })
+            // this.props.styleFileListFunction(res.data)
+          })
+      })
   }
   render() {
     // console.log("read state", this.state.read);
@@ -243,50 +266,60 @@ class Message extends React.Component {
               </TouchableWithoutFeedback>
             </IconRow>
             {this.state.message && (
-              <MessageBox>
-                <TouchableHighlight
-                  underlayColor={this.props.theme.overlayBlue}
-                  onPress={() => {this.props.commentTabFunction(); history.push('/style')}}
-                >
-                  <Fragment>
-                    <MsgIconBox readMsg={this.state.read}>
-                      <STouchableHighlight underlayColor={this.props.theme.overlayBlue} onPress={() => {this.setState({read : !this.state.read })}}>
-                        <MsgImage
-                          resizeMode={"contain"}
-                          source={require("../../../assets/img/message-icon.png")}
-                        />
-                      </STouchableHighlight>
-                    </MsgIconBox>
-                    <TitleRow>
-                      <View>
-                        <Title>Style Name</Title>
-                        <CardText numberOfLines={1}>Casual Shirt</CardText>
-                      </View>
-                      <View>
-                        <Title>Style Number</Title>
-                        <CardText numberOfLines={1}>Styl 2213</CardText>
-                      </View>
-                      <View>
-                        <Title>13-oct-2019 13.49</Title>
-                        <CardText numberOfLines={1}>Richel Smith</CardText>
-                      </View>
-                    </TitleRow>
-                    <Row>
-                      <MainContent>
-                        <Subject>Swatch samples </Subject>
-                        <ContentText numberOfLines={2}>
-                          Dear nando, please find a new style and if you have
-                          any doubt or queries then please ask
-                        </ContentText>
-                      </MainContent>
-                      <InternalView>
-                        <Icon style={{ color: "#ddd",fontSize: 18 }} name="home" />
-                        <InternalText>Internal</InternalText>
-                      </InternalView>
-                    </Row>
-                  </Fragment>
-                </TouchableHighlight>
-              </MessageBox>
+              this.state.MessageList != null ? 
+                this.state.MessageList.map( m => {
+                  let formatedDate = format(parseISO(m.loggedOn),"d-MMM-yyyy kk:mm");
+                  console.log('formatted date', formatedDate);
+                  return(
+                    <MessageBox>
+                      <TouchableHighlight
+                        underlayColor={this.props.theme.overlayBlue}
+                        onPress={() => {this.props.commentTabFunction(); history.push('/style')}}
+                      >
+                        <Fragment>
+                          <MsgIconBox readMsg={m.isRead}>
+                            <STouchableHighlight underlayColor={this.props.theme.overlayBlue} onPress={() => {this.setState({read : !this.state.read })}}>
+                              <MsgImage
+                                resizeMode={"contain"}
+                                source={require("../../../assets/img/message-icon.png")}
+                              />
+                            </STouchableHighlight>
+                          </MsgIconBox>
+                          <TitleRow>
+                            <View>
+                              <Title>Style Name</Title>
+                              <CardText numberOfLines={1}>{m.styleName}</CardText>
+                            </View>
+                            <View>
+                              <Title>Style Number</Title>
+                              <CardText numberOfLines={1}>{m.styleNumber}</CardText>
+                            </View>
+                            <View>
+                              <Title>{formatedDate}</Title>
+                              <CardText numberOfLines={1}>{m.loggedByUserName}</CardText>
+                            </View>
+                          </TitleRow>
+                          <Row>
+                            <MainContent>
+                              <Subject>
+                                jkh
+                              </Subject>
+                              <ContentText numberOfLines={2}>
+                                Dear nando, please find a new style and if you have
+                                any doubt or queries then please ask
+                              </ContentText>
+                            </MainContent>
+                            <InternalView>
+                              <Icon style={{ color: "#ddd",fontSize: 18 }} name="home" />
+                              <InternalText>Internal</InternalText>
+                            </InternalView>
+                          </Row>
+                        </Fragment>
+                      </TouchableHighlight>
+                    </MessageBox>
+                  )
+                })
+              : <Text>No Messages</Text>
             )}
             {this.state.chat && (
               <ChatMessage />

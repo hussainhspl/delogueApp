@@ -1,0 +1,3359 @@
+{
+  'version': 0,
+  'case-sensitive': 'false',
+  'roots': [
+    {
+      'type': 'directory',
+      'name': "/Users/headfitted/Documents/hussain/delogueApp/ios/build/Debug-iphonesimulator/DoubleConversion/DoubleConversion.framework/Headers",
+      'contents': [
+        {
+          'type': 'file',
+          'name': "DoubleConversion-Swift.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/build/Debug-iphonesimulator/DoubleConversion/DoubleConversion.framework/Headers/DoubleConversion-Swift.h"
+        },
+        {
+          'type': 'file',
+          'name': "DoubleConversion-umbrella.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/Pods/Target Support Files/DoubleConversion/DoubleConversion-umbrella.h"
+        },
+        {
+          'type': 'file',
+          'name': "bignum-dtoa.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/Pods/DoubleConversion/double-conversion/bignum-dtoa.h"
+        },
+        {
+          'type': 'file',
+          'name': "bignum.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/Pods/DoubleConversion/double-conversion/bignum.h"
+        },
+        {
+          'type': 'file',
+          'name': "cached-powers.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/Pods/DoubleConversion/double-conversion/cached-powers.h"
+        },
+        {
+          'type': 'file',
+          'name': "diy-fp.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/Pods/DoubleConversion/double-conversion/diy-fp.h"
+        },
+        {
+          'type': 'file',
+          'name': "double-conversion.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/Pods/DoubleConversion/double-conversion/double-conversion.h"
+        },
+        {
+          'type': 'file',
+          'name': "fast-dtoa.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/Pods/DoubleConversion/double-conversion/fast-dtoa.h"
+        },
+        {
+          'type': 'file',
+          'name': "fixed-dtoa.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/Pods/DoubleConversion/double-conversion/fixed-dtoa.h"
+        },
+        {
+          'type': 'file',
+          'name': "ieee.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/Pods/DoubleConversion/double-conversion/ieee.h"
+        },
+        {
+          'type': 'file',
+          'name': "strtod.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/Pods/DoubleConversion/double-conversion/strtod.h"
+        },
+        {
+          'type': 'file',
+          'name': "utils.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/Pods/DoubleConversion/double-conversion/utils.h"
+        }
+      ]
+    },
+    {
+      'type': 'directory',
+      'name': "/Users/headfitted/Documents/hussain/delogueApp/ios/build/Debug-iphonesimulator/DoubleConversion/DoubleConversion.framework/Modules",
+      'contents': [
+        {
+          'type': 'file',
+          'name': "module.modulemap",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/build/Pods.build/Debug-iphonesimulator/DoubleConversion.build/module.modulemap"
+        }
+      ]
+    },
+    {
+      'type': 'directory',
+      'name': "/Users/headfitted/Documents/hussain/delogueApp/ios/build/Debug-iphonesimulator/FBReactNativeSpec/FBReactNativeSpec.framework/Headers",
+      'contents': [
+        {
+          'type': 'file',
+          'name': "FBReactNativeSpec-Swift.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/build/Debug-iphonesimulator/FBReactNativeSpec/FBReactNativeSpec.framework/Headers/FBReactNativeSpec-Swift.h"
+        },
+        {
+          'type': 'file',
+          'name': "FBReactNativeSpec-umbrella.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/Pods/Target Support Files/FBReactNativeSpec/FBReactNativeSpec-umbrella.h"
+        },
+        {
+          'type': 'file',
+          'name': "FBReactNativeSpec.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/Libraries/FBReactNativeSpec/FBReactNativeSpec/FBReactNativeSpec.h"
+        }
+      ]
+    },
+    {
+      'type': 'directory',
+      'name': "/Users/headfitted/Documents/hussain/delogueApp/ios/build/Debug-iphonesimulator/FBReactNativeSpec/FBReactNativeSpec.framework/Modules",
+      'contents': [
+        {
+          'type': 'file',
+          'name': "module.modulemap",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/build/Pods.build/Debug-iphonesimulator/FBReactNativeSpec.build/module.modulemap"
+        }
+      ]
+    },
+    {
+      'type': 'directory',
+      'name': "/Users/headfitted/Documents/hussain/delogueApp/ios/build/Debug-iphonesimulator/Folly/folly.framework/Headers",
+      'contents': [
+        {
+          'type': 'file',
+          'name': "Folly-umbrella.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/Pods/Target Support Files/Folly/Folly-umbrella.h"
+        },
+        {
+          'type': 'file',
+          'name': "folly-Swift.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/build/Debug-iphonesimulator/Folly/folly.framework/Headers/folly-Swift.h"
+        }
+      ]
+    },
+    {
+      'type': 'directory',
+      'name': "/Users/headfitted/Documents/hussain/delogueApp/ios/build/Debug-iphonesimulator/Folly/folly.framework/Modules",
+      'contents': [
+        {
+          'type': 'file',
+          'name': "module.modulemap",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/build/Pods.build/Debug-iphonesimulator/Folly.build/module.modulemap"
+        }
+      ]
+    },
+    {
+      'type': 'directory',
+      'name': "/Users/headfitted/Documents/hussain/delogueApp/ios/build/Debug-iphonesimulator/Pods_delogue.framework/Headers",
+      'contents': [
+        {
+          'type': 'file',
+          'name': "Pods-delogue-umbrella.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/Pods/Target Support Files/Pods-delogue/Pods-delogue-umbrella.h"
+        },
+        {
+          'type': 'file',
+          'name': "Pods_delogue-Swift.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/build/Debug-iphonesimulator/Pods_delogue.framework/Headers/Pods_delogue-Swift.h"
+        }
+      ]
+    },
+    {
+      'type': 'directory',
+      'name': "/Users/headfitted/Documents/hussain/delogueApp/ios/build/Debug-iphonesimulator/Pods_delogue.framework/Modules",
+      'contents': [
+        {
+          'type': 'file',
+          'name': "module.modulemap",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/build/Pods.build/Debug-iphonesimulator/Pods-delogue.build/module.modulemap"
+        }
+      ]
+    },
+    {
+      'type': 'directory',
+      'name': "/Users/headfitted/Documents/hussain/delogueApp/ios/build/Debug-iphonesimulator/Pods_delogueTests.framework/Headers",
+      'contents': [
+        {
+          'type': 'file',
+          'name': "Pods-delogueTests-umbrella.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/Pods/Target Support Files/Pods-delogueTests/Pods-delogueTests-umbrella.h"
+        },
+        {
+          'type': 'file',
+          'name': "Pods_delogueTests-Swift.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/build/Debug-iphonesimulator/Pods_delogueTests.framework/Headers/Pods_delogueTests-Swift.h"
+        }
+      ]
+    },
+    {
+      'type': 'directory',
+      'name': "/Users/headfitted/Documents/hussain/delogueApp/ios/build/Debug-iphonesimulator/Pods_delogueTests.framework/Modules",
+      'contents': [
+        {
+          'type': 'file',
+          'name': "module.modulemap",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/build/Pods.build/Debug-iphonesimulator/Pods-delogueTests.build/module.modulemap"
+        }
+      ]
+    },
+    {
+      'type': 'directory',
+      'name': "/Users/headfitted/Documents/hussain/delogueApp/ios/build/Debug-iphonesimulator/RCTTypeSafety/RCTTypeSafety.framework/Headers",
+      'contents': [
+        {
+          'type': 'file',
+          'name': "RCTConvertHelpers.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/Libraries/TypeSafety/RCTConvertHelpers.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTTypeSafety-Swift.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/build/Debug-iphonesimulator/RCTTypeSafety/RCTTypeSafety.framework/Headers/RCTTypeSafety-Swift.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTTypeSafety-umbrella.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/Pods/Target Support Files/RCTTypeSafety/RCTTypeSafety-umbrella.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTTypedModuleConstants.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/Libraries/TypeSafety/RCTTypedModuleConstants.h"
+        }
+      ]
+    },
+    {
+      'type': 'directory',
+      'name': "/Users/headfitted/Documents/hussain/delogueApp/ios/build/Debug-iphonesimulator/RCTTypeSafety/RCTTypeSafety.framework/Modules",
+      'contents': [
+        {
+          'type': 'file',
+          'name': "module.modulemap",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/build/Pods.build/Debug-iphonesimulator/RCTTypeSafety.build/module.modulemap"
+        }
+      ]
+    },
+    {
+      'type': 'directory',
+      'name': "/Users/headfitted/Documents/hussain/delogueApp/ios/build/Debug-iphonesimulator/RNBootSplash/RNBootSplash.framework/Headers",
+      'contents': [
+        {
+          'type': 'file',
+          'name': "RNBootSplash-Swift.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/build/Debug-iphonesimulator/RNBootSplash/RNBootSplash.framework/Headers/RNBootSplash-Swift.h"
+        },
+        {
+          'type': 'file',
+          'name': "RNBootSplash-umbrella.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/Pods/Target Support Files/RNBootSplash/RNBootSplash-umbrella.h"
+        },
+        {
+          'type': 'file',
+          'name': "RNBootSplash.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native-bootsplash/ios/RNBootSplash.h"
+        }
+      ]
+    },
+    {
+      'type': 'directory',
+      'name': "/Users/headfitted/Documents/hussain/delogueApp/ios/build/Debug-iphonesimulator/RNBootSplash/RNBootSplash.framework/Modules",
+      'contents': [
+        {
+          'type': 'file',
+          'name': "module.modulemap",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/build/Pods.build/Debug-iphonesimulator/RNBootSplash.build/module.modulemap"
+        }
+      ]
+    },
+    {
+      'type': 'directory',
+      'name': "/Users/headfitted/Documents/hussain/delogueApp/ios/build/Debug-iphonesimulator/RNCAsyncStorage/RNCAsyncStorage.framework/Headers",
+      'contents': [
+        {
+          'type': 'file',
+          'name': "RNCAsyncStorage-Swift.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/build/Debug-iphonesimulator/RNCAsyncStorage/RNCAsyncStorage.framework/Headers/RNCAsyncStorage-Swift.h"
+        },
+        {
+          'type': 'file',
+          'name': "RNCAsyncStorage-umbrella.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/Pods/Target Support Files/RNCAsyncStorage/RNCAsyncStorage-umbrella.h"
+        },
+        {
+          'type': 'file',
+          'name': "RNCAsyncStorage.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/@react-native-community/async-storage/ios/RNCAsyncStorage.h"
+        },
+        {
+          'type': 'file',
+          'name': "RNCAsyncStorageDelegate.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/@react-native-community/async-storage/ios/RNCAsyncStorageDelegate.h"
+        }
+      ]
+    },
+    {
+      'type': 'directory',
+      'name': "/Users/headfitted/Documents/hussain/delogueApp/ios/build/Debug-iphonesimulator/RNCAsyncStorage/RNCAsyncStorage.framework/Modules",
+      'contents': [
+        {
+          'type': 'file',
+          'name': "module.modulemap",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/build/Pods.build/Debug-iphonesimulator/RNCAsyncStorage.build/module.modulemap"
+        }
+      ]
+    },
+    {
+      'type': 'directory',
+      'name': "/Users/headfitted/Documents/hussain/delogueApp/ios/build/Debug-iphonesimulator/RNFastImage/RNFastImage.framework/Headers",
+      'contents': [
+        {
+          'type': 'file',
+          'name': "FFFastImageSource.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native-fast-image/ios/FastImage/FFFastImageSource.h"
+        },
+        {
+          'type': 'file',
+          'name': "FFFastImageView.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native-fast-image/ios/FastImage/FFFastImageView.h"
+        },
+        {
+          'type': 'file',
+          'name': "FFFastImageViewManager.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native-fast-image/ios/FastImage/FFFastImageViewManager.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTConvert+FFFastImage.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native-fast-image/ios/FastImage/RCTConvert+FFFastImage.h"
+        },
+        {
+          'type': 'file',
+          'name': "RNFastImage-Swift.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/build/Debug-iphonesimulator/RNFastImage/RNFastImage.framework/Headers/RNFastImage-Swift.h"
+        },
+        {
+          'type': 'file',
+          'name': "RNFastImage-umbrella.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/Pods/Target Support Files/RNFastImage/RNFastImage-umbrella.h"
+        }
+      ]
+    },
+    {
+      'type': 'directory',
+      'name': "/Users/headfitted/Documents/hussain/delogueApp/ios/build/Debug-iphonesimulator/RNFastImage/RNFastImage.framework/Modules",
+      'contents': [
+        {
+          'type': 'file',
+          'name': "module.modulemap",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/build/Pods.build/Debug-iphonesimulator/RNFastImage.build/module.modulemap"
+        }
+      ]
+    },
+    {
+      'type': 'directory',
+      'name': "/Users/headfitted/Documents/hussain/delogueApp/ios/build/Debug-iphonesimulator/RNGestureHandler/RNGestureHandler.framework/Headers",
+      'contents': [
+        {
+          'type': 'file',
+          'name': "RNFlingHandler.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/Pods/RNGestureHandler/ios/Handlers/RNFlingHandler.h"
+        },
+        {
+          'type': 'file',
+          'name': "RNForceTouchHandler.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/Pods/RNGestureHandler/ios/Handlers/RNForceTouchHandler.h"
+        },
+        {
+          'type': 'file',
+          'name': "RNGestureHandler-Swift.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/build/Debug-iphonesimulator/RNGestureHandler/RNGestureHandler.framework/Headers/RNGestureHandler-Swift.h"
+        },
+        {
+          'type': 'file',
+          'name': "RNGestureHandler-umbrella.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/Pods/Target Support Files/RNGestureHandler/RNGestureHandler-umbrella.h"
+        },
+        {
+          'type': 'file',
+          'name': "RNGestureHandler.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/Pods/RNGestureHandler/ios/RNGestureHandler.h"
+        },
+        {
+          'type': 'file',
+          'name': "RNGestureHandlerButton.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/Pods/RNGestureHandler/ios/RNGestureHandlerButton.h"
+        },
+        {
+          'type': 'file',
+          'name': "RNGestureHandlerDirection.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/Pods/RNGestureHandler/ios/RNGestureHandlerDirection.h"
+        },
+        {
+          'type': 'file',
+          'name': "RNGestureHandlerEvents.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/Pods/RNGestureHandler/ios/RNGestureHandlerEvents.h"
+        },
+        {
+          'type': 'file',
+          'name': "RNGestureHandlerManager.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/Pods/RNGestureHandler/ios/RNGestureHandlerManager.h"
+        },
+        {
+          'type': 'file',
+          'name': "RNGestureHandlerModule.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/Pods/RNGestureHandler/ios/RNGestureHandlerModule.h"
+        },
+        {
+          'type': 'file',
+          'name': "RNGestureHandlerRegistry.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/Pods/RNGestureHandler/ios/RNGestureHandlerRegistry.h"
+        },
+        {
+          'type': 'file',
+          'name': "RNGestureHandlerState.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/Pods/RNGestureHandler/ios/RNGestureHandlerState.h"
+        },
+        {
+          'type': 'file',
+          'name': "RNLongPressHandler.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/Pods/RNGestureHandler/ios/Handlers/RNLongPressHandler.h"
+        },
+        {
+          'type': 'file',
+          'name': "RNNativeViewHandler.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/Pods/RNGestureHandler/ios/Handlers/RNNativeViewHandler.h"
+        },
+        {
+          'type': 'file',
+          'name': "RNPanHandler.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/Pods/RNGestureHandler/ios/Handlers/RNPanHandler.h"
+        },
+        {
+          'type': 'file',
+          'name': "RNPinchHandler.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/Pods/RNGestureHandler/ios/Handlers/RNPinchHandler.h"
+        },
+        {
+          'type': 'file',
+          'name': "RNRootViewGestureRecognizer.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/Pods/RNGestureHandler/ios/RNRootViewGestureRecognizer.h"
+        },
+        {
+          'type': 'file',
+          'name': "RNRotationHandler.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/Pods/RNGestureHandler/ios/Handlers/RNRotationHandler.h"
+        },
+        {
+          'type': 'file',
+          'name': "RNTapHandler.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/Pods/RNGestureHandler/ios/Handlers/RNTapHandler.h"
+        }
+      ]
+    },
+    {
+      'type': 'directory',
+      'name': "/Users/headfitted/Documents/hussain/delogueApp/ios/build/Debug-iphonesimulator/RNGestureHandler/RNGestureHandler.framework/Modules",
+      'contents': [
+        {
+          'type': 'file',
+          'name': "module.modulemap",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/build/Pods.build/Debug-iphonesimulator/RNGestureHandler.build/module.modulemap"
+        }
+      ]
+    },
+    {
+      'type': 'directory',
+      'name': "/Users/headfitted/Documents/hussain/delogueApp/ios/build/Debug-iphonesimulator/RNVectorIcons/RNVectorIcons.framework/Headers",
+      'contents': [
+        {
+          'type': 'file',
+          'name': "RNVectorIcons-Swift.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/build/Debug-iphonesimulator/RNVectorIcons/RNVectorIcons.framework/Headers/RNVectorIcons-Swift.h"
+        },
+        {
+          'type': 'file',
+          'name': "RNVectorIcons-umbrella.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/Pods/Target Support Files/RNVectorIcons/RNVectorIcons-umbrella.h"
+        },
+        {
+          'type': 'file',
+          'name': "RNVectorIconsManager.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native-vector-icons/RNVectorIconsManager/RNVectorIconsManager.h"
+        }
+      ]
+    },
+    {
+      'type': 'directory',
+      'name': "/Users/headfitted/Documents/hussain/delogueApp/ios/build/Debug-iphonesimulator/RNVectorIcons/RNVectorIcons.framework/Modules",
+      'contents': [
+        {
+          'type': 'file',
+          'name': "module.modulemap",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/build/Pods.build/Debug-iphonesimulator/RNVectorIcons.build/module.modulemap"
+        }
+      ]
+    },
+    {
+      'type': 'directory',
+      'name': "/Users/headfitted/Documents/hussain/delogueApp/ios/build/Debug-iphonesimulator/React-Core/React.framework/Headers",
+      'contents': [
+        {
+          'type': 'file',
+          'name': "CoreModulesPlugins.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/CoreModules/CoreModulesPlugins.h"
+        },
+        {
+          'type': 'file',
+          'name': "NSTextStorage+FontScaling.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/Libraries/Text/Text/NSTextStorage+FontScaling.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTAccessibilityManager.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/Modules/RCTAccessibilityManager.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTActionSheetManager.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/Libraries/ActionSheetIOS/RCTActionSheetManager.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTActivityIndicatorView.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/Views/RCTActivityIndicatorView.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTActivityIndicatorViewManager.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/Views/RCTActivityIndicatorViewManager.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTAdditionAnimatedNode.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/Libraries/NativeAnimation/Nodes/RCTAdditionAnimatedNode.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTAlertManager.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/Modules/RCTAlertManager.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTAnimatedImage.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/Libraries/Image/RCTAnimatedImage.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTAnimatedNode.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/Libraries/NativeAnimation/Nodes/RCTAnimatedNode.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTAnimationDriver.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/Libraries/NativeAnimation/Drivers/RCTAnimationDriver.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTAnimationType.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/Views/RCTAnimationType.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTAnimationUtils.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/Libraries/NativeAnimation/RCTAnimationUtils.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTAppState.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/Modules/RCTAppState.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTAssert.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/Base/RCTAssert.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTAsyncLocalStorage.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/Modules/RCTAsyncLocalStorage.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTAutoInsetsProtocol.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/Views/RCTAutoInsetsProtocol.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTBackedTextInputDelegate.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/Libraries/Text/TextInput/RCTBackedTextInputDelegate.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTBackedTextInputDelegateAdapter.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/Libraries/Text/TextInput/RCTBackedTextInputDelegateAdapter.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTBackedTextInputViewProtocol.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/Libraries/Text/TextInput/RCTBackedTextInputViewProtocol.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTBaseTextInputShadowView.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/Libraries/Text/TextInput/RCTBaseTextInputShadowView.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTBaseTextInputView.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/Libraries/Text/TextInput/RCTBaseTextInputView.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTBaseTextInputViewManager.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/Libraries/Text/TextInput/RCTBaseTextInputViewManager.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTBaseTextShadowView.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/Libraries/Text/BaseText/RCTBaseTextShadowView.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTBaseTextViewManager.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/Libraries/Text/BaseText/RCTBaseTextViewManager.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTBlobManager.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/Libraries/Blob/RCTBlobManager.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTBorderDrawing.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/Views/RCTBorderDrawing.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTBorderStyle.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/Views/RCTBorderStyle.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTBridge+Private.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/Base/RCTBridge+Private.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTBridge.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/Base/RCTBridge.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTBridgeDelegate.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/Base/RCTBridgeDelegate.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTBridgeMethod.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/Base/RCTBridgeMethod.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTBridgeModule.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/Base/RCTBridgeModule.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTBundleURLProvider.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/Base/RCTBundleURLProvider.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTClipboard.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/Modules/RCTClipboard.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTComponent.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/Views/RCTComponent.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTComponentData.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/Views/RCTComponentData.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTComponentEvent.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/Base/RCTComponentEvent.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTConvert+CoreLocation.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/Views/RCTConvert+CoreLocation.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTConvert+Text.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/Libraries/Text/RCTConvert+Text.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTConvert+Transform.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/Views/RCTConvert+Transform.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTConvert.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/Base/RCTConvert.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTCxxConvert.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/Base/RCTCxxConvert.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTDataRequestHandler.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/Libraries/Network/RCTDataRequestHandler.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTDatePicker.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/Views/RCTDatePicker.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTDatePickerManager.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/Views/RCTDatePickerManager.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTDecayAnimation.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/Libraries/NativeAnimation/Drivers/RCTDecayAnimation.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTDefines.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/Base/RCTDefines.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTDevLoadingView.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/DevSupport/RCTDevLoadingView.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTDevMenu.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/DevSupport/RCTDevMenu.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTDevSettings.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/Modules/RCTDevSettings.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTDeviceInfo.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/Modules/RCTDeviceInfo.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTDiffClampAnimatedNode.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/Libraries/NativeAnimation/Nodes/RCTDiffClampAnimatedNode.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTDisplayLink.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/Base/RCTDisplayLink.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTDivisionAnimatedNode.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/Libraries/NativeAnimation/Nodes/RCTDivisionAnimatedNode.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTErrorCustomizer.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/Base/RCTErrorCustomizer.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTErrorInfo.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/Base/RCTErrorInfo.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTEventAnimation.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/Libraries/NativeAnimation/Drivers/RCTEventAnimation.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTEventDispatcher.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/Base/RCTEventDispatcher.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTEventEmitter.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/Modules/RCTEventEmitter.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTExceptionsManager.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/CoreModules/RCTExceptionsManager.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTFPSGraph.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/Profiler/RCTFPSGraph.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTFileReaderModule.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/Libraries/Blob/RCTFileReaderModule.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTFileRequestHandler.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/Libraries/Network/RCTFileRequestHandler.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTFont.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/Views/RCTFont.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTFrameAnimation.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/Libraries/NativeAnimation/Drivers/RCTFrameAnimation.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTFrameUpdate.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/Base/RCTFrameUpdate.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTGIFImageDecoder.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/Libraries/Image/RCTGIFImageDecoder.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTHTTPRequestHandler.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/Libraries/Network/RCTHTTPRequestHandler.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTI18nManager.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/Modules/RCTI18nManager.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTI18nUtil.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/Modules/RCTI18nUtil.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTImageBlurUtils.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/Libraries/Image/RCTImageBlurUtils.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTImageCache.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/Libraries/Image/RCTImageCache.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTImageDataDecoder.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/Libraries/Image/RCTImageDataDecoder.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTImageEditingManager.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/CoreModules/RCTImageEditingManager.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTImageLoader.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/CoreModules/RCTImageLoader.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTImageLoaderProtocol.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/Libraries/Image/RCTImageLoaderProtocol.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTImageShadowView.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/Libraries/Image/RCTImageShadowView.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTImageSource.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/Base/RCTImageSource.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTImageStoreManager.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/CoreModules/RCTImageStoreManager.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTImageURLLoader.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/Libraries/Image/RCTImageURLLoader.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTImageUtils.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/Libraries/Image/RCTImageUtils.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTImageView.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/Libraries/Image/RCTImageView.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTImageViewManager.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/Libraries/Image/RCTImageViewManager.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTInputAccessoryShadowView.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/Libraries/Text/TextInput/RCTInputAccessoryShadowView.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTInputAccessoryView.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/Libraries/Text/TextInput/RCTInputAccessoryView.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTInputAccessoryViewContent.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/Libraries/Text/TextInput/RCTInputAccessoryViewContent.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTInputAccessoryViewManager.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/Libraries/Text/TextInput/RCTInputAccessoryViewManager.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTInspector.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/Inspector/RCTInspector.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTInspectorDevServerHelper.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/DevSupport/RCTInspectorDevServerHelper.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTInspectorPackagerConnection.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/Inspector/RCTInspectorPackagerConnection.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTInterpolationAnimatedNode.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/Libraries/NativeAnimation/Nodes/RCTInterpolationAnimatedNode.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTInvalidating.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/Base/RCTInvalidating.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTJSStackFrame.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/Base/RCTJSStackFrame.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTJavaScriptExecutor.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/Base/RCTJavaScriptExecutor.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTJavaScriptLoader.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/Base/RCTJavaScriptLoader.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTKeyCommands.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/Base/RCTKeyCommands.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTKeyboardObserver.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/Modules/RCTKeyboardObserver.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTLayout.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/Views/RCTLayout.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTLayoutAnimation.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/Modules/RCTLayoutAnimation.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTLayoutAnimationGroup.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/Modules/RCTLayoutAnimationGroup.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTLinkingManager.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/Libraries/LinkingIOS/RCTLinkingManager.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTLocalAssetImageLoader.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/Libraries/Image/RCTLocalAssetImageLoader.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTLog.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/Base/RCTLog.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTMacros.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/Profiler/RCTMacros.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTManagedPointer.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/Base/RCTManagedPointer.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTMaskedView.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/Views/RCTMaskedView.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTMaskedViewManager.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/Views/RCTMaskedViewManager.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTModalHostView.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/Views/RCTModalHostView.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTModalHostViewController.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/Views/RCTModalHostViewController.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTModalHostViewManager.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/Views/RCTModalHostViewManager.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTModalManager.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/Views/RCTModalManager.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTModuleData.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/Base/RCTModuleData.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTModuleMethod.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/Base/RCTModuleMethod.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTModuloAnimatedNode.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/Libraries/NativeAnimation/Nodes/RCTModuloAnimatedNode.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTMultilineTextInputView.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/Libraries/Text/TextInput/Multiline/RCTMultilineTextInputView.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTMultilineTextInputViewManager.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/Libraries/Text/TextInput/Multiline/RCTMultilineTextInputViewManager.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTMultipartDataTask.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/Base/RCTMultipartDataTask.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTMultipartStreamReader.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/Base/RCTMultipartStreamReader.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTMultiplicationAnimatedNode.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/Libraries/NativeAnimation/Nodes/RCTMultiplicationAnimatedNode.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTNativeAnimatedModule.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/Libraries/NativeAnimation/RCTNativeAnimatedModule.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTNativeAnimatedNodesManager.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/Libraries/NativeAnimation/RCTNativeAnimatedNodesManager.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTNetInfo.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/Libraries/Network/RCTNetInfo.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTNetworkTask.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/Libraries/Network/RCTNetworkTask.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTNetworking.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/Libraries/Network/RCTNetworking.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTNullability.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/Base/RCTNullability.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTPackagerClient.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/DevSupport/RCTPackagerClient.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTPackagerConnection.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/DevSupport/RCTPackagerConnection.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTParserUtils.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/Base/RCTParserUtils.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTPerformanceLogger.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/Base/RCTPerformanceLogger.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTPicker.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/Views/RCTPicker.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTPickerManager.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/Views/RCTPickerManager.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTPlatform.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/CoreModules/RCTPlatform.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTPointerEvents.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/Views/RCTPointerEvents.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTProfile.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/Profiler/RCTProfile.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTProgressViewManager.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/Views/RCTProgressViewManager.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTPropsAnimatedNode.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/Libraries/NativeAnimation/Nodes/RCTPropsAnimatedNode.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTRawTextShadowView.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/Libraries/Text/RawText/RCTRawTextShadowView.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTRawTextViewManager.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/Libraries/Text/RawText/RCTRawTextViewManager.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTReconnectingWebSocket.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/Libraries/WebSocket/RCTReconnectingWebSocket.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTRedBox.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/Modules/RCTRedBox.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTRedBoxExtraDataViewController.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/Modules/RCTRedBoxExtraDataViewController.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTRefreshControl.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/Views/RCTRefreshControl.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTRefreshControlManager.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/Views/RCTRefreshControlManager.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTReloadCommand.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/Base/RCTReloadCommand.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTResizeMode.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/Libraries/Image/RCTResizeMode.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTRootContentView.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/Base/RCTRootContentView.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTRootShadowView.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/Views/RCTRootShadowView.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTRootView.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/Base/RCTRootView.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTRootViewDelegate.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/Base/RCTRootViewDelegate.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTRootViewInternal.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/Base/RCTRootViewInternal.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTSRWebSocket.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/Libraries/WebSocket/RCTSRWebSocket.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTSafeAreaShadowView.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/Views/SafeAreaView/RCTSafeAreaShadowView.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTSafeAreaView.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/Views/SafeAreaView/RCTSafeAreaView.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTSafeAreaViewLocalData.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/Views/SafeAreaView/RCTSafeAreaViewLocalData.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTSafeAreaViewManager.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/Views/SafeAreaView/RCTSafeAreaViewManager.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTScrollContentShadowView.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/Views/ScrollView/RCTScrollContentShadowView.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTScrollContentView.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/Views/ScrollView/RCTScrollContentView.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTScrollContentViewManager.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/Views/ScrollView/RCTScrollContentViewManager.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTScrollView.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/Views/ScrollView/RCTScrollView.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTScrollViewManager.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/Views/ScrollView/RCTScrollViewManager.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTScrollableProtocol.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/Views/ScrollView/RCTScrollableProtocol.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTSegmentedControl.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/Views/RCTSegmentedControl.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTSegmentedControlManager.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/Views/RCTSegmentedControlManager.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTSettingsManager.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/Libraries/Settings/RCTSettingsManager.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTShadowView+Internal.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/Views/RCTShadowView+Internal.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTShadowView+Layout.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/Views/RCTShadowView+Layout.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTShadowView.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/Views/RCTShadowView.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTSinglelineTextInputView.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/Libraries/Text/TextInput/Singleline/RCTSinglelineTextInputView.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTSinglelineTextInputViewManager.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/Libraries/Text/TextInput/Singleline/RCTSinglelineTextInputViewManager.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTSlider.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/Views/RCTSlider.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTSliderManager.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/Views/RCTSliderManager.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTSourceCode.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/Modules/RCTSourceCode.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTSpringAnimation.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/Libraries/NativeAnimation/Drivers/RCTSpringAnimation.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTStatusBarManager.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/Modules/RCTStatusBarManager.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTStyleAnimatedNode.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/Libraries/NativeAnimation/Nodes/RCTStyleAnimatedNode.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTSubtractionAnimatedNode.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/Libraries/NativeAnimation/Nodes/RCTSubtractionAnimatedNode.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTSurface.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/Base/Surface/RCTSurface.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTSurfaceDelegate.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/Base/Surface/RCTSurfaceDelegate.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTSurfaceHostingProxyRootView.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/Base/Surface/SurfaceHostingView/RCTSurfaceHostingProxyRootView.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTSurfaceHostingView.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/Base/Surface/SurfaceHostingView/RCTSurfaceHostingView.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTSurfacePresenterStub.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/Modules/RCTSurfacePresenterStub.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTSurfaceRootShadowView.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/Base/Surface/RCTSurfaceRootShadowView.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTSurfaceRootShadowViewDelegate.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/Base/Surface/RCTSurfaceRootShadowViewDelegate.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTSurfaceRootView.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/Base/Surface/RCTSurfaceRootView.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTSurfaceSizeMeasureMode.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/Base/Surface/SurfaceHostingView/RCTSurfaceSizeMeasureMode.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTSurfaceStage.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/Base/Surface/RCTSurfaceStage.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTSurfaceView+Internal.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/Base/Surface/RCTSurfaceView+Internal.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTSurfaceView.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/Base/Surface/RCTSurfaceView.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTSwitch.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/Views/RCTSwitch.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTSwitchManager.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/Views/RCTSwitchManager.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTTextAttributes.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/Libraries/Text/RCTTextAttributes.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTTextDecorationLineType.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/Views/RCTTextDecorationLineType.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTTextSelection.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/Libraries/Text/TextInput/RCTTextSelection.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTTextShadowView.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/Libraries/Text/Text/RCTTextShadowView.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTTextTransform.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/Libraries/Text/RCTTextTransform.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTTextView.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/Libraries/Text/Text/RCTTextView.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTTextViewManager.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/Libraries/Text/Text/RCTTextViewManager.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTTiming.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/Modules/RCTTiming.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTTouchEvent.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/Base/RCTTouchEvent.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTTouchHandler.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/Base/RCTTouchHandler.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTTrackingAnimatedNode.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/Libraries/NativeAnimation/Nodes/RCTTrackingAnimatedNode.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTTransformAnimatedNode.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/Libraries/NativeAnimation/Nodes/RCTTransformAnimatedNode.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTUIImageViewAnimated.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/Libraries/Image/RCTUIImageViewAnimated.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTUIManager.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/Modules/RCTUIManager.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTUIManagerObserverCoordinator.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/Modules/RCTUIManagerObserverCoordinator.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTUIManagerUtils.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/Modules/RCTUIManagerUtils.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTUITextField.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/Libraries/Text/TextInput/Singleline/RCTUITextField.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTUITextView.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/Libraries/Text/TextInput/Multiline/RCTUITextView.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTUIUtils.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/UIUtils/RCTUIUtils.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTURLRequestDelegate.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/Base/RCTURLRequestDelegate.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTURLRequestHandler.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/Base/RCTURLRequestHandler.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTUtils.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/Base/RCTUtils.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTValueAnimatedNode.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/Libraries/NativeAnimation/Nodes/RCTValueAnimatedNode.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTVersion.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/Base/RCTVersion.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTVibration.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/Libraries/Vibration/RCTVibration.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTView.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/Views/RCTView.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTViewManager.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/Views/RCTViewManager.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTVirtualTextShadowView.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/Libraries/Text/VirtualText/RCTVirtualTextShadowView.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTVirtualTextViewManager.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/Libraries/Text/VirtualText/RCTVirtualTextViewManager.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTWeakProxy.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/Base/RCTWeakProxy.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTWebSocketExecutor.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/Libraries/WebSocket/RCTWebSocketExecutor.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTWebSocketModule.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/Libraries/WebSocket/RCTWebSocketModule.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTWrapperViewController.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/Views/RCTWrapperViewController.h"
+        },
+        {
+          'type': 'file',
+          'name': "React-Core-umbrella.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/Pods/Target Support Files/React-Core/React-Core-umbrella.h"
+        },
+        {
+          'type': 'file',
+          'name': "React-Swift.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/build/Debug-iphonesimulator/React-Core/React.framework/Headers/React-Swift.h"
+        },
+        {
+          'type': 'file',
+          'name': "UIView+Private.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/Views/UIView+Private.h"
+        },
+        {
+          'type': 'file',
+          'name': "UIView+React.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/Views/UIView+React.h"
+        }
+      ]
+    },
+    {
+      'type': 'directory',
+      'name': "/Users/headfitted/Documents/hussain/delogueApp/ios/build/Debug-iphonesimulator/React-Core/React.framework/Modules",
+      'contents': [
+        {
+          'type': 'file',
+          'name': "module.modulemap",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/build/Pods.build/Debug-iphonesimulator/React-Core.build/module.modulemap"
+        }
+      ]
+    },
+    {
+      'type': 'directory',
+      'name': "/Users/headfitted/Documents/hussain/delogueApp/ios/build/Debug-iphonesimulator/React-Core/React.framework/PrivateHeaders",
+      'contents': [
+        {
+          'type': 'file',
+          'name': "DispatchMessageQueueThread.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/CxxModule/DispatchMessageQueueThread.h"
+        },
+        {
+          'type': 'file',
+          'name': "JSCExecutorFactory.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/CxxBridge/JSCExecutorFactory.h"
+        },
+        {
+          'type': 'file',
+          'name': "NSDataBigString.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/CxxBridge/NSDataBigString.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTCxxBridgeDelegate.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/CxxBridge/RCTCxxBridgeDelegate.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTCxxMethod.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/CxxModule/RCTCxxMethod.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTCxxModule.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/CxxModule/RCTCxxModule.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTCxxUtils.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/CxxModule/RCTCxxUtils.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTFollyConvert.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/CxxUtils/RCTFollyConvert.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTMessageThread.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/CxxBridge/RCTMessageThread.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTNativeModule.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/CxxModule/RCTNativeModule.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTObjcExecutor.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/React/CxxBridge/RCTObjcExecutor.h"
+        }
+      ]
+    },
+    {
+      'type': 'directory',
+      'name': "/Users/headfitted/Documents/hussain/delogueApp/ios/build/Debug-iphonesimulator/React-CoreModules/CoreModules.framework/Headers",
+      'contents': [
+        {
+          'type': 'file',
+          'name': "CoreModules-Swift.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/build/Debug-iphonesimulator/React-CoreModules/CoreModules.framework/Headers/CoreModules-Swift.h"
+        },
+        {
+          'type': 'file',
+          'name': "React-CoreModules-umbrella.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/Pods/Target Support Files/React-CoreModules/React-CoreModules-umbrella.h"
+        }
+      ]
+    },
+    {
+      'type': 'directory',
+      'name': "/Users/headfitted/Documents/hussain/delogueApp/ios/build/Debug-iphonesimulator/React-CoreModules/CoreModules.framework/Modules",
+      'contents': [
+        {
+          'type': 'file',
+          'name': "module.modulemap",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/build/Pods.build/Debug-iphonesimulator/React-CoreModules.build/module.modulemap"
+        }
+      ]
+    },
+    {
+      'type': 'directory',
+      'name': "/Users/headfitted/Documents/hussain/delogueApp/ios/build/Debug-iphonesimulator/React-RCTActionSheet/RCTActionSheet.framework/Headers",
+      'contents': [
+        {
+          'type': 'file',
+          'name': "RCTActionSheet-Swift.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/build/Debug-iphonesimulator/React-RCTActionSheet/RCTActionSheet.framework/Headers/RCTActionSheet-Swift.h"
+        },
+        {
+          'type': 'file',
+          'name': "React-RCTActionSheet-umbrella.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/Pods/Target Support Files/React-RCTActionSheet/React-RCTActionSheet-umbrella.h"
+        }
+      ]
+    },
+    {
+      'type': 'directory',
+      'name': "/Users/headfitted/Documents/hussain/delogueApp/ios/build/Debug-iphonesimulator/React-RCTActionSheet/RCTActionSheet.framework/Modules",
+      'contents': [
+        {
+          'type': 'file',
+          'name': "module.modulemap",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/build/Pods.build/Debug-iphonesimulator/React-RCTActionSheet.build/module.modulemap"
+        }
+      ]
+    },
+    {
+      'type': 'directory',
+      'name': "/Users/headfitted/Documents/hussain/delogueApp/ios/build/Debug-iphonesimulator/React-RCTAnimation/RCTAnimation.framework/Headers",
+      'contents': [
+        {
+          'type': 'file',
+          'name': "RCTAnimation-Swift.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/build/Debug-iphonesimulator/React-RCTAnimation/RCTAnimation.framework/Headers/RCTAnimation-Swift.h"
+        },
+        {
+          'type': 'file',
+          'name': "React-RCTAnimation-umbrella.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/Pods/Target Support Files/React-RCTAnimation/React-RCTAnimation-umbrella.h"
+        }
+      ]
+    },
+    {
+      'type': 'directory',
+      'name': "/Users/headfitted/Documents/hussain/delogueApp/ios/build/Debug-iphonesimulator/React-RCTAnimation/RCTAnimation.framework/Modules",
+      'contents': [
+        {
+          'type': 'file',
+          'name': "module.modulemap",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/build/Pods.build/Debug-iphonesimulator/React-RCTAnimation.build/module.modulemap"
+        }
+      ]
+    },
+    {
+      'type': 'directory',
+      'name': "/Users/headfitted/Documents/hussain/delogueApp/ios/build/Debug-iphonesimulator/React-RCTBlob/RCTBlob.framework/Headers",
+      'contents': [
+        {
+          'type': 'file',
+          'name': "RCTBlob-Swift.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/build/Debug-iphonesimulator/React-RCTBlob/RCTBlob.framework/Headers/RCTBlob-Swift.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTBlobCollector.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/Libraries/Blob/RCTBlobCollector.h"
+        },
+        {
+          'type': 'file',
+          'name': "React-RCTBlob-umbrella.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/Pods/Target Support Files/React-RCTBlob/React-RCTBlob-umbrella.h"
+        }
+      ]
+    },
+    {
+      'type': 'directory',
+      'name': "/Users/headfitted/Documents/hussain/delogueApp/ios/build/Debug-iphonesimulator/React-RCTBlob/RCTBlob.framework/Modules",
+      'contents': [
+        {
+          'type': 'file',
+          'name': "module.modulemap",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/build/Pods.build/Debug-iphonesimulator/React-RCTBlob.build/module.modulemap"
+        }
+      ]
+    },
+    {
+      'type': 'directory',
+      'name': "/Users/headfitted/Documents/hussain/delogueApp/ios/build/Debug-iphonesimulator/React-RCTImage/RCTImage.framework/Headers",
+      'contents': [
+        {
+          'type': 'file',
+          'name': "RCTImage-Swift.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/build/Debug-iphonesimulator/React-RCTImage/RCTImage.framework/Headers/RCTImage-Swift.h"
+        },
+        {
+          'type': 'file',
+          'name': "React-RCTImage-umbrella.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/Pods/Target Support Files/React-RCTImage/React-RCTImage-umbrella.h"
+        }
+      ]
+    },
+    {
+      'type': 'directory',
+      'name': "/Users/headfitted/Documents/hussain/delogueApp/ios/build/Debug-iphonesimulator/React-RCTImage/RCTImage.framework/Modules",
+      'contents': [
+        {
+          'type': 'file',
+          'name': "module.modulemap",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/build/Pods.build/Debug-iphonesimulator/React-RCTImage.build/module.modulemap"
+        }
+      ]
+    },
+    {
+      'type': 'directory',
+      'name': "/Users/headfitted/Documents/hussain/delogueApp/ios/build/Debug-iphonesimulator/React-RCTLinking/RCTLinking.framework/Headers",
+      'contents': [
+        {
+          'type': 'file',
+          'name': "RCTLinking-Swift.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/build/Debug-iphonesimulator/React-RCTLinking/RCTLinking.framework/Headers/RCTLinking-Swift.h"
+        },
+        {
+          'type': 'file',
+          'name': "React-RCTLinking-umbrella.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/Pods/Target Support Files/React-RCTLinking/React-RCTLinking-umbrella.h"
+        }
+      ]
+    },
+    {
+      'type': 'directory',
+      'name': "/Users/headfitted/Documents/hussain/delogueApp/ios/build/Debug-iphonesimulator/React-RCTLinking/RCTLinking.framework/Modules",
+      'contents': [
+        {
+          'type': 'file',
+          'name': "module.modulemap",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/build/Pods.build/Debug-iphonesimulator/React-RCTLinking.build/module.modulemap"
+        }
+      ]
+    },
+    {
+      'type': 'directory',
+      'name': "/Users/headfitted/Documents/hussain/delogueApp/ios/build/Debug-iphonesimulator/React-RCTNetwork/RCTNetwork.framework/Headers",
+      'contents': [
+        {
+          'type': 'file',
+          'name': "RCTNetwork-Swift.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/build/Debug-iphonesimulator/React-RCTNetwork/RCTNetwork.framework/Headers/RCTNetwork-Swift.h"
+        },
+        {
+          'type': 'file',
+          'name': "React-RCTNetwork-umbrella.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/Pods/Target Support Files/React-RCTNetwork/React-RCTNetwork-umbrella.h"
+        }
+      ]
+    },
+    {
+      'type': 'directory',
+      'name': "/Users/headfitted/Documents/hussain/delogueApp/ios/build/Debug-iphonesimulator/React-RCTNetwork/RCTNetwork.framework/Modules",
+      'contents': [
+        {
+          'type': 'file',
+          'name': "module.modulemap",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/build/Pods.build/Debug-iphonesimulator/React-RCTNetwork.build/module.modulemap"
+        }
+      ]
+    },
+    {
+      'type': 'directory',
+      'name': "/Users/headfitted/Documents/hussain/delogueApp/ios/build/Debug-iphonesimulator/React-RCTSettings/RCTSettings.framework/Headers",
+      'contents': [
+        {
+          'type': 'file',
+          'name': "RCTSettings-Swift.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/build/Debug-iphonesimulator/React-RCTSettings/RCTSettings.framework/Headers/RCTSettings-Swift.h"
+        },
+        {
+          'type': 'file',
+          'name': "React-RCTSettings-umbrella.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/Pods/Target Support Files/React-RCTSettings/React-RCTSettings-umbrella.h"
+        }
+      ]
+    },
+    {
+      'type': 'directory',
+      'name': "/Users/headfitted/Documents/hussain/delogueApp/ios/build/Debug-iphonesimulator/React-RCTSettings/RCTSettings.framework/Modules",
+      'contents': [
+        {
+          'type': 'file',
+          'name': "module.modulemap",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/build/Pods.build/Debug-iphonesimulator/React-RCTSettings.build/module.modulemap"
+        }
+      ]
+    },
+    {
+      'type': 'directory',
+      'name': "/Users/headfitted/Documents/hussain/delogueApp/ios/build/Debug-iphonesimulator/React-RCTText/RCTText.framework/Headers",
+      'contents': [
+        {
+          'type': 'file',
+          'name': "NSTextStorage+FontScaling.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/Libraries/Text/Text/NSTextStorage+FontScaling.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTBackedTextInputDelegate.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/Libraries/Text/TextInput/RCTBackedTextInputDelegate.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTBackedTextInputDelegateAdapter.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/Libraries/Text/TextInput/RCTBackedTextInputDelegateAdapter.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTBackedTextInputViewProtocol.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/Libraries/Text/TextInput/RCTBackedTextInputViewProtocol.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTBaseTextInputShadowView.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/Libraries/Text/TextInput/RCTBaseTextInputShadowView.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTBaseTextInputView.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/Libraries/Text/TextInput/RCTBaseTextInputView.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTBaseTextInputViewManager.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/Libraries/Text/TextInput/RCTBaseTextInputViewManager.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTBaseTextShadowView.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/Libraries/Text/BaseText/RCTBaseTextShadowView.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTBaseTextViewManager.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/Libraries/Text/BaseText/RCTBaseTextViewManager.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTConvert+Text.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/Libraries/Text/RCTConvert+Text.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTInputAccessoryShadowView.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/Libraries/Text/TextInput/RCTInputAccessoryShadowView.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTInputAccessoryView.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/Libraries/Text/TextInput/RCTInputAccessoryView.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTInputAccessoryViewContent.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/Libraries/Text/TextInput/RCTInputAccessoryViewContent.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTInputAccessoryViewManager.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/Libraries/Text/TextInput/RCTInputAccessoryViewManager.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTMultilineTextInputView.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/Libraries/Text/TextInput/Multiline/RCTMultilineTextInputView.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTMultilineTextInputViewManager.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/Libraries/Text/TextInput/Multiline/RCTMultilineTextInputViewManager.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTRawTextShadowView.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/Libraries/Text/RawText/RCTRawTextShadowView.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTRawTextViewManager.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/Libraries/Text/RawText/RCTRawTextViewManager.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTSinglelineTextInputView.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/Libraries/Text/TextInput/Singleline/RCTSinglelineTextInputView.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTSinglelineTextInputViewManager.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/Libraries/Text/TextInput/Singleline/RCTSinglelineTextInputViewManager.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTText-Swift.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/build/Debug-iphonesimulator/React-RCTText/RCTText.framework/Headers/RCTText-Swift.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTTextAttributes.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/Libraries/Text/RCTTextAttributes.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTTextSelection.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/Libraries/Text/TextInput/RCTTextSelection.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTTextShadowView.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/Libraries/Text/Text/RCTTextShadowView.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTTextTransform.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/Libraries/Text/RCTTextTransform.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTTextView.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/Libraries/Text/Text/RCTTextView.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTTextViewManager.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/Libraries/Text/Text/RCTTextViewManager.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTUITextField.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/Libraries/Text/TextInput/Singleline/RCTUITextField.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTUITextView.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/Libraries/Text/TextInput/Multiline/RCTUITextView.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTVirtualTextShadowView.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/Libraries/Text/VirtualText/RCTVirtualTextShadowView.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTVirtualTextViewManager.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/Libraries/Text/VirtualText/RCTVirtualTextViewManager.h"
+        },
+        {
+          'type': 'file',
+          'name': "React-RCTText-umbrella.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/Pods/Target Support Files/React-RCTText/React-RCTText-umbrella.h"
+        }
+      ]
+    },
+    {
+      'type': 'directory',
+      'name': "/Users/headfitted/Documents/hussain/delogueApp/ios/build/Debug-iphonesimulator/React-RCTText/RCTText.framework/Modules",
+      'contents': [
+        {
+          'type': 'file',
+          'name': "module.modulemap",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/build/Pods.build/Debug-iphonesimulator/React-RCTText.build/module.modulemap"
+        }
+      ]
+    },
+    {
+      'type': 'directory',
+      'name': "/Users/headfitted/Documents/hussain/delogueApp/ios/build/Debug-iphonesimulator/React-RCTVibration/RCTVibration.framework/Headers",
+      'contents': [
+        {
+          'type': 'file',
+          'name': "RCTVibration-Swift.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/build/Debug-iphonesimulator/React-RCTVibration/RCTVibration.framework/Headers/RCTVibration-Swift.h"
+        },
+        {
+          'type': 'file',
+          'name': "React-RCTVibration-umbrella.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/Pods/Target Support Files/React-RCTVibration/React-RCTVibration-umbrella.h"
+        }
+      ]
+    },
+    {
+      'type': 'directory',
+      'name': "/Users/headfitted/Documents/hussain/delogueApp/ios/build/Debug-iphonesimulator/React-RCTVibration/RCTVibration.framework/Modules",
+      'contents': [
+        {
+          'type': 'file',
+          'name': "module.modulemap",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/build/Pods.build/Debug-iphonesimulator/React-RCTVibration.build/module.modulemap"
+        }
+      ]
+    },
+    {
+      'type': 'directory',
+      'name': "/Users/headfitted/Documents/hussain/delogueApp/ios/build/Debug-iphonesimulator/React-cxxreact/cxxreact.framework/Headers",
+      'contents': [
+        {
+          'type': 'file',
+          'name': "CxxModule.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/ReactCommon/cxxreact/CxxModule.h"
+        },
+        {
+          'type': 'file',
+          'name': "CxxNativeModule.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/ReactCommon/cxxreact/CxxNativeModule.h"
+        },
+        {
+          'type': 'file',
+          'name': "Instance.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/ReactCommon/cxxreact/Instance.h"
+        },
+        {
+          'type': 'file',
+          'name': "JSBigString.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/ReactCommon/cxxreact/JSBigString.h"
+        },
+        {
+          'type': 'file',
+          'name': "JSBundleType.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/ReactCommon/cxxreact/JSBundleType.h"
+        },
+        {
+          'type': 'file',
+          'name': "JSDeltaBundleClient.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/ReactCommon/cxxreact/JSDeltaBundleClient.h"
+        },
+        {
+          'type': 'file',
+          'name': "JSExecutor.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/ReactCommon/cxxreact/JSExecutor.h"
+        },
+        {
+          'type': 'file',
+          'name': "JSIndexedRAMBundle.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/ReactCommon/cxxreact/JSIndexedRAMBundle.h"
+        },
+        {
+          'type': 'file',
+          'name': "JSModulesUnbundle.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/ReactCommon/cxxreact/JSModulesUnbundle.h"
+        },
+        {
+          'type': 'file',
+          'name': "JsArgumentHelpers-inl.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/ReactCommon/cxxreact/JsArgumentHelpers-inl.h"
+        },
+        {
+          'type': 'file',
+          'name': "JsArgumentHelpers.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/ReactCommon/cxxreact/JsArgumentHelpers.h"
+        },
+        {
+          'type': 'file',
+          'name': "MessageQueueThread.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/ReactCommon/cxxreact/MessageQueueThread.h"
+        },
+        {
+          'type': 'file',
+          'name': "MethodCall.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/ReactCommon/cxxreact/MethodCall.h"
+        },
+        {
+          'type': 'file',
+          'name': "ModuleRegistry.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/ReactCommon/cxxreact/ModuleRegistry.h"
+        },
+        {
+          'type': 'file',
+          'name': "NativeModule.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/ReactCommon/cxxreact/NativeModule.h"
+        },
+        {
+          'type': 'file',
+          'name': "NativeToJsBridge.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/ReactCommon/cxxreact/NativeToJsBridge.h"
+        },
+        {
+          'type': 'file',
+          'name': "RAMBundleRegistry.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/ReactCommon/cxxreact/RAMBundleRegistry.h"
+        },
+        {
+          'type': 'file',
+          'name': "React-cxxreact-umbrella.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/Pods/Target Support Files/React-cxxreact/React-cxxreact-umbrella.h"
+        },
+        {
+          'type': 'file',
+          'name': "ReactMarker.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/ReactCommon/cxxreact/ReactMarker.h"
+        },
+        {
+          'type': 'file',
+          'name': "RecoverableError.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/ReactCommon/cxxreact/RecoverableError.h"
+        },
+        {
+          'type': 'file',
+          'name': "SharedProxyCxxModule.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/ReactCommon/cxxreact/SharedProxyCxxModule.h"
+        },
+        {
+          'type': 'file',
+          'name': "SystraceSection.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/ReactCommon/cxxreact/SystraceSection.h"
+        },
+        {
+          'type': 'file',
+          'name': "cxxreact-Swift.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/build/Debug-iphonesimulator/React-cxxreact/cxxreact.framework/Headers/cxxreact-Swift.h"
+        }
+      ]
+    },
+    {
+      'type': 'directory',
+      'name': "/Users/headfitted/Documents/hussain/delogueApp/ios/build/Debug-iphonesimulator/React-cxxreact/cxxreact.framework/Modules",
+      'contents': [
+        {
+          'type': 'file',
+          'name': "module.modulemap",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/build/Pods.build/Debug-iphonesimulator/React-cxxreact.build/module.modulemap"
+        }
+      ]
+    },
+    {
+      'type': 'directory',
+      'name': "/Users/headfitted/Documents/hussain/delogueApp/ios/build/Debug-iphonesimulator/React-jsi/jsi.framework/Headers",
+      'contents': [
+        {
+          'type': 'file',
+          'name': "JSCRuntime.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/ReactCommon/jsi/JSCRuntime.h"
+        },
+        {
+          'type': 'file',
+          'name': "JSIDynamic.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/ReactCommon/jsi/jsi/JSIDynamic.h"
+        },
+        {
+          'type': 'file',
+          'name': "React-jsi-umbrella.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/Pods/Target Support Files/React-jsi/React-jsi-umbrella.h"
+        },
+        {
+          'type': 'file',
+          'name': "decorator.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/ReactCommon/jsi/jsi/decorator.h"
+        },
+        {
+          'type': 'file',
+          'name': "instrumentation.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/ReactCommon/jsi/jsi/instrumentation.h"
+        },
+        {
+          'type': 'file',
+          'name': "jsi-Swift.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/build/Debug-iphonesimulator/React-jsi/jsi.framework/Headers/jsi-Swift.h"
+        },
+        {
+          'type': 'file',
+          'name': "jsi-inl.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/ReactCommon/jsi/jsi/jsi-inl.h"
+        },
+        {
+          'type': 'file',
+          'name': "jsi.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/ReactCommon/jsi/jsi/jsi.h"
+        },
+        {
+          'type': 'file',
+          'name': "jsilib.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/ReactCommon/jsi/jsi/jsilib.h"
+        },
+        {
+          'type': 'file',
+          'name': "threadsafe.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/ReactCommon/jsi/jsi/threadsafe.h"
+        }
+      ]
+    },
+    {
+      'type': 'directory',
+      'name': "/Users/headfitted/Documents/hussain/delogueApp/ios/build/Debug-iphonesimulator/React-jsi/jsi.framework/Modules",
+      'contents': [
+        {
+          'type': 'file',
+          'name': "module.modulemap",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/build/Pods.build/Debug-iphonesimulator/React-jsi.build/module.modulemap"
+        }
+      ]
+    },
+    {
+      'type': 'directory',
+      'name': "/Users/headfitted/Documents/hussain/delogueApp/ios/build/Debug-iphonesimulator/React-jsiexecutor/jsireact.framework/Headers",
+      'contents': [
+        {
+          'type': 'file',
+          'name': "JSIExecutor.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/ReactCommon/jsiexecutor/jsireact/JSIExecutor.h"
+        },
+        {
+          'type': 'file',
+          'name': "JSINativeModules.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/ReactCommon/jsiexecutor/jsireact/JSINativeModules.h"
+        },
+        {
+          'type': 'file',
+          'name': "React-jsiexecutor-umbrella.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/Pods/Target Support Files/React-jsiexecutor/React-jsiexecutor-umbrella.h"
+        },
+        {
+          'type': 'file',
+          'name': "jsireact-Swift.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/build/Debug-iphonesimulator/React-jsiexecutor/jsireact.framework/Headers/jsireact-Swift.h"
+        }
+      ]
+    },
+    {
+      'type': 'directory',
+      'name': "/Users/headfitted/Documents/hussain/delogueApp/ios/build/Debug-iphonesimulator/React-jsiexecutor/jsireact.framework/Modules",
+      'contents': [
+        {
+          'type': 'file',
+          'name': "module.modulemap",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/build/Pods.build/Debug-iphonesimulator/React-jsiexecutor.build/module.modulemap"
+        }
+      ]
+    },
+    {
+      'type': 'directory',
+      'name': "/Users/headfitted/Documents/hussain/delogueApp/ios/build/Debug-iphonesimulator/React-jsinspector/jsinspector.framework/Headers",
+      'contents': [
+        {
+          'type': 'file',
+          'name': "InspectorInterfaces.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/ReactCommon/jsinspector/InspectorInterfaces.h"
+        },
+        {
+          'type': 'file',
+          'name': "React-jsinspector-umbrella.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/Pods/Target Support Files/React-jsinspector/React-jsinspector-umbrella.h"
+        },
+        {
+          'type': 'file',
+          'name': "jsinspector-Swift.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/build/Debug-iphonesimulator/React-jsinspector/jsinspector.framework/Headers/jsinspector-Swift.h"
+        }
+      ]
+    },
+    {
+      'type': 'directory',
+      'name': "/Users/headfitted/Documents/hussain/delogueApp/ios/build/Debug-iphonesimulator/React-jsinspector/jsinspector.framework/Modules",
+      'contents': [
+        {
+          'type': 'file',
+          'name': "module.modulemap",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/build/Pods.build/Debug-iphonesimulator/React-jsinspector.build/module.modulemap"
+        }
+      ]
+    },
+    {
+      'type': 'directory',
+      'name': "/Users/headfitted/Documents/hussain/delogueApp/ios/build/Debug-iphonesimulator/ReactCommon/ReactCommon.framework/Headers",
+      'contents': [
+        {
+          'type': 'file',
+          'name': "BridgeJSCallInvoker.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/ReactCommon/jscallinvoker/ReactCommon/BridgeJSCallInvoker.h"
+        },
+        {
+          'type': 'file',
+          'name': "JSCallInvoker.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/ReactCommon/jscallinvoker/ReactCommon/JSCallInvoker.h"
+        },
+        {
+          'type': 'file',
+          'name': "LongLivedObject.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/ReactCommon/turbomodule/core/LongLivedObject.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTTurboModule.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/ReactCommon/turbomodule/core/platform/ios/RCTTurboModule.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTTurboModuleManager.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/ReactCommon/turbomodule/core/platform/ios/RCTTurboModuleManager.h"
+        },
+        {
+          'type': 'file',
+          'name': "ReactCommon-Swift.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/build/Debug-iphonesimulator/ReactCommon/ReactCommon.framework/Headers/ReactCommon-Swift.h"
+        },
+        {
+          'type': 'file',
+          'name': "ReactCommon-umbrella.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/Pods/Target Support Files/ReactCommon/ReactCommon-umbrella.h"
+        },
+        {
+          'type': 'file',
+          'name': "TurboCxxModule.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/ReactCommon/turbomodule/core/TurboCxxModule.h"
+        },
+        {
+          'type': 'file',
+          'name': "TurboModule.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/ReactCommon/turbomodule/core/TurboModule.h"
+        },
+        {
+          'type': 'file',
+          'name': "TurboModuleBinding.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/ReactCommon/turbomodule/core/TurboModuleBinding.h"
+        },
+        {
+          'type': 'file',
+          'name': "TurboModuleUtils.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/ReactCommon/turbomodule/core/TurboModuleUtils.h"
+        }
+      ]
+    },
+    {
+      'type': 'directory',
+      'name': "/Users/headfitted/Documents/hussain/delogueApp/ios/build/Debug-iphonesimulator/ReactCommon/ReactCommon.framework/Modules",
+      'contents': [
+        {
+          'type': 'file',
+          'name': "module.modulemap",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/build/Pods.build/Debug-iphonesimulator/ReactCommon.build/module.modulemap"
+        }
+      ]
+    },
+    {
+      'type': 'directory',
+      'name': "/Users/headfitted/Documents/hussain/delogueApp/ios/build/Debug-iphonesimulator/SDWebImage/SDWebImage.framework/Headers",
+      'contents': [
+        {
+          'type': 'file',
+          'name': "NSButton+WebCache.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/Pods/SDWebImage/SDWebImage/Core/NSButton+WebCache.h"
+        },
+        {
+          'type': 'file',
+          'name': "NSData+ImageContentType.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/Pods/SDWebImage/SDWebImage/Core/NSData+ImageContentType.h"
+        },
+        {
+          'type': 'file',
+          'name': "NSImage+Compatibility.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/Pods/SDWebImage/SDWebImage/Core/NSImage+Compatibility.h"
+        },
+        {
+          'type': 'file',
+          'name': "SDAnimatedImage.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/Pods/SDWebImage/SDWebImage/Core/SDAnimatedImage.h"
+        },
+        {
+          'type': 'file',
+          'name': "SDAnimatedImagePlayer.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/Pods/SDWebImage/SDWebImage/Core/SDAnimatedImagePlayer.h"
+        },
+        {
+          'type': 'file',
+          'name': "SDAnimatedImageRep.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/Pods/SDWebImage/SDWebImage/Core/SDAnimatedImageRep.h"
+        },
+        {
+          'type': 'file',
+          'name': "SDAnimatedImageView+WebCache.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/Pods/SDWebImage/SDWebImage/Core/SDAnimatedImageView+WebCache.h"
+        },
+        {
+          'type': 'file',
+          'name': "SDAnimatedImageView.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/Pods/SDWebImage/SDWebImage/Core/SDAnimatedImageView.h"
+        },
+        {
+          'type': 'file',
+          'name': "SDDiskCache.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/Pods/SDWebImage/SDWebImage/Core/SDDiskCache.h"
+        },
+        {
+          'type': 'file',
+          'name': "SDImageAPNGCoder.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/Pods/SDWebImage/SDWebImage/Core/SDImageAPNGCoder.h"
+        },
+        {
+          'type': 'file',
+          'name': "SDImageCache.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/Pods/SDWebImage/SDWebImage/Core/SDImageCache.h"
+        },
+        {
+          'type': 'file',
+          'name': "SDImageCacheConfig.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/Pods/SDWebImage/SDWebImage/Core/SDImageCacheConfig.h"
+        },
+        {
+          'type': 'file',
+          'name': "SDImageCacheDefine.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/Pods/SDWebImage/SDWebImage/Core/SDImageCacheDefine.h"
+        },
+        {
+          'type': 'file',
+          'name': "SDImageCachesManager.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/Pods/SDWebImage/SDWebImage/Core/SDImageCachesManager.h"
+        },
+        {
+          'type': 'file',
+          'name': "SDImageCoder.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/Pods/SDWebImage/SDWebImage/Core/SDImageCoder.h"
+        },
+        {
+          'type': 'file',
+          'name': "SDImageCoderHelper.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/Pods/SDWebImage/SDWebImage/Core/SDImageCoderHelper.h"
+        },
+        {
+          'type': 'file',
+          'name': "SDImageCodersManager.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/Pods/SDWebImage/SDWebImage/Core/SDImageCodersManager.h"
+        },
+        {
+          'type': 'file',
+          'name': "SDImageFrame.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/Pods/SDWebImage/SDWebImage/Core/SDImageFrame.h"
+        },
+        {
+          'type': 'file',
+          'name': "SDImageGIFCoder.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/Pods/SDWebImage/SDWebImage/Core/SDImageGIFCoder.h"
+        },
+        {
+          'type': 'file',
+          'name': "SDImageGraphics.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/Pods/SDWebImage/SDWebImage/Core/SDImageGraphics.h"
+        },
+        {
+          'type': 'file',
+          'name': "SDImageHEICCoder.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/Pods/SDWebImage/SDWebImage/Core/SDImageHEICCoder.h"
+        },
+        {
+          'type': 'file',
+          'name': "SDImageIOAnimatedCoder.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/Pods/SDWebImage/SDWebImage/Core/SDImageIOAnimatedCoder.h"
+        },
+        {
+          'type': 'file',
+          'name': "SDImageIOCoder.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/Pods/SDWebImage/SDWebImage/Core/SDImageIOCoder.h"
+        },
+        {
+          'type': 'file',
+          'name': "SDImageLoader.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/Pods/SDWebImage/SDWebImage/Core/SDImageLoader.h"
+        },
+        {
+          'type': 'file',
+          'name': "SDImageLoadersManager.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/Pods/SDWebImage/SDWebImage/Core/SDImageLoadersManager.h"
+        },
+        {
+          'type': 'file',
+          'name': "SDImageTransformer.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/Pods/SDWebImage/SDWebImage/Core/SDImageTransformer.h"
+        },
+        {
+          'type': 'file',
+          'name': "SDMemoryCache.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/Pods/SDWebImage/SDWebImage/Core/SDMemoryCache.h"
+        },
+        {
+          'type': 'file',
+          'name': "SDWebImage-Swift.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/build/Debug-iphonesimulator/SDWebImage/SDWebImage.framework/Headers/SDWebImage-Swift.h"
+        },
+        {
+          'type': 'file',
+          'name': "SDWebImage-umbrella.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/Pods/Target Support Files/SDWebImage/SDWebImage-umbrella.h"
+        },
+        {
+          'type': 'file',
+          'name': "SDWebImage.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/Pods/SDWebImage/WebImage/SDWebImage.h"
+        },
+        {
+          'type': 'file',
+          'name': "SDWebImageCacheKeyFilter.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/Pods/SDWebImage/SDWebImage/Core/SDWebImageCacheKeyFilter.h"
+        },
+        {
+          'type': 'file',
+          'name': "SDWebImageCacheSerializer.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/Pods/SDWebImage/SDWebImage/Core/SDWebImageCacheSerializer.h"
+        },
+        {
+          'type': 'file',
+          'name': "SDWebImageCompat.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/Pods/SDWebImage/SDWebImage/Core/SDWebImageCompat.h"
+        },
+        {
+          'type': 'file',
+          'name': "SDWebImageDefine.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/Pods/SDWebImage/SDWebImage/Core/SDWebImageDefine.h"
+        },
+        {
+          'type': 'file',
+          'name': "SDWebImageDownloader.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/Pods/SDWebImage/SDWebImage/Core/SDWebImageDownloader.h"
+        },
+        {
+          'type': 'file',
+          'name': "SDWebImageDownloaderConfig.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/Pods/SDWebImage/SDWebImage/Core/SDWebImageDownloaderConfig.h"
+        },
+        {
+          'type': 'file',
+          'name': "SDWebImageDownloaderDecryptor.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/Pods/SDWebImage/SDWebImage/Core/SDWebImageDownloaderDecryptor.h"
+        },
+        {
+          'type': 'file',
+          'name': "SDWebImageDownloaderOperation.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/Pods/SDWebImage/SDWebImage/Core/SDWebImageDownloaderOperation.h"
+        },
+        {
+          'type': 'file',
+          'name': "SDWebImageDownloaderRequestModifier.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/Pods/SDWebImage/SDWebImage/Core/SDWebImageDownloaderRequestModifier.h"
+        },
+        {
+          'type': 'file',
+          'name': "SDWebImageDownloaderResponseModifier.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/Pods/SDWebImage/SDWebImage/Core/SDWebImageDownloaderResponseModifier.h"
+        },
+        {
+          'type': 'file',
+          'name': "SDWebImageError.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/Pods/SDWebImage/SDWebImage/Core/SDWebImageError.h"
+        },
+        {
+          'type': 'file',
+          'name': "SDWebImageIndicator.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/Pods/SDWebImage/SDWebImage/Core/SDWebImageIndicator.h"
+        },
+        {
+          'type': 'file',
+          'name': "SDWebImageManager.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/Pods/SDWebImage/SDWebImage/Core/SDWebImageManager.h"
+        },
+        {
+          'type': 'file',
+          'name': "SDWebImageOperation.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/Pods/SDWebImage/SDWebImage/Core/SDWebImageOperation.h"
+        },
+        {
+          'type': 'file',
+          'name': "SDWebImageOptionsProcessor.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/Pods/SDWebImage/SDWebImage/Core/SDWebImageOptionsProcessor.h"
+        },
+        {
+          'type': 'file',
+          'name': "SDWebImagePrefetcher.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/Pods/SDWebImage/SDWebImage/Core/SDWebImagePrefetcher.h"
+        },
+        {
+          'type': 'file',
+          'name': "SDWebImageTransition.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/Pods/SDWebImage/SDWebImage/Core/SDWebImageTransition.h"
+        },
+        {
+          'type': 'file',
+          'name': "UIButton+WebCache.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/Pods/SDWebImage/SDWebImage/Core/UIButton+WebCache.h"
+        },
+        {
+          'type': 'file',
+          'name': "UIImage+ExtendedCacheData.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/Pods/SDWebImage/SDWebImage/Core/UIImage+ExtendedCacheData.h"
+        },
+        {
+          'type': 'file',
+          'name': "UIImage+ForceDecode.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/Pods/SDWebImage/SDWebImage/Core/UIImage+ForceDecode.h"
+        },
+        {
+          'type': 'file',
+          'name': "UIImage+GIF.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/Pods/SDWebImage/SDWebImage/Core/UIImage+GIF.h"
+        },
+        {
+          'type': 'file',
+          'name': "UIImage+MemoryCacheCost.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/Pods/SDWebImage/SDWebImage/Core/UIImage+MemoryCacheCost.h"
+        },
+        {
+          'type': 'file',
+          'name': "UIImage+Metadata.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/Pods/SDWebImage/SDWebImage/Core/UIImage+Metadata.h"
+        },
+        {
+          'type': 'file',
+          'name': "UIImage+MultiFormat.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/Pods/SDWebImage/SDWebImage/Core/UIImage+MultiFormat.h"
+        },
+        {
+          'type': 'file',
+          'name': "UIImage+Transform.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/Pods/SDWebImage/SDWebImage/Core/UIImage+Transform.h"
+        },
+        {
+          'type': 'file',
+          'name': "UIImageView+HighlightedWebCache.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/Pods/SDWebImage/SDWebImage/Core/UIImageView+HighlightedWebCache.h"
+        },
+        {
+          'type': 'file',
+          'name': "UIImageView+WebCache.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/Pods/SDWebImage/SDWebImage/Core/UIImageView+WebCache.h"
+        },
+        {
+          'type': 'file',
+          'name': "UIView+WebCache.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/Pods/SDWebImage/SDWebImage/Core/UIView+WebCache.h"
+        },
+        {
+          'type': 'file',
+          'name': "UIView+WebCacheOperation.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/Pods/SDWebImage/SDWebImage/Core/UIView+WebCacheOperation.h"
+        }
+      ]
+    },
+    {
+      'type': 'directory',
+      'name': "/Users/headfitted/Documents/hussain/delogueApp/ios/build/Debug-iphonesimulator/SDWebImage/SDWebImage.framework/Modules",
+      'contents': [
+        {
+          'type': 'file',
+          'name': "module.modulemap",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/build/Pods.build/Debug-iphonesimulator/SDWebImage.build/module.modulemap"
+        }
+      ]
+    },
+    {
+      'type': 'directory',
+      'name': "/Users/headfitted/Documents/hussain/delogueApp/ios/build/Debug-iphonesimulator/SDWebImage/SDWebImage.framework/PrivateHeaders",
+      'contents': [
+        {
+          'type': 'file',
+          'name': "NSBezierPath+RoundedCorners.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/Pods/SDWebImage/SDWebImage/Private/NSBezierPath+RoundedCorners.h"
+        },
+        {
+          'type': 'file',
+          'name': "SDAssociatedObject.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/Pods/SDWebImage/SDWebImage/Private/SDAssociatedObject.h"
+        },
+        {
+          'type': 'file',
+          'name': "SDAsyncBlockOperation.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/Pods/SDWebImage/SDWebImage/Private/SDAsyncBlockOperation.h"
+        },
+        {
+          'type': 'file',
+          'name': "SDDeviceHelper.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/Pods/SDWebImage/SDWebImage/Private/SDDeviceHelper.h"
+        },
+        {
+          'type': 'file',
+          'name': "SDDisplayLink.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/Pods/SDWebImage/SDWebImage/Private/SDDisplayLink.h"
+        },
+        {
+          'type': 'file',
+          'name': "SDFileAttributeHelper.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/Pods/SDWebImage/SDWebImage/Private/SDFileAttributeHelper.h"
+        },
+        {
+          'type': 'file',
+          'name': "SDImageAssetManager.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/Pods/SDWebImage/SDWebImage/Private/SDImageAssetManager.h"
+        },
+        {
+          'type': 'file',
+          'name': "SDImageCachesManagerOperation.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/Pods/SDWebImage/SDWebImage/Private/SDImageCachesManagerOperation.h"
+        },
+        {
+          'type': 'file',
+          'name': "SDImageHEICCoderInternal.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/Pods/SDWebImage/SDWebImage/Private/SDImageHEICCoderInternal.h"
+        },
+        {
+          'type': 'file',
+          'name': "SDImageIOAnimatedCoderInternal.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/Pods/SDWebImage/SDWebImage/Private/SDImageIOAnimatedCoderInternal.h"
+        },
+        {
+          'type': 'file',
+          'name': "SDInternalMacros.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/Pods/SDWebImage/SDWebImage/Private/SDInternalMacros.h"
+        },
+        {
+          'type': 'file',
+          'name': "SDWeakProxy.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/Pods/SDWebImage/SDWebImage/Private/SDWeakProxy.h"
+        },
+        {
+          'type': 'file',
+          'name': "SDmetamacros.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/Pods/SDWebImage/SDWebImage/Private/SDmetamacros.h"
+        },
+        {
+          'type': 'file',
+          'name': "UIColor+HexString.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/Pods/SDWebImage/SDWebImage/Private/UIColor+HexString.h"
+        }
+      ]
+    },
+    {
+      'type': 'directory',
+      'name': "/Users/headfitted/Documents/hussain/delogueApp/ios/build/Debug-iphonesimulator/SDWebImageWebPCoder/SDWebImageWebPCoder.framework/Headers",
+      'contents': [
+        {
+          'type': 'file',
+          'name': "SDImageWebPCoder.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/Pods/SDWebImageWebPCoder/SDWebImageWebPCoder/Classes/SDImageWebPCoder.h"
+        },
+        {
+          'type': 'file',
+          'name': "SDWebImageWebPCoder-Swift.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/build/Debug-iphonesimulator/SDWebImageWebPCoder/SDWebImageWebPCoder.framework/Headers/SDWebImageWebPCoder-Swift.h"
+        },
+        {
+          'type': 'file',
+          'name': "SDWebImageWebPCoder.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/Pods/SDWebImageWebPCoder/SDWebImageWebPCoder/Module/SDWebImageWebPCoder.h"
+        },
+        {
+          'type': 'file',
+          'name': "UIImage+WebP.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/Pods/SDWebImageWebPCoder/SDWebImageWebPCoder/Classes/UIImage+WebP.h"
+        }
+      ]
+    },
+    {
+      'type': 'directory',
+      'name': "/Users/headfitted/Documents/hussain/delogueApp/ios/build/Debug-iphonesimulator/SDWebImageWebPCoder/SDWebImageWebPCoder.framework/Modules",
+      'contents': [
+        {
+          'type': 'file',
+          'name': "module.modulemap",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/build/Pods.build/Debug-iphonesimulator/SDWebImageWebPCoder.build/module.modulemap"
+        }
+      ]
+    },
+    {
+      'type': 'directory',
+      'name': "/Users/headfitted/Documents/hussain/delogueApp/ios/build/Debug-iphonesimulator/Yoga/yoga.framework/Headers",
+      'contents': [
+        {
+          'type': 'file',
+          'name': "YGEnums.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/ReactCommon/yoga/yoga/YGEnums.h"
+        },
+        {
+          'type': 'file',
+          'name': "YGMacros.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/ReactCommon/yoga/yoga/YGMacros.h"
+        },
+        {
+          'type': 'file',
+          'name': "YGValue.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/ReactCommon/yoga/yoga/YGValue.h"
+        },
+        {
+          'type': 'file',
+          'name': "Yoga-umbrella.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/Pods/Target Support Files/Yoga/Yoga-umbrella.h"
+        },
+        {
+          'type': 'file',
+          'name': "Yoga.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native/ReactCommon/yoga/yoga/Yoga.h"
+        },
+        {
+          'type': 'file',
+          'name': "yoga-Swift.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/build/Debug-iphonesimulator/Yoga/yoga.framework/Headers/yoga-Swift.h"
+        }
+      ]
+    },
+    {
+      'type': 'directory',
+      'name': "/Users/headfitted/Documents/hussain/delogueApp/ios/build/Debug-iphonesimulator/Yoga/yoga.framework/Modules",
+      'contents': [
+        {
+          'type': 'file',
+          'name': "module.modulemap",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/build/Pods.build/Debug-iphonesimulator/Yoga.build/module.modulemap"
+        }
+      ]
+    },
+    {
+      'type': 'directory',
+      'name': "/Users/headfitted/Documents/hussain/delogueApp/ios/build/Debug-iphonesimulator/glog/glog.framework/Headers",
+      'contents': [
+        {
+          'type': 'file',
+          'name': "glog-Swift.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/build/Debug-iphonesimulator/glog/glog.framework/Headers/glog-Swift.h"
+        },
+        {
+          'type': 'file',
+          'name': "glog-umbrella.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/Pods/Target Support Files/glog/glog-umbrella.h"
+        },
+        {
+          'type': 'file',
+          'name': "log_severity.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/Pods/glog/src/glog/log_severity.h"
+        },
+        {
+          'type': 'file',
+          'name': "logging.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/Pods/glog/src/glog/logging.h"
+        },
+        {
+          'type': 'file',
+          'name': "raw_logging.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/Pods/glog/src/glog/raw_logging.h"
+        },
+        {
+          'type': 'file',
+          'name': "stl_logging.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/Pods/glog/src/glog/stl_logging.h"
+        },
+        {
+          'type': 'file',
+          'name': "vlog_is_on.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/Pods/glog/src/glog/vlog_is_on.h"
+        }
+      ]
+    },
+    {
+      'type': 'directory',
+      'name': "/Users/headfitted/Documents/hussain/delogueApp/ios/build/Debug-iphonesimulator/glog/glog.framework/Modules",
+      'contents': [
+        {
+          'type': 'file',
+          'name': "module.modulemap",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/build/Pods.build/Debug-iphonesimulator/glog.build/module.modulemap"
+        }
+      ]
+    },
+    {
+      'type': 'directory',
+      'name': "/Users/headfitted/Documents/hussain/delogueApp/ios/build/Debug-iphonesimulator/libwebp/libwebp.framework/Headers",
+      'contents': [
+        {
+          'type': 'file',
+          'name': "decode.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/Pods/libwebp/src/webp/decode.h"
+        },
+        {
+          'type': 'file',
+          'name': "demux.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/Pods/libwebp/src/webp/demux.h"
+        },
+        {
+          'type': 'file',
+          'name': "encode.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/Pods/libwebp/src/webp/encode.h"
+        },
+        {
+          'type': 'file',
+          'name': "format_constants.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/Pods/libwebp/src/webp/format_constants.h"
+        },
+        {
+          'type': 'file',
+          'name': "libwebp-Swift.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/build/Debug-iphonesimulator/libwebp/libwebp.framework/Headers/libwebp-Swift.h"
+        },
+        {
+          'type': 'file',
+          'name': "libwebp-umbrella.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/Pods/Target Support Files/libwebp/libwebp-umbrella.h"
+        },
+        {
+          'type': 'file',
+          'name': "mux.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/Pods/libwebp/src/webp/mux.h"
+        },
+        {
+          'type': 'file',
+          'name': "mux_types.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/Pods/libwebp/src/webp/mux_types.h"
+        },
+        {
+          'type': 'file',
+          'name': "types.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/Pods/libwebp/src/webp/types.h"
+        }
+      ]
+    },
+    {
+      'type': 'directory',
+      'name': "/Users/headfitted/Documents/hussain/delogueApp/ios/build/Debug-iphonesimulator/libwebp/libwebp.framework/Modules",
+      'contents': [
+        {
+          'type': 'file',
+          'name': "module.modulemap",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/build/Pods.build/Debug-iphonesimulator/libwebp.build/module.modulemap"
+        }
+      ]
+    },
+    {
+      'type': 'directory',
+      'name': "/Users/headfitted/Documents/hussain/delogueApp/ios/build/Debug-iphonesimulator/lottie-ios/Lottie.framework/Headers",
+      'contents': [
+        {
+          'type': 'file',
+          'name': "Lottie-Swift.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/build/Debug-iphonesimulator/lottie-ios/Lottie.framework/Headers/Lottie-Swift.h"
+        },
+        {
+          'type': 'file',
+          'name': "lottie-ios-umbrella.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/Pods/Target Support Files/lottie-ios/lottie-ios-umbrella.h"
+        }
+      ]
+    },
+    {
+      'type': 'directory',
+      'name': "/Users/headfitted/Documents/hussain/delogueApp/ios/build/Debug-iphonesimulator/lottie-ios/Lottie.framework/Modules",
+      'contents': [
+        {
+          'type': 'file',
+          'name': "module.modulemap",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/build/Pods.build/Debug-iphonesimulator/lottie-ios.build/module.modulemap"
+        }
+      ]
+    },
+    {
+      'type': 'directory',
+      'name': "/Users/headfitted/Documents/hussain/delogueApp/ios/build/Debug-iphonesimulator/lottie-react-native/lottie_react_native.framework/Headers",
+      'contents': [
+        {
+          'type': 'file',
+          'name': "Bridging.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/lottie-react-native/src/ios/LottieReactNative/Bridging.h"
+        },
+        {
+          'type': 'file',
+          'name': "lottie-react-native-umbrella.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/Pods/Target Support Files/lottie-react-native/lottie-react-native-umbrella.h"
+        },
+        {
+          'type': 'file',
+          'name': "lottie_react_native-Swift.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/build/Debug-iphonesimulator/lottie-react-native/lottie_react_native.framework/Headers/lottie_react_native-Swift.h"
+        }
+      ]
+    },
+    {
+      'type': 'directory',
+      'name': "/Users/headfitted/Documents/hussain/delogueApp/ios/build/Debug-iphonesimulator/lottie-react-native/lottie_react_native.framework/Modules",
+      'contents': [
+        {
+          'type': 'file',
+          'name': "module.modulemap",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/build/Pods.build/Debug-iphonesimulator/lottie-react-native.build/module.modulemap"
+        }
+      ]
+    },
+    {
+      'type': 'directory',
+      'name': "/Users/headfitted/Documents/hussain/delogueApp/ios/build/Debug-iphonesimulator/react-native-camera/react_native_camera.framework/Headers",
+      'contents': [
+        {
+          'type': 'file',
+          'name': "BarcodeDetectorManagerMlkit.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native-camera/ios/RN/BarcodeDetectorManagerMlkit.h"
+        },
+        {
+          'type': 'file',
+          'name': "CameraFocusSquare.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native-camera/ios/RCT/CameraFocusSquare.h"
+        },
+        {
+          'type': 'file',
+          'name': "FaceDetectorManagerMlkit.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native-camera/ios/RN/FaceDetectorManagerMlkit.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTCamera.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native-camera/ios/RCT/RCTCamera.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTCameraManager.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native-camera/ios/RCT/RCTCameraManager.h"
+        },
+        {
+          'type': 'file',
+          'name': "RCTSensorOrientationChecker.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native-camera/ios/RCT/RCTSensorOrientationChecker.h"
+        },
+        {
+          'type': 'file',
+          'name': "RNCamera.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native-camera/ios/RN/RNCamera.h"
+        },
+        {
+          'type': 'file',
+          'name': "RNCameraManager.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native-camera/ios/RN/RNCameraManager.h"
+        },
+        {
+          'type': 'file',
+          'name': "RNCameraUtils.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native-camera/ios/RN/RNCameraUtils.h"
+        },
+        {
+          'type': 'file',
+          'name': "RNFaceDetectorModuleMLKit.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native-camera/ios/RN/RNFaceDetectorModuleMLKit.h"
+        },
+        {
+          'type': 'file',
+          'name': "RNFileSystem.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native-camera/ios/RN/RNFileSystem.h"
+        },
+        {
+          'type': 'file',
+          'name': "RNImageUtils.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native-camera/ios/RN/RNImageUtils.h"
+        },
+        {
+          'type': 'file',
+          'name': "RNSensorOrientationChecker.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native-camera/ios/RN/RNSensorOrientationChecker.h"
+        },
+        {
+          'type': 'file',
+          'name': "TextDetectorManager.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native-camera/ios/RN/TextDetectorManager.h"
+        },
+        {
+          'type': 'file',
+          'name': "react-native-camera-umbrella.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/Pods/Target Support Files/react-native-camera/react-native-camera-umbrella.h"
+        },
+        {
+          'type': 'file',
+          'name': "react_native_camera-Swift.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/build/Debug-iphonesimulator/react-native-camera/react_native_camera.framework/Headers/react_native_camera-Swift.h"
+        }
+      ]
+    },
+    {
+      'type': 'directory',
+      'name': "/Users/headfitted/Documents/hussain/delogueApp/ios/build/Debug-iphonesimulator/react-native-camera/react_native_camera.framework/Modules",
+      'contents': [
+        {
+          'type': 'file',
+          'name': "module.modulemap",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/build/Pods.build/Debug-iphonesimulator/react-native-camera.build/module.modulemap"
+        }
+      ]
+    },
+    {
+      'type': 'directory',
+      'name': "/Users/headfitted/Documents/hussain/delogueApp/ios/build/Debug-iphonesimulator/react-native-image-picker/react_native_image_picker.framework/Headers",
+      'contents': [
+        {
+          'type': 'file',
+          'name': "ImagePickerManager.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/react-native-image-picker/ios/ImagePickerManager.h"
+        },
+        {
+          'type': 'file',
+          'name': "react-native-image-picker-umbrella.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/Pods/Target Support Files/react-native-image-picker/react-native-image-picker-umbrella.h"
+        },
+        {
+          'type': 'file',
+          'name': "react_native_image_picker-Swift.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/build/Debug-iphonesimulator/react-native-image-picker/react_native_image_picker.framework/Headers/react_native_image_picker-Swift.h"
+        }
+      ]
+    },
+    {
+      'type': 'directory',
+      'name': "/Users/headfitted/Documents/hussain/delogueApp/ios/build/Debug-iphonesimulator/react-native-image-picker/react_native_image_picker.framework/Modules",
+      'contents': [
+        {
+          'type': 'file',
+          'name': "module.modulemap",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/build/Pods.build/Debug-iphonesimulator/react-native-image-picker.build/module.modulemap"
+        }
+      ]
+    },
+    {
+      'type': 'directory',
+      'name': "/Users/headfitted/Documents/hussain/delogueApp/ios/build/Debug-iphonesimulator/react-native-netinfo/react_native_netinfo.framework/Headers",
+      'contents': [
+        {
+          'type': 'file',
+          'name': "RNCConnectionState.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/@react-native-community/netinfo/ios/RNCConnectionState.h"
+        },
+        {
+          'type': 'file',
+          'name': "RNCConnectionStateWatcher.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/@react-native-community/netinfo/ios/RNCConnectionStateWatcher.h"
+        },
+        {
+          'type': 'file',
+          'name': "RNCNetInfo.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/@react-native-community/netinfo/ios/RNCNetInfo.h"
+        },
+        {
+          'type': 'file',
+          'name': "react-native-netinfo-umbrella.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/Pods/Target Support Files/react-native-netinfo/react-native-netinfo-umbrella.h"
+        },
+        {
+          'type': 'file',
+          'name': "react_native_netinfo-Swift.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/build/Debug-iphonesimulator/react-native-netinfo/react_native_netinfo.framework/Headers/react_native_netinfo-Swift.h"
+        }
+      ]
+    },
+    {
+      'type': 'directory',
+      'name': "/Users/headfitted/Documents/hussain/delogueApp/ios/build/Debug-iphonesimulator/react-native-netinfo/react_native_netinfo.framework/Modules",
+      'contents': [
+        {
+          'type': 'file',
+          'name': "module.modulemap",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/build/Pods.build/Debug-iphonesimulator/react-native-netinfo.build/module.modulemap"
+        }
+      ]
+    },
+    {
+      'type': 'directory',
+      'name': "/Users/headfitted/Documents/hussain/delogueApp/ios/build/Debug-iphonesimulator/rn-fetch-blob/rn_fetch_blob.framework/Headers",
+      'contents': [
+        {
+          'type': 'file',
+          'name': "IOS7Polyfill.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/rn-fetch-blob/ios/IOS7Polyfill.h"
+        },
+        {
+          'type': 'file',
+          'name': "RNFetchBlob.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/rn-fetch-blob/ios/RNFetchBlob/RNFetchBlob.h"
+        },
+        {
+          'type': 'file',
+          'name': "RNFetchBlobConst.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/rn-fetch-blob/ios/RNFetchBlobConst.h"
+        },
+        {
+          'type': 'file',
+          'name': "RNFetchBlobFS.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/rn-fetch-blob/ios/RNFetchBlobFS.h"
+        },
+        {
+          'type': 'file',
+          'name': "RNFetchBlobNetwork.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/rn-fetch-blob/ios/RNFetchBlobNetwork.h"
+        },
+        {
+          'type': 'file',
+          'name': "RNFetchBlobProgress.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/rn-fetch-blob/ios/RNFetchBlobProgress.h"
+        },
+        {
+          'type': 'file',
+          'name': "RNFetchBlobReqBuilder.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/rn-fetch-blob/ios/RNFetchBlobReqBuilder.h"
+        },
+        {
+          'type': 'file',
+          'name': "RNFetchBlobRequest.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/node_modules/rn-fetch-blob/ios/RNFetchBlobRequest.h"
+        },
+        {
+          'type': 'file',
+          'name': "rn-fetch-blob-umbrella.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/Pods/Target Support Files/rn-fetch-blob/rn-fetch-blob-umbrella.h"
+        },
+        {
+          'type': 'file',
+          'name': "rn_fetch_blob-Swift.h",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/build/Debug-iphonesimulator/rn-fetch-blob/rn_fetch_blob.framework/Headers/rn_fetch_blob-Swift.h"
+        }
+      ]
+    },
+    {
+      'type': 'directory',
+      'name': "/Users/headfitted/Documents/hussain/delogueApp/ios/build/Debug-iphonesimulator/rn-fetch-blob/rn_fetch_blob.framework/Modules",
+      'contents': [
+        {
+          'type': 'file',
+          'name': "module.modulemap",
+          'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/build/Pods.build/Debug-iphonesimulator/rn-fetch-blob.build/module.modulemap"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  'version': 0,
+  'case-sensitive': 'false',
+  'roots': [{
+    'type': 'directory',
+    'name': "/Users/headfitted/Documents/hussain/delogueApp/ios/build/Debug-iphonesimulator/lottie-ios/Lottie.framework/Modules"
+    'contents': [{
+      'type': 'file',
+      'name': "module.modulemap",
+      'external-contents': "/Users/headfitted/Documents/hussain/delogueApp/ios/build/Pods.build/Debug-iphonesimulator/lottie-ios.build/unextended-module.modulemap",
+    }]
+  }]
+}
