@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "/Users/headfitted/Documents/hussain/delogueApp/android/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-en-rXC/values-en-rXC.xml",
+            "outputFile": "/Users/siyaulhaqu/hussain/delogueApp/android/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-en-rXC/values-en-rXC.xml",
             "map": [
                 {
-                    "source": "/Users/headfitted/.gradle/caches/transforms-2/files-2.1/c1895063bb7e3162bb80d3ad70e5bd59/res/values-en-rXC/values-en-rXC.xml",
+                    "source": "/Users/siyaulhaqu/.gradle/caches/transforms-2/files-2.1/64bb9a748d9399207aabb98129ec9bea/res/values-en-rXC/values-en-rXC.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",
@@ -21,7 +21,7 @@
                     }
                 },
                 {
-                    "source": "/Users/headfitted/.gradle/caches/transforms-2/files-2.1/24c4d8404f6979054377dafd235d0d6f/res/values-en-rXC/values-en-rXC.xml",
+                    "source": "/Users/siyaulhaqu/.gradle/caches/transforms-2/files-2.1/7fee0c1d14ce8c98cd418ef83c398abf/res/values-en-rXC/values-en-rXC.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29",
                         "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",

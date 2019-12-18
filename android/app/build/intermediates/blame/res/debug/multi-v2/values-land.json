@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "/Users/headfitted/Documents/hussain/delogueApp/android/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-land/values-land.xml",
+            "outputFile": "/Users/siyaulhaqu/hussain/delogueApp/android/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-land/values-land.xml",
             "map": [
                 {
-                    "source": "/Users/headfitted/.gradle/caches/transforms-2/files-2.1/24c4d8404f6979054377dafd235d0d6f/res/values-land/values-land.xml",
+                    "source": "/Users/siyaulhaqu/.gradle/caches/transforms-2/files-2.1/7fee0c1d14ce8c98cd418ef83c398abf/res/values-land/values-land.xml",
                     "from": {
                         "startLines": "2,3,4",
                         "startColumns": "4,4,4",

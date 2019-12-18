@@ -21,6 +21,8 @@ import ChatMessage from './ChatMessage';
 import UnreadMessageList from '../../api/message/unreadMessageList';
 import GetAsyncToken from '../../script/getAsyncToken';
 import { format, parseISO } from 'date-fns';
+import HTMLView from 'react-native-htmlview';
+
 
 
 const IconRow = styled.View`
@@ -270,6 +272,8 @@ class Message extends React.Component {
                 this.state.MessageList.map( m => {
                   let formatedDate = format(parseISO(m.loggedOn),"d-MMM-yyyy kk:mm");
                   console.log('formatted date', formatedDate);
+                  const htmlContent = `${m.messageBody}`;
+                  console.log('msg body', htmlContent)
                   return(
                     <MessageBox>
                       <TouchableHighlight
@@ -301,9 +305,12 @@ class Message extends React.Component {
                           </TitleRow>
                           <Row>
                             <MainContent>
-                              <Subject>
+                              {/* <Subject>
                                 jkh
-                              </Subject>
+                              </Subject> */}
+                              <HTMLView value={htmlContent} 
+                              // renderNode={renderNode} 
+                              />
                               <ContentText numberOfLines={2}>
                                 Dear nando, please find a new style and if you have
                                 any doubt or queries then please ask

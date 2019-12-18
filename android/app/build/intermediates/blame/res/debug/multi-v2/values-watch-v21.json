@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "/Users/headfitted/Documents/hussain/delogueApp/android/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-watch-v21/values-watch-v21.xml",
+            "outputFile": "/Users/siyaulhaqu/hussain/delogueApp/android/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-watch-v21/values-watch-v21.xml",
             "map": [
                 {
-                    "source": "/Users/headfitted/.gradle/caches/transforms-2/files-2.1/24c4d8404f6979054377dafd235d0d6f/res/values-watch-v21/values-watch-v21.xml",
+                    "source": "/Users/siyaulhaqu/.gradle/caches/transforms-2/files-2.1/7fee0c1d14ce8c98cd418ef83c398abf/res/values-watch-v21/values-watch-v21.xml",
                     "from": {
                         "startLines": "2,6,10",
                         "startColumns": "4,4,4",
