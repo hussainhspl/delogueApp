@@ -5,6 +5,7 @@ INJECTED from /Users/siyaulhaqu/hussain/delogueApp/android/app/src/main/AndroidM
 INJECTED from /Users/siyaulhaqu/hussain/delogueApp/android/app/src/main/AndroidManifest.xml:1:1-43:12
 INJECTED from /Users/siyaulhaqu/hussain/delogueApp/android/app/src/main/AndroidManifest.xml:1:1-43:12
 MERGED from /Users/siyaulhaqu/hussain/delogueApp/android/app/src/main/AndroidManifest.xml:1:1-43:12
+MERGED from [androidx.multidex:multidex:2.0.0] /Users/siyaulhaqu/.gradle/caches/transforms-2/files-2.1/dbe5ad45accd064550cd5503b48732c2/AndroidManifest.xml:17:1-22:12
 MERGED from [:react-native-fast-image] /Users/siyaulhaqu/hussain/delogueApp/node_modules/react-native-fast-image/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-11:12
 MERGED from [:@react-native-community_async-storage] /Users/siyaulhaqu/hussain/delogueApp/node_modules/@react-native-community/async-storage/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-9:12
 MERGED from [:react-native-camera] /Users/siyaulhaqu/hussain/delogueApp/node_modules/react-native-camera/android/build/intermediates/library_manifest/generalDebug/AndroidManifest.xml:2:1-18:12
@@ -14,6 +15,7 @@ MERGED from [:react-native-vector-icons] /Users/siyaulhaqu/hussain/delogueApp/no
 MERGED from [:react-native-bootsplash] /Users/siyaulhaqu/hussain/delogueApp/node_modules/react-native-bootsplash/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-9:12
 MERGED from [:react-native-gesture-handler] /Users/siyaulhaqu/hussain/delogueApp/node_modules/react-native-gesture-handler/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-11:12
 MERGED from [:react-native-image-picker] /Users/siyaulhaqu/hussain/delogueApp/node_modules/react-native-image-picker/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-21:12
+MERGED from [:react-native-webview] /Users/siyaulhaqu/hussain/delogueApp/node_modules/react-native-webview/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-23:12
 MERGED from [:rn-fetch-blob] /Users/siyaulhaqu/hussain/delogueApp/node_modules/rn-fetch-blob/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-47:12
 MERGED from [com.facebook.react:react-native:0.61.3] /Users/siyaulhaqu/.gradle/caches/transforms-2/files-2.1/6e5c5180fff5ea3ba976eb7c634686cf/AndroidManifest.xml:2:1-13:12
 MERGED from [com.facebook.fresco:animated-gif:2.0.0] /Users/siyaulhaqu/.gradle/caches/transforms-2/files-2.1/e7b345a491542651dc8f2044b7d0a2b6/AndroidManifest.xml:2:1-9:12
@@ -128,6 +130,8 @@ MERGED from /Users/siyaulhaqu/hussain/delogueApp/android/app/src/main/AndroidMan
 MERGED from /Users/siyaulhaqu/hussain/delogueApp/android/app/src/main/AndroidManifest.xml:12:5-41:19
 MERGED from [:react-native-image-picker] /Users/siyaulhaqu/hussain/delogueApp/node_modules/react-native-image-picker/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:9:5-19:19
 MERGED from [:react-native-image-picker] /Users/siyaulhaqu/hussain/delogueApp/node_modules/react-native-image-picker/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:9:5-19:19
+MERGED from [:react-native-webview] /Users/siyaulhaqu/hussain/delogueApp/node_modules/react-native-webview/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:11:5-21:19
+MERGED from [:react-native-webview] /Users/siyaulhaqu/hussain/delogueApp/node_modules/react-native-webview/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:11:5-21:19
 MERGED from [:rn-fetch-blob] /Users/siyaulhaqu/hussain/delogueApp/node_modules/rn-fetch-blob/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:35:5-45:19
 MERGED from [:rn-fetch-blob] /Users/siyaulhaqu/hussain/delogueApp/node_modules/rn-fetch-blob/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:35:5-45:19
 MERGED from [com.facebook.react:react-native:0.61.3] /Users/siyaulhaqu/.gradle/caches/transforms-2/files-2.1/6e5c5180fff5ea3ba976eb7c634686cf/AndroidManifest.xml:11:5-20
@@ -223,6 +227,8 @@ uses-sdk
 INJECTED from /Users/siyaulhaqu/hussain/delogueApp/android/app/src/main/AndroidManifest.xml reason: use-sdk injection requested
 INJECTED from /Users/siyaulhaqu/hussain/delogueApp/android/app/src/main/AndroidManifest.xml
 INJECTED from /Users/siyaulhaqu/hussain/delogueApp/android/app/src/main/AndroidManifest.xml
+MERGED from [androidx.multidex:multidex:2.0.0] /Users/siyaulhaqu/.gradle/caches/transforms-2/files-2.1/dbe5ad45accd064550cd5503b48732c2/AndroidManifest.xml:20:5-43
+MERGED from [androidx.multidex:multidex:2.0.0] /Users/siyaulhaqu/.gradle/caches/transforms-2/files-2.1/dbe5ad45accd064550cd5503b48732c2/AndroidManifest.xml:20:5-43
 MERGED from [:react-native-fast-image] /Users/siyaulhaqu/hussain/delogueApp/node_modules/react-native-fast-image/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:7:5-9:41
 MERGED from [:react-native-fast-image] /Users/siyaulhaqu/hussain/delogueApp/node_modules/react-native-fast-image/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:7:5-9:41
 MERGED from [:@react-native-community_async-storage] /Users/siyaulhaqu/hussain/delogueApp/node_modules/@react-native-community/async-storage/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-7:41
@@ -241,6 +247,8 @@ MERGED from [:react-native-gesture-handler] /Users/siyaulhaqu/hussain/delogueApp
 MERGED from [:react-native-gesture-handler] /Users/siyaulhaqu/hussain/delogueApp/node_modules/react-native-gesture-handler/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:7:5-9:41
 MERGED from [:react-native-image-picker] /Users/siyaulhaqu/hussain/delogueApp/node_modules/react-native-image-picker/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-7:41
 MERGED from [:react-native-image-picker] /Users/siyaulhaqu/hussain/delogueApp/node_modules/react-native-image-picker/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-7:41
+MERGED from [:react-native-webview] /Users/siyaulhaqu/hussain/delogueApp/node_modules/react-native-webview/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:7:5-9:41
+MERGED from [:react-native-webview] /Users/siyaulhaqu/hussain/delogueApp/node_modules/react-native-webview/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:7:5-9:41
 MERGED from [:rn-fetch-blob] /Users/siyaulhaqu/hussain/delogueApp/node_modules/rn-fetch-blob/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:7:5-9:41
 MERGED from [:rn-fetch-blob] /Users/siyaulhaqu/hussain/delogueApp/node_modules/rn-fetch-blob/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:7:5-9:41
 MERGED from [com.facebook.react:react-native:0.61.3] /Users/siyaulhaqu/.gradle/caches/transforms-2/files-2.1/6e5c5180fff5ea3ba976eb7c634686cf/AndroidManifest.xml:7:5-9:41
@@ -405,6 +413,16 @@ ADDED from [:react-native-image-picker] /Users/siyaulhaqu/hussain/delogueApp/nod
 		ADDED from [:react-native-image-picker] /Users/siyaulhaqu/hussain/delogueApp/node_modules/react-native-image-picker/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:17:17-55
 	android:name
 		ADDED from [:react-native-image-picker] /Users/siyaulhaqu/hussain/delogueApp/node_modules/react-native-image-picker/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:16:17-67
+provider#com.reactnativecommunity.webview.RNCWebViewFileProvider
+ADDED from [:react-native-webview] /Users/siyaulhaqu/hussain/delogueApp/node_modules/react-native-webview/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:12:9-20:20
+	android:grantUriPermissions
+		ADDED from [:react-native-webview] /Users/siyaulhaqu/hussain/delogueApp/node_modules/react-native-webview/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:16:13-47
+	android:authorities
+		ADDED from [:react-native-webview] /Users/siyaulhaqu/hussain/delogueApp/node_modules/react-native-webview/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:14:13-64
+	android:exported
+		ADDED from [:react-native-webview] /Users/siyaulhaqu/hussain/delogueApp/node_modules/react-native-webview/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:15:13-37
+	android:name
+		ADDED from [:react-native-webview] /Users/siyaulhaqu/hussain/delogueApp/node_modules/react-native-webview/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:13:13-83
 uses-permission#com.android.vending.CHECK_LICENSE
 ADDED from [:rn-fetch-blob] /Users/siyaulhaqu/hussain/delogueApp/node_modules/rn-fetch-blob/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:12:5-73
 	android:name

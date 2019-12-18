@@ -80,6 +80,15 @@
                 android:resource="@xml/provider_paths" />
         </provider>
         <provider
+            android:name="com.reactnativecommunity.webview.RNCWebViewFileProvider"
+            android:authorities="com.delogue.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true" >
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_provider_paths" />
+        </provider>
+        <provider
             android:name="com.RNFetchBlob.Utils.FileProvider"
             android:authorities="com.delogue.provider"
             android:exported="false"
