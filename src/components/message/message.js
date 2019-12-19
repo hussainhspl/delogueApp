@@ -21,7 +21,9 @@ import ChatMessage from './ChatMessage';
 import UnreadMessageList from '../../api/message/unreadMessageList';
 import GetAsyncToken from '../../script/getAsyncToken';
 import { format, parseISO } from 'date-fns';
-import HTMLView from 'react-native-htmlview';
+// import HTMLView from 'react-native-htmlview';
+import { WebView } from 'react-native-webview';
+import DWebView from "./DWebView";
 
 
 
@@ -173,7 +175,7 @@ const TitleRow = styled.View`
   padding-bottom: 5px;
 `;
 
-const ContentText = styled.Text`
+const ContentText = styled(WebView)`
   color: ${props => props.theme.textColor};
   font-family: ${props => props.theme.regular};
   font-size: ${props => props.theme.large};
@@ -191,6 +193,29 @@ const MsgImage = styled.Image`
   height: 15px;
 `;
 
+const jsString = `
+  function post () {
+    postMessage(
+      Math.max(document.documentElement.clientHeight, document.documentElement.scrollHeight, document.body.clientHeight, document.body.scrollHeight)
+    );
+  }
+  setTimeout(post, 200);
+// other custom js you may want
+`
+const injectedScript = function() {
+  function waitForBridge() {
+    if (window.postMessage.length !== 1){
+      setTimeout(waitForBridge, 200);
+    }
+    else {
+      postMessage(
+        Math.max(document.documentElement.clientHeight, document.documentElement.scrollHeight, document.body.clientHeight, document.body.scrollHeight)
+      )
+    }
+  }
+  waitForBridge();
+};
+
 class Message extends React.Component {
   constructor(props) {
     super(props);
@@ -200,7 +225,8 @@ class Message extends React.Component {
       MessageList: null,
       showOpacity: false,
       read: false,
-      chatRead: false
+      chatRead: false,
+      webViewHeight: [],
     };
   }
   componentDidMount = () => {
@@ -221,9 +247,33 @@ class Message extends React.Component {
           })
       })
   }
+  find_dimesions(layout){
+    const {x, y, width, height} = layout;
+    console.warn(x);
+    console.warn(y);
+    console.warn(width);
+    console.log("hright",height);
+  }
+  _onMessage = (event) => {
+    console.log('before render')
+    let heightRaw= Number(event.nativeEvent.data);
+    let intHeight = parseInt(heightRaw)
+    console.log('data type before state assign :', typeof(intHeight));
+    this.setState({webViewHeight: intHeight});
+    // this.setState(prevState => ({webViewHeight : [...prevState.webViewHeight, intHeight}))
+  }
+  // _onMessage = (e) => {
+  //   this.setState({
+  //     webviewHeight: parseInt(e.nativeEvent.data)
+  //   });
+  // }
   render() {
     // console.log("read state", this.state.read);
     history = this.props.history;
+    // let numHeight = parseInt(this.state.webviewHeight);
+    // console.log('in render')
+    arr = ['A','B','C','D'];
+    console.log('webviewHeight', this.state.webViewHeight, typeof(numHeight), typeof(this.state.webviewHeight));
     return (
       <MainView>
         <Header history={this.props.history}>
@@ -269,11 +319,11 @@ class Message extends React.Component {
             </IconRow>
             {this.state.message && (
               this.state.MessageList != null ? 
-                this.state.MessageList.map( m => {
+                this.state.MessageList.map( (m,index) => {
+
                   let formatedDate = format(parseISO(m.loggedOn),"d-MMM-yyyy kk:mm");
-                  console.log('formatted date', formatedDate);
+                  console.log('Enter in map', this.state.webviewHeight);
                   const htmlContent = `${m.messageBody}`;
-                  console.log('msg body', htmlContent)
                   return(
                     <MessageBox>
                       <TouchableHighlight
@@ -304,22 +354,28 @@ class Message extends React.Component {
                             </View>
                           </TitleRow>
                           <Row>
-                            <MainContent>
+                           <DWebView  htmlStr = {"<div>"+ arr[index] + "</div>"} />
+                            {/* <MainContent> */}
                               {/* <Subject>
-                                jkh
-                              </Subject> */}
-                              <HTMLView value={htmlContent} 
-                              // renderNode={renderNode} 
-                              />
-                              <ContentText numberOfLines={2}>
-                                Dear nando, please find a new style and if you have
-                                any doubt or queries then please ask
-                              </ContentText>
-                            </MainContent>
-                            <InternalView>
+                                {m.messageSubject !== null ? m.messageSubject : 'no subject'}
+                              </Subject>
+                              {this.state.webviewHeight != undefined ?
+                              
+                              // <ContentText
+                              //   originWhitelist={['*']}
+                              //   injectedJavaScript='window.ReactNativeWebView.postMessage(document.body.scrollHeight)'
+                              //   onMessage={this._onMessage} 
+                              //   // automaticallyAdjustContentInsets={true}
+                              //   // scalesPageToFit={true}
+                              //   style={{fontSize: 26, height: this.state.webviewHeight != undefined ? this.state.webviewHeight: 30 }}
+                              //   source={{ html: `<head><meta name="viewport" content="width=device-width, initial-scale=0.7"></head><body><small>${m.messageBody}</small></body>` }}
+                              // />
+                              :null} */}
+                            {/* </MainContent> */}
+                            {/* <InternalView>
                               <Icon style={{ color: "#ddd",fontSize: 18 }} name="home" />
                               <InternalText>Internal</InternalText>
-                            </InternalView>
+                            </InternalView> */}
                           </Row>
                         </Fragment>
                       </TouchableHighlight>
@@ -331,8 +387,17 @@ class Message extends React.Component {
             {this.state.chat && (
               <ChatMessage />
             )}
+            
           </ScrollView>
         </Header>
+        <WebView 
+          // source={{ uri: 'https://facebook.github.io/react-native/' }} 
+          originWhitelist={['*']}
+          injectedJavaScript='window.ReactNativeWebView.postMessage(document.body.scrollHeight)'
+          onMessage={this._onMessage}
+          containerStyle={{ flex: 0, height: this.state.webviewHeight}}
+          source={{ html: "<head><meta name='viewport' content='width=device-width, initial-scale=1'></head><body><div><table class='CommentStyleCommentBlueBoxTable FixedTablewidth'><tr><td>Note:</td><td><span>&nbsp;uiuyyhjjn</span></td></tr><tr id='notifiedUsersRow'><td class='lightColor'>Notified Users:</td><td id='notifiedUsers'><span>-</span></td></tr></table></div><br/><div class='FixedPadding'></div></body>" }}
+        />
       </MainView>
     );
   }

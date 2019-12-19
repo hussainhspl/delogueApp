@@ -95,6 +95,8 @@ target 'delogue' do
     inherit! :search_paths
     # Pods for testing
 
+    pod 'react-native-webview', :path => '../node_modules/react-native-webview'
+
   end
 
   target 'delogueTests' do
