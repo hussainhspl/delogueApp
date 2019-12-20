@@ -170,7 +170,7 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/RNFastImage/RNFastImage.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/RNGestureHandler/RNGestureHandler.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/RNVectorIcons/RNVectorIcons.framework"
-  install_framework "${BUILT_PRODUCTS_DIR}/React-Core.common-CoreModulesHeaders/React.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/React-Core/React.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/React-CoreModules/CoreModules.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/React-RCTActionSheet/RCTActionSheet.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/React-RCTAnimation/RCTAnimation.framework"
@@ -196,6 +196,7 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/react-native-camera/react_native_camera.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/react-native-image-picker/react_native_image_picker.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/react-native-netinfo/react_native_netinfo.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/react-native-webview/react_native_webview.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/rn-fetch-blob/rn_fetch_blob.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
@@ -208,7 +209,7 @@ if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/RNFastImage/RNFastImage.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/RNGestureHandler/RNGestureHandler.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/RNVectorIcons/RNVectorIcons.framework"
-  install_framework "${BUILT_PRODUCTS_DIR}/React-Core.common-CoreModulesHeaders/React.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/React-Core/React.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/React-CoreModules/CoreModules.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/React-RCTActionSheet/RCTActionSheet.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/React-RCTAnimation/RCTAnimation.framework"
@@ -234,6 +235,7 @@ if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/react-native-camera/react_native_camera.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/react-native-image-picker/react_native_image_picker.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/react-native-netinfo/react_native_netinfo.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/react-native-webview/react_native_webview.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/rn-fetch-blob/rn_fetch_blob.framework"
 fi
 if [ "${COCOAPODS_PARALLEL_CODE_SIGN}" == "true" ]; then

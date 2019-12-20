@@ -63,6 +63,7 @@ target 'delogue' do
   
   pod 'react-native-image-picker', :path => '../node_modules/react-native-image-picker'
   
+  pod 'react-native-webview', :path => '../node_modules/react-native-webview'
 
   # Pods for delogue
   # pod 'React', :path => '../node_modules/react-native/'
@@ -94,8 +95,6 @@ target 'delogue' do
   target 'delogue-tvOSTests' do
     inherit! :search_paths
     # Pods for testing
-
-    pod 'react-native-webview', :path => '../node_modules/react-native-webview'
 
   end
 

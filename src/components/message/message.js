@@ -204,6 +204,13 @@ const jsString = `
   setTimeout(post, 200);
 // other custom js you may want
 `
+// 'window.ReactNativeWebView.postMessage(document.body.scrollHeight)'
+const webViewScript = `
+  setTimeout(function() { 
+    window.ReactNativeWebView.postMessage(document.body.scrollHeight); 
+  }, 500);
+  true; // note: this is required, or you'll sometimes get silent failures
+`;
 const injectedScript = function() {
   function waitForBridge() {
     if (window.postMessage.length !== 1){
@@ -259,12 +266,13 @@ class Message extends React.Component {
   }
   _onMessage = (event) => {
     // console.log('before render')
-    let heightRaw= Number(event.nativeEvent.data);
+    let heightRaw = 0;
+    heightRaw= Number(event.nativeEvent.data);
     let intHeight = parseInt(heightRaw)
     console.log('on message height', intHeight);
-    if(this.state.htmlHeight != null) {
+    // if(this.state.htmlHeight != null) {
       let list = [];
-      console.log('before push', this.state.htmlHeight);
+      console.log('before push state', this.state.htmlHeight);
       list = this.state.htmlHeight;
       console.log('list after copying state', list);
       list.push(intHeight);
@@ -274,12 +282,12 @@ class Message extends React.Component {
       this.setState({
         htmlHeight : list
       })
-    }else {
-      this.setState({
-        htmlHeight : intHeight
-      })
-    }
+    // }else {
+    //   this.setState({
+    //     htmlHeight : intHeight
+    //   })
     // }
+    // // }
     // this.setState({
     //   webViewHeight: intHeight
     // },() => {console.log('callback', this.state.webviewHeight)});
@@ -343,10 +351,12 @@ class Message extends React.Component {
             {this.state.message && (
               this.state.MessageList != null ? 
                 this.state.MessageList.map( (m, index) => {
-
+                  // if(index >0)
+                  //   return
                   let formatedDate = format(parseISO(m.loggedOn),"d-MMM-yyyy kk:mm");
                   // console.log('Enter in map', this.state.webviewHeight, index);
                   const htmlContent = `${m.messageBody}`;
+                  // console.log('index', index);
                   // console.log('height in map : ',this.state.htmlHeight[index])
                   return(
                     <MessageBox>
@@ -383,27 +393,29 @@ class Message extends React.Component {
                               <Subject>
                                 {m.messageSubject !== null ? m.messageSubject : 'no subject'}
                               </Subject>
-                              {/* {this.state.webviewHeight != undefined ? */}
+    
                               <View 
                                 // style = {{height: this.state.htmlHeight !== null ? this.state.htmlHeight : 30}}
-                                // onLayout={(event) => {
-                                //   var {x, y, width, height} = event.nativeEvent.layout;
-                                //   console.log('var height:', height);
-                                //   this.setState({
-                                //     htmlHeight: height
-                                //   }, () => console.log('response', this.state.htmlHeight))
+                                onLayout={(event) => {
+                                  var {x, y, width, height} = event.nativeEvent.layout;
+                                  console.log('var height:', height);
+                                  // this.setState({
+                                  //   htmlHeight: height
+                                  // }, () => console.log('response', this.state.htmlHeight))
                                   
-                                // }}
+                                }}
                               >
                               <ContentText
                                 originWhitelist={['*']}
-                                injectedJavaScript='window.ReactNativeWebView.postMessage(document.body.scrollHeight)'
+                                injectedJavaScript={webViewScript}
+                                // javaScriptEnabled={true}
                                 onMessage={this._onMessage} 
                                 // automaticallyAdjustContentInsets={true}
                                 // scalesPageToFit={true}
-                                style={{fontSize: 26, 
+                                style={{fontSize: 26,
+                                  // flex: 0, 
                                   // height: 200
-                                  height: this.state.htmlHeight.length > 0 ? this.state.htmlHeight[index] : 30
+                                  height: this.state.htmlHeight[index]
                                 }}
                                 source={{ html: `<head><meta name="viewport" content="width=device-width, initial-scale=1"></head><body><small>${m.messageBody}</small></body>` }}
                               />
