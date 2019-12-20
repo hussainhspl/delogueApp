@@ -192,7 +192,9 @@ const MsgImage = styled.Image`
   width: 20px;
   height: 15px;
 `;
-
+const Flex1 = styled.View`
+  flex: 1
+`;
 const jsString = `
   function post () {
     postMessage(
@@ -226,7 +228,8 @@ class Message extends React.Component {
       showOpacity: false,
       read: false,
       chatRead: false,
-      webViewHeight: [],
+      webViewHeight: null,
+      htmlHeight: []
     };
   }
   componentDidMount = () => {
@@ -239,7 +242,7 @@ class Message extends React.Component {
         
         UnreadMessageList(token)
           .then( res => {
-            console.log('response in unread message', res);
+            // console.log('response in unread message', res);
             this.setState({
               MessageList: res.data,
             })
@@ -255,11 +258,31 @@ class Message extends React.Component {
     console.log("hright",height);
   }
   _onMessage = (event) => {
-    console.log('before render')
+    // console.log('before render')
     let heightRaw= Number(event.nativeEvent.data);
     let intHeight = parseInt(heightRaw)
-    console.log('data type before state assign :', typeof(intHeight));
-    this.setState({webViewHeight: intHeight});
+    console.log('on message height', intHeight);
+    if(this.state.htmlHeight != null) {
+      let list = [];
+      console.log('before push', this.state.htmlHeight);
+      list = this.state.htmlHeight;
+      console.log('list after copying state', list);
+      list.push(intHeight);
+      console.log('after push', list);
+      // if(this.state.htmlHeight != intHeight) {
+      console.log('html state', this.state.htmlHeight);
+      this.setState({
+        htmlHeight : list
+      })
+    }else {
+      this.setState({
+        htmlHeight : intHeight
+      })
+    }
+    // }
+    // this.setState({
+    //   webViewHeight: intHeight
+    // },() => {console.log('callback', this.state.webviewHeight)});
     // this.setState(prevState => ({webViewHeight : [...prevState.webViewHeight, intHeight}))
   }
   // _onMessage = (e) => {
@@ -272,8 +295,8 @@ class Message extends React.Component {
     history = this.props.history;
     // let numHeight = parseInt(this.state.webviewHeight);
     // console.log('in render')
-    arr = ['A','B','C','D'];
-    console.log('webviewHeight', this.state.webViewHeight, typeof(numHeight), typeof(this.state.webviewHeight));
+    // arr = ['A','B','C','D'];
+    console.log('webviewHeight', this.state.webViewHeight);
     return (
       <MainView>
         <Header history={this.props.history}>
@@ -319,11 +342,12 @@ class Message extends React.Component {
             </IconRow>
             {this.state.message && (
               this.state.MessageList != null ? 
-                this.state.MessageList.map( (m,index) => {
+                this.state.MessageList.map( (m, index) => {
 
                   let formatedDate = format(parseISO(m.loggedOn),"d-MMM-yyyy kk:mm");
-                  console.log('Enter in map', this.state.webviewHeight);
+                  // console.log('Enter in map', this.state.webviewHeight, index);
                   const htmlContent = `${m.messageBody}`;
+                  // console.log('height in map : ',this.state.htmlHeight[index])
                   return(
                     <MessageBox>
                       <TouchableHighlight
@@ -340,38 +364,52 @@ class Message extends React.Component {
                             </STouchableHighlight>
                           </MsgIconBox>
                           <TitleRow>
-                            <View>
+                            <Flex1>
                               <Title>Style Name</Title>
                               <CardText numberOfLines={1}>{m.styleName}</CardText>
-                            </View>
-                            <View>
+                            </Flex1>
+                            <Flex1>
                               <Title>Style Number</Title>
                               <CardText numberOfLines={1}>{m.styleNumber}</CardText>
-                            </View>
-                            <View>
+                            </Flex1>
+                            <Flex1>
                               <Title>{formatedDate}</Title>
                               <CardText numberOfLines={1}>{m.loggedByUserName}</CardText>
-                            </View>
+                            </Flex1>
                           </TitleRow>
                           <Row>
-                           <DWebView  htmlStr = {"<div>"+ arr[index] + "</div>"} />
-                            {/* <MainContent> */}
-                              {/* <Subject>
+                           {/* <DWebView  htmlStr = {"<div>"+ arr[index] + "</div>"} /> */}
+                            <MainContent>
+                              <Subject>
                                 {m.messageSubject !== null ? m.messageSubject : 'no subject'}
                               </Subject>
-                              {this.state.webviewHeight != undefined ?
-                              
-                              // <ContentText
-                              //   originWhitelist={['*']}
-                              //   injectedJavaScript='window.ReactNativeWebView.postMessage(document.body.scrollHeight)'
-                              //   onMessage={this._onMessage} 
-                              //   // automaticallyAdjustContentInsets={true}
-                              //   // scalesPageToFit={true}
-                              //   style={{fontSize: 26, height: this.state.webviewHeight != undefined ? this.state.webviewHeight: 30 }}
-                              //   source={{ html: `<head><meta name="viewport" content="width=device-width, initial-scale=0.7"></head><body><small>${m.messageBody}</small></body>` }}
-                              // />
-                              :null} */}
-                            {/* </MainContent> */}
+                              {/* {this.state.webviewHeight != undefined ? */}
+                              <View 
+                                // style = {{height: this.state.htmlHeight !== null ? this.state.htmlHeight : 30}}
+                                // onLayout={(event) => {
+                                //   var {x, y, width, height} = event.nativeEvent.layout;
+                                //   console.log('var height:', height);
+                                //   this.setState({
+                                //     htmlHeight: height
+                                //   }, () => console.log('response', this.state.htmlHeight))
+                                  
+                                // }}
+                              >
+                              <ContentText
+                                originWhitelist={['*']}
+                                injectedJavaScript='window.ReactNativeWebView.postMessage(document.body.scrollHeight)'
+                                onMessage={this._onMessage} 
+                                // automaticallyAdjustContentInsets={true}
+                                // scalesPageToFit={true}
+                                style={{fontSize: 26, 
+                                  // height: 200
+                                  height: this.state.htmlHeight.length > 0 ? this.state.htmlHeight[index] : 30
+                                }}
+                                source={{ html: `<head><meta name="viewport" content="width=device-width, initial-scale=1"></head><body><small>${m.messageBody}</small></body>` }}
+                              />
+                               </View>
+                              {/* :null} */}
+                            </MainContent>
                             {/* <InternalView>
                               <Icon style={{ color: "#ddd",fontSize: 18 }} name="home" />
                               <InternalText>Internal</InternalText>
@@ -390,14 +428,14 @@ class Message extends React.Component {
             
           </ScrollView>
         </Header>
-        <WebView 
+        {/* <WebView 
           // source={{ uri: 'https://facebook.github.io/react-native/' }} 
           originWhitelist={['*']}
           injectedJavaScript='window.ReactNativeWebView.postMessage(document.body.scrollHeight)'
-          onMessage={this._onMessage}
+          // onMessage={this._onMessage}
           containerStyle={{ flex: 0, height: this.state.webviewHeight}}
           source={{ html: "<head><meta name='viewport' content='width=device-width, initial-scale=1'></head><body><div><table class='CommentStyleCommentBlueBoxTable FixedTablewidth'><tr><td>Note:</td><td><span>&nbsp;uiuyyhjjn</span></td></tr><tr id='notifiedUsersRow'><td class='lightColor'>Notified Users:</td><td id='notifiedUsers'><span>-</span></td></tr></table></div><br/><div class='FixedPadding'></div></body>" }}
-        />
+        /> */}
       </MainView>
     );
   }

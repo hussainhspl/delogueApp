@@ -13,19 +13,16 @@ const DWebView = ({htmlStr}) => {
   const renderers = {
     table: makeTableRenderer(config)
   };
-
   const htmlConfig = {
     alterNode,
     renderers,
     ignoredTags: IGNORED_TAGS
   };
-
   return (
     <View style={{ flex: 1}}>
         <HTML html={htmlStr} {...htmlConfig} />
      </View>
 
   )
-
 }
 export default DWebView;
