@@ -9,7 +9,7 @@ import {
   ScrollView
 } from "react-native";
 import { Icon } from "native-base";
-import { withTheme} from 'styled-components';
+import { withTheme } from 'styled-components';
 import { connect } from "react-redux";
 import { commentTab } from "../../store/actions/index";
 import styled from "styled-components";
@@ -19,6 +19,8 @@ import Title from "../../styles/SmallText";
 import CardText from "../../styles/CardText";
 import ChatMessage from './ChatMessage';
 import UnreadMessageList from '../../api/message/unreadMessageList';
+import SpecificMessage from '../../api/message/specificMessage';
+
 import GetAsyncToken from '../../script/getAsyncToken';
 import { format, parseISO } from 'date-fns';
 // import HTMLView from 'react-native-htmlview';
@@ -129,7 +131,7 @@ const MsgIconBox = styled.View`
   position: absolute;
   top: 5;
   left: -15;
-  background-color: ${props => props.readMsg ? '#fff': props => props.theme.darkBlue};
+  background-color: ${props => props.readMsg ? '#fff' : props => props.theme.darkBlue};
   align-items: center;
   justify-content: center;
 `;
@@ -142,7 +144,7 @@ const ChatIconBox = styled.View`
   position: absolute;
   top: 5px;
   left: -15px;
-  background-color: ${props => props.readChat ? '#fff': props => props.theme.darkBlue};
+  background-color: ${props => props.readChat ? '#fff' : props => props.theme.darkBlue};
   align-items: center;
   justify-content: center;
 `;
@@ -195,35 +197,14 @@ const MsgImage = styled.Image`
 const Flex1 = styled.View`
   flex: 1
 `;
-const jsString = `
-  function post () {
-    postMessage(
-      Math.max(document.documentElement.clientHeight, document.documentElement.scrollHeight, document.body.clientHeight, document.body.scrollHeight)
-    );
-  }
-  setTimeout(post, 200);
-// other custom js you may want
-`
+
+
+
 // 'window.ReactNativeWebView.postMessage(document.body.scrollHeight)'
-const webViewScript = `
-  setTimeout(function() { 
-    window.ReactNativeWebView.postMessage(document.body.scrollHeight); 
-  }, 500);
-  true; // note: this is required, or you'll sometimes get silent failures
-`;
-const injectedScript = function() {
-  function waitForBridge() {
-    if (window.postMessage.length !== 1){
-      setTimeout(waitForBridge, 200);
-    }
-    else {
-      postMessage(
-        Math.max(document.documentElement.clientHeight, document.documentElement.scrollHeight, document.body.clientHeight, document.body.scrollHeight)
-      )
-    }
-  }
-  waitForBridge();
-};
+
+// const INJECTED_JAVASCRIPT = `(function() {
+//   window.ReactNativeWebView.postMessage(document.body.scrollHeight);
+// })();`;
 
 class Message extends React.Component {
   constructor(props) {
@@ -242,69 +223,72 @@ class Message extends React.Component {
   componentDidMount = () => {
     GetAsyncToken()
       .then(token => {
-        // console.log('script token', token, this.props.styleID)
-        // if(this.state.fileArr.delogueFolderResponse != null){
-        //   console.log('folder details', this.state.fileArr.delogueFolderResponse.id, this.props.styleID);
-        // }
-        
         UnreadMessageList(token)
-          .then( res => {
-            // console.log('response in unread message', res);
+          .then(res => {
+
             this.setState({
               MessageList: res.data,
             })
-            // this.props.styleFileListFunction(res.data)
           })
       })
   }
-  find_dimesions(layout){
-    const {x, y, width, height} = layout;
+
+  redirectToComment(id) {
+    console.log('enter in redirect', id);
+    GetAsyncToken()
+      .then(token => {
+        SpecificMessage(token)
+        .then(res => {
+          console.log('resp in message :', res);  
+          this.props.commentTabFunction();
+          this.props.history.push({
+            pathname:'/style',
+            data: res.data,
+            openMessage: true
+          })  
+        })
+      })
+    
+  }
+
+  find_dimesions(layout) {
+    const { x, y, width, height } = layout;
     console.warn(x);
     console.warn(y);
     console.warn(width);
-    console.log("hright",height);
+    console.log("hright", height);
   }
-  _onMessage = (event) => {
-    // console.log('before render')
+  _onMessage = (event,index) => {
+    console.log(index);
+    // console.log('event111', event.nativeEvent, Number(event.nativeEvent.data));
+    let con = JSON.parse(event.nativeEvent.data)
+    
     let heightRaw = 0;
-    heightRaw= Number(event.nativeEvent.data);
-    let intHeight = parseInt(heightRaw)
-    console.log('on message height', intHeight);
-    // if(this.state.htmlHeight != null) {
-      let list = [];
-      console.log('before push state', this.state.htmlHeight);
-      list = this.state.htmlHeight;
-      console.log('list after copying state', list);
-      list.push(intHeight);
-      console.log('after push', list);
-      // if(this.state.htmlHeight != intHeight) {
-      console.log('html state', this.state.htmlHeight);
-      this.setState({
-        htmlHeight : list
-      })
-    // }else {
-    //   this.setState({
-    //     htmlHeight : intHeight
-    //   })
-    // }
-    // // }
+    // heightRaw= Number();
+    let intHeight = parseInt(con)
+    
+    let list = [];
+    
+    list = this.state.htmlHeight;
+    
+    list.push(intHeight);
+    // console.log(list);
+    // this.state.htmlHeight = list;
+    // setTimeout(function() { //Start the timer
     // this.setState({
-    //   webViewHeight: intHeight
-    // },() => {console.log('callback', this.state.webviewHeight)});
-    // this.setState(prevState => ({webViewHeight : [...prevState.webViewHeight, intHeight}))
+    //   htmlHeight: list
+    // }, () => console.log('state set successfully', this.state.htmlHeight))//After 1 second, set render to true
+    // }.bind(this), 1000)
+
+
   }
-  // _onMessage = (e) => {
-  //   this.setState({
-  //     webviewHeight: parseInt(e.nativeEvent.data)
-  //   });
-  // }
+
   render() {
-    // console.log("read state", this.state.read);
+
     history = this.props.history;
+    console.log(this.state.htmlHeight);
     // let numHeight = parseInt(this.state.webviewHeight);
-    // console.log('in render')
-    // arr = ['A','B','C','D'];
-    console.log('webviewHeight', this.state.webViewHeight);
+    // console.log('webviewHeight', this.state.webViewHeight);
     return (
       <MainView>
         <Header history={this.props.history}>
@@ -335,7 +319,7 @@ class Message extends React.Component {
               <TouchableWithoutFeedback
                 onPressIn={() => this.setState({ showOpacity: true })}
                 onPressOut={() => this.setState({ showOpacity: false })}
-                onPress={() => {}}
+                onPress={() => { }}
               >
                 <ButtonRow>
                   {this.state.showOpacity && <ButtonOverlay />}
@@ -349,24 +333,21 @@ class Message extends React.Component {
               </TouchableWithoutFeedback>
             </IconRow>
             {this.state.message && (
-              this.state.MessageList != null ? 
-                this.state.MessageList.map( (m, index) => {
-                  // if(index >0)
-                  //   return
-                  let formatedDate = format(parseISO(m.loggedOn),"d-MMM-yyyy kk:mm");
+              this.state.MessageList != null ?
+                this.state.MessageList.map((m, index) => {
+                  if (index > 5)
+                    return
+                  let formatedDate = format(parseISO(m.loggedOn), "d-MMM-yyyy kk:mm");
                   // console.log('Enter in map', this.state.webviewHeight, index);
-                  const htmlContent = `${m.messageBody}`;
-                  // console.log('index', index);
-                  // console.log('height in map : ',this.state.htmlHeight[index])
-                  return(
+                  return (
                     <MessageBox>
                       <TouchableHighlight
                         underlayColor={this.props.theme.overlayBlue}
-                        onPress={() => {this.props.commentTabFunction(); history.push('/style')}}
+                        onPress={() => this.redirectToComment(m.auditLogId)}
                       >
                         <Fragment>
                           <MsgIconBox readMsg={m.isRead}>
-                            <STouchableHighlight underlayColor={this.props.theme.overlayBlue} onPress={() => {this.setState({read : !this.state.read })}}>
+                            <STouchableHighlight underlayColor={this.props.theme.overlayBlue} onPress={() => { this.setState({ read: !this.state.read }) }}>
                               <MsgImage
                                 resizeMode={"contain"}
                                 source={require("../../../assets/img/message-icon.png")}
@@ -388,66 +369,58 @@ class Message extends React.Component {
                             </Flex1>
                           </TitleRow>
                           <Row>
-                           {/* <DWebView  htmlStr = {"<div>"+ arr[index] + "</div>"} /> */}
                             <MainContent>
                               <Subject>
                                 {m.messageSubject !== null ? m.messageSubject : 'no subject'}
                               </Subject>
-    
-                              <View 
-                                // style = {{height: this.state.htmlHeight !== null ? this.state.htmlHeight : 30}}
-                                onLayout={(event) => {
-                                  var {x, y, width, height} = event.nativeEvent.layout;
-                                  console.log('var height:', height);
-                                  // this.setState({
-                                  //   htmlHeight: height
-                                  // }, () => console.log('response', this.state.htmlHeight))
-                                  
-                                }}
+
+                              <View
+                              // style = {{height: this.state.htmlHeight !== null ? this.state.htmlHeight[index] : 30}}
+                              // onLayout={(event) => {
+                              // var {x, y, width, height} = event.nativeEvent.layout;
+                              // console.log('var height:', height);
+                              // this.setState({
+                              //   htmlHeight: height
+                              // }, () => console.log('response', this.state.htmlHeight))
+
+                              // }}
                               >
-                              <ContentText
-                                originWhitelist={['*']}
-                                injectedJavaScript={webViewScript}
-                                // javaScriptEnabled={true}
-                                onMessage={this._onMessage} 
-                                // automaticallyAdjustContentInsets={true}
-                                // scalesPageToFit={true}
-                                style={{fontSize: 26,
-                                  // flex: 0, 
-                                  // height: 200
-                                  height: this.state.htmlHeight[index]
-                                }}
-                                source={{ html: `<head><meta name="viewport" content="width=device-width, initial-scale=1"></head><body><small>${m.messageBody}</small></body>` }}
-                              />
-                               </View>
+                                <ContentText
+                                  originWhitelist={['*']}
+                                  injectedJavaScript='window.ReactNativeWebView.postMessage(JSON.stringify(document.body.scrollHeight), "*")'
+                                  onMessage={(event)=>this._onMessage(event,index)}
+                                  scrollEnabled={false}
+                                  cacheEnabled={false}
+                                  style={{
+                                    fontSize: 26,
+                                    height: this.state.htmlHeight[index]
+                                  }}
+                                  source={{
+                                    html: `<!DOCTYPE html><html><head><meta name="viewport" content="width=device-width, initial-scale=1"></head>
+                                <body><small>${m.messageBody}</small></body></html>`
+                                  }}
+                                />
+                              </View>
                               {/* :null} */}
                             </MainContent>
-                            {/* <InternalView>
-                              <Icon style={{ color: "#ddd",fontSize: 18 }} name="home" />
+                            <InternalView>
+                              <Icon style={{ color: "#ddd", fontSize: 18 }} name="home" />
                               <InternalText>Internal</InternalText>
-                            </InternalView> */}
+                            </InternalView>
                           </Row>
                         </Fragment>
                       </TouchableHighlight>
                     </MessageBox>
                   )
                 })
-              : <Text>No Messages</Text>
+                : <Text>No Messages</Text>
             )}
             {this.state.chat && (
               <ChatMessage />
             )}
-            
+
           </ScrollView>
         </Header>
-        {/* <WebView 
-          // source={{ uri: 'https://facebook.github.io/react-native/' }} 
-          originWhitelist={['*']}
-          injectedJavaScript='window.ReactNativeWebView.postMessage(document.body.scrollHeight)'
-          // onMessage={this._onMessage}
-          containerStyle={{ flex: 0, height: this.state.webviewHeight}}
-          source={{ html: "<head><meta name='viewport' content='width=device-width, initial-scale=1'></head><body><div><table class='CommentStyleCommentBlueBoxTable FixedTablewidth'><tr><td>Note:</td><td><span>&nbsp;uiuyyhjjn</span></td></tr><tr id='notifiedUsersRow'><td class='lightColor'>Notified Users:</td><td id='notifiedUsers'><span>-</span></td></tr></table></div><br/><div class='FixedPadding'></div></body>" }}
-        /> */}
       </MainView>
     );
   }

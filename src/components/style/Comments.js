@@ -106,8 +106,13 @@ class Comments extends React.Component {
       showList: true
     };
   }
+  componentDidMount = () => {
+    console.log('props data', this.props.location.data, this.props.location.openMessage);
+  }
   render() {
     // console.log("hello");
+    
+    
     return (
       <View style={{ flex: 1 }}>
         <ItemDetail data={data} />

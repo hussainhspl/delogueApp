@@ -23,7 +23,7 @@ const UnreadMessageList = (token) => {
     })
       .then(res => {
         resolve(res);
-        console.log("response in unread message", res);
+
       })
       .catch(function(error) {
         console.error("error in unread message", error);

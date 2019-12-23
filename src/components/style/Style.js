@@ -23,8 +23,8 @@ class Style extends React.Component {
       styleData: null
     };
   }
-  renderSelectedTab(params, data) {
-    console.log("switch data", data.id);
+  renderSelectedTab(params, data, commentData, msgType) {
+    console.log("switch data", data.id, commentData);
     switch (params) {
       case "general":
         return <General 
@@ -32,7 +32,11 @@ class Style extends React.Component {
           styleData = {this.state.styleData}
         />;
       case "comments":
-        return <Comments />;
+        return <Comments 
+        data = {commentData}
+        openMessage = {msgType}
+
+        />;
       case "files":
         return <Files 
           styleID= {data.id}
@@ -57,9 +61,6 @@ class Style extends React.Component {
     // console.log('did mount in style');
     // this.getStyles();
   }
-
-
-
 
   render() {
     // console.log("style data",this.state.styleData);
@@ -89,26 +90,31 @@ class Style extends React.Component {
     // console.log("store state:", this.props.currentTab);
     console.log('style array:', this.state.styleData);
     console.log('single style from store', this.props.style);
+    console.log('props data style', this.props.location.data , this.props.location.openMessage);
+
     return (
       <Fragment>
         <Header history={this.props.history}>
           {
-            this.state.styleData == null ?
+            this.state.styleData == null && this.props.location.data == undefined ?
             <View style={{flex: 1, backgroundColor: 'white'}}>
               <Loader />
             </View>
             :
-            this.renderSelectedTab(this.props.currentTab, this.state.styleData.data)
+            this.renderSelectedTab(
+              this.props.currentTab, 
+              this.state.styleData.data,
+              this.props.location.data, 
+              this.props.location.openMessage
+            )
             
           }
           {
             this.state.styleData == null ?
             null
             :
-            <FooterComponent />
-            
-          }
-          
+            <FooterComponent /> 
+          }  
         </Header>
       </Fragment>
     );
