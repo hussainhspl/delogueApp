@@ -5,6 +5,8 @@ import { withTheme } from 'styled-components';
 import Title from "../../styles/SmallText";
 import CardText from "../../styles/CardText";
 import Subject from '../../styles/Subject';
+import { format, parseISO } from 'date-fns';
+
 
 const MessageBox = styled.View`
   flex: 1;
@@ -83,6 +85,10 @@ class ChatMessage extends React.Component {
     this.state = {};
   }
   render() {
+    console.log('props in sample request', this.props.data)
+    let {styleName, loggedOn, styleNumber, loggedByUserName, 
+      messageSubject, isRead} = this.props.data;
+    let formatedDate = format(parseISO(loggedOn), "d-MMM-yyyy kk:mm");
     return (
       <MessageBox>
         <TouchableHighlight
@@ -90,7 +96,7 @@ class ChatMessage extends React.Component {
           onPress={() => console.log("click on message box")}
         >
           <Fragment>
-            <ChatIconBox readChat={this.state.chatRead}>
+            <ChatIconBox readChat={isRead}>
               <STouchableHighlight
                 underlayColor={this.props.theme.overlayBlue}
                 onPress={() => {
@@ -106,20 +112,20 @@ class ChatMessage extends React.Component {
             <TitleRow>
               <View>
                 <Title>Style Name</Title>
-                <CardText numberOfLines={1}>Casual Shirt</CardText>
+                <CardText numberOfLines={1}>{styleName}</CardText>
               </View>
               <View>
                 <Title>Style Number</Title>
-                <CardText numberOfLines={1}>Styl 2213</CardText>
+                <CardText numberOfLines={1}>{styleNumber}</CardText>
               </View>
               <View>
-                <Title>13-oct-2019 13.49</Title>
-                <CardText numberOfLines={1}>Richel Smith</CardText>
+                <Title>{formatedDate}</Title>
+                <CardText numberOfLines={1}>{loggedByUserName}</CardText>
               </View>
             </TitleRow>
             <Row>
               <MainContent>
-                <Subject>Sales samples </Subject>
+                <Subject>{messageSubject !== null ? messageSubject : 'no subject'} </Subject>
                 <ContentText numberOfLines={2}>
                   Has been <HighlightText> Planned </HighlightText>{" "}
                 </ContentText>

@@ -99,7 +99,7 @@ class Sample extends React.Component {
     const history = this.props.history;
     return (
       <Fragment>
-        <ItemDetail data={data} />
+        <ItemDetail data={this.props.data} />
         {this.state.sampleRequest == false && (
           <Fragment>
           <ScrollView showsVerticalScrollIndicator={false}>

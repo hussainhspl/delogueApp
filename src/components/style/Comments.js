@@ -102,12 +102,17 @@ class Comments extends React.Component {
     super(props);
     this.state = {
       ShowNewMsg: false,
-      showMessage: false,
-      showList: true
+      showMessage: props.openMessage || false,
+      showList: !props.openMessage || false,
     };
   }
   componentDidMount = () => {
-    console.log('props data', this.props.location.data, this.props.location.openMessage);
+    // console.log('props data', this.props.location.data, this.props.location.openMessage);
+    if(this.state.openMessage) {
+      console.log('props data', this.props.dataMsg);
+    }
+    
+
   }
   render() {
     // console.log("hello");
@@ -115,7 +120,7 @@ class Comments extends React.Component {
     
     return (
       <View style={{ flex: 1 }}>
-        <ItemDetail data={data} />
+        <ItemDetail data={this.props.data} />
         <ScrollView showsVerticalScrollIndicator={false}>
           {this.state.ShowNewMsg || this.state.showMessage ? (
             <TouchableOpacity
@@ -145,6 +150,7 @@ class Comments extends React.Component {
                 this.setState({ showList: false, showMessage: true });
                 // console.log("hey", this.state.showList);
               }}
+              styleID = {this.props.styleID}
             />
           )}
           {this.state.showMessage && (

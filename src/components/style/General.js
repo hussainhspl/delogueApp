@@ -272,7 +272,7 @@ class General extends React.Component {
         {state != null ? (
           <ScrollView showsVerticalScrollIndicator={false}>
             {
-               console.log('thumbnail found', this.state.imgSrc)
+              //  console.log('thumbnail found', this.state.imgSrc)
             }
             <View>
               <SImageLayout

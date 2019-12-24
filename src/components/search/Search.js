@@ -21,6 +21,7 @@ import GetStyles from '../../api/getStyles';
 import AsyncStorage from "@react-native-community/async-storage";
 import {styleList } from '../../store/actions/index';
 import GetSelectedStyle from '../../api/getStyle'; 
+import GetAsyncToken from '../../script/getAsyncToken';
 
 const SearchRow = styled.View`
   flex-direction: row;
@@ -137,7 +138,7 @@ class Search extends React.Component {
   
   styles = () => {
     console.log("calling api again");
-    this.getAsyncToken().then(token => {
+    GetAsyncToken().then(token => {
       console.log('get style api')
       GetStyles(this.state.searchTerm, token, this.state.brandIds,
         this.state.seasonIds)
@@ -149,7 +150,7 @@ class Search extends React.Component {
   }
   getCurrentStyle (id) {
     console.log('style clicked', id)
-    this.getAsyncToken()
+    GetAsyncToken()
       .then(token => {
         GetSelectedStyle(token, id)
           .then( res => {
@@ -160,16 +161,7 @@ class Search extends React.Component {
       })
 
   }
-  getAsyncToken = async () => {
-    try {
-      const token = await AsyncStorage.getItem("@token");
-      if (token) return token;
-    } catch (error) {
-      if (error) {
-        console.log("async token absent", error);
-      }
-    }
-  };
+
   static getDerivedStateFromProps(nextProps, prevState) {
     
     if (nextProps.filteredStyle !== prevState.filteredStyle) {

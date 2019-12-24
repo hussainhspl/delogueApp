@@ -24,25 +24,52 @@ class Style extends React.Component {
     };
   }
   renderSelectedTab(params, data, commentData, msgType) {
-    console.log("switch data", data.id, commentData);
-    switch (params) {
+    // console.log("switch data", data.id, {commentData});
+    console.log('style data', this.state.styleData)
+    let sdata = this.state.styleData;
+    // let imgSrc = sdata.styleLogoThumbnails.some( s => {
+    //   if(s[0].url != null){
+    //     return s[0].url
+    //   }
+    //   return false
+    // })
+    console.log("thumbnail :", sdata.data.styleLogoThumbnails[0])
+    let imgSrc = sdata.data.styleLogoThumbnails[0]
+    // let floatingStyleObject = {
+    //   logo : sdata.data.styleLogoThumbnails[0],
+    //   userDefinedId : sdata.data.userDefinedId,
+    //   styleName: sdata.data.name,
+    //   supplier: sdata.data.supplier != null ? sdata.data.supplier.name :  "-",
+    //   season: sdata.data.season != null ? sdata.data.season.name :  "-",
+    // }
+    // console.log('object created : ', floatingStyle);
+
+      switch (params) {
       case "general":
         return <General 
           history={this.props.history}
-          styleData = {this.state.styleData}
+          styleData = {sdata}
         />;
       case "comments":
         return <Comments 
-        data = {commentData}
+        dataMsg = {commentData}
         openMessage = {msgType}
-
+        data= {sdata.data}
+        styleID= {data.id}
         />;
       case "files":
         return <Files 
           styleID= {data.id}
+          data= {sdata.data}
+          
+          
         />;
       case "sample":
-        return <Sample history={this.props.history} />;
+        return <Sample 
+          history={this.props.history}
+          data= {sdata.data}
+          
+        />;
       case "pdf":
         return <Pdf/>;
       default:
@@ -88,15 +115,16 @@ class Style extends React.Component {
     //step 4 Dispatch action
     // store.dispatch({ type: "ATTACK", payload: "Iron Man" });
     // console.log("store state:", this.props.currentTab);
-    console.log('style array:', this.state.styleData);
-    console.log('single style from store', this.props.style);
+    // console.log('style array:', this.state.styleData);
+    // console.log('single style from store', this.props.style);
     console.log('props data style', this.props.location.data , this.props.location.openMessage);
 
     return (
       <Fragment>
         <Header history={this.props.history}>
           {
-            this.state.styleData == null && this.props.location.data == undefined ?
+            this.state.styleData == null ?
+            // this.props.location.data == undefined ?
             <View style={{flex: 1, backgroundColor: 'white'}}>
               <Loader />
             </View>

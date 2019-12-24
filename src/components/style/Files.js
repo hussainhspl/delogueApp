@@ -172,7 +172,7 @@ class Files extends React.Component {
     let no = 0;
     return (
       <View style={{ flex: 1 }}>
-        <ItemDetail data={data} />
+        <ItemDetail data={this.props.data} />
         <ScrollView showsVerticalScrollIndicator={false}>
           {
             this.state.fileArr != null ? 

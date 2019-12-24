@@ -1,23 +1,28 @@
-import React, {Fragment} from "react";
+import React, { Fragment } from "react";
 import { View, Text, Image, TouchableHighlight } from "react-native";
-import {Icon} from 'native-base';
+import { Icon } from 'native-base';
 import styled from "styled-components";
 import SearchInput from "../../styles/SearchInput";
 import SearchIcon from '../../styles/SearchIcon';
 import Subject from '../../styles/Subject';
 import Title from '../../styles/SmallText';
+import GetAsyncToken from '../../script/getAsyncToken';
+import GetStyleMessages from "../../api/message/getStyleMessages";
+import { format, parseISO } from 'date-fns';
+import ReadAll from "../../api/message/readAll";
+
 let MsgData = [
   {
     key: 1,
-    iconName:"mail",
+    iconName: "mail",
   },
   {
     key: 2,
-    iconName:"mail-open",
+    iconName: "mail-open",
   },
   {
     key: 3,
-    iconName:"mail",
+    iconName: "mail",
   },
 ]
 const SearchRow = styled.View`
@@ -25,7 +30,7 @@ const SearchRow = styled.View`
   justify-content: space-between;
   padding: 10px 10px 20px 20px;
 `;
-const MarkAllReadBox = styled.View`
+const MarkAllReadBox = styled.TouchableHighlight`
   width: 40px;
   height: 40px;
   align-items: center;
@@ -82,7 +87,7 @@ const IconBox = styled.View`
   align-items: center;
   justify-content: center;
 `;
-const MailIcon= styled(Icon)`
+const MailIcon = styled(Icon)`
   /* font-size: 12; */
   color: #ddd;
 `;
@@ -96,7 +101,39 @@ class CommentsList extends React.Component {
     super(props);
     this.state = {
       read: false,
+      searchTerm: "",
+      styleMessageList: null
     };
+  }
+  searchUpdated(term) {
+    this.setState({
+      searchTerm: term,
+      renderSearch: "linear"
+    });
+  }
+
+  styleMessages = () => {
+    console.log("calling style messages api");
+    GetAsyncToken().then(token => {
+      console.log('get style api')
+      GetStyleMessages(this.state.searchTerm, token, this.props.styleID,
+        this.state.seasonIds)
+        .then(res => {
+          console.log('response', res);
+          this.setState({
+            styleMessageList: res.data,
+          })
+        })
+    })
+  }
+  markRead = () => {
+    console.log('click mark all', this.props.styleID);
+    GetAsyncToken().then(token => {
+      ReadAll(token, this.props.styleID)
+        .then(res => {
+          console.log('read all messages');
+        })
+    })
   }
   render() {
     return (
@@ -105,42 +142,55 @@ class CommentsList extends React.Component {
           <SearchIcon>
             <Icon style={{ color: "#fff" }} name="ios-search" />
           </SearchIcon>
-          <SearchInput placeholder="SEARCH" placeholderTextColor="#C9DBDB" />
-          <MarkAllReadBox>
+          <SearchInput
+            placeholder="SEARCH"
+            placeholderTextColor="#C9DBDB"
+            onChangeText={term => {
+              this.searchUpdated(term);
+            }}
+            onSubmitEditing={this.styleMessages}
+          />
+          <MarkAllReadBox
+            onPress={this.markRead}
+            underlayColor="#222e21"
+          >
             <StyleImage source={require("../../../assets/img/glass.png")} />
           </MarkAllReadBox>
         </SearchRow>
+        {/* <Fragment> */}
         {
-          MsgData.map(data => {
-            return(
-              <MessageBox>
-              <TouchableHighlight
-                underlayColor="#42546033"
-                onPress={
-                  this.props.close
-                }
-              >
-                <Row>
-                <MainContent>
-                  <IconBox read={data.key == 2 ? true : false }>
-                    <MsgImage 
-                      resizeMode={"contain"}
-                      source={require("../../../assets/img/message-icon.png")} />
-                  </IconBox>
-                  <Subject>Swatch samples </Subject>
-                  <ContentText numberOfLines={2}>Dear nando, please find a new style and if you have any doubt or queries then please ask</ContentText>
-                </MainContent>
-                <InfoContent>
-                  <Name>Richel Smith</Name>
-                  <Title>13-oct-2019 13.42</Title>
-                </InfoContent>
-                </Row>
-              </TouchableHighlight>
-              </MessageBox>
-            )
-          })
+          this.state.styleMessageList != null ?
+            this.state.styleMessageList.map(data => {
+              let formatedDate = format(parseISO(data.loggedOn), "d-MMM-yyyy kk:mm");
+              return (
+                <MessageBox>
+                  <TouchableHighlight
+                    underlayColor="#42546033"
+                    onPress={
+                      this.props.close
+                    }
+                  >
+                    <Row>
+                      <MainContent>
+                        <IconBox read={data.isRead}>
+                          <MsgImage
+                            resizeMode={"contain"}
+                            source={require("../../../assets/img/message-icon.png")} />
+                        </IconBox>
+                        <Subject>{data.sampleTypeName != null ? data.sampleTypeName : ''} </Subject>
+                        <ContentText numberOfLines={2}>Dear nando, please find a new style and if you have any doubt or queries then please ask</ContentText>
+                      </MainContent>
+                      <InfoContent>
+                        <Name>{data.loggedByUserName}</Name>
+                        <Title>{formatedDate}</Title>
+                      </InfoContent>
+                    </Row>
+                  </TouchableHighlight>
+                </MessageBox>
+              )
+            })
+            : <Text> Enter String to search </Text>
         }
-        {/* <Text> hello from comments list</Text> */}
       </View>
     );
   }

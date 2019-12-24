@@ -46,20 +46,50 @@ const StyleImage = styled.Image`
 class ItemDetail extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      imgSrc: null
+    };
+  }
+  getThumbnail = (thumbnails) => {
+    // console.log("get thumbnail called")
+    if (thumbnails != null) {
+      thumbnails.some(s => {
+
+        if (s.size > 20000) {
+          this.setState({
+            imgSrc: s.url
+          })
+          return true;
+        }
+        else if (s.size > 10000) {
+          this.setState({
+            imgSrc: s.url
+          })
+          return true;
+        }
+        return false
+      })
+    }
+  }
+  componentDidMount = () => {
+    if (this.props.data.logoThumbnails != null) {
+      this.getThumbnail(this.props.data.logoThumbnails)
+    }
   }
   render() {
     let data = this.props.data;
-    // console.log("data",data.logo);
+    console.log("data in item detail", data
+    );
     return (
       <MainRow>
         <ImageBox>
           <StyleImage
             resizeMode={"contain"}
-            source={{uri: data.logo ? data.logo.url: 
-              noImage
+            source={{
+              uri: this.state.imgSrc ? this.state.imgSrc :
+                data.logo ? data.logo.url : noImage
             }}
-            // source={require("../../assets/img/shirt-static.png")}
+          // source={require("../../assets/img/shirt-static.png")}
           />
         </ImageBox>
         <Flex>
@@ -76,11 +106,15 @@ class ItemDetail extends React.Component {
           <StyledView>
             <View>
               <Title numberOfLines={1}>supplier</Title>
-              <CardText numberOfLines={1}>{data.supplierName}</CardText>
+              <CardText numberOfLines={1}>
+                {data.supplierName ? data.supplierName : data.supplier ? data.supplier.name : "-"}
+              </CardText>
             </View>
             <View>
               <Title numberOfLines={1}>season</Title>
-              <CardText numberOfLines={1}>{data.seasonName}</CardText>
+              <CardText numberOfLines={1}>
+                {data.seasonName ?data.seasonName : data.season ? data.season.name : "-"}
+              </CardText>
             </View>
           </StyledView>
         </Flex>
