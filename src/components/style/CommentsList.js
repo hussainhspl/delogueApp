@@ -10,6 +10,7 @@ import GetAsyncToken from '../../script/getAsyncToken';
 import GetStyleMessages from "../../api/message/getStyleMessages";
 import { format, parseISO } from 'date-fns';
 import ReadAll from "../../api/message/readAll";
+import { WebView } from 'react-native-webview';
 
 let MsgData = [
   {
@@ -178,7 +179,17 @@ class CommentsList extends React.Component {
                             source={require("../../../assets/img/message-icon.png")} />
                         </IconBox>
                         <Subject>{data.sampleTypeName != null ? data.sampleTypeName : ''} </Subject>
-                        <ContentText numberOfLines={2}>Dear nando, please find a new style and if you have any doubt or queries then please ask</ContentText>
+                        {/* <ContentText numberOfLines={2}>Dear nando, please find a new style and if you have any doubt or queries then please ask</ContentText> */}
+                        <WebView
+                          originWhitelist={['*']}
+                          injectedJavaScript='window.ReactNativeWebView.postMessage(JSON.stringify(document.body.scrollHeight), "*")'
+                          scrollEnabled={false}
+                          style={{height: 52}}
+                          source={{
+                            html: `<!DOCTYPE html><html><head><meta name="viewport" content="width=device-width, initial-scale=1"></head>
+                            <body><small>${data.messageBody}</small></body></html>`
+                          }}
+                        />
                       </MainContent>
                       <InfoContent>
                         <Name>{data.loggedByUserName}</Name>

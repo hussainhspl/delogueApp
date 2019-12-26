@@ -86,6 +86,7 @@ class ChatMessage extends React.Component {
   }
   render() {
     console.log('props in sample request', this.props.data)
+    // console.log('enter in chat')
     let {styleName, loggedOn, styleNumber, loggedByUserName, 
       messageSubject, isRead} = this.props.data;
     let formatedDate = format(parseISO(loggedOn), "d-MMM-yyyy kk:mm");
@@ -99,9 +100,8 @@ class ChatMessage extends React.Component {
             <ChatIconBox readChat={isRead}>
               <STouchableHighlight
                 underlayColor={this.props.theme.overlayBlue}
-                onPress={() => {
-                  this.setState({ chatRead: !this.state.chatRead });
-                }}
+                onPress={this.props.toggleAlertFunction}
+                // {/* onPress={() => console.log("chat icon click")} */}
               >
                 <MsgImage
                   resizeMode={"contain"}

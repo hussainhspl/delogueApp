@@ -6,6 +6,7 @@ import userReducer from './reducers/user_reducer';
 import styleReducer from './reducers/style_reducer';
 import singleStyle from './reducers/singleStyle_reducer';
 import styleFileListReducer from './reducers/styleFileList_reducer';
+import unreadMessagesListReducer from './reducers/unreadMessagesList_reducer';
 
 const rootReducer = combineReducers({
   tab: tabReducer,
@@ -15,6 +16,7 @@ const rootReducer = combineReducers({
   styleList: styleReducer,
   style: singleStyle,
   styleFileList: styleFileListReducer,
+  unreadMessagesList: unreadMessagesListReducer,
 });
 
 const configStore = () => {

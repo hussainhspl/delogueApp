@@ -8,7 +8,7 @@ import {
 import { Icon } from "native-base";
 import { withTheme } from 'styled-components';
 import { connect } from "react-redux";
-import { commentTab } from "../../store/actions/index";
+import { commentTab, unreadMessagesList } from "../../store/actions/index";
 import styled from "styled-components";
 import Header from "../../Header";
 import Subject from '../../styles/Subject';
@@ -23,6 +23,8 @@ import { format, parseISO } from 'date-fns';
 // import HTMLView from 'react-native-htmlview';
 import { WebView } from 'react-native-webview';
 import DWebView from "./DWebView";
+import CreateAlert from "../../api/createAlert";
+import DeleteAlert from "../../api/deleteAlert";
 
 const IconRow = styled.View`
   flex-direction: row;
@@ -195,17 +197,31 @@ class Message extends React.Component {
     };
   }
   componentDidMount = () => {
-    GetAsyncToken()
+    console.log('message component did mount', this.props.unreadList);
+    if(this.props.unreadList == null) {
+      GetAsyncToken()
       .then(token => {
         UnreadMessageList(token)
           .then(res => {
             console.log('message list', res.data)
-            this.setState({
-              MessageList: res.data,
-              
-            })
+            // this.setState({
+            //   MessageList: res.data,
+            // })
+            this.props.unreadMessagesListFunction(res.data)
           })
       })
+    }
+    
+  }
+  static getDerivedStateFromProps(nextProps, prevState) {
+    // console.log('before render', this.state.MessageList.isRead)
+    if (nextProps.MessageList !== prevState.MessageList) {
+      console.log("Entered nextProps messages",prevState.MessageList);
+      return{
+        MessageList: nextProps.unreadList,
+      }
+    }
+    return null;
   }
 
   redirectToComment(id) {
@@ -213,17 +229,17 @@ class Message extends React.Component {
     GetAsyncToken()
       .then(token => {
         SpecificMessage(token, id)
-        .then(res => {
-          console.log('resp in message :', res);  
-          this.props.commentTabFunction();
-          this.props.history.push({
-            pathname:'/style',
-            data: res.data,
-            openMessage: true
-          })  
-        })
+          .then(res => {
+            console.log('resp in message :', res);
+            this.props.commentTabFunction();
+            this.props.history.push({
+              pathname: '/style',
+              data: res.data,
+              openMessage: true
+            })
+          })
       })
-    
+
   }
 
   find_dimesions(layout) {
@@ -233,19 +249,19 @@ class Message extends React.Component {
     console.warn(width);
     console.log("hright", height);
   }
-  _onMessage = (event,index) => {
+  _onMessage = (event, index) => {
     // console.log(index);
     // console.log('event111', event.nativeEvent, Number(event.nativeEvent.data));
     let con = JSON.parse(event.nativeEvent.data)
-    
+
     let heightRaw = 0;
     // heightRaw= Number();
     let intHeight = parseInt(con)
-    
+
     let list = [];
-    
+
     list = this.state.htmlHeight;
-    
+
     list.push(intHeight);
     // console.log(list);
     // this.state.htmlHeight = list;
@@ -258,12 +274,45 @@ class Message extends React.Component {
 
   }
 
+  toggleAlert = (auditLogId, messageType) => {
+    console.log('enter in toggle alert', auditLogId);
+    GetAsyncToken()
+      .then(token => {
+        DeleteAlert(token, auditLogId)
+          .then(res => {
+            console.log('alert deleted successfully');
+            this.setState(prevState => ({
+              MessageList : prevState.MessageList.map(
+                el => el.auditLogId == auditLogId ? 
+                  {...el, isRead: true} : el
+              )
+            }))   
+            this.props.unreadMessagesListFunction(this.state.MessageList)        
+            // this.state.MessageList.map(d => {
+            //   console.log('read state :', d.isRead)
+            //   if(d.auditLogId == auditLogId) {
+            //     console.log("matched id", d.auditLogId);
+                
+            //   }
+            // })
+          })
+          // 118051 isRead: false DeleteAlert
+          // 118046
+        // CreateAlert(token, auditLogId, messageType)
+        //   .then(res => {
+        //     console.log('successfully marked unread', res);
+        //   })
+      })
+  }
+
   render() {
 
     history = this.props.history;
-    // console.log(this.state.htmlHeight);
+    if(this.state.MessageList != null)
+      console.log("message list render", this.state.MessageList.isRead);
     // let numHeight = parseInt(this.state.webviewHeight);
     // console.log('webviewHeight', this.state.webViewHeight);
+    // let chat = this.state.MessageList.filter(m => m.messageType == "Style sample request")
     return (
       <MainView>
         <Header history={this.props.history}>
@@ -307,103 +356,118 @@ class Message extends React.Component {
                 </ButtonRow>
               </TouchableWithoutFeedback>
             </IconRow>
-            {this.state.message && (
+            {
               this.state.MessageList != null ?
                 this.state.MessageList.map((m, index) => {
-                  if (index > 5)
-                    return
+                  // if (index > 5)
+                  //   return
                   let formatedDate = format(parseISO(m.loggedOn), "d-MMM-yyyy kk:mm");
                   // console.log('Enter in map', this.state.webviewHeight, index);
-                  if(m.messageType == "StyleCommunicationMessage") {
 
+                  if (m.messageType == "StyleCommunicationMessage") {
                     return (
-                      <MessageBox>
-                        <TouchableHighlight
-                          underlayColor={this.props.theme.overlayBlue}
-                          onPress={() => this.redirectToComment(m.auditLogId)}
-                        >
-                          <Fragment>
-                            <MsgIconBox readMsg={m.isRead}>
-                              <STouchableHighlight underlayColor={this.props.theme.overlayBlue} onPress={() => { this.setState({ read: !this.state.read }) }}>
-                                <MsgImage
-                                  resizeMode={"contain"}
-                                  source={require("../../../assets/img/message-icon.png")}
-                                />
-                              </STouchableHighlight>
-                            </MsgIconBox>
-                            <TitleRow>
-                              <Flex1>
-                                <Title>Style Name</Title>
-                                <CardText numberOfLines={1}>{m.styleName}</CardText>
-                              </Flex1>
-                              <Flex1>
-                                <Title>Style Number</Title>
-                                <CardText numberOfLines={1}>{m.styleNumber}</CardText>
-                              </Flex1>
-                              <Flex1>
-                                <Title>{formatedDate}</Title>
-                                <CardText numberOfLines={1}>{m.loggedByUserName}</CardText>
-                              </Flex1>
-                            </TitleRow>
-                            <Row>
-                              <MainContent>
-                                <Subject>
-                                  {m.messageSubject !== null ? m.messageSubject : 'no subject'}
-                                </Subject>
+                      <Fragment>
+                        {this.state.message && (
+                          <MessageBox>
+                            <TouchableHighlight
+                              underlayColor={this.props.theme.overlayBlue}
+                              onPress={() => this.redirectToComment(m.auditLogId)}
+                            >
+                              <Fragment>
+                                <MsgIconBox readMsg={m.isRead}>
+                                  <STouchableHighlight underlayColor={this.props.theme.overlayBlue} 
+                                    onPress={this.toggleAlert(m.auditLogId, m.messageType)}>
+                                    <MsgImage
+                                      resizeMode={"contain"}
+                                      source={require("../../../assets/img/message-icon.png")}
+                                    />
+                                  </STouchableHighlight>
+                                </MsgIconBox>
+                                <TitleRow>
+                                  <Flex1>
+                                    <Title>Style Name</Title>
+                                    <CardText numberOfLines={1}>{m.styleName}</CardText>
+                                  </Flex1>
+                                  <Flex1>
+                                    <Title>Style Number</Title>
+                                    <CardText numberOfLines={1}>{m.styleNumber}</CardText>
+                                  </Flex1>
+                                  <Flex1>
+                                    <Title>{formatedDate}</Title>
+                                    <CardText numberOfLines={1}>{m.loggedByUserName}</CardText>
+                                  </Flex1>
+                                </TitleRow>
+                                <Row>
+                                  <MainContent>
+                                    <Subject>
+                                      {m.messageSubject !== null ? m.messageSubject : 'no subject'}
+                                    </Subject>
 
-                                <View
-                                // style = {{height: this.state.htmlHeight !== null ? this.state.htmlHeight[index] : 30}}
-                                // onLayout={(event) => {
-                                // var {x, y, width, height} = event.nativeEvent.layout;
-                                // console.log('var height:', height);
-                                // this.setState({
-                                //   htmlHeight: height
-                                // }, () => console.log('response', this.state.htmlHeight))
+                                    <View
+                                    // style = {{height: this.state.htmlHeight !== null ? this.state.htmlHeight[index] : 30}}
+                                    // onLayout={(event) => {
+                                    // var {x, y, width, height} = event.nativeEvent.layout;
+                                    // console.log('var height:', height);
+                                    // this.setState({
+                                    //   htmlHeight: height
+                                    // }, () => console.log('response', this.state.htmlHeight))
 
-                                // }}
-                                >
-                                  <ContentText
-                                    originWhitelist={['*']}
-                                    injectedJavaScript='window.ReactNativeWebView.postMessage(JSON.stringify(document.body.scrollHeight), "*")'
-                                    onMessage={(event)=>this._onMessage(event,index)}
-                                    scrollEnabled={false}
-                                    cacheEnabled={false}
-                                    style={{
-                                      fontSize: 26,
-                                      height: 200,
-                                      // height: this.state.htmlHeight[index]
-                                    }}
-                                    source={{
-                                      html: `<!DOCTYPE html><html><head><meta name="viewport" content="width=device-width, initial-scale=1"></head>
-                                  <body><small>${m.messageBody}</small></body></html>`
-                                    }}
-                                  />
-                                </View>
-                                {/* :null} */}
-                              </MainContent>
-                              <InternalView>
-                                <Icon style={{ color: "#ddd", fontSize: 18 }} name="home" />
-                                <InternalText>Internal</InternalText>
-                              </InternalView>
-                            </Row>
-                          </Fragment>
-                        </TouchableHighlight>
-                      </MessageBox>
+                                    // }}
+                                    >
+                                      <ContentText
+                                        originWhitelist={['*']}
+                                        injectedJavaScript='window.ReactNativeWebView.postMessage(JSON.stringify(document.body.scrollHeight), "*")'
+                                        onMessage={(event) => this._onMessage(event, index)}
+                                        scrollEnabled={false}
+                                        cacheEnabled={false}
+                                        style={{
+                                          fontSize: 26,
+                                          height: 200,
+                                          // height: this.state.htmlHeight[index]
+                                        }}
+                                        source={{
+                                          html: `<!DOCTYPE html><html><head><meta name="viewport" content="width=device-width, initial-scale=1"></head>
+                                    <body><small>${m.messageBody}</small></body></html>`
+                                        }}
+                                      />
+                                    </View>
+                                    {/* :null} */}
+                                  </MainContent>
+                                  <InternalView>
+                                    <Icon style={{ color: "#ddd", fontSize: 18 }} name="home" />
+                                    <InternalText>Internal</InternalText>
+                                  </InternalView>
+                                </Row>
+                              </Fragment>
+                            </TouchableHighlight>
+                          </MessageBox>
+                        )}
+                      </Fragment>
+
                     )
                   }
                   else if (m.messageType == "Style sample request") {
                     return (
-                      <ChatMessage 
-                        data ={m}
-                      />
+                      <Fragment>
+                        {this.state.chat && (
+                          <ChatMessage
+                            data={m}
+                            toggleAlertFunction = {() => this.toggleAlert(m.auditLogId, m.messageType)}
+                          />
+                        )}
+                      </Fragment>
+
+                    )
+                  }
+                  else {
+                    return (
+                      <Text> other message type </Text>
                     )
                   }
                 })
                 : <Text> Loading Messages</Text>
-            )}
-            {/* {this.state.chat && (
-              <ChatMessage />
-            )} */}
+            }
+            {!this.state.message && !this.state.chat ? <Text> Select at least one icon </Text> : null}
 
           </ScrollView>
         </Header>
@@ -413,11 +477,15 @@ class Message extends React.Component {
 }
 
 const mapStateToProps = state => {
-  return {};
+  return {
+    unreadList: state.unreadMessagesList.unreadMessagesListState
+  };
 };
 const mapDispatchToProps = dispatch => {
   return {
+    //calling action
     commentTabFunction: () => dispatch(commentTab()),
+    unreadMessagesListFunction: (unread) => dispatch(unreadMessagesList(unread)),
   }
 }
 export default connect(

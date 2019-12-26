@@ -19,5 +19,7 @@ export const STYLE_LIST = "STYLE_LIST";
 export const SINGLESTYLE = 'SINGLESTYLE';
 // Storing style file list
 export const STYLE_FILE_LIST = "STYLE_FILE_LIST";
+// unread messages msg page
+export const UNREAD_MESSAGES_LIST = "UNREAD_MESSAGES_LIST";
 
 

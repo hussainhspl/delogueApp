@@ -117,6 +117,7 @@ class Search extends React.Component {
     };
   }
   componentDidMount = () => {
+    console.log('enter in style component did mount');
   }
   searchUpdated(term) {
     this.setState({
