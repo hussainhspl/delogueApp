@@ -146,7 +146,7 @@ class Comments extends React.Component {
 
           {this.state.showList && (
             <CommentsList
-              close={() => {
+              closeList={() => {
                 this.setState({ showList: false, showMessage: true });
                 // console.log("hey", this.state.showList);
               }}

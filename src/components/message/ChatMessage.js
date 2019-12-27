@@ -85,7 +85,7 @@ class ChatMessage extends React.Component {
     this.state = {};
   }
   render() {
-    console.log('props in sample request', this.props.data)
+    // console.log('props in sample request', this.props.data)
     // console.log('enter in chat')
     let {styleName, loggedOn, styleNumber, loggedByUserName, 
       messageSubject, isRead} = this.props.data;

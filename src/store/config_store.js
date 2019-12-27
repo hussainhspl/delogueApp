@@ -7,6 +7,7 @@ import styleReducer from './reducers/style_reducer';
 import singleStyle from './reducers/singleStyle_reducer';
 import styleFileListReducer from './reducers/styleFileList_reducer';
 import unreadMessagesListReducer from './reducers/unreadMessagesList_reducer';
+import styleMessageListReducer from './reducers/styleMessageList_reducer';
 
 const rootReducer = combineReducers({
   tab: tabReducer,
@@ -17,6 +18,7 @@ const rootReducer = combineReducers({
   style: singleStyle,
   styleFileList: styleFileListReducer,
   unreadMessagesList: unreadMessagesListReducer,
+  styleMessageList: styleMessageListReducer,
 });
 
 const configStore = () => {

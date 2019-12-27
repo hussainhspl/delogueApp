@@ -1,6 +1,7 @@
 import React, { Fragment } from "react";
 import { View, Text, Image, TouchableHighlight } from "react-native";
 import { Icon } from 'native-base';
+import { withTheme } from 'styled-components';
 import styled from "styled-components";
 import SearchInput from "../../styles/SearchInput";
 import SearchIcon from '../../styles/SearchIcon';
@@ -9,8 +10,14 @@ import Title from '../../styles/SmallText';
 import GetAsyncToken from '../../script/getAsyncToken';
 import GetStyleMessages from "../../api/message/getStyleMessages";
 import { format, parseISO } from 'date-fns';
+import { connect } from 'react-redux';
+import { styleMessageList } from '../../store/actions/index'
 import ReadAll from "../../api/message/readAll";
 import { WebView } from 'react-native-webview';
+import CreateAlert from "../../api/createAlert";
+import DeleteAlert from "../../api/deleteAlert";
+
+
 
 let MsgData = [
   {
@@ -96,14 +103,21 @@ const MsgImage = styled.Image`
   width: 20px;
   height: 15px;
 `;
-
+const STouchableHighlight = styled.TouchableHighlight`
+  width: 30px;
+  height: 30px;
+  border-radius: 15px;
+  border: 1px solid #bbb;
+  align-items: center;
+  justify-content: center;
+`;
 class CommentsList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       read: false,
       searchTerm: "",
-      styleMessageList: null
+      msgList: null
     };
   }
   searchUpdated(term) {
@@ -121,11 +135,52 @@ class CommentsList extends React.Component {
         this.state.seasonIds)
         .then(res => {
           console.log('response', res);
-          this.setState({
-            styleMessageList: res.data,
-          })
+          this.props.styleMessageListFunction(res.data)
+
         })
     })
+  }
+  static getDerivedStateFromProps(nextProps, prevState) {
+    // console.log('before render', this.state.MessageList.isRead)
+    if (nextProps.msgList !== prevState.msgList) {
+      console.log("Entered nextProps style msg",prevState.msgList);
+      return{
+        msgList: nextProps.storeMsgList,
+      }
+    }
+    return null;
+  }
+  toggleAlert (auditLogId, messageType) {
+    console.log('enter in toggle alert', auditLogId);
+    let currentAlert = '';
+    GetAsyncToken()
+      .then(token => {
+
+        this.state.msgList.map( d => {
+          if(d.auditLogId == auditLogId) {
+            console.log('click state', d.isRead);
+            currentAlert = d.isRead;
+          }
+        })
+        console.log('if', currentAlert);
+        if(currentAlert == false) {
+          console.log('auditLogId',auditLogId);
+          DeleteAlert(token, auditLogId)
+          .then(res => {
+            console.log('alert deleted successfully');
+
+            // this.props.updateReadFunction(auditLogId)   
+
+          })
+        }else{
+          console.log('auditLogId',auditLogId);
+          CreateAlert(token, auditLogId, messageType)
+            .then(res => {
+              console.log('successfully marked unread', res);
+              // this.props.updateUnReadFunction(auditLogId)
+            })
+        }
+      })
   }
   markRead = () => {
     console.log('click mark all', this.props.styleID);
@@ -137,6 +192,7 @@ class CommentsList extends React.Component {
     })
   }
   render() {
+    console.log('this.state.msgList', this.state.msgList);
     return (
       <View style={{ flex: 1 }}>
         <SearchRow>
@@ -160,23 +216,26 @@ class CommentsList extends React.Component {
         </SearchRow>
         {/* <Fragment> */}
         {
-          this.state.styleMessageList != null ?
-            this.state.styleMessageList.map(data => {
+          this.state.msgList != null ?
+            this.state.msgList.map(data => {
               let formatedDate = format(parseISO(data.loggedOn), "d-MMM-yyyy kk:mm");
               return (
                 <MessageBox>
                   <TouchableHighlight
                     underlayColor="#42546033"
                     onPress={
-                      this.props.close
+                      this.props.closeList
                     }
                   >
                     <Row>
                       <MainContent>
                         <IconBox read={data.isRead}>
+                        <STouchableHighlight underlayColor={this.props.theme.overlayBlue} 
+                          onPress={() => this.toggleAlert(data.auditLogId, data.messageType)}>
                           <MsgImage
                             resizeMode={"contain"}
                             source={require("../../../assets/img/message-icon.png")} />
+                          </STouchableHighlight>
                         </IconBox>
                         <Subject>{data.sampleTypeName != null ? data.sampleTypeName : ''} </Subject>
                         {/* <ContentText numberOfLines={2}>Dear nando, please find a new style and if you have any doubt or queries then please ask</ContentText> */}
@@ -206,4 +265,15 @@ class CommentsList extends React.Component {
     );
   }
 }
-export default CommentsList;
+const mapDispatchToProps = dispatch => {
+  return{
+    styleMessageListFunction : (li) => dispatch(styleMessageList(li))
+  }
+};
+const mapStateToProps = state => {
+  return{
+    storeMsgList : state.styleMessageList.styleMessageListState
+  }
+};
+export default connect(mapStateToProps, mapDispatchToProps) 
+(withTheme(CommentsList));

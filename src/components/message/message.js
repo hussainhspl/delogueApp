@@ -8,7 +8,7 @@ import {
 import { Icon } from "native-base";
 import { withTheme } from 'styled-components';
 import { connect } from "react-redux";
-import { commentTab, unreadMessagesList } from "../../store/actions/index";
+import { commentTab, unreadMessagesList, readAll, unreadAll } from "../../store/actions/index";
 import styled from "styled-components";
 import Header from "../../Header";
 import Subject from '../../styles/Subject';
@@ -276,26 +276,36 @@ class Message extends React.Component {
 
   toggleAlert = (auditLogId, messageType) => {
     console.log('enter in toggle alert', auditLogId);
+    let currentAlert = '';
     GetAsyncToken()
       .then(token => {
-        DeleteAlert(token, auditLogId)
+
+        this.state.MessageList.map( d => {
+          if(d.auditLogId == auditLogId) {
+            // conole.log('click state', d.isRead);
+            currentAlert = d.isRead;
+            
+          }
+        })
+        console.log('if', currentAlert);
+        if(currentAlert == false) {
+          console.log('auditLogId',auditLogId);
+          DeleteAlert(token, auditLogId)
           .then(res => {
             console.log('alert deleted successfully');
-            this.setState(prevState => ({
-              MessageList : prevState.MessageList.map(
-                el => el.auditLogId == auditLogId ? 
-                  {...el, isRead: true} : el
-              )
-            }))   
-            this.props.unreadMessagesListFunction(this.state.MessageList)        
-            // this.state.MessageList.map(d => {
-            //   console.log('read state :', d.isRead)
-            //   if(d.auditLogId == auditLogId) {
-            //     console.log("matched id", d.auditLogId);
-                
-            //   }
-            // })
+
+            this.props.updateReadFunction(auditLogId)   
+
           })
+        }else{
+          console.log('auditLogId',auditLogId);
+          CreateAlert(token, auditLogId, messageType)
+            .then(res => {
+              console.log('successfully marked unread', res);
+              this.props.updateUnReadFunction(auditLogId)
+            })
+        }
+        
           // 118051 isRead: false DeleteAlert
           // 118046
         // CreateAlert(token, auditLogId, messageType)
@@ -309,7 +319,7 @@ class Message extends React.Component {
 
     history = this.props.history;
     if(this.state.MessageList != null)
-      console.log("message list render", this.state.MessageList.isRead);
+      console.log("message list render", this.state.MessageList);
     // let numHeight = parseInt(this.state.webviewHeight);
     // console.log('webviewHeight', this.state.webViewHeight);
     // let chat = this.state.MessageList.filter(m => m.messageType == "Style sample request")
@@ -486,6 +496,10 @@ const mapDispatchToProps = dispatch => {
     //calling action
     commentTabFunction: () => dispatch(commentTab()),
     unreadMessagesListFunction: (unread) => dispatch(unreadMessagesList(unread)),
+
+    updateReadFunction: (auditLogId) => dispatch(readAll(auditLogId)),
+    updateUnReadFunction: (auditLogId) => dispatch(unreadAll(auditLogId))
+
   }
 }
 export default connect(
