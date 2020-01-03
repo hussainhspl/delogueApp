@@ -20,21 +20,27 @@ class Style extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      styleData: null
+      styleData: null,
+      loading: true,
     };
   }
-  renderSelectedTab(params, data, commentData, msgType) {
+  renderSelectedTab(params, 
+    StateData, locationData, 
+    // commentData, msgType, SampleCommentData
+    ) {
+      
+      // console.log("params :", params, StateData)
     // console.log("switch data", data.id, {commentData});
-    console.log('style data', this.state.styleData)
-    let sdata = this.state.styleData;
+    // console.log('style data', this.state.styleData)
+    // let sdata = this.state.styleData;
     // let imgSrc = sdata.styleLogoThumbnails.some( s => {
     //   if(s[0].url != null){
     //     return s[0].url
     //   }
     //   return false
     // })
-    console.log("thumbnail :", sdata.data.styleLogoThumbnails[0])
-    let imgSrc = sdata.data.styleLogoThumbnails[0]
+    // console.log("thumbnail :", sdata.data.styleLogoThumbnails[0])
+    // let imgSrc = sdata.data.styleLogoThumbnails[0]
     // let floatingStyleObject = {
     //   logo : sdata.data.styleLogoThumbnails[0],
     //   userDefinedId : sdata.data.userDefinedId,
@@ -48,27 +54,26 @@ class Style extends React.Component {
       case "general":
         return <General 
           history={this.props.history}
-          styleData = {sdata}
+          styleData = {StateData}
         />;
       case "comments":
         return <Comments 
-        dataMsg = {commentData}
-        openMessage = {msgType}
-        data= {sdata.data}
-        styleID= {data.id}
+        dataMsg = {locationData.data}
+        openMessage = {locationData.openMessage}
+        styleData = {StateData != null ? StateData.data : null}
+        styleID= {StateData != null ? StateData.data.id : null}
         />;
       case "files":
         return <Files 
-          styleID= {data.id}
-          data= {sdata.data}
-          
-          
+          // styleID= {data.id}
+          data= {StateData != null ? StateData.data : null}
+          styleID= {StateData != null ? StateData.data.id : null}        
         />;
       case "sample":
         return <Sample 
           history={this.props.history}
-          // data= {sdata.data}
-          
+          data= {locationData.SampleCommentData}
+          styleData = {StateData.data}   
         />;
       case "pdf":
         return <Pdf/>;
@@ -77,7 +82,7 @@ class Style extends React.Component {
   }
   static getDerivedStateFromProps(nextProps, prevState) {
     if (nextProps.styleData !== prevState.styleData) {
-      console.log('entered style nextProps');
+      // console.log('entered style nextProps');
       return {
         styleData: nextProps.style,
       }
@@ -87,6 +92,14 @@ class Style extends React.Component {
   componentDidMount = () => {
     // console.log('did mount in style');
     // this.getStyles();
+    let history = this.props.history;
+    if(this.state.styleData == null) {
+      console.log('did mount style data null');
+      setTimeout(() => {
+        console.log("2 seconds done", history);
+        history.push("/search")
+      }, 3000);
+    }
   }
 
   render() {
@@ -117,32 +130,35 @@ class Style extends React.Component {
     // console.log("store state:", this.props.currentTab);
     // console.log('style array:', this.state.styleData);
     // console.log('single style from store', this.props.style);
-    console.log('props data style', this.props.location.data , this.props.location.openMessage);
+    // console.log('props data style', this.props.location, this.state.styleData);
 
     return (
       <Fragment>
         <Header history={this.props.history}>
           {
-            // this.state.styleData == null ?
-            this.props.location.data == undefined ?
-            <View style={{flex: 1, backgroundColor: 'white'}}>
-              <Loader />
-            </View>
+            this.state.styleData != null 
+            // ||
+            // this.props.location.state == undefined 
+            ?
+            <Fragment>
+              {
+                this.renderSelectedTab(
+                  this.props.currentTab, 
+                  this.state.styleData,
+                  this.props.location
+                  // this.props.location.data, 
+                  // this.props.location.openMessage,
+                  // this.props.location.SampleCommentData
+                )
+              }
+              <FooterComponent /> 
+            </Fragment>
             :
-            this.renderSelectedTab(
-              this.props.currentTab, 
-              this.state.styleData.data,
-              this.props.location.data, 
-              this.props.location.openMessage
-            )
-            
+            // <View style={{flex: 1, backgroundColor: 'white'}}>
+            //   <Loader />
+            // </View> 
+            <Text>redirecting</Text>
           }
-          {
-            this.state.styleData == null ?
-            null
-            :
-            <FooterComponent /> 
-          }  
         </Header>
       </Fragment>
     );

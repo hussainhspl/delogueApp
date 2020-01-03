@@ -226,7 +226,7 @@ class General extends React.Component {
   componentDidMount = () => {
     if (Dimensions.get("window").width > 568) {
       this.setState({ tablet: true }, () =>
-        console.log("will mount", this.state.tablet)
+        console.log("did mount", this.state.tablet)
       );
     }
     console.log('component did mount called')

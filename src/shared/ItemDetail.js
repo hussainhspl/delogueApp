@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 import { View, Text, Image, Dimensions } from "react-native";
 import styled from "styled-components";
 import Title from "../styles/SmallText";
@@ -72,8 +72,10 @@ class ItemDetail extends React.Component {
     }
   }
   componentDidMount = () => {
-    if (this.props.data.logoThumbnails != null) {
-      this.getThumbnail(this.props.data.logoThumbnails)
+    if (this.props.data != null) {
+      if (this.props.data.logoThumbnails != null) {
+        this.getThumbnail(this.props.data.logoThumbnails)
+      }
     }
   }
   render() {
@@ -82,42 +84,47 @@ class ItemDetail extends React.Component {
     );
     return (
       <MainRow>
-        <ImageBox>
-          <StyleImage
-            resizeMode={"contain"}
-            source={{
-              uri: this.state.imgSrc ? this.state.imgSrc :
-                data.logo ? data.logo.url : noImage
-            }}
-          // source={require("../../assets/img/shirt-static.png")}
-          />
-        </ImageBox>
-        <Flex>
-          <StyledView>
-            <View>
-              <Title numberOfLines={1}>style no</Title>
-              <CardText numberOfLines={1}>{data.userDefinedId}</CardText>
-            </View>
-            <View>
-              <Title>style name</Title>
-              <CardText numberOfLines={1}>{data.name}</CardText>
-            </View>
-          </StyledView>
-          <StyledView>
-            <View>
-              <Title numberOfLines={1}>supplier</Title>
-              <CardText numberOfLines={1}>
-                {data.supplierName ? data.supplierName : data.supplier ? data.supplier.name : "-"}
-              </CardText>
-            </View>
-            <View>
-              <Title numberOfLines={1}>season</Title>
-              <CardText numberOfLines={1}>
-                {data.seasonName ?data.seasonName : data.season ? data.season.name : "-"}
-              </CardText>
-            </View>
-          </StyledView>
-        </Flex>
+        {data != null ? <Fragment>
+          <ImageBox>
+            <StyleImage
+              resizeMode={"contain"}
+              source={{
+                uri: this.state.imgSrc ? this.state.imgSrc :
+                  data.logo ? data.logo.url : noImage
+              }}
+            // source={require("../../assets/img/shirt-static.png")}
+            />
+          </ImageBox>
+          <Flex>
+            <StyledView>
+              <View>
+                <Title numberOfLines={1}>style no</Title>
+                <CardText numberOfLines={1}>{data.userDefinedId}</CardText>
+              </View>
+              <View>
+                <Title>style name</Title>
+                <CardText numberOfLines={1}>{data.name}</CardText>
+              </View>
+            </StyledView>
+            <StyledView>
+              <View>
+                <Title numberOfLines={1}>supplier</Title>
+                <CardText numberOfLines={1}>
+                  {data.supplierName ? data.supplierName : data.supplier ? data.supplier.name : "-"}
+                </CardText>
+              </View>
+              <View>
+                <Title numberOfLines={1}>season</Title>
+                <CardText numberOfLines={1}>
+                  {data.seasonName ? data.seasonName : data.season ? data.season.name : "-"}
+                </CardText>
+              </View>
+            </StyledView>
+          </Flex>
+        </Fragment>
+          : null
+          // <Text>no data available</Text>
+          }
       </MainRow>
     );
   }

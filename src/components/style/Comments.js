@@ -18,14 +18,14 @@ import CommonModal from "../../shared/CommonModal";
 import SpecificMessage from "../../api/message/specificMessage";
 import GetAsyncToken from "../../script/getAsyncToken";
 
-const data = {
-  styleNo: "sty2211",
-  styleName: "Casual Shirt",
-  supplier: "head textiles",
-  season: "summer"
-};
+// const data = {
+//   styleNo: "sty2211",
+//   styleName: "Casual Shirt",
+//   supplier: "head textiles",
+//   season: "summer"
+// };
 
-const dataArray = [{ title: "New Message", content: <NewMessage /> }];
+// const dataArray = [{ title: "New Message", content: <NewMessage /> }];
 
 // const MessageAccordion = styled.Accordion`
 //   background-color: #f00;
@@ -106,94 +106,103 @@ class Comments extends React.Component {
       ShowNewMsg: false,
       showMessage: props.openMessage || false,
       showList: !props.openMessage || false,
-      MessageContent : null,
+      MessageContent: null,
     };
   }
   componentDidMount = () => {
+    console.log('entering in did mount comment');
     // console.log('props data', this.props.location.data, this.props.location.openMessage);
     if (this.state.openMessage) {
       console.log('props data', this.props.dataMsg);
     }
-
-
   }
   openMessage(id) {
-    
+
     console.log("hey", id, this.state.showList);
     GetAsyncToken().then(token => {
       SpecificMessage(token, id)
-      .then(res => {
-        console.log('resp in message :', res);
-        this.setState({ 
-          MessageContent: res.data,
-          showList: false, 
-          showMessage: true 
-        });
-      })
+        .then(res => {
+          console.log('resp in message comments :', res);
+          this.setState({
+            MessageContent: res.data,
+            showList: false,
+            showMessage: true
+          });
+        })
     })
-    
- 
-}
-render() {
-  // console.log("hello");
 
 
-  return (
-    <View style={{ flex: 1 }}>
-      <ItemDetail data={this.props.data} />
-      <ScrollView showsVerticalScrollIndicator={false}>
-        {this.state.ShowNewMsg || this.state.showMessage ? (
-          <TouchableOpacity
-            activeOpacity={0.3}
-            onPress={() =>
-              this.setState({
-                showList: true,
-                ShowNewMsg: false,
-                showMessage: false
-              })
-            }
-          >
-            <BackRow>
-              <Icon
-                style={{ color: "#aaa", fontSize: 22 }}
-                name="arrow-back"
-              />
-              <BackText> back </BackText>
-            </BackRow>
-          </TouchableOpacity>
-        ) : null}
-        {this.state.ShowNewMsg && <NewMessage />}
+  }
+  static getDerivedStateFromProps(nextProps, prevState) {
+    if (nextProps.MessageContent !== prevState.MessageContent) {
+      console.log("Entered nextProps comments");
+      // console.log("Entered prevState", prevState);
+      return {
+        MessageContent: nextProps.dataMsg,
+      }
+    }
+    return null;
+  }
+  render() {
+    console.log("message open", this.props.dataMsg);
 
-        {this.state.showList && (
-          <CommentsList
-            closeList={(id) => this.openMessage(id)}
-            styleID={this.props.styleID}
-          />
-        )}
-        {this.state.showMessage && (
-          <Fragment>
-            <CommentBlock 
-              data = {this.state.MessageContent}
+
+    return (
+      <View style={{ flex: 1 }}>
+        <ItemDetail data={this.props.styleData} />
+        <ScrollView showsVerticalScrollIndicator={false}>
+          {this.state.ShowNewMsg || this.state.showMessage ? (
+            <TouchableOpacity
+              activeOpacity={0.3}
+              onPress={() =>
+                this.setState({
+                  showList: true,
+                  ShowNewMsg: false,
+                  showMessage: false
+                })
+              }
+            >
+              <BackRow>
+                <Icon
+                  style={{ color: "#aaa", fontSize: 22 }}
+                  name="arrow-back"
+                />
+                <BackText> back </BackText>
+              </BackRow>
+            </TouchableOpacity>
+          ) : null}
+          {this.state.ShowNewMsg && <NewMessage />}
+
+          {this.state.showList && (
+            <CommentsList
+              closeList={(id) => this.openMessage(id)}
+              styleID={this.props.styleID}
             />
-          </Fragment>
-        )}
-      </ScrollView>
-      {this.state.ShowNewMsg == false && this.state.showMessage == false ? (
-        <AddButton>
-          <StyledTouchableHighlight
-            underlayColor="#354733"
-            onPress={
-              () => this.setState({ ShowNewMsg: true, showList: false })
-              // console.log('msg button click')
-            }
-          >
-            <Icon style={{ color: "#fff" }} name="ios-add" />
-          </StyledTouchableHighlight>
-        </AddButton>
-      ) : null}
-    </View>
-  );
-}
+          )}
+          {this.state.showMessage && (
+            <Fragment>
+              <CommentBlock
+                data={this.state.MessageContent}
+              />
+            </Fragment>
+          )}
+        </ScrollView>
+        {this.state.ShowNewMsg == false && this.state.showMessage == false ? (
+          <AddButton>
+            <StyledTouchableHighlight
+              underlayColor="#354733"
+              onPress={
+                () => this.setState({ ShowNewMsg: true, showList: false })
+                // console.log('msg button click')
+              }
+            >
+              <Icon style={{ color: "#fff" }} name="ios-add" />
+            </StyledTouchableHighlight>
+          </AddButton>
+        ) : null}
+      </View>
+    );
+  }
 }
 
 export default Comments;

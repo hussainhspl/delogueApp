@@ -87,11 +87,11 @@ class ChatMessage extends React.Component {
   }
   redirectToSample() {
     console.log('goto sample', this.props.data);
-    // this.props.sampleTabFunction();
+    this.props.sampleTabFunction();
     this.props.history.push({
       pathname: '/style',
       openSample: true,
-      data: this.props.data
+      SampleCommentData: this.props.data
     })
   }
   render() {

@@ -165,8 +165,8 @@ class CommentBlock extends React.Component {
   render() {
     console.log('this. comment block data', this.props.data)
     const { isRead, loggedInUser, loggedOn, notifiedUsers, internalOnly, 
-      sampleType, logMessage} = this.props.data.styleAuditLog[0]
-    console.log('is read : ', isRead, this.props.data.styleAuditLog[0]);
+      sampleType, logMessage} = this.props.data.styleAuditLog
+    console.log('is read : ', isRead, this.props.data.styleAuditLog);
     let formatedDate = format(parseISO(loggedOn), "d-MMM-yyyy kk:mm");
 
     return (
@@ -228,7 +228,7 @@ class CommentBlock extends React.Component {
                 {
                   notifiedUsers.length > 0 ?
                     notifiedUsers.map(d => (
-                      <Title> {d} </Title>
+                      <Title> {d.name} </Title>
                     ))
                     : null
 

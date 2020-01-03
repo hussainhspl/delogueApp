@@ -22,7 +22,7 @@ import { connect } from "react-redux";
 import SearchInput from '../../styles/SearchInput';
 import GetStyles from '../../api/getStyles';
 import AsyncStorage from "@react-native-community/async-storage";
-import {styleList } from '../../store/actions/index';
+import {styleList, generalTab } from '../../store/actions/index';
 import GetSelectedStyle from '../../api/getStyle'; 
 import GetAsyncToken from '../../script/getAsyncToken';
 
@@ -165,6 +165,7 @@ class Search extends React.Component {
           .then( res => {
             this.props.styleFunction(res)
             console.log('got single style : ', res)
+            this.props.generalTabFunction()
             this.props.history.push('/style')
           })
       })
@@ -283,7 +284,6 @@ class Search extends React.Component {
                   <TouchableHighlight
                     underlayColor="#42546033"
                     onPress={() => {this.getCurrentStyle(item.id)}
-                      // history.push("/style");
                     }
                   >
                     <ItemDetail data={item} />
@@ -320,7 +320,9 @@ class Search extends React.Component {
 const mapDispatchToProps = dispatch => {
   return {
     styleListFunction :(s) => dispatch(styleList(s)),
-    styleFunction : (s) => dispatch(singleStyle(s))
+    styleFunction : (s) => dispatch(singleStyle(s)),
+    generalTabFunction: () => dispatch(generalTab()),
+    
   }
 }
 const mapStateToProps = state => {

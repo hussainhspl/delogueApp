@@ -235,7 +235,7 @@ class Message extends React.Component {
             this.props.history.push({
               pathname: '/style',
               data: res.data,
-              openMessage: true
+              openMessage: true,
             })
           })
       })
