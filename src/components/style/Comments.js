@@ -15,6 +15,8 @@ import CommentBlock from "./CommentBlock";
 import CommentsList from "./CommentsList";
 import ItemDetail from "../../shared/ItemDetail";
 import CommonModal from "../../shared/CommonModal";
+import SpecificMessage from "../../api/message/specificMessage";
+import GetAsyncToken from "../../script/getAsyncToken";
 
 const data = {
   styleNo: "sty2211",
@@ -104,77 +106,94 @@ class Comments extends React.Component {
       ShowNewMsg: false,
       showMessage: props.openMessage || false,
       showList: !props.openMessage || false,
+      MessageContent : null,
     };
   }
   componentDidMount = () => {
     // console.log('props data', this.props.location.data, this.props.location.openMessage);
-    if(this.state.openMessage) {
+    if (this.state.openMessage) {
       console.log('props data', this.props.dataMsg);
     }
-    
+
 
   }
-  render() {
-    // console.log("hello");
+  openMessage(id) {
     
+    console.log("hey", id, this.state.showList);
+    GetAsyncToken().then(token => {
+      SpecificMessage(token, id)
+      .then(res => {
+        console.log('resp in message :', res);
+        this.setState({ 
+          MessageContent: res.data,
+          showList: false, 
+          showMessage: true 
+        });
+      })
+    })
     
-    return (
-      <View style={{ flex: 1 }}>
-        <ItemDetail data={this.props.data} />
-        <ScrollView showsVerticalScrollIndicator={false}>
-          {this.state.ShowNewMsg || this.state.showMessage ? (
-            <TouchableOpacity
-              activeOpacity={0.3}
-              onPress={() =>
-                this.setState({
-                  showList: true,
-                  ShowNewMsg: false,
-                  showMessage: false
-                })
-              }
-            >
-              <BackRow>
-                <Icon
-                  style={{ color: "#aaa", fontSize: 22 }}
-                  name="arrow-back"
-                />
-                <BackText> back </BackText>
-              </BackRow>
-            </TouchableOpacity>
-          ) : null}
-          {this.state.ShowNewMsg && <NewMessage />}
+ 
+}
+render() {
+  // console.log("hello");
 
-          {this.state.showList && (
-            <CommentsList
-              closeList={() => {
-                this.setState({ showList: false, showMessage: true });
-                // console.log("hey", this.state.showList);
-              }}
-              styleID = {this.props.styleID}
-            />
-          )}
-          {this.state.showMessage && (
-            <Fragment>
-              <CommentBlock />
-            </Fragment>
-          )}
-        </ScrollView>
-        {this.state.ShowNewMsg == false && this.state.showMessage == false ? (
-          <AddButton>
-            <StyledTouchableHighlight
-              underlayColor="#354733"
-              onPress={
-                () => this.setState({ ShowNewMsg: true, showList: false })
-                // console.log('msg button click')
-              }
-            >
-              <Icon style={{ color: "#fff" }} name="ios-add" />
-            </StyledTouchableHighlight>
-          </AddButton>
+
+  return (
+    <View style={{ flex: 1 }}>
+      <ItemDetail data={this.props.data} />
+      <ScrollView showsVerticalScrollIndicator={false}>
+        {this.state.ShowNewMsg || this.state.showMessage ? (
+          <TouchableOpacity
+            activeOpacity={0.3}
+            onPress={() =>
+              this.setState({
+                showList: true,
+                ShowNewMsg: false,
+                showMessage: false
+              })
+            }
+          >
+            <BackRow>
+              <Icon
+                style={{ color: "#aaa", fontSize: 22 }}
+                name="arrow-back"
+              />
+              <BackText> back </BackText>
+            </BackRow>
+          </TouchableOpacity>
         ) : null}
-      </View>
-    );
-  }
+        {this.state.ShowNewMsg && <NewMessage />}
+
+        {this.state.showList && (
+          <CommentsList
+            closeList={(id) => this.openMessage(id)}
+            styleID={this.props.styleID}
+          />
+        )}
+        {this.state.showMessage && (
+          <Fragment>
+            <CommentBlock 
+              data = {this.state.MessageContent}
+            />
+          </Fragment>
+        )}
+      </ScrollView>
+      {this.state.ShowNewMsg == false && this.state.showMessage == false ? (
+        <AddButton>
+          <StyledTouchableHighlight
+            underlayColor="#354733"
+            onPress={
+              () => this.setState({ ShowNewMsg: true, showList: false })
+              // console.log('msg button click')
+            }
+          >
+            <Icon style={{ color: "#fff" }} name="ios-add" />
+          </StyledTouchableHighlight>
+        </AddButton>
+      ) : null}
+    </View>
+  );
+}
 }
 
 export default Comments;

@@ -6,7 +6,8 @@ import Title from "../../styles/SmallText";
 import CardText from "../../styles/CardText";
 import Subject from '../../styles/Subject';
 import { format, parseISO } from 'date-fns';
-
+import { connect } from "react-redux";
+import {sampleTab} from '../../store/actions/index';
 
 const MessageBox = styled.View`
   flex: 1;
@@ -84,6 +85,15 @@ class ChatMessage extends React.Component {
     super(props);
     this.state = {};
   }
+  redirectToSample() {
+    console.log('goto sample', this.props.data);
+    // this.props.sampleTabFunction();
+    this.props.history.push({
+      pathname: '/style',
+      openSample: true,
+      data: this.props.data
+    })
+  }
   render() {
     // console.log('props in sample request', this.props.data)
     // console.log('enter in chat')
@@ -94,7 +104,7 @@ class ChatMessage extends React.Component {
       <MessageBox>
         <TouchableHighlight
           underlayColor="#42546033"
-          onPress={() => console.log("click on message box")}
+          onPress={() => this.redirectToSample()}
         >
           <Fragment>
             <ChatIconBox readChat={isRead}>
@@ -161,4 +171,16 @@ class ChatMessage extends React.Component {
     );
   }
 }
-export default withTheme(ChatMessage);
+const mapStateToProps = state => {
+  return {};
+};
+const mapDispatchToProps = dispatch => {
+  return {
+    sampleTabFunction: () => dispatch(sampleTab())
+    
+  }
+}
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withTheme(ChatMessage));

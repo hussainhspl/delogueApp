@@ -8,6 +8,8 @@ import ReplyComponent from './ReplyComponent';
 import ImageCard from "../../shared/ImageCard";
 import Subject from '../../styles/Subject';
 import Title from '../../styles/SmallText';
+import { format, parseISO } from 'date-fns';
+import { WebView } from 'react-native-webview';
 
 const imgArr = [{ key: 1 }, { key: 2 }, { key: 3 }, { key: 4 }];
 const CommentBox = styled.View`
@@ -23,9 +25,9 @@ const IconBox = styled.View`
   border-radius: 15px;
   border: 1px solid #bbb;
   position: absolute;
-  top: 15;
-  left: -15;
-  background-color: #fff;
+  top: 15px;
+  left: -15px;
+  background-color: ${props => props.read ? '#fff' : props.theme.darkBlue};
   align-items: center;
   justify-content: center;
 `;
@@ -129,7 +131,7 @@ const Name = styled.Text`
   font-size: ${props => props.theme.small};
   padding-bottom: 3px;
 `;
-const Date =styled.Text`
+const Date = styled.Text`
   color: #777;
   font-size: 12;
   text-align: right;
@@ -154,65 +156,91 @@ const NotifyView = styled.View`
   align-items: flex-end;
 `;
 class CommentBlock extends React.Component {
-  constructor (props) {
+  constructor(props) {
     super(props);
-    this.state={
+    this.state = {
       reply: false,
     }
   }
   render() {
+    console.log('this. comment block data', this.props.data)
+    const { isRead, loggedInUser, loggedOn, notifiedUsers, internalOnly, 
+      sampleType, logMessage} = this.props.data.styleAuditLog[0]
+    console.log('is read : ', isRead, this.props.data.styleAuditLog[0]);
+    let formatedDate = format(parseISO(loggedOn), "d-MMM-yyyy kk:mm");
+
     return (
       <Fragment>
         <CommentBox>
-          <IconBox>
-            <MsgImage 
+          <IconBox read={isRead}>
+            <MsgImage
               resizeMode={"contain"}
               source={require("../../../assets/img/message-icon.png")} />
           </IconBox>
           {
             this.state.reply === false && (
-            <FirstRow>
-              <View style={{ flex: 1, paddingRight: 2 }}>
-                <Subject numberOfLines={1}> Swatch samples </Subject>
-              </View>
-              <TouchableHighlight 
-                onPress={() => this.setState({reply: true})}
-                underlayColor={this.props.theme.overlayBlue} 
-              >
-                <NewButton small >
-                  <IconView>
-                    <Icon style={{ color: "#fff", fontSize: 15 }} name="undo" />
-                  </IconView>
-                  <ButtonText> reply </ButtonText>
-                </NewButton>
-              </TouchableHighlight>
-            </FirstRow>
-          )}
+              <FirstRow>
+                <View style={{ flex: 1, paddingRight: 2 }}>
+                  <Subject numberOfLines={1}> {sampleType} </Subject>
+                </View>
+                <TouchableHighlight
+                  onPress={() => this.setState({ reply: true })}
+                  underlayColor={this.props.theme.overlayBlue}
+                >
+                  <NewButton small >
+                    <IconView>
+                      <Icon style={{ color: "#fff", fontSize: 15 }} name="undo" />
+                    </IconView>
+                    <ButtonText> reply </ButtonText>
+                  </NewButton>
+                </TouchableHighlight>
+              </FirstRow>
+            )}
           {
             this.state.reply && (
               <ReplyComponent />
-            )             
+            )
           }
           <BodyArea>
-            <MessageBody>
-              Laboris consectetur id tempor do nostrud enim laboris exercitation
+            {/* <MessageBody> */}
+              <WebView
+                originWhitelist={['*']}
+                injectedJavaScript='window.ReactNativeWebView.postMessage(JSON.stringify(document.body.scrollHeight), "*")'
+                scrollEnabled={false}
+                style={{ height: 100 }}
+                source={{
+                  html: `<!DOCTYPE html><html><head><meta name="viewport" content="width=device-width, initial-scale=1"></head>
+                            <body><small>${logMessage}</small></body></html>`
+                }}
+              />
+              {/* Laboris consectetur id tempor do nostrud enim laboris exercitation
               exercitation ad. Deserunt incididunt tempor sit cillum veniam officia
               eu esse laboris quis aliqua ex cupidatat eu. Ad et tempor proident
               velit et nulla Lorem. Mollit ut magna aliqua ex mollit aute in Lorem.
               Voluptate esse ut exercitation deserunt excepteur eu. Id laborum culpa
-              pariatur anim dolor ipsum ullamco exercitation.
-            </MessageBody>
+              pariatur anim dolor ipsum ullamco exercitation. */}
+            {/* </MessageBody> */}
             <FromRow>
-                <Name>Richel Smith</Name>
-                <Title>13-oct-2019 13.42</Title>
-                <NotifyView>
-                  <Title> NOTIFIED</Title>
-                  <Title> Hussain, Siya, Rikke</Title>
-                <InternalView>
-                  <Icon style={{color: '#ddd', fontSize: 15}} name="home" />
-                  <InternalText>Internal</InternalText>
-                </InternalView>
-                </NotifyView>
+              <Name>{loggedInUser.name} </Name>
+              <Title>{formatedDate}</Title>
+              <NotifyView>
+                <Title> NOTIFIED</Title>
+                {
+                  notifiedUsers.length > 0 ?
+                    notifiedUsers.map(d => (
+                      <Title> {d} </Title>
+                    ))
+                    : null
+
+                }
+                {internalOnly != null && (
+                  <InternalView>
+                    <Icon style={{ color: '#ddd', fontSize: 15 }} name="home" />
+                    <InternalText>Internal</InternalText>
+                  </InternalView>
+                )}
+
+              </NotifyView>
             </FromRow>
           </BodyArea>
           <ImageRow>

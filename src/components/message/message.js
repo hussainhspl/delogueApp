@@ -274,7 +274,7 @@ class Message extends React.Component {
 
   }
 
-  toggleAlert = (auditLogId, messageType) => {
+  toggleAlert  (auditLogId, messageType) {
     console.log('enter in toggle alert', auditLogId);
     let currentAlert = '';
     GetAsyncToken()
@@ -282,12 +282,12 @@ class Message extends React.Component {
 
         this.state.MessageList.map( d => {
           if(d.auditLogId == auditLogId) {
-            // conole.log('click state', d.isRead);
+            // console.log('click state', d.isRead);
             currentAlert = d.isRead;
             
           }
         })
-        console.log('if', currentAlert);
+        // console.log('if', currentAlert);
         if(currentAlert == false) {
           console.log('auditLogId',auditLogId);
           DeleteAlert(token, auditLogId)
@@ -386,7 +386,7 @@ class Message extends React.Component {
                               <Fragment>
                                 <MsgIconBox readMsg={m.isRead}>
                                   <STouchableHighlight underlayColor={this.props.theme.overlayBlue} 
-                                    onPress={this.toggleAlert(m.auditLogId, m.messageType)}>
+                                    onPress={() => this.toggleAlert(m.auditLogId, m.messageType)}>
                                     <MsgImage
                                       resizeMode={"contain"}
                                       source={require("../../../assets/img/message-icon.png")}
@@ -461,6 +461,7 @@ class Message extends React.Component {
                       <Fragment>
                         {this.state.chat && (
                           <ChatMessage
+                            history = {this.props.history}
                             data={m}
                             toggleAlertFunction = {() => this.toggleAlert(m.auditLogId, m.messageType)}
                           />

@@ -15,6 +15,9 @@ import ItemDetail from "../../shared/ItemDetail";
 import SearchFilter from "./searchFilter";
 import SearchGridCard from "./searchGridCard";
 import LoadMoreButton from "../../styles/LoadMoreButton";
+import InfoView from "../../styles/InfoView";
+import InfoText from "../../styles/InfoText";
+
 import { connect } from "react-redux";
 import SearchInput from '../../styles/SearchInput';
 import GetStyles from '../../api/getStyles';
@@ -99,6 +102,7 @@ const SearchIcon = styled.View`
 const Box = styled.View`
   margin-left: 10px;
 `;
+
 const KEYS_TO_FILTERS = ["styleNo", "styleName", "supplier", "season"];
 class Search extends React.Component {
   constructor(props) {
@@ -113,6 +117,7 @@ class Search extends React.Component {
       brandIds: null,
       SeasonIdArr: null,
       popBrandId: '',
+      emptyResult: false
 
     };
   }
@@ -144,8 +149,11 @@ class Search extends React.Component {
       GetStyles(this.state.searchTerm, token, this.state.brandIds,
         this.state.seasonIds)
         .then(res => {
-          console.log('response');
-          this.props.styleListFunction(res)
+          console.log('response', res);
+          if(res.data.styles.length == 0){
+            this.setState({emptyResult : true})
+          }
+          this.props.styleListFunction(res.data)
         })
     })
   }
@@ -204,6 +212,7 @@ class Search extends React.Component {
                 <SearchInput
                   placeholder="SEARCH"
                   placeholderTextColor="#C9DBDB"
+                  autoFocus
                   onChangeText={term => {
                     this.searchUpdated(term);
                   }}
@@ -233,8 +242,9 @@ class Search extends React.Component {
             {this.state.currentView === "grid" && (
               <Fragment>
               <GridView>
-                {this.state.filteredStyle != null ?
-                  this.state.filteredStyle.data.styles.map(data => {
+                {
+                  this.state.filteredStyle != null ?
+                  this.state.filteredStyle.styles.map(data => {
                     return (<SearchGridCard 
                       key={data.styleNo} 
                       data={data} 
@@ -242,21 +252,33 @@ class Search extends React.Component {
                       GetStyleClicked = {() => {this.getCurrentStyle(data.id)}}
                     />);
                   }) 
-                  // <Text>entering</Text>
                   :
-                  <Text style={{color: "#fff", padding: 20}}> loader</Text>
+                  <InfoView>
+                  <Image
+                    style={{width: 64}}
+                    resizeMode={"contain"}
+                    source={require("../../../assets/img/search-big.png")}
+                  />
+                  <InfoText>Search for a style by typing name or number</InfoText>
+                </InfoView>
                 }
+                {this.state.emptyResult && (
+                  <InfoView>
+                    <InfoText> No result found </InfoText>  
+                  </InfoView>
+                )}
               </GridView>
               {/* <LoadMoreButton>
                 <Text> Load More </Text>
               </LoadMoreButton> */}
               </Fragment>
             )}
+            
           </ScrollView>
           {this.state.currentView === "linear" &&(
               
               <FlatList
-                data={this.state.filteredStyle.data.styles}
+                data={this.state.filteredStyle.styles}
                 renderItem={({ item }) => 
                   <TouchableHighlight
                     underlayColor="#42546033"
@@ -271,7 +293,7 @@ class Search extends React.Component {
             )}
           <SearchFilter 
             BrandIdArr= {(bid) => {
-              console.log("yipee", bid);
+              // console.log("yipee", bid);
               this.setState({
                 brandIds : bid
               }, () => this.styles)
@@ -284,7 +306,7 @@ class Search extends React.Component {
             }}
             popBrand={
               (pid) => {
-                console.log("pop called", pid);
+                // console.log("pop called", pid);
                 this.removeBrand(pid)
               }
             }

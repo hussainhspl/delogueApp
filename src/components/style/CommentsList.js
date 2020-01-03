@@ -8,14 +8,16 @@ import SearchIcon from '../../styles/SearchIcon';
 import Subject from '../../styles/Subject';
 import Title from '../../styles/SmallText';
 import GetAsyncToken from '../../script/getAsyncToken';
-import GetStyleMessages from "../../api/message/getStyleMessages";
+import GetStyleMessages from "../../api/comments/getStyleMessages";
 import { format, parseISO } from 'date-fns';
 import { connect } from 'react-redux';
 import { styleMessageList } from '../../store/actions/index'
-import ReadAll from "../../api/message/readAll";
+import ReadAll from "../../api/comments/readAll";
 import { WebView } from 'react-native-webview';
 import CreateAlert from "../../api/createAlert";
 import DeleteAlert from "../../api/deleteAlert";
+import InfoView from "../../styles/InfoView";
+import InfoText from "../../styles/InfoText";
 
 
 
@@ -119,6 +121,7 @@ class CommentsList extends React.Component {
       searchTerm: "",
       msgList: null
     };
+    this.styleMessages = this.styleMessages.bind(this);
   }
   searchUpdated(term) {
     this.setState({
@@ -135,21 +138,24 @@ class CommentsList extends React.Component {
         this.state.seasonIds)
         .then(res => {
           console.log('response', res);
-          this.props.styleMessageListFunction(res.data)
+          // this.props.styleMessageListFunction(res.data)
+          this.setState({
+            msgList: res.data
+          })
 
         })
     })
   }
-  static getDerivedStateFromProps(nextProps, prevState) {
-    // console.log('before render', this.state.MessageList.isRead)
-    if (nextProps.msgList !== prevState.msgList) {
-      console.log("Entered nextProps style msg",prevState.msgList);
-      return{
-        msgList: nextProps.storeMsgList,
-      }
-    }
-    return null;
-  }
+  // static getDerivedStateFromProps(nextProps, prevState) {
+  //   // console.log('before render', this.state.MessageList.isRead)
+  //   if (nextProps.msgList !== prevState.msgList) {
+  //     console.log("Entered nextProps style msg",prevState.msgList);
+  //     return{
+  //       msgList: nextProps.storeMsgList,
+  //     }
+  //   }
+  //   return null;
+  // }
   toggleAlert (auditLogId, messageType) {
     console.log('enter in toggle alert', auditLogId);
     let currentAlert = '';
@@ -168,7 +174,7 @@ class CommentsList extends React.Component {
           DeleteAlert(token, auditLogId)
           .then(res => {
             console.log('alert deleted successfully');
-
+            this.styleMessages()
             // this.props.updateReadFunction(auditLogId)   
 
           })
@@ -177,6 +183,7 @@ class CommentsList extends React.Component {
           CreateAlert(token, auditLogId, messageType)
             .then(res => {
               console.log('successfully marked unread', res);
+              this.styleMessages()
               // this.props.updateUnReadFunction(auditLogId)
             })
         }
@@ -188,6 +195,7 @@ class CommentsList extends React.Component {
       ReadAll(token, this.props.styleID)
         .then(res => {
           console.log('read all messages');
+          this.styleMessages()
         })
     })
   }
@@ -223,9 +231,7 @@ class CommentsList extends React.Component {
                 <MessageBox>
                   <TouchableHighlight
                     underlayColor="#42546033"
-                    onPress={
-                      this.props.closeList
-                    }
+                    onPress={ () => this.props.closeList(data.auditLogId)}
                   >
                     <Row>
                       <MainContent>
@@ -259,7 +265,9 @@ class CommentsList extends React.Component {
                 </MessageBox>
               )
             })
-            : <Text> Enter String to search </Text>
+            : <InfoView>
+                <InfoText> Enter String to Messages </InfoText>
+              </InfoView>
         }
       </View>
     );

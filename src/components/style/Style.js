@@ -67,7 +67,7 @@ class Style extends React.Component {
       case "sample":
         return <Sample 
           history={this.props.history}
-          data= {sdata.data}
+          // data= {sdata.data}
           
         />;
       case "pdf":
@@ -123,8 +123,8 @@ class Style extends React.Component {
       <Fragment>
         <Header history={this.props.history}>
           {
-            this.state.styleData == null ?
-            // this.props.location.data == undefined ?
+            // this.state.styleData == null ?
+            this.props.location.data == undefined ?
             <View style={{flex: 1, backgroundColor: 'white'}}>
               <Loader />
             </View>

@@ -4,7 +4,7 @@ const DeleteAlert =(token, auditLogId) => {
   return new Promise(function(resolve, reject) {
     if (token !== null) {
       axios({
-        url: `${baseUrl}Alert/Delete/${auditLogId}`,
+        url: `${baseUrl}Alert/${auditLogId}`,
         method: 'DELETE',
         headers: {
           Authorization: `Bearer ${token}`,

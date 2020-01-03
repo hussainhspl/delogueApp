@@ -10,7 +10,7 @@ const CreateAlert = (token, auditLogId, messageType) => {
       "Icon":messageType
     }
     axios({
-      url: `${baseUrl}Alert/Create`,
+      url: `${baseUrl}Alert`,
       method: 'POST',
       headers: {
         Authorization: `Bearer ${token}`,
