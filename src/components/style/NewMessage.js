@@ -16,7 +16,9 @@ import ApplyButton from '../../styles/ApplyButton';
 import CancelButton from '../../styles/CancelButton';
 import ButtonText from '../../styles/ButtonText';
 import Close from '../../styles/Close';
-
+import NotifyUserList from "../../api/comments/notifyUserList";
+import GetAsyncToken from '../../script/getAsyncToken';
+import lodash from 'lodash';
 
 
 const MessageBlock = styled.View`
@@ -51,6 +53,7 @@ const Row = styled.View`
   align-items: center;
   flex-direction: row;
   margin-bottom: 15px;
+  flex-wrap: wrap;
 `;
 
 const CheckBoxText = styled.Text`
@@ -82,6 +85,7 @@ const NotifySelector = styled.View`
   align-self: flex-start;
   padding: 5px 25px 5px 5px;
   margin-right: 10px;
+  margin-bottom: 10px;
 `;
 
 const CancelNotify = styled.View`
@@ -166,34 +170,103 @@ class NewMessage extends React.Component {
     super(props);
     this.state = {
       subject: "",
-      selected2: "undefined",
+      selected2: [],
       textArea: "",
-      modalVisible: false,      
-			cameraOn: false,
+      modalVisible: false,
+      cameraOn: false,
+      notifyList: [],
+      internal: false,
+      otherUsers: []
     };
   }
+  componentDidMount = () => {
+    GetAsyncToken()
+      .then(token => {
+        NotifyUserList(token, this.props.styleID)
+          .then(res => {
+            console.log('successful notify', res);
 
+            if (res.data.internalUsers.length > 0) {
+              console.log('adding internal users');
+              this.setState({
+                notifyList: res.data.internalUsers
+              })
+            }
+            if (res.data.otherUsers.length > 0) {
+              console.log('adding other users');
+              this.setState(prevState => ({
+                notifyList: [...prevState.notifyList, ...res.data.otherUsers],
+                otherUsers: res.data.otherUsers
+              }))
+            }
+
+
+            // if()   
+          })
+      })
+
+  }
   onValueChange2(value) {
-    this.setState({
-      selected2: value
-    });
+    // console.log('list notify dd :',value, this.state.selected2);
+    this.setState(prevState => ({
+      selected2: [...prevState.selected2, value]
+    }))
+  }
+
+  changeList = () => {
+
+
+    console.log('calling')
+    //     let key = 2;
+    // this.setState(prevState => ({
+
+    //   todoItems: prevState.todoItems.map(
+    //     el => el.key === key? { ...el, status: 'done' }: el
+    //   )
+
+    // }))
+    this.setState({ internal: !this.state.internal }, () => {
+      if (this.state.internal == true) {
+        console.log('internal true');
+        // let allUser = this.state.notifyList;
+        // let otherUsers = this.state.otherUsers;
+        console.log('all user',this.state.notifyList, this.state.otherUsers)
+        var Obj3 = lodash.differenceWith(this.state.notifyList, this.state.otherUsers, function (o1, o2) {
+          return o1['id'] === o2['id']
+        });
+        this.setState({
+          notifyList: Obj3,
+        })
+        console.log("Obj3",Obj3);
+      };
+      if(this.state.internal == false) {
+        // this.setState({
+        //   notifyList: Obj3,
+        // })
+        this.setState(prevState => ({
+          notifyList: [...prevState.notifyList, ...this.state.otherUsers],
+        }))
+      }
+    })
   }
   render() {
+    console.log('list notify state :', this.state.otherUsers)
+
     return (
       <View>
-          <MessageBlock>
-            <IconBox>
-              <MsgImage 
-                resizeMode={"contain"}
-                source={require("../../../assets/img/message-icon.png")} />
-            </IconBox>
-            <SubjectInput
-              onChangeText={subject => this.setState({ subject })}
-              value={this.state.subject}
-              // autoFocus={true}
-            />
-            <Separator/>
-            <Row>
+        <MessageBlock>
+          <IconBox>
+            <MsgImage
+              resizeMode={"contain"}
+              source={require("../../../assets/img/message-icon.png")} />
+          </IconBox>
+          <SubjectInput
+            onChangeText={subject => this.setState({ subject })}
+            value={this.state.subject}
+          // autoFocus={true}
+          />
+          <Separator />
+          <Row>
             <Label> Notify: </Label>
             <StyledView>
               <StyledPicker
@@ -203,84 +276,95 @@ class NewMessage extends React.Component {
                 placeholder="Select User"
                 placeholderStyle={{ color: "#bfc6ea" }}
                 placeholderIconColor="#007aff"
-                selectedValue={this.state.selected2}
+                selectedValue={this.state.selected2[this.state.selected2.length - 1]}
                 onValueChange={this.onValueChange2.bind(this)}
               >
-                <Picker.Item label="Hussain" value="key0" />
-                <Picker.Item label="John" value="key1" />
-                <Picker.Item label="Tom" value="key2" />
-                <Picker.Item label="James" value="key3" />
+                {this.state.notifyList.map(u => {
+                  return (
+                    <Picker.Item label={u.name} value={u.name} />
+                  )
+                })}
+
               </StyledPicker>
             </StyledView>
-            </Row>
-            <Row>
-              <NotifySelector>
-                <CancelNotify>
-                  <Icon style={{ fontSize: 12 }} name="close" />
-                </CancelNotify>
-                <Text> hussain </Text>
-              </NotifySelector>
-              <NotifySelector>
-                <CancelNotify>
-                  <Icon style={{ fontSize: 12 }} name="close" />
-                </CancelNotify>
-                <Text> hussain </Text>
-              </NotifySelector>
-            </Row>
-            <Row>
-              <CheckBox color="#aaa" checked={true} style={{left: 0, paddingLeft: 2}} />
-              <CheckBoxText> Only internal </CheckBoxText>
-            </Row>
-            <TextArea
-              multiline={true}
-              numberOfLines={4}
-              onChangeText={textArea => this.setState({ textArea })}
-              value={this.state.textArea}
-              placeholder="Type your message"
-              textAlignVertical="top"
+          </Row>
+          <Row>
+            {
+              this.state.selected2.length > 0 ?
+
+                this.state.selected2.map(s => {
+                  return (
+                    <NotifySelector>
+                      <CancelNotify>
+                        <Icon style={{ fontSize: 12 }} name="close" />
+                      </CancelNotify>
+                      <Text> {s}  </Text>
+                    </NotifySelector>
+                  )
+                })
+
+                : <Text></Text>
+            }
+
+          </Row>
+          <Row>
+            <CheckBox color="#aaa"
+              checked={this.state.internal}
+              style={{ left: 0, paddingLeft: 4 }}
+              onPress={this.changeList}
             />
-            <AttachImageRow>
-              <AttachBox>
-                <TouchableHighlight onPress={() => this.setState({modalVisible: true})}
-                  underlayColor={this.props.theme.overlayBlue}
-                >
-                  <AttachmentImage
-                    resizeMode={"contain"}
-                    source={require("../../../assets/img/shirt-static.png")}
-                  />
-                </TouchableHighlight>
-                <Close>
-                  <Icon style={{ fontSize: 15 }} name="close" />
-                </Close>
-              </AttachBox>
-              <AttachBox>
+            <CheckBoxText> Only internal </CheckBoxText>
+          </Row>
+          <TextArea
+            multiline={true}
+            numberOfLines={4}
+            onChangeText={textArea => this.setState({ textArea })}
+            value={this.state.textArea}
+            placeholder="Type your message"
+            textAlignVertical="top"
+          />
+          <AttachImageRow>
+            <AttachBox>
+              <TouchableHighlight onPress={() => this.setState({ modalVisible: true })}
+                underlayColor={this.props.theme.overlayBlue}
+              >
                 <AttachmentImage
                   resizeMode={"contain"}
                   source={require("../../../assets/img/shirt-static.png")}
                 />
-                <Close>
-                  <Icon style={{ fontSize: 15 }} name="close" />
-                </Close>
-              </AttachBox>
-            </AttachImageRow>
-            <ButtonRow>
-							<NewMessageCamera />
-              <ButtonSet>
-                <CancelButton>
-                  <ButtonText onPress={() => {this.closeModal(this.props.close)}}>
-                    cancel
+              </TouchableHighlight>
+              <Close>
+                <Icon style={{ fontSize: 15 }} name="close" />
+              </Close>
+            </AttachBox>
+            <AttachBox>
+              <AttachmentImage
+                resizeMode={"contain"}
+                source={require("../../../assets/img/shirt-static.png")}
+              />
+              <Close>
+                <Icon style={{ fontSize: 15 }} name="close" />
+              </Close>
+            </AttachBox>
+          </AttachImageRow>s
+          <ButtonRow>
+            <NewMessageCamera />
+            <ButtonSet>
+              <CancelButton onPress={this.props.closeMessage}>
+                <ButtonText>
+                  cancel
                   </ButtonText>
-                </CancelButton>
-                <ApplyButton>
-                  <ButtonText>apply</ButtonText>
-                </ApplyButton>
-              </ButtonSet>
-            </ButtonRow>
-          </MessageBlock>
-          {<AttachmentPopup 
-            modalVisible={this.state.modalVisible}
-            close={() => this.setState({modalVisible: false})}  
-          />}     
+              </CancelButton>
+              <ApplyButton onPress={this.props.s}>
+                <ButtonText>apply</ButtonText>
+              </ApplyButton>
+            </ButtonSet>
+          </ButtonRow>
+        </MessageBlock>
+        {<AttachmentPopup
+          modalVisible={this.state.modalVisible}
+          close={() => this.setState({ modalVisible: false })}
+        />}
       </View>
     );
   }

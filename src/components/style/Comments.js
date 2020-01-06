@@ -143,6 +143,14 @@ class Comments extends React.Component {
     }
     return null;
   }
+  backClicked = () => {
+    console.log('back clicked')
+    this.setState({
+      showList: true,
+      ShowNewMsg: false,
+      showMessage: false
+    })
+  }
   render() {
     console.log("message open", this.props.dataMsg);
 
@@ -154,13 +162,7 @@ class Comments extends React.Component {
           {this.state.ShowNewMsg || this.state.showMessage ? (
             <TouchableOpacity
               activeOpacity={0.3}
-              onPress={() =>
-                this.setState({
-                  showList: true,
-                  ShowNewMsg: false,
-                  showMessage: false
-                })
-              }
+              onPress={this.backClicked}
             >
               <BackRow>
                 <Icon
@@ -171,7 +173,12 @@ class Comments extends React.Component {
               </BackRow>
             </TouchableOpacity>
           ) : null}
-          {this.state.ShowNewMsg && <NewMessage />}
+          {this.state.ShowNewMsg && (
+            <NewMessage 
+              styleID={this.props.styleID}
+              closeMessage={this.backClicked}
+            />
+          )}
 
           {this.state.showList && (
             <CommentsList
