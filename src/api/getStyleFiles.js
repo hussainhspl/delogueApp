@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const GetStyleFiles = (token, styleID) => {
-  console.log('token styles 12', token, styleID)
+  // console.log('token styles 12', token, styleID)
   return new Promise(function(resolve, reject) {
     axios({
       url: `${baseUrl}Styles/${styleID}/StyleFiles`,

@@ -2,7 +2,7 @@ import axios from "axios";
 import qs from "qs";
 
 const GetStyleMessages = (searchTerm, token, styleId) => {
-  console.log('token styles messages', searchTerm, token, styleId)
+  // console.log('token styles messages', searchTerm, token, styleId)
   return new Promise(function(resolve, reject) {
     // let string = this.state.searchBrand;
     const data1 = {  

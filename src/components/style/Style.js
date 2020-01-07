@@ -93,17 +93,17 @@ class Style extends React.Component {
     // console.log('did mount in style');
     // this.getStyles();
     let history = this.props.history;
-    if(this.state.styleData == null) {
-      console.log('did mount style data null');
+    if(this.state.styleData == null  &&
+      this.props.location.data == 'redirect') {
+      // console.log('did mount style data null');
       setTimeout(() => {
-        console.log("2 seconds done", history);
         history.push("/search")
       }, 3000);
     }
   }
 
   render() {
-    // console.log("style data",this.state.styleData);
+    console.log("style data",this.state.styleData, this.props.location);
     // console.log("process env", URL);
     // console.log('token from store in style', this.props.tokenData);
     // const history = this.props.history;
@@ -137,8 +137,8 @@ class Style extends React.Component {
         <Header history={this.props.history}>
           {
             this.state.styleData != null 
-            // ||
-            // this.props.location.state == undefined 
+            ||
+            this.props.location.data != "redirect" 
             ?
             <Fragment>
               {

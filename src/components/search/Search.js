@@ -143,13 +143,13 @@ class Search extends React.Component {
   };
   
   styles = () => {
-    console.log("calling api again");
+    // console.log("calling api again");
     GetAsyncToken().then(token => {
-      console.log('get style api')
+      // console.log('get style api')
       GetStyles(this.state.searchTerm, token, this.state.brandIds,
         this.state.seasonIds)
         .then(res => {
-          console.log('response', res);
+          console.log('response style', res);
           if(res.data.styles.length == 0){
             this.setState({emptyResult : true})
           }

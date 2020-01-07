@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const NotifyUserList = (token, id) => {
-  console.log('token notify message 12', token, id)
+  // console.log('token notify message 12', token, id)
   return new Promise(function(resolve, reject) {
     axios({
       url: `${baseUrl}Messages/Users/Style/${id}`,

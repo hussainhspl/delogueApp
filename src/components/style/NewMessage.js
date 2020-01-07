@@ -19,7 +19,10 @@ import Close from '../../styles/Close';
 import NotifyUserList from "../../api/comments/notifyUserList";
 import GetAsyncToken from '../../script/getAsyncToken';
 import lodash from 'lodash';
-
+import TouchableCancel from "../../styles/ToucaableCancel";
+import TouchableApply from "../../styles/TouchableApply";
+import SendNewMessage from '../../api/comments/sendNewMessage';
+import Toast from 'react-native-root-toast';
 
 const MessageBlock = styled.View`
   border: 1px solid #849d7a;
@@ -170,13 +173,14 @@ class NewMessage extends React.Component {
     super(props);
     this.state = {
       subject: "",
-      selected2: [],
+      notifySelected: [],
       textArea: "",
       modalVisible: false,
       cameraOn: false,
       notifyList: [],
       internal: false,
-      otherUsers: []
+      otherUsers: [],
+      attachment: ''
     };
   }
   componentDidMount = () => {
@@ -184,73 +188,73 @@ class NewMessage extends React.Component {
       .then(token => {
         NotifyUserList(token, this.props.styleID)
           .then(res => {
-            console.log('successful notify', res);
-
+            // console.log('successful notify', res);
             if (res.data.internalUsers.length > 0) {
-              console.log('adding internal users');
+              // console.log('adding internal users');
               this.setState({
                 notifyList: res.data.internalUsers
               })
             }
             if (res.data.otherUsers.length > 0) {
-              console.log('adding other users');
+              // console.log('adding other users');
               this.setState(prevState => ({
                 notifyList: [...prevState.notifyList, ...res.data.otherUsers],
                 otherUsers: res.data.otherUsers
               }))
             }
-
-
-            // if()   
           })
       })
 
   }
   onValueChange2(value) {
-    // console.log('list notify dd :',value, this.state.selected2);
+    // console.log('list notify dd :',value, this.state.notifySelected);
+
     this.setState(prevState => ({
-      selected2: [...prevState.selected2, value]
+      notifySelected: [...prevState.notifySelected, value]
     }))
   }
 
   changeList = () => {
-
-
-    console.log('calling')
-    //     let key = 2;
-    // this.setState(prevState => ({
-
-    //   todoItems: prevState.todoItems.map(
-    //     el => el.key === key? { ...el, status: 'done' }: el
-    //   )
-
-    // }))
     this.setState({ internal: !this.state.internal }, () => {
       if (this.state.internal == true) {
-        console.log('internal true');
-        // let allUser = this.state.notifyList;
-        // let otherUsers = this.state.otherUsers;
-        console.log('all user',this.state.notifyList, this.state.otherUsers)
         var Obj3 = lodash.differenceWith(this.state.notifyList, this.state.otherUsers, function (o1, o2) {
           return o1['id'] === o2['id']
         });
         this.setState({
           notifyList: Obj3,
         })
-        console.log("Obj3",Obj3);
       };
-      if(this.state.internal == false) {
-        // this.setState({
-        //   notifyList: Obj3,
-        // })
+      if (this.state.internal == false) {
         this.setState(prevState => ({
           notifyList: [...prevState.notifyList, ...this.state.otherUsers],
         }))
       }
     })
   }
+  sendMessage = () => {
+    // console.log('message sent');
+    GetAsyncToken().then(token => {
+      SendNewMessage(token, this.props.styleID, this.state.subject,
+        this.state.textArea, this.state.notifySelected, this.state.internal,
+        [this.state.attachment])
+        .then(res => {
+          // console.log('msg successfully send');
+          let toast = Toast.show('msg successfully send', {
+            duration: Toast.durations.LONG,
+            position: Toast.positions.BOTTOM,
+            shadow: true, animation: true,
+            hideOnPress: true, delay: 0,
+          })
+          setTimeout(() =>{ Toast.hide(toast)}, 3000);
+          this.props.closeMessage()
+          // this.setState({
+
+          // })
+        })
+    })
+  }
   render() {
-    console.log('list notify state :', this.state.otherUsers)
+    console.log('attachment state :', this.state.attachment, typeof (this.state.attachment))
 
     return (
       <View>
@@ -276,33 +280,30 @@ class NewMessage extends React.Component {
                 placeholder="Select User"
                 placeholderStyle={{ color: "#bfc6ea" }}
                 placeholderIconColor="#007aff"
-                selectedValue={this.state.selected2[this.state.selected2.length - 1]}
+                selectedValue={this.state.notifySelected[this.state.notifySelected.length - 1]}
                 onValueChange={this.onValueChange2.bind(this)}
               >
                 {this.state.notifyList.map(u => {
                   return (
-                    <Picker.Item label={u.name} value={u.name} />
+                    <Picker.Item label={u.name} value={u} />
                   )
                 })}
-
               </StyledPicker>
             </StyledView>
           </Row>
           <Row>
             {
-              this.state.selected2.length > 0 ?
-
-                this.state.selected2.map(s => {
+              this.state.notifySelected.length > 0 ?
+                this.state.notifySelected.map(s => {
                   return (
                     <NotifySelector>
                       <CancelNotify>
                         <Icon style={{ fontSize: 12 }} name="close" />
                       </CancelNotify>
-                      <Text> {s}  </Text>
+                      <Text> {s.name}  </Text>
                     </NotifySelector>
                   )
                 })
-
                 : <Text></Text>
             }
 
@@ -323,40 +324,52 @@ class NewMessage extends React.Component {
             placeholder="Type your message"
             textAlignVertical="top"
           />
-          <AttachImageRow>
-            <AttachBox>
-              <TouchableHighlight onPress={() => this.setState({ modalVisible: true })}
-                underlayColor={this.props.theme.overlayBlue}
-              >
-                <AttachmentImage
-                  resizeMode={"contain"}
-                  source={require("../../../assets/img/shirt-static.png")}
-                />
-              </TouchableHighlight>
-              <Close>
-                <Icon style={{ fontSize: 15 }} name="close" />
-              </Close>
-            </AttachBox>
-            <AttachBox>
-              <AttachmentImage
-                resizeMode={"contain"}
-                source={require("../../../assets/img/shirt-static.png")}
-              />
-              <Close>
-                <Icon style={{ fontSize: 15 }} name="close" />
-              </Close>
-            </AttachBox>
-          </AttachImageRow>s
+          <Fragment>
+            {
+              typeof (this.state.attachment) == 'object' && (
+                <AttachImageRow>
+                  {this.state.attachment.map(d => {
+                    return (
+                      <AttachBox>
+                        <TouchableHighlight onPress={() => this.setState({ modalVisible: true })}
+                          underlayColor={this.props.theme.overlayBlue}
+                        >
+                          <AttachmentImage
+                            resizeMode={"contain"}
+                            source={{ uri: d.url }}
+
+                          />
+                        </TouchableHighlight>
+                        <Close>
+                          <Icon style={{ fontSize: 15 }} name="close" />
+                        </Close>
+                      </AttachBox>
+                    )
+                  })}
+
+                </AttachImageRow>
+              )}
+          </Fragment>
           <ButtonRow>
-            <NewMessageCamera />
+            <NewMessageCamera
+
+              styleID={this.props.styleID}
+              attachmentImage={(obj) => this.setState(prevState => ({
+                attachment: [...prevState.attachment, obj]
+              }))}
+            />
             <ButtonSet>
-              <CancelButton onPress={this.props.closeMessage}>
-                <ButtonText>
-                  cancel
-                  </ButtonText>
+              <CancelButton>
+                <TouchableCancel
+                  underlayColor="#8f8c86"
+                  onPress={this.props.closeMessage}>
+                  <ButtonText> CANCEL </ButtonText>
+                </TouchableCancel>
               </CancelButton>
-              <ApplyButton onPress={this.props.s}>
-                <ButtonText>apply</ButtonText>
+              <ApplyButton>
+                <TouchableApply underlayColor="#354733" onPress={this.sendMessage}>
+                  <ButtonText> Apply </ButtonText>
+                </TouchableApply>
               </ApplyButton>
             </ButtonSet>
           </ButtonRow>

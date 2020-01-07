@@ -103,7 +103,7 @@ class CommonModal extends React.Component {
 											<TouchableCancel 
 												underlayColor="#8f8c86"
 												onPress={() => {this.closeModal(this.props.close)}}>
-												<ButtonText> CANCEL </ButtonText> 
+												<ButtonText> CANCEL </ButtonText>
 											</TouchableCancel>
 										</CancelButton>
 										<ApplyButton>

@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const GetStyle = (token, styleId) => {
-  console.log('getting single style')
+  // console.log('getting single style')
   return new Promise(function(resolve, reject) {
     if (token !== null) {
       axios({

@@ -294,14 +294,14 @@ class SampleRequest extends React.Component {
   };
 
   handleDatePicked = date => {
-    console.log("A date has been picked: ", date);
+    // console.log("A date has been picked: ", date);
     this.hideDateTimePicker();
   };
   setModalVisible(visible) {
     this.setState({ modalVisible: visible });
   }
   redirectTo() {
-    console.log("redirect click");
+    // console.log("redirect click");
     this.props.apply();
   }
   componentDidMount = () => {

@@ -197,7 +197,7 @@ class Message extends React.Component {
     };
   }
   componentDidMount = () => {
-    console.log('message component did mount', this.props.unreadList);
+    // console.log('message component did mount', this.props.unreadList);
     if(this.props.unreadList == null) {
       GetAsyncToken()
       .then(token => {
@@ -216,7 +216,7 @@ class Message extends React.Component {
   static getDerivedStateFromProps(nextProps, prevState) {
     // console.log('before render', this.state.MessageList.isRead)
     if (nextProps.MessageList !== prevState.MessageList) {
-      console.log("Entered nextProps messages",prevState.MessageList);
+      // console.log("Entered nextProps messages",prevState.MessageList);
       return{
         MessageList: nextProps.unreadList,
       }
@@ -225,7 +225,7 @@ class Message extends React.Component {
   }
 
   redirectToComment(id) {
-    console.log('enter in redirect', id);
+    // console.log('enter in redirect', id);
     GetAsyncToken()
       .then(token => {
         SpecificMessage(token, id)
@@ -247,7 +247,7 @@ class Message extends React.Component {
     console.warn(x);
     console.warn(y);
     console.warn(width);
-    console.log("hright", height);
+    // console.log("hright", height);
   }
   _onMessage = (event, index) => {
     // console.log(index);
@@ -275,7 +275,7 @@ class Message extends React.Component {
   }
 
   toggleAlert  (auditLogId, messageType) {
-    console.log('enter in toggle alert', auditLogId);
+    // console.log('enter in toggle alert', auditLogId);
     let currentAlert = '';
     GetAsyncToken()
       .then(token => {

@@ -131,7 +131,7 @@ class CommentsList extends React.Component {
   }
 
   styleMessages = () => {
-    console.log("calling style messages api");
+    // console.log("calling style messages api");
     GetAsyncToken().then(token => {
       console.log('get style api')
       GetStyleMessages(this.state.searchTerm, token, this.props.styleID,
@@ -231,7 +231,8 @@ class CommentsList extends React.Component {
                 <MessageBox>
                   <TouchableHighlight
                     underlayColor="#42546033"
-                    onPress={ () => this.props.closeList(data.auditLogId)}
+                    onPress={() => console.log('style msg click')}
+                    // onPress={ () => this.props.closeList(data.auditLogId)}
                   >
                     <Row>
                       <MainContent>
@@ -243,7 +244,7 @@ class CommentsList extends React.Component {
                             source={require("../../../assets/img/message-icon.png")} />
                           </STouchableHighlight>
                         </IconBox>
-                        <Subject>{data.sampleTypeName != null ? data.sampleTypeName : ''} </Subject>
+                        <Subject>{data.messageSubject != null ? data.messageSubject : ''} </Subject>
                         {/* <ContentText numberOfLines={2}>Dear nando, please find a new style and if you have any doubt or queries then please ask</ContentText> */}
                         <WebView
                           originWhitelist={['*']}

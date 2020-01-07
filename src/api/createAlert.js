@@ -2,7 +2,7 @@ import axios from "axios";
 import qs from "qs";
 
 const CreateAlert = (token, auditLogId, messageType) => {
-  console.log('token alert messages', token, auditLogId, messageType)
+  // console.log('token alert messages', token, auditLogId, messageType)
   return new Promise(function(resolve, reject) {
     // let string = this.state.searchBrand;
     const data1 = {

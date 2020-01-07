@@ -6,6 +6,8 @@ import Menu from './Menu';
 import { connect } from "react-redux";
 import { searchButton, messageButton, styleButton} from './store/actions/index';
 import styled from 'styled-components';
+import GetAsyncToken from './script/getAsyncToken';
+import UnreadMessageCount from './api/message/unreadMessageCount';
 
 const Container = styled.View`
   flex-direction: row;
@@ -41,6 +43,28 @@ const SImage = styled.Image`
   width: 30px;
   height: 30px;
 `;
+const MsgIconView = styled.View`
+  position: relative;
+`;
+const CountView = styled.View`
+  position: absolute;
+  top: 10px;
+  bottom: 20px;
+  right: 5px;
+  width: 20px;
+  height: 20px;
+  border-radius: 10px;
+  background-color: #f00;
+  
+`;
+const Number = styled.Text`
+  color: #fff;
+  font-weight: bold;
+  font-size: 12px;
+  line-height: 20px;
+  align-self: center;
+  
+`;
 class Header extends React.Component {
   constructor(props) {
     super(props);
@@ -49,8 +73,21 @@ class Header extends React.Component {
 
     this.state = {
       isOpen: false,
-      
+      count: 0
     };
+  }
+  componentDidMount = () => {
+    GetAsyncToken()
+      .then(token => {
+        UnreadMessageCount(token)
+        .then(res => {
+          console.log('count successful', res);
+          this.setState({
+            count: res.data
+          })
+        })
+      })
+    
   }
   toggle = () =>  {
     console.log("toggle state");
@@ -85,17 +122,22 @@ class Header extends React.Component {
                   <SImage resizeMode={"contain"} source={require('../assets/img/header/ic_search.png')} /> 
                 </TouchableIconView>         
               </View>
-              <View>
+              <MsgIconView>
                 <TouchableIconView highlight={ history.location.pathname == '/message' ? true : false}
                   onPress={() => {history.push("/message")}}
                   >
+                    
                   <SImage resizeMode={"contain"} source={require('../assets/img/header/ic_message.png')} />
+                  <CountView><Number>{this.state.count}</Number></CountView>
                 </TouchableIconView>          
-              </View>
+              </MsgIconView>
               <View>
                 <TouchableIconView highlight={ history.location.pathname =='/style' ? true : false}
                 // onPress= {() => this.props.styleButtonFunction()}
-                onPress={() => {history.push("/style")}}
+                onPress={() => history.push({
+                  pathname: '/style',
+                  data: 'redirect',
+                })}
                 >
                   <SImage resizeMode={"contain"} source={require('../assets/img/header/ic_general.png')} />  
                 </TouchableIconView>        

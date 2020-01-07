@@ -60,7 +60,7 @@ class ImageCard extends React.Component{
     }
   }
   render() {
-    console.log('tablet state :', this.state.tablet);
+    // console.log('tablet state :', this.state.tablet);
     return(
       <MainBlock key={Math.random().toFixed(3)} tablet={this.state.tablet}>
         <TouchableHighlight underlayColor={this.props.theme.overlayBlue} onPress={() => this.setState({modalVisible: true})}>

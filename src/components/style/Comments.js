@@ -110,7 +110,7 @@ class Comments extends React.Component {
     };
   }
   componentDidMount = () => {
-    console.log('entering in did mount comment');
+    // console.log('entering in did mount comment');
     // console.log('props data', this.props.location.data, this.props.location.openMessage);
     if (this.state.openMessage) {
       console.log('props data', this.props.dataMsg);
@@ -118,11 +118,11 @@ class Comments extends React.Component {
   }
   openMessage(id) {
 
-    console.log("hey", id, this.state.showList);
+    // console.log("hey", id, this.state.showList);
     GetAsyncToken().then(token => {
       SpecificMessage(token, id)
         .then(res => {
-          console.log('resp in message comments :', res);
+          console.log('resp in message comments :', res.data);
           this.setState({
             MessageContent: res.data,
             showList: false,
@@ -135,7 +135,7 @@ class Comments extends React.Component {
   }
   static getDerivedStateFromProps(nextProps, prevState) {
     if (nextProps.MessageContent !== prevState.MessageContent) {
-      console.log("Entered nextProps comments");
+      // console.log("Entered nextProps comments");
       // console.log("Entered prevState", prevState);
       return {
         MessageContent: nextProps.dataMsg,
@@ -151,6 +151,7 @@ class Comments extends React.Component {
       showMessage: false
     })
   }
+  
   render() {
     console.log("message open", this.props.dataMsg);
 
@@ -177,6 +178,7 @@ class Comments extends React.Component {
             <NewMessage 
               styleID={this.props.styleID}
               closeMessage={this.backClicked}
+              // submitMessage={this.sendMessage}
             />
           )}
 

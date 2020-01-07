@@ -156,7 +156,7 @@ class General extends React.Component {
   }
   _renderPageHeader = (image, index, onClose) => {
     // Individual image object data.
-    console.log(image);
+    // console.log(image);
     return (
       <View>
         <TouchableOpacity
@@ -172,7 +172,7 @@ class General extends React.Component {
   };
   _renderPageFooter = (image, index, onClose) => {
     // Individual image object data.
-    console.log(image);
+    // console.log(image);
     return <CloseMessage> Swipe Up or Down to go Back </CloseMessage>;
   };
   getAsyncToken = async () => {
@@ -186,7 +186,7 @@ class General extends React.Component {
     }
   };
   toggleFollow(id, follower) {
-    console.log('follow toggle', id, follower);
+    // console.log('follow toggle', id, follower);
     this.getAsyncToken().then(token => {
       if(follower === false) {
         StyleFollow(token, id)
@@ -229,7 +229,7 @@ class General extends React.Component {
         console.log("did mount", this.state.tablet)
       );
     }
-    console.log('component did mount called')
+    // console.log('component did mount called')
     this.setState({
       dataArray: this.props.styleData
     }, () => this.getThumbnail(this.state.dataArray.data.styleLogoThumbnails));
@@ -240,21 +240,21 @@ class General extends React.Component {
   pinZoomLayoutRef = React.createRef();
 
   getThumbnail = (thumbnails) => {
-    console.log("get thumbnail called")
+    // console.log("get thumbnail called")
     if(thumbnails != null) {
       thumbnails.some(s => {
         if(s.size > 70000) {
           this.setState({
             imgSrc : s.url
           })
-          console.log("perfect size:", s.size);
+          // console.log("perfect size:", s.size);
           return true;
         }
         else if (s.size > 40000) {
           this.setState({
             imgSrc : s.url
           })
-          console.log("perfect size 4:", s.size);
+          // console.log("perfect size 4:", s.size);
           return true;
         }
         return false

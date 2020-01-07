@@ -156,9 +156,9 @@ class searchFilter extends Component {
   };
   Season = () => {
     this.getAsyncToken().then(token => {
-      console.log("season called");
+      // console.log("season called");
       GetSeason(this.state.searchSeason, token).then(res => {
-        console.log("res", res);
+        console.log("res season", res);
         let res1 = res.data;
         temp = [...this.state.filteredSeason];
         temp1 = temp.concat(res1);
@@ -179,7 +179,7 @@ class searchFilter extends Component {
 
 
   getBrands = () => {
-    console.log(this.state.filteredBrand);
+    // console.log(this.state.filteredBrand);
     this.getAsyncToken().then(token => {
       let string = this.state.searchBrand;
       axios({
@@ -235,7 +235,7 @@ class searchFilter extends Component {
     }
   };
   restFilter = () => {
-    console.log("click on reset");
+    // console.log("click on reset");
     this.setState({
       searchBrand: "",
       filteredBrand: [],
@@ -244,7 +244,7 @@ class searchFilter extends Component {
     });
   };
   sendFilters () {
-    console.log('getting data');
+    // console.log('getting data');
     if(this.state.filteredSeason != null) {
       let seasonArray = [];
       this.state.filteredSeason.map(s => {
@@ -257,24 +257,24 @@ class searchFilter extends Component {
     }
     if(this.state.filteredBrand != null) {
       let brandArray = [];
-      console.log('this.state.filteredBrand',this.state.filteredBrand);
+      // console.log('this.state.filteredBrand',this.state.filteredBrand);
       this.state.filteredBrand.map(d => {
         let id = d.id
-        console.log('filter present', d.id, id);
+        // console.log('filter present', d.id, id);
         brandArray.push(id)
       })
-      console.log("array ",brandArray);
+      // console.log("array ",brandArray);
       if(brandArray != null) {
-        console.log('Brand array present');
+        // console.log('Brand array present');
         this.props.BrandIdArr(brandArray)
       }
     }
     this.setModalVisible(!this.state.modalVisible);  
   }
   popBrandId (pid) {
-    console.log('pid', pid, this.state.filteredBrand);
+    // console.log('pid', pid, this.state.filteredBrand);
     let filteredArray = this.state.filteredBrand.filter(item => item.id !== pid)
-    console.log('after filter', filteredArray);
+    // console.log('after filter', filteredArray);
     this.setState({filteredBrand: filteredArray});
   }
   popSeasonId (pid) {
