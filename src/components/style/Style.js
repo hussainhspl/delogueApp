@@ -15,6 +15,8 @@ import Header from "../../Header";
 import FooterComponent from "../../FooterComponent";
 import Loader from '../../shared/Loader';
 import { connect } from "react-redux";
+import InfoView from "../../styles/InfoView";
+import InfoText from "../../styles/InfoText";
 
 class Style extends React.Component {
   constructor(props) {
@@ -154,10 +156,14 @@ class Style extends React.Component {
               <FooterComponent /> 
             </Fragment>
             :
-            // <View style={{flex: 1, backgroundColor: 'white'}}>
-            //   <Loader />
-            // </View> 
-            <Text>redirecting</Text>
+            <InfoView>
+              <Image
+                          style={{ width: 64 }}
+                          resizeMode={"contain"}
+                          source={require("../../../assets/img/search-big.png")}
+                        />
+              <InfoText>Search for a style by typing name or number</InfoText>
+            </InfoView>
           }
         </Header>
       </Fragment>

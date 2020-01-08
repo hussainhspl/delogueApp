@@ -20,10 +20,10 @@ import FileCard from "../../shared/FileCard";
 import GetStyleFiles from '../../api/getStyleFiles';
 import GetAsyncToken from '../../script/getAsyncToken';
 import { connect } from 'react-redux';
-import {styleFileList} from '../../store/actions/index';
+import { styleFileList } from '../../store/actions/index';
 import ImagePicker from 'react-native-image-picker';
 import ImageUpload from '../../api/imageUpload';
-// import Toast from 'react-native-simple-toast';
+import Toast from 'react-native-root-toast';
 // import format from 'date-fns/format'
 const data = {
   styleNo: "sty2211",
@@ -83,11 +83,11 @@ class Files extends React.Component {
     ImagePicker.showImagePicker(options, response => {
       // console.log('Response = ', response);
       if (response.didCancel) {
-        // console.log('User cancelled photo picker');
+        console.log('User cancelled photo picker');
       } else if (response.error) {
-        // console.log('ImagePicker Error: ', response.error);
+        console.log('ImagePicker Error: ', response.error);
       } else if (response.customButton) {
-        // console.log('User tapped custom button: ', response.customButton);
+        console.log('User tapped custom button: ', response.customButton);
       } else {
         let source = response.uri;
         // let type = {type: response.type}
@@ -96,9 +96,22 @@ class Files extends React.Component {
           .then(token => {
 
             ImageUpload(token, source, response.fileName, folderId, this.props.styleID)
-              .then( res => {
+              .then(res => {
                 console.log('response in upload success', res);
-                // Toast.show('Image uploaded successfully');
+                let toast = Toast.show('Image uploaded successfully', {
+                  duration: Toast.durations.LONG,
+                  position: Toast.positions.BOTTOM,
+                  shadow: true, animation: true,
+                  hideOnPress: true, delay: 0,
+                })
+                setTimeout(() => { Toast.hide(toast) }, 3000);
+                GetAsyncToken()
+                  .then(token => {
+                    GetStyleFiles(token, this.props.styleID)
+                      .then(res => {
+                        this.props.styleFileListFunction(res.data)
+                      })
+                  })
               })
           })
         // You can also display the image using data:
@@ -128,7 +141,7 @@ class Files extends React.Component {
       );
     }
     console.log('enter in files did mount')
-    if(this.state.fileArr) {
+    if (this.state.fileArr) {
       console.log("hurray")
     }
     GetAsyncToken()
@@ -137,14 +150,14 @@ class Files extends React.Component {
         // if(this.state.fileArr.delogueFolderResponse != null){
         //   console.log('folder details', this.state.fileArr.delogueFolderResponse.id, this.props.styleID);
         // }
-        
+
         GetStyleFiles(token, this.props.styleID)
-          .then( res => {
+          .then(res => {
             // console.log('response', res);
             this.props.styleFileListFunction(res.data)
           })
       })
-  
+
   };
   componentWillUnmount = () => {
     AppState.removeEventListener("change", this._handleAppStateChange);
@@ -158,15 +171,15 @@ class Files extends React.Component {
   static getDerivedStateFromProps(nextProps, prevState) {
     if (nextProps.fileArr !== prevState.fileArr)
       console.log("Entered file nextProps");
-      return{
-        fileArr: nextProps.styleFileList,
-      }
+    return {
+      fileArr: nextProps.styleFileList,
+    }
     return null;
   }
   render() {
     console.log("file state", this.state.fileArr);
     // if(this.state.fileArr.delogueFolderResponse != null) {
-      
+
     // }
     // console.log("style modal", this.state.modalVisible);
     let no = 0;
@@ -175,43 +188,43 @@ class Files extends React.Component {
         <ItemDetail data={this.props.data} />
         <ScrollView showsVerticalScrollIndicator={false}>
           {
-            this.state.fileArr != null ? 
+            this.state.fileArr != null ?
               this.state.fileArr.map(data => {
                 return (
                   <View>
-                  <StyleFileTitle>
-                    <Capital numberOfLines={1}>
-                      {data.delogueFolderResponse.name}
-                    </Capital>
-                    <TouchableOpacity
-                      // onPress={() => this.setState({ cameraFileOn: true })}
-                      onPress={() => this.selectPhotoTapped(data.delogueFolderResponse.id)}
-                    >
-                      <CameraView>
-                        <Icon style={{ color: "white", fontSize: 20 }} name="camera" />
-                      </CameraView>
-                    </TouchableOpacity>
-                  </StyleFileTitle>
-                  <ImageRow>
-                    {data.delogueFileResponse.length > 0 ?
-                      data.delogueFileResponse.map(d => {
-                      no = no + 1;
-                                            
-                      return (
-                        <FileCard
-                          imageName={d.fileName}
-                          // imgSrc={src}
-                          date= {d.createdOn}
-                          no={d.status}
-                          url={d.url}
-                          thumbnails={d.existingThumbnails}
-                          key={Math.random().toFixed(3)}
-                        />
-                      );
-                    })
-                    : null
-                  }
-                  </ImageRow>
+                    <StyleFileTitle>
+                      <Capital numberOfLines={1}>
+                        {data.delogueFolderResponse.name}
+                      </Capital>
+                      <TouchableOpacity
+                        // onPress={() => this.setState({ cameraFileOn: true })}
+                        onPress={() => this.selectPhotoTapped(data.delogueFolderResponse.id)}
+                      >
+                        <CameraView>
+                          <Icon style={{ color: "white", fontSize: 20 }} name="camera" />
+                        </CameraView>
+                      </TouchableOpacity>
+                    </StyleFileTitle>
+                    <ImageRow>
+                      {data.delogueFileResponse.length > 0 ?
+                        data.delogueFileResponse.map(d => {
+                          no = no + 1;
+
+                          return (
+                            <FileCard
+                              imageName={d.fileName}
+                              // imgSrc={src}
+                              date={d.createdOn}
+                              no={d.status}
+                              url={d.url}
+                              thumbnails={d.existingThumbnails}
+                              key={Math.random().toFixed(3)}
+                            />
+                          );
+                        })
+                        : null
+                      }
+                    </ImageRow>
                   </View>
                 )
               })
@@ -240,7 +253,7 @@ const mapDispatchToProps = dispatch => {
 }
 const mapStateToProps = state => {
   return {
-    styleFileList : state.styleFileList.styleFileListState
+    styleFileList: state.styleFileList.styleFileListState
   }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(Files);

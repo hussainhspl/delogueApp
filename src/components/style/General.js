@@ -145,6 +145,18 @@ const FollowTouchableHighlight = styled.TouchableHighlight`
   justify-content: center;
   align-items: center;
 `;
+const TitleInactive = styled.Text`
+  color: #ccc;
+  text-transform: uppercase;
+  font-family: ${props => props.theme.regular};
+  font-size: ${props => props.theme.xs};
+`;
+const SubTitleInactive = styled.Text`
+  font-family: ${props => props.theme.regular};
+  font-size: ${props => props.theme.large};
+  color: #ccc;
+  text-transform: capitalize;
+`
 class General extends React.Component {
   constructor(props) {
     super(props);
@@ -188,11 +200,11 @@ class General extends React.Component {
   toggleFollow(id, follower) {
     // console.log('follow toggle', id, follower);
     this.getAsyncToken().then(token => {
-      if(follower === false) {
+      if (follower === false) {
         StyleFollow(token, id)
           .then(res => {
             console.log('styled followed', this.state.dataArray.data.isFollower);
-            this.setState(prevState =>({
+            this.setState(prevState => ({
               ...prevState,
               dataArray: {
                 ...prevState.dataArray,
@@ -208,7 +220,7 @@ class General extends React.Component {
         StyleNeglect(token, id)
           .then(res => {
             console.log("style deleted");
-            this.setState(prevState =>({
+            this.setState(prevState => ({
               ...prevState,
               dataArray: {
                 ...prevState.dataArray,
@@ -233,26 +245,26 @@ class General extends React.Component {
     this.setState({
       dataArray: this.props.styleData
     }, () => this.getThumbnail(this.state.dataArray.data.styleLogoThumbnails));
-    
+
   };
 
-  onTap = () => {};
+  onTap = () => { };
   pinZoomLayoutRef = React.createRef();
 
   getThumbnail = (thumbnails) => {
     // console.log("get thumbnail called")
-    if(thumbnails != null) {
+    if (thumbnails != null) {
       thumbnails.some(s => {
-        if(s.size > 70000) {
+        if (s.size > 70000) {
           this.setState({
-            imgSrc : s.url
+            imgSrc: s.url
           })
           // console.log("perfect size:", s.size);
           return true;
         }
         else if (s.size > 40000) {
           this.setState({
-            imgSrc : s.url
+            imgSrc: s.url
           })
           // console.log("perfect size 4:", s.size);
           return true;
@@ -264,7 +276,7 @@ class General extends React.Component {
   render() {
     console.log("render in general :", this.state.dataArray);
     let state = null
-    if(this.state.dataArray != null) {
+    if (this.state.dataArray != null) {
       state = this.state.dataArray.data;
     }
     return (
@@ -303,15 +315,15 @@ class General extends React.Component {
               />
               <FollowView>
                 <FollowTouchableHighlight underlayColor="#42546033" onPress={() => this.toggleFollow(state.id, state.isFollower)}>
-                <Icon
-                  style={{
-                    color:
-                      state.isFollower === false
-                        ? "#ccc"
-                        : "#f00"
-                  }}
-                  name="heart"
-                />
+                  <Icon
+                    style={{
+                      color:
+                        state.isFollower === false
+                          ? "#ccc"
+                          : "#f00"
+                    }}
+                    name="heart"
+                  />
                 </FollowTouchableHighlight>
               </FollowView>
             </View>
@@ -343,7 +355,7 @@ class General extends React.Component {
                 </StyleInfo>
                 <StyleInfo>
                   <Title>style no</Title>
-                  <SubTitle>{state.userDefinedId ? state.userDefinedId: "-"}</SubTitle>
+                  <SubTitle>{state.userDefinedId ? state.userDefinedId : "-"}</SubTitle>
                 </StyleInfo>
                 <StyleInfo>
                   <Title>description</Title>
@@ -366,8 +378,8 @@ class General extends React.Component {
                 <StyleInfo>
                   <Title>supplier</Title>
                   <SubTitle>
-                    {state.supplier ? `${state.supplier.userDefinedSupplierId} | `: ' '}
-                    {state.supplier? state.supplier.name : " "}
+                    {state.supplier ? `${state.supplier.userDefinedSupplierId} | ` : ' '}
+                    {state.supplier ? state.supplier.name : " "}
                   </SubTitle>
                 </StyleInfo>
                 <StyleInfo>
@@ -403,10 +415,10 @@ class General extends React.Component {
                   <Title>categories</Title>
                   {
                     state.categories ?
-                    state.categories.map(d => {
-                      return <SubTitle>{d.name}</SubTitle>;
-                    })
-                    : <SubTitle> - </SubTitle>
+                      state.categories.map(d => {
+                        return <SubTitle>{d.name}</SubTitle>;
+                      })
+                      : <SubTitle> - </SubTitle>
                   }
                 </StyleInfo>
               </View>
@@ -424,27 +436,37 @@ class General extends React.Component {
                     <Block>
                       {color.adminColor.isActive == false ? (
                         <Fragment>
-                          <InactiveColorBox color={color.adminColor.rgb ? color.adminColor.rgb: "fff"} />
+                          <InactiveColorBox color={color.adminColor.rgb ? color.adminColor.rgb : "fff"} />
                           <XView1 />
                           <XView2 />
+                          <TitleInactive numberOfLines={1}>
+                            {color.adminColor.userDefinedId2 ? color.adminColor.userDefinedId2 : "-"}
+                          </TitleInactive>
+                          <SubTitleInactive numberOfLines={2}>{color.name ? color.name : '-'} </SubTitleInactive>
                         </Fragment>
+
                       ) : (
-                        <ColorBox color={color.adminColor.rgb ? color.adminColor.rgb: "fff"} />
-                      )}
-                      <Title numberOfLines={1}>
-                        {color.adminColor.userDefinedId2 ? color.adminColor.userDefinedId2 : "-"}
-                      </Title>
-                      <SubTitle numberOfLines={2}>{color.name ? color.name : '-'}</SubTitle>
+                          <Fragment>
+                            <ColorBox color={color.adminColor.rgb ? color.adminColor.rgb : "fff"} />
+                            <Title numberOfLines={1}>
+                              {color.adminColor.userDefinedId2 ? color.adminColor.userDefinedId2 : "-"}
+                            </Title>
+                            <SubTitle numberOfLines={2}>{color.name ? color.name : '-'}</SubTitle>
+                          </Fragment>
+
+                        )}
+
                     </Block>
-                  )})
+                  )
+                })
                 :
                 <SubTitle> - </SubTitle>
               }
             </ColorContainer>
           </ScrollView>
         ) : (
-          <Text>loading</Text>
-        )}
+            <Text>loading</Text>
+          )}
       </Fragment>
     );
   }

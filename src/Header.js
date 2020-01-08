@@ -49,7 +49,6 @@ const MsgIconView = styled.View`
 const CountView = styled.View`
   position: absolute;
   top: 10px;
-  bottom: 20px;
   right: 5px;
   width: 20px;
   height: 20px;
@@ -61,7 +60,6 @@ const Number = styled.Text`
   color: #fff;
   font-weight: bold;
   font-size: 12px;
-  line-height: 20px;
   align-self: center;
   
 `;

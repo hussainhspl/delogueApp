@@ -22,8 +22,8 @@ import { connect } from "react-redux";
 import SearchInput from '../../styles/SearchInput';
 import GetStyles from '../../api/getStyles';
 import AsyncStorage from "@react-native-community/async-storage";
-import {styleList, generalTab } from '../../store/actions/index';
-import GetSelectedStyle from '../../api/getStyle'; 
+import { styleList, generalTab } from '../../store/actions/index';
+import GetSelectedStyle from '../../api/getStyle';
 import GetAsyncToken from '../../script/getAsyncToken';
 
 const SearchRow = styled.View`
@@ -102,7 +102,19 @@ const SearchIcon = styled.View`
 const Box = styled.View`
   margin-left: 10px;
 `;
-
+const SearchSuggestionView = styled.View`
+  border: 1px solid #777;
+  padding : 10px 0px;
+  position: absolute;
+  top: 100;
+  left: 50; right: 10;
+  background-color: #fff;
+`;
+const SuggestionTerm = styled.Text`
+  font-family: ${props => props.theme.regular};
+  color: ${props => props.theme.textColor};
+  padding: 5px 10px; 
+`;
 const KEYS_TO_FILTERS = ["styleNo", "styleName", "supplier", "season"];
 class Search extends React.Component {
   constructor(props) {
@@ -117,8 +129,9 @@ class Search extends React.Component {
       brandIds: null,
       SeasonIdArr: null,
       popBrandId: '',
-      emptyResult: false
-
+      emptyResult: false,
+      showSuggestion: false,
+      suggestionArr: []
     };
   }
   componentDidMount = () => {
@@ -127,8 +140,9 @@ class Search extends React.Component {
   searchUpdated(term) {
     this.setState({
       searchTerm: term,
-      renderSearch: "linear"
-    });
+      renderSearch: "linear",
+      showSuggestion: true
+    }, this.getSuggestion());
   }
   changeView = () => {
     if (this.state.currentView === "linear") {
@@ -141,7 +155,7 @@ class Search extends React.Component {
       });
     }
   };
-  
+
   styles = () => {
     // console.log("calling api again");
     GetAsyncToken().then(token => {
@@ -150,19 +164,39 @@ class Search extends React.Component {
         this.state.seasonIds)
         .then(res => {
           console.log('response style', res);
-          if(res.data.styles.length == 0){
-            this.setState({emptyResult : true})
+          if (res.data.styles.length == 0) {
+            this.setState({ emptyResult: true })
           }
           this.props.styleListFunction(res.data)
+          this.setState({
+            suggestionArr: [],
+            showSuggestion: false
+          })
         })
     })
   }
-  getCurrentStyle (id) {
+  getSuggestion = () => {
+    // console.log("calling api again");
+    GetAsyncToken().then(token => {
+      // console.log('get style api')
+      GetStyles(this.state.searchTerm, token, this.state.brandIds,
+        this.state.seasonIds)
+        .then(res => {
+          console.log('suggest style', res.data.styles);
+
+          this.setState({
+            suggestionArr : res.data.styles
+          })
+        })
+    })
+  }
+
+  getCurrentStyle(id) {
     console.log('style clicked', id)
     GetAsyncToken()
       .then(token => {
         GetSelectedStyle(token, id)
-          .then( res => {
+          .then(res => {
             this.props.styleFunction(res)
             console.log('got single style : ', res)
             this.props.generalTabFunction()
@@ -173,17 +207,17 @@ class Search extends React.Component {
   }
 
   static getDerivedStateFromProps(nextProps, prevState) {
-    
+
     if (nextProps.filteredStyle !== prevState.filteredStyle) {
       console.log("Entered nextProps");
-      return{
+      return {
         filteredStyle: nextProps.styleList,
       }
     }
     return null;
   }
   shouldComponentUpdate(nextProps, nextState) {
-    if(this.state.brandIds != nextState.brandIds) {
+    if (this.state.brandIds != nextState.brandIds) {
       this.styles()
       return false;
     }
@@ -193,9 +227,9 @@ class Search extends React.Component {
   }
   removeBrand = (pid) => {
     console.log('remove brand', pid);
-    
+
   }
-  
+
   render() {
     const history = this.props.history;
     console.log('style data from store', this.state.filteredStyle);
@@ -207,7 +241,7 @@ class Search extends React.Component {
           <ScrollView showsVerticalScrollIndicator={false}>
             <SearchRow>
               <SearchIcon>
-                <Icon style={{color:"#fff", fontSize: 25}} name="ios-search"/>
+                <Icon style={{ color: "#fff", fontSize: 25 }} name="ios-search" />
               </SearchIcon>
               <Flex>
                 <SearchInput
@@ -220,8 +254,9 @@ class Search extends React.Component {
                   onSubmitEditing={this.styles}
                 />
               </Flex>
-                {
-                  this.state.filteredStyle != null ? 
+
+              {
+                this.state.filteredStyle != null ?
                   <Box>
                     <TouchableHighlight onPress={this.changeView} underlayColor="#42546033">
                       <ViewBox>
@@ -237,69 +272,88 @@ class Search extends React.Component {
                     </TouchableHighlight>
                   </Box>
                   : null
-                }
+              }
             </SearchRow>
-            
+
             {this.state.currentView === "grid" && (
               <Fragment>
-              <GridView>
-                {
-                  this.state.filteredStyle != null ?
-                  this.state.filteredStyle.styles.map(data => {
-                    return (<SearchGridCard 
-                      key={data.styleNo} 
-                      data={data} 
-                      history={history} 
-                      GetStyleClicked = {() => {this.getCurrentStyle(data.id)}}
-                    />);
-                  }) 
-                  :
-                  <InfoView>
-                  <Image
-                    style={{width: 64}}
-                    resizeMode={"contain"}
-                    source={require("../../../assets/img/search-big.png")}
-                  />
-                  <InfoText>Search for a style by typing name or number</InfoText>
-                </InfoView>
-                }
-                {this.state.emptyResult && (
-                  <InfoView>
-                    <InfoText> No result found </InfoText>  
-                  </InfoView>
-                )}
-              </GridView>
-              {/* <LoadMoreButton>
+                <GridView>
+                  {
+                    this.state.filteredStyle != null ?
+                      this.state.filteredStyle.styles.map(data => {
+                        return (<SearchGridCard
+                          key={data.styleNo}
+                          data={data}
+                          history={history}
+                          GetStyleClicked={() => { this.getCurrentStyle(data.id) }}
+                        />);
+                      })
+                      :
+                      <InfoView>
+                        <Image
+                          style={{ width: 64 }}
+                          resizeMode={"contain"}
+                          source={require("../../../assets/img/search-big.png")}
+                        />
+                        <InfoText>Search for a style by typing name or number</InfoText>
+                      </InfoView>
+                  }
+                  {this.state.emptyResult && (
+                    <InfoView>
+                      <InfoText> No result found </InfoText>
+                    </InfoView>
+                  )}
+                </GridView>
+                {/* <LoadMoreButton>
                 <Text> Load More </Text>
               </LoadMoreButton> */}
               </Fragment>
             )}
-            
+
           </ScrollView>
-          {this.state.currentView === "linear" &&(
-              
-              <FlatList
-                data={this.state.filteredStyle.styles}
-                renderItem={({ item }) => 
-                  <TouchableHighlight
-                    underlayColor="#42546033"
-                    onPress={() => {this.getCurrentStyle(item.id)}
-                    }
-                  >
-                    <ItemDetail data={item} />
-                  </TouchableHighlight>}
-                keyExtractor={item => item.id}
-              />
-            )}
-          <SearchFilter 
-            BrandIdArr= {(bid) => {
+          {this.state.currentView === "linear" && (
+
+            <FlatList
+              data={this.state.filteredStyle.styles}
+              renderItem={({ item }) =>
+                <TouchableHighlight
+                  underlayColor="#42546033"
+                  onPress={() => { this.getCurrentStyle(item.id) }
+                  }
+                >
+                  <ItemDetail data={item} />
+                </TouchableHighlight>}
+              keyExtractor={item => item.id}
+            />
+          )}
+          {
+            this.state.showSuggestion && (
+              <SearchSuggestionView>
+                {this.state.suggestionArr.map(d => {
+                  return (
+                    <TouchableHighlight underlayColor={"#eee"} onPress={() => this.getCurrentStyle(d.id)}>
+
+
+                    <SuggestionTerm>
+                      {d.name}
+                  </SuggestionTerm>
+                  </TouchableHighlight>
+                  )
+                })}
+
+
+              </SearchSuggestionView>
+            )
+          }
+          <SearchFilter
+            BrandIdArr={(bid) => {
               // console.log("yipee", bid);
               this.setState({
-                brandIds : bid
+                brandIds: bid
               }, () => this.styles)
-              
+
             }}
-            SeasonIdArr= {(sid) => {
+            SeasonIdArr={(sid) => {
               this.setState({
                 seasonIds: sid
               })
@@ -319,10 +373,10 @@ class Search extends React.Component {
 
 const mapDispatchToProps = dispatch => {
   return {
-    styleListFunction :(s) => dispatch(styleList(s)),
-    styleFunction : (s) => dispatch(singleStyle(s)),
+    styleListFunction: (s) => dispatch(styleList(s)),
+    styleFunction: (s) => dispatch(singleStyle(s)),
     generalTabFunction: () => dispatch(generalTab()),
-    
+
   }
 }
 const mapStateToProps = state => {

@@ -119,7 +119,8 @@ class CommentsList extends React.Component {
     this.state = {
       read: false,
       searchTerm: "",
-      msgList: null
+      msgList: null,
+      emptyResult: false
     };
     this.styleMessages = this.styleMessages.bind(this);
   }
@@ -139,6 +140,9 @@ class CommentsList extends React.Component {
         .then(res => {
           console.log('response', res);
           // this.props.styleMessageListFunction(res.data)
+          if(res.data.length == 0){
+            this.setState({emptyResult : true})
+          }
           this.setState({
             msgList: res.data
           })
@@ -270,6 +274,11 @@ class CommentsList extends React.Component {
                 <InfoText> Enter String to Messages </InfoText>
               </InfoView>
         }
+        {this.state.emptyResult && (
+                  <InfoView>
+                    <InfoText> No result found </InfoText>  
+                  </InfoView>
+                )}
       </View>
     );
   }

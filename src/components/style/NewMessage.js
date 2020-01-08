@@ -247,9 +247,7 @@ class NewMessage extends React.Component {
           })
           setTimeout(() =>{ Toast.hide(toast)}, 3000);
           this.props.closeMessage()
-          // this.setState({
-
-          // })
+         
         })
     })
   }
