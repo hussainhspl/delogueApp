@@ -79,7 +79,7 @@ class Header extends React.Component {
       .then(token => {
         UnreadMessageCount(token)
         .then(res => {
-          console.log('count successful', res);
+          // console.log('count successful', res);
           this.setState({
             count: res.data
           })

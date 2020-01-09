@@ -193,17 +193,16 @@ class Message extends React.Component {
       read: false,
       chatRead: false,
       webViewHeight: null,
-      htmlHeight: []
+      htmlHeight1: []
     };
   }
   componentDidMount = () => {
-    // console.log('message component did mount', this.props.unreadList);
     if(this.props.unreadList == null) {
       GetAsyncToken()
       .then(token => {
         UnreadMessageList(token)
           .then(res => {
-            console.log('message list', res.data)
+            // console.log('message list', res.data)
             // this.setState({
             //   MessageList: res.data,
             // })
@@ -215,6 +214,7 @@ class Message extends React.Component {
   }
   static getDerivedStateFromProps(nextProps, prevState) {
     // console.log('before render', this.state.MessageList.isRead)
+    console.log('enter in derived')
     if (nextProps.MessageList !== prevState.MessageList) {
       // console.log("Entered nextProps messages",prevState.MessageList);
       return{
@@ -242,35 +242,31 @@ class Message extends React.Component {
 
   }
 
-  find_dimesions(layout) {
-    const { x, y, width, height } = layout;
-    console.warn(x);
-    console.warn(y);
-    console.warn(width);
-    // console.log("hright", height);
-  }
-  _onMessage = (event, index) => {
-    // console.log(index);
+  // find_dimesions(layout) {
+  //   const { x, y, width, height } = layout;
+  //   console.warn(x);
+  //   console.warn(y);
+  //   console.warn(width);
+  //   // console.log("hright", height);
+  // }
+  _onMessage = (event) => {
+    // setTimeout(() => {
+    // }, 500);
+    console.log('enter in msg function', event.nativeEvent.data)
     // console.log('event111', event.nativeEvent, Number(event.nativeEvent.data));
     let con = JSON.parse(event.nativeEvent.data)
 
-    let heightRaw = 0;
-    // heightRaw= Number();
     let intHeight = parseInt(con)
 
     let list = [];
 
-    list = this.state.htmlHeight;
+    list = [...this.state.htmlHeight1];
 
     list.push(intHeight);
-    // console.log(list);
-    // this.state.htmlHeight = list;
-    // setTimeout(function() { //Start the timer
-    // this.setState({
-    //   htmlHeight: list
-    // }, () => console.log('state set successfully', this.state.htmlHeight))//After 1 second, set render to true
-    // }.bind(this), 1000)
-
+    // this.state.htmlHeight1 = list;
+    this.setState({
+      htmlHeight1: list
+    })
 
   }
 
@@ -305,21 +301,15 @@ class Message extends React.Component {
               this.props.updateUnReadFunction(auditLogId)
             })
         }
-        
-          // 118051 isRead: false DeleteAlert
-          // 118046
-        // CreateAlert(token, auditLogId, messageType)
-        //   .then(res => {
-        //     console.log('successfully marked unread', res);
-        //   })
       })
   }
 
   render() {
 
     history = this.props.history;
-    if(this.state.MessageList != null)
-      console.log("message list render", this.state.MessageList);
+    console.log('html height in render: ', this.state.htmlHeight1);
+    // if(this.state.MessageList != null)
+      // console.log("message list render", this.state.MessageList);
     // let numHeight = parseInt(this.state.webviewHeight);
     // console.log('webviewHeight', this.state.webViewHeight);
     // let chat = this.state.MessageList.filter(m => m.messageType == "Style sample request")
@@ -372,9 +362,10 @@ class Message extends React.Component {
                   // if (index > 5)
                   //   return
                   let formatedDate = format(parseISO(m.loggedOn), "d-MMM-yyyy kk:mm");
-                  // console.log('Enter in map', this.state.webviewHeight, index);
+                  
 
                   if (m.messageType == "StyleCommunicationMessage") {
+                    console.log('message')
                     return (
                       <Fragment>
                         {this.state.message && (
@@ -413,27 +404,17 @@ class Message extends React.Component {
                                       {m.messageSubject !== null ? m.messageSubject : 'no subject'}
                                     </Subject>
 
-                                    <View
-                                    // style = {{height: this.state.htmlHeight !== null ? this.state.htmlHeight[index] : 30}}
-                                    // onLayout={(event) => {
-                                    // var {x, y, width, height} = event.nativeEvent.layout;
-                                    // console.log('var height:', height);
-                                    // this.setState({
-                                    //   htmlHeight: height
-                                    // }, () => console.log('response', this.state.htmlHeight))
-
-                                    // }}
-                                    >
+                                    <View>
                                       <ContentText
                                         originWhitelist={['*']}
                                         injectedJavaScript='window.ReactNativeWebView.postMessage(JSON.stringify(document.body.scrollHeight), "*")'
-                                        onMessage={(event) => this._onMessage(event, index)}
+                                        onMessage={(event) => this._onMessage(event)}
                                         scrollEnabled={false}
                                         cacheEnabled={false}
                                         style={{
                                           fontSize: 26,
-                                          height: 200,
-                                          // height: this.state.htmlHeight[index]
+                                          //height: 400,
+                                           height: this.state.htmlHeight1[index]
                                         }}
                                         source={{
                                           html: `<!DOCTYPE html><html><head><meta name="viewport" content="width=device-width, initial-scale=1"></head>
@@ -456,16 +437,19 @@ class Message extends React.Component {
 
                     )
                   }
+
                   else if (m.messageType == "Style sample request") {
+                    
+                    console.log('chat');
                     return (
                       <Fragment>
-                        {this.state.chat && (
+                        {/* {this.state.chat && (
                           <ChatMessage
                             history = {this.props.history}
                             data={m}
                             toggleAlertFunction = {() => this.toggleAlert(m.auditLogId, m.messageType)}
                           />
-                        )}
+                        )} */}
                       </Fragment>
 
                     )

@@ -127,7 +127,7 @@ class Sample extends React.Component {
                     data={data}
                     close={() => {
                       this.setState({ sampleRequest: true });
-                      console.log("hello");
+                      // console.log("hello");
                     }}
                   />
                 );
