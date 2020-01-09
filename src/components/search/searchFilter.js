@@ -19,11 +19,11 @@ import Close from "../../styles/Close";
 import SearchInput from "../../styles/SearchInput";
 import axios from "axios";
 import { connect } from "react-redux";
-// import {token} from "../../store/actions/index";
-import GetSeason from "../../api/getSeason";
-import AsyncStorage from "@react-native-community/async-storage";
-// import { ScrollView } from "react-native-gesture-handler";
-// S_sTlM_5rwnULiUcRx0pAhZGc4eF7AUqgnC299VIMJ021kj76D3o96ZHsSMKdPHchlll5VeL7bnBi7h2epLaedT9pLmxBwSomb8AErxn1czXZDhJM1_LoyILZyoJAqJl2hvy3aSAHwAMbdtij4B98z6nDO2y96wWTm87RBen29n3-eS3--E0e1r6238VbIS8P2nbqiTsR7UKyVjyrKCUBpeKPGmh4B94-6gYZlyjVG-WwYUJKC4-dvSLTNsDMyluco4zJ7NS7aNfn-PdZW6X83nPNbiO5lutlXxppUdhXdGzxqVQsbVmszNfJ9uZ4dbz
+import GetSeason from "../../api/search/getSeason";
+import getAsyncToken from '../../script/getAsyncToken';
+import SearchSuggestionView from '../../styles/SearchSuggestionView';
+import SuggestionTerm from '../../styles/SuggestionTerm';
+
 const StyledTouchableOpacity = styled.TouchableHighlight`
   width: 50px;
   height: 50px;
@@ -49,19 +49,6 @@ const GrayButtonText = styled.Text`
   padding: 5px;
 `;
 
-// const StyledSearchInput = styled(Searchinput)`
-//   padding-left: 10px;
-//   border-color: #425460;
-//   border-width: 1px;
-//   height: 40px;
-//   margin-right: 10px;
-//   position: relative;
-//   padding-right: 40px;
-//   flex: 1;
-//   width: 100%;
-//   font-family: ${props => props.theme.regular};
-//   color: ${props => props.theme.textColor};
-// `;
 const ResetBar = styled.View`
   padding: 10px 15px;
   border-bottom-width: 1px;
@@ -152,10 +139,12 @@ class searchFilter extends Component {
       filteredSeason: [],
       text: "Useless Placeholder",
       appState: AppState.currentState,
+      showSuggestion: false,
+      suggestionArr: []
     }
   };
   Season = () => {
-    this.getAsyncToken().then(token => {
+    getAsyncToken().then(token => {
       // console.log("season called");
       GetSeason(this.state.searchSeason, token).then(res => {
         console.log("res season", res);
@@ -166,21 +155,12 @@ class searchFilter extends Component {
       });
     })
   };
-  getAsyncToken = async () => {
-    try {
-      const token = await AsyncStorage.getItem("@token");
-      if (token) return token;
-    } catch (error) {
-      if (error) {
-        console.log("async token absent", error);
-      }
-    }
-  };
+ 
 
 
   getBrands = () => {
     // console.log(this.state.filteredBrand);
-    this.getAsyncToken().then(token => {
+    getAsyncToken().then(token => {
       let string = this.state.searchBrand;
       axios({
         url: `${baseUrl}Brands/${string}`,
@@ -195,7 +175,9 @@ class searchFilter extends Component {
           // temp.filter((v, i) => a.indexOf(v) == i)
           temp1 = temp.concat(res1);
           this.setState({ 
-            filteredBrand:temp1
+            filteredBrand:temp1,
+            showSuggestion: false,
+            suggestionArr: [],
           });
           
         })
@@ -204,9 +186,22 @@ class searchFilter extends Component {
         });
     });
   };
+  // getBrandSuggestion = () => {
+  //   GetAsyncToken().then(token => {
+  //     GetStyles(this.state.searchTerm, token, this.state.brandIds,
+  //       this.state.seasonIds)
+  //       .then(res => {
+  //         console.log('suggest style', res.data.styles);
+  //         this.setState({
+  //           suggestionArr : res.data.styles
+  //         })
+  //       })
+  //   })
+  // }
   searchUpdated(term) {
     this.setState({
-      searchBrand: term
+      searchBrand: term,
+      showSuggestion: true
     });
   }
 
@@ -222,13 +217,11 @@ class searchFilter extends Component {
   _handleAppStateChange = nextAppState => {
     this.setState({ appState: nextAppState });
     if (this.state.modalVisible === true) {
-      console.log("back clicked");
+      // console.log("back clicked");
     }
     if (nextAppState === "background") {
       // console.log('bg state', this.state.appState)
-      this.setState({ modalVisible: false }, () =>
-        console.log(this.state.modalVisible)
-      );
+     
     }
     if (nextAppState === "active") {
       // console.log('bg state', this.state.appState)
@@ -331,6 +324,24 @@ class searchFilter extends Component {
                     onSubmitEditing={this.getBrands}
                   />
                 </FlexRow>
+                {
+                  this.state.showSuggestion && (
+                    <SearchSuggestionView>
+                      {this.state.suggestionArr.map(d => {
+                        return (
+                          <TouchableHighlight underlayColor={"#eee"} onPress={() => this.getCurrentStyle(d.id)}>
+
+
+                          <SuggestionTerm>
+                            hey
+                            {/* {d.name} */}
+                        </SuggestionTerm>
+                        </TouchableHighlight>
+                        )
+                      })}
+                    </SearchSuggestionView>
+                  )
+                }
                 {this.state.filteredBrand != null ?
                 this.state.filteredBrand && (
                   <StyledScrollView scrollToOverflowEnabled>

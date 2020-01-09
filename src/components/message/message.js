@@ -3,7 +3,8 @@ import {
   View, Text,
   TouchableWithoutFeedback,
   TouchableHighlight,
-  ScrollView
+  ScrollView,
+  Dimensions
 } from "react-native";
 import { Icon } from "native-base";
 import { withTheme } from 'styled-components';
@@ -22,6 +23,7 @@ import GetAsyncToken from '../../script/getAsyncToken';
 import { format, parseISO } from 'date-fns';
 // import HTMLView from 'react-native-htmlview';
 import { WebView } from 'react-native-webview';
+import AutoHeightWebView from 'react-native-autoheight-webview'
 import DWebView from "./DWebView";
 import CreateAlert from "../../api/createAlert";
 import DeleteAlert from "../../api/deleteAlert";
@@ -80,16 +82,14 @@ const ButtonOverlay = styled.View`
 
 const CommentedButton = styled(View)`
   background-color: #99afaf;
-  margin-left: 15px;
   margin: 15px auto;
-  padding: 6px 10px;
-  align-self: flex-start;
-  flex-direction: row;
+  padding: 6px 0px;
+  width: 90px;
   align-items: center;
   height: 32px;
 `;
 const IconView = styled.View`
-  width: 30px;
+  width: 32px;
   height: 32px;
   background-color: #415461;
   justify-content: center;
@@ -193,31 +193,32 @@ class Message extends React.Component {
       read: false,
       chatRead: false,
       webViewHeight: null,
-      htmlHeight1: []
+      htmlHeight1: [],
+      hideRead: false
     };
   }
   componentDidMount = () => {
-    if(this.props.unreadList == null) {
+    if (this.props.unreadList == null) {
       GetAsyncToken()
-      .then(token => {
-        UnreadMessageList(token)
-          .then(res => {
-            // console.log('message list', res.data)
-            // this.setState({
-            //   MessageList: res.data,
-            // })
-            this.props.unreadMessagesListFunction(res.data)
-          })
-      })
+        .then(token => {
+          UnreadMessageList(token)
+            .then(res => {
+              // console.log('message list', res.data)
+              // this.setState({
+              //   MessageList: res.data,
+              // })
+              this.props.unreadMessagesListFunction(res.data)
+            })
+        })
     }
-    
+
   }
   static getDerivedStateFromProps(nextProps, prevState) {
     // console.log('before render', this.state.MessageList.isRead)
     console.log('enter in derived')
     if (nextProps.MessageList !== prevState.MessageList) {
       // console.log("Entered nextProps messages",prevState.MessageList);
-      return{
+      return {
         MessageList: nextProps.unreadList,
       }
     }
@@ -242,59 +243,31 @@ class Message extends React.Component {
 
   }
 
-  // find_dimesions(layout) {
-  //   const { x, y, width, height } = layout;
-  //   console.warn(x);
-  //   console.warn(y);
-  //   console.warn(width);
-  //   // console.log("hright", height);
-  // }
-  _onMessage = (event) => {
-    // setTimeout(() => {
-    // }, 500);
-    console.log('enter in msg function', event.nativeEvent.data)
-    // console.log('event111', event.nativeEvent, Number(event.nativeEvent.data));
-    let con = JSON.parse(event.nativeEvent.data)
-
-    let intHeight = parseInt(con)
-
-    let list = [];
-
-    list = [...this.state.htmlHeight1];
-
-    list.push(intHeight);
-    // this.state.htmlHeight1 = list;
-    this.setState({
-      htmlHeight1: list
-    })
-
-  }
-
-  toggleAlert  (auditLogId, messageType) {
+  toggleAlert(auditLogId, messageType) {
     // console.log('enter in toggle alert', auditLogId);
     let currentAlert = '';
     GetAsyncToken()
       .then(token => {
 
-        this.state.MessageList.map( d => {
-          if(d.auditLogId == auditLogId) {
+        this.state.MessageList.map(d => {
+          if (d.auditLogId == auditLogId) {
             // console.log('click state', d.isRead);
             currentAlert = d.isRead;
-            
+
           }
         })
         // console.log('if', currentAlert);
-        if(currentAlert == false) {
-          console.log('auditLogId',auditLogId);
+        if (currentAlert == false) {
+          console.log('auditLogId', auditLogId);
           DeleteAlert(token, auditLogId)
-          .then(res => {
-            console.log('alert deleted successfully');
+            .then(res => {
+              console.log('alert deleted successfully');
 
-            this.props.updateReadFunction(auditLogId)   
+              this.props.updateReadFunction(auditLogId)
 
-          })
-        }else{
-          console.log('auditLogId',auditLogId);
+            })
+        } else {
+          console.log('auditLogId', auditLogId);
           CreateAlert(token, auditLogId, messageType)
             .then(res => {
               console.log('successfully marked unread', res);
@@ -303,13 +276,18 @@ class Message extends React.Component {
         }
       })
   }
-
+  toggleMessages = () => {
+    console.log('toggle messages')
+    this.setState({
+      hideRead: !this.state.hideRead
+    })
+  }
   render() {
 
     history = this.props.history;
     console.log('html height in render: ', this.state.htmlHeight1);
     // if(this.state.MessageList != null)
-      // console.log("message list render", this.state.MessageList);
+    // console.log("message list render", this.state.MessageList);
     // let numHeight = parseInt(this.state.webviewHeight);
     // console.log('webviewHeight', this.state.webViewHeight);
     // let chat = this.state.MessageList.filter(m => m.messageType == "Style sample request")
@@ -343,7 +321,7 @@ class Message extends React.Component {
               <TouchableWithoutFeedback
                 onPressIn={() => this.setState({ showOpacity: true })}
                 onPressOut={() => this.setState({ showOpacity: false })}
-                onPress={() => { }}
+                onPress={this.toggleMessages}
               >
                 <ButtonRow>
                   {this.state.showOpacity && <ButtonOverlay />}
@@ -351,7 +329,7 @@ class Message extends React.Component {
                     <Icon style={{ color: "#fff", fontSize: 15 }} name="eye" />
                   </IconView>
                   <CommentedButton>
-                    <ButtonText> hide read </ButtonText>
+                    <ButtonText> {this.state.hideRead ? 'show read' : 'hide read' } </ButtonText>
                   </CommentedButton>
                 </ButtonRow>
               </TouchableWithoutFeedback>
@@ -359,13 +337,13 @@ class Message extends React.Component {
             {
               this.state.MessageList != null ?
                 this.state.MessageList.map((m, index) => {
-                  // if (index > 5)
-                  //   return
+                  if (this.state.hideRead)
+                    if(m.isRead)
+                      return
                   let formatedDate = format(parseISO(m.loggedOn), "d-MMM-yyyy kk:mm");
-                  
+
 
                   if (m.messageType == "StyleCommunicationMessage") {
-                    console.log('message')
                     return (
                       <Fragment>
                         {this.state.message && (
@@ -376,7 +354,7 @@ class Message extends React.Component {
                             >
                               <Fragment>
                                 <MsgIconBox readMsg={m.isRead}>
-                                  <STouchableHighlight underlayColor={this.props.theme.overlayBlue} 
+                                  <STouchableHighlight underlayColor={this.props.theme.overlayBlue}
                                     onPress={() => this.toggleAlert(m.auditLogId, m.messageType)}>
                                     <MsgImage
                                       resizeMode={"contain"}
@@ -404,22 +382,18 @@ class Message extends React.Component {
                                       {m.messageSubject !== null ? m.messageSubject : 'no subject'}
                                     </Subject>
 
-                                    <View>
-                                      <ContentText
-                                        originWhitelist={['*']}
-                                        injectedJavaScript='window.ReactNativeWebView.postMessage(JSON.stringify(document.body.scrollHeight), "*")'
-                                        onMessage={(event) => this._onMessage(event)}
-                                        scrollEnabled={false}
-                                        cacheEnabled={false}
-                                        style={{
-                                          fontSize: 26,
-                                          //height: 400,
-                                           height: this.state.htmlHeight1[index]
-                                        }}
-                                        source={{
-                                          html: `<!DOCTYPE html><html><head><meta name="viewport" content="width=device-width, initial-scale=1"></head>
-                                    <body><small>${m.messageBody}</small></body></html>`
-                                        }}
+                                    <View
+                                      // onLayout={(event) => {
+                                      //   var { x, y, width, height } = event.nativeEvent.layout;
+                                      //   console.log('var height:', height);
+                                      // }}
+                                    >
+                                      <AutoHeightWebView
+                                        style={{ width: Dimensions.get('window').width - 45, marginTop: 35 }}
+                                      source={{ html: `<!DOCTYPE html><html><head><meta name="viewport" content="width=device-width, initial-scale=1"></head>
+                                        <body><small>${m.messageBody}</small></body></html>` }}
+                                      scalesPageToFit={true}
+                                      zoomable={false}
                                       />
                                     </View>
                                     {/* :null} */}
@@ -439,17 +413,15 @@ class Message extends React.Component {
                   }
 
                   else if (m.messageType == "Style sample request") {
-                    
-                    console.log('chat');
                     return (
                       <Fragment>
-                        {/* {this.state.chat && (
+                        {this.state.chat && (
                           <ChatMessage
                             history = {this.props.history}
                             data={m}
                             toggleAlertFunction = {() => this.toggleAlert(m.auditLogId, m.messageType)}
                           />
-                        )} */}
+                        )}
                       </Fragment>
 
                     )

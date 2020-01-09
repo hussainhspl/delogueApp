@@ -25,6 +25,8 @@ import AsyncStorage from "@react-native-community/async-storage";
 import { styleList, generalTab } from '../../store/actions/index';
 import GetSelectedStyle from '../../api/getStyle';
 import GetAsyncToken from '../../script/getAsyncToken';
+import SearchSuggestionView from '../../styles/SearchSuggestionView';
+import SuggestionTerm from '../../styles/SuggestionTerm';
 
 const SearchRow = styled.View`
   flex-direction: row;
@@ -57,15 +59,6 @@ const ViewBox = styled.View`
   border-color: #999;
   justify-content: center;
   align-items: center;
-`;
-
-const CardInfo = styled.View`
-  border-top-width: 1px;
-  border-color: #eee;
-  height: 50px;
-  width: 100%;
-  justify-content: center;
-  padding: 5px;
 `;
 
 const GridView = styled.View`
@@ -102,19 +95,7 @@ const SearchIcon = styled.View`
 const Box = styled.View`
   margin-left: 10px;
 `;
-const SearchSuggestionView = styled.View`
-  border: 1px solid #777;
-  padding : 10px 0px;
-  position: absolute;
-  top: 100;
-  left: 50; right: 10;
-  background-color: #fff;
-`;
-const SuggestionTerm = styled.Text`
-  font-family: ${props => props.theme.regular};
-  color: ${props => props.theme.textColor};
-  padding: 5px 10px; 
-`;
+
 const KEYS_TO_FILTERS = ["styleNo", "styleName", "supplier", "season"];
 class Search extends React.Component {
   constructor(props) {
@@ -176,14 +157,11 @@ class Search extends React.Component {
     })
   }
   getSuggestion = () => {
-    // console.log("calling api again");
     GetAsyncToken().then(token => {
-      // console.log('get style api')
       GetStyles(this.state.searchTerm, token, this.state.brandIds,
         this.state.seasonIds)
         .then(res => {
           console.log('suggest style', res.data.styles);
-
           this.setState({
             suggestionArr : res.data.styles
           })
@@ -340,8 +318,6 @@ class Search extends React.Component {
                   </TouchableHighlight>
                   )
                 })}
-
-
               </SearchSuggestionView>
             )
           }
