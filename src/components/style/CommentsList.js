@@ -1,5 +1,5 @@
 import React, { Fragment } from "react";
-import { View, Text, Image, TouchableHighlight } from "react-native";
+import { View, Text, Image, TouchableHighlight, Dimensions } from "react-native";
 import { Icon } from 'native-base';
 import { withTheme } from 'styled-components';
 import styled from "styled-components";
@@ -18,6 +18,7 @@ import CreateAlert from "../../api/createAlert";
 import DeleteAlert from "../../api/deleteAlert";
 import InfoView from "../../styles/InfoView";
 import InfoText from "../../styles/InfoText";
+import AutoHeightWebView from "react-native-autoheight-webview";
 
 
 
@@ -124,6 +125,9 @@ class CommentsList extends React.Component {
     };
     this.styleMessages = this.styleMessages.bind(this);
   }
+  componentDidMount = () => {
+    this.styleMessages()
+  }
   searchUpdated(term) {
     this.setState({
       searchTerm: term,
@@ -134,7 +138,7 @@ class CommentsList extends React.Component {
   styleMessages = () => {
     // console.log("calling style messages api");
     GetAsyncToken().then(token => {
-      console.log('get style api')
+      // console.log('get style api')
       GetStyleMessages(this.state.searchTerm, token, this.props.styleID,
         this.state.seasonIds)
         .then(res => {
@@ -235,8 +239,8 @@ class CommentsList extends React.Component {
                 <MessageBox>
                   <TouchableHighlight
                     underlayColor="#42546033"
-                    onPress={() => console.log('style msg click')}
-                    // onPress={ () => this.props.closeList(data.auditLogId)}
+                    // onPress={() => console.log('style msg click')}
+                    onPress={ () => this.props.closeList(data.auditLogId)}
                   >
                     <Row>
                       <MainContent>
@@ -248,18 +252,27 @@ class CommentsList extends React.Component {
                             source={require("../../../assets/img/message-icon.png")} />
                           </STouchableHighlight>
                         </IconBox>
-                        <Subject>{data.messageSubject != null ? data.messageSubject : ''} </Subject>
+                        <Subject>{data.messageSubject.length >0 ? data.messageSubject : 'no subject'} </Subject>
                         {/* <ContentText numberOfLines={2}>Dear nando, please find a new style and if you have any doubt or queries then please ask</ContentText> */}
-                        <WebView
+                        <AutoHeightWebView
+                          style={{ width: Dimensions.get('window').width - 45, height: 72 }}
+                          source={{
+                            html: `<!DOCTYPE html><html><head><meta name="viewport" content="width=device-width, initial-scale=1"></head>
+                          <body><small>${data.messageBody}</small></body></html>`
+                          }}
+                          scalesPageToFit={true}
+                          zoomable={false}
+                        />
+                        {/* <WebView
                           originWhitelist={['*']}
                           injectedJavaScript='window.ReactNativeWebView.postMessage(JSON.stringify(document.body.scrollHeight), "*")'
                           scrollEnabled={false}
-                          style={{height: 52}}
+                          style={{height: 72}}
                           source={{
                             html: `<!DOCTYPE html><html><head><meta name="viewport" content="width=device-width, initial-scale=1"></head>
                             <body><small>${data.messageBody}</small></body></html>`
                           }}
-                        />
+                        /> */}
                       </MainContent>
                       <InfoContent>
                         <Name>{data.loggedByUserName}</Name>

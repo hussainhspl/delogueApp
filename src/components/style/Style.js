@@ -26,10 +26,7 @@ class Style extends React.Component {
       loading: true,
     };
   }
-  renderSelectedTab(params, 
-    StateData, locationData, 
-    // commentData, msgType, SampleCommentData
-    ) {
+  renderSelectedTab(params, StateData, locationData ) {
       
       // console.log("params :", params, StateData)
     // console.log("switch data", data.id, {commentData});
@@ -102,6 +99,13 @@ class Style extends React.Component {
         history.push("/search")
       }, 3000);
     }
+    // if(this.props.currentTab == 'general'){
+    //   if(this.state.styleData == null) {
+    //     setTimeout(() => {
+    //       history.push("/search")
+    //     }, 3000);
+    //   }
+    // }
   }
 
   render() {

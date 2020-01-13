@@ -186,6 +186,7 @@ class NewMessage extends React.Component {
   componentDidMount = () => {
     GetAsyncToken()
       .then(token => {
+        console.log('this. style id ', this.props.styleID);
         NotifyUserList(token, this.props.styleID)
           .then(res => {
             // console.log('successful notify', res);
@@ -236,7 +237,7 @@ class NewMessage extends React.Component {
     GetAsyncToken().then(token => {
       SendNewMessage(token, this.props.styleID, this.state.subject,
         this.state.textArea, this.state.notifySelected, this.state.internal,
-        [this.state.attachment])
+        [this.state.attachment], this.props.parentId )
         .then(res => {
           // console.log('msg successfully send');
           let toast = Toast.show('msg successfully send', {
@@ -252,7 +253,8 @@ class NewMessage extends React.Component {
     })
   }
   render() {
-    console.log('attachment state :', this.state.attachment, typeof (this.state.attachment))
+    // console.log('attachment state :', this.state.attachment, typeof (this.state.attachment))
+    console.log('render in new msg', this.state.parentId)
 
     return (
       <View>

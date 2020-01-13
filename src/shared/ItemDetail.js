@@ -122,7 +122,38 @@ class ItemDetail extends React.Component {
             </StyledView>
           </Flex>
         </Fragment>
-          : null
+          : <Fragment>
+          <ImageBox>
+            <StyleImage
+              resizeMode={"contain"}
+              source={{
+                uri: noImage
+              }}
+            />
+          </ImageBox>
+          <Flex>
+            <StyledView>
+              <View>
+                <Title numberOfLines={1}>style no</Title>
+                <CardText numberOfLines={1}></CardText>
+              </View>
+              <View>
+                <Title>style name</Title>
+                <CardText numberOfLines={1}/>
+              </View>
+            </StyledView>
+            <StyledView>
+              <View>
+                <Title numberOfLines={1}>supplier</Title>
+                <CardText numberOfLines={1} />
+              </View>
+              <View>
+                <Title numberOfLines={1}>season</Title>
+                <CardText numberOfLines={1} />
+              </View>
+            </StyledView>
+          </Flex>
+        </Fragment>
           // <Text>no data available</Text>
           }
       </MainRow>

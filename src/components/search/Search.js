@@ -27,6 +27,7 @@ import GetSelectedStyle from '../../api/getStyle';
 import GetAsyncToken from '../../script/getAsyncToken';
 import SearchSuggestionView from '../../styles/SearchSuggestionView';
 import SuggestionTerm from '../../styles/SuggestionTerm';
+import SearchIconBox from "../../styles/SearchIconBox";
 
 const SearchRow = styled.View`
   flex-direction: row;
@@ -34,7 +35,6 @@ const SearchRow = styled.View`
   border-bottom-width: 1px;
   border-color: #ddd;
   padding: 10px;
-  /* height: 70px; */
 `;
 const Flex = styled.View`
   flex: 1;
@@ -84,14 +84,7 @@ const CloseView = styled.View`
   height: 20px;
   background-color: #a4a4a4;
 `;
-const SearchIcon = styled.View`
-  width: 40px;
-  height: 40px;
-  background-color: #425460;
-  justify-content: center;
-  align-items: center;
-  /* padding: 10px; */
-`;
+
 const Box = styled.View`
   margin-left: 10px;
 `;
@@ -138,9 +131,8 @@ class Search extends React.Component {
   };
 
   styles = () => {
-    // console.log("calling api again");
+    ;
     GetAsyncToken().then(token => {
-      // console.log('get style api')
       GetStyles(this.state.searchTerm, token, this.state.brandIds,
         this.state.seasonIds)
         .then(res => {
@@ -163,7 +155,7 @@ class Search extends React.Component {
         .then(res => {
           console.log('suggest style', res.data.styles);
           this.setState({
-            suggestionArr : res.data.styles
+            suggestionArr: res.data.styles
           })
         })
     })
@@ -218,9 +210,9 @@ class Search extends React.Component {
         <Header history={this.props.history}>
           <ScrollView showsVerticalScrollIndicator={false}>
             <SearchRow>
-              <SearchIcon>
+              <SearchIconBox>
                 <Icon style={{ color: "#fff", fontSize: 25 }} name="ios-search" />
-              </SearchIcon>
+              </SearchIconBox>
               <Flex>
                 <SearchInput
                   placeholder="SEARCH"
@@ -231,6 +223,23 @@ class Search extends React.Component {
                   }}
                   onSubmitEditing={this.styles}
                 />
+                {
+                this.state.showSuggestion && (
+                  <SearchSuggestionView>
+                    {this.state.suggestionArr.map(d => {
+                      return (
+                        <TouchableHighlight underlayColor={"#eee"} onPress={() => this.getCurrentStyle(d.id)}>
+
+
+                          <SuggestionTerm>
+                            {d.name}
+                          </SuggestionTerm>
+                        </TouchableHighlight>
+                      )
+                    })}
+                  </SearchSuggestionView>
+                )
+              }
               </Flex>
 
               {
@@ -251,9 +260,11 @@ class Search extends React.Component {
                   </Box>
                   : null
               }
+              
             </SearchRow>
-
-            {this.state.currentView === "grid" && (
+            
+            {this.state.showSuggestion == false ?
+              this.state.currentView === "grid" && (
               <Fragment>
                 <GridView>
                   {
@@ -267,14 +278,16 @@ class Search extends React.Component {
                         />);
                       })
                       :
-                      <InfoView>
-                        <Image
-                          style={{ width: 64 }}
-                          resizeMode={"contain"}
-                          source={require("../../../assets/img/search-big.png")}
-                        />
-                        <InfoText>Search for a style by typing name or number</InfoText>
-                      </InfoView>
+                      
+                        <InfoView>
+                          <Image
+                            style={{ width: 64 }}
+                            resizeMode={"contain"}
+                            source={require("../../../assets/img/search-big.png")}
+                          />
+                          <InfoText>Search for a style by typing name or number</InfoText>
+                        </InfoView>
+                        
                   }
                   {this.state.emptyResult && (
                     <InfoView>
@@ -286,11 +299,11 @@ class Search extends React.Component {
                 <Text> Load More </Text>
               </LoadMoreButton> */}
               </Fragment>
-            )}
+            ) : null}
 
           </ScrollView>
-          {this.state.currentView === "linear" && (
-
+          {this.state.showSuggestion == false ?
+            this.state.currentView === "linear" && (
             <FlatList
               data={this.state.filteredStyle.styles}
               renderItem={({ item }) =>
@@ -303,24 +316,8 @@ class Search extends React.Component {
                 </TouchableHighlight>}
               keyExtractor={item => item.id}
             />
-          )}
-          {
-            this.state.showSuggestion && (
-              <SearchSuggestionView>
-                {this.state.suggestionArr.map(d => {
-                  return (
-                    <TouchableHighlight underlayColor={"#eee"} onPress={() => this.getCurrentStyle(d.id)}>
+          ):null}
 
-
-                    <SuggestionTerm>
-                      {d.name}
-                  </SuggestionTerm>
-                  </TouchableHighlight>
-                  )
-                })}
-              </SearchSuggestionView>
-            )
-          }
           <SearchFilter
             BrandIdArr={(bid) => {
               // console.log("yipee", bid);
@@ -335,10 +332,7 @@ class Search extends React.Component {
               })
             }}
             popBrand={
-              (pid) => {
-                // console.log("pop called", pid);
-                this.removeBrand(pid)
-              }
+              (pid) => { this.removeBrand(pid) }
             }
           />
         </Header>

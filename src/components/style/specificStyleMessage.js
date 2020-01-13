@@ -156,17 +156,18 @@ const NotifyView = styled.View`
   padding: 6px 0px;
   align-items: flex-end;
 `;
-class CommentBlock extends React.Component {
+class SpecificStyleMessage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      reply: false
+      reply: false,
     }
   }
   render() {
-    console.log('this. comment block data', this.props.data)
+    // console.log('this. comment block data', this.props.data)
     const { isRead, loggedInUser, loggedOn, notifiedUsers, internalOnly, 
-      subject, logMessage, id} = this.props.data.styleAuditLog
+      subject, logMessage} = this.props.data;
+      console.log('time : ', format(parseISO(loggedOn), "d-MMM-yyyy kk:mm"))
     // console.log('is read : ', isRead, this.props.data.styleAuditLog);
     let formatedDate = format(parseISO(loggedOn), "d-MMM-yyyy kk:mm");
 
@@ -182,10 +183,10 @@ class CommentBlock extends React.Component {
             this.state.reply === false && (
               <FirstRow>
                 <View style={{ flex: 1, paddingRight: 2 }}>
-                  <Subject numberOfLines={1}> {subject} </Subject>
+                  <Subject numberOfLines={1}> {subject.length > 0 ? subject : 'no subject'} </Subject>
                 </View>
                 <TouchableHighlight
-                  onPress={() => this.props.createReply(id)}
+                  onPress={() => this.setState({ reply: true })}
                   underlayColor={this.props.theme.overlayBlue}
                 >
                   <NewButton small >
@@ -204,7 +205,7 @@ class CommentBlock extends React.Component {
           }
           <BodyArea>
             {/* <MessageBody> */}
-              <AutoHeightWebView 
+              <AutoHeightWebView
                 style={{ width: Dimensions.get('window').width - 45, marginTop: 35 }}
                 source={{
                   html: `<!DOCTYPE html><html><head><meta name="viewport" content="width=device-width, initial-scale=1"></head>
@@ -213,6 +214,23 @@ class CommentBlock extends React.Component {
                 scalesPageToFit={true}
                 zoomable={false}
               />
+              {/* <WebView
+                originWhitelist={['*']}
+                injectedJavaScript='window.ReactNativeWebView.postMessage(JSON.stringify(document.body.scrollHeight), "*")'
+                scrollEnabled={false}
+                style={{ height: 100 }}
+                source={{
+                  html: `<!DOCTYPE html><html><head><meta name="viewport" content="width=device-width, initial-scale=1"></head>
+                            <body><small>${logMessage}</small></body></html>`
+                }}
+              /> */}
+              {/* Laboris consectetur id tempor do nostrud enim laboris exercitation
+              exercitation ad. Deserunt incididunt tempor sit cillum veniam officia
+              eu esse laboris quis aliqua ex cupidatat eu. Ad et tempor proident
+              velit et nulla Lorem. Mollit ut magna aliqua ex mollit aute in Lorem.
+              Voluptate esse ut exercitation deserunt excepteur eu. Id laborum culpa
+              pariatur anim dolor ipsum ullamco exercitation. */}
+            {/* </MessageBody> */}
             <FromRow>
               <Name>{loggedInUser.name} </Name>
               <Title>{formatedDate}</Title>
@@ -224,6 +242,7 @@ class CommentBlock extends React.Component {
                       <Title> {d.name} </Title>
                     ))
                     : null
+
                 }
                 {internalOnly != null && (
                   <InternalView>
@@ -255,4 +274,4 @@ class CommentBlock extends React.Component {
     );
   }
 }
-export default withTheme(CommentBlock);
+export default withTheme(SpecificStyleMessage);

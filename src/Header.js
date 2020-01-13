@@ -50,18 +50,17 @@ const CountView = styled.View`
   position: absolute;
   top: 10px;
   right: 5px;
-  width: 20px;
-  height: 20px;
-  border-radius: 10px;
+  padding: 2px;
   background-color: #f00;
-  
+  align-items: center;
+  justify-content: center;
+  border-radius: 20px;
 `;
 const Number = styled.Text`
   color: #fff;
-  font-weight: bold;
+  line-height: 12px;
   font-size: 12px;
-  align-self: center;
-  
+  font-family: ${props => props.theme.bold};
 `;
 class Header extends React.Component {
   constructor(props) {

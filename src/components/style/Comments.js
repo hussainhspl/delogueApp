@@ -17,19 +17,7 @@ import ItemDetail from "../../shared/ItemDetail";
 import CommonModal from "../../shared/CommonModal";
 import SpecificMessage from "../../api/message/specificMessage";
 import GetAsyncToken from "../../script/getAsyncToken";
-
-// const data = {
-//   styleNo: "sty2211",
-//   styleName: "Casual Shirt",
-//   supplier: "head textiles",
-//   season: "summer"
-// };
-
-// const dataArray = [{ title: "New Message", content: <NewMessage /> }];
-
-// const MessageAccordion = styled.Accordion`
-//   background-color: #f00;
-// `;
+import SpecificStyleMessage from '../style/specificStyleMessage';
 
 const ImageView = styled.View`
   height: ${Dimensions.get("window").width / 3 + 30};
@@ -107,6 +95,8 @@ class Comments extends React.Component {
       showMessage: props.openMessage || false,
       showList: !props.openMessage || false,
       MessageContent: null,
+      styleMessage: false,
+      parentId: null
     };
   }
   componentDidMount = () => {
@@ -118,28 +108,33 @@ class Comments extends React.Component {
   }
   openMessage(id) {
 
-    // console.log("hey", id, this.state.showList);
+    console.log("open msg called", id, this.state.showList);
     GetAsyncToken().then(token => {
       SpecificMessage(token, id)
         .then(res => {
-          console.log('resp in message comments :', res.data);
+          console.log('resp in message comments :', res.data.styleAuditLog);
           this.setState({
-            MessageContent: res.data,
+            MessageContent: res.data.styleAuditLog,
             showList: false,
-            showMessage: true
+            styleMessage: true
           });
         })
     })
-
-
   }
   static getDerivedStateFromProps(nextProps, prevState) {
     if (nextProps.MessageContent !== prevState.MessageContent) {
       // console.log("Entered nextProps comments");
-      // console.log("Entered prevState", prevState);
-      return {
-        MessageContent: nextProps.dataMsg,
+      if(nextProps.dataMsg != null) {
+        if(prevState.parentId == null)
+          console.log("Entered comment derived", nextProps.dataMsg);
+          return {
+            MessageContent: nextProps.dataMsg,
+          }
       }
+      else {
+        return null;
+      }
+        
     }
     return null;
   }
@@ -148,14 +143,18 @@ class Comments extends React.Component {
     this.setState({
       showList: true,
       ShowNewMsg: false,
-      showMessage: false
+      showMessage: false,
     })
   }
-  
+  openCreateReply = (id)  =>{
+    console.log('reply id', id);
+    this.setState({
+      parentId: id,
+      ShowNewMsg: true
+    })
+  }
   render() {
-    console.log("message open", this.props.dataMsg);
-
-
+    console.log("message open",this.props.styleID, this.state.MessageContent, );
     return (
       <View style={{ flex: 1 }}>
         <ItemDetail data={this.props.styleData} />
@@ -178,6 +177,7 @@ class Comments extends React.Component {
             <NewMessage 
               styleID={this.props.styleID}
               closeMessage={this.backClicked}
+              parentId={this.state.parentId}
               // submitMessage={this.sendMessage}
             />
           )}
@@ -192,9 +192,17 @@ class Comments extends React.Component {
             <Fragment>
               <CommentBlock
                 data={this.state.MessageContent}
+                createReply={(id1) => this.openCreateReply(id1)}
               />
             </Fragment>
           )}
+          {
+            this.state.styleMessage && (
+              <SpecificStyleMessage
+                data={this.state.MessageContent}
+              />
+            )
+          }
         </ScrollView>
         {this.state.ShowNewMsg == false && this.state.showMessage == false ? (
           <AddButton>

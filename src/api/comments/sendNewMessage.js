@@ -1,7 +1,7 @@
 import axios from "axios";
 import qs from "qs";
 
-const SendNewMessage = (token, styleId, subject, message, notifyUser, internal, attachments) => {
+const SendNewMessage = (token, styleId, subject, message, notifyUser, internal, attachments, parentId) => {
   console.log('new send messages', token, styleId, subject, message, notifyUser, internal, attachments)
   let notifyId = notifyUser.map(value => value.id);
     if(attachments == '' ){ attachments =[] }
@@ -16,7 +16,7 @@ const SendNewMessage = (token, styleId, subject, message, notifyUser, internal, 
       "Attachments": attachments,
       "NotifyUsers": notifyId,
       "InternalOnly": internal,
-      "parentLogId": null
+      "parentLogId": parentId
     }
     axios({
       url: `${baseUrl}Messages/Style`,

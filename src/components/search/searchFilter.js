@@ -20,9 +20,11 @@ import SearchInput from "../../styles/SearchInput";
 import axios from "axios";
 import { connect } from "react-redux";
 import GetSeason from "../../api/search/getSeason";
-import getAsyncToken from '../../script/getAsyncToken';
+import GetAsyncToken from '../../script/getAsyncToken';
 import SearchSuggestionView from '../../styles/SearchSuggestionView';
 import SuggestionTerm from '../../styles/SuggestionTerm';
+import SearchIconBox from "../../styles/SearchIconBox";
+import GetBrands from '../../api/search/getBrands';
 
 const StyledTouchableOpacity = styled.TouchableHighlight`
   width: 50px;
@@ -68,8 +70,9 @@ const ResetButton = styled(Button)`
 
 const SearchBar = styled.View`
   padding: 10px 15px;
-  border-bottom-width: 1px;
-  border-bottom-color: #ddd;
+  height: ${props => (props.suggestion ? "400px" : 'auto')};
+  max-height: 400px;
+  flex: 1;
 `;
 
 const ItemName = styled.Text`
@@ -96,24 +99,14 @@ const CloseView = styled.View`
   background-color: #a4a4a4;
 `;
 
-const SearchIcon = styled.View`
-  width: 41px;
-  height: 41px;
-  background-color: #425460;
-  justify-content: center;
-  align-items: center;
-`;
 const FlexRow = styled.View`
   flex-direction: row;
-  flex: 1;
-  padding-top: 5px;
-  padding-bottom: 10px;
-  /* background-color: #f00; */
+  padding-top: 10px;
 `;
-const Flex = styled.View`
-  flex: 1;
+const Separator = styled.View`
+  border-bottom-width: 1px;
+  border-bottom-color: #ddd;
 `;
-
 const StyledItem = styled.View``;
 const CapsuleView = styled.View`
   flex-direction: row;
@@ -122,11 +115,13 @@ const CapsuleView = styled.View`
   /* background-color: #d00; */
 `;
 const StyledScrollView = styled.ScrollView`
-  /* min-height: 50px; */
   max-height: 200px;
   padding: 0px;
   margin: 0px;
-  /* background-color: #0f0; */
+`;
+
+const Flex = styled.View`
+  flex: 1;
 `;
 class searchFilter extends Component {
   constructor(props) {
@@ -144,8 +139,7 @@ class searchFilter extends Component {
     }
   };
   Season = () => {
-    getAsyncToken().then(token => {
-      // console.log("season called");
+    GetAsyncToken().then(token => {
       GetSeason(this.state.searchSeason, token).then(res => {
         console.log("res season", res);
         let res1 = res.data;
@@ -155,24 +149,15 @@ class searchFilter extends Component {
       });
     })
   };
- 
 
-
-  getBrands = () => {
+  Brands = () => {
     // console.log(this.state.filteredBrand);
-    getAsyncToken().then(token => {
-      let string = this.state.searchBrand;
-      axios({
-        url: `${baseUrl}Brands/${string}`,
-        method: "GET",
-        headers: {
-          Authorization: `Bearer ${token}`
-        }
-      })
+    GetAsyncToken().then(token => {
+      GetBrands(this.state.searchBrand, token)
         .then(res => {
+          console.log('filter brand:' , res.data)
           let res1 = res.data;
           temp = [...this.state.filteredBrand];
-          // temp.filter((v, i) => a.indexOf(v) == i)
           temp1 = temp.concat(res1);
           this.setState({ 
             filteredBrand:temp1,
@@ -186,23 +171,30 @@ class searchFilter extends Component {
         });
     });
   };
-  // getBrandSuggestion = () => {
-  //   GetAsyncToken().then(token => {
-  //     GetStyles(this.state.searchTerm, token, this.state.brandIds,
-  //       this.state.seasonIds)
-  //       .then(res => {
-  //         console.log('suggest style', res.data.styles);
-  //         this.setState({
-  //           suggestionArr : res.data.styles
-  //         })
-  //       })
-  //   })
-  // }
+  getBrandSuggestion = () => {
+    GetAsyncToken().then(token => {
+      GetBrands(this.state.searchBrand, token)
+        .then(res => {
+          console.log('hello;', res)
+          this.setState({
+            suggestionArr: res.data
+          })
+        })
+      // GetStyles(this.state.searchTerm, token, this.state.brandIds,
+      //   this.state.seasonIds)
+      //   .then(res => {
+      //     console.log('suggest style', res.data.styles);
+      //     this.setState({
+      //       suggestionArr : res.data.styles
+      //     })
+      //   })
+    })
+  }
   searchUpdated(term) {
     this.setState({
       searchBrand: term,
       showSuggestion: true
-    });
+    },() => this.getBrandSuggestion());
   }
 
   setModalVisible(visible) {
@@ -275,6 +267,7 @@ class searchFilter extends Component {
     this.setState({filteredSeason: filteredArray});
   }
   render() {
+    console.log('suggestionArr', this.state.filteredBrand, this.state.suggestionArr.length)
     return (
       <Fragment>
         <FilterButton>
@@ -309,22 +302,81 @@ class searchFilter extends Component {
                 </ResetButton>
               </ResetBar>
 
-              <SearchBar>
+              <SearchBar suggestion={this.state.suggestionArr.length > 0 ? true : false}>
                 <Title>brand</Title>
                 <FlexRow>
-                  <SearchIcon>
+                  <SearchIconBox>
                     <Icon style={{ color: "#fff" }} name="ios-search" />
-                  </SearchIcon>
+                  </SearchIconBox>
+                  <Flex>
                   <SearchInput
                     placeholder="SEARCH"
                     placeholderTextColor="#C9DBDB"
                     onChangeText={term => {
                       this.searchUpdated(term);
                     }}
-                    onSubmitEditing={this.getBrands}
+                    onSubmitEditing={this.Brands}
                   />
+                  {
+                  this.state.showSuggestion && (
+                    <SearchSuggestionView>
+                      {this.state.suggestionArr.map(d => {
+                        return (
+                          <TouchableHighlight underlayColor={"#eee"} onPress={() => this.getCurrentStyle(d.id)}>
+                          <SuggestionTerm>
+                            {d.name}
+                        </SuggestionTerm>
+                        </TouchableHighlight>
+                        )
+                      })}
+                    </SearchSuggestionView>
+                  )
+                }
+                </Flex>
                 </FlexRow>
-                {
+                
+                {this.state.suggestionArr.length <= 0 ?
+                  this.state.filteredBrand != null ?
+                this.state.filteredBrand && (
+                  <View>
+                  <StyledScrollView scrollToOverflowEnabled>
+                    <CapsuleView>
+                      {this.state.filteredBrand.map(brand => {
+                        return (
+                          <SearchedItemBox key={brand.id}>
+                            <Close underlayColor={"#362119"} onPress={() => this.popBrandId(brand.id)}>
+                              <Icon style={{ fontSize: 13 }} name="close" />
+                            </Close>
+                            <Text> {brand.name} aa </Text>
+                          </SearchedItemBox>
+                        );
+                      })}
+                    </CapsuleView>
+                  </StyledScrollView>
+                  </View>
+                  // <Text> loading </Text>
+                ): null : null}
+              </SearchBar>
+              {this.state.suggestionArr.length<1 ? 
+                       
+              <SearchBar>
+                <Separator />
+                <Title>season</Title>
+                <FlexRow>
+                  <SearchIconBox>
+                    <Icon style={{ color: "#fff" }} name="ios-search" />
+                  </SearchIconBox>
+                  <Flex>
+                  <SearchInput
+                    placeholder="SEARCH"
+                    placeholderTextColor="#C9DBDB"
+                    onChangeText={term => {
+                      // this.seasonUpdated(term);
+                      this.setState({ searchSeason: term });
+                    }}
+                    onSubmitEditing={this.Season}
+                  />
+                  {
                   this.state.showSuggestion && (
                     <SearchSuggestionView>
                       {this.state.suggestionArr.map(d => {
@@ -342,41 +394,7 @@ class searchFilter extends Component {
                     </SearchSuggestionView>
                   )
                 }
-                {this.state.filteredBrand != null ?
-                this.state.filteredBrand && (
-                  <StyledScrollView scrollToOverflowEnabled>
-                    <CapsuleView>
-                      {this.state.filteredBrand.map(brand => {
-                        return (
-                          <SearchedItemBox key={brand.id}>
-                            <Close underlayColor={"#362119"} onPress={() => this.popBrandId(brand.id)}>
-                              <Icon style={{ fontSize: 13 }} name="close" />
-                            </Close>
-                            <Text> {brand.name} </Text>
-                          </SearchedItemBox>
-                        );
-                      })}
-                    </CapsuleView>
-                  </StyledScrollView>
-                  // <Text> loading </Text>
-                ): null}
-              </SearchBar>
-
-              <SearchBar>
-                <Title>season</Title>
-                <FlexRow>
-                  <SearchIcon>
-                    <Icon style={{ color: "#fff" }} name="ios-search" />
-                  </SearchIcon>
-                  <SearchInput
-                    placeholder="SEARCH"
-                    placeholderTextColor="#C9DBDB"
-                    onChangeText={term => {
-                      // this.seasonUpdated(term);
-                      this.setState({ searchSeason: term });
-                    }}
-                    onSubmitEditing={this.Season}
-                  />
+                  </Flex>
                   {/* <Flex>
                 <StyledSearchInput
                   placeholderTextColor="#C9DBDB"
@@ -432,6 +450,7 @@ class searchFilter extends Component {
                   })}
                 </CapsuleView> */}
               </SearchBar>
+              : null }
             </KeyboardAwareScrollView>
           </MainView>
         </CommonModal>

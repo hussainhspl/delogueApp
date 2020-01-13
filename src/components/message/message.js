@@ -4,7 +4,8 @@ import {
   TouchableWithoutFeedback,
   TouchableHighlight,
   ScrollView,
-  Dimensions
+  Dimensions,
+  Image
 } from "react-native";
 import { Icon } from "native-base";
 import { withTheme } from 'styled-components';
@@ -215,7 +216,7 @@ class Message extends React.Component {
   }
   static getDerivedStateFromProps(nextProps, prevState) {
     // console.log('before render', this.state.MessageList.isRead)
-    console.log('enter in derived')
+    // console.log('enter in derived')
     if (nextProps.MessageList !== prevState.MessageList) {
       // console.log("Entered nextProps messages",prevState.MessageList);
       return {
@@ -285,7 +286,7 @@ class Message extends React.Component {
   render() {
 
     history = this.props.history;
-    console.log('html height in render: ', this.state.htmlHeight1);
+    // console.log('html height in render: ', this.state.htmlHeight1);
     // if(this.state.MessageList != null)
     // console.log("message list render", this.state.MessageList);
     // let numHeight = parseInt(this.state.webviewHeight);
@@ -326,10 +327,14 @@ class Message extends React.Component {
                 <ButtonRow>
                   {this.state.showOpacity && <ButtonOverlay />}
                   <IconView>
-                    <Icon style={{ color: "#fff", fontSize: 15 }} name="eye" />
+                    <Image
+                      resizeMode={"center"}
+                      source={this.state.hideRead ? require("../../../assets/img/show-read.png") : require("../../../assets/img/hide-read.png")}
+                    />
+                    {/* <Icon style={{ color: "#fff", fontSize: 15 }} name="eye" /> */}
                   </IconView>
                   <CommentedButton>
-                    <ButtonText> {this.state.hideRead ? 'show read' : 'hide read' } </ButtonText>
+                    <ButtonText> {this.state.hideRead ? 'show read' : 'hide read'} </ButtonText>
                   </CommentedButton>
                 </ButtonRow>
               </TouchableWithoutFeedback>
@@ -338,10 +343,10 @@ class Message extends React.Component {
               this.state.MessageList != null ?
                 this.state.MessageList.map((m, index) => {
                   if (this.state.hideRead)
-                    if(m.isRead)
+                    if (m.isRead)
                       return
                   let formatedDate = format(parseISO(m.loggedOn), "d-MMM-yyyy kk:mm");
-
+                  console.log('m :', m);
 
                   if (m.messageType == "StyleCommunicationMessage") {
                     return (
@@ -383,17 +388,19 @@ class Message extends React.Component {
                                     </Subject>
 
                                     <View
-                                      // onLayout={(event) => {
-                                      //   var { x, y, width, height } = event.nativeEvent.layout;
-                                      //   console.log('var height:', height);
-                                      // }}
+                                    // onLayout={(event) => {
+                                    //   var { x, y, width, height } = event.nativeEvent.layout;
+                                    //   console.log('var height:', height);
+                                    // }}
                                     >
                                       <AutoHeightWebView
                                         style={{ width: Dimensions.get('window').width - 45, marginTop: 35 }}
-                                      source={{ html: `<!DOCTYPE html><html><head><meta name="viewport" content="width=device-width, initial-scale=1"></head>
-                                        <body><small>${m.messageBody}</small></body></html>` }}
-                                      scalesPageToFit={true}
-                                      zoomable={false}
+                                        source={{
+                                          html: `<!DOCTYPE html><html><head><meta name="viewport" content="width=device-width, initial-scale=1"></head>
+                                        <body><small>${m.messageBody}</small></body></html>`
+                                        }}
+                                        scalesPageToFit={true}
+                                        zoomable={false}
                                       />
                                     </View>
                                     {/* :null} */}
@@ -417,9 +424,9 @@ class Message extends React.Component {
                       <Fragment>
                         {this.state.chat && (
                           <ChatMessage
-                            history = {this.props.history}
+                            history={this.props.history}
                             data={m}
-                            toggleAlertFunction = {() => this.toggleAlert(m.auditLogId, m.messageType)}
+                            toggleAlertFunction={() => this.toggleAlert(m.auditLogId, m.messageType)}
                           />
                         )}
                       </Fragment>

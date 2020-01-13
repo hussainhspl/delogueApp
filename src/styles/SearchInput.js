@@ -9,7 +9,6 @@ const SearchInput = styled.TextInput`
   padding-right: 40px;
   flex: 1;
   width: 100%;
-  position: relative;
 `;
 
 export default SearchInput;
