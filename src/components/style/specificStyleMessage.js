@@ -47,7 +47,7 @@ const FirstRow = styled.View`
 `;
 
 const NewButton = styled(View)`
-  background-color: #99afaf;
+  background-color: ${props => props.theme.blue};
   margin-left: 15;
   width: 100;
   margin-left: auto;
@@ -164,9 +164,9 @@ class SpecificStyleMessage extends React.Component {
     }
   }
   render() {
-    // console.log('this. comment block data', this.props.data)
+    console.log('this. specific style block data', this.props.data)
     const { isRead, loggedInUser, loggedOn, notifiedUsers, internalOnly, 
-      subject, logMessage} = this.props.data;
+      subject, logMessage} = this.props.data.styleAuditLog;
       console.log('time : ', format(parseISO(loggedOn), "d-MMM-yyyy kk:mm"))
     // console.log('is read : ', isRead, this.props.data.styleAuditLog);
     let formatedDate = format(parseISO(loggedOn), "d-MMM-yyyy kk:mm");
@@ -186,7 +186,8 @@ class SpecificStyleMessage extends React.Component {
                   <Subject numberOfLines={1}> {subject.length > 0 ? subject : 'no subject'} </Subject>
                 </View>
                 <TouchableHighlight
-                  onPress={() => this.setState({ reply: true })}
+                  // onPress={() => this.setState({ reply: true })}
+                  onPress={() => this.props.createReply(id)}
                   underlayColor={this.props.theme.overlayBlue}
                 >
                   <NewButton small >

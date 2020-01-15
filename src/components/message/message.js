@@ -28,6 +28,8 @@ import AutoHeightWebView from 'react-native-autoheight-webview'
 import DWebView from "./DWebView";
 import CreateAlert from "../../api/createAlert";
 import DeleteAlert from "../../api/deleteAlert";
+import IconView from "../../styles/IconView";
+import ButtonOverlay from "../../styles/ButtonOverlay";
 
 const IconRow = styled.View`
   flex-direction: row;
@@ -71,30 +73,14 @@ const ButtonRow = styled.View`
   flex-direction: row;
   position: relative;
 `;
-const ButtonOverlay = styled.View`
-  position: absolute;
-  top: 15px;
-  bottom: 15px;
-  left: 0;
-  right: 0;
-  background-color: #dddddd33;
-  z-index: 1;
-`;
 
 const CommentedButton = styled(View)`
-  background-color: #99afaf;
+  background-color: ${props => props.theme.blue};
   margin: 15px auto;
   padding: 6px 0px;
   width: 90px;
   align-items: center;
-  height: 32px;
-`;
-const IconView = styled.View`
-  width: 32px;
-  height: 32px;
-  background-color: #415461;
-  justify-content: center;
-  align-items: center;
+  height: 30px;
 `;
 
 const ButtonText = styled.Text`
@@ -346,7 +332,7 @@ class Message extends React.Component {
                     if (m.isRead)
                       return
                   let formatedDate = format(parseISO(m.loggedOn), "d-MMM-yyyy kk:mm");
-                  console.log('m :', m);
+                  // console.log('m :', m);
 
                   if (m.messageType == "StyleCommunicationMessage") {
                     return (

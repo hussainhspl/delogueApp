@@ -254,7 +254,7 @@ class NewMessage extends React.Component {
   }
   render() {
     // console.log('attachment state :', this.state.attachment, typeof (this.state.attachment))
-    console.log('render in new msg', this.state.parentId)
+    console.log('render in new msg', this.props.parentId)
 
     return (
       <View>

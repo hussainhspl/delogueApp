@@ -94,7 +94,7 @@ const DateInput = styled.TextInput`
 `;
 
 const CommentedButton = styled(View)`
-  background-color: #99afaf;
+  background-color: ${props => props.theme.blue};
   margin-left: 15;
   width: 180;
   margin: 15px;

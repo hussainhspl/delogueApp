@@ -2,7 +2,7 @@ import axios from "axios";
 import qs from "qs";
 
 const SendNewMessage = (token, styleId, subject, message, notifyUser, internal, attachments, parentId) => {
-  console.log('new send messages', token, styleId, subject, message, notifyUser, internal, attachments)
+  console.log('new send messages', token, styleId, subject, message, notifyUser, internal, attachments, parentId)
   let notifyId = notifyUser.map(value => value.id);
     if(attachments == '' ){ attachments =[] }
   // console.log('notify :', notifyId);
@@ -28,12 +28,12 @@ const SendNewMessage = (token, styleId, subject, message, notifyUser, internal, 
       data: data1,
     })
       .then(res => {
-        console.log('success in style message', res);
+        console.log('message send successfully', res);
         resolve(res);
 
       })
       .catch(function(error) {
-        console.error("error in style message", error);
+        console.error("error while sending message", error);
       });
   });
 }

@@ -17,6 +17,7 @@ import SampleComponent from "./sampleComponent";
 import NewSampleRequest from "./NewSampleRequest";
 import SampleRequest from "./SampleRequest";
 import ItemDetail from "../../shared/ItemDetail";
+import ButtonOverlay from "../../styles/ButtonOverlay";
 // import console = require("console");
 
 const data = {
@@ -47,7 +48,7 @@ const ButtonRow = styled.View`
   margin-right: 10px;
 `;
 const CommentedButton = styled(View)`
-  background-color: #99afaf;
+  background-color: ${props => props.theme.blue};
   padding: 0;
   justify-content: center;
   align-items: center;
@@ -71,15 +72,6 @@ const ButtonText = styled.Text`
 const SampleRow = styled.View`
   flex-direction: row;
   flex-wrap: wrap;
-`;
-const ButtonOverlay = styled.View`
-  position: absolute;
-  top: 0;
-  bottom: 0px;
-  left: 0;
-  right: 0;
-  background-color: #dddddd33;
-  z-index: 1;
 `;
 class Sample extends React.Component {
   constructor(props) {

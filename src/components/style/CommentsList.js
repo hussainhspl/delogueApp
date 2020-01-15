@@ -150,7 +150,6 @@ class CommentsList extends React.Component {
           this.setState({
             msgList: res.data
           })
-
         })
     })
   }

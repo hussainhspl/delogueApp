@@ -9,6 +9,7 @@ export default {
 
   darkBlue: '#415461',
   overlayBlue: '#42546033',
+  blue: '#99afaf',
 
   redColor: '#d9534e',
   

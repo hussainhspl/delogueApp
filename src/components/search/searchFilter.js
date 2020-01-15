@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   AppState,
   TouchableHighlight,
+  TouchableWithoutFeedback,
   Image
 } from "react-native";
 import { Icon, Button } from "native-base";
@@ -25,6 +26,8 @@ import SearchSuggestionView from '../../styles/SearchSuggestionView';
 import SuggestionTerm from '../../styles/SuggestionTerm';
 import SearchIconBox from "../../styles/SearchIconBox";
 import GetBrands from '../../api/search/getBrands';
+import ButtonOverlay from "../../styles/ButtonOverlay";
+import IconView from "../../styles/IconView";
 
 const StyledTouchableOpacity = styled.TouchableHighlight`
   width: 50px;
@@ -66,11 +69,12 @@ const ResetButton = styled(Button)`
   padding: 0px 5px;
   background-color: #c2beb6;
   height: 30px;
+  border-radius: 0px;
 `;
 
 const SearchBar = styled.View`
   padding: 10px 15px;
-  height: ${props => (props.suggestion ? "400px" : 'auto')};
+  height: ${props => (props.suggestion ? "420px" : 'auto')};
   max-height: 400px;
   flex: 1;
 `;
@@ -106,6 +110,7 @@ const FlexRow = styled.View`
 const Separator = styled.View`
   border-bottom-width: 1px;
   border-bottom-color: #ddd;
+  margin-bottom: 10px;
 `;
 const StyledItem = styled.View``;
 const CapsuleView = styled.View`
@@ -122,6 +127,29 @@ const StyledScrollView = styled.ScrollView`
 
 const Flex = styled.View`
   flex: 1;
+
+`;
+
+const ButtonRow = styled.View`
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  position: relative;
+`;
+const ViewStyleButton = styled(View)`
+  background-color: ${props => props.theme.blue};
+  margin: 15px auto;
+  padding: 6px 0px;
+  width: 170px;
+  align-items: center;
+  height: 30px;
+`;
+const ButtonText = styled.Text`
+  color: white;
+  text-transform: uppercase;
+  text-align: center;
+  font-family: ${props => props.theme.regular};
+  font-size: ${props => props.theme.large};
 `;
 class searchFilter extends Component {
   constructor(props) {
@@ -134,42 +162,67 @@ class searchFilter extends Component {
       filteredSeason: [],
       text: "Useless Placeholder",
       appState: AppState.currentState,
+      showOpacity: false,
+      myStyleState: false,
       showSuggestion: false,
-      suggestionArr: []
+      suggestionArr: [],
+      showSeasonSuggestion: false,
+      suggestionSeasonArr: [],
     }
   };
-  Season = () => {
-    GetAsyncToken().then(token => {
-      GetSeason(this.state.searchSeason, token).then(res => {
-        console.log("res season", res);
-        let res1 = res.data;
-        temp = [...this.state.filteredSeason];
-        temp1 = temp.concat(res1);
-        this.setState({ filteredSeason: temp1 });
-      });
-    })
+  Season  (obj) {
+    console.log('season name:', obj)
+    
+      if(obj != null) {
+        this.setState(prevState => ({ 
+          filteredSeason: prevState.filteredSeason.concat(obj),
+          showSeasonSuggestion: false,
+          suggestionSeasonArr: [],
+        }));
+      }
+      else {
+        GetAsyncToken().then(token => {
+        GetSeason(this.state.searchSeason, token).then(res => {
+          console.log("res season", res);
+          this.setState(prevState => ({ 
+            filteredSeason: prevState.filteredSeason.concat(res.data),
+            showSeasonSuggestion: false,
+            suggestionSeasonArr: [],
+          }));
+        })
+        .catch(function (error) {
+          console.error("error in get season", error);
+        });
+      })
+      }
   };
 
-  Brands = () => {
-    // console.log(this.state.filteredBrand);
+  Brands = (obj) => {
+    console.log('season name:', obj)
+    
+      if(obj != null) {
+        this.setState(prevState => ({ 
+          filteredBrand: prevState.filteredBrand.concat(obj),
+            showSuggestion: false,
+            suggestionArr: []
+        }));
+      }
+      else {
     GetAsyncToken().then(token => {
       GetBrands(this.state.searchBrand, token)
         .then(res => {
-          console.log('filter brand:' , res.data)
-          let res1 = res.data;
-          temp = [...this.state.filteredBrand];
-          temp1 = temp.concat(res1);
-          this.setState({ 
-            filteredBrand:temp1,
+          console.log('filter brand:', res.data)
+          this.setState(prevState => ({
+            filteredBrand: prevState.filteredBrand.concat(res.data),
             showSuggestion: false,
-            suggestionArr: [],
-          });
-          
+            suggestionArr: []
+          }))
         })
-        .catch(function(error) {
+        .catch(function (error) {
           console.error("error in search", error);
         });
     });
+  }
   };
   getBrandSuggestion = () => {
     GetAsyncToken().then(token => {
@@ -180,23 +233,33 @@ class searchFilter extends Component {
             suggestionArr: res.data
           })
         })
-      // GetStyles(this.state.searchTerm, token, this.state.brandIds,
-      //   this.state.seasonIds)
-      //   .then(res => {
-      //     console.log('suggest style', res.data.styles);
-      //     this.setState({
-      //       suggestionArr : res.data.styles
-      //     })
-      //   })
+    })
+  }
+  getSeasonSuggestion = () => {
+    GetAsyncToken().then(token => {
+      GetSeason(this.state.searchSeason, token).then(res => {
+        console.log("res in suggestion season", res);
+        this.setState({ 
+          suggestionSeasonArr: res.data,
+        });
+      })
+      .catch(function (error) {
+        console.error("error in get suggestion season", error);
+      });
     })
   }
   searchUpdated(term) {
     this.setState({
       searchBrand: term,
       showSuggestion: true
-    },() => this.getBrandSuggestion());
+    }, () => this.getBrandSuggestion());
   }
-
+  seasonUpdated(term) {
+    this.setState({ 
+      searchSeason: term,
+      showSeasonSuggestion: true
+    }, () => this.getSeasonSuggestion());
+  }
   setModalVisible(visible) {
     this.setState({ modalVisible: visible });
   }
@@ -213,7 +276,7 @@ class searchFilter extends Component {
     }
     if (nextAppState === "background") {
       // console.log('bg state', this.state.appState)
-     
+
     }
     if (nextAppState === "active") {
       // console.log('bg state', this.state.appState)
@@ -225,22 +288,24 @@ class searchFilter extends Component {
       searchBrand: "",
       filteredBrand: [],
       filteredSeason: [],
-      searchSeason: ""
+      searchSeason: "",
+      suggestionArr: [],
+      suggestionSeasonArr: [],
     });
   };
-  sendFilters () {
+  sendFilters() {
     // console.log('getting data');
-    if(this.state.filteredSeason != null) {
+    if (this.state.filteredSeason != null) {
       let seasonArray = [];
       this.state.filteredSeason.map(s => {
         let id = s.id
         seasonArray.push(id)
       })
-      if(seasonArray != null){
+      if (seasonArray != null) {
         this.props.SeasonIdArr(seasonArray)
       }
     }
-    if(this.state.filteredBrand != null) {
+    if (this.state.filteredBrand != null) {
       let brandArray = [];
       // console.log('this.state.filteredBrand',this.state.filteredBrand);
       this.state.filteredBrand.map(d => {
@@ -249,25 +314,32 @@ class searchFilter extends Component {
         brandArray.push(id)
       })
       // console.log("array ",brandArray);
-      if(brandArray != null) {
+      if (brandArray != null) {
         // console.log('Brand array present');
         this.props.BrandIdArr(brandArray)
       }
     }
-    this.setModalVisible(!this.state.modalVisible);  
+    this.props.myStyleStatus(this.state.myStyleState);
+    this.setModalVisible(!this.state.modalVisible);
   }
-  popBrandId (pid) {
+  popBrandId(pid) {
     // console.log('pid', pid, this.state.filteredBrand);
     let filteredArray = this.state.filteredBrand.filter(item => item.id !== pid)
     // console.log('after filter', filteredArray);
-    this.setState({filteredBrand: filteredArray});
+    this.setState({ filteredBrand: filteredArray });
   }
-  popSeasonId (pid) {
+  popSeasonId(pid) {
     let filteredArray = this.state.filteredSeason.filter(item => item.id !== pid)
-    this.setState({filteredSeason: filteredArray});
+    this.setState({ filteredSeason: filteredArray });
+  }
+  toggleStyles = () => {
+    console.log('toggle messages')
+    this.setState({
+      myStyleState: !this.state.myStyleState
+    })
   }
   render() {
-    console.log('suggestionArr', this.state.filteredBrand, this.state.suggestionArr.length)
+    console.log('suggestionArr', this.state.filteredBrand, this.state.suggestionSeasonArr.length)
     return (
       <Fragment>
         <FilterButton>
@@ -292,16 +364,37 @@ class searchFilter extends Component {
           okClick={() => this.sendFilters()}
         >
           <MainView>
-            <KeyboardAwareScrollView>
+            
               <ResetBar>
-                <ResetButton>
+                {/* <ResetButton>
                   <GrayButtonText>show only my styles </GrayButtonText>
-                </ResetButton>
+                </ResetButton> */}
+                <TouchableWithoutFeedback
+                  onPressIn={() => this.setState({ showOpacity: true })}
+                  onPressOut={() => this.setState({ showOpacity: false })}
+                  onPress={this.toggleStyles}
+                >
+                  <ButtonRow>
+                    {this.state.showOpacity && <ButtonOverlay />}
+                    <IconView>
+                      <Image
+                        resizeMode={"center"}
+                        source={require("../../../assets/img/show-read.png")}
+                      />
+                      {/* <Icon style={{ color: "#fff", fontSize: 15 }} name="eye" /> */}
+                    </IconView>
+                    <ViewStyleButton>
+                      <ButtonText> {this.state.myStyleState ? 'show only my styles' : 'show all styles'} </ButtonText>
+                    </ViewStyleButton>
+                  </ButtonRow>
+                </TouchableWithoutFeedback>
+
+
                 <ResetButton onPress={this.restFilter}>
                   <GrayButtonText>reset</GrayButtonText>
                 </ResetButton>
               </ResetBar>
-
+              
               <SearchBar suggestion={this.state.suggestionArr.length > 0 ? true : false}>
                 <Title>brand</Title>
                 <FlexRow>
@@ -309,93 +402,98 @@ class searchFilter extends Component {
                     <Icon style={{ color: "#fff" }} name="ios-search" />
                   </SearchIconBox>
                   <Flex>
-                  <SearchInput
-                    placeholder="SEARCH"
-                    placeholderTextColor="#C9DBDB"
-                    onChangeText={term => {
-                      this.searchUpdated(term);
-                    }}
-                    onSubmitEditing={this.Brands}
-                  />
-                  {
-                  this.state.showSuggestion && (
-                    <SearchSuggestionView>
-                      {this.state.suggestionArr.map(d => {
-                        return (
-                          <TouchableHighlight underlayColor={"#eee"} onPress={() => this.getCurrentStyle(d.id)}>
-                          <SuggestionTerm>
-                            {d.name}
-                        </SuggestionTerm>
-                        </TouchableHighlight>
-                        )
-                      })}
-                    </SearchSuggestionView>
-                  )
-                }
-                </Flex>
-                </FlexRow>
-                
-                {this.state.suggestionArr.length <= 0 ?
-                  this.state.filteredBrand != null ?
-                this.state.filteredBrand && (
-                  <View>
-                  <StyledScrollView scrollToOverflowEnabled>
-                    <CapsuleView>
-                      {this.state.filteredBrand.map(brand => {
-                        return (
-                          <SearchedItemBox key={brand.id}>
-                            <Close underlayColor={"#362119"} onPress={() => this.popBrandId(brand.id)}>
-                              <Icon style={{ fontSize: 13 }} name="close" />
-                            </Close>
-                            <Text> {brand.name} aa </Text>
-                          </SearchedItemBox>
-                        );
-                      })}
-                    </CapsuleView>
-                  </StyledScrollView>
-                  </View>
-                  // <Text> loading </Text>
-                ): null : null}
-              </SearchBar>
-              {this.state.suggestionArr.length<1 ? 
-                       
-              <SearchBar>
-                <Separator />
-                <Title>season</Title>
-                <FlexRow>
-                  <SearchIconBox>
-                    <Icon style={{ color: "#fff" }} name="ios-search" />
-                  </SearchIconBox>
-                  <Flex>
-                  <SearchInput
-                    placeholder="SEARCH"
-                    placeholderTextColor="#C9DBDB"
-                    onChangeText={term => {
-                      // this.seasonUpdated(term);
-                      this.setState({ searchSeason: term });
-                    }}
-                    onSubmitEditing={this.Season}
-                  />
-                  {
-                  this.state.showSuggestion && (
-                    <SearchSuggestionView>
-                      {this.state.suggestionArr.map(d => {
-                        return (
-                          <TouchableHighlight underlayColor={"#eee"} onPress={() => this.getCurrentStyle(d.id)}>
-
-
-                          <SuggestionTerm>
-                            hey
-                            {/* {d.name} */}
-                        </SuggestionTerm>
-                        </TouchableHighlight>
-                        )
-                      })}
-                    </SearchSuggestionView>
-                  )
-                }
+                  {/* <KeyboardAwareScrollView> */}
+                    <SearchInput
+                      placeholder="SEARCH"  
+                      placeholderTextColor="#C9DBDB"
+                      value={this.state.searchBrand}
+                      clearButtonMode='always'
+                      onChangeText={term => {
+                        this.searchUpdated(term);
+                      }}
+                      onSubmitEditing={() => this.Brands(null)}
+                    />
+                    {/* </KeyboardAwareScrollView> */}
+                    {
+                      this.state.showSuggestion && this.state.suggestionArr.length > 0 &&(
+                         
+                        <SearchSuggestionView>
+                          {this.state.suggestionArr.map(d => {
+                            return (
+                              <TouchableHighlight underlayColor={"#eee"} 
+                                onPress={() => this.Brands(d)}>
+                                <SuggestionTerm>
+                                  {d.name}
+                                </SuggestionTerm>
+                              </TouchableHighlight>
+                            )
+                          })}
+                        </SearchSuggestionView>
+                      )
+                    }
                   </Flex>
-                  {/* <Flex>
+                </FlexRow>
+
+                {this.state.suggestionArr.length <= 0 ?
+                  this.state.filteredBrand.length > 0 ?
+                    this.state.filteredBrand && (
+                      <View>
+                        <StyledScrollView scrollToOverflowEnabled>
+                          <CapsuleView>
+                            {this.state.filteredBrand.map(brand => {
+                              return (
+                                <SearchedItemBox key={brand.id}>
+                                  <Close underlayColor={"#362119"} onPress={() => this.popBrandId(brand.id)}>
+                                    <Icon style={{ fontSize: 13 }} name="close" />
+                                  </Close>
+                                  <Text> {brand.name} </Text>
+                                </SearchedItemBox>
+                              );
+                            })}
+                          </CapsuleView>
+                        </StyledScrollView>
+                      </View>
+                    ) : null : null}
+              </SearchBar>
+              {this.state.suggestionArr.length < 1 ?
+
+                <SearchBar suggestion={this.state.suggestionSeasonArr.length > 0 ? true : false}>
+                  <Separator />
+                  <Title>season</Title>
+                  <FlexRow>
+                    <SearchIconBox>
+                      <Icon style={{ color: "#fff" }} name="ios-search" />
+                    </SearchIconBox>
+                    <Flex>
+                      <SearchInput
+                        placeholder="SEARCH"
+                        placeholderTextColor="#C9DBDB"
+                        clearButtonMode='always'
+                        value={this.state.searchSeason}
+                        onChangeText={term => {
+                          this.seasonUpdated(term);
+                          
+                        }}
+                        onSubmitEditing={() => this.Season(null)}
+                      />
+                      {
+                        this.state.showSeasonSuggestion && this.state.suggestionSeasonArr.length > 0 && (
+                          <SearchSuggestionView>
+                            {this.state.suggestionSeasonArr.map(d => {
+                              return (
+                                <TouchableHighlight underlayColor={"#eee"} 
+                                  onPress={() => this.Season(d)}>
+                                  <SuggestionTerm>
+                                    {d.name}
+                                  </SuggestionTerm>
+                                </TouchableHighlight>
+                              )
+                            })}
+                          </SearchSuggestionView>
+                        )
+                      }
+                    </Flex>
+                    {/* <Flex>
                 <StyledSearchInput
                   placeholderTextColor="#C9DBDB"
                   onChangeText={term => {
@@ -418,29 +516,30 @@ class searchFilter extends Component {
                   }}
                 />
                 </Flex> */}
-                </FlexRow>
-                {this.state.filteredBrand != null ?
-                  this.state.filteredSeason && (
-                  <StyledScrollView scrollToOverflowEnabled>
-                    <CapsuleView>
-                      {this.state.filteredSeason.map(season => {
-                        return (
-                          // <Capsule key={item.name}>
-                          //   <ItemName>{item.name} </ItemName>
-                          // </Capsule>
-                          <SearchedItemBox key={season.id}>
-                            <Close underlayColor={"#362119"} onPress={() => this.popSeasonId(season.id)}>
-                              <Icon style={{ fontSize: 13 }} name="close" />
-                            </Close>
-                            <Text> {season.name} </Text>
-                            {/* <SearchedText>{item.name}</SearchedText> */}
-                          </SearchedItemBox>
-                        );
-                      })}
-                    </CapsuleView>
-                  </StyledScrollView>
-                ): null}
-                {/* <CapsuleView>
+                  </FlexRow>
+                  { this.state.suggestionSeasonArr.length <= 0 ?
+                    this.state.filteredSeason.length > 0 ?
+                    this.state.filteredSeason && (
+                      <StyledScrollView scrollToOverflowEnabled>
+                        <CapsuleView>
+                          {this.state.filteredSeason.map(season => {
+                            return (
+                              // <Capsule key={item.name}>
+                              //   <ItemName>{item.name} </ItemName>
+                              // </Capsule>
+                              <SearchedItemBox key={season.id}>
+                                <Close underlayColor={"#362119"} onPress={() => this.popSeasonId(season.id)}>
+                                  <Icon style={{ fontSize: 13 }} name="close" />
+                                </Close>
+                                <Text> {season.name} </Text>
+                                {/* <SearchedText>{item.name}</SearchedText> */}
+                              </SearchedItemBox>
+                            );
+                          })}
+                        </CapsuleView>
+                      </StyledScrollView>
+                    ) : null: null}
+                  {/* <CapsuleView>
                   {filteredSeason.map(item => {
                     return (
                       <Capsule key={item.name}>
@@ -449,9 +548,9 @@ class searchFilter extends Component {
                     );
                   })}
                 </CapsuleView> */}
-              </SearchBar>
-              : null }
-            </KeyboardAwareScrollView>
+                </SearchBar>
+                : null}
+            {/* </KeyboardAwareScrollView> */}
           </MainView>
         </CommonModal>
       </Fragment>

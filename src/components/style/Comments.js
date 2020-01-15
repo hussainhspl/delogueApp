@@ -114,7 +114,7 @@ class Comments extends React.Component {
         .then(res => {
           console.log('resp in message comments :', res.data.styleAuditLog);
           this.setState({
-            MessageContent: res.data.styleAuditLog,
+            MessageContent: res.data,
             showList: false,
             styleMessage: true
           });
@@ -147,10 +147,11 @@ class Comments extends React.Component {
     })
   }
   openCreateReply = (id)  =>{
-    console.log('reply id', id);
+    console.log('reply id', id, this.state.MessageContent, this.state.MessageContent.styleId);
     this.setState({
       parentId: id,
-      ShowNewMsg: true
+      ShowNewMsg: true,
+      showMessage: false
     })
   }
   render() {
@@ -175,7 +176,7 @@ class Comments extends React.Component {
           ) : null}
           {this.state.ShowNewMsg && (
             <NewMessage 
-              styleID={this.props.styleID}
+              styleID={this.props.styleID == null ? this.state.MessageContent.styleId : this.props.styleID}
               closeMessage={this.backClicked}
               parentId={this.state.parentId}
               // submitMessage={this.sendMessage}
@@ -200,6 +201,7 @@ class Comments extends React.Component {
             this.state.styleMessage && (
               <SpecificStyleMessage
                 data={this.state.MessageContent}
+                createReply={(id1) => this.openCreateReply(id1)}
               />
             )
           }

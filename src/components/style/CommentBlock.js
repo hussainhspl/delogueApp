@@ -47,7 +47,7 @@ const FirstRow = styled.View`
 `;
 
 const NewButton = styled(View)`
-  background-color: #99afaf;
+  background-color: ${props => props.theme.blue};
   margin-left: 15;
   width: 100;
   margin-left: auto;

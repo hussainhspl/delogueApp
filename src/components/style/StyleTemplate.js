@@ -30,7 +30,7 @@ const ButtonRow = styled.View`
   
 `;
 const CommentedButton = styled(View)`
-  background-color: #99afaf;
+  background-color: ${props => props.theme.blue};
   margin-left: 15;
   width: 180;
   margin: 15px;
@@ -213,14 +213,6 @@ class StyleTemplate extends React.Component {
 	render() {
 		return(
 			<View>
-				{/* <ButtonRow>
-          <CommentedButton small>
-            <IconView>
-              <Icon style={{ color: "#fff", fontSize: 15 }} name="tablet-portrait" />
-            </IconView>
-            <ButtonText> use template </ButtonText>
-          </CommentedButton>
-        </ButtonRow> */}
 				<StyleFileTitle>
 					<Capital> style files </Capital>
 					<Flex>

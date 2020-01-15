@@ -105,7 +105,8 @@ class Search extends React.Component {
       popBrandId: '',
       emptyResult: false,
       showSuggestion: false,
-      suggestionArr: []
+      suggestionArr: [],
+      myStyle: false,
     };
   }
   componentDidMount = () => {
@@ -134,7 +135,7 @@ class Search extends React.Component {
     ;
     GetAsyncToken().then(token => {
       GetStyles(this.state.searchTerm, token, this.state.brandIds,
-        this.state.seasonIds)
+        this.state.seasonIds, this.state.myStyle)
         .then(res => {
           console.log('response style', res);
           if (res.data.styles.length == 0) {
@@ -218,6 +219,8 @@ class Search extends React.Component {
                   placeholder="SEARCH"
                   placeholderTextColor="#C9DBDB"
                   autoFocus
+                  clearButtonMode='always'
+                  // ref={input => { this.textInput = input }}
                   onChangeText={term => {
                     this.searchUpdated(term);
                   }}
@@ -330,6 +333,9 @@ class Search extends React.Component {
               this.setState({
                 seasonIds: sid
               })
+            }}
+            myStyleStatus={(my)=> {
+              this.setState({ myStyle: my})
             }}
             popBrand={
               (pid) => { this.removeBrand(pid) }

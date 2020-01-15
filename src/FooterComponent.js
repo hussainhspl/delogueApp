@@ -39,7 +39,6 @@ const StyledButton = styled(Button)`
 `;
 const IconView = styled.View`
   height: 30px;
-  /* background-color: #f00; */
   justify-content: center;
   align-items: center;
   width: 100%;
