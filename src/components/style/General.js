@@ -17,36 +17,11 @@ import SubTitle from "../../styles/CardText";
 import AsyncStorage from "@react-native-community/async-storage";
 import StyleFollow from '../../api/styleFollow';
 import StyleNeglect from '../../api/styleNeglect';
+import GetAsyncToken from "../../script/getAsyncToken";
+import GetSelectedStyle from '../../api/getStyle';
+import { connect } from 'react-redux';
+import { singleStyle } from '../../store/actions/index';
 
-
-const ImageView = styled.View`
-  width: ${props =>
-    props.tablet
-      ? Dimensions.get("window").width / 2.4
-      : Dimensions.get("window").width - 70};
-  height: ${props =>
-    props.tablet
-      ? Dimensions.get("window").height / 2.6
-      : Dimensions.get("window").width - 70};
-`;
-const StyleImage = styled.Image`
-  width: ${props =>
-    props.tablet
-      ? Dimensions.get("window").width / 2.7
-      : Dimensions.get("window").width - 120};
-  height: ${props =>
-    props.tablet
-      ? Dimensions.get("window").height / 2.2
-      : Dimensions.get("window").width - 90};
-`;
-const ColorBar = styled.View`
-  border: 1px solid #ccc;
-  padding: 10px;
-  justify-content: center;
-  align-items: center;
-  flex-direction: row;
-  margin-bottom: 10px;
-`;
 const StyleInfo = styled.View`
   padding: 5px;
 `;
@@ -164,6 +139,7 @@ class General extends React.Component {
       tablet: false,
       dataArray: null,
       imgSrc: null,
+      styleID: null
     };
   }
   _renderPageHeader = (image, index, onClose) => {
@@ -187,19 +163,10 @@ class General extends React.Component {
     // console.log(image);
     return <CloseMessage> Swipe Up or Down to go Back </CloseMessage>;
   };
-  getAsyncToken = async () => {
-    try {
-      const token = await AsyncStorage.getItem("@token");
-      if (token) return token;
-    } catch (error) {
-      if (error) {
-        console.log("async token absent", error);
-      }
-    }
-  };
+
   toggleFollow(id, follower) {
     // console.log('follow toggle', id, follower);
-    this.getAsyncToken().then(token => {
+    GetAsyncToken().then(token => {
       if (follower === false) {
         StyleFollow(token, id)
           .then(res => {
@@ -234,7 +201,21 @@ class General extends React.Component {
       }
     })
   }
+  static getDerivedStateFromProps(nextProps, prevState) {
 
+    if (nextProps.style !== prevState.dataArray) {
+      console.log('entered general nextProps');
+      return {
+        dataArray: nextProps.style,
+      }
+    }
+    if (nextProps.styleId !== prevState.styleID) {
+      console.log('entered general id nextProps');
+      return {
+        styleID: nextProps.styleId,
+      }
+    }
+  }
   componentDidMount = () => {
     if (Dimensions.get("window").width > 568) {
       this.setState({ tablet: true }, () =>
@@ -242,42 +223,71 @@ class General extends React.Component {
       );
     }
     // console.log('component did mount called')
-    this.setState({
-      dataArray: this.props.styleData
-    }, () => this.getThumbnail(this.state.dataArray.data.styleLogoThumbnails));
+    this.getCurrentStyle()
+    console.log('state status:', this.state.dataArray);
+    // this.setState({
+    //   dataArray: this.props.styleData
+    // }, () => );
 
   };
+  getCurrentStyle(id) {
+    GetAsyncToken()
+      .then(token => {
+        console.log('id should be', this.props.styleID);
+        sId = this.props.styleID == undefined ? this.props.styleId : this.props.styleID;
+        console.log('hurray', sId);
+        GetSelectedStyle(token, sId)
+          .then(res => {
+            console.log('got single style : ', res)
+            this.props.singleStyleFunction(res)
+          })
+      })
+  }
 
   onTap = () => { };
   pinZoomLayoutRef = React.createRef();
 
   getThumbnail = (thumbnails) => {
-    // console.log("get thumbnail called")
+    console.log("get thumbnail called")
     if (thumbnails != null) {
       thumbnails.some(s => {
         if (s.size > 70000) {
           this.setState({
             imgSrc: s.url
           })
-          // console.log("perfect size:", s.size);
+          console.log("perfect size:", s.size);
           return true;
         }
         else if (s.size > 40000) {
           this.setState({
             imgSrc: s.url
           })
-          // console.log("perfect size 4:", s.size);
+          console.log("perfect size 4:", s.size);
           return true;
         }
         return false
       })
     }
   }
+  shouldComponentUpdate(nextProps, prevState) {
+    // console.log('calling setState', this.state.dataArray, prevState.dataArray);
+    if (prevState.dataArray != null) {
+      // console.log('should enter',this.state.imgSrc, prevState.imgSrc);
+      if (prevState.imgSrc !== null) {
+        // console.log('imgSrc', nextProps.imgSrc, prevState.imgSrc)
+        return false
+      }
+      this.getThumbnail(prevState.dataArray.data.styleLogoThumbnails)
+    }
+    return true
+  }
   render() {
-    console.log("render in general :", this.state.dataArray);
+    // console.log('store style id: ', this.state.styleID);
+    console.log("render in general :", this.props);
     let state = null
     if (this.state.dataArray != null) {
       state = this.state.dataArray.data;
+      // this.getThumbnail(this.state.dataArray.data.styleLogoThumbnails)
     }
     return (
       <Fragment>
@@ -471,4 +481,15 @@ class General extends React.Component {
     );
   }
 }
-export default General;
+const mapDispatchToProps = dispatch => {
+  return {
+    singleStyleFunction: (s) => dispatch(singleStyle(s))
+  }
+}
+const mapStateToProps = state => {
+  return {
+    style: state.singleStyle.singleStyleState,
+    styleId: state.styleId.styleIdState
+  };
+};
+export default connect(mapStateToProps, mapDispatchToProps)(General);

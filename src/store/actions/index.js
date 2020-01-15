@@ -7,4 +7,4 @@ export {singleStyle} from './singleStyle_action';
 export {styleMessageList} from './styleMessageList_actions'
 export {styleFileList} from './StyleFileList_action';
 export {unreadMessagesList, readAll, unreadAll} from './unreadMessagesList_action';
-
+export { styleId } from './StyleID_actions';

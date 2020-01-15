@@ -16,13 +16,14 @@ export const USER = "USER";
 // Storing style list search page
 export const STYLE_LIST = "STYLE_LIST";
 // Specific style
-export const SINGLESTYLE = 'SINGLESTYLE';
+export const SINGLE_STYLE = 'SINGLE_STYLE';
 // Storing style file list
 export const STYLE_FILE_LIST = "STYLE_FILE_LIST";
 // unread messages msg page
 export const UNREAD_MESSAGES_LIST = "UNREAD_MESSAGES_LIST";
 export const READ_ALL = "READ_ALL";
-export const UNREAD_ALL = "UNREAD_ALL"
+export const UNREAD_ALL = "UNREAD_ALL";
+export const STYLE_ID = "STYLE_ID";
   
 // message list style comment tab
 export const STYLE_MESSAGE_LIST = "STYLE_MESSAGE_LIST"

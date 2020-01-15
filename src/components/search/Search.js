@@ -162,18 +162,23 @@ class Search extends React.Component {
     })
   }
 
-  getCurrentStyle(id) {
-    console.log('style clicked', id)
-    GetAsyncToken()
-      .then(token => {
-        GetSelectedStyle(token, id)
-          .then(res => {
-            this.props.styleFunction(res)
-            console.log('got single style : ', res)
-            this.props.generalTabFunction()
-            this.props.history.push('/style')
-          })
-      })
+  redirectToCurrentStyle(id) {
+    console.log('style clicked', id);
+    this.props.generalTabFunction()
+    this.props.history.push({
+      pathname: '/style',
+      sid: id
+    })
+    // GetAsyncToken()
+    //   .then(token => {
+    //     GetSelectedStyle(token, id)
+    //       .then(res => {
+    //         this.props.styleFunction(res)
+    //         console.log('got single style : ', res)
+    //         this.props.generalTabFunction()
+    //         this.props.history.push('/style')
+    //       })
+    //   })
 
   }
 
@@ -231,7 +236,7 @@ class Search extends React.Component {
                   <SearchSuggestionView>
                     {this.state.suggestionArr.map(d => {
                       return (
-                        <TouchableHighlight underlayColor={"#eee"} onPress={() => this.getCurrentStyle(d.id)}>
+                        <TouchableHighlight underlayColor={"#eee"} onPress={() => this.redirectToCurrentStyle(d.id)}>
 
 
                           <SuggestionTerm>
@@ -277,7 +282,7 @@ class Search extends React.Component {
                           key={data.styleNo}
                           data={data}
                           history={history}
-                          GetStyleClicked={() => { this.getCurrentStyle(data.id) }}
+                          GetStyleClicked={() => { this.redirectToCurrentStyle(data.id) }}
                         />);
                       })
                       :
@@ -312,7 +317,7 @@ class Search extends React.Component {
               renderItem={({ item }) =>
                 <TouchableHighlight
                   underlayColor="#42546033"
-                  onPress={() => { this.getCurrentStyle(item.id) }
+                  onPress={() => { this.redirectToCurrentStyle(item.id) }
                   }
                 >
                   <ItemDetail data={item} />
@@ -350,7 +355,6 @@ class Search extends React.Component {
 const mapDispatchToProps = dispatch => {
   return {
     styleListFunction: (s) => dispatch(styleList(s)),
-    styleFunction: (s) => dispatch(singleStyle(s)),
     generalTabFunction: () => dispatch(generalTab()),
 
   }

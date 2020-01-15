@@ -1,8 +1,9 @@
-import {SINGLESTYLE} from './action_types';
+import {SINGLE_STYLE} from './action_types';
 
 export default singleStyle = (singleStyle) => {
+  console.log('single style in action: ',singleStyle )
   return{
-    type: SINGLESTYLE,
+    type: SINGLE_STYLE,
     payload: singleStyle
   };
 }

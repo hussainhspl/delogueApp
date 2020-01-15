@@ -1,12 +1,13 @@
-import {SINGLESTYLE} from '../actions/action_types';
+import {SINGLE_STYLE} from '../actions/action_types';
 
 const initialState = {
   singleStyleState: null
 }
 
 const singleStyleReducer = (state = initialState, action) => {
+  console.log('reducer', action)
   switch ( action.type) {
-    case SINGLESTYLE: 
+    case SINGLE_STYLE: 
       return {
         ...state,
         singleStyleState: action.payload

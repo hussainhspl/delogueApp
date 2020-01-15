@@ -18,6 +18,8 @@ import CommonModal from "../../shared/CommonModal";
 import SpecificMessage from "../../api/message/specificMessage";
 import GetAsyncToken from "../../script/getAsyncToken";
 import SpecificStyleMessage from '../style/specificStyleMessage';
+import { connect } from 'react-redux';
+import { styleId } from '../../store/actions/index';
 
 const ImageView = styled.View`
   height: ${Dimensions.get("window").width / 3 + 30};
@@ -100,15 +102,17 @@ class Comments extends React.Component {
     };
   }
   componentDidMount = () => {
-    // console.log('entering in did mount comment');
+    console.log('entering in did mount comment',this.props);
+    this.props.styleIdFunction(this.props.dataMsg.styleId);
     // console.log('props data', this.props.location.data, this.props.location.openMessage);
     if (this.state.openMessage) {
       console.log('props data', this.props.dataMsg);
+      
     }
   }
   openMessage(id) {
 
-    console.log("open msg called", id, this.state.showList);
+    console.log("open msg called22", id, this.state.showList);
     GetAsyncToken().then(token => {
       SpecificMessage(token, id)
         .then(res => {
@@ -118,6 +122,7 @@ class Comments extends React.Component {
             showList: false,
             styleMessage: true
           });
+          this.props.styleIdFunction(res.data.styleId);
         })
     })
   }
@@ -154,8 +159,15 @@ class Comments extends React.Component {
       showMessage: false
     })
   }
+  // shouldComponentUpdate  () {
+  //   if(this.state.MessageContent != null) {
+  //     console.log("comm style id ",this.state.MessageContent.styleId);
+  //     this.props.styleIdFunction(123)
+  //   }
+  // }
   render() {
-    console.log("message open",this.props.styleID, this.state.MessageContent, );
+    console.log("message open",this.props.styleID, this.state.MessageContent );
+    
     return (
       <View style={{ flex: 1 }}>
         <ItemDetail data={this.props.styleData} />
@@ -223,5 +235,14 @@ class Comments extends React.Component {
     );
   }
 }
+const mapStateToProps = state => {
+  return {}
+}
+const mapDispatchToProps = dispatch => {
+  return {
+    styleIdFunction: (sid) => dispatch(styleId(sid)),
+    // styleListFunction: (s) => dispatch(styleList(s)),;
 
-export default Comments;
+  }
+}
+export default connect(null, mapDispatchToProps)(Comments);

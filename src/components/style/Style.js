@@ -26,9 +26,9 @@ class Style extends React.Component {
       loading: true,
     };
   }
-  renderSelectedTab(params, StateData, locationData ) {
-      
-      // console.log("params :", params, StateData)
+  renderSelectedTab(params, StateData, locationData) {
+
+    // console.log("params :", params, StateData)
     // console.log("switch data", data.id, {commentData});
     // console.log('style data', this.state.styleData)
     // let sdata = this.state.styleData;
@@ -49,33 +49,34 @@ class Style extends React.Component {
     // }
     // console.log('object created : ', floatingStyle);
 
-      switch (params) {
+    switch (params) {
       case "general":
-        return <General 
+        return <General
           history={this.props.history}
-          styleData = {StateData}
+          // styleData={StateData}
+          styleID = {locationData.sid}
         />;
       case "comments":
-        return <Comments 
-        dataMsg = {locationData.data}
-        openMessage = {locationData.openMessage}
-        styleData = {StateData != null ? StateData.data : null}
-        styleID= {StateData != null ? StateData.data.id : null}
+        return <Comments
+          dataMsg={locationData.data}
+          openMessage={locationData.openMessage}
+          styleData={StateData != null ? StateData.data : null}
+          styleID={StateData != null ? StateData.data.id : null}
         />;
       case "files":
-        return <Files 
+        return <Files
           // styleID= {data.id}
-          data= {StateData != null ? StateData.data : null}
-          styleID= {StateData != null ? StateData.data.id : null}        
+          // data={StateData != null ? StateData.data : null}
+          styleID={StateData != null ? StateData.data.id : null}
         />;
       case "sample":
-        return <Sample 
+        return <Sample
           history={this.props.history}
-          data= {locationData.SampleCommentData}
-          styleData = {StateData.data}   
+          data={locationData.SampleCommentData}
+          styleData={StateData.data}
         />;
       case "pdf":
-        return <Pdf/>;
+        return <Pdf />;
       default:
     }
   }
@@ -85,14 +86,14 @@ class Style extends React.Component {
       return {
         styleData: nextProps.style,
       }
-    } 
+    }
   }
 
   componentDidMount = () => {
     // console.log('did mount in style');
     // this.getStyles();
     let history = this.props.history;
-    if(this.state.styleData == null  &&
+    if (this.state.styleData == null &&
       this.props.location.data == 'redirect') {
       // console.log('did mount style data null');
       setTimeout(() => {
@@ -109,11 +110,7 @@ class Style extends React.Component {
   }
 
   render() {
-    console.log("style data",this.state.styleData, this.props.location);
-    // console.log("process env", URL);
-    // console.log('token from store in style', this.props.tokenData);
-    // const history = this.props.history;
-    // console.log("History on style page:", history)
+    console.log("style data", this.state.styleData, this.props.location);
     // step 2 create reducer: it needs state and action
     //payload = newState/ command
     // console.log("store state: ",this.props.currentTab)
@@ -128,7 +125,7 @@ class Style extends React.Component {
 
     //step 3 Subscribe
     // store.subscribe(() => {
-      // console.log('store is now', store.getState())
+    // console.log('store is now', store.getState())
     // });
 
     //step 4 Dispatch action
@@ -142,32 +139,32 @@ class Style extends React.Component {
       <Fragment>
         <Header history={this.props.history}>
           {
-            this.state.styleData != null 
-            ||
-            this.props.location.data != "redirect" 
-            ?
-            <Fragment>
-              {
-                this.renderSelectedTab(
-                  this.props.currentTab, 
-                  this.state.styleData,
-                  this.props.location
-                  // this.props.location.data, 
-                  // this.props.location.openMessage,
-                  // this.props.location.SampleCommentData
-                )
-              }
-              <FooterComponent /> 
-            </Fragment>
-            :
-            <InfoView>
-              <Image
-                          style={{ width: 64 }}
-                          resizeMode={"contain"}
-                          source={require("../../../assets/img/search-big.png")}
-                        />
-              <InfoText>Search for a style by typing name or number</InfoText>
-            </InfoView>
+            this.state.styleData != null
+              ||
+              this.props.location.data != "redirect"
+              ?
+              <Fragment>
+                {
+                  this.renderSelectedTab(
+                    this.props.currentTab,
+                    this.state.styleData,
+                    this.props.location
+                    // this.props.location.data, 
+                    // this.props.location.openMessage,
+                    // this.props.location.SampleCommentData
+                  )
+                }
+                <FooterComponent />
+              </Fragment>
+              :
+              <InfoView>
+                <Image
+                  style={{ width: 64 }}
+                  resizeMode={"contain"}
+                  source={require("../../../assets/img/search-big.png")}
+                />
+                <InfoText>Search for a style by typing name or number</InfoText>
+              </InfoView>
           }
         </Header>
       </Fragment>
@@ -178,8 +175,7 @@ class Style extends React.Component {
 const mapStateToProps = state => {
   return {
     currentTab: state.tab.now,
-    tokenData: state.async.tokenState,
-    style: state.style.singleStyleState
+    // style: state.singleStyle.singleStyleState
 
   };
 };

@@ -235,12 +235,10 @@ class Message extends React.Component {
     let currentAlert = '';
     GetAsyncToken()
       .then(token => {
-
         this.state.MessageList.map(d => {
           if (d.auditLogId == auditLogId) {
             // console.log('click state', d.isRead);
             currentAlert = d.isRead;
-
           }
         })
         // console.log('if', currentAlert);
