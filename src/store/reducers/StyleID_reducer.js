@@ -5,7 +5,7 @@ const initialState = {
 };
 
 const styleIdReducer = (state = initialState, action) => {
-  console.log('enter reducer', action)
+  // console.log('enter reducer', action)
   switch(action.type) {
     case STYLE_ID:
       return {

@@ -61,13 +61,14 @@ class Style extends React.Component {
           dataMsg={locationData.data}
           openMessage={locationData.openMessage}
           styleData={StateData != null ? StateData.data : null}
-          styleID={StateData != null ? StateData.data.id : null}
+          // styleID={StateData != null ? StateData.data.id : null}
+          styleID = {this.props.StoreStyleId != null ? this.props.StoreStyleId: null}
         />;
       case "files":
         return <Files
           // styleID= {data.id}
           // data={StateData != null ? StateData.data : null}
-          styleID={StateData != null ? StateData.data.id : null}
+          styleID = {this.props.StoreStyleId != null ? this.props.StoreStyleId: null}
         />;
       case "sample":
         return <Sample
@@ -110,7 +111,7 @@ class Style extends React.Component {
   }
 
   render() {
-    console.log("style data", this.state.styleData, this.props.location);
+    console.log("style data", this.props.StoreStyleId, this.props.location);
     // step 2 create reducer: it needs state and action
     //payload = newState/ command
     // console.log("store state: ",this.props.currentTab)
@@ -175,8 +176,7 @@ class Style extends React.Component {
 const mapStateToProps = state => {
   return {
     currentTab: state.tab.now,
-    // style: state.singleStyle.singleStyleState
-
+    StoreStyleId: state.styleId.styleIdState
   };
 };
 

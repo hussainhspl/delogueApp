@@ -217,6 +217,7 @@ class CommentsList extends React.Component {
           <SearchInput
             placeholder="SEARCH"
             placeholderTextColor="#C9DBDB"
+            clearButtonMode='always'
             onChangeText={term => {
               this.searchUpdated(term);
             }}

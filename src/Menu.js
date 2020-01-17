@@ -6,6 +6,7 @@ import ClearAsync from '../src/script/clearAsync';
 import CardText from '../src/styles/CardText';
 import SmallText from '../src/styles/SmallText';
 import Close from '../src/styles/Close';
+import AsyncStorage from "@react-native-community/async-storage";
 
 const MenuContainer = styled.View`
   border-width: 1px;
@@ -19,6 +20,7 @@ const CompanyHighlight = styled.View`
   margin-top: 5px;
   padding: 5px 10px;
   align-self: flex-start;
+  margin-top: 30px;
 `;
 const CompanyText = styled.Text`
   padding: 15px;
@@ -52,6 +54,12 @@ const LoginTouchableHighlight = styled.TouchableHighlight`
 const Bottom = styled.View`
   padding: 0px 10px;
 `;
+const Top = styled.View`
+  padding-top: 50px;
+`;
+const SText = styled.Text`
+  padding-bottom: 20px;
+`;
 // getUserName = async () => {
 //   try {
 //     const username = await Asy
@@ -60,7 +68,9 @@ const Bottom = styled.View`
 class Menu extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {}
+    this.state = {
+      currentUser: null
+    }
     // this.checkNredirect = this.checkNredirect.bind(this)
   }
   checkNredirect = () => {
@@ -76,9 +86,25 @@ class Menu extends React.Component {
     }
     history.push("/companyList")
   }
+  componentDidMount = () => {
+    this.getUsername()
+  }
+  getUsername = async () => {
+    try {
+      const username = await AsyncStorage.getItem("@username");
+      console.log("async name", username);
+      this.setState({currentUser: username})
+    }
+    catch (error) {
+      if(error)
+        console.log('no username found in sidebar', error);
+    }
+  }
   render() {
     const history = this.props.history;
     const close = this.props.close;
+    
+    console.log("user data :", this.state.currentUser)
     return (
       <MenuContainer>
         <SidebarView>
@@ -92,14 +118,19 @@ class Menu extends React.Component {
               </Close>
               {/* </TouchableOpacity>        */}
             </CloseView>
+          <Top>
+            <SmallText>username:</SmallText>
+            <SText> {this.state.currentUser} </SText>
+            <SmallText>you are currently logged into:</SmallText>
+            <CardText>Logout </CardText>
 
-            <SmallText>Switch Company</SmallText>
             <TouchableHighlight underlayColor='rgba(221, 221, 221, 0.4)'
               onPress={this.checkNredirect}>
               <CompanyHighlight>
-                <CompanyText>demo company</CompanyText>
+                <CompanyText>switch company</CompanyText>
               </CompanyHighlight>
             </TouchableHighlight>
+          </Top>
           </View>
           <Bottom>
             <LoginTouchableHighlight underlayColor='rgba(221, 221, 221, 0.4)'
@@ -113,12 +144,13 @@ class Menu extends React.Component {
               <CardText > Logout </CardText>
 
             </LoginTouchableHighlight>
-            <SmallText>version 1.2 </SmallText>
+            <SmallText>version 1.3 </SmallText>
           </Bottom>
         </SidebarView>
       </MenuContainer>
     )
   }
 }
+
 export default Menu;
 

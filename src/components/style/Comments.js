@@ -103,7 +103,7 @@ class Comments extends React.Component {
   }
   componentDidMount = () => {
     console.log('entering in did mount comment',this.props);
-    this.props.styleIdFunction(this.props.dataMsg.styleId);
+    // this.props.styleIdFunction(this.props.dataMsg.styleId);
     // console.log('props data', this.props.location.data, this.props.location.openMessage);
     if (this.state.openMessage) {
       console.log('props data', this.props.dataMsg);

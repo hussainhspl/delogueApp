@@ -100,7 +100,7 @@ class Header extends React.Component {
           type="overlay"
           ref={(ref) => this._drawer = ref}
           content={<Menu close={this.toggle} history = {history} />}
-          openDrawerOffset={0.4} // 20% gap on the right side of drawer
+          openDrawerOffset={0.45} // 20% gap on the right side of drawer
           panCloseMask={0.2}
           styles={drawerStyles}
           side="right"

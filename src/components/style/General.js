@@ -21,6 +21,7 @@ import GetAsyncToken from "../../script/getAsyncToken";
 import GetSelectedStyle from '../../api/getStyle';
 import { connect } from 'react-redux';
 import { singleStyle } from '../../store/actions/index';
+import ZoomImage from "./zoomImage";
 
 const StyleInfo = styled.View`
   padding: 5px;
@@ -90,17 +91,6 @@ const XView2 = styled.View`
   transform: rotate(-45deg);
 `;
 
-const CloseMessage = styled.Text`
-  color: #aaa;
-  font-size: 14px;
-  text-align: center;
-  padding: 5px;
-  bottom: 20;
-`;
-
-const SImageLayout = styled(ImageLayout)`
-  position: relative;
-`;
 const FollowView = styled.View`
   width: 40px;
   height: 40px;
@@ -141,28 +131,8 @@ class General extends React.Component {
       imgSrc: null,
       styleID: null
     };
+    this.getThumbnail = this.getThumbnail.bind(this);
   }
-  _renderPageHeader = (image, index, onClose) => {
-    // Individual image object data.
-    // console.log(image);
-    return (
-      <View>
-        <TouchableOpacity
-          onPress={() => {
-            onClose();
-          }}
-          underlayColor="#777"
-        >
-          <Icon name="arrow-back" style={{ color: "#ccc", padding: 20 }} />
-        </TouchableOpacity>
-      </View>
-    );
-  };
-  _renderPageFooter = (image, index, onClose) => {
-    // Individual image object data.
-    // console.log(image);
-    return <CloseMessage> Swipe Up or Down to go Back </CloseMessage>;
-  };
 
   toggleFollow(id, follower) {
     // console.log('follow toggle', id, follower);
@@ -186,7 +156,7 @@ class General extends React.Component {
       else {
         StyleNeglect(token, id)
           .then(res => {
-            console.log("style deleted");
+            // console.log("style deleted");
             this.setState(prevState => ({
               ...prevState,
               dataArray: {
@@ -204,18 +174,60 @@ class General extends React.Component {
   static getDerivedStateFromProps(nextProps, prevState) {
 
     if (nextProps.style !== prevState.dataArray) {
-      console.log('entered general nextProps');
+      console.log('entered general nextProps', nextProps.style);
+
       return {
         dataArray: nextProps.style,
       }
     }
     if (nextProps.styleId !== prevState.styleID) {
-      console.log('entered general id nextProps');
+      // this.getThumbnail(nextProps.style.data.styleLogoThumbnails)
+      // console.log('entered general id nextProps',nextProps);
+      
       return {
         styleID: nextProps.styleId,
       }
     }
+
   }
+  UNSAFE_componentWillReceiveProps(nextProps, prevState) {
+    // console.log('unsafe ')
+  }
+  getSnapshotBeforeUpdate(prevProps, prevState) {
+    // console.log('get snapshot method called');
+    // if (nextProps.style !== prevState.dataArray) {
+    //   console.log('should component in update');
+    //   this.getThumbnail(this.state.dataArray.data.styleLogoThumbnails)
+    // }
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    // console.log('should component update', this.props, prevProps);
+
+    if (prevProps.style == null) {
+      // console.log('entered null')
+      this.getThumbnail(this.props.style.data.styleLogoThumbnails)
+    }
+    if (prevProps.style != null) {
+      // console.log('1');
+      // console.log('should component update in', this.props.style.data.id, prevProps.style.data.id);
+      if (this.props.style.data.id !== prevProps.style.data.id) {
+        console.log('entered')
+        this.getThumbnail(this.props.style.data.styleLogoThumbnails)
+      }
+    }
+
+
+    // if (nextProps.style !== prevState.dataArray) {
+    //   console.log('should component in update');
+    //   this.getThumbnail(nextProps.style.data.styleLogoThumbnails)
+    // }
+    // if(nextProps.imgSrc !== prevState.imgSrc) {
+    //   console.log('img src : ');
+    //   this.getThumbnail(nextProps.style.data.styleLogoThumbnails)
+    // }
+  }
+
   componentDidMount = () => {
     if (Dimensions.get("window").width > 568) {
       this.setState({ tablet: true }, () =>
@@ -223,8 +235,13 @@ class General extends React.Component {
       );
     }
     // console.log('component did mount called')
-    this.getCurrentStyle()
-    console.log('state status:', this.state.dataArray);
+    // if(this.state.dataArray == null){
+      this.getCurrentStyle()
+    // }
+    
+    // console.log('state status:', this.state.dataArray);
+    // if(this.state.dataArray !=null)
+    //   this.getThumbnail(this.state.dataArray.data.styleLogoThumbnails)
     // this.setState({
     //   dataArray: this.props.styleData
     // }, () => );
@@ -233,13 +250,14 @@ class General extends React.Component {
   getCurrentStyle(id) {
     GetAsyncToken()
       .then(token => {
-        console.log('id should be', this.props.styleID);
+        // console.log('id should be', this.props.styleID);
         sId = this.props.styleID == undefined ? this.props.styleId : this.props.styleID;
         console.log('hurray', sId);
         GetSelectedStyle(token, sId)
           .then(res => {
-            console.log('got single style : ', res)
+            console.log('got single style : ', res);
             this.props.singleStyleFunction(res)
+            // debugger;
           })
       })
   }
@@ -248,7 +266,7 @@ class General extends React.Component {
   pinZoomLayoutRef = React.createRef();
 
   getThumbnail = (thumbnails) => {
-    console.log("get thumbnail called")
+    // console.log("get thumbnail called", thumbnails)
     if (thumbnails != null) {
       thumbnails.some(s => {
         if (s.size > 70000) {
@@ -265,55 +283,100 @@ class General extends React.Component {
           console.log("perfect size 4:", s.size);
           return true;
         }
+        else if (s.size > 20000) {
+          this.setState({
+            imgSrc: s.url
+          })
+          console.log("perfect size 2:", s.size);
+          return true;
+        }
         return false
       })
     }
   }
-  shouldComponentUpdate(nextProps, prevState) {
-    // console.log('calling setState', this.state.dataArray, prevState.dataArray);
-    if (prevState.dataArray != null) {
-      // console.log('should enter',this.state.imgSrc, prevState.imgSrc);
-      if (prevState.imgSrc !== null) {
-        // console.log('imgSrc', nextProps.imgSrc, prevState.imgSrc)
-        return false
-      }
-      this.getThumbnail(prevState.dataArray.data.styleLogoThumbnails)
-    }
-    return true
-  }
+  // shouldComponentUpdate(nextProps, prevState) {
+  //   console.log('calling setState', this.state.dataArray, prevState.dataArray);
+  //   if (prevState.dataArray != null) {
+  //     console.log('should enter',this.state.imgSrc, prevState.imgSrc);
+  //     if (prevState.imgSrc !== null) {
+  //       console.log('imgSrc', nextProps.imgSrc, prevState.imgSrc);
+  //       if(nextProps.imgSrc == prevState.imgSrc)
+  //         return false
+
+  //       if(nextProps.imgSrc !== prevState.imgSrc)
+  //         this.getThumbnail(prevState.dataArray.data.styleLogoThumbnails)
+  //     }
+  //     if(this.state.dataArray == prevState.dataArray){
+  //       return false
+  //     }
+  //     this.getThumbnail(prevState.dataArray.data.styleLogoThumbnails)
+  //   }
+  //   return true
+  // }
   render() {
     // console.log('store style id: ', this.state.styleID);
-    console.log("render in general :", this.props);
-    let state = null
+    console.log("render in general :", this.state.dataArray);
+    let state = null;
     if (this.state.dataArray != null) {
       state = this.state.dataArray.data;
-      // this.getThumbnail(this.state.dataArray.data.styleLogoThumbnails)
+      console.log('general rendered');
+      // if(state.styleLogoThumbnails != null) {
+      //   return null
+      // }
     }
     return (
       <Fragment>
         {state != null ? (
           <ScrollView showsVerticalScrollIndicator={false}>
             {
-              //  console.log('thumbnail found', this.state.imgSrc)
+              console.log('general id', this.state.imgSrc ? this.state.imgSrc : state.logo ? state.logo.url : noImage )
             }
             <View>
-              <SImageLayout
-                renderPageHeader={this._renderPageHeader}
-                renderPageFooter={this._renderPageFooter}
-                imageContainerStyle={{ backgroundColor: "#eee" }}
-                pageScrollViewStyle={{ backgroundColor: "#000" }}
-                // imagePageComponent={ () => resizeMode: "contain"}
-                resizeMode={"contain"}
-                columns={1}
-                enableScale
-                images={[
-                  {
-                    // uri: state.logo ? state.logo.url : 
-                    // noImage
-                    uri: this.state.imgSrc ? this.state.imgSrc : state.logo ? state.logo.url : noImage
-                  }
-                ]}
-              />
+              {/* <Image style= {{height: 400}} source={{uri: this.state.imgSrc ? this.state.imgSrc : state.logo ? state.logo.url : noImage}} /> */}
+              
+                {/* <SImageLayout
+                  renderPageHeader={this._renderPageHeader}
+                  renderPageFooter={this._renderPageFooter}
+                  imageContainerStyle={{ backgroundColor: "#eee" }}
+                  pageScrollViewStyle={{ backgroundColor: "#000" }}
+                  // imagePageComponent={ () => resizeMode: "contain"}
+                  resizeMode={"contain"}
+                  columns={1}
+                  enableScale
+                  rerender={true}
+                  images={[
+                    {
+                      // uri: state.logo ? state.logo.url : noImage
+                      uri: this.state.imgSrc ? this.state.imgSrc : state.logo ? state.logo.url : noImage
+                    }
+                  ]}
+                />  */}
+                {/* {
+                  state.styleLogoThumbnails == null ?
+                    <Image style= {{height: 400}} source={{uri: noImage}} />  
+                    :
+                    <ZoomImage
+                      imgSource = {this.state.imgSrc ? this.state.imgSrc : state.logo ? state.logo.url : noImage }
+                    />
+                } */}
+                {state.logo != null && (
+                  state.styleLogoThumbnails.length > 0 ? 
+                    <ZoomImage
+                      src="thumbnail"
+                      imgSource = {this.state.imgSrc}
+                    />
+                    :
+                    <ZoomImage
+                      src="logo"
+                      imgSource = {state.logo.url}
+                    />
+                )}
+                {state.logo == null && (
+                  <ZoomImage
+                  src="noLogo"
+                  imgSource = {noImage}
+                /> 
+                )}
               <Icon
                 style={{
                   position: "absolute",

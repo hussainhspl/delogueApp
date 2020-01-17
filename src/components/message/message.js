@@ -10,7 +10,7 @@ import {
 import { Icon } from "native-base";
 import { withTheme } from 'styled-components';
 import { connect } from "react-redux";
-import { commentTab, unreadMessagesList, readAll, unreadAll } from "../../store/actions/index";
+import { commentTab, unreadMessagesList, readAll, unreadAll, styleId } from "../../store/actions/index";
 import styled from "styled-components";
 import Header from "../../Header";
 import Subject from '../../styles/Subject';
@@ -219,6 +219,7 @@ class Message extends React.Component {
         SpecificMessage(token, id)
           .then(res => {
             console.log('resp in message :', res);
+            this.props.styleIdFunction(res.data.styleId);
             this.props.commentTabFunction();
             this.props.history.push({
               pathname: '/style',
@@ -331,7 +332,11 @@ class Message extends React.Component {
                       return
                   let formatedDate = format(parseISO(m.loggedOn), "d-MMM-yyyy kk:mm");
                   // console.log('m :', m);
-
+                  // console.log('msg body', m.messageBody);
+                  // let newMsgBody = m.messageBody.replace('handlers/ThumbnailService.ashx', 'http://test.delogue.com/api/v2.0/resource/thumbnail')
+                  let newMsgBody = m.messageBody.split("handlers/ThumbnailService.ashx").join("http://test.delogue.com/api/v2.0/resource/thumbnail")
+                  
+                  // console.log('new msg : ', newMsgBody);
                   if (m.messageType == "StyleCommunicationMessage") {
                     return (
                       <Fragment>
@@ -381,7 +386,7 @@ class Message extends React.Component {
                                         style={{ width: Dimensions.get('window').width - 45, marginTop: 35 }}
                                         source={{
                                           html: `<!DOCTYPE html><html><head><meta name="viewport" content="width=device-width, initial-scale=1"></head>
-                                        <body><small>${m.messageBody}</small></body></html>`
+                                        <body><small>${newMsgBody}</small></body></html>`
                                         }}
                                         scalesPageToFit={true}
                                         zoomable={false}
@@ -446,7 +451,10 @@ const mapDispatchToProps = dispatch => {
     unreadMessagesListFunction: (unread) => dispatch(unreadMessagesList(unread)),
 
     updateReadFunction: (auditLogId) => dispatch(readAll(auditLogId)),
-    updateUnReadFunction: (auditLogId) => dispatch(unreadAll(auditLogId))
+    updateUnReadFunction: (auditLogId) => dispatch(unreadAll(auditLogId)),
+
+    styleIdFunction: (sid) => dispatch(styleId(sid)),
+
 
   }
 }
