@@ -93,13 +93,18 @@ class Header extends React.Component {
   render() {
     const history= this.props.history;
     // const path = this.props.location.pathname;
-    // console.log('header history: ', history);
+    console.log('header history: ', this.props);
     return(
       <MainView>
         <Drawer
           type="overlay"
           ref={(ref) => this._drawer = ref}
-          content={<Menu close={this.toggle} history = {history} />}
+          content={<Menu 
+            close={this.toggle} 
+            history = {history}
+            designerId={this.props.designerId} 
+            userId={this.props.userId}
+          />}
           openDrawerOffset={0.45} // 20% gap on the right side of drawer
           panCloseMask={0.2}
           styles={drawerStyles}

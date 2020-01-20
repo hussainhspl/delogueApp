@@ -269,7 +269,7 @@ class Message extends React.Component {
     })
   }
   render() {
-
+    console.log('msg', this.props)
     history = this.props.history;
     // console.log('html height in render: ', this.state.htmlHeight1);
     // if(this.state.MessageList != null)
@@ -279,7 +279,11 @@ class Message extends React.Component {
     // let chat = this.state.MessageList.filter(m => m.messageType == "Style sample request")
     return (
       <MainView>
-        <Header history={this.props.history}>
+        <Header 
+          history={this.props.history}
+          designerId={this.props.location.designerId} 
+          userId={this.props.location.userId}
+        >
           <ScrollView>
             <IconRow>
               <Flex>
@@ -339,9 +343,9 @@ class Message extends React.Component {
                   // console.log('new msg : ', newMsgBody);
                   if (m.messageType == "StyleCommunicationMessage") {
                     return (
-                      <Fragment>
+                      <Fragment key={m.auditLogId}>
                         {this.state.message && (
-                          <MessageBox>
+                          <MessageBox >
                             <TouchableHighlight
                               underlayColor={this.props.theme.overlayBlue}
                               onPress={() => this.redirectToComment(m.auditLogId)}
@@ -410,7 +414,7 @@ class Message extends React.Component {
 
                   else if (m.messageType == "Style sample request") {
                     return (
-                      <Fragment>
+                      <Fragment key={m.auditLogId}>
                         {this.state.chat && (
                           <ChatMessage
                             history={this.props.history}

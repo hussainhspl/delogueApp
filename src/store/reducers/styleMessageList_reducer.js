@@ -8,7 +8,7 @@ const styleMessageListReducer = (state = initialState, action) => {
   // console.log('action type', action);
   switch (action.type) {
     case STYLE_MESSAGE_LIST:
-      console.log('in reducer', action.payload);
+      // console.log('in reducer', action.payload);
       return {
         ...state,
         styleMessageListState: action.payload

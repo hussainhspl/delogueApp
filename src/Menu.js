@@ -6,6 +6,7 @@ import ClearAsync from '../src/script/clearAsync';
 import CardText from '../src/styles/CardText';
 import SmallText from '../src/styles/SmallText';
 import Close from '../src/styles/Close';
+import { connect } from 'react-redux';
 import AsyncStorage from "@react-native-community/async-storage";
 
 const MenuContainer = styled.View`
@@ -69,16 +70,17 @@ class Menu extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentUser: null
+      currentUser: null,
+      currentCompany: null
     }
     // this.checkNredirect = this.checkNredirect.bind(this)
   }
   checkNredirect = () => {
     const { history, close } = this.props;
     // const close = this.props.close;
-    console.log("click demo", history.location.pathname)
+    // console.log("click demo", history.location.pathname)
     if (history.location.pathname == '/companyList') {
-      console.log('same page', this.props.close);
+      // console.log('same page', this.props.close);
       { close }
       close
       this.props.close()
@@ -88,11 +90,19 @@ class Menu extends React.Component {
   }
   componentDidMount = () => {
     this.getUsername()
+    this.props.userData.data.loginContexts.some(user => {
+      if(user.id == this.props.userId) {
+        this.setState({
+          currentCompany: user.organizationName
+        })
+        return true;
+      }
+      return false;
+    })
   }
   getUsername = async () => {
     try {
-      const username = await AsyncStorage.getItem("@username");
-      console.log("async name", username);
+      const username = await AsyncStorage.getItem("@username")
       this.setState({currentUser: username})
     }
     catch (error) {
@@ -103,26 +113,25 @@ class Menu extends React.Component {
   render() {
     const history = this.props.history;
     const close = this.props.close;
-    
-    console.log("user data :", this.state.currentUser)
+    console.log('company name', this.props.userData, this.props.designerId, this.props.userId);
     return (
       <MenuContainer>
         <SidebarView>
           <View>
             <CloseView>
-              {/* <TouchableOpacity
+              <TouchableOpacity
                   onPress={this.props.close}
-                > */}
+                >
               <Close>
                 <CloseIcon name="ios-close" />
               </Close>
-              {/* </TouchableOpacity>        */}
+              </TouchableOpacity>       
             </CloseView>
           <Top>
             <SmallText>username:</SmallText>
-            <SText> {this.state.currentUser} </SText>
+            <SText>{this.state.currentUser}</SText>
             <SmallText>you are currently logged into:</SmallText>
-            <CardText>Logout </CardText>
+            <SText>{this.state.currentCompany}</SText>
 
             <TouchableHighlight underlayColor='rgba(221, 221, 221, 0.4)'
               onPress={this.checkNredirect}>
@@ -151,6 +160,10 @@ class Menu extends React.Component {
     )
   }
 }
-
-export default Menu;
+const mapStateToProps = state => {
+  return {
+    userData: state.user.userState
+  };
+};
+export default connect(mapStateToProps)(Menu);
 

@@ -5,7 +5,7 @@ const initialState = {
 }
 
 const singleStyleReducer = (state = initialState, action) => {
-  console.log('reducer', action)
+  // console.log('reducer', action)
   switch ( action.type) {
     case SINGLE_STYLE: 
       return {

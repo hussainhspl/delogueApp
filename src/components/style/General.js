@@ -22,6 +22,7 @@ import GetSelectedStyle from '../../api/getStyle';
 import { connect } from 'react-redux';
 import { singleStyle } from '../../store/actions/index';
 import ZoomImage from "./zoomImage";
+import FollowComponent from "./followComponent";
 
 const StyleInfo = styled.View`
   padding: 5px;
@@ -91,25 +92,25 @@ const XView2 = styled.View`
   transform: rotate(-45deg);
 `;
 
-const FollowView = styled.View`
-  width: 40px;
-  height: 40px;
-  position: absolute;
-  bottom: 10;
-  left: 10;
-  background-color: #eeeeee6e;
-  border-radius: 20px;
-  justify-content: center;
-  align-items: center;
-  z-index: 1;
-`;
-const FollowTouchableHighlight = styled.TouchableHighlight`
-  width: 40px;
-  height: 40px;
-  border-radius: 20px;
-  justify-content: center;
-  align-items: center;
-`;
+// const FollowView = styled.View`
+//   width: 40px;
+//   height: 40px;
+//   position: absolute;
+//   bottom: 10;
+//   left: 10;
+//   background-color: #eeeeee6e;
+//   border-radius: 20px;
+//   justify-content: center;
+//   align-items: center;
+//   z-index: 1;
+// `;
+// const FollowTouchableHighlight = styled.TouchableHighlight`
+//   width: 40px;
+//   height: 40px;
+//   border-radius: 20px;
+//   justify-content: center;
+//   align-items: center;
+// `;
 const TitleInactive = styled.Text`
   color: #ccc;
   text-transform: uppercase;
@@ -129,53 +130,17 @@ class General extends React.Component {
       tablet: false,
       dataArray: null,
       imgSrc: null,
-      styleID: null
+      styleID: null,
+      currentState: null
     };
     this.getThumbnail = this.getThumbnail.bind(this);
   }
 
-  toggleFollow(id, follower) {
-    // console.log('follow toggle', id, follower);
-    GetAsyncToken().then(token => {
-      if (follower === false) {
-        StyleFollow(token, id)
-          .then(res => {
-            console.log('styled followed', this.state.dataArray.data.isFollower);
-            this.setState(prevState => ({
-              ...prevState,
-              dataArray: {
-                ...prevState.dataArray,
-                data: {
-                  ...prevState.dataArray.data,
-                  isFollower: true
-                }
-              }
-            }))
-          })
-      }
-      else {
-        StyleNeglect(token, id)
-          .then(res => {
-            // console.log("style deleted");
-            this.setState(prevState => ({
-              ...prevState,
-              dataArray: {
-                ...prevState.dataArray,
-                data: {
-                  ...prevState.dataArray.data,
-                  isFollower: false
-                }
-              }
-            }))
-          })
-      }
-    })
-  }
   static getDerivedStateFromProps(nextProps, prevState) {
 
     if (nextProps.style !== prevState.dataArray) {
       console.log('entered general nextProps', nextProps.style);
-
+      // if(prevState.followState != nextProps.followState)
       return {
         dataArray: nextProps.style,
       }
@@ -248,6 +213,7 @@ class General extends React.Component {
 
   };
   getCurrentStyle(id) {
+    console.log('getting single style')
     GetAsyncToken()
       .then(token => {
         // console.log('id should be', this.props.styleID);
@@ -277,19 +243,20 @@ class General extends React.Component {
           return true;
         }
         else if (s.size > 40000) {
+          
           this.setState({
             imgSrc: s.url
           })
           console.log("perfect size 4:", s.size);
           return true;
         }
-        else if (s.size > 20000) {
-          this.setState({
-            imgSrc: s.url
-          })
-          console.log("perfect size 2:", s.size);
-          return true;
-        }
+        // else if (s.size < 40000 && s.size > 20000) {
+        //   this.setState({
+        //     imgSrc: s.url
+        //   })
+        //   console.log("perfect size 2:", s.size);
+        //   return true;
+        // }
         return false
       })
     }
@@ -319,17 +286,18 @@ class General extends React.Component {
     let state = null;
     if (this.state.dataArray != null) {
       state = this.state.dataArray.data;
-      console.log('general rendered');
+      // console.log('general rendered');
       // if(state.styleLogoThumbnails != null) {
       //   return null
       // }
+      // let styleState;
     }
     return (
       <Fragment>
         {state != null ? (
           <ScrollView showsVerticalScrollIndicator={false}>
             {
-              console.log('general id', this.state.imgSrc ? this.state.imgSrc : state.logo ? state.logo.url : noImage )
+              // console.log('general id', this.state.imgSrc ? this.state.imgSrc : state.logo ? state.logo.url : noImage )
             }
             <View>
               {/* <Image style= {{height: 400}} source={{uri: this.state.imgSrc ? this.state.imgSrc : state.logo ? state.logo.url : noImage}} /> */}
@@ -386,7 +354,7 @@ class General extends React.Component {
                 }}
                 name="expand"
               />
-              <FollowView>
+              {/* <FollowView>
                 <FollowTouchableHighlight underlayColor="#42546033" onPress={() => this.toggleFollow(state.id, state.isFollower)}>
                   <Icon
                     style={{
@@ -398,7 +366,12 @@ class General extends React.Component {
                     name="heart"
                   />
                 </FollowTouchableHighlight>
-              </FollowView>
+              </FollowView> */}
+              <FollowComponent
+                id = {state.id} 
+                isFollow = {state.isFollower}
+                callSingleStyle={(id) => this.getCurrentStyle(id)}
+              />
             </View>
             <ItemInfoRow>
               <View style={{ width: "50%" }}>
@@ -436,7 +409,15 @@ class General extends React.Component {
                 </StyleInfo>
                 <StyleInfo>
                   <Title>state</Title>
-                  <SubTitle>{state.state ? state.state : "-"}</SubTitle>
+                  <SubTitle>{
+                    state.state == 0 ? "unpublished" :
+                    state.state == 1 ? "published" :
+                    state.state == 2 ? "deleted":
+                    state.state == 3 ? "delivered":
+                    state.state == 4 ? "cancelled":
+                    state.state == 1 ? "work in progress":
+                    null}
+                  </SubTitle>
                 </StyleInfo>
                 <StyleInfo>
                   <Title>ready for export</Title>

@@ -115,6 +115,7 @@ class Login extends React.Component {
   checkCredential() {
     LoginStep1(this.state.username, this.state.password, this.props.tokenData)
       .then(res =>{
+        console.log('login 1 response', res)
         this.props.userFunction(res)
         // console.log('context', res.data)
         AsyncStorage.multiSet([

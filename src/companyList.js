@@ -121,6 +121,8 @@ class CompanyList extends React.Component {
       companyData: null,
       token: "",
       imgSrc: null,
+      designerIdState: null,
+      userIdState: null
     };
     this.toggle = this.toggle.bind(this);
     this.handleBackButtonClick = this.handleBackButtonClick.bind(this);
@@ -184,25 +186,28 @@ class CompanyList extends React.Component {
         console.log('no username found', error);
     }
   }
-  GetToken = (desinerId, uid)  => {
+  GetToken = (designerId, uid)  => {
     this.getCredential()
       .then(cred =>{
         const [username, password] = cred;
         // console.log("async cred", cred,uname, pass, uid);
-        LoginStep2(desinerId, uid, username, password)
+        LoginStep2(designerId, uid, username, password)
         .then(res => {
+          console.log('data after successful login:', res);
           let tokenExp = new Date(res.headers.date);
           let seconds = res.data.expires_in;
           tokenExp.setSeconds(tokenExp.getSeconds() + seconds);
           this.setState(
             {
-              token: res.data.access_token
+              token: res.data.access_token,
+              designerIdState: designerId,
+              userIdState: uid
             },
             () => this.storeToken(tokenExp)
           );
         })
       })
-    console.log('get token called', desinerId, uid);
+    console.log('get token called', designerId, uid);
     
   }
   storeToken = async tokenExp => {
@@ -217,6 +222,8 @@ class CompanyList extends React.Component {
       console.log("data saved successfully");
       this.props.history.push({
         pathname:"/message",
+        designerId:this.state.designerIdState,
+        userId:this.state.userIdState
       })
     } 
     catch (e) {
@@ -240,7 +247,12 @@ class CompanyList extends React.Component {
         <Drawer
           type="overlay"
           ref={ref => (this._drawer = ref)}
-          content={<Menu close={this.toggle} history={history} />}
+          content={<Menu 
+            close={this.toggle} 
+            history={history}
+            designerId={this.state.designerIdState} 
+            userId={this.state.userIdState}
+          />}
           openDrawerOffset={0.4} // 20% gap on the right side of drawer
           panCloseMask={0.2}
           styles={drawerStyles}

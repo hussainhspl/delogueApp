@@ -40,7 +40,7 @@ class ZoomImage extends React.Component {
   };
 
   render() {
-    console.log("this.props.imgSource", this.props.imgSource, this.props.src);
+    // console.log("this.props.imgSource", this.props.imgSource, this.props.src);
     return (
       <Fragment>
         {

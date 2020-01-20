@@ -1,5 +1,6 @@
 import axios from 'axios';
-import qs from "qs";
+import Toast from 'react-native-root-toast';
+
 
 const LoginStep1 = (username, password, token) => {
 	return new Promise(function(resolve, reject) {
@@ -20,7 +21,15 @@ const LoginStep1 = (username, password, token) => {
 					// console.log('response of login: ', res)
 				})
 				.catch(function(error) {
-					console.error('error in login', error)
+					console.log('error', error.msg);
+					let toast = Toast.show('Invalid Username or Password', {
+						duration: Toast.durations.LONG,
+						position: Toast.positions.BOTTOM,
+						shadow: true, animation: true,
+						hideOnPress: true, delay: 0,
+					})
+					// console.error('error in login', error)
+					
 				})
 	})
 } 
