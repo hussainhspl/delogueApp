@@ -112,7 +112,7 @@ class Comments extends React.Component {
   }
   openMessage(id) {
 
-    console.log("open msg called22", id, this.state.showList);
+    console.log("open msg called22 style message", id, this.state.showList);
     GetAsyncToken().then(token => {
       SpecificMessage(token, id)
         .then(res => {

@@ -2,7 +2,7 @@ import axios from "axios";
 import qs from "qs";
 
 const SpecificMessage = (token, id) => {
-  // console.log('token specific message 12', token)
+  console.log('token specific message 12', id)
   return new Promise(function(resolve, reject) {
     axios({
       url: `${baseUrl}Messages/${id}/Style`,

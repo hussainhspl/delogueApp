@@ -17,7 +17,7 @@ const BgView = styled.View`
   justify-content: flex-end;
 `;
 const ModalView = styled.View`
-  height: 70%;
+  height: 75%;
   background-color: #fff;
 `;
 const ModalTitle = styled.View`

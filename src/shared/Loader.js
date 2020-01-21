@@ -13,7 +13,8 @@ export default class BasicExample extends React.Component {
         // />
         <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
           <Image
-            source={require('../../assets/img/LoadingG64.gif')}
+            style={{width: 128, height: 128}}
+            source={require('../../assets/img/loader.gif')}
             // source={require('../../assets/img/delogue-loader.gif')}
           />
         </View>

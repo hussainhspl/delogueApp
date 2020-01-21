@@ -71,7 +71,10 @@ class Menu extends React.Component {
     super(props);
     this.state = {
       currentUser: null,
-      currentCompany: null
+      currentCompany: null,
+      userIdState: null,
+      designerIdState: null,
+      companyData: null
     }
     // this.checkNredirect = this.checkNredirect.bind(this)
   }
@@ -89,31 +92,64 @@ class Menu extends React.Component {
     history.push("/companyList")
   }
   componentDidMount = () => {
+    
     this.getUsername()
-    this.props.userData.data.loginContexts.some(user => {
-      if(user.id == this.props.userId) {
-        this.setState({
-          currentCompany: user.organizationName
-        })
-        return true;
-      }
-      return false;
-    })
+    // console.log('enter in component did mount menu',this.state.companyData);
+    // console.log('this.props.userData');
+  //   if(this.state.companyData != null) {
+  //   this.state.companyData.some(user => {
+  //     if(user.id == this.state.userIdState) {
+  //       this.setState({
+  //         currentCompany: user.organizationName
+  //       })
+  //       return true;
+  //     }
+  //     return false;
+  //   })
+  // }
   }
+ 
   getUsername = async () => {
     try {
       const username = await AsyncStorage.getItem("@username")
-      this.setState({currentUser: username})
+      const designerId = await AsyncStorage.getItem("@designerId")
+      const userId = await AsyncStorage.getItem("@userId")
+      const parseUserId = JSON.parse(userId);
+      const userData = await AsyncStorage.getItem("@userData");
+      const parseData = JSON.parse(userData);
+      // console.log('parse data', parseData);
+      this.setState({
+        currentUser: username,
+        designerIdState: designerId,
+        userIdState: parseUserId,
+        companyData: parseData
+      },() => this.getCompanyName())
     }
     catch (error) {
       if(error)
         console.log('no username found in sidebar', error);
     }
   }
+  getCompanyName () {
+    // console.log('get company name',this.state.companyData);
+    // if (this.state.companyData != nextState.companyData) {
+      this.state.companyData.some(user => {
+        if(user.id == this.state.userIdState) {
+          // console.log('compare menu', user.id, this.state.userIdState)
+          this.setState({
+            currentCompany: user.organizationName
+          })
+          return true;
+        }
+        return false;
+      })
+    // }
+  }
   render() {
     const history = this.props.history;
     const close = this.props.close;
-    console.log('company name', this.props.userData, this.props.designerId, this.props.userId);
+    // console.log('data in menu', this.state.companyData, 
+      // this.state.designerIdState, this.state.userIdState, this.state.currentCompany);
     return (
       <MenuContainer>
         <SidebarView>
@@ -153,7 +189,7 @@ class Menu extends React.Component {
               <CardText > Logout </CardText>
 
             </LoginTouchableHighlight>
-            <SmallText>version 1.3 </SmallText>
+            <SmallText>version 1.3.1 </SmallText>
           </Bottom>
         </SidebarView>
       </MenuContainer>

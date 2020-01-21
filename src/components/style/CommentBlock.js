@@ -97,8 +97,8 @@ const ImageRow = styled.View`
   margin-bottom: 15px;
   /* background-color: #000; */
   padding: 0px 5px;
-  /* border-bottom-width: 1px;
-  border-color: #ddd; */
+  border-bottom-width: 1px;
+  border-color: #ddd;
 `;
 
 const ImageName = styled.Text`
@@ -156,6 +156,10 @@ const NotifyView = styled.View`
   padding: 6px 0px;
   align-items: flex-end;
 `;
+const ReplyBlock = styled.View`
+  border-bottom-width: 1px;
+  border-color: #ddd;
+`;
 class CommentBlock extends React.Component {
   constructor(props) {
     super(props);
@@ -165,8 +169,8 @@ class CommentBlock extends React.Component {
   }
   render() {
     console.log('this. comment block data', this.props.data)
-    const { isRead, loggedInUser, loggedOn, notifiedUsers, internalOnly, 
-      subject, logMessage, id} = this.props.data.styleAuditLog
+    const { isRead, loggedInUser, loggedOn, notifiedUsers, internalOnly,
+      subject, logMessage, id, replyList, fileList } = this.props.data.styleAuditLog
     // console.log('is read : ', isRead, this.props.data.styleAuditLog);
     let formatedDate = format(parseISO(loggedOn), "d-MMM-yyyy kk:mm");
 
@@ -204,15 +208,15 @@ class CommentBlock extends React.Component {
           }
           <BodyArea>
             {/* <MessageBody> */}
-              <AutoHeightWebView 
-                style={{ width: Dimensions.get('window').width - 45, marginTop: 35 }}
-                source={{
-                  html: `<!DOCTYPE html><html><head><meta name="viewport" content="width=device-width, initial-scale=1"></head>
+            <AutoHeightWebView
+              style={{ width: Dimensions.get('window').width - 45, marginTop: 35 }}
+              source={{
+                html: `<!DOCTYPE html><html><head><meta name="viewport" content="width=device-width, initial-scale=1"></head>
                 <body><small>${logMessage}</small></body></html>`
-                }}
-                scalesPageToFit={true}
-                zoomable={false}
-              />
+              }}
+              scalesPageToFit={true}
+              zoomable={false}
+            />
             <FromRow>
               <Name>{loggedInUser.name} </Name>
               <Title>{formatedDate}</Title>
@@ -235,21 +239,75 @@ class CommentBlock extends React.Component {
               </NotifyView>
             </FromRow>
           </BodyArea>
-          <ImageRow>
-            {imgArr.map(data => {
-              return (
-                <Fragment>
-                  {/* <TouchableHighlight
-                    underlayColor= {this.props.theme.overlayBlue}
-                  > */}
-                  <ImageCard key={data.key} imgPath={require("../../../assets/img/shirt-static.png")} >
-                    <ImageName numberOfLines={1}> sample.jpg </ImageName>
-                  </ImageCard>
-                  {/* </TouchableHighlight> */}
-                </Fragment>
-              );
-            })}
-          </ImageRow>
+          {
+            fileList != null ?
+              <ImageRow>
+                {fileList.map(data => {
+                  console.log('reply img main', data)
+                  let url = `http://test.delogue.com/api/v2.0/resource/thumbnail?ResourceId=${data.fileId}&Width=117&Height=113`
+                  console.log('reply img url', url)
+                  return (
+                    <Fragment>
+                      {/* <TouchableHighlight
+                      underlayColor= {this.props.theme.overlayBlue}
+                    > */}
+                      <ImageCard key={data.key} 
+                        // imgPath={require("../../../assets/img/shirt-static.png")}
+                        imgPath={{uri: url}}
+                      >
+                        <ImageName numberOfLines={1}> {data.fileName} </ImageName>
+                      </ImageCard>
+                      {/* </TouchableHighlight> */}
+                    </Fragment>
+                  );
+                })}
+              </ImageRow>
+              : nul
+          }
+
+          {
+            replyList != null ?
+              replyList.map(d => {
+                return (
+                  <ReplyBlock>
+                    <AutoHeightWebView
+                      style={{ width: Dimensions.get('window').width - 45, marginTop: 35 }}
+                      source={{
+                        html: `<!DOCTYPE html><html><head><meta name="viewport" content="width=device-width, initial-scale=1"></head>
+                    <body><small>${d.logMessage}</small></body></html>`
+                      }}
+                      scalesPageToFit={true}
+                      zoomable={false}
+                    />
+                    {
+                      d.fileList != null ?
+                        <ImageRow>
+                          {d.fileList.map(data => {
+                            // console.log('reply img', data.fileId);
+                            let url = `http://test.delogue.com/api/v2.0/resource/thumbnail?ResourceId=${data.fileId}&Width=117&Height=113`
+                            return (
+                              <Fragment>
+                                {/* <TouchableHighlight
+                                  underlayColor= {this.props.theme.overlayBlue}
+                                > */}
+                                <ImageCard key={data.key} 
+                                  // imgPath={require("../../../assets/img/shirt-static.png")} 
+                                  imgPath={{uri: url}}
+                                >
+                                  <ImageName numberOfLines={1}> {data.fileName} </ImageName>
+                                </ImageCard>
+                                {/* </TouchableHighlight> */}
+                              </Fragment>
+                            );
+                          })}
+                        </ImageRow>
+                        : nul
+                    }
+                  </ReplyBlock>
+                )
+              })
+              : null
+          }
         </CommentBox>
       </Fragment>
     );

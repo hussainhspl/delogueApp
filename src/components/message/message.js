@@ -281,8 +281,6 @@ class Message extends React.Component {
       <MainView>
         <Header 
           history={this.props.history}
-          designerId={this.props.location.designerId} 
-          userId={this.props.location.userId}
         >
           <ScrollView>
             <IconRow>
@@ -339,7 +337,7 @@ class Message extends React.Component {
                   // console.log('msg body', m.messageBody);
                   // let newMsgBody = m.messageBody.replace('handlers/ThumbnailService.ashx', 'http://test.delogue.com/api/v2.0/resource/thumbnail')
                   let newMsgBody = m.messageBody.split("handlers/ThumbnailService.ashx").join("http://test.delogue.com/api/v2.0/resource/thumbnail")
-                  
+                  let msgId = m.parentLogId != null ? m.parentLogId : m.auditLogId
                   // console.log('new msg : ', newMsgBody);
                   if (m.messageType == "StyleCommunicationMessage") {
                     return (
@@ -348,7 +346,7 @@ class Message extends React.Component {
                           <MessageBox >
                             <TouchableHighlight
                               underlayColor={this.props.theme.overlayBlue}
-                              onPress={() => this.redirectToComment(m.auditLogId)}
+                              onPress={() => this.redirectToComment(msgId)}
                             >
                               <Fragment>
                                 <MsgIconBox readMsg={m.isRead}>

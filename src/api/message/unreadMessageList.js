@@ -2,7 +2,7 @@ import axios from "axios";
 import qs from "qs";
 
 const UnreadMessageList = (token) => {
-  // console.log('token styles 12', token)
+  console.log('token styles 12', token)
   return new Promise(function(resolve, reject) {
     // let string = this.state.searchBrand;
     const data1 = {  

@@ -121,8 +121,6 @@ class CompanyList extends React.Component {
       companyData: null,
       token: "",
       imgSrc: null,
-      designerIdState: null,
-      userIdState: null
     };
     this.toggle = this.toggle.bind(this);
     this.handleBackButtonClick = this.handleBackButtonClick.bind(this);
@@ -134,15 +132,28 @@ class CompanyList extends React.Component {
       this.setState({ refreshing: false });
     }, 2000);
   };
-  static getDerivedStateFromProps(nextProps, prevState) {
-    if (nextProps.companyData !== prevState.companyData) {
-      // console.log("Entered nextProps");
-      // console.log("Entered prevState", prevState);
-      return {
-        companyData: nextProps.userData,
-      }
+  // static getDerivedStateFromProps(nextProps, prevState) {
+  //   if (nextProps.companyData !== prevState.companyData) {
+  //     // console.log("Entered nextProps");
+  //     // console.log("Entered prevState", prevState);
+  //     return {
+  //       companyData: nextProps.userData,
+  //     }
+  //   }
+  //   return null;
+  // }
+  getCompanyData = async () => {
+    try {
+      const userData = await AsyncStorage.getItem("@userData");
+      const parseData = JSON.parse(userData);
+      this.setState({
+        companyData: parseData
+      })
     }
-    return null;
+    catch (error) {
+      if(error)
+        console.log('error fetching user data', error);
+    }
   }
   componentDidMount = () => {
     setTimeout(() => {
@@ -156,6 +167,7 @@ class CompanyList extends React.Component {
       "hardwareBackPress",
       this.handleBackButtonClick
     );
+    this.getCompanyData()
   };
   componentWillUnmount = () => {
     clearTimeout();
@@ -190,18 +202,24 @@ class CompanyList extends React.Component {
     this.getCredential()
       .then(cred =>{
         const [username, password] = cred;
-        // console.log("async cred", cred,uname, pass, uid);
+        // console.log("async cred", cred, uname, pass, uid);
         LoginStep2(designerId, uid, username, password)
         .then(res => {
           console.log('data after successful login:', res);
           let tokenExp = new Date(res.headers.date);
           let seconds = res.data.expires_in;
           tokenExp.setSeconds(tokenExp.getSeconds() + seconds);
+          let strUid = JSON.stringify(uid);
+          let strDesignerId = JSON.stringify(designerId)
+
+          console.log('coming here', strUid, uid, typeof(uid), typeof(designerId))
+          AsyncStorage.multiSet([
+            ["@designerId", strDesignerId],
+            ["@userId", strUid]
+          ])
           this.setState(
             {
               token: res.data.access_token,
-              designerIdState: designerId,
-              userIdState: uid
             },
             () => this.storeToken(tokenExp)
           );
@@ -221,9 +239,7 @@ class CompanyList extends React.Component {
       ]);
       console.log("data saved successfully");
       this.props.history.push({
-        pathname:"/message",
-        designerId:this.state.designerIdState,
-        userId:this.state.userIdState
+        pathname:"/message"
       })
     } 
     catch (e) {
@@ -250,8 +266,6 @@ class CompanyList extends React.Component {
           content={<Menu 
             close={this.toggle} 
             history={history}
-            designerId={this.state.designerIdState} 
-            userId={this.state.userIdState}
           />}
           openDrawerOffset={0.4} // 20% gap on the right side of drawer
           panCloseMask={0.2}
@@ -284,7 +298,7 @@ class CompanyList extends React.Component {
             >
               <ParentView>
                 {this.state.companyData != null ? 
-                  this.state.companyData.data.loginContexts.map((data, i) => {
+                  this.state.companyData.map((data, i) => {
                     this.state.imgSrc = null;
                     data.brands.some(img => {
                       if(img.logo !=null) {

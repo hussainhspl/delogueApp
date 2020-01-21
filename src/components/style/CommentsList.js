@@ -252,7 +252,9 @@ class CommentsList extends React.Component {
                             source={require("../../../assets/img/message-icon.png")} />
                           </STouchableHighlight>
                         </IconBox>
-                        <Subject>{data.messageSubject.length >0 ? data.messageSubject : 'no subject'} </Subject>
+                        <Subject>
+                          {data.messageSubject != null ? data.messageSubject.length > 0 ? data.messageSubject : 'no subject': 'no subject'} 
+                        </Subject>
                         {/* <ContentText numberOfLines={2}>Dear nando, please find a new style and if you have any doubt or queries then please ask</ContentText> */}
                         <AutoHeightWebView
                           style={{ width: Dimensions.get('window').width - 45, height: 72 }}
@@ -284,7 +286,7 @@ class CommentsList extends React.Component {
               )
             })
             : <InfoView>
-                <InfoText> Enter String to Messages </InfoText>
+                <InfoText> </InfoText>
               </InfoView>
         }
         {this.state.emptyResult && (

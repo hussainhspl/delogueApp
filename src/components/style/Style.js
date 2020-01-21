@@ -3,8 +3,6 @@ import { View, Text, Image, ScrollView } from "react-native";
 // import styled from "styled-components/native";
 import { createStore } from "redux";
 import AsyncStorage from '@react-native-community/async-storage';
-import axios from "axios";
-import qs from "qs";
 // relative import
 import General from "./General";
 import Comments from "./Comments";
@@ -67,7 +65,7 @@ class Style extends React.Component {
       case "files":
         return <Files
           // styleID= {data.id}
-          // data={StateData != null ? StateData.data : null}
+          styleData={StateData != null ? StateData.data : null}
           styleID = {this.props.StoreStyleId != null ? this.props.StoreStyleId: null}
         />;
       case "sample":
@@ -99,7 +97,7 @@ class Style extends React.Component {
       // console.log('did mount style data null');
       setTimeout(() => {
         history.push("/search")
-      }, 3000);
+      }, 1000);
     }
     // if(this.props.currentTab == 'general'){
     //   if(this.state.styleData == null) {
@@ -150,7 +148,7 @@ class Style extends React.Component {
                     this.props.currentTab,
                     this.state.styleData,
                     this.props.location
-                    // this.props.location.data, 
+                    // this.props.location.data,
                     // this.props.location.openMessage,
                     // this.props.location.SampleCommentData
                   )
