@@ -38,8 +38,6 @@ const FirstRow = styled.View`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  border-bottom-color: #ddd;
-  border-bottom-width: 1px;
   padding: 10px 0px ;
   margin: 0px 10px;
   /* background-color: #ddd; */
@@ -74,7 +72,7 @@ const FromRow = styled.View`
   justify-content: flex-end;
   padding: 10px 0px 0px 10px;
   flex-wrap: wrap;
-  width: 35%;
+  /* width: 35%; */
   /* background-color: #f00; */
 `;
 const HeaderText = styled.Text`
@@ -95,10 +93,7 @@ const ImageRow = styled.View`
   flex-direction: row;
   flex-wrap: wrap;
   margin-bottom: 15px;
-  /* background-color: #000; */
   padding: 0px 5px;
-  /* border-bottom-width: 1px;
-  border-color: #ddd; */
 `;
 
 const ImageName = styled.Text`
@@ -123,7 +118,7 @@ const MsgImage = styled.Image`
   height: 15px;
 `;
 const BodyArea = styled.View`
-  flex-direction: row;
+  /* flex-direction: row; */
 `;
 
 const Name = styled.Text`
@@ -131,6 +126,8 @@ const Name = styled.Text`
   font-family: ${props => props.theme.bold};
   font-size: ${props => props.theme.small};
   padding-bottom: 3px;
+  width: 100%;
+  text-align: right;
 `;
 const Date = styled.Text`
   color: #777;
@@ -156,6 +153,11 @@ const NotifyView = styled.View`
   padding: 6px 0px;
   align-items: flex-end;
 `;
+
+const ReplyBlock = styled.View`
+  border-bottom-width: 1px;
+  border-color: #ddd;
+`;
 class SpecificStyleMessage extends React.Component {
   constructor(props) {
     super(props);
@@ -166,11 +168,12 @@ class SpecificStyleMessage extends React.Component {
   render() {
     console.log('this. specific style block data', this.props.data)
     const { isRead, loggedInUser, loggedOn, notifiedUsers, internalOnly, 
-      subject, logMessage} = this.props.data.styleAuditLog;
+      subject, logMessage, id, replyList, fileList} = this.props.data.styleAuditLog;
       console.log('time : ', format(parseISO(loggedOn), "d-MMM-yyyy kk:mm"))
     // console.log('is read : ', isRead, this.props.data.styleAuditLog);
     let formatedDate = format(parseISO(loggedOn), "d-MMM-yyyy kk:mm");
-
+    let mainMsgBody = logMessage.replace(/class='commAttachmentsContainer/g, "style='display: none' class='")
+    
     return (
       <Fragment>
         <CommentBox>
@@ -204,34 +207,78 @@ class SpecificStyleMessage extends React.Component {
               <ReplyComponent />
             )
           }
+          {
+            replyList != null ?
+              replyList.map(d => {
+                let newMsgBody = d.logMessage.replace(/class='commAttachmentsContainer/g, "style='display: none' class='")
+                let formatedDate = format(parseISO(d.loggedOn), "d-MMM-yyyy kk:mm");
+                return (
+                  <ReplyBlock>
+                    <FromRow>
+                      <Name>{d.loggedInUser.name} </Name>
+                      <Title>{formatedDate}</Title>
+                      <NotifyView>
+                        <Title> NOTIFIED</Title>
+                        {
+                          notifiedUsers.length > 0 ?
+                            notifiedUsers.map(d => (
+                              <Title> {d.name} </Title>
+                            ))
+                            : null
+                        }
+                        {d.internalOnly != null && (
+                          <InternalView>
+                            <Icon style={{ color: '#ddd', fontSize: 15 }} name="home" />
+                            <InternalText>Internal</InternalText>
+                          </InternalView>
+                        )}
+
+                      </NotifyView>
+                    </FromRow>
+                    <AutoHeightWebView
+                      style={{ width: Dimensions.get('window').width - 45, marginTop: 15, marginBottom: 0 }}
+                      source={{ html: `${newMsgBody}` }}
+                      customStyle={`
+                        * {
+                          font-family: ${props => props.theme.regular};
+                          marginBottom: 0px;
+                        }
+                      `}
+                      scalesPageToFit={false}
+                      zoomable={false}
+                      viewportContent={'width=device-width, user-scalable=no'}
+                    />
+                    {
+                      d.fileList != null ?
+                        <ImageRow>
+                          {d.fileList.map(data => {
+                            let url = `http://test.delogue.com/api/v2.0/resource/thumbnail?ResourceId=${data.fileId}&Width=117&Height=113`
+                            let bigUrl = `${baseUrl}resource/thumbnail?ResourceId=${data.fileId}&Width=1000&Height=500`
+                            return (
+                              <Fragment>
+
+                                <ImageCard key={data.key}
+                                  msgTitle={subject}
+                                  bigImgUrl={bigUrl}
+                                  imgPath={{ uri: url }}
+                                  fileName={data.fileName}
+                                >
+                                  <ImageName numberOfLines={1}> {data.fileName} </ImageName>
+                                </ImageCard>
+
+                              </Fragment>
+                            );
+                          })}
+                        </ImageRow>
+                        : nul
+                    }
+                  </ReplyBlock>
+                )
+              })
+              : null
+          }
           <BodyArea>
-            {/* <MessageBody> */}
-              <AutoHeightWebView
-                style={{ width: Dimensions.get('window').width - 45, marginTop: 35 }}
-                source={{
-                  html: `<!DOCTYPE html><html><head><meta name="viewport" content="width=device-width, initial-scale=1"></head>
-                <body><small>${logMessage}</small></body></html>`
-                }}
-                scalesPageToFit={true}
-                zoomable={false}
-              />
-              {/* <WebView
-                originWhitelist={['*']}
-                injectedJavaScript='window.ReactNativeWebView.postMessage(JSON.stringify(document.body.scrollHeight), "*")'
-                scrollEnabled={false}
-                style={{ height: 100 }}
-                source={{
-                  html: `<!DOCTYPE html><html><head><meta name="viewport" content="width=device-width, initial-scale=1"></head>
-                            <body><small>${logMessage}</small></body></html>`
-                }}
-              /> */}
-              {/* Laboris consectetur id tempor do nostrud enim laboris exercitation
-              exercitation ad. Deserunt incididunt tempor sit cillum veniam officia
-              eu esse laboris quis aliqua ex cupidatat eu. Ad et tempor proident
-              velit et nulla Lorem. Mollit ut magna aliqua ex mollit aute in Lorem.
-              Voluptate esse ut exercitation deserunt excepteur eu. Id laborum culpa
-              pariatur anim dolor ipsum ullamco exercitation. */}
-            {/* </MessageBody> */}
+            {/* <MessageBody> */}             
             <FromRow>
               <Name>{loggedInUser.name} </Name>
               <Title>{formatedDate}</Title>
@@ -254,22 +301,37 @@ class SpecificStyleMessage extends React.Component {
 
               </NotifyView>
             </FromRow>
+            <AutoHeightWebView
+              style={{ width: Dimensions.get('window').width - 45, marginTop: 15 }}
+              source={{ html: `${mainMsgBody}` }}
+              scalesPageToFit={false}
+              zoomable={false}
+              viewportContent={'width=device-width, user-scalable=no'}
+            />
           </BodyArea>
-          <ImageRow>
-            {imgArr.map(data => {
-              return (
-                <Fragment>
-                  {/* <TouchableHighlight
-                    underlayColor= {this.props.theme.overlayBlue}
-                  > */}
-                  <ImageCard key={data.key} imgPath={require("../../../assets/img/shirt-static.png")} >
-                    <ImageName numberOfLines={1}> sample.jpg </ImageName>
-                  </ImageCard>
-                  {/* </TouchableHighlight> */}
-                </Fragment>
-              );
-            })}
-          </ImageRow>
+          {
+            fileList != null ?
+              <ImageRow>
+                {fileList.map(data => {
+                  let url = `${baseUrl}resource/thumbnail?ResourceId=${data.fileId}&Width=117&Height=113`
+                  let bigUrl = `${baseUrl}resource/thumbnail?ResourceId=${data.fileId}&Width=1000&Height=500`
+                  return (
+                    <Fragment>  
+                      <ImageCard 
+                        key={data.key}
+                        msgTitle={subject}
+                        bigImgUrl={bigUrl}
+                        imgPath={{ uri: url }}
+                        fileName={data.fileName}
+                      >
+                        <ImageName numberOfLines={1}> {data.fileName} </ImageName>
+                      </ImageCard>
+                    </Fragment>
+                  );
+                })}
+              </ImageRow>
+              : nul
+          }
         </CommentBox>
       </Fragment>
     );

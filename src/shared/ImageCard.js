@@ -74,9 +74,14 @@ class ImageCard extends React.Component{
         </TouchableHighlight>
         {this.props.children}
       
-          <AttachmentPopup 
-            path = "https://www.pngix.com/pngfile/middle/94-947216_aspinwall-outline-montana-t-shirt-pine-1-university.png"
+          <AttachmentPopup
+            title={this.props.msgTitle}
+            path = {this.props.bigImgUrl}
             modalVisible={this.state.modalVisible}
+            Name={this.props.fileName}
+            Date={"22-Jan-2020 8:55"}
+            fileSrc = {this.props.bigImgUrl
+            }
             close={() => this.setState({modalVisible: false})} 
           /> 
       </MainBlock>

@@ -46,7 +46,8 @@ const MarkAllReadBox = styled.TouchableHighlight`
   height: 40px;
   align-items: center;
   justify-content: center;
-  background-color: ${props => props.theme.darkGreen};
+  background-color: ${props => props.theme.darkGreen};\
+  margin-left: 15px;
 `;
 const StyleImage = styled.Image`
   width: 25px;
@@ -235,12 +236,13 @@ class CommentsList extends React.Component {
           this.state.msgList != null ?
             this.state.msgList.map(data => {
               let formatedDate = format(parseISO(data.loggedOn), "d-MMM-yyyy kk:mm");
+              let msgId = data.parentLogId != null ? data.parentLogId : data.auditLogId
               return (
                 <MessageBox>
                   <TouchableHighlight
                     underlayColor="#42546033"
                     // onPress={() => console.log('style msg click')}
-                    onPress={ () => this.props.closeList(data.auditLogId)}
+                    onPress={ () => this.props.closeList(msgId)}
                   >
                     <Row>
                       <MainContent>

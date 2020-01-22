@@ -177,7 +177,7 @@ class AttachmentPopup extends React.Component {
         <BgView>
           <ModalView>
             <ModalTitle>
-              <HeaderText>Swatch</HeaderText>
+              <HeaderText>{this.props.title}</HeaderText>
               <CloseBox>
                 <TouchableHighlight
                   underlayColor="rgba(221, 221, 221, 0.4)"

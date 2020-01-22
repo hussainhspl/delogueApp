@@ -336,9 +336,10 @@ class Message extends React.Component {
                   // console.log('m :', m);
                   // console.log('msg body', m.messageBody);
                   // let newMsgBody = m.messageBody.replace('handlers/ThumbnailService.ashx', 'http://test.delogue.com/api/v2.0/resource/thumbnail')
-                  let newMsgBody = m.messageBody.split("handlers/ThumbnailService.ashx").join("http://test.delogue.com/api/v2.0/resource/thumbnail")
+                  // let newMsgBody = m.messageBody.split("handlers/ThumbnailService.ashx").join("http://test.delogue.com/api/v2.0/resource/thumbnail")
+                  let newMsgBody = m.messageBody.replace(/class='commAttachmentsContainer/g, "style='display: none' class='")
                   let msgId = m.parentLogId != null ? m.parentLogId : m.auditLogId
-                  // console.log('new msg : ', newMsgBody);
+                  console.log('new msg : ', newMsgBody);
                   if (m.messageType == "StyleCommunicationMessage") {
                     return (
                       <Fragment key={m.auditLogId}>
@@ -385,12 +386,13 @@ class Message extends React.Component {
                                     // }}
                                     >
                                       <AutoHeightWebView
-                                        style={{ width: Dimensions.get('window').width - 45, marginTop: 35 }}
-                                        source={{
-                                          html: `<!DOCTYPE html><html><head><meta name="viewport" content="width=device-width, initial-scale=1"></head>
-                                        <body><small>${newMsgBody}</small></body></html>`
-                                        }}
-                                        scalesPageToFit={true}
+                                        style={{ width: Dimensions.get('window').width - 45, marginTop: 15, height: 40 }}
+                                        // source={{
+                                        //   html: `<!DOCTYPE html><html><head><meta name="viewport" content="width=device-width, initial-scale=1"></head>
+                                        // <body><small>${newMsgBody}</small></body></html>`
+                                        // }}
+                                        source={{html: `${newMsgBody}`}}
+                                        scalesPageToFit={false}
                                         zoomable={false}
                                       />
                                     </View>

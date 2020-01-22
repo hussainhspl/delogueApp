@@ -6,6 +6,7 @@ import {
   CheckBox,
   Item,
   Picker,
+  StatusBar
 } from "native-base";
 import { withTheme } from 'styled-components';
 import styled from "styled-components/native";
@@ -23,6 +24,10 @@ import TouchableCancel from "../../styles/ToucaableCancel";
 import TouchableApply from "../../styles/TouchableApply";
 import SendNewMessage from '../../api/comments/sendNewMessage';
 import Toast from 'react-native-root-toast';
+import TextEditor from "./textEditor";
+
+
+
 
 const MessageBlock = styled.View`
   border: 1px solid #849d7a;
@@ -168,6 +173,9 @@ const MsgImage = styled.Image`
   width: 20px;
   height: 15px;
 `;
+
+
+
 class NewMessage extends React.Component {
   constructor(props) {
     super(props);
@@ -180,7 +188,7 @@ class NewMessage extends React.Component {
       notifyList: [],
       internal: false,
       otherUsers: [],
-      attachment: ''
+      attachment: '',
     };
   }
   componentDidMount = () => {
@@ -324,6 +332,7 @@ class NewMessage extends React.Component {
             placeholder="Type your message"
             textAlignVertical="top"
           />
+          <TextEditor/>
           <Fragment>
             {
               typeof (this.state.attachment) == 'object' && (
@@ -352,7 +361,6 @@ class NewMessage extends React.Component {
           </Fragment>
           <ButtonRow>
             <NewMessageCamera
-
               styleID={this.props.styleID}
               attachmentImage={(obj) => this.setState(prevState => ({
                 attachment: [...prevState.attachment, obj]
@@ -381,5 +389,9 @@ class NewMessage extends React.Component {
       </View>
     );
   }
+   onContentChange = (content) => {
+    // Save this content
+    this.setState({ content });
+  };
 }
 export default withTheme(NewMessage);
