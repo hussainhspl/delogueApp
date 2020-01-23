@@ -241,8 +241,12 @@ class SpecificStyleMessage extends React.Component {
                       customStyle={`
                         * {
                           font-family: ${props => props.theme.regular};
-                          marginBottom: 0px;
                         }
+                        .fr-emoticon {
+                          width: 15px;
+                          height: 15px;
+                          display: inline-block;
+                        }                  
                       `}
                       scalesPageToFit={false}
                       zoomable={false}

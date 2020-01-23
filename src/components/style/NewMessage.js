@@ -262,7 +262,7 @@ class NewMessage extends React.Component {
   }
   render() {
     // console.log('attachment state :', this.state.attachment, typeof (this.state.attachment))
-    console.log('render in new msg', this.props.parentId)
+    // console.log('render in new msg', this.props.parentId)
 
     return (
       <View>
@@ -328,11 +328,13 @@ class NewMessage extends React.Component {
             multiline={true}
             numberOfLines={4}
             onChangeText={textArea => this.setState({ textArea })}
-            value={this.state.textArea}
+            // value={this.state.textArea}
             placeholder="Type your message"
             textAlignVertical="top"
           />
-          <TextEditor/>
+          <TextEditor
+            bodyHtml={(html) => this.setState({textArea : html})}
+          />
           <Fragment>
             {
               typeof (this.state.attachment) == 'object' && (

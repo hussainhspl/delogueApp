@@ -242,8 +242,12 @@ class CommentBlock extends React.Component {
                       customStyle={`
                         * {
                           font-family: ${props => props.theme.regular};
-                          marginBottom: 0px;
                         }
+                        .fr-emoticon {
+                          width: 15px;
+                          height: 15px;
+                          display: inline-block;
+                      }
                       `}
                       scalesPageToFit={false}
                       zoomable={false}
@@ -286,11 +290,11 @@ class CommentBlock extends React.Component {
               <NotifyView>
                 <Title> NOTIFIED</Title>
                 {
-                  notifiedUsers.length > 0 ?
-                    notifiedUsers.map(d => (
-                      <Title> {name} </Title>
-                    ))
-                    : null
+                  // notifiedUsers.length > 0 ?
+                  //   notifiedUsers.map(d => (
+                  //     <Title> {name} </Title>
+                  //   ))
+                  //   : null
                 }
                 {internalOnly != null && (
                   <InternalView>

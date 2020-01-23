@@ -24,7 +24,7 @@ const ImageView = styled.View`
 	height: ${props =>
     props.tablet
     ? Dimensions.get('window').height/ 4 -60
-    : Dimensions.get('window').height/ 3 -60 };
+    : Dimensions.get('window').height/ 3 -50 };
     padding: 3px;
     align-items: center;
 `;
@@ -37,7 +37,7 @@ const StyleImage = styled.Image`
 		height: ${props =>
     props.tablet
     ? Dimensions.get('window').height / 4 -50
-    : Dimensions.get('window').height/ 3 - 50};
+    : Dimensions.get('window').height/ 3 - 60};
 		margin: auto;
     
 `;

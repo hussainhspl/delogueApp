@@ -72,7 +72,7 @@ class Style extends React.Component {
         return <Sample
           history={this.props.history}
           data={locationData.SampleCommentData}
-          styleData={StateData.data}
+          styleData={StateData != null ? StateData.data : null}
         />;
       case "pdf":
         return <Pdf />;

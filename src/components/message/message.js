@@ -339,7 +339,7 @@ class Message extends React.Component {
                   // let newMsgBody = m.messageBody.split("handlers/ThumbnailService.ashx").join("http://test.delogue.com/api/v2.0/resource/thumbnail")
                   let newMsgBody = m.messageBody.replace(/class='commAttachmentsContainer/g, "style='display: none' class='")
                   let msgId = m.parentLogId != null ? m.parentLogId : m.auditLogId
-                  console.log('new msg : ', newMsgBody);
+                  // console.log('new msg : ', newMsgBody);
                   if (m.messageType == "StyleCommunicationMessage") {
                     return (
                       <Fragment key={m.auditLogId}>
@@ -387,13 +387,20 @@ class Message extends React.Component {
                                     >
                                       <AutoHeightWebView
                                         style={{ width: Dimensions.get('window').width - 45, marginTop: 15, height: 40 }}
-                                        // source={{
-                                        //   html: `<!DOCTYPE html><html><head><meta name="viewport" content="width=device-width, initial-scale=1"></head>
-                                        // <body><small>${newMsgBody}</small></body></html>`
-                                        // }}
-                                        source={{html: `${newMsgBody}`}}
+                                        customStyle={`
+                                        * {
+                                          font-family: ${props => props.theme.regular};
+                                        }
+                                        .fr-emoticon {
+                                          width: 15px;
+                                          height: 15px;
+                                          display: inline-block;
+                                        }  
+                                      `}
+                                        source={{html: `<html><head></head><body>${newMsgBody}</body></html>`}}
                                         scalesPageToFit={false}
                                         zoomable={false}
+                                        viewportContent={'width=device-width, user-scalable=no'}
                                       />
                                     </View>
                                     {/* :null} */}

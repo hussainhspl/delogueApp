@@ -145,8 +145,8 @@ class CommentsList extends React.Component {
         .then(res => {
           console.log('response', res);
           // this.props.styleMessageListFunction(res.data)
-          if(res.data.length == 0){
-            this.setState({emptyResult : true})
+          if (res.data.length == 0) {
+            this.setState({ emptyResult: true })
           }
           this.setState({
             msgList: res.data
@@ -164,30 +164,30 @@ class CommentsList extends React.Component {
   //   }
   //   return null;
   // }
-  toggleAlert (auditLogId, messageType) {
+  toggleAlert(auditLogId, messageType) {
     console.log('enter in toggle alert', auditLogId);
     let currentAlert = '';
     GetAsyncToken()
       .then(token => {
 
-        this.state.msgList.map( d => {
-          if(d.auditLogId == auditLogId) {
+        this.state.msgList.map(d => {
+          if (d.auditLogId == auditLogId) {
             console.log('click state', d.isRead);
             currentAlert = d.isRead;
           }
         })
         console.log('if', currentAlert);
-        if(currentAlert == false) {
-          console.log('auditLogId',auditLogId);
+        if (currentAlert == false) {
+          console.log('auditLogId', auditLogId);
           DeleteAlert(token, auditLogId)
-          .then(res => {
-            console.log('alert deleted successfully');
-            this.styleMessages()
-            // this.props.updateReadFunction(auditLogId)   
+            .then(res => {
+              console.log('alert deleted successfully');
+              this.styleMessages()
+              // this.props.updateReadFunction(auditLogId)   
 
-          })
-        }else{
-          console.log('auditLogId',auditLogId);
+            })
+        } else {
+          console.log('auditLogId', auditLogId);
           CreateAlert(token, auditLogId, messageType)
             .then(res => {
               console.log('successfully marked unread', res);
@@ -242,30 +242,42 @@ class CommentsList extends React.Component {
                   <TouchableHighlight
                     underlayColor="#42546033"
                     // onPress={() => console.log('style msg click')}
-                    onPress={ () => this.props.closeList(msgId)}
+                    onPress={() => this.props.closeList(msgId)}
                   >
                     <Row>
                       <MainContent>
                         <IconBox read={data.isRead}>
-                        <STouchableHighlight underlayColor={this.props.theme.overlayBlue} 
-                          onPress={() => this.toggleAlert(data.auditLogId, data.messageType)}>
-                          <MsgImage
-                            resizeMode={"contain"}
-                            source={require("../../../assets/img/message-icon.png")} />
+                          <STouchableHighlight underlayColor={this.props.theme.overlayBlue}
+                            onPress={() => this.toggleAlert(data.auditLogId, data.messageType)}>
+                            <MsgImage
+                              resizeMode={"contain"}
+                              source={require("../../../assets/img/message-icon.png")} />
                           </STouchableHighlight>
                         </IconBox>
                         <Subject>
-                          {data.messageSubject != null ? data.messageSubject.length > 0 ? data.messageSubject : 'no subject': 'no subject'} 
+                          {data.messageSubject != null ? data.messageSubject.length > 0 ? data.messageSubject : 'no subject' : 'no subject'}
                         </Subject>
                         {/* <ContentText numberOfLines={2}>Dear nando, please find a new style and if you have any doubt or queries then please ask</ContentText> */}
                         <AutoHeightWebView
                           style={{ width: Dimensions.get('window').width - 45, height: 72 }}
+                          customStyle={`
+                           * {
+                           font-family: ${props => props.theme.regular};
+                            }
+                            .fr-emoticon {
+                              width: 15px;
+                              height: 15px;
+                              display: inline-block;
+                            }
+                                        
+                          `}
                           source={{
-                            html: `<!DOCTYPE html><html><head><meta name="viewport" content="width=device-width, initial-scale=1"></head>
-                          <body><small>${data.messageBody}</small></body></html>`
+                            html: `${data.messageBody}`
                           }}
-                          scalesPageToFit={true}
+                          scalesPageToFit={false}
                           zoomable={false}
+                          viewportContent={'width=device-width, user-scalable=no'}
+
                         />
                         {/* <WebView
                           originWhitelist={['*']}
@@ -288,27 +300,27 @@ class CommentsList extends React.Component {
               )
             })
             : <InfoView>
-                <InfoText> </InfoText>
-              </InfoView>
+              <InfoText> </InfoText>
+            </InfoView>
         }
         {this.state.emptyResult && (
-                  <InfoView>
-                    <InfoText> No result found </InfoText>  
-                  </InfoView>
-                )}
+          <InfoView>
+            <InfoText> No result found </InfoText>
+          </InfoView>
+        )}
       </View>
     );
   }
 }
 const mapDispatchToProps = dispatch => {
-  return{
-    styleMessageListFunction : (li) => dispatch(styleMessageList(li))
+  return {
+    styleMessageListFunction: (li) => dispatch(styleMessageList(li))
   }
 };
 const mapStateToProps = state => {
-  return{
-    storeMsgList : state.styleMessageList.styleMessageListState
+  return {
+    storeMsgList: state.styleMessageList.styleMessageListState
   }
 };
-export default connect(mapStateToProps, mapDispatchToProps) 
-(withTheme(CommentsList));
+export default connect(mapStateToProps, mapDispatchToProps)
+  (withTheme(CommentsList));
