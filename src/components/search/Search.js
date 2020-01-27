@@ -284,18 +284,19 @@ class Search extends React.Component {
             
             {this.state.showSuggestion == false ?
               this.state.currentView === "grid" && (
-                
+                <ScrollView showsVerticalScrollIndicator={false}>
                 <GridView>
+                  
                   {
                     this.state.filteredStyle != null ?
                       this.state.filteredStyle.styles.map(data => {
-                        return (<ScrollView showsVerticalScrollIndicator={false}>
+                        return (
                           <SearchGridCard
                           key={data.styleNo}
                           data={data}
                           history={history}
                           GetStyleClicked={() => { this.redirectToCurrentStyle(data.id) }}
-                        /></ScrollView>);
+                        />);
                       })
                       :
                       
@@ -314,7 +315,9 @@ class Search extends React.Component {
                       <InfoText> No result found </InfoText>
                     </InfoView>
                   )}
+                  
                 </GridView>
+                </ScrollView>
             ) : null}
             
           

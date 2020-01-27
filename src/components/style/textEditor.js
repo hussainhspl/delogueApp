@@ -84,6 +84,10 @@ class TextEditor extends Component {
             size={28} style={{
             	top:2
             }} />            */}
+						{/* <Text>A</Text> */}
+						<ToolbarButton>
+							<Image source={require("../../../assets/img/text-editor/004-tint-drop.png")} />
+						</ToolbarButton>
 				</MenuTrigger>
 				<MenuOptions customStyles={optionsStyles}>
 						{this.renderColorMenuOptions()}
@@ -113,15 +117,32 @@ class TextEditor extends Component {
 								<MenuOption value={item} key={item}>
 										{/* <MaterialCommunityIcons name="format-color-text" color={color}
 										size={28} /> */}
-									<Icon />
+										{/* <Text style={{color: color}}>A</Text> */}
+										{/* <View style={{color: color}}></View> */}
+									<Icon style={{color: color, fontSize: 34}} name="square" />
 								</MenuOption>
 						);
 				})
 				
 		);
-}
+	}
+	onColorSelectorClicked = (value) => {
+        
+		if(value === 'default') {
+				this.editor.applyToolbar(this.state.selectedColor);
+		}
+		else {
+				this.editor.applyToolbar(value);
+			 
+		}
+
+		this.setState({
+				selectedColor: value
+		});
+	}
 
 	render() {
+		let customStyles = {...defaultStyles, ul: {fontSize: 14}, ol: {fontSize: 14}, body: {fontSize: 14}, heading : {fontSize: 14}, title : {fontSize: 14}};
 		return (
 			<KeyboardAvoidingView
 				behavior="padding"
@@ -129,27 +150,33 @@ class TextEditor extends Component {
 				keyboardVerticalOffset={0}
 				style={{
 					flex: 1,
-					paddingTop: 20,
+					padding: 2,
+					marginBottom: 5,
 					backgroundColor: '#eee',
 					flexDirection: 'column',
 					justifyContent: 'flex-end',
+					minHeight: 60
 				}}
 			>
+				<MenuProvider style={{flex: 1}}>
 				<TouchableWithoutFeedback onPress={Keyboard.dismiss} >
-					<View style={styles.main}>
+					{/* <View style={styles.main}> */}
 						<CNRichTextEditor
 							ref={input => this.editor = input}
 							onSelectedTagChanged={this.onSelectedTagChanged}
 							onSelectedStyleChanged={this.onSelectedStyleChanged}
 							value={this.state.value}
-							style={{ backgroundColor: '#fff' }}
+							style={{ backgroundColor: '#fff'}}
 							styleList={defaultStyles}
 							onValueChanged={this.onValueChanged}
 							onBlur={() => this.sendHtml()}
+							placeholder="Type Your Message"
+							size={12}
+							styleList={customStyles}
 						/>
-					</View>
+					{/* </View> */}
 				</TouchableWithoutFeedback>
-
+				</MenuProvider>
 				<View style={{
 					minHeight: 35
 				}}>
@@ -264,15 +291,18 @@ const optionsStyles = {
 		alignItems: 'flex-end',
 	},
 	optionsWrapper: {
-		//width: 40,
+		width: 40,
+		// height: 100,
 		backgroundColor: 'white',
+		alignItems: 'center',
+		justifyContent: 'center',
 	},
 	optionWrapper: {
 		 //backgroundColor: 'yellow',
-		margin: 2,
+		// margin: 2,
 	},
 	optionTouchable: {
-		underlayColor: 'gold',
+		underlayColor: '#42546033',
 		activeOpacity: 70,
 	},
 	// optionText: {

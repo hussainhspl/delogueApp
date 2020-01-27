@@ -96,7 +96,7 @@ const NotifySelector = styled.View`
   margin-bottom: 10px;
 `;
 
-const CancelNotify = styled.View`
+const CancelNotify = styled.TouchableHighlight`
   width: 15px;
   height: 15px;
   justify-content: center;
@@ -242,6 +242,7 @@ class NewMessage extends React.Component {
   }
   sendMessage = () => {
     // console.log('message sent');
+    console.log('attachment state before send :',this.state.attachment, this.state.notifySelected)
     GetAsyncToken().then(token => {
       SendNewMessage(token, this.props.styleID, this.state.subject,
         this.state.textArea, this.state.notifySelected, this.state.internal,
@@ -258,6 +259,19 @@ class NewMessage extends React.Component {
           this.props.closeMessage()
          
         })
+    })
+  }
+  popUserId(id) {
+    console.log('pop user',id, this.state.notifySelected);
+    this.setState({
+      notifySelected: this.state.notifySelected.filter(item => item.id != id)
+    })
+    console.log('after pop',this.state.notifySelected);
+  }
+  popAttachment(id) {
+    console.log('remove image', id);
+    this.setState({
+      attachment : this.state.attachment.filter(imgObj => imgObj.id != id)
     })
   }
   render() {
@@ -305,8 +319,8 @@ class NewMessage extends React.Component {
                 this.state.notifySelected.map(s => {
                   return (
                     <NotifySelector>
-                      <CancelNotify>
-                        <Icon style={{ fontSize: 12 }} name="close" />
+                      <CancelNotify underlayColor={"#bbb"} onPress={() => this.popUserId(s.id)}>
+                        <Icon style={{ fontSize: 16 }} name="close" />
                       </CancelNotify>
                       <Text> {s.name}  </Text>
                     </NotifySelector>
@@ -324,14 +338,14 @@ class NewMessage extends React.Component {
             />
             <CheckBoxText> Only internal </CheckBoxText>
           </Row>
-          <TextArea
+          {/* <TextArea
             multiline={true}
             numberOfLines={4}
             onChangeText={textArea => this.setState({ textArea })}
             // value={this.state.textArea}
             placeholder="Type your message"
             textAlignVertical="top"
-          />
+          /> */}
           <TextEditor
             bodyHtml={(html) => this.setState({textArea : html})}
           />
@@ -340,6 +354,7 @@ class NewMessage extends React.Component {
               typeof (this.state.attachment) == 'object' && (
                 <AttachImageRow>
                   {this.state.attachment.map(d => {
+                    console.log('attachment d :', d);
                     return (
                       <AttachBox>
                         <TouchableHighlight onPress={() => this.setState({ modalVisible: true })}
@@ -348,11 +363,10 @@ class NewMessage extends React.Component {
                           <AttachmentImage
                             resizeMode={"contain"}
                             source={{ uri: d.url }}
-
                           />
                         </TouchableHighlight>
-                        <Close>
-                          <Icon style={{ fontSize: 15 }} name="close" />
+                        <Close underlayColor={"#bbb"} onPress={() => this.popAttachment(d.id)}>
+                          <Icon style={{ fontSize: 16 }} name="close" />
                         </Close>
                       </AttachBox>
                     )

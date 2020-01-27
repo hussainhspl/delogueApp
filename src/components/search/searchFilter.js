@@ -444,7 +444,7 @@ class searchFilter extends Component {
                               return (
                                 <SearchedItemBox key={brand.id}>
                                   <Close underlayColor={"#362119"} onPress={() => this.popBrandId(brand.id)}>
-                                    <Icon style={{ fontSize: 13 }} name="close" />
+                                    <Icon style={{ fontSize: 16 }} name="close" />
                                   </Close>
                                   <Text> {brand.name} </Text>
                                 </SearchedItemBox>
@@ -529,7 +529,7 @@ class searchFilter extends Component {
                               // </Capsule>
                               <SearchedItemBox key={season.id}>
                                 <Close underlayColor={"#362119"} onPress={() => this.popSeasonId(season.id)}>
-                                  <Icon style={{ fontSize: 13 }} name="close" />
+                                  <Icon style={{ fontSize: 16 }} name="close" />
                                 </Close>
                                 <Text> {season.name} </Text>
                                 {/* <SearchedText>{item.name}</SearchedText> */}

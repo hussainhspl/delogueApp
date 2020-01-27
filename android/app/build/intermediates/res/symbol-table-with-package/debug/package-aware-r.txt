@@ -941,6 +941,7 @@ mipmap ic_launcher
 mipmap ic_launcher_round
 mipmap icon
 mipmap splash
+mipmap splash1
 string abc_action_bar_home_description
 string abc_action_bar_up_description
 string abc_action_menu_overflow_description
