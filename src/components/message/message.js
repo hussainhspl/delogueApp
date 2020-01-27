@@ -78,7 +78,7 @@ const CommentedButton = styled(View)`
   background-color: ${props => props.theme.blue};
   margin: 15px auto;
   padding: 6px 0px;
-  width: 90px;
+  width: 100px;
   align-items: center;
   height: 30px;
 `;
@@ -162,12 +162,11 @@ const MsgImage = styled.Image`
   height: 15px;
 `;
 const Flex1 = styled.View`
-  flex: 1
+  flex: 1;
 `;
-
-// const INJECTED_JAVASCRIPT = `(function() {
-//   window.ReactNativeWebView.postMessage(document.body.scrollHeight);
-// })();`;
+const SImage = styled.Image`
+  width: 30px;
+`;
 
 class Message extends React.Component {
   constructor(props) {
@@ -314,8 +313,8 @@ class Message extends React.Component {
                 <ButtonRow>
                   {this.state.showOpacity && <ButtonOverlay />}
                   <IconView>
-                    <Image
-                      resizeMode={"center"}
+                    <SImage
+                      resizeMode={"contain"}
                       source={this.state.hideRead ? require("../../../assets/img/show-read.png") : require("../../../assets/img/hide-read.png")}
                     />
                     {/* <Icon style={{ color: "#fff", fontSize: 15 }} name="eye" /> */}

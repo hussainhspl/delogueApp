@@ -19,6 +19,7 @@ import DeleteAlert from "../../api/deleteAlert";
 import InfoView from "../../styles/InfoView";
 import InfoText from "../../styles/InfoText";
 import AutoHeightWebView from "react-native-autoheight-webview";
+import Toast from 'react-native-root-toast';
 
 
 
@@ -204,6 +205,12 @@ class CommentsList extends React.Component {
         .then(res => {
           console.log('read all messages');
           this.styleMessages()
+          let toast = Toast.show('All Messages marked as Read', {
+						duration: Toast.durations.LONG,
+						position: Toast.positions.BOTTOM,
+						shadow: true, animation: true,
+						hideOnPress: true, delay: 0,
+					})
         })
     })
   }

@@ -1,18 +1,25 @@
-import { STYLE_LIST } from '../actions/action_types';
+import { STYLE_LIST, CLEAR_STYLE_LIST } from '../actions/action_types';
 
 const initialState = {
-  styleListState: null
+  styleListState: []
 };
 
 const styleReducer = (state = initialState, action) => {
+  console.log('style action:',action);
   switch ( action.type) {
     case STYLE_LIST: 
       return {
         ...state,
-        styleListState: action.payload
+        styleListState: [...state.styleListState, ...action.payload]
+      }
+    case CLEAR_STYLE_LIST:
+      return {
+        ...state,
+        styleListState: []
       }
     default: 
       return state
   }
 }
 export default styleReducer;
+

@@ -186,7 +186,7 @@ class SpecificStyleMessage extends React.Component {
             this.state.reply === false && (
               <FirstRow>
                 <View style={{ flex: 1, paddingRight: 2 }}>
-                  <Subject numberOfLines={1}> {subject.length > 0 ? subject : 'no subject'} </Subject>
+                  <Subject numberOfLines={1}> {subject != null ? subject : 'no subject'} </Subject>
                 </View>
                 <TouchableHighlight
                   // onPress={() => this.setState({ reply: true })}

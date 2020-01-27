@@ -261,25 +261,7 @@ class General extends React.Component {
       })
     }
   }
-  // shouldComponentUpdate(nextProps, prevState) {
-  //   console.log('calling setState', this.state.dataArray, prevState.dataArray);
-  //   if (prevState.dataArray != null) {
-  //     console.log('should enter',this.state.imgSrc, prevState.imgSrc);
-  //     if (prevState.imgSrc !== null) {
-  //       console.log('imgSrc', nextProps.imgSrc, prevState.imgSrc);
-  //       if(nextProps.imgSrc == prevState.imgSrc)
-  //         return false
 
-  //       if(nextProps.imgSrc !== prevState.imgSrc)
-  //         this.getThumbnail(prevState.dataArray.data.styleLogoThumbnails)
-  //     }
-  //     if(this.state.dataArray == prevState.dataArray){
-  //       return false
-  //     }
-  //     this.getThumbnail(prevState.dataArray.data.styleLogoThumbnails)
-  //   }
-  //   return true
-  // }
   render() {
     // console.log('store style id: ', this.state.styleID);
     console.log("render in general :", this.state.dataArray);

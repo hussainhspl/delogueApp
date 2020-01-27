@@ -26,7 +26,9 @@ export const UNREAD_ALL = "UNREAD_ALL";
 export const STYLE_ID = "STYLE_ID";
   
 // message list style comment tab
-export const STYLE_MESSAGE_LIST = "STYLE_MESSAGE_LIST"
+export const STYLE_MESSAGE_LIST = "STYLE_MESSAGE_LIST";
+//clear style list
+export const CLEAR_STYLE_LIST = "CLEAR_STYLE_LIST";
 
 
 

@@ -154,7 +154,7 @@ class Menu extends React.Component {
       <MenuContainer>
         <SidebarView>
           <View>
-            <CloseView>
+            {/* <CloseView>
               <TouchableOpacity
                   onPress={this.props.close}
                 >
@@ -162,7 +162,7 @@ class Menu extends React.Component {
                 <CloseIcon name="ios-close" />
               </Close>
               </TouchableOpacity>       
-            </CloseView>
+            </CloseView> */}
           <Top>
             <SmallText>username:</SmallText>
             <SText>{this.state.currentUser}</SText>

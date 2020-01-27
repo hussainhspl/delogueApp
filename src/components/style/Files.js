@@ -38,6 +38,8 @@ const StyleFileTitle = styled.View`
   align-items: center;
   background-color: ${props => props.theme.lightBrown};
   border: 1px solid #dcd7d4;
+  /* width: ${Dimensions.get("window").width -10}; */
+  flex: 1;
 `;
 
 const Capital = styled.Text`
@@ -45,6 +47,8 @@ const Capital = styled.Text`
   font-family: ${props => props.theme.regular};
   font-size: ${props => props.theme.large};
   color: ${props => props.theme.textColor};
+  padding: 0px 5px;
+  flex: 1;
 `;
 
 const ImageInfo = styled.View`
@@ -185,7 +189,8 @@ class Files extends React.Component {
     let no = 0;
     return (
       <View style={{ flex: 1 }}>
-        <ItemDetail data={this.props.styleData} />
+        <ItemDetail data={this.props.style.data} />
+
         <ScrollView showsVerticalScrollIndicator={false}>
           {
             this.state.fileArr != null ?
@@ -253,7 +258,9 @@ const mapDispatchToProps = dispatch => {
 }
 const mapStateToProps = state => {
   return {
-    styleFileList: state.styleFileList.styleFileListState
+    styleFileList: state.styleFileList.styleFileListState,
+    style: state.singleStyle.singleStyleState,
+    
   }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(Files);

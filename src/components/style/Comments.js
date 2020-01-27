@@ -19,7 +19,9 @@ import SpecificMessage from "../../api/message/specificMessage";
 import GetAsyncToken from "../../script/getAsyncToken";
 import SpecificStyleMessage from '../style/specificStyleMessage';
 import { connect } from 'react-redux';
-import { styleId } from '../../store/actions/index';
+import { styleId, singleStyle} from '../../store/actions/index';
+import GetSelectedStyle from '../../api/getStyle';;
+
 
 const ImageView = styled.View`
   height: ${Dimensions.get("window").width / 3 + 30};
@@ -107,8 +109,21 @@ class Comments extends React.Component {
     // console.log('props data', this.props.location.data, this.props.location.openMessage);
     if (this.state.openMessage) {
       console.log('props data', this.props.dataMsg);
-      
     }
+    if (this.props.style  == null) {
+      // console.log('in did mount comments', this.props.styleID);
+      this.getCurrentStyle();
+    }
+  }
+  getCurrentStyle() {
+    GetAsyncToken()
+      .then(token => {
+        GetSelectedStyle(token, this.props.styleID)
+          .then(res => {
+            console.log('got single style : ', res);
+            this.props.singleStyleFunction(res)
+          })
+      })
   }
   openMessage(id) {
 
@@ -149,6 +164,7 @@ class Comments extends React.Component {
       showList: true,
       ShowNewMsg: false,
       showMessage: false,
+      styleMessage : false
     })
   }
   openCreateReply = (id)  =>{
@@ -166,13 +182,13 @@ class Comments extends React.Component {
   //   }
   // }
   render() {
-    console.log("message open",this.props.styleID, this.state.MessageContent );
-    
+    // console.log("message open",this.props.styleID, this.state.MessageContent );
+    console.log('enter in comments render', this.props.style)
     return (
       <View style={{ flex: 1 }}>
-        <ItemDetail data={this.props.styleData} />
+        <ItemDetail data={this.props.style  != null ? this.props.style.data :null} />
         <ScrollView showsVerticalScrollIndicator={false}>
-          {this.state.ShowNewMsg || this.state.showMessage ? (
+          {this.state.ShowNewMsg || this.state.showMessage || this.state.styleMessage ? (
             <TouchableOpacity
               activeOpacity={0.3}
               onPress={this.backClicked}
@@ -236,13 +252,19 @@ class Comments extends React.Component {
   }
 }
 const mapStateToProps = state => {
-  return {}
+  return {
+    style: state.singleStyle.singleStyleState,
+    styleId: state.styleId.styleIdState
+
+  }
 }
 const mapDispatchToProps = dispatch => {
   return {
     styleIdFunction: (sid) => dispatch(styleId(sid)),
+    singleStyleFunction: (s) => dispatch(singleStyle(s))
+
     // styleListFunction: (s) => dispatch(styleList(s)),;
 
   }
 }
-export default connect(null, mapDispatchToProps)(Comments);
+export default connect(mapStateToProps, mapDispatchToProps)(Comments);

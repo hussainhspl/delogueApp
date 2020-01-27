@@ -19,17 +19,20 @@ import SearchGridCard from "./searchGridCard";
 import LoadMoreButton from "../../styles/LoadMoreButton";
 import InfoView from "../../styles/InfoView";
 import InfoText from "../../styles/InfoText";
+import { withTheme } from 'styled-components';
 
 import { connect } from "react-redux";
 import SearchInput from '../../styles/SearchInput';
 import GetStyles from '../../api/getStyles';
 import AsyncStorage from "@react-native-community/async-storage";
-import { styleList, generalTab, styleId } from '../../store/actions/index';
+import { styleList, generalTab, styleId, clearStyleList } from '../../store/actions/index';
 import GetSelectedStyle from '../../api/getStyle';
 import GetAsyncToken from '../../script/getAsyncToken';
 import SearchSuggestionView from '../../styles/SearchSuggestionView';
 import SuggestionTerm from '../../styles/SuggestionTerm';
 import SearchIconBox from "../../styles/SearchIconBox";
+
+let pageNumber = 1;
 
 const SearchRow = styled.View`
   flex-direction: row;
@@ -94,7 +97,13 @@ const Box = styled.View`
   margin-left: 10px;
 `;
 
-const KEYS_TO_FILTERS = ["styleNo", "styleName", "supplier", "season"];
+const LoadMoreView = styled.View`
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+  flex-direction: column;
+`;
+
 class Search extends React.Component {
   constructor(props) {
     super(props);
@@ -103,7 +112,7 @@ class Search extends React.Component {
       currentView: "grid",
       searchTerm: "",
       tablet: false,
-      filteredStyle: null,
+      filteredStyle: [],
       brandArrFilter: null,
       brandIds: null,
       SeasonIdArr: null,
@@ -112,6 +121,7 @@ class Search extends React.Component {
       showSuggestion: false,
       suggestionArr: [],
       myStyle: false,
+      // pageNumber : 1,
     };
   }
   componentDidMount = () => {
@@ -137,16 +147,19 @@ class Search extends React.Component {
   };
 
   styles = () => {
-    ;
+    
     GetAsyncToken().then(token => {
       GetStyles(this.state.searchTerm, token, this.state.brandIds,
-        this.state.seasonIds, this.state.myStyle)
+        this.state.seasonIds, this.state.myStyle, pageNumber)
         .then(res => {
-          // console.log('response style', res);
+          console.log('response style', res);
           if (res.data.styles.length == 0) {
             this.setState({ emptyResult: true })
           }
-          this.props.styleListFunction(res.data)
+          else {
+            this.setState({ emptyResult: false })
+          }
+          this.props.styleListFunction(res.data.styles)
           this.setState({
             suggestionArr: [],
             showSuggestion: false
@@ -191,7 +204,7 @@ class Search extends React.Component {
   static getDerivedStateFromProps(nextProps, prevState) {
 
     if (nextProps.filteredStyle !== prevState.filteredStyle) {
-      // console.log("Entered nextProps");
+      console.log("Entered nextProps");
       return {
         filteredStyle: nextProps.styleList,
       }
@@ -212,9 +225,19 @@ class Search extends React.Component {
 
   }
 
+  updatePageNumber = () => {
+    pageNumber += 1;
+    console.log('page number updated',pageNumber);
+    this.styles();
+  }
+  searchStyle = () => {
+    pageNumber = 1;
+    this.props.clearStyleListFunction();
+    this.styles();
+  }
   render() {
     const history = this.props.history;
-    // console.log('style data from store', this.state.filteredStyle);
+    console.log('style data from store', this.state.filteredStyle.length);
     // console.log("search history:", history);
     // console.log("history on search page", this.props.history);
     return (
@@ -240,29 +263,29 @@ class Search extends React.Component {
                   onChangeText={term => {
                     this.searchUpdated(term);
                   }}
-                  onSubmitEditing={this.styles}
+                  onSubmitEditing={this.searchStyle}
                 />
                 {
-                this.state.showSuggestion && (
-                  <SearchSuggestionView>
-                    {this.state.suggestionArr.map(d => {
-                      return (
-                        <TouchableHighlight underlayColor={"#eee"} onPress={() => this.redirectToCurrentStyle(d.id)}>
+                // this.state.showSuggestion && (
+                //   <SearchSuggestionView>
+                //     {this.state.suggestionArr.map(d => {
+                //       return (
+                //         <TouchableHighlight underlayColor={"#eee"} onPress={() => this.redirectToCurrentStyle(d.id)}>
 
 
-                          <SuggestionTerm>
-                            {d.name}
-                          </SuggestionTerm>
-                        </TouchableHighlight>
-                      )
-                    })}
-                  </SearchSuggestionView>
-                )
+                //           <SuggestionTerm>
+                //             {d.name}
+                //           </SuggestionTerm>
+                //         </TouchableHighlight>
+                //       )
+                //     })}
+                //   </SearchSuggestionView>
+                // )
               }
               </Flex>
 
               {
-                this.state.filteredStyle != null ?
+                this.state.filteredStyle.length > 0 ?
                   <Box>
                     <TouchableHighlight onPress={this.changeView} underlayColor="#42546033">
                       <ViewBox>
@@ -288,8 +311,8 @@ class Search extends React.Component {
                 <GridView>
                   
                   {
-                    this.state.filteredStyle != null ?
-                      this.state.filteredStyle.styles.map(data => {
+                    this.state.filteredStyle.length > 0 ? 
+                      this.state.filteredStyle.map(data => {
                         return (
                           <SearchGridCard
                           key={data.styleNo}
@@ -298,7 +321,9 @@ class Search extends React.Component {
                           GetStyleClicked={() => { this.redirectToCurrentStyle(data.id) }}
                         />);
                       })
-                      :
+                      :null
+                  }
+                    {this.state.filteredStyle.length == 0 && this.state.emptyResult == false && (
                       
                         <InfoView>
                           <Image
@@ -309,14 +334,29 @@ class Search extends React.Component {
                           <InfoText>Search for a style by typing name or number</InfoText>
                         </InfoView>
                         
-                  }
+                    )}
                   {this.state.emptyResult && (
                     <InfoView>
                       <InfoText> No result found </InfoText>
                     </InfoView>
                   )}
                   
+                
+                
                 </GridView>
+                {
+                    this.state.filteredStyle.length > 0 ?
+                    <LoadMoreView>
+                      <LoadMoreButton 
+                        onPress={this.updatePageNumber}
+                        underlayColor={this.props.theme.overlayBlue}
+                      >
+                        <Text>Load More</Text>
+                      </LoadMoreButton>
+                    </LoadMoreView>
+                    
+                    :null
+                  }
                 </ScrollView>
             ) : null}
             
@@ -324,10 +364,10 @@ class Search extends React.Component {
           {this.state.showSuggestion == false ?
             this.state.currentView === "linear" && (
             <FlatList
-              data={this.state.filteredStyle.styles}
+              data={this.state.filteredStyle}
               renderItem={({ item }) =>
                 <TouchableHighlight
-                  underlayColor="#42546033"
+                  underlayColor={this.props.theme.overlayBlue}
                   onPress={() => { this.redirectToCurrentStyle(item.id) }
                   }
                 >
@@ -371,6 +411,7 @@ const mapDispatchToProps = dispatch => {
     styleListFunction: (s) => dispatch(styleList(s)),
     generalTabFunction: () => dispatch(generalTab()),
     styleIdFunction: (sid) => dispatch(styleId(sid)),
+    clearStyleListFunction: () => dispatch(clearStyleList())
   }
 }
 const mapStateToProps = state => {
@@ -378,4 +419,4 @@ const mapStateToProps = state => {
     styleList: state.styleList.styleListState
   };
 };
-export default connect(mapStateToProps, mapDispatchToProps)(Search);
+export default connect(mapStateToProps, mapDispatchToProps)(withTheme(Search));

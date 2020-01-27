@@ -11,7 +11,7 @@ const GridCard = styled.View`
       ? Dimensions.get("window").height / 4 - 30
       : Dimensions.get("window").height / 3 - 48};
   border: 1px solid #ccc;
-  align-self: flex-start;
+  align-self: flex-end;
   margin: 10px 5px 0px 5px;
 `;
 

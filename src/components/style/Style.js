@@ -46,7 +46,7 @@ class Style extends React.Component {
     //   season: sdata.data.season != null ? sdata.data.season.name :  "-",
     // }
     // console.log('object created : ', floatingStyle);
-
+    console.log('this.props.StoreStyleId', this.props.StoreStyleId);
     switch (params) {
       case "general":
         return <General

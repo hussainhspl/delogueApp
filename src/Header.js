@@ -66,8 +66,6 @@ class Header extends React.Component {
   constructor(props) {
     super(props);
 
-    this.toggle = this.toggle.bind(this);
-
     this.state = {
       isOpen: false,
       count: 0
@@ -86,14 +84,21 @@ class Header extends React.Component {
       })
     
   }
-  toggle = () =>  {
-    console.log("toggle state");
-    this.setState(prevState => ({ isOpen: !prevState.isOpen }),()=>console.log(this.state.isOpen));
-  }
+  // toggle = () =>  {
+  //   console.log("toggle state");
+  //   this.setState({ isOpen: true },()=>console.log(this.state.isOpen));
+  // }
+  closeControlPanel = () => {
+    this._drawer.close()
+  };
+  openControlPanel = () => {
+    this._drawer.open()
+  };
   render() {
     const history= this.props.history;
     // const path = this.props.location.pathname;
     // console.log('header history: ', this.props);
+    console.log('header reder called');
     return(
       <MainView>
         <Drawer
@@ -110,7 +115,7 @@ class Header extends React.Component {
           tweenHandler={(ratio) => ({
             main: { opacity:(2-ratio)/2 }
           })}
-          open={this.state.isOpen}
+          // open={this.state.isOpen}
           tapToClose={true}
         >
           <Container>
@@ -145,7 +150,7 @@ class Header extends React.Component {
             </IconGroup>
             <View>
               <TouchableOpacity
-                onPress={this.toggle}
+                onPress={this.openControlPanel}
               >
                 <MenuIcon name="ios-menu" />
               </TouchableOpacity>
