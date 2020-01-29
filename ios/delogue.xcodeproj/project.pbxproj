@@ -24,6 +24,7 @@
 		494AED0AACF04429BB4655E0 /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 78F3E92AC43A4ECB95BF6FED /* Zocial.ttf */; };
 		5155C2F421F845389D0BC6C1 /* SimpleLineIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5E1612C31E7B4EA78FEF1B60 /* SimpleLineIcons.ttf */; };
 		557847BCE4154B92B9C47A54 /* FontAwesome5_Brands.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FA53EADDA45D47C9AB4E8866 /* FontAwesome5_Brands.ttf */; };
+		77128D3C23E02B8A00F40CA9 /* Lato-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 77128D3823E0285000F40CA9 /* Lato-Italic.ttf */; };
 		7D0086A26A0946BDBF177051 /* Entypo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 297509901F6543DC98E229EB /* Entypo.ttf */; };
 		7EC7F5F0237BE5E700BBAE42 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7EC7F5EF237BE5E700BBAE42 /* LaunchScreen.xib */; };
 		83E1E9120AB445C68898A443 /* Feather.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 82D1ADC9846540F8B063B9B7 /* Feather.ttf */; };
@@ -106,6 +107,7 @@
 		61E96342E0BB431F8D3955FA /* AntDesign.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = AntDesign.ttf; path = "../node_modules/react-native-vector-icons/Fonts/AntDesign.ttf"; sourceTree = "<group>"; };
 		6FDB382448E64728936C87CE /* Lato-Black.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Lato-Black.ttf"; path = "../assets/fonts/Lato-Black.ttf"; sourceTree = "<group>"; };
 		7362DCA3D0F50BECC960054E /* Pods-delogue.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-delogue.release.xcconfig"; path = "Target Support Files/Pods-delogue/Pods-delogue.release.xcconfig"; sourceTree = "<group>"; };
+		77128D3823E0285000F40CA9 /* Lato-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Lato-Italic.ttf"; path = "../../../Downloads/Lato/Lato-Italic.ttf"; sourceTree = "<group>"; };
 		77CBAF4BF3AC47F7A4FBDC56 /* Foundation.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Foundation.ttf; path = "../node_modules/native-base/Fonts/Foundation.ttf"; sourceTree = "<group>"; };
 		78F3E92AC43A4ECB95BF6FED /* Zocial.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Zocial.ttf; path = "../node_modules/native-base/Fonts/Zocial.ttf"; sourceTree = "<group>"; };
 		7E1B7649237D586B00886771 /* RNGestureHandler.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNGestureHandler.xcodeproj; path = "../node_modules/react-native-gesture-handler/ios/RNGestureHandler.xcodeproj"; sourceTree = "<group>"; };
@@ -216,6 +218,7 @@
 		346F0EA432E4496B83553A17 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				77128D3823E0285000F40CA9 /* Lato-Italic.ttf */,
 				61E96342E0BB431F8D3955FA /* AntDesign.ttf */,
 				D49CEBABDBF24E4C93B03775 /* EvilIcons.ttf */,
 				1DB6397B549F463B8A0C8842 /* Feather.ttf */,
@@ -469,6 +472,7 @@
 			files = (
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				5155C2F421F845389D0BC6C1 /* SimpleLineIcons.ttf in Resources */,
+				77128D3C23E02B8A00F40CA9 /* Lato-Italic.ttf in Resources */,
 				7D0086A26A0946BDBF177051 /* Entypo.ttf in Resources */,
 				557847BCE4154B92B9C47A54 /* FontAwesome5_Brands.ttf in Resources */,
 				7EC7F5F0237BE5E700BBAE42 /* LaunchScreen.xib in Resources */,

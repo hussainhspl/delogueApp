@@ -7,7 +7,7 @@ import AsyncStorage from '@react-native-community/async-storage';
 import General from "./General";
 import Comments from "./Comments";
 import Files from "./Files";
-import Sample from "./sample";
+import Sample from "./sample/sample";
 import Pdf from "./Pdf";
 import Header from "../../Header";
 import FooterComponent from "../../FooterComponent";
@@ -71,8 +71,8 @@ class Style extends React.Component {
       case "sample":
         return <Sample
           history={this.props.history}
-          data={locationData.SampleCommentData}
-          styleData={StateData != null ? StateData.data : null}
+          // data={locationData.SampleCommentData}
+          // styleData={StateData != null ? StateData.data : null}
         />;
       case "pdf":
         return <Pdf />;

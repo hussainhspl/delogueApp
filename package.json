@@ -26,6 +26,7 @@
     "react-native-bootsplash": "^1.0.3",
     "react-native-camera": "^3.6.0",
     "react-native-cn-richtext-editor": "^1.0.42",
+    "react-native-collapsible": "^1.5.1",
     "react-native-drawer": "^2.5.1",
     "react-native-easy-grid": "^0.2.2",
     "react-native-fast-image": "^7.0.2",

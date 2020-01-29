@@ -84,6 +84,7 @@
 	<string>Delogue would like access to your photo library</string>
 	<key>UIAppFonts</key>
 	<array>
+		<string>Lato-Italic.ttf</string>
 		<string>AntDesign.ttf</string>
 		<string>Entypo.ttf</string>
 		<string>EvilIcons.ttf</string>

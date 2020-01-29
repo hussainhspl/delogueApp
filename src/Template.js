@@ -11,7 +11,7 @@ import Search from "./components/search/Search";
 import Message from "./components/message/message";
 import Login from "./login";
 import Style from "./components/style/Style";
-import SampleRequest from "./components/style/SampleRequest";
+import SampleRequest from "./components/style/sample/SampleRequest";
 import NotificationModal from "./components/style/NotificationModal";
 import Loader from './shared/Loader';
 

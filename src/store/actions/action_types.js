@@ -29,6 +29,8 @@ export const STYLE_ID = "STYLE_ID";
 export const STYLE_MESSAGE_LIST = "STYLE_MESSAGE_LIST";
 //clear style list
 export const CLEAR_STYLE_LIST = "CLEAR_STYLE_LIST";
+// sample list
+export const SAMPLE_LIST =  "SAMPLE_LIST";
 
 
 

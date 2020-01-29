@@ -18,6 +18,7 @@ export default {
   
   regular: 'Lato-Regular',
   bold: 'Lato-Bold',
+  italic: 'Lato-Italic',
   
   xs: 10,
   small: 12,
