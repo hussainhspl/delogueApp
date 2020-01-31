@@ -12,17 +12,15 @@ import {
 } from "react-native";
 import styled from "styled-components";
 import { Icon, Button } from "native-base";
-import { Col, Row, Grid } from "react-native-easy-grid";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import Swipeable from 'react-native-gesture-handler/Swipeable';
-import {RectButton} from 'react-native-gesture-handler';
+import { RectButton } from 'react-native-gesture-handler';
 import Carousel from 'react-native-snap-carousel';
 import DateTimePicker from "react-native-modal-datetime-picker";
 // relative import
 import SampleAccordion from "./SampleAccordion";
 import SampleRequestSummary from "../SampleRequestSummary";
 import ViewRequestedQuantity from "../ViewRequestedQuantity";
-import CommonModal from "../../../shared/CommonModal";
 import Header from "../../../Header";
 import ApplyButton from "../../../styles/ApplyButton";
 import CancelButton from '../../../styles/CancelButton';
@@ -30,7 +28,10 @@ import ButtonText from '../../../styles/ButtonText';
 import ItemDetail from "../../../shared/ItemDetail";
 import SmallText from "../../../styles/SmallText";
 import CardText from "../../../styles/CardText";
+
 import PiecesPopup from "../../../shared/PiecesPopup";
+import GetAsyncToken from "../../../script/getAsyncToken";
+import GetSampleOverview from "../../../api/sample/getSampleOverview";
 
 
 // import Swipe from './swipe';
@@ -64,25 +65,8 @@ const sizeXl = [
     want: 75
   }
 ];
-const descCol = [
-  {
-    title: "A) 1/2 Chest measurement from the top"
-  },
-  {
-    title: "A) 1/2 Waist measurement from the top"
-  },
-  {
-    title: "A) 1/2 Bottom measurement from the top"
-  },
-  {
-    title: "Sleeve"
-  },
-  {
-    title: "1/2 Cuff"
-  }
-];
-const StageArray = ['planned', 'requested', 'confirmed', 'sent', 'received','commented']
-const colCount = [(key = 1), (key = 2), (key = 3)];
+;
+const StageArray = ['planned', 'requested', 'confirmed', 'sent', 'received', 'commented']
 // const table= [
 //   r1, {
 //     description: "Shoulder",
@@ -92,7 +76,7 @@ const colCount = [(key = 1), (key = 2), (key = 3)];
 //   }
 // ]
 
-const desc = ["Req", "Comp", "Want"];
+
 
 const Label = styled.Text`
   color: #8d8177;
@@ -103,39 +87,13 @@ const Label = styled.Text`
   padding-right: 10px;
   font-family: ${props => props.theme.regular};
 `;
-const ViewChart = styled.Text`
-  background-color: #849d7a;
-  align-self: flex-start;
-  text-transform: uppercase;
-  color: white;
-  text-align: center;
-  padding: 3px 6px;
-  font-family: ${props => props.theme.regular};
-  /* justify-content: center; */
-`;
+
 const SizeText = styled.Text`
   color: #8d8177;
   font-family: ${props => props.theme.regular};
 `;
-const HeaderRow = styled(Row)`
-  background-color: #c9c2bb;
-  height: 40px;
-`;
-const StyleCol = styled(Col)`
-  border: 1px solid #bbb;
-  padding-left: 10px;
-  height: 40px;
-  justify-content: center;
-`;
 
-const TableTextInput = styled.TextInput`
-  border: 1px solid #ddd;
-  text-align: center;
-  padding: 5px;
-  margin-right: 10px;
-  margin-top: 5px;
-  margin-bottom: 5px;
-`;
+
 
 const ApplyButtonText = styled.Text`
   color: #fff;
@@ -254,7 +212,7 @@ const TabTail = styled.View`
   left: -15px;
 `;
 const Tab = styled.View`
-  width: ${Dimensions.get("window").width/6-20.9};
+  width: ${Dimensions.get("window").width / 6 - 20.9};
   height: 20px;
   background-color: ${props =>
     props.active ? props => props.theme.darkBrown : props => props.theme.brown};
@@ -267,14 +225,14 @@ class SampleRequest extends React.Component {
     super(props);
     this.state = {
       appState: AppState.currentState0px,
-      modalVisible: false,
       xlcomp: "",
       isDeadlineDateTimePickerVisible: false,
       isEtdDateTimePickerVisible: false,
       deadlineText: "",
       etdText: "",
       piecesModal: false,
-      currentIndex:0,
+      currentIndex: 0,
+      sampleData: null,
     };
   }
   showDateTimePicker = value => {
@@ -297,15 +255,23 @@ class SampleRequest extends React.Component {
     // console.log("A date has been picked: ", date);
     this.hideDateTimePicker();
   };
-  setModalVisible(visible) {
-    this.setState({ modalVisible: visible });
-  }
+
   redirectTo() {
     // console.log("redirect click");
     this.props.apply();
   }
   componentDidMount = () => {
     AppState.addEventListener("change", this._handleAppStateChange);
+    GetAsyncToken()
+      .then(token => {
+        GetSampleOverview(token, this.props.id)
+          .then(res => {
+            console.log('success in sample overview', res);
+            this.setState({
+              sampleData: res.data
+            })
+          })
+      })
   };
   componentWillUnmount = () => {
     AppState.removeEventListener("change", this._handleAppStateChange);
@@ -338,18 +304,18 @@ class SampleRequest extends React.Component {
   };
   changeIndex = (currentIndex) => {
     console.log("Enter in ")
-    this.setState({ currentIndex}, () => console.log('current Index', this.state.currentIndex));
+    this.setState({ currentIndex }, () => console.log('current Index', this.state.currentIndex));
   }
-  _renderItem = ({item, index}) => {
+  _renderItem = ({ item, index }) => {
     // console.log("render", index, item, this._carousel);
     return (
-      
-        <CurrentStageTitle>{item}</CurrentStageTitle>
+
+      <CurrentStageTitle>{item}</CurrentStageTitle>
     );
   }
   render() {
     const screenWidth = Math.round(Dimensions.get('window').width);
-    const slideWidth = Math.round(Dimensions.get('window').width/2)
+    const slideWidth = Math.round(Dimensions.get('window').width / 2)
     return (
       <View style={{ flex: 1 }}>
         <KeyboardAwareScrollView showsVerticalScrollIndicator={true}>
@@ -400,15 +366,15 @@ class SampleRequest extends React.Component {
                 sliderWidth={screenWidth}
                 callbackOffsetMargin={0}
                 onBeforeSnapToItem={this.changeIndex}
-                // onSnapToItem={(index) => console.log('hello')}
-                // onLayout={ () => console.log("swipe")}
-                // activeSlideAlignment={'center'}
-                // activeSlideOffset={'center'}
-                // layout={'tinder'}
+              // onSnapToItem={(index) => console.log('hello')}
+              // onLayout={ () => console.log("swipe")}
+              // activeSlideAlignment={'center'}
+              // activeSlideOffset={'center'}
+              // layout={'tinder'}
               />
             </CurrentStage>
-            
-              {/* <CurrentStage>
+
+            {/* <CurrentStage>
                 <CurrentStageTitle>Planned</CurrentStageTitle>
               </CurrentStage> */}
 
@@ -416,103 +382,40 @@ class SampleRequest extends React.Component {
               horizontal={true}
               showsHorizontalScrollIndicator={false}
             > */}
-              <TabRow>
-                <Tab active={this.state.currentIndex >= 0 ? true : false}>
-                  <RightTriangle active={this.state.currentIndex >= 0 ? true : false}/>
-                  <TabTail active={this.state.currentIndex >= 0 ? true : false}/>
-                </Tab>
-                <Tab active={this.state.currentIndex >= 1 ? true : false}>
-                  <TabTail active={this.state.currentIndex >= 1 ? true : false}/>
-                  <RightTriangle active={this.state.currentIndex >= 1 ? true : false}/>
-                </Tab>
-                <Tab active={this.state.currentIndex >= 2 ? true : false}>
-                  <TabTail active={this.state.currentIndex >= 2 ? true : false}/>
-                  <RightTriangle active={this.state.currentIndex >= 2 ? true : false}/>
-                </Tab>
-                <Tab active={this.state.currentIndex >= 3 ? true : false}>
-                  <TabTail active={this.state.currentIndex >= 3 ? true : false}/>
-                  <RightTriangle active={this.state.currentIndex >= 3 ? true : false}/>
-                </Tab>
-                <Tab active={this.state.currentIndex >= 4 ? true : false}>
-                  <TabTail active={this.state.currentIndex >= 4 ? true : false}/>
-                  <RightTriangle active={this.state.currentIndex >= 4 ? true : false}/>
-                </Tab>
-                <Tab active={this.state.currentIndex >= 5 ? true : false}>
-                  <TabTail active={this.state.currentIndex >= 5 ? true : false}/>
-                  {/* <RightTriangle active={this.state.currentIndex >= 5 ? true : false}/> */}
-                </Tab>
-              </TabRow>
-            {/* </ScrollView> */}
-            <View style={{ flexDirection: "row", padding: 10, justifyContent: "center" }}>
-              {/* <Label> measurement </Label> */}
-              <TouchableHighlight
-                onPress={() => {
-                  this.setModalVisible(!this.state.modalVisible);
-                }}
-                
-              >
+            <TabRow>
+              <Tab active={this.state.currentIndex >= 0 ? true : false}>
+                <RightTriangle active={this.state.currentIndex >= 0 ? true : false} />
+                <TabTail active={this.state.currentIndex >= 0 ? true : false} />
+              </Tab>
+              <Tab active={this.state.currentIndex >= 1 ? true : false}>
+                <TabTail active={this.state.currentIndex >= 1 ? true : false} />
+                <RightTriangle active={this.state.currentIndex >= 1 ? true : false} />
+              </Tab>
+              <Tab active={this.state.currentIndex >= 2 ? true : false}>
+                <TabTail active={this.state.currentIndex >= 2 ? true : false} />
+                <RightTriangle active={this.state.currentIndex >= 2 ? true : false} />
+              </Tab>
+              <Tab active={this.state.currentIndex >= 3 ? true : false}>
+                <TabTail active={this.state.currentIndex >= 3 ? true : false} />
+                <RightTriangle active={this.state.currentIndex >= 3 ? true : false} />
+              </Tab>
+              <Tab active={this.state.currentIndex >= 4 ? true : false}>
+                <TabTail active={this.state.currentIndex >= 4 ? true : false} />
+                <RightTriangle active={this.state.currentIndex >= 4 ? true : false} />
+              </Tab>
+              <Tab active={this.state.currentIndex >= 5 ? true : false}>
+                <TabTail active={this.state.currentIndex >= 5 ? true : false} />
+                {/* <RightTriangle active={this.state.currentIndex >= 5 ? true : false}/> */}
+              </Tab>
+            </TabRow>
+            {
+              this.state.sampleData != null ?
+            
+            <SampleAccordion
+              data={this.state.sampleData}
+            />
+            :null }
 
-                <ViewChart>view measurement chart</ViewChart>
-              </TouchableHighlight>
-
-              <CommonModal
-                title="Measurement Chart"
-                modalVisible={this.state.modalVisible}
-                close={() => {
-                  this.setModalVisible(!this.state.modalVisible);
-                }}
-              >
-                <View>
-                  <Grid>
-                    <View style={{ padding: 5 }}>
-                      <SmallText>Size</SmallText>
-                      <CardText numberOfLines={1}>L</CardText>
-                    </View>
-                    <HeaderRow>
-                      <StyleCol size={4}>
-                        <Text> description </Text>
-                        <SmallText>measured in centimeter </SmallText>
-                      </StyleCol>
-
-                      {desc.map(data => {
-                        return (
-                          <StyleCol size={1}>
-                            <Text> {data} </Text>
-                          </StyleCol>
-                        );
-                      })}
-                    </HeaderRow>
-                    {descCol.map(data => {
-                      return (
-                        <Row
-                          style={{ height: 40 }}
-                          key={Math.random().toFixed(3)}
-                        >
-                          <StyleCol size={4}>
-                            <Text>{data.title}</Text>
-                          </StyleCol>
-                          {colCount.map(data => {
-                            return (
-                              <StyleCol size={1}>
-                                <TableTextInput
-                                  onChangeText={req => this.setState({ req })}
-                                  value={this.state.req}
-                                  name="req"
-                                  keyboardType="numeric"
-                                >
-                                  {data.req}
-                                </TableTextInput>
-                              </StyleCol>
-                            );
-                          })}
-                        </Row>
-                      );
-                    })}
-                  </Grid>
-                </View>
-              </CommonModal>
-            </View>
-            <SampleAccordion />
             {/* <SampleRequestSummary /> */}
             {/* <ViewRequestedQuantity /> */}
           </MainView>

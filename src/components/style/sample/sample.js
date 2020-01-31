@@ -84,6 +84,7 @@ class Sample extends React.Component {
       sampleRequest: false,
       showOpacity: false,
       sampleArray: null,
+      selectedSample: null
     };
   }
   saveChanges() {
@@ -113,6 +114,13 @@ class Sample extends React.Component {
       }
     }
   }
+  callSample = (id)  => {
+    console.log('yay', id);
+    this.setState({
+      sampleRequest: true,
+      selectedSample: id
+    })
+  }
   render() {
       console.log('this.state.sampleArray', this.state.sampleArray, this.props.sampleData);
     const history = this.props.history;
@@ -141,14 +149,11 @@ class Sample extends React.Component {
               </View>
             <SampleRow>
               {this.state.sampleArray != null ? this.state.sampleArray.sampleRequests.map(d => {
-                console.log('reach condition', d);
+                // console.log('reach condition', d);
                 return (
                   <SampleComponent
                     data={d}
-                    close={() => {
-                      this.setState({ sampleRequest: true });
-                      // console.log("hello");
-                    }}
+                    closeSampleList={this.callSample}
                   />
                 );
               })
@@ -163,6 +168,7 @@ class Sample extends React.Component {
           <SampleRequest
             apply={() => this.saveChanges()}
             history={this.props.history}
+            id={this.state.selectedSample}
           />
         )}
       </Fragment>

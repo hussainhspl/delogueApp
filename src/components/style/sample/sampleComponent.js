@@ -181,7 +181,8 @@ class sampleComponent extends React.Component {
   render() {
     // console.log("state",this.state.isDeadlineDateTimePickerVisible )
     const { id, sampleRequestStatus, typeOfSample, note, pieces,
-      deadline, etd, sentDate, receivedDate, commentedDate, overAllApprovedStatus } = this.props.data;
+      deadline, etd, sentDate, receivedDate, commentedDate,
+      overAllApprovedStatus } = this.props.data;
 
     deadline != null ? this.state.deadlineDate == "" ?
       this.setState({
@@ -219,7 +220,7 @@ class sampleComponent extends React.Component {
 
 
 
-    console.log('typeOf(pieces)', typeof (pieces));
+    // console.log('typeOf(pieces)', typeof (pieces));
     return (
       <Fragment>
         <MainBox tablet={this.state.tablet}>
@@ -228,7 +229,7 @@ class sampleComponent extends React.Component {
             key={id}
             onPressIn={() => this.setState({ showOpacity: true })}
             onPressOut={() => this.setState({ showOpacity: false })}
-            onPress={this.props.close}
+            onPress={() => this.props.closeSampleList(id)}
           >
             <View>
               <TitleRow>
