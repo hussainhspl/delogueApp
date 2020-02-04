@@ -21,6 +21,7 @@ import { ThemeProvider } from "styled-components/native";
 import Theme from "./data/theme";
 import styled from "styled-components";
 import { MenuProvider } from 'react-native-popup-menu';
+import { AppearanceProvider } from 'react-native-appearance';
 
 const store = configStore();
 
@@ -43,6 +44,7 @@ const App = () => {
 
   return (
     <MenuProvider>
+    <AppearanceProvider>
     <Provider store={store}>
       <ThemeProvider theme={Theme}>
         <Fragment>
@@ -55,6 +57,7 @@ const App = () => {
         </Fragment>
       </ThemeProvider>
     </Provider>
+    </AppearanceProvider>
     </MenuProvider>
   );
 };

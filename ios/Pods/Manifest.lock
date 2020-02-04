@@ -195,6 +195,8 @@ PODS:
     - React-cxxreact (= 0.61.3)
     - React-jsi (= 0.61.3)
   - React-jsinspector (0.61.3)
+  - react-native-appearance (0.3.2):
+    - React
   - react-native-camera (3.6.0):
     - React
     - react-native-camera/RCT (= 3.6.0)
@@ -285,6 +287,7 @@ DEPENDENCIES:
   - React-jsi (from `../node_modules/react-native/ReactCommon/jsi`)
   - React-jsiexecutor (from `../node_modules/react-native/ReactCommon/jsiexecutor`)
   - React-jsinspector (from `../node_modules/react-native/ReactCommon/jsinspector`)
+  - react-native-appearance (from `../node_modules/react-native-appearance`)
   - react-native-camera (from `../node_modules/react-native-camera`)
   - react-native-image-picker (from `../node_modules/react-native-image-picker`)
   - "react-native-netinfo (from `../node_modules/@react-native-community/netinfo`)"
@@ -348,6 +351,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/jsiexecutor"
   React-jsinspector:
     :path: "../node_modules/react-native/ReactCommon/jsinspector"
+  react-native-appearance:
+    :path: "../node_modules/react-native-appearance"
   react-native-camera:
     :path: "../node_modules/react-native-camera"
   react-native-image-picker:
@@ -410,6 +415,7 @@ SPEC CHECKSUMS:
   React-jsi: 8bcf5836caa8a759c135ab9ef97f3e023a7b94af
   React-jsiexecutor: ae078e9df9c65bcdcf68f9a17656657932d95528
   React-jsinspector: a8939cc6909607eb5e8a5ecfff7c6226984e174d
+  react-native-appearance: f03bb953dae4dc696554a190292b513b075d3e93
   react-native-camera: 4f614d2da6526be735ecbe658c3f57eebfb0686a
   react-native-image-picker: 3637d63fef7e32a230141ab4660d3ceb773c824f
   react-native-netinfo: bd4c115afdf0821b8ddb6c59ef3ddc5f0a7e8ad0
@@ -434,6 +440,6 @@ SPEC CHECKSUMS:
   SDWebImageWebPCoder: 947093edd1349d820c40afbd9f42acb6cdecd987
   Yoga: 02036f6383c0008edb7ef0773a0e6beb6ce82bd1
 
-PODFILE CHECKSUM: f605ede0c138806a38f56a146a6e9f1aa91d8756
+PODFILE CHECKSUM: 8c89e5f47f3927cef6ac35f8887e2e172535dd70
 
 COCOAPODS: 1.8.4

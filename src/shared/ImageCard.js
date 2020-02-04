@@ -42,6 +42,15 @@ const StyleImage = styled.Image`
     
 `;
 
+
+const ImageName = styled.Text`
+  text-align: center;
+  padding: 0px 10px 10px 10px;
+  font-size: ${props => props.theme.small};
+  font-family: ${props => props.theme.regular};
+  /* margin-bottom: 20px; */
+`;
+
 class ImageCard extends React.Component{
   constructor(props){
     super(props);
@@ -60,7 +69,7 @@ class ImageCard extends React.Component{
     }
   }
   render() {
-    // console.log('tablet state :', this.state.tablet);
+    console.log('image card props :', this.props);
     return(
       <MainBlock key={Math.random().toFixed(3)} tablet={this.state.tablet}>
         <TouchableHighlight underlayColor={this.props.theme.overlayBlue} onPress={() => this.setState({modalVisible: true})}>
@@ -72,14 +81,14 @@ class ImageCard extends React.Component{
           />
         </ImageView>
         </TouchableHighlight>
-        {this.props.children}
+        <ImageName numberOfLines={1}> {this.props.fileName} </ImageName>
       
           <AttachmentPopup
             title={this.props.msgTitle}
             path = {this.props.bigImgUrl}
             modalVisible={this.state.modalVisible}
             Name={this.props.fileName}
-            Date={"22-Jan-2020 8:55"}
+            Date={""}
             fileSrc = {this.props.bigImgUrl
             }
             close={() => this.setState({modalVisible: false})} 

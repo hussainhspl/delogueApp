@@ -1,4 +1,4 @@
-#Fri Jan 24 16:58:35 IST 2020
+#Tue Feb 04 15:40:26 IST 2020
 base.1=/Users/siyaulhaqu/hussain/delogueApp/android/app/build/intermediates/transforms/dexMerger/debug/0
 path.1=classes2.dex
 base.0=/Users/siyaulhaqu/hussain/delogueApp/android/app/build/intermediates/transforms/dexMerger/debug/0

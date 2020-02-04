@@ -6,7 +6,7 @@ import {
 } from 'react-native';
 import styled from 'styled-components';
 import CNRichTextEditor, { CNToolbar, getInitialObject, getDefaultStyles, 
-	convertToHtmlString } from "react-native-cn-richtext-editor";
+	convertToHtmlString, convertToObject } from "react-native-cn-richtext-editor";
 import {
 	Menu, MenuOptions, MenuOption,MenuTrigger,MenuContext,
 	MenuProvider, renderers} from 'react-native-popup-menu';
@@ -41,6 +41,13 @@ class TextEditor extends Component {
 		this.editor = null;
 	}
 
+	componentDidMount = () => {
+		let convertedHtml = convertToObject(`<div>${this.props.initialValue}</div>`)
+		console.log('text editor', convertedHtml, this.props.initialValue);
+		this.setState({
+			value: convertedHtml
+		})
+	}
 	onStyleKeyPress = (toolType) => {
 		this.editor.applyToolbar(toolType);
 	}
@@ -68,7 +75,7 @@ class TextEditor extends Component {
 		console.log('html string', html);
 		this.props.bodyHtml(html)
 	}
-
+	
 	renderColorSelector() {
        
 		let selectedColor = '#737373';
@@ -90,7 +97,7 @@ class TextEditor extends Component {
 						</ToolbarButton>
 				</MenuTrigger>
 				<MenuOptions customStyles={optionsStyles}>
-						{this.renderColorMenuOptions()}
+						{/* {this.renderColorMenuOptions()} */}
 				</MenuOptions>
 				</Menu>
 		);
@@ -166,6 +173,7 @@ class TextEditor extends Component {
 							onSelectedTagChanged={this.onSelectedTagChanged}
 							onSelectedStyleChanged={this.onSelectedStyleChanged}
 							value={this.state.value}
+							// value={convertToObject('<div><p><span>This is </span><span style="font-weight: bold;">bold</span><span> and </span><span style="font-style: italic;">italic </span><span>text</span></p></div>', this.customStyles)}
 							style={{ backgroundColor: '#fff'}}
 							styleList={defaultStyles}
 							onValueChanged={this.onValueChanged}

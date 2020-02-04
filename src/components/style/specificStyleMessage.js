@@ -96,13 +96,6 @@ const ImageRow = styled.View`
   padding: 0px 5px;
 `;
 
-const ImageName = styled.Text`
-  text-align: center;
-  padding: 0px 10px 10px 10px;
-  font-size: ${props => props.theme.small};
-  font-family: ${props => props.theme.regular};
-  /* margin-bottom: 20px; */
-`;
 const BackRow = styled.View`
   flex-direction: row;
   padding: 15px 0px 5px 15px;
@@ -266,8 +259,9 @@ class SpecificStyleMessage extends React.Component {
                                   bigImgUrl={bigUrl}
                                   imgPath={{ uri: url }}
                                   fileName={data.fileName}
+                                  
                                 >
-                                  <ImageName numberOfLines={1}> {data.fileName} </ImageName>
+                                  
                                 </ImageCard>
 
                               </Fragment>

@@ -30,6 +30,8 @@ import CreateAlert from "../../api/createAlert";
 import DeleteAlert from "../../api/deleteAlert";
 import IconView from "../../styles/IconView";
 import ButtonOverlay from "../../styles/ButtonOverlay";
+import { Appearance, useColorScheme } from 'react-native-appearance';
+
 
 const IconRow = styled.View`
   flex-direction: row;
@@ -168,6 +170,7 @@ const SImage = styled.Image`
   width: 30px;
 `;
 
+
 class Message extends React.Component {
   constructor(props) {
     super(props);
@@ -267,9 +270,14 @@ class Message extends React.Component {
       hideRead: !this.state.hideRead
     })
   }
+  
   render() {
     console.log('msg', this.props)
     history = this.props.history;
+    let color = Appearance.getColorScheme();
+    
+
+    console.log('color: ', color);
     // console.log('html height in render: ', this.state.htmlHeight1);
     // if(this.state.MessageList != null)
     // console.log("message list render", this.state.MessageList);

@@ -20,6 +20,8 @@ import com.reactnativecommunity.asyncstorage.AsyncStoragePackage;
 import com.reactnativecommunity.netinfo.NetInfoPackage;
 // lottie-react-native
 import com.airbnb.android.react.lottie.LottiePackage;
+// react-native-appearance
+import io.expo.appearance.RNCAppearancePackage;
 // react-native-bootsplash
 import com.zoontek.rnbootsplash.RNBootSplashPackage;
 // react-native-camera
@@ -84,6 +86,7 @@ public class PackageList {
       new AsyncStoragePackage(),
       new NetInfoPackage(),
       new LottiePackage(),
+      new RNCAppearancePackage(),
       new RNBootSplashPackage(),
       new RNCameraPackage(),
       new FastImageViewPackage(),

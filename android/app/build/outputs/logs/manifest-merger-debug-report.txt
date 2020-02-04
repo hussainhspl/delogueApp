@@ -6,6 +6,7 @@ INJECTED from /Users/siyaulhaqu/hussain/delogueApp/android/app/src/main/AndroidM
 INJECTED from /Users/siyaulhaqu/hussain/delogueApp/android/app/src/main/AndroidManifest.xml:1:1-43:12
 MERGED from /Users/siyaulhaqu/hussain/delogueApp/android/app/src/main/AndroidManifest.xml:1:1-43:12
 MERGED from [androidx.multidex:multidex:2.0.0] /Users/siyaulhaqu/.gradle/caches/transforms-2/files-2.1/dbe5ad45accd064550cd5503b48732c2/AndroidManifest.xml:17:1-22:12
+MERGED from [:react-native-appearance] /Users/siyaulhaqu/hussain/delogueApp/node_modules/react-native-appearance/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-11:12
 MERGED from [:react-native-webview] /Users/siyaulhaqu/hussain/delogueApp/node_modules/react-native-webview/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-23:12
 MERGED from [:react-native-fast-image] /Users/siyaulhaqu/hussain/delogueApp/node_modules/react-native-fast-image/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-11:12
 MERGED from [:@react-native-community_async-storage] /Users/siyaulhaqu/hussain/delogueApp/node_modules/@react-native-community/async-storage/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-9:12
@@ -229,6 +230,8 @@ INJECTED from /Users/siyaulhaqu/hussain/delogueApp/android/app/src/main/AndroidM
 INJECTED from /Users/siyaulhaqu/hussain/delogueApp/android/app/src/main/AndroidManifest.xml
 MERGED from [androidx.multidex:multidex:2.0.0] /Users/siyaulhaqu/.gradle/caches/transforms-2/files-2.1/dbe5ad45accd064550cd5503b48732c2/AndroidManifest.xml:20:5-43
 MERGED from [androidx.multidex:multidex:2.0.0] /Users/siyaulhaqu/.gradle/caches/transforms-2/files-2.1/dbe5ad45accd064550cd5503b48732c2/AndroidManifest.xml:20:5-43
+MERGED from [:react-native-appearance] /Users/siyaulhaqu/hussain/delogueApp/node_modules/react-native-appearance/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:7:5-9:41
+MERGED from [:react-native-appearance] /Users/siyaulhaqu/hussain/delogueApp/node_modules/react-native-appearance/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:7:5-9:41
 MERGED from [:react-native-webview] /Users/siyaulhaqu/hussain/delogueApp/node_modules/react-native-webview/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:7:5-9:41
 MERGED from [:react-native-webview] /Users/siyaulhaqu/hussain/delogueApp/node_modules/react-native-webview/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:7:5-9:41
 MERGED from [:react-native-fast-image] /Users/siyaulhaqu/hussain/delogueApp/node_modules/react-native-fast-image/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:7:5-9:41

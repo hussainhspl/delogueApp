@@ -5,7 +5,7 @@ require_relative '../node_modules/@react-native-community/cli-platform-ios/nativ
 
 target 'delogue' do
   # Comment the next line if you don't want to use dynamic frameworks
-  use_frameworks!
+  # use_frameworks!
 
   pod 'FBLazyVector', :path => "../node_modules/react-native/Libraries/FBLazyVector"
   pod 'FBReactNativeSpec', :path => "../node_modules/react-native/Libraries/FBReactNativeSpec"
@@ -65,6 +65,8 @@ target 'delogue' do
   
   pod 'react-native-webview', :path => '../node_modules/react-native-webview'
 
+  pod 'react-native-appearance', :path => '../node_modules/react-native-appearance'
+
   # Pods for delogue
   # pod 'React', :path => '../node_modules/react-native/'
   # pod 'React-Core', :path => '../node_modules/react-native/'
@@ -95,6 +97,8 @@ target 'delogue' do
   target 'delogue-tvOSTests' do
     inherit! :search_paths
     # Pods for testing
+
+    pod 'react-native-appearance', :path => '../node_modules/react-native-appearance'
 
   end
 

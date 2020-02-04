@@ -127,6 +127,7 @@ class Template extends React.Component {
 
   render() {
     console.disableYellowBox = true;
+    
     return (
       <Fragment>
         {
