@@ -25,7 +25,6 @@ import { format, parseISO } from 'date-fns';
 // import HTMLView from 'react-native-htmlview';
 import { WebView } from 'react-native-webview';
 import AutoHeightWebView from 'react-native-autoheight-webview'
-import DWebView from "./DWebView";
 import CreateAlert from "../../api/createAlert";
 import DeleteAlert from "../../api/deleteAlert";
 import IconView from "../../styles/IconView";

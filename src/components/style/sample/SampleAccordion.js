@@ -10,6 +10,8 @@ import Accordion from 'react-native-collapsible/Accordion';
 import StyleStatus from './styleStatus';
 import Measurement from './measurement';
 import Design from './design';
+import Finish from './finish';
+import ItemPlacement from './ItemPlacement';
 
 const CommentedButton = styled.View`
   background-color: ${props => props.theme.blue};
@@ -64,40 +66,6 @@ const LessText = styled.Text`
 	font-size: ${props => props.theme.large};
 `;
 
-const SECTIONS = [
-	{
-    title: "Measurement ",
-    content: '1',
-  },
-	{
-    title: "style ",
-    content: '2',
-  },
-  {
-    title: 'Design',
-    content: '3',
-	},
-	{
-    title: 'Finish',
-    content: '4',
-	},
-	{
-    title: 'Item Placement',
-    content: '5',
-	},
-	{
-    title: 'Custom Comment Files',
-    content: '6',
-	},
-	{
-    title: 'Style Files',
-    content: '7',
-	},
-	{
-    title: 'Sample Status',
-    content: '8',
-  },
-];
 
 class SampleAccordion extends React.Component {
 	constructor(props) {
@@ -144,8 +112,8 @@ class SampleAccordion extends React.Component {
 				<View style={styles.content}>
 					{this.state.activeComponent == "Measurement" && (<Measurement id={this.props.data.id} />)}
 					{this.state.activeComponent == "Design" && (<Design id={this.props.data.id} />)}
-					{/* {this.state.activeComponent == "Measurement" && (<Design />)}
-					{this.state.activeComponent == "Measurement" && (<Design />)} */}
+					{this.state.activeComponent == "Finish" && (<Finish id={this.props.data.id} />)}
+					{this.state.activeComponent == "Item placement" && (<ItemPlacement id={this.props.data.id} />)}
 
 				</View>
 			)
@@ -160,14 +128,20 @@ class SampleAccordion extends React.Component {
 			}
 			else if(name == "Design") {
 				this.setState({activeSections, activeComponent: "Design"})
-			} 
+			}
+			else if(name == "Finish") {
+				this.setState({activeSections, activeComponent: "Finish"})
+			}
+			else if(name == "Item placement") {
+				this.setState({activeSections, activeComponent: "Item placement"})
+			}
 			else {
 				this.setState({ activeSections })
 			}
 		} else {
 			this.setState({ activeSections })
 		}
-
+		
   };
 
 	render() {

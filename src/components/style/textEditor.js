@@ -42,11 +42,14 @@ class TextEditor extends Component {
 	}
 
 	componentDidMount = () => {
-		let convertedHtml = convertToObject(`<div>${this.props.initialValue}</div>`)
-		console.log('text editor', convertedHtml, this.props.initialValue);
-		this.setState({
-			value: convertedHtml
-		})
+		if(this.props.initialValue != null) {
+			let convertedHtml = convertToObject(`<div>${this.props.initialValue}</div>`)
+			console.log('text editor', convertedHtml, this.props.initialValue);
+			this.setState({
+				value: convertedHtml
+			})
+		}
+		
 	}
 	onStyleKeyPress = (toolType) => {
 		this.editor.applyToolbar(toolType);
