@@ -71,7 +71,7 @@ class FooterComponent extends React.Component {
                   <StyledImage
                     resizeMode={"contain"}
                     // style={{maxWidth: '30%'}}
-                    source={ require("../assets/img/footer/ic_general.png")}
+                    source={ require("../assets/img/footer/ic_information.png")}
                   />
                 </IconView>
                 <IconText
@@ -125,7 +125,7 @@ class FooterComponent extends React.Component {
                 <IconView>
                 <StyledImage
                   resizeMode={"contain"}
-                  source={require("../assets/img/footer/ic_information.png")
+                  source={require("../assets/img/footer/ic_sample.png")
                   }
                 />
                 </IconView>

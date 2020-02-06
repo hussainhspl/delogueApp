@@ -25,6 +25,7 @@ import TouchableApply from "../../styles/TouchableApply";
 import SendNewMessage from '../../api/comments/sendNewMessage';
 import Toast from 'react-native-root-toast';
 import TextEditor from "./textEditor";
+import {sortBy, orderBy} from 'lodash'
 
 
 
@@ -200,16 +201,27 @@ class NewMessage extends React.Component {
             // console.log('successful notify', res);
             if (res.data.internalUsers.length > 0) {
               // console.log('adding internal users');
+              // const sorted = sortBy(res.data.internalUsers, ["name"]);
+              const sorted = orderBy(res.data.internalUsers, [user => user.name.toLowerCase()]);
+              console.log('sorted users', res.data, sorted);
               this.setState({
-                notifyList: res.data.internalUsers
+                notifyList: sorted
               })
             }
             if (res.data.otherUsers.length > 0) {
               // console.log('adding other users');
+              let internalUser = this.state.notifyList;
+              let allUser = internalUser.concat(res.data.otherUsers);
+              const sorted = orderBy(allUser, [user => user.name.toLowerCase()]);
+              console.log('all user', allUser, sorted);
               this.setState(prevState => ({
-                notifyList: [...prevState.notifyList, ...res.data.otherUsers],
+                notifyList: sorted,
                 otherUsers: res.data.otherUsers
               }))
+              // this.setState(prevState => ({
+              //   notifyList: [...prevState.notifyList, ...res.data.otherUsers],
+              //   otherUsers: res.data.otherUsers
+              // }))
             }
           })
       })

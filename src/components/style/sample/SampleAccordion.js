@@ -1,8 +1,10 @@
 import React from 'react';
-import {View, Text, TouchableOpacity, Image, 
-	Dimensions, TouchableHighlight, StyleSheet} from 'react-native';
+import {
+	View, Text, TouchableOpacity, Image,
+	Dimensions, TouchableHighlight, StyleSheet
+} from 'react-native';
 import styled from "styled-components";
-import {Icon, Picker} from 'native-base';
+import { Icon, Picker } from 'native-base';
 import { withTheme } from 'styled-components';
 import Accordion from 'react-native-collapsible/Accordion';
 
@@ -11,7 +13,10 @@ import StyleStatus from './styleStatus';
 import Measurement from './measurement';
 import Design from './design';
 import Finish from './finish';
-import ItemPlacement from './ItemPlacement';
+import SampleStatus from './sampleStatus';
+import CustomComment from './customComment';
+
+let renderOnce;
 
 const CommentedButton = styled.View`
   background-color: ${props => props.theme.blue};
@@ -69,11 +74,12 @@ const LessText = styled.Text`
 
 class SampleAccordion extends React.Component {
 	constructor(props) {
-    super(props);
-    this.state = {
+		super(props);
+		this.state = {
 			activeSections: [],
-			activeComponent :null,
-			ArrayData: null
+			activeComponent: null,
+			ArrayData: null,
+			custom: false
 		}
 	}
 	componentDidMount = () => {
@@ -83,15 +89,15 @@ class SampleAccordion extends React.Component {
 	}
 
 	_renderSectionTitle = section => {
-    return (
-      <View style={styles.content}>
-        <Text>{section.content}</Text>
-      </View>
-    );
-  };
- 
-  _renderHeader = section => {
-    return (
+		return (
+			<View style={styles.content}>
+				<Text>{section.content}</Text>
+			</View>
+		);
+	};
+
+	_renderHeader = section => {
+		return (
 			<StyleFileTitle>
 				<Capital> {section.name} </Capital>
 				<Flex>
@@ -99,54 +105,98 @@ class SampleAccordion extends React.Component {
 					<Text>show more</Text>
 				</Flex>
 			</StyleFileTitle>
-    );
+		);
 	};
- 
-  _renderContent = section => {
-		console.log('render content',this.state.activeComponent, section.name);
-		if(this.state.activeComponent != section.name) {
+
+	_renderContent = section => {
+		console.log('render content', renderOnce, this.state.activeSections);
+		// if (this.state.activeComponent == "Custom comments") {
+		// 	if (renderOnce == undefined) {
+		// 		console.log('render content inside', renderOnce, this.state.ArrayData, clickId, this.state.activeSections[0]);
+		// 		let active = this.state.activeSections[0];
+		// 		let clickId = this.state.ArrayData[this.state.activeSections[0]].id;
+		// 		console.log('clickId', clickId, active);
+		// 		renderOnce = 1;
+				
+		// 		return (
+		// 			<View style={styles.content}>
+		// 				<CustomComment id={this.props.data.id} commentFieldId={clickId} />
+		// 			</View>
+		// 		)
+		// 	}
+		// }
+
+		if (this.state.activeComponent != section.name) {
+			// console.log('entering in null');
 			return null
 		}
-			console.log('id', section.id);
-			return (
-				<View style={styles.content}>
-					{this.state.activeComponent == "Measurement" && (<Measurement id={this.props.data.id} />)}
-					{this.state.activeComponent == "Design" && (<Design id={this.props.data.id} />)}
-					{this.state.activeComponent == "Finish" && (<Finish id={this.props.data.id} />)}
-					{this.state.activeComponent == "Item placement" && (<ItemPlacement id={this.props.data.id} />)}
 
-				</View>
-			)
-  };
- 
-  _updateSections = (activeSections) => {
+		console.log('id', section.id, this.state.activeComponent);
+		// renderOnce= undefined;
+		let clickId;
+		if(this.state.activeSections.length> 0){
+			clickId = this.state.ArrayData[this.state.activeSections[0]].id;
+		}else {
+			return
+		}
+		
+		return (
+			<View style={styles.content}>
+				{this.state.activeComponent == "Measurement" && (<Measurement id={this.props.data.id} />)}
+				{this.state.activeComponent == "Design" && (<Design id={this.props.data.id} />)}
+				{this.state.activeComponent == "Finish" && (<Finish id={this.props.data.id} />)}
+				{this.state.activeComponent == "Item placement" && (<ItemPlacement id={this.props.data.id} />)}
+				{this.state.activeComponent == "Sample status" && (<SampleStatus id={this.props.data.id} />)}
+				{
+					(this.state.activeComponent != "Measurement" ||
+					this.state.activeComponent != "Design" || 
+					this.state.activeComponent != "Finish" || 
+					this.state.activeComponent != "Item placement" ||
+					this.state.activeComponent != "Sample status" &&
+					this.state.activeSections.length> 0) ? 
+						<CustomComment id={this.props.data.id} commentFieldId={clickId} /> :
+						null
+				}
+			</View>
+		)
+	};
+
+	_updateSections = (activeSections) => {
 		console.log("enter in on change", activeSections, this.props.data.adminSampleRequestCommentFields);
-		if(activeSections.length > 0) {
+		if (activeSections.length > 0) {
 			let name = this.state.ArrayData[activeSections].name
-			if( name == "Measurement" ) {
-				this.setState({activeSections, activeComponent: "Measurement"})
+			console.log('name', name)
+			if (name == "Measurement") {
+				this.setState({ activeSections, activeComponent: "Measurement" })
 			}
-			else if(name == "Design") {
-				this.setState({activeSections, activeComponent: "Design"})
+			else if (name == "Design") {
+				this.setState({ activeSections, activeComponent: "Design" })
 			}
-			else if(name == "Finish") {
-				this.setState({activeSections, activeComponent: "Finish"})
+			else if (name == "Finish") {
+				this.setState({ activeSections, activeComponent: "Finish" })
 			}
-			else if(name == "Item placement") {
-				this.setState({activeSections, activeComponent: "Item placement"})
+			else if (name == "Item placement") {
+				this.setState({ activeSections, activeComponent: "Item placement" })
+			}
+			else if (name == "Sample status") {
+				this.setState({ activeSections, activeComponent: "Sample status" })
 			}
 			else {
-				this.setState({ activeSections })
+				this.setState({ activeSections, activeComponent: name })
 			}
 		} else {
 			this.setState({ activeSections })
 		}
-		
-  };
+
+	};
+	_updateOnce = (key, index) => {
+		console.log('tab closed');
+		// renderOnce= undefined;
+	}
 
 	render() {
-		console.log('props data in accordion', this.props.data);
-		return(
+		// console.log('props data in accordion', this.props.data);
+		return (
 			<View>
 				{this.state.ArrayData != null ?
 					<Accordion
@@ -157,6 +207,7 @@ class SampleAccordion extends React.Component {
 						renderContent={this._renderContent}
 						onChange={this._updateSections}
 						underlayColor="#eee"
+						onAnimationEnd={this._updateOnce}
 					/>
 					: <Text>loading</Text>
 				}

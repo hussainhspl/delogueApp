@@ -14,7 +14,7 @@ const GetDesign = (token, id) => {
       resolve(res);
     })
     .catch(error => {
-      console.error("error in  get sample overview", error);
+      console.error("error in  get sample design", error);
     })
   })
 }

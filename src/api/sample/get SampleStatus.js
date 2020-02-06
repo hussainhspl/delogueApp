@@ -1,9 +1,9 @@
 import axios from 'axios';
 
-const GetMeasurement = (token, id) => {
+const GetSampleStatus = (token, id) => {
   return new Promise((resolve, reject) => {
     axios({
-      url: `${baseUrl}StyleSampleRequest/${id}/Measurement/Comment`,
+      url: `${baseUrl}StyleSampleRequest/${id}/SampleStatus/Comment`,
       method: 'GET',
       headers: {
         Authorization: `Bearer ${token}`,
@@ -14,8 +14,8 @@ const GetMeasurement = (token, id) => {
       resolve(res);
     })
     .catch(error => {
-      console.error("error in  get sample measurement", error);
+      console.error("error in get sample status", error);
     })
   })
 }
-export default GetMeasurement;
+export default GetSampleStatus;
