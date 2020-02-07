@@ -82,6 +82,7 @@ class Design extends React.Component {
                       console.log('map data', d);
                       return (
                         <ImageCard
+                          key={d.id}
                           bigImgUrl={d.url}
                           imgPath={{ uri: d.url }}
                           fileName={d.name}

@@ -173,12 +173,11 @@ class Files extends React.Component {
     }
   };
   static getDerivedStateFromProps(nextProps, prevState) {
-    if (nextProps.fileArr !== prevState.fileArr)
+    if (nextProps.fileArr !== prevState.fileArr){}
       console.log("Entered file nextProps");
     return {
       fileArr: nextProps.styleFileList,
     }
-    return null;
   }
   render() {
     console.log("file state", this.state.fileArr);
@@ -196,7 +195,7 @@ class Files extends React.Component {
             this.state.fileArr != null ?
               this.state.fileArr.map(data => {
                 return (
-                  <View>
+                  <View key={data.delogueFolderResponse.id}>
                     <StyleFileTitle>
                       <Capital numberOfLines={1}>
                         {data.delogueFolderResponse.name}
@@ -214,7 +213,7 @@ class Files extends React.Component {
                       {data.delogueFileResponse.length > 0 ?
                         data.delogueFileResponse.map(d => {
                           no = no + 1;
-
+                          console.log('file card images', d);
                           return (
                             <FileCard
                               imageName={d.fileName}

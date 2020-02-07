@@ -113,6 +113,7 @@ class Sample extends React.Component {
         sampleArray: nextProps.sampleData.data,
       }
     }
+    return null;
   }
   callSample = (id)  => {
     console.log('yay', id);
@@ -138,12 +139,13 @@ class Sample extends React.Component {
             >
               <ButtonRow>
                  {this.state.showOpacity && <ButtonOverlay />}
+                 <IconView>
+                    <Icon style={{ color: "#fff", fontSize: 15 }} name="eye" />
+                  </IconView>
                 <CommentedButton>
                   <ButtonText> hide commented </ButtonText>
                 </CommentedButton>
-                  <IconView>
-                    <Icon style={{ color: "#fff", fontSize: 15 }} name="eye" />
-                  </IconView>
+                  
               </ButtonRow>
             </TouchableWithoutFeedback>
               </View>
@@ -152,6 +154,7 @@ class Sample extends React.Component {
                 // console.log('reach condition', d);
                 return (
                   <SampleComponent
+                    key={d.id}
                     data={d}
                     closeSampleList={this.callSample}
                   />

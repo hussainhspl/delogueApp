@@ -148,8 +148,9 @@ class Measurement extends React.Component {
                   </StyleCol>
 
                   {desc.map(d => {
+                    console.log('measurement', d)
                     return (
-                      <StyleCol size={1}>
+                      <StyleCol size={1} key={Math.random().toFixed(3)}>
                         <Text> {d} </Text>
                       </StyleCol>
                     );
@@ -198,7 +199,7 @@ class Measurement extends React.Component {
             </View> 
           </CommonModal>
         </SView>
-      : <Text>loading</Text>
+      : null
         }
       </View>
     )

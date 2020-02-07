@@ -214,7 +214,7 @@ class CommentBlock extends React.Component {
                 let newMsgBody = d.logMessage.replace(/class='commAttachmentsContainer/g, "style='display: none' class='")
                 let formatedDate = format(parseISO(d.loggedOn), "d-MMM-yyyy kk:mm");
                 return (
-                  <ReplyBlock>
+                  <ReplyBlock key={d.id}>
                     <FromRow>
                       <Name>{d.loggedInUser.name} </Name>
                       <Title>{formatedDate}</Title>

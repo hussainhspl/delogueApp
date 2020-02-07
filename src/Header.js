@@ -109,7 +109,7 @@ class Header extends React.Component {
             history = {history}
           />}
           openDrawerOffset={0.45} // 20% gap on the right side of drawer
-          panCloseMask={0.2}
+          panCloseMask={0.9}
           styles={drawerStyles}
           side="right"
           tweenHandler={(ratio) => ({

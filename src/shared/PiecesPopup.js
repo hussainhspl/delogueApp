@@ -171,9 +171,9 @@ class PiecesPopup extends React.Component{
               <HeaderColumn> 
                 <Text>Size</Text>
               </HeaderColumn>
-              {colArr.map(c => {
+              {colArr.map(c => {   
                   return(
-                    <HeaderColumn>
+                    <HeaderColumn key={Math.random().toFixed(3)}>
                       <Text>{c}</Text>
                     </HeaderColumn>
                   )
@@ -185,7 +185,7 @@ class PiecesPopup extends React.Component{
             {
               MainArr.map(data => {
                 return(
-						      <ColumnRow>         
+						      <ColumnRow key={Math.random().toFixed(3)}>         
                     <Column> 
                       <Text>{data.size}</Text>
                     </Column>

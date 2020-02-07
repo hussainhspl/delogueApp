@@ -252,6 +252,8 @@ PODS:
     - React
   - RNCAsyncStorage (1.6.2):
     - React
+  - RNDateTimePicker (2.2.1):
+    - React
   - RNFastImage (7.0.2):
     - React
     - SDWebImage (~> 5.0)
@@ -306,6 +308,7 @@ DEPENDENCIES:
   - rn-fetch-blob (from `../node_modules/rn-fetch-blob`)
   - RNBootSplash (from `../node_modules/react-native-bootsplash`)
   - "RNCAsyncStorage (from `../node_modules/@react-native-community/async-storage`)"
+  - "RNDateTimePicker (from `../node_modules/@react-native-community/datetimepicker/RNDateTimePicker.podspec`)"
   - RNFastImage (from `../node_modules/react-native-fast-image`)
   - RNGestureHandler (from `../node_modules/react-native-gesture-handler/RNGestureHandler.podspec`)
   - RNVectorIcons (from `../node_modules/react-native-vector-icons`)
@@ -387,6 +390,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-bootsplash"
   RNCAsyncStorage:
     :path: "../node_modules/@react-native-community/async-storage"
+  RNDateTimePicker:
+    :path: "../node_modules/@react-native-community/datetimepicker/RNDateTimePicker.podspec"
   RNFastImage:
     :path: "../node_modules/react-native-fast-image"
   RNGestureHandler:
@@ -433,6 +438,7 @@ SPEC CHECKSUMS:
   rn-fetch-blob: f525a73a78df9ed5d35e67ea65e79d53c15255bc
   RNBootSplash: bba8b884b667778b0fd0c34a5f909046ff0f2237
   RNCAsyncStorage: 5ae4d57458804e99f73d427214442a6b10a53856
+  RNDateTimePicker: 1e20e91177ab5e885aa645666c5490ad99e9a839
   RNFastImage: 9b0c22643872bb7494c8d87bbbb66cc4c0d9e7a2
   RNGestureHandler: a4ddde1ffc6e590c8127b8b7eabfdade45475c74
   RNVectorIcons: 0bb4def82230be1333ddaeee9fcba45f0b288ed4
@@ -440,6 +446,6 @@ SPEC CHECKSUMS:
   SDWebImageWebPCoder: 947093edd1349d820c40afbd9f42acb6cdecd987
   Yoga: 02036f6383c0008edb7ef0773a0e6beb6ce82bd1
 
-PODFILE CHECKSUM: 8c89e5f47f3927cef6ac35f8887e2e172535dd70
+PODFILE CHECKSUM: 375ca2e89eeb37282842b6aed34a203eeeae0e4f
 
 COCOAPODS: 1.8.4

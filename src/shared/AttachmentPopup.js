@@ -204,7 +204,8 @@ class AttachmentPopup extends React.Component {
               enableScale
               images={[
                 {
-                  uri: this.props.path,
+                  // uri: this.props.path,
+                  uri: this.props.fileSrc
                 }
               ]}
             />

@@ -64,7 +64,7 @@ class ItemPlacement extends React.Component {
               const context = get(d, 'styleItem');
               // console.log("context data", context,d.styleItem, get(context,'item'));
               return(
-                <Fragment>
+                <Fragment key={d.id}>
                 <SmallText >Item</SmallText>
                 <CardText> 
                   { get(context,'item.name')} - {get(context, 'item.userDefinedId')}

@@ -160,13 +160,13 @@ class SpecificStyleMessage extends React.Component {
   }
   render() {
     console.log('this. specific style block data', this.props.data)
-    const { isRead, loggedInUser, loggedOn, notifiedUsers, internalOnly, 
-      subject, logMessage, id, replyList, fileList} = this.props.data.styleAuditLog;
-      console.log('time : ', format(parseISO(loggedOn), "d-MMM-yyyy kk:mm"))
+    const { isRead, loggedInUser, loggedOn, notifiedUsers, internalOnly,
+      subject, logMessage, id, replyList, fileList } = this.props.data.styleAuditLog;
+    console.log('time : ', format(parseISO(loggedOn), "d-MMM-yyyy kk:mm"))
     // console.log('is read : ', isRead, this.props.data.styleAuditLog);
     let formatedDate = format(parseISO(loggedOn), "d-MMM-yyyy kk:mm");
     let mainMsgBody = logMessage.replace(/class='commAttachmentsContainer/g, "style='display: none' class='")
-    
+      console.log('main msg body', mainMsgBody);
     return (
       <Fragment>
         <CommentBox>
@@ -205,6 +205,7 @@ class SpecificStyleMessage extends React.Component {
               replyList.map(d => {
                 let newMsgBody = d.logMessage.replace(/class='commAttachmentsContainer/g, "style='display: none' class='")
                 let formatedDate = format(parseISO(d.loggedOn), "d-MMM-yyyy kk:mm");
+                console.log('reply msg text', newMsgBody);
                 return (
                   <ReplyBlock>
                     <FromRow>
@@ -229,20 +230,24 @@ class SpecificStyleMessage extends React.Component {
                       </NotifyView>
                     </FromRow>
                     <AutoHeightWebView
-                      style={{ width: Dimensions.get('window').width - 45, marginTop: 15, marginBottom: 0 }}
-                      source={{ html: `${newMsgBody}` }}
+                      style={{ width: Dimensions.get('window').width - 55, marginTop: 15, marginBottom: 0 }}
+                      // source={{ html: `<p style=" font-weight: 400;font-style: normal;font-size: 21px;line-height: 1.58;letter-spacing: -.003em;">Tags are great for describing the essence of your story in a single word or phrase, but stories are rarely about a single thing. <span style="background-color: transparent !important;background-image: linear-gradient(to bottom, rgba(146, 249, 190, 1), rgba(146, 249, 190, 1));">If I pen a story about moving across the country to start a new job in a car with my husband, two cats, a dog, and a tarantula, I wouldn’t only tag the piece with “moving”. I’d also use the tags “pets”, “marriage”, “career change”, and “travel tips”.</span></p>` }}
+                      source={{html: `${newMsgBody}`}}
                       customStyle={`
                         * {
                           font-family: ${props => props.theme.regular};
+                          // background-color: #f66;
                         }
                         .fr-emoticon {
                           width: 15px;
                           height: 15px;
                           display: inline-block;
-                        }                  
+                        }
+                        pre {
+                          white-space: pre-wrap;
+                          }                 
                       `}
                       scalesPageToFit={false}
-                      zoomable={false}
                       viewportContent={'width=device-width, user-scalable=no'}
                     />
                     {
@@ -259,9 +264,9 @@ class SpecificStyleMessage extends React.Component {
                                   bigImgUrl={bigUrl}
                                   imgPath={{ uri: url }}
                                   fileName={data.fileName}
-                                  
+
                                 >
-                                  
+
                                 </ImageCard>
 
                               </Fragment>
@@ -276,7 +281,7 @@ class SpecificStyleMessage extends React.Component {
               : null
           }
           <BodyArea>
-            {/* <MessageBody> */}             
+            {/* <MessageBody> */}
             <FromRow>
               <Name>{loggedInUser.name} </Name>
               <Title>{formatedDate}</Title>
@@ -300,9 +305,23 @@ class SpecificStyleMessage extends React.Component {
               </NotifyView>
             </FromRow>
             <AutoHeightWebView
-              style={{ width: Dimensions.get('window').width - 45, marginTop: 15 }}
+              style={{ width: Dimensions.get('window').width - 15, marginTop: 15 }}
               source={{ html: `${mainMsgBody}` }}
-              scalesPageToFit={false}
+              customStyle={`
+              *{
+                font-family: ${props => props.theme.regular};
+                // background-color: #f66;
+                width: 100%;
+              }
+              pre {
+                white-space: pre-wrap;
+                } 
+              .fr-emoticon {
+                width: 15px;
+                height: 15px;
+                display: inline-block;
+              }`}
+              scalesPageToFit={true}
               zoomable={false}
               viewportContent={'width=device-width, user-scalable=no'}
             />
@@ -314,8 +333,8 @@ class SpecificStyleMessage extends React.Component {
                   let url = `${baseUrl}resource/thumbnail?ResourceId=${data.fileId}&Width=117&Height=113`
                   let bigUrl = `${baseUrl}resource/thumbnail?ResourceId=${data.fileId}&Width=1000&Height=500`
                   return (
-                    <Fragment>  
-                      <ImageCard 
+                    <Fragment>
+                      <ImageCard
                         key={data.key}
                         msgTitle={subject}
                         bigImgUrl={bigUrl}

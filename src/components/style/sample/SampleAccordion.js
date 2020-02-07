@@ -1,20 +1,19 @@
 import React from 'react';
 import {
 	View, Text, TouchableOpacity, Image,
-	Dimensions, TouchableHighlight, StyleSheet
+	Dimensions, TouchableHighlight
 } from 'react-native';
 import styled from "styled-components";
 import { Icon, Picker } from 'native-base';
 import { withTheme } from 'styled-components';
 import Accordion from 'react-native-collapsible/Accordion';
-
 // relative import
-import StyleStatus from './styleStatus';
 import Measurement from './measurement';
 import Design from './design';
 import Finish from './finish';
 import SampleStatus from './sampleStatus';
 import CustomComment from './customComment';
+import ItemPlacement from './ItemPlacement';
 
 let renderOnce;
 
@@ -90,7 +89,7 @@ class SampleAccordion extends React.Component {
 
 	_renderSectionTitle = section => {
 		return (
-			<View style={styles.content}>
+			<View>
 				<Text>{section.content}</Text>
 			</View>
 		);
@@ -109,49 +108,29 @@ class SampleAccordion extends React.Component {
 	};
 
 	_renderContent = section => {
-		console.log('render content', renderOnce, this.state.activeSections);
-		// if (this.state.activeComponent == "Custom comments") {
-		// 	if (renderOnce == undefined) {
-		// 		console.log('render content inside', renderOnce, this.state.ArrayData, clickId, this.state.activeSections[0]);
-		// 		let active = this.state.activeSections[0];
-		// 		let clickId = this.state.ArrayData[this.state.activeSections[0]].id;
-		// 		console.log('clickId', clickId, active);
-		// 		renderOnce = 1;
-				
-		// 		return (
-		// 			<View style={styles.content}>
-		// 				<CustomComment id={this.props.data.id} commentFieldId={clickId} />
-		// 			</View>
-		// 		)
-		// 	}
-		// }
-
+		console.log('render content', this.state.activeSections);
+		
 		if (this.state.activeComponent != section.name) {
-			// console.log('entering in null');
 			return null
 		}
-
 		console.log('id', section.id, this.state.activeComponent);
-		// renderOnce= undefined;
 		let clickId;
 		if(this.state.activeSections.length> 0){
 			clickId = this.state.ArrayData[this.state.activeSections[0]].id;
-		}else {
-			return
 		}
 		
 		return (
-			<View style={styles.content}>
+			<View>
 				{this.state.activeComponent == "Measurement" && (<Measurement id={this.props.data.id} />)}
 				{this.state.activeComponent == "Design" && (<Design id={this.props.data.id} />)}
 				{this.state.activeComponent == "Finish" && (<Finish id={this.props.data.id} />)}
 				{this.state.activeComponent == "Item placement" && (<ItemPlacement id={this.props.data.id} />)}
 				{this.state.activeComponent == "Sample status" && (<SampleStatus id={this.props.data.id} />)}
 				{
-					(this.state.activeComponent != "Measurement" ||
-					this.state.activeComponent != "Design" || 
-					this.state.activeComponent != "Finish" || 
-					this.state.activeComponent != "Item placement" ||
+					(this.state.activeComponent != "Measurement" &&
+					this.state.activeComponent != "Design" && 
+					this.state.activeComponent != "Finish" && 
+					this.state.activeComponent != "Item placement" &&
 					this.state.activeComponent != "Sample status" &&
 					this.state.activeSections.length> 0) ? 
 						<CustomComment id={this.props.data.id} commentFieldId={clickId} /> :
@@ -189,10 +168,6 @@ class SampleAccordion extends React.Component {
 		}
 
 	};
-	_updateOnce = (key, index) => {
-		console.log('tab closed');
-		// renderOnce= undefined;
-	}
 
 	render() {
 		// console.log('props data in accordion', this.props.data);
@@ -207,7 +182,6 @@ class SampleAccordion extends React.Component {
 						renderContent={this._renderContent}
 						onChange={this._updateSections}
 						underlayColor="#eee"
-						onAnimationEnd={this._updateOnce}
 					/>
 					: <Text>loading</Text>
 				}
@@ -215,7 +189,5 @@ class SampleAccordion extends React.Component {
 		)
 	}
 }
-const styles = StyleSheet.create({
 
-});
 export default withTheme(SampleAccordion);

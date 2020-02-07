@@ -194,7 +194,7 @@ class Finish extends React.Component {
           
           </StyleRow>
           </Fragment >
-          :null
+          :<Text>loading</Text>
         }
       </MainView>
     )

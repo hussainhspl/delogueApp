@@ -157,7 +157,8 @@ const Block = styled.TouchableOpacity`
 `;
 const CurrentStage = styled.View`
   background-color: ${props => props.theme.brown};
-  padding: 5px 0px;
+  /* padding: 5px 0px; */
+  /* padding: 5px 0px 0px 0px; */
   align-items: center;
 `;
 const CurrentStageTitle = styled.Text`
@@ -172,6 +173,7 @@ const TabRow = styled.View`
   border-bottom-width: 3px;
   border-top-width: 3px;
   border-color: #fff;
+  
 `;
 const RightTriangle = styled.View`
   width: 0px;
@@ -233,6 +235,7 @@ class SampleRequest extends React.Component {
       piecesModal: false,
       currentIndex: 0,
       sampleData: null,
+      sampleRequestStatus: null,
     };
   }
   showDateTimePicker = value => {
@@ -270,6 +273,7 @@ class SampleRequest extends React.Component {
             this.setState({
               sampleData: res.data
             })
+            this.getSampleRequestStatus()
           })
       })
   };
@@ -312,6 +316,16 @@ class SampleRequest extends React.Component {
 
       <CurrentStageTitle>{item}</CurrentStageTitle>
     );
+  }
+  getSampleRequestStatus = () => {
+    this.state.sampleData != null ?
+      this.state.sampleData.sampleRequestStatus == "Requested" ? 
+        this.setState({
+          sampleRequestStatus : 1
+        })
+      : null
+    : null
+
   }
   render() {
     const screenWidth = Math.round(Dimensions.get('window').width);
@@ -366,6 +380,7 @@ class SampleRequest extends React.Component {
                 sliderWidth={screenWidth}
                 callbackOffsetMargin={0}
                 onBeforeSnapToItem={this.changeIndex}
+                firstItem={this.state.sampleRequestStatus}
               // onSnapToItem={(index) => console.log('hello')}
               // onLayout={ () => console.log("swipe")}
               // activeSlideAlignment={'center'}

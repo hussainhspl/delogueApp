@@ -153,18 +153,18 @@ class General extends React.Component {
         styleID: nextProps.styleId,
       }
     }
-
+    return null;
   }
-  UNSAFE_componentWillReceiveProps(nextProps, prevState) {
-    // console.log('unsafe ')
-  }
-  getSnapshotBeforeUpdate(prevProps, prevState) {
-    // console.log('get snapshot method called');
-    // if (nextProps.style !== prevState.dataArray) {
-    //   console.log('should component in update');
-    //   this.getThumbnail(this.state.dataArray.data.styleLogoThumbnails)
-    // }
-  }
+  // UNSAFE_componentWillReceiveProps(nextProps, prevState) {
+  //   // console.log('unsafe ')
+  // }
+  // getSnapshotBeforeUpdate(prevProps, prevState) {
+  //   // console.log('get snapshot method called');
+  //   // if (nextProps.style !== prevState.dataArray) {
+  //   //   console.log('should component in update');
+  //   //   this.getThumbnail(this.state.dataArray.data.styleLogoThumbnails)
+  //   // }
+  // }
 
   componentDidUpdate(prevProps, prevState) {
     // console.log('should component update', this.props, prevProps);
@@ -452,7 +452,7 @@ class General extends React.Component {
                   {
                     state.categories ?
                       state.categories.map(d => {
-                        return <SubTitle>{d.name}</SubTitle>;
+                        return <SubTitle key={d.id}>{d.name}</SubTitle>;
                       })
                       : <SubTitle> - </SubTitle>
                   }
@@ -469,7 +469,7 @@ class General extends React.Component {
               {state.styleColors ?
                 state.styleColors.map(color => {
                   return (
-                    <Block>
+                    <Block key={color.id}>
                       {color.adminColor.isActive == false ? (
                         <Fragment>
                           <InactiveColorBox color={color.adminColor.rgb ? color.adminColor.rgb : "fff"} />
