@@ -21,7 +21,7 @@ import UnreadMessageList from '../../api/message/unreadMessageList';
 import SpecificMessage from '../../api/message/specificMessage';
 
 import GetAsyncToken from '../../script/getAsyncToken';
-import { format, parseISO } from 'date-fns';
+import {parseISO, format } from 'date-fns';
 // import HTMLView from 'react-native-htmlview';
 import { WebView } from 'react-native-webview';
 import AutoHeightWebView from 'react-native-autoheight-webview'
@@ -30,7 +30,9 @@ import DeleteAlert from "../../api/deleteAlert";
 import IconView from "../../styles/IconView";
 import ButtonOverlay from "../../styles/ButtonOverlay";
 import { Appearance, useColorScheme } from 'react-native-appearance';
-
+import { parseFromTimeZone, formatToTimeZone } from 'date-fns-timezone';
+import DeviceInfo from 'react-native-device-info';
+import * as RNLocalize from 'react-native-localize'
 
 const IconRow = styled.View`
   flex-direction: row;
@@ -269,14 +271,14 @@ class Message extends React.Component {
       hideRead: !this.state.hideRead
     })
   }
-  
+
   render() {
     console.log('msg', this.props)
     history = this.props.history;
     let color = Appearance.getColorScheme();
-    
 
-    console.log('color: ', color);
+    let CurrentTimeZone = RNLocalize.getTimeZone();
+    console.log('color: ', color, CurrentTimeZone);
     // console.log('html height in render: ', this.state.htmlHeight1);
     // if(this.state.MessageList != null)
     // console.log("message list render", this.state.MessageList);
@@ -285,7 +287,7 @@ class Message extends React.Component {
     // let chat = this.state.MessageList.filter(m => m.messageType == "Style sample request")
     return (
       <MainView>
-        <Header 
+        <Header
           history={this.props.history}
         >
           <ScrollView>
@@ -338,11 +340,15 @@ class Message extends React.Component {
                   if (this.state.hideRead)
                     if (m.isRead)
                       return
-                  let formatedDate = format(parseISO(m.loggedOn), "d-MMM-yyyy kk:mm");
-                  // console.log('m :', m);
-                  // console.log('msg body', m.messageBody);
-                  // let newMsgBody = m.messageBody.replace('handlers/ThumbnailService.ashx', 'http://test.delogue.com/api/v2.0/resource/thumbnail')
-                  // let newMsgBody = m.messageBody.split("handlers/ThumbnailService.ashx").join("http://test.delogue.com/api/v2.0/resource/thumbnail")
+                  // let formatedDate = format(parseISO(m.loggedOn), "d-MMM-yyyy kk:mm");
+                  // console.log('DeviceInfo', DeviceInfo);
+                 
+
+                  const date = new Date(m.loggedOn)
+                  let localDate = new Date(date.setMinutes(date.getMinutes() - date.getTimezoneOffset()));
+                  let formatedDate = format(localDate, "d-MMM-yyyy kk:mm") 
+                  console.log('current time ', formatedDate)
+                  
                   let newMsgBody = m.messageBody.replace(/class='commAttachmentsContainer/g, "style='display: none' class='")
                   let msgId = m.parentLogId != null ? m.parentLogId : m.auditLogId
                   // console.log('new msg : ', newMsgBody);
@@ -403,7 +409,7 @@ class Message extends React.Component {
                                           display: inline-block;
                                         }  
                                       `}
-                                        source={{html: `<html><head></head><body>${newMsgBody}</body></html>`}}
+                                        source={{ html: `<html><head></head><body>${newMsgBody}</body></html>` }}
                                         scalesPageToFit={false}
                                         zoomable={false}
                                         viewportContent={'width=device-width, user-scalable=no'}

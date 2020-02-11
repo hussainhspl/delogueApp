@@ -69,6 +69,10 @@ target 'delogue' do
 
   pod 'RNDateTimePicker', :path => '../node_modules/@react-native-community/datetimepicker/RNDateTimePicker.podspec'
 
+  pod 'RNDeviceInfo', :path => '../node_modules/react-native-device-info'
+
+  pod 'RNLocalize', :path => '../node_modules/react-native-localize'
+
   # Pods for delogue
   # pod 'React', :path => '../node_modules/react-native/'
   # pod 'React-Core', :path => '../node_modules/react-native/'

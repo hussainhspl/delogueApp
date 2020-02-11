@@ -114,7 +114,10 @@ class FileCard extends React.Component {
     }
   }
   render() {
-    let formatedDate = format(parseISO(this.props.date),"d-MMM-yyyy");
+    // let formatedDate = format(parseISO(this.props.date),"d-MMM-yyyy");
+    const date = new Date(this.props.date)
+    let localDate = new Date(date.setMinutes(date.getMinutes() - date.getTimezoneOffset()));
+    let formatedDate = format(localDate, "d-MMM-yyyy kk:mm") 
     let src = this.props.thumbnails.length > 0 ? 
       this.props.thumbnails[0].url : 
       this.props.url != null ? 

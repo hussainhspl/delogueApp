@@ -37,8 +37,6 @@ let pageNumber = 1;
 const SearchRow = styled.View`
   flex-direction: row;
   justify-content: space-between;
-  border-bottom-width: 1px;
-  border-color: #ddd;
   padding: 10px;
 `;
 const Flex = styled.View`
@@ -70,6 +68,8 @@ const GridView = styled.View`
   flex-direction: row;
   padding-left: 5px;
   flex-wrap: wrap;
+  /* border-top-width: 1px; */
+  border-color: #ddd;
 `;
 
 const MainView = styled.KeyboardAvoidingView
@@ -345,7 +345,8 @@ class Search extends React.Component {
                 
                 </GridView>
                 {
-                    this.state.filteredStyle.length > 0 ?
+                  this.state.filteredStyle.length > 1 ?
+                    this.state.filteredStyle.length == 30 ?
                     <LoadMoreView>
                       <LoadMoreButton 
                         onPress={this.updatePageNumber}
@@ -355,7 +356,10 @@ class Search extends React.Component {
                       </LoadMoreButton>
                     </LoadMoreView>
                     
-                    :null
+                    : <InfoView>
+                        <InfoText> That's all for now Folks </InfoText>
+                      </InfoView>
+                  : null
                   }
                 </ScrollView>
             ) : null}
