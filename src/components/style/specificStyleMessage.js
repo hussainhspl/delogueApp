@@ -164,7 +164,10 @@ class SpecificStyleMessage extends React.Component {
       subject, logMessage, id, replyList, fileList } = this.props.data.styleAuditLog;
     console.log('time : ', format(parseISO(loggedOn), "d-MMM-yyyy kk:mm"))
     // console.log('is read : ', isRead, this.props.data.styleAuditLog);
-    let formatedDate = format(parseISO(loggedOn), "d-MMM-yyyy kk:mm");
+    // let formatedDate = format(parseISO(loggedOn), "d-MMM-yyyy kk:mm");
+    const date = new Date(loggedOn)
+    let localDate = new Date(date.setMinutes(date.getMinutes() - date.getTimezoneOffset()));
+    let formatedDate = format(localDate, "d-MMM-yyyy kk:mm") 
     let mainMsgBody = logMessage.replace(/class='commAttachmentsContainer/g, "style='display: none' class='")
       console.log('main msg body', mainMsgBody);
     return (

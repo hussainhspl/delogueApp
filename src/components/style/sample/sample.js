@@ -22,6 +22,8 @@ import GetAsyncToken from "../../../script/getAsyncToken";
 import GetSamples from "../../../api/sample/getSamples";
 import { connect } from "react-redux";
 import { sampleList } from '../../../store/actions/index'
+import LoaderView from "../../../styles/LoaderView";
+import Loader from '../../../shared/Loader';
 // import console = require("console");
 
 const data = {
@@ -150,7 +152,10 @@ class Sample extends React.Component {
             </TouchableWithoutFeedback>
               </View>
             <SampleRow>
-              {this.state.sampleArray != null ? this.state.sampleArray.sampleRequests.map(d => {
+              {this.state.sampleArray != null ? 
+              <Fragment>
+                {
+                this.state.sampleArray.sampleRequests.map(d => {
                 // console.log('reach condition', d);
                 return (
                   <SampleComponent
@@ -160,9 +165,15 @@ class Sample extends React.Component {
                   />
                 );
               })
-              :<Text style={{flex: 1}}>loading</Text>
+              
+            }
+            <NewSampleRequest history={this.props.history} />
+            </Fragment>
+              : <LoaderView>
+                  <Loader />
+                </LoaderView>
               }
-              <NewSampleRequest history={this.props.history} />
+              
             </SampleRow>
           </ScrollView>
           </Fragment>

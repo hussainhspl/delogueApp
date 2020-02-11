@@ -132,11 +132,11 @@ const Name = styled.Text`
   width: 100%;
   text-align: right;
 `;
-const Date = styled.Text`
-  color: #777;
-  font-size: 12;
-  text-align: right;
-`;
+// const Date1 = styled.Text`
+//   color: #777;
+//   font-size: 12;
+//   text-align: right;
+// `;
 const InternalText = styled.Text`
   color: #aaa;
   padding-left: 5px;
@@ -172,7 +172,10 @@ class CommentBlock extends React.Component {
     const { isRead, loggedInUser, loggedOn, notifiedUsers, internalOnly,
       subject, logMessage, id, replyList, fileList } = this.props.data.styleAuditLog
     // console.log('is read : ', isRead, this.props.data.styleAuditLog);
-    let formatedDate = format(parseISO(loggedOn), "d-MMM-yyyy kk:mm");
+    // let formatedDate = format(parseISO(loggedOn), "d-MMM-yyyy kk:mm");
+    let date1 = new Date(loggedOn);
+    let localDate = new Date(date1.setMinutes(date1.getMinutes() - date1.getTimezoneOffset()));
+    let formatedDate = format(localDate, "d-MMM-yyyy kk:mm") 
     let mainMsgBody = logMessage.replace(/class='commAttachmentsContainer/g, "style='display: none' class='")
 
     return (
@@ -211,8 +214,13 @@ class CommentBlock extends React.Component {
           {
             replyList != null ?
               replyList.map(d => {
-                let newMsgBody = d.logMessage.replace(/class='commAttachmentsContainer/g, "style='display: none' class='")
-                let formatedDate = format(parseISO(d.loggedOn), "d-MMM-yyyy kk:mm");
+                let newMsgBody = d.logMessage.replace(/class='commAttachmentsContainer/g, "style='display: none' class='");
+                // let formatedDate = format(parseISO(d.loggedOn), "d-MMM-yyyy kk:mm");
+                // console.log('d.loggedOn', d.loggedOn)
+                
+                let date = new Date(d.loggedOn);
+                let localDate = new Date(date.setMinutes(date.getMinutes() - date.getTimezoneOffset()));
+                let formatedDate = format(localDate, "d-MMM-yyyy kk:mm") 
                 return (
                   <ReplyBlock key={d.id}>
                     <FromRow>

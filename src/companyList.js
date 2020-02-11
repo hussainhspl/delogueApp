@@ -22,6 +22,7 @@ import OfflineNotice from "./shared/OfflineNotice";
 import CList from "../data/companyList";
 import Title from "./styles/SmallText";
 import CardText from './styles/CardText';
+import LoaderView from './styles/LoaderView'
 import LoginStep2 from './api/loginStep2';
 import Message from './components/message/message'
 
@@ -100,11 +101,6 @@ const ParentView = styled.View`
   padding: 5px;
 `;
 
-const LoaderView = styled.View`
-  flex: 1;
-  background-color: #fff;
-  justify-content: center;
-`;
 
 const MainView = styled.View`
   flex: 1;

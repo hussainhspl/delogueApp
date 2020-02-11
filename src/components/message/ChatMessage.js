@@ -79,7 +79,9 @@ const DetailsButton = styled.Text`
   margin-right: 10px;
   font-family: ${props => props.theme.regular};
 `;
-
+const Flex1 = styled.View`
+  flex: 1;
+`;
 class ChatMessage extends React.Component {
   constructor(props) {
     super(props);
@@ -98,8 +100,11 @@ class ChatMessage extends React.Component {
     // console.log('props in sample request', this.props.data)
     // console.log('enter in chat')
     let {styleName, loggedOn, styleNumber, loggedByUserName, 
-      messageSubject, isRead} = this.props.data;
-    let formatedDate = format(parseISO(loggedOn), "d-MMM-yyyy kk:mm");
+      messageSubject, isRead, sampleTypeName} = this.props.data;
+    // let formatedDate = format(parseISO(loggedOn), "d-MMM-yyyy kk:mm");
+    const date = new Date(loggedOn)
+    let localDate = new Date(date.setMinutes(date.getMinutes() - date.getTimezoneOffset()));
+    let formatedDate = format(localDate, "d-MMM-yyyy kk:mm") 
     return (
       <MessageBox>
         <TouchableHighlight
@@ -120,22 +125,22 @@ class ChatMessage extends React.Component {
               </STouchableHighlight>
             </ChatIconBox>
             <TitleRow>
-              <View>
+              <Flex1>
                 <Title>Style Name</Title>
                 <CardText numberOfLines={1}>{styleName}</CardText>
-              </View>
-              <View>
+              </Flex1>
+              <Flex1>
                 <Title>Style Number</Title>
                 <CardText numberOfLines={1}>{styleNumber}</CardText>
-              </View>
-              <View>
+              </Flex1>
+              <Flex1>
                 <Title>{formatedDate}</Title>
                 <CardText numberOfLines={1}>{loggedByUserName}</CardText>
-              </View>
+              </Flex1>
             </TitleRow>
             <Row>
               <MainContent>
-                <Subject>{messageSubject !== null ? messageSubject : 'no subject'} </Subject>
+                <Subject>{sampleTypeName !== null ? sampleTypeName : 'no subject'} </Subject>
                 <ContentText numberOfLines={2}>
                   Has been <HighlightText> Planned </HighlightText>{" "}
                 </ContentText>

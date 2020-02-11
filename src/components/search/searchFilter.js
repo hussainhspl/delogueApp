@@ -28,6 +28,8 @@ import SearchIconBox from "../../styles/SearchIconBox";
 import GetBrands from '../../api/search/getBrands';
 import ButtonOverlay from "../../styles/ButtonOverlay";
 import IconView from "../../styles/IconView";
+import InfoText from "../../styles/InfoText";
+import InfoView from "../../styles/InfoView";
 
 const StyledTouchableOpacity = styled.TouchableHighlight`
   width: 50px;
@@ -159,6 +161,7 @@ class searchFilter extends Component {
       searchBrand: "",
       searchSeason: "",
       filteredBrand: [],
+      emptySeason: false,
       filteredSeason: [],
       text: "Useless Placeholder",
       appState: AppState.currentState,
@@ -168,6 +171,7 @@ class searchFilter extends Component {
       suggestionArr: [],
       showSeasonSuggestion: false,
       suggestionSeasonArr: [],
+      emptyBrand: false,
     }
   };
   Season  (obj) {
@@ -184,6 +188,11 @@ class searchFilter extends Component {
         GetAsyncToken().then(token => {
         GetSeason(this.state.searchSeason, token).then(res => {
           console.log("res season", res);
+          if (res.data.length == 0) {
+            this.setState({emptySeason: true})
+          } else {
+            this.setState({emptySeason: false})
+          }
           this.setState(prevState => ({ 
             filteredSeason: prevState.filteredSeason.concat(res.data),
             showSeasonSuggestion: false,
@@ -212,6 +221,11 @@ class searchFilter extends Component {
       GetBrands(this.state.searchBrand, token)
         .then(res => {
           console.log('filter brand:', res.data)
+          if (res.data.length == 0) {
+            this.setState({emptyBrand: true})
+          } else {
+            this.setState({emptyBrand: false})
+          }
           this.setState(prevState => ({
             filteredBrand: prevState.filteredBrand.concat(res.data),
             showSuggestion: false,
@@ -414,7 +428,7 @@ class searchFilter extends Component {
                       onSubmitEditing={() => this.Brands(null)}
                     />
                     {/* </KeyboardAwareScrollView> */}
-                    {
+                    {/* {
                       this.state.showSuggestion && this.state.suggestionArr.length > 0 &&(
                          
                         <SearchSuggestionView>
@@ -430,10 +444,17 @@ class searchFilter extends Component {
                           })}
                         </SearchSuggestionView>
                       )
-                    }
+                    } */}
+                    
                   </Flex>
                 </FlexRow>
-
+                {
+                        this.state.emptyBrand && (
+                          <InfoView>
+                            <InfoText> No brands found </InfoText>
+                          </InfoView>
+                        )
+                      }
                 {this.state.suggestionArr.length <= 0 ?
                   this.state.filteredBrand.length > 0 ?
                     this.state.filteredBrand && (
@@ -453,8 +474,12 @@ class searchFilter extends Component {
                           </CapsuleView>
                         </StyledScrollView>
                       </View>
-                    ) : null : null}
+                    ) :
+                      null
+                                         
+                    : null}
               </SearchBar>
+              
               {this.state.suggestionArr.length < 1 ?
 
                 <SearchBar suggestion={this.state.suggestionSeasonArr.length > 0 ? true : false}>
@@ -476,7 +501,7 @@ class searchFilter extends Component {
                         }}
                         onSubmitEditing={() => this.Season(null)}
                       />
-                      {
+                      {/* {
                         this.state.showSeasonSuggestion && this.state.suggestionSeasonArr.length > 0 && (
                           <SearchSuggestionView>
                             {this.state.suggestionSeasonArr.map(d => {
@@ -491,8 +516,10 @@ class searchFilter extends Component {
                             })}
                           </SearchSuggestionView>
                         )
-                      }
+                      } */}
+                      
                     </Flex>
+                    
                     {/* <Flex>
                 <StyledSearchInput
                   placeholderTextColor="#C9DBDB"
@@ -517,6 +544,13 @@ class searchFilter extends Component {
                 />
                 </Flex> */}
                   </FlexRow>
+                  {
+                        this.state.emptySeason && (
+                          <InfoView>
+                            <InfoText> No season found </InfoText>
+                          </InfoView>
+                        )
+                      }
                   { this.state.suggestionSeasonArr.length <= 0 ?
                     this.state.filteredSeason.length > 0 ?
                     this.state.filteredSeason && (

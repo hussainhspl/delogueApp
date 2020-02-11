@@ -242,7 +242,10 @@ class CommentsList extends React.Component {
         {
           this.state.msgList != null ?
             this.state.msgList.map(data => {
-              let formatedDate = format(parseISO(data.loggedOn), "d-MMM-yyyy kk:mm");
+              // let formatedDate = format(parseISO(data.loggedOn), "d-MMM-yyyy kk:mm");
+              const date = new Date(data.loggedOn);
+              let localDate = new Date(date.setMinutes(date.getMinutes() - date.getTimezoneOffset()));
+              let formatedDate = format(localDate, "d-MMM-yyyy kk:mm") 
               let msgId = data.parentLogId != null ? data.parentLogId : data.auditLogId
               return (
                 <MessageBox>

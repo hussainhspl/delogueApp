@@ -98,7 +98,7 @@ class Header extends React.Component {
     const history= this.props.history;
     // const path = this.props.location.pathname;
     // console.log('header history: ', this.props);
-    console.log('header reder called');
+    // console.log('header reder called');
     return(
       <MainView>
         <Drawer
@@ -109,7 +109,7 @@ class Header extends React.Component {
             history = {history}
           />}
           openDrawerOffset={0.45} // 20% gap on the right side of drawer
-          panCloseMask={0.9}
+          panCloseMask={0.5}
           styles={drawerStyles}
           side="right"
           tweenHandler={(ratio) => ({
