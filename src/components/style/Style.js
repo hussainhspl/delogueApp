@@ -8,7 +8,7 @@ import General from "./General";
 import Comments from "./Comments";
 import Files from "./Files";
 import Sample from "./sample/sample";
-import Pdf from "./Pdf";
+import Pdf from "./pdf/Pdf";
 import Header from "../../Header";
 import FooterComponent from "../../FooterComponent";
 import Loader from '../../shared/Loader';
@@ -75,7 +75,9 @@ class Style extends React.Component {
           // styleData={StateData != null ? StateData.data : null}
         />;
       case "pdf":
-        return <Pdf />;
+        return <Pdf
+          styleID = {this.props.StoreStyleId != null ? this.props.StoreStyleId: null}
+        />;
       default:
     }
   }

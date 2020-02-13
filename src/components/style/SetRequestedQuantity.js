@@ -1,5 +1,5 @@
-import React from "react";
-import { View, Text, TouchableHighlight, AppState } from "react-native";
+import React, { Fragment } from "react";
+import { View, Text, TouchableHighlight, AppState, ScrollView, TextInput } from "react-native";
 import styled from "styled-components";
 import { Col, Row, Grid } from "react-native-easy-grid";
 // relative import
@@ -51,8 +51,11 @@ const HeaderRow = styled(Row)`
   height: 40px;
 `;
 const StyleCol = styled(Col)`
-  border: 1px solid #bbb;
-  padding-left: 10px;
+  border-bottom-width: 1px;
+  border-right-width: 1px;
+  border-color: #544c46;
+
+  padding: 5px;
   height: 40px;
   justify-content: center;
 `;
@@ -71,6 +74,9 @@ class SetRequestedQuantity extends React.Component {
     this.state={
       appState: AppState.currentState,
       modalVisible : false,
+      sizeRange: null,
+      styleColors: null
+
     }
   }
   setModalVisible(visible) {
@@ -78,6 +84,11 @@ class SetRequestedQuantity extends React.Component {
   }
   componentDidMount = () => {
     AppState.addEventListener('change', this._handleAppStateChange);
+    console.log('table called', this.props.sizeRange);
+    this.setState({
+      sizeRange: this.props.sizeRange,
+      styleColors: this.props.styleColors
+    })
   }
   componentWillUnmount= () => {
     AppState.removeEventListener('change', this._handleAppStateChange);
@@ -88,8 +99,14 @@ class SetRequestedQuantity extends React.Component {
       this.setModalVisible(!this.state.modalVisible);
     }
   }
+  onChangeText (value) {
+    let asd = value
+  }
   render() {
     return (
+      <Fragment>
+        {this.state.sizeRange != null ? 
+      
       <View>
         <SetView>
           <TouchableHighlight
@@ -108,43 +125,70 @@ class SetRequestedQuantity extends React.Component {
           }}
         >
           <View>
+            <ScrollView horizontal={true}>
             <Grid>
               <HeaderRow>
-                <StyleCol size={1}>
-                  <Text> Description </Text>
+                <StyleCol style={{width: 70}}>
+                  <Text> Size </Text>
                 </StyleCol>
-                <StyleCol size={1}>
-                  <Text> Available </Text>
-                </StyleCol>
-                <StyleCol size={1}>
+                {
+                  this.state.styleColors.map(c => {
+                    return(
+                      <StyleCol style={{width: 100}}>
+                        <Text> {c.name} </Text>
+                      </StyleCol>
+                    )
+                  })
+                }
+                
+                {/* <StyleCol size={1}>
                   <Text> Red Desert </Text>
                 </StyleCol>
                 <StyleCol size={1}>
                   <Text> Blue Ocean </Text>
-                </StyleCol>
+                </StyleCol> */}
               </HeaderRow>
-              {sizeXl.map(data => {
+              
+
+              {this.state.sizeRange.sizes.map(data => {
                 return (
                   <Row style={{ height: 40 }} key={Math.random().toFixed(3)}>
-                    <StyleCol size={1}>
-                      <Text>{data.description}</Text>
+                    <StyleCol style={{width: 70}}>
+                      <Text>{data.name}</Text>
                     </StyleCol>
-                    <StyleCol size={1}>
-                      <TableTextInput>{data.comp}</TableTextInput>
-                    </StyleCol>
-                    <StyleCol size={1}>
-                      <TableTextInput>{data.comp}</TableTextInput>
-                    </StyleCol>
-                    <StyleCol size={1}>
-                      <TableTextInput>{data.comp}</TableTextInput>
-                    </StyleCol>
-                  </Row>
+                    {this.state.styleColors.map(c => {
+                    return(
+                      <StyleCol style={{width: 100}}>
+                        <TextInput
+                          style={{ height: 30, borderColor: 'gray', borderWidth: 1 }}
+                          onChangeText={text => this.onChangeText(text)}
+                          value={1}
+                        />
+                      </StyleCol>
+                    )
+                  })}
+                    </Row>
+                    // {/* // <StyleCol size={1}>
+                    // //   <TableTextInput>{data.comp}</TableTextInput>
+                    // // </StyleCol>
+                    // // <StyleCol size={1}>
+                    // //   <TableTextInput>{data.comp}</TableTextInput>
+                    // // </StyleCol>
+                    // // <StyleCol size={1}>
+                    // //   <TableTextInput>{data.comp}</TableTextInput>
+                    // // </StyleCol> */}
+                   
                 );
               })}
+              
+              
             </Grid>
+            </ScrollView>
           </View>
         </CommonModal>
       </View>
+      : null }
+      </Fragment>
     );
   }
 }

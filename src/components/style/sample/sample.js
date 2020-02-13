@@ -167,7 +167,11 @@ class Sample extends React.Component {
               })
               
             }
-            <NewSampleRequest history={this.props.history} />
+            <NewSampleRequest
+              styleId={this.props.styleId}
+              data={this.props.style.data}
+              history={this.props.history}
+            />
             </Fragment>
               : <LoaderView>
                   <Loader />

@@ -229,10 +229,10 @@ class NewMessage extends React.Component {
   }
   onValueChange2(value) {
     // console.log('list notify dd :',value, this.state.notifySelected);
-
+    console.log('notify', value)
     this.setState(prevState => ({
       notifySelected: [...prevState.notifySelected, value]
-    }))
+    }), ()=> {console.log('notify data', this.state.notifySelected[this.state.notifySelected.length - 1])})
   }
 
   changeList = () => {
