@@ -43,6 +43,7 @@ const App = () => {
   }, []);
 
   return (
+    
     <MenuProvider>
     <AppearanceProvider>
     <Provider store={store}>
