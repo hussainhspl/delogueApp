@@ -16,6 +16,8 @@ import com.delogue.R;
 
 // @react-native-community/async-storage
 import com.reactnativecommunity.asyncstorage.AsyncStoragePackage;
+// @react-native-community/datetimepicker
+import com.reactcommunity.rndatetimepicker.RNDateTimePickerPackage;
 // @react-native-community/netinfo
 import com.reactnativecommunity.netinfo.NetInfoPackage;
 // lottie-react-native
@@ -26,12 +28,16 @@ import io.expo.appearance.RNCAppearancePackage;
 import com.zoontek.rnbootsplash.RNBootSplashPackage;
 // react-native-camera
 import org.reactnative.camera.RNCameraPackage;
+// react-native-device-info
+import com.learnium.RNDeviceInfo.RNDeviceInfo;
 // react-native-fast-image
 import com.dylanvann.fastimage.FastImageViewPackage;
 // react-native-gesture-handler
 import com.swmansion.gesturehandler.react.RNGestureHandlerPackage;
 // react-native-image-picker
 import com.imagepicker.ImagePickerPackage;
+// react-native-localize
+import com.reactcommunity.rnlocalize.RNLocalizePackage;
 // react-native-vector-icons
 import com.oblador.vectoricons.VectorIconsPackage;
 // react-native-webview
@@ -84,14 +90,17 @@ public class PackageList {
     return new ArrayList<>(Arrays.<ReactPackage>asList(
       new MainReactPackage(mConfig),
       new AsyncStoragePackage(),
+      new RNDateTimePickerPackage(),
       new NetInfoPackage(),
       new LottiePackage(),
       new RNCAppearancePackage(),
       new RNBootSplashPackage(),
       new RNCameraPackage(),
+      new RNDeviceInfo(),
       new FastImageViewPackage(),
       new RNGestureHandlerPackage(),
       new ImagePickerPackage(),
+      new RNLocalizePackage(),
       new VectorIconsPackage(),
       new RNCWebViewPackage(),
       new RNFetchBlobPackage()

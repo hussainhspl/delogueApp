@@ -4,6 +4,23 @@
             "outputFile": "/Users/siyaulhaqu/hussain/delogueApp/android/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-sr/values-sr.xml",
             "map": [
                 {
+                    "source": "/Users/siyaulhaqu/.gradle/caches/transforms-2/files-2.1/3b706f4ea5a701670fe4b48670e2dd68/res/values-sr/values.xml",
+                    "from": {
+                        "startLines": "4",
+                        "startColumns": "0",
+                        "startOffsets": "247",
+                        "endColumns": "188",
+                        "endOffsets": "435"
+                    },
+                    "to": {
+                        "startLines": "37",
+                        "startColumns": "4",
+                        "startOffsets": "3972",
+                        "endColumns": "188",
+                        "endOffsets": "4156"
+                    }
+                },
+                {
                     "source": "/Users/siyaulhaqu/.gradle/caches/transforms-2/files-2.1/64bb9a748d9399207aabb98129ec9bea/res/values-sr/values-sr.xml",
                     "from": {
                         "startLines": "2",
@@ -38,24 +55,7 @@
                     }
                 },
                 {
-                    "source": "/Users/siyaulhaqu/.gradle/caches/transforms-2/files-2.1/2f7494eb3aa1edfb2d5335b3829a546b/res/values-sr/values.xml",
-                    "from": {
-                        "startLines": "4",
-                        "startColumns": "0",
-                        "startOffsets": "247",
-                        "endColumns": "188",
-                        "endOffsets": "435"
-                    },
-                    "to": {
-                        "startLines": "37",
-                        "startColumns": "4",
-                        "startOffsets": "3972",
-                        "endColumns": "188",
-                        "endOffsets": "4156"
-                    }
-                },
-                {
-                    "source": "/Users/siyaulhaqu/.gradle/caches/transforms-2/files-2.1/3d39d7106ab69ea296932e4bcdd92a40/res/values-sr/values.xml",
+                    "source": "/Users/siyaulhaqu/.gradle/caches/transforms-2/files-2.1/1fb4254c3d8594fff6946d63a480ad84/res/values-sr/values.xml",
                     "from": {
                         "startLines": "4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20",
                         "startColumns": "0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0",

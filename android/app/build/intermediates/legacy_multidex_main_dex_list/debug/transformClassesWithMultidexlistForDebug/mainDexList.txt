@@ -125,6 +125,8 @@ androidx/versionedparcelable/ParcelField.class
 androidx/versionedparcelable/VersionedParcelize.class
 androidx/viewpager/widget/ViewPager$DecorView.class
 com/airbnb/lottie/LottieDrawable$RepeatMode.class
+com/android/installreferrer/api/InstallReferrerClient$InstallReferrerResponse.class
+com/android/installreferrer/api/InstallReferrerClientImpl$ClientState.class
 com/bumptech/glide/annotation/Excludes.class
 com/bumptech/glide/annotation/GlideExtension.class
 com/bumptech/glide/annotation/GlideModule.class
@@ -193,8 +195,12 @@ com/facebook/react/ReactInstanceManager.class
 com/facebook/react/ReactInstanceManagerBuilder.class
 com/facebook/react/ReactNativeHost.class
 com/facebook/react/ReactPackage.class
+com/facebook/react/bridge/BaseJavaModule.class
 com/facebook/react/bridge/JSIModulePackage.class
 com/facebook/react/bridge/JavaScriptExecutorFactory.class
+com/facebook/react/bridge/LifecycleEventListener.class
+com/facebook/react/bridge/NativeModule.class
+com/facebook/react/bridge/ReactContextBaseJavaModule.class
 com/facebook/react/bridge/ReactMarker.class
 com/facebook/react/bridge/ReactMarkerConstants.class
 com/facebook/react/bridge/ReactMethod.class
@@ -237,6 +243,10 @@ com/google/android/gms/common/util/VisibleForTesting.class
 com/google/android/gms/common/zzc.class
 com/google/android/gms/common/zzm.class
 com/google/android/gms/flags/FlagSource.class
+com/google/android/gms/stats/CodePackage.class
+com/learnium/RNDeviceInfo/RNDeviceInfo.class
+com/learnium/RNDeviceInfo/RNDeviceModule.class
+com/reactcommunity/rnlocalize/RNLocalizeModule.class
 com/reactnativecommunity/netinfo/ConnectivityReceiver.class
 javax/annotation/CheckForNull.class
 javax/annotation/CheckForSigned.class
