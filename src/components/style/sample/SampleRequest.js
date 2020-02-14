@@ -321,7 +321,8 @@ class SampleRequest extends React.Component {
     this.state.sampleData != null ?
       this.state.sampleData.sampleRequestStatus == "Requested" ? 
         this.setState({
-          sampleRequestStatus : 1
+          sampleRequestStatus : 1,
+          currentIndex: 1
         })
       : null
     : null

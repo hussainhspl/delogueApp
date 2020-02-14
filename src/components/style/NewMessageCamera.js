@@ -32,14 +32,14 @@ class NewMessageCamera extends React.Component {
       if (response.didCancel) {
         // console.log('User cancelled photo picker');
       } else if (response.error) {
-        // console.log('ImagePicker Error: ', response.error);
+        console.log('ImagePicker Error: ', response.error);
       } else if (response.customButton) {
         // console.log('User tapped custom button: ', response.customButton);
       } else {
         let source = response.uri;
         GetAsyncToken()
           .then(token => {
-
+            //pass 0 as folder id  if you dont have any id
             ImageUpload(token, source, response.fileName, 0, this.props.styleID)
               .then(res => {
                 let toast = Toast.show('image successfully attached', {
@@ -51,7 +51,7 @@ class NewMessageCamera extends React.Component {
                 setTimeout(() =>{ Toast.hide(toast)}, 3000);
                 console.log('response in upload success', res.data);
                 let jsonObject = JSON.parse(res.data);
-                console.log('convert', jsonObject.id);
+                console.log('convert', jsonObject.id, jsonObject);
                 this.props.attachmentImage(jsonObject)
               })
           })

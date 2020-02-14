@@ -27,6 +27,7 @@ import RNFetchBlob from 'rn-fetch-blob';
 // }
 
 const ImageUpload = (token, imgSrc ,fileName, fId, sId) => {
+  console.log('image upload input data:', token, imgSrc ,fileName, fId, sId)
   let newImgSrc ="";
   let newFId = fId.toString();
   let newSId = sId.toString();
@@ -56,9 +57,9 @@ const ImageUpload = (token, imgSrc ,fileName, fId, sId) => {
           filename : fileName,
           data: RNFetchBlob.wrap(newImgSrc)
         },
-        { name : 'FolderId', data : fId},
+        { name : 'FolderId', data : fId.toString()},
         { name : 'EntityType', data : 'Style'},
-        { name : 'EntityTypeId', data : sId}
+        { name : 'EntityTypeId', data : sId.toString()}
 
     ]).then((resp) => {
       console.log('success');

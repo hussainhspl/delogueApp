@@ -90,6 +90,7 @@ const ItemName = styled.Text`
 
 const MainView = styled.View`
   flex: 1;
+  /* background-color: green; */
 `;
 const ClearIcon = styled(Icon)`
   font-size: 20px;

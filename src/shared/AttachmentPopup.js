@@ -5,6 +5,7 @@ import { Icon } from "native-base";
 import ImageLayout from "react-native-image-layout";
 import Title from '../styles/SmallText';
 import RNFetchBlob from 'rn-fetch-blob';
+import ModalHeader from '../styles/ModalHeader';
 // import Share from 'react-native-share';
 
 const StyledModal = styled.Modal`
@@ -20,11 +21,7 @@ const ModalView = styled.View`
   height: 75%;
   background-color: #fff;
 `;
-const ModalTitle = styled.View`
-  background-color: #415461;
-  flex-direction: row;
-  align-items: center;
-`;
+
 const CloseBox = styled.View`
   margin-left: auto;
   padding: 10px;
@@ -176,7 +173,7 @@ class AttachmentPopup extends React.Component {
       >
         <BgView>
           <ModalView>
-            <ModalTitle>
+            <ModalHeader>
               <HeaderText>{this.props.title}</HeaderText>
               <CloseBox>
                 <TouchableHighlight
@@ -193,7 +190,7 @@ class AttachmentPopup extends React.Component {
                   />
                 </TouchableHighlight>
               </CloseBox>
-            </ModalTitle>
+            </ModalHeader>
             <ImageLayout
               renderPageHeader={this._renderPageHeader}
               renderPageFooter={this._renderPageFooter}

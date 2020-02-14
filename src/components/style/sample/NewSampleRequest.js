@@ -15,6 +15,7 @@ import GetAsyncToken from '../../../script/getAsyncToken';
 import AddSample from '../../../api/sample/AddSample';
 import TextEditor from '../textEditor'
 import CardText from '../../../styles/CardText';
+import SharedImagePicker from '../../../shared/sharedImagePicker';
 
 const data = {
   styleNo: "sty2211",
@@ -117,16 +118,8 @@ const TextArea = styled.TextInput`
   margin: 5px 15px 10px 15px;
 
 `;
-const StyleFileTitle = styled.View`
-	flex-direction: row;
-	justify-content: space-between;
-	align-items: center;
-	background-color: ${props => props.theme.lightBrown};
-	border: 1px solid #DCD7D4;
-`;
-const Capital = styled.Text`
-	text-transform: uppercase;
-`;
+
+
 const AddView = styled.View`
   border: 1px solid #ddd;
   width: ${(props) => props.tablet ? Dimensions.get('window').width / 3 - 10 : Dimensions.get("window").width / 2 - 10};
@@ -141,8 +134,8 @@ const AddInnerView = styled.View`
   padding: 15px;
 `;
 const MainContent = styled.View`
-  flex-direction: row;
-  flex-wrap: wrap;
+  /* flex-direction: row;
+  flex-wrap: wrap; */
   flex: 1;
 `;
 const ContentBlock = styled.View`
@@ -318,11 +311,6 @@ class NewSampleRequest extends React.Component {
                       selectedValue={this.state.currentStatus}
                       onValueChange={this.onStatusChanged.bind(this)}
                     >
-                      {/* {this.state.style.season.seasonMilestones.map(u => {
-                        return (
-                          <Picker.Item label={u.sampleType.name} value={u} />
-                        )
-                      })} */}
                       <Picker.Item label="Requested" value="Requested" />
                       <Picker.Item label="Planned" value="Planned" />
                     </StyledPicker>
@@ -341,8 +329,6 @@ class NewSampleRequest extends React.Component {
                       selectedValue={this.state.currentType}
                       onValueChange={this.onTypeChanged.bind(this)}
                     >
-                      {/* <Picker.Item label="Requested" value="key0" />
-                      <Picker.Item label="Sent" value="key1" /> */}
                       {this.state.style.season.seasonMilestones.map(u => {
                         return (
                           <Picker.Item label={u.sampleType.name} value={u} />
@@ -442,40 +428,18 @@ class NewSampleRequest extends React.Component {
             <ButtonText> use template </ButtonText>
           </CommentedButton> */}
               <Title style={{ paddingLeft: 15 }}> Comment </Title>
-              {/* <TextArea
-                multiline={true}
-                numberOfLines={4}
-                onChangeText={(textArea) => this.setState({ textArea })}
-                value={this.state.textArea}
-                placeholder="type your message"
-                textAlignVertical='top'
-              /> */}
               <View style={{ height: 200, margin: 15 }}>
-              <TextEditor
-                bodyHtml={(html) => this.setState({ textArea: html })}
-              />
-              </View>
-              <StyleFileTitle>
-                <Capital> Visual Comment </Capital>
-                <TouchableOpacity onPress={() => this.setState({ cameraOn: true })}>
-                  <CameraView>
-                    <Icon style={{ color: 'white', fontSize: 20 }} name="camera" />
-                  </CameraView>
-                </TouchableOpacity>
-              </StyleFileTitle>
-              {
-                this.state.cameraOn &&
-                <CameraComponent
-                  close={() => this.setState({ cameraOn: false })}
+                <TextEditor
+                  bodyHtml={(html) => this.setState({ textArea: html })}
                 />
-              }
-              {
-                this.state.sizeRange != null &&(
-              <SetRequestedQuantity
-                styleColors={this.state.styleColors}
-                sizeRange={this.state.sizeRange}
-              />
-                )}
+              </View>
+              <SharedImagePicker />
+              {this.state.sizeRange != null &&(
+                <SetRequestedQuantity
+                  styleColors={this.state.styleColors}
+                  sizeRange={this.state.sizeRange}
+                />
+              )}
             </CommonModal>
           </View>
           : <Text>loading</Text>}

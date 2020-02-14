@@ -10,29 +10,15 @@ import TouchableCancel from '../styles/ToucaableCancel';
 import ButtonText from '../styles/ButtonText';
 
 import theme from "../../data/theme";
+import ModalHeader from "../styles/ModalHeader";
+import ModalTitle from '../styles/ModalTitle';
 // import console = require("console");
 
-
-const ModalTitle = styled.View`
-	background-color: #415461;
-	flex-direction: row;
-	align-items: center;
-  
-`;
 const CloseBox = styled.View`
 	margin-left: auto;
 	padding: 10px;
-	/* background-color: green; */
 	justify-content: center;
 	align-items: center;
-`;
-const HeaderText = styled.Text`
-	color: white;
-	padding: 10px;
-	font-size: ${props => props.theme.xl};
-	font-family: ${props => props.theme.regular};
-	text-transform : uppercase;
-	line-height: 25px;
 `;
 const ApplyBar = styled.View`
 	padding: 15px;
@@ -71,7 +57,7 @@ class CommonModal extends React.Component {
 				animationType="fade"
 				transparent={false}
 				visible={this.props.modalVisible}
-
+				style={{flex: 1}}
 				onRequestClose={() => {
 					// this.props.close÷
 					{this.closeModal(this.props.close)}
@@ -79,8 +65,8 @@ class CommonModal extends React.Component {
 					<SafeAreaView style={{ flex: 1}}>
 							<KeyboardAwareScrollView >
 							<View style={{flex: 1, marginBottom: 30}}>
-								<ModalTitle>
-									<HeaderText>{this.props.title}</HeaderText>
+								<ModalHeader>
+									<ModalTitle>{this.props.title}</ModalTitle>
 									<CloseBox>
 										<TouchableHighlight
 											underlayColor='rgba(221, 221, 221, 0.4)'
@@ -90,7 +76,7 @@ class CommonModal extends React.Component {
 												<Icon style={{color: '#fff', fontSize: 28, paddingHorizontal: 10}} name="ios-close" />
 										</TouchableHighlight>
 									</CloseBox>
-								</ModalTitle>
+								</ModalHeader>
 							{
 								this.props.children
 							}

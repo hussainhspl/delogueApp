@@ -23,6 +23,8 @@ import { connect } from 'react-redux';
 import { singleStyle } from '../../store/actions/index';
 import ZoomImage from "./zoomImage";
 import FollowComponent from "./followComponent";
+import LoaderView from "../../styles/LoaderView";
+import Loader from '../../shared/Loader';
 
 const StyleInfo = styled.View`
   padding: 5px;
@@ -501,7 +503,9 @@ class General extends React.Component {
             </ColorContainer>
           </ScrollView>
         ) : (
-            <Text>loading</Text>
+            <LoaderView>
+              <Loader />
+            </LoaderView>
           )}
       </Fragment>
     );

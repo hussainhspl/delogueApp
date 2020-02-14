@@ -378,7 +378,7 @@ class NewMessage extends React.Component {
                           />
                         </TouchableHighlight>
                         <Close underlayColor={"#bbb"} onPress={() => this.popAttachment(d.id)}>
-                          <Icon style={{ fontSize: 16 }} name="close" />
+                          <Icon style={{ fontSize: 16 }} name="ios-close" />
                         </Close>
                       </AttachBox>
                     )
