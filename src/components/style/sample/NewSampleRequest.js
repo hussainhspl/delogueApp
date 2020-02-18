@@ -16,6 +16,11 @@ import AddSample from '../../../api/sample/AddSample';
 import TextEditor from '../textEditor'
 import CardText from '../../../styles/CardText';
 import SharedImagePicker from '../../../shared/sharedImagePicker';
+import NotificationModal from '../NotificationModal';
+import CreateSampleRequest from '../../../api/sample/CreateSampleRequest';
+import { format } from 'date-fns';
+import {sortBy, orderBy} from 'lodash';
+
 
 const data = {
   styleNo: "sty2211",
@@ -158,6 +163,9 @@ class NewSampleRequest extends React.Component {
       textArea: '',
       isDeadlineDateTimePickerVisible: false,
       isEtdDateTimePickerVisible: false,
+      deadline: null,
+      etd: null,
+      estimatedDate: null,
       tablet: false,
       appState: AppState.currentState,
       style: null,
@@ -166,7 +174,11 @@ class NewSampleRequest extends React.Component {
       currentStatus: null,
       currentLocation: null,
       currentType: null,
-      adminLocations: null
+      adminLocations: null,
+      notifyModal: false,
+      notifyList: [],
+      quantityData: null
+
 
     }
   }
@@ -214,16 +226,41 @@ class NewSampleRequest extends React.Component {
   };
 
   handleDatePicked = (date, value) => {
-    // console.log("A date has been picked: ", date, value);
+    console.log("A date has been picked: ", date, value);
+    if (value === 'deadline') {
+      this.setState({
+        deadline: format(date, "dd-MMM-yyyy")
+      }, () => console.log(this.state.deadline))
+    }
+    if (value === 'etd') {
+      this.setState({
+        etd: format(date, "dd-MMM-yyyy")
+      }, () => console.log(this.state.etd))
+    }
     this.hideDateTimePicker(value);
   };
   redirectTo = (history) => {
     // console.log('enter in  redirect function');
-    history.push("/notificationModal")
+    // history.push("/notificationModal")
+    this.setState({
+      notifyModal: true,
+      modalVisible: false
+    })
   }
-  // componentDidMount = () => {
-
-  // }
+  addSampleRequest (selectedUser) {
+    console.log('adding sample request successfully', selectedUser);
+    GetAsyncToken()
+      .then(token => {
+        CreateSampleRequest(token, this.state.deadline, this.state.etd, selectedUser)
+          .then( res => {
+            console.log('response while creating sample request', res)
+          })
+      })
+    this.setState({
+      notifyModal: false,
+      modalVisible: false
+    })
+  }
   componentDidMount = () => {
     if (Dimensions.get('window').width > 568) {
       this.setState({ tablet: true }, () => console.log("did mount", this.state.tablet))
@@ -241,7 +278,26 @@ class NewSampleRequest extends React.Component {
               styleColors: res.data.styleColors,
               sizeRange: res.data.sizeRange,
               adminLocations: res.data.adminLocations
-            }, () => this.setCurrentLocation())
+            }, () => this.setCurrentLocation());
+
+            if (res.data.notifiedUsers.internalUsers.length > 0) {
+              const sorted = orderBy(res.data.notifiedUsers.internalUsers, [user => user.name.toLowerCase()]);
+              console.log('sorted users', sorted);
+              this.setState({
+                notifyList: sorted
+              })
+            }
+            if (res.data.notifiedUsers.otherUsers.length > 0) {
+              let internalUser = this.state.notifyList;
+              let allUser = internalUser.concat(res.data.notifiedUsers.otherUsers);
+              const sorted = orderBy(allUser, [user => user.name.toLowerCase()]);
+              console.log('all user', allUser, sorted);
+              this.setState({
+                notifyList: sorted,
+                otherUsers: res.data.otherUsers
+              })
+              
+            }
           })
 
       })
@@ -263,8 +319,8 @@ class NewSampleRequest extends React.Component {
   }
   render() {
     const history = this.props.history;
-    console.log("tablet sample ", this.state.tablet);
-    console.log('size ranges', this.state.sizeRange);
+    console.log("notifyList ", this.state.notifyList);
+    // console.log('size ranges', this.state.sizeRange);
 
     // console.log("calender etd ", this.state.isEtdDateTimePickerVisible);
     return (
@@ -342,7 +398,7 @@ class NewSampleRequest extends React.Component {
                   <DateRow>
                     <DateInput
                       onChangeText={text => this.setState({ text })}
-                      value={this.state.text}
+                      value={this.state.deadline}
                       placeholder="dd-mm-yy"
                     />
                     <View>
@@ -365,7 +421,7 @@ class NewSampleRequest extends React.Component {
                   <DateRow>
                     <DateInput
                       onChangeText={text => this.setState({ text })}
-                      value={this.state.text}
+                      value={this.state.etd}
                       placeholder="dd-mm-yy"
                     />
                     <TouchableOpacity onPress={() => this.showDateTimePicker('etd')}>
@@ -438,9 +494,22 @@ class NewSampleRequest extends React.Component {
                 <SetRequestedQuantity
                   styleColors={this.state.styleColors}
                   sizeRange={this.state.sizeRange}
+                  sendQuantity={(d1) => this.setState({quantityData: d1},() => console.log('d1', d1, this.state.quantityData))}
                 />
               )}
             </CommonModal>
+            {
+              this.state.notifyModal &&(
+                <NotificationModal 
+                allUsers= {this.state.notifyList}
+                close={() => {
+                  this.setState({notifyModal: false, modalVisible: true});
+                }}
+                applyClick = {(d1) => this.addSampleRequest(d1)}
+                />
+              )
+            }
+            
           </View>
           : <Text>loading</Text>}
       </Fragment>

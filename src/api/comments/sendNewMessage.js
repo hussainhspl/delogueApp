@@ -3,7 +3,8 @@ import qs from "qs";
 
 const SendNewMessage = (token, styleId, subject, message, notifyUser, internal, attachments, parentId) => {
   console.log('new send messages', token, styleId, subject, message, notifyUser, internal, attachments, parentId)
-  let notifyId = notifyUser.map(value => value.id);
+  let notifyId = notifyUser.map(value => value.id);   // will create  array of id's
+  console.log('notifyId', notifyId);
     if(attachments == '' ){ attachments =[] }
   // console.log('notify :', notifyId);
   return new Promise(function(resolve, reject) {

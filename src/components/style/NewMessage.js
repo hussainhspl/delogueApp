@@ -25,7 +25,7 @@ import TouchableApply from "../../styles/TouchableApply";
 import SendNewMessage from '../../api/comments/sendNewMessage';
 import Toast from 'react-native-root-toast';
 import TextEditor from "./textEditor";
-import {sortBy, orderBy} from 'lodash'
+import {sortBy, orderBy} from 'lodash';
 
 
 

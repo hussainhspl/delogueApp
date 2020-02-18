@@ -71,7 +71,7 @@ class NotificationModal extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      selected2: 'undefined',
+      notifySelected: [],
       modalVisible: true,
       appState: AppState.currentState,
 
@@ -84,10 +84,13 @@ class NotificationModal extends React.Component {
   setModalVisible(visible) {
     this.setState({ modalVisible: visible });
   }
-  onValueChange2(value) {
-    this.setState({
-      selected2: value,
-    });
+  selectNotifyUser(value) {
+    // this.setState(prevState => ({
+    //   notifySelected: [...prevState.notifySelected, value]
+    // }));
+    this.setState(prevState => ({
+      notifySelected: [...prevState.notifySelected, value]
+    }), () => { console.log('setting', this.state.notifySelected[this.state.notifySelected.length - 1]) })
   }
   setModalVisible(visible) {
     this.setState({ modalVisible: visible });
@@ -109,9 +112,13 @@ class NotificationModal extends React.Component {
       this.setState({ modalVisible: false }, () => console.log(this.state.modalVisible));
     }
   }
+  closeModal() {
+    this.props.close();
+  }
   render() {
     history = this.props.history;
     // console.log('notification modal', history)
+    console.log('this.props.allUsers', this.props.allUsers);
     return (
       <View >
         <Modal
@@ -152,12 +159,17 @@ class NotificationModal extends React.Component {
                     placeholder="Select users"
                     placeholderStyle={{ color: "#bfc6ea" }}
                     placeholderIconColor="#007aff"
-                    selectedValue={this.state.selected2}
-                    onValueChange={this.onValueChange2.bind(this)}
+                    selectedValue={this.state.notifySelected}
+                    onValueChange={this.selectNotifyUser.bind(this)}
 
                   >
-                    <Picker.Item label="Hussain" value="key0" />
-                    <Picker.Item label="Siya" value="key1" />
+                    {/* <Picker.Item label="Hussain" value="key0" />
+                    <Picker.Item label="Siya" value="key1" /> */}
+                    {this.props.allUsers.map(u => {
+                      return (
+                        <Picker.Item label={u.name} value={u} />
+                      )
+                    })}
                   </StyledPicker>
                 </StyledView>
                 <ApplyBar>
@@ -169,7 +181,7 @@ class NotificationModal extends React.Component {
                     </TouchableCancel>
                   </CancelButton>
                   <ApplyButton>
-                    <TouchableApply underlayColor="#354733" onPress={() => this.props.okClick()}>
+                    <TouchableApply underlayColor="#354733" onPress={(data) => this.props.applyClick(this.state.notifySelected)}>
                       <ButtonText>{this.props.okButtonText ? this.props.okButtonText : 'apply'}</ButtonText>
                     </TouchableApply>
                   </ApplyButton>
