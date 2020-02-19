@@ -203,7 +203,7 @@ class NewMessage extends React.Component {
               // console.log('adding internal users');
               // const sorted = sortBy(res.data.internalUsers, ["name"]);
               const sorted = orderBy(res.data.internalUsers, [user => user.name.toLowerCase()]);
-              console.log('sorted users', res.data, sorted);
+              // console.log('sorted users', res.data, sorted);
               this.setState({
                 notifyList: sorted
               })
@@ -213,7 +213,7 @@ class NewMessage extends React.Component {
               let internalUser = this.state.notifyList;
               let allUser = internalUser.concat(res.data.otherUsers);
               const sorted = orderBy(allUser, [user => user.name.toLowerCase()]);
-              console.log('all user', allUser, sorted);
+              // console.log('all user', allUser, sorted);
               this.setState(prevState => ({
                 notifyList: sorted,
                 otherUsers: res.data.otherUsers

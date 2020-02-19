@@ -34,16 +34,16 @@ class FollowComponent extends React.Component {
     }
   }
   static getDerivedStateFromProps(props, state) {
-    console.log('enter should');
+    // console.log('enter should');
     if(props.isFollow !== state.isFollow) {
-      console.log('enter should 1');
+      // console.log('enter should 1');
       return{
         isFollower: props.isFollow,
       }
     }
   }
   toggleFollow(id, follower) {
-    console.log('follow toggle', id, follower);
+    // console.log('follow toggle', id, follower);
     GetAsyncToken().then(token => {
       if (follower === false) {
         StyleFollow(token, id)

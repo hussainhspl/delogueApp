@@ -80,7 +80,7 @@ class ItemDetail extends React.Component {
   }
   render() {
     let data = this.props.data;
-    console.log("data in item detail", data);
+    // console.log("data in item detail", data);
     return (
       <MainRow>
         {data != null ? <Fragment>

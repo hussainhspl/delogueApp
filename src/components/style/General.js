@@ -141,7 +141,7 @@ class General extends React.Component {
   static getDerivedStateFromProps(nextProps, prevState) {
 
     if (nextProps.style !== prevState.dataArray) {
-      console.log('entered general nextProps', nextProps.style);
+      // console.log('entered general nextProps', nextProps.style);
       // if(prevState.followState != nextProps.followState)
       return {
         dataArray: nextProps.style,
@@ -179,7 +179,7 @@ class General extends React.Component {
       // console.log('1');
       // console.log('should component update in', this.props.style.data.id, prevProps.style.data.id);
       if (this.props.style.data.id !== prevProps.style.data.id) {
-        console.log('entered')
+        // console.log('entered');
         this.getThumbnail(this.props.style.data.styleLogoThumbnails)
       }
     }
@@ -220,10 +220,10 @@ class General extends React.Component {
       .then(token => {
         // console.log('id should be', this.props.styleID);
         sId = this.props.styleID == undefined ? this.props.styleId : this.props.styleID;
-        console.log('hurray', sId);
+        // console.log('hurray', sId);
         GetSelectedStyle(token, sId)
           .then(res => {
-            console.log('got single style : ', res);
+            // console.log('got single style : ', res);
             this.props.singleStyleFunction(res)
             // debugger;
           })

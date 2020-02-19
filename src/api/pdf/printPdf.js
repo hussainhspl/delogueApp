@@ -5,7 +5,7 @@ import RNFetchBlob from 'rn-fetch-blob';
 
 const PrintPdf = (token, id, PrintOptionsIds, SampleTypeIds) => {
   let TimeZone = new Date().getTimezoneOffset();
-  console.log('token styles 12', id, PrintOptionsIds, SampleTypeIds, TimeZone)
+  // console.log('token styles 12', id, PrintOptionsIds, SampleTypeIds, TimeZone)
   return new Promise(function(resolve, reject) {
     
     RNFetchBlob.fetch('POST', `${baseUrl}style/print/`, {

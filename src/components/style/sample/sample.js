@@ -99,7 +99,7 @@ class Sample extends React.Component {
     this.getSamplesData();
   }
   getSamplesData = () => {
-    console.log('getting samples');
+    // console.log('getting samples');
     GetAsyncToken()
       .then(token => {
         GetSamples(token, this.props.styleId)

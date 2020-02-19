@@ -166,20 +166,20 @@ class CommentsList extends React.Component {
   //   return null;
   // }
   toggleAlert(auditLogId, messageType) {
-    console.log('enter in toggle alert', auditLogId);
+    // console.log('enter in toggle alert', auditLogId);
     let currentAlert = '';
     GetAsyncToken()
       .then(token => {
 
         this.state.msgList.map(d => {
           if (d.auditLogId == auditLogId) {
-            console.log('click state', d.isRead);
+            // console.log('click state', d.isRead);
             currentAlert = d.isRead;
           }
         })
-        console.log('if', currentAlert);
+        // console.log('if', currentAlert);
         if (currentAlert == false) {
-          console.log('auditLogId', auditLogId);
+          // console.log('auditLogId', auditLogId);
           DeleteAlert(token, auditLogId)
             .then(res => {
               console.log('alert deleted successfully');
@@ -188,7 +188,7 @@ class CommentsList extends React.Component {
 
             })
         } else {
-          console.log('auditLogId', auditLogId);
+          // console.log('auditLogId', auditLogId);
           CreateAlert(token, auditLogId, messageType)
             .then(res => {
               console.log('successfully marked unread', res);
@@ -199,11 +199,11 @@ class CommentsList extends React.Component {
       })
   }
   markRead = () => {
-    console.log('click mark all', this.props.styleID);
+    // console.log('click mark all', this.props.styleID);
     GetAsyncToken().then(token => {
       ReadAll(token, this.props.styleID)
         .then(res => {
-          console.log('read all messages');
+          // console.log('read all messages');
           this.styleMessages()
           let toast = Toast.show('All Messages marked as Read', {
 						duration: Toast.durations.LONG,
@@ -215,7 +215,7 @@ class CommentsList extends React.Component {
     })
   }
   render() {
-    console.log('this.state.msgList', this.state.msgList);
+    // console.log('this.state.msgList', this.state.msgList);
     return (
       <View style={{ flex: 1 }}>
         <SearchRow>

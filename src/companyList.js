@@ -208,7 +208,7 @@ class CompanyList extends React.Component {
           let strUid = JSON.stringify(uid);
           let strDesignerId = JSON.stringify(designerId)
 
-          console.log('coming here', strUid, uid, typeof(uid), typeof(designerId))
+          // console.log('coming here', strUid, uid, typeof(uid), typeof(designerId))
           AsyncStorage.multiSet([
             ["@designerId", strDesignerId],
             ["@userId", strUid]
@@ -221,7 +221,7 @@ class CompanyList extends React.Component {
           );
         })
       })
-    console.log('get token called', designerId, uid);
+    // console.log('get token called', designerId, uid);
     
   }
   storeToken = async tokenExp => {

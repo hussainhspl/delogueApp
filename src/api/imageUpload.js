@@ -27,19 +27,19 @@ import RNFetchBlob from 'rn-fetch-blob';
 // }
 
 const ImageUpload = (token, imgSrc ,fileName, fId, sId) => {
-  console.log('image upload input data:', token, imgSrc ,fileName, fId, sId)
+  // console.log('image upload input data:', token, imgSrc ,fileName, fId, sId)
   let newImgSrc ="";
   let newFId = fId.toString();
   let newSId = sId.toString();
   // let folderId = fId.length > 0 ? fId: ''}
-  console.log('Platform.OS', Platform.OS)
+  // console.log('Platform.OS', Platform.OS)
   if (Platform.OS === 'ios') {
     newImgSrc = imgSrc.replace('file://', '');
-    console.log('enter in ios: ', newImgSrc);
+    // console.log('enter in ios: ', newImgSrc);
     }
   if (Platform.OS === 'android') {
     newImgSrc = imgSrc
-    console.log('enter in android', typeof(newFId), typeof(newSId), fileName, newImgSrc)
+    // console.log('enter in android', typeof(newFId), typeof(newSId), fileName, newImgSrc)
 
     } 
   // console.log('source in upload', newImgSrc, fileName);

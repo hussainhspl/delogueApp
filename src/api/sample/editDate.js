@@ -1,19 +1,17 @@
 import axios from "axios";
 import qs from "qs";
 
-const GetStyles = (string, token, brand, season, myStyle, pageNumber) => {
-  // console.log('token styles 12', token, myStyle, pageNumber)
+const EditDate = (token, sampleId, selectedType, newDate) => {
+  // console.log('token alert messages', token, auditLogId, messageType)
   return new Promise(function(resolve, reject) {
     // let string = this.state.searchBrand;
     const data1 = {
-      "searchString": string,
-      "brandIds": brand,
-      "seasonIds": season,
-      "showOnlyMyStyles": myStyle,
-      "pageNumber": pageNumber,
+      "Id": sampleId,
+      "SampleRequestDateType": selectedType,
+      SampleRequestDate: newDate
     }
     axios({
-      url: `${baseUrl}Styles`,
+      url: `${baseUrl}StyleSampleRequest/EditDate`,
       method: 'POST',
       headers: {
         Authorization: `Bearer ${token}`,
@@ -22,12 +20,13 @@ const GetStyles = (string, token, brand, season, myStyle, pageNumber) => {
       data: data1,
     })
       .then(res => {
+        console.log('success in alert unread', res);
         resolve(res);
-        console.log("response in styles", res);
+
       })
       .catch(function(error) {
-        console.error("error in styles", error);
+        console.error("error in alert unread", error);
       });
   });
 }
-export default GetStyles;
+export default EditDate;

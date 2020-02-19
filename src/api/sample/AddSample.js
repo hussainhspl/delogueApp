@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const AddSample = (token, styleId) => {
-  console.log('id in add sample get', styleId)
+  // console.log('id in add sample get', styleId)
   return new Promise((resolve, reject) => {
     axios({
       url: `${baseUrl}StyleSampleRequest/Add/${styleId}`,

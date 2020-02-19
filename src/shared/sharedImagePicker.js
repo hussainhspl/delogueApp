@@ -81,7 +81,7 @@ class SharedImagePicker extends React.Component {
         let source = response.uri;
         GetAsyncToken()
           .then(token => {
-            console.log('sid', this.props.styleID);
+            // console.log('sid', this.props.styleID);
             ImageUpload(token, source, response.fileName, 0, this.props.StoreStyleId)
               .then(res => {
                 let toast = Toast.show('image successfully attached', {
@@ -105,13 +105,13 @@ class SharedImagePicker extends React.Component {
     });
   }
   popAttachment(id) {
-    console.log('remove image', id);
+    // console.log('remove image', id);
     this.setState({
       attachment : this.state.attachment.filter(imgObj => imgObj.id != id)
     })
   }
   render() {
-    console.log('shared picker ', this.props.styleID)
+    // console.log('shared picker ', this.props.styleID)
     return (
       <Fragment>
         <StyleFileTitle>
@@ -130,7 +130,7 @@ class SharedImagePicker extends React.Component {
               typeof (this.state.attachment) == 'object' && (
         <AttachImageRow>
           {this.state.attachment.map(d => {
-            console.log('attachment d :', d);
+            // console.log('attachment d :', d);
             return (
               <AttachBox>
                 <TouchableHighlight onPress={() => this.setState({ modalVisible: true })}

@@ -282,7 +282,7 @@ class NewSampleRequest extends React.Component {
 
             if (res.data.notifiedUsers.internalUsers.length > 0) {
               const sorted = orderBy(res.data.notifiedUsers.internalUsers, [user => user.name.toLowerCase()]);
-              console.log('sorted users', sorted);
+              // console.log('sorted users', sorted);
               this.setState({
                 notifyList: sorted
               })
@@ -291,7 +291,7 @@ class NewSampleRequest extends React.Component {
               let internalUser = this.state.notifyList;
               let allUser = internalUser.concat(res.data.notifiedUsers.otherUsers);
               const sorted = orderBy(allUser, [user => user.name.toLowerCase()]);
-              console.log('all user', allUser, sorted);
+              // console.log('all user', allUser, sorted);
               this.setState({
                 notifyList: sorted,
                 otherUsers: res.data.otherUsers
@@ -303,11 +303,11 @@ class NewSampleRequest extends React.Component {
       })
   };
   setCurrentLocation () {
-    console.log('set location', this.state.adminLocations);
+    // console.log('set location', this.state.adminLocations);
     let defaultLocation = this.state.adminLocations.filter(item => item.defaultLocation == true)
     this.setState({
       currentLocation: defaultLocation[0]
-    }, () => {console.log('current location', this.state.currentLocation.address)})
+    })
   }
   componentWillUnmount = () => {
     AppState.removeEventListener('change', this._handleAppStateChange);
@@ -319,7 +319,7 @@ class NewSampleRequest extends React.Component {
   }
   render() {
     const history = this.props.history;
-    console.log("notifyList ", this.state.notifyList);
+    // console.log("notifyList ", this.state.notifyList);
     // console.log('size ranges', this.state.sizeRange);
 
     // console.log("calender etd ", this.state.isEtdDateTimePickerVisible);
@@ -501,11 +501,11 @@ class NewSampleRequest extends React.Component {
             {
               this.state.notifyModal &&(
                 <NotificationModal 
-                allUsers= {this.state.notifyList}
-                close={() => {
-                  this.setState({notifyModal: false, modalVisible: true});
-                }}
-                applyClick = {(d1) => this.addSampleRequest(d1)}
+                  allUsers= {this.state.notifyList}
+                  close={() => {
+                    this.setState({notifyModal: false, modalVisible: true});
+                  }}
+                  applyClick = {(d1) => this.addSampleRequest(d1)}
                 />
               )
             }

@@ -11,10 +11,12 @@ import {
 } from "react-native";
 import styled from "styled-components";
 import { Icon } from "native-base";
-import DateTimePicker from "react-native-modal-datetime-picker";
+import DateTimePickerModal from "react-native-modal-datetime-picker";
 // relative import
 import OpacityView from "../../../styles/OpacityView";
 import { parseISO, format } from "date-fns";
+import GetAsyncToken from "../../../script/getAsyncToken";
+import EditDate from '../../../api/sample/editDate';
 
 const TitleRow = styled.View`
   flex-direction: row;
@@ -60,7 +62,7 @@ const DateInput = styled.TextInput`
   border: 1px solid #ddd;
   height: 20px;
   padding: 3px 6px;
-  font-size: 13px;
+  font-size: 10px;
   margin-right: 5px;
   font-family: ${props => props.theme.regular};
 `;
@@ -123,11 +125,11 @@ class sampleComponent extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      isDeadlineDateTimePickerVisible: false,
-      isEtdDateTimePickerVisible: false,
-      isSentDateTimePickerVisible: false,
-      isReceivedDateTimePickerVisible: false,
-      isCommentedDateTimePickerVisible: false,
+      isDeadlineDatePickerVisible: false,
+      isEtdDatePickerVisible: false,
+      isSentDatePickerVisible: false,
+      isReceivedDatePickerVisible: false,
+      isCommentedDatePickerVisible: false,
       text: "",
       deadlineDate: "",
       etdDate: "",
@@ -135,245 +137,356 @@ class sampleComponent extends React.Component {
       receivedDate: "",
       commentedDate: "",
       tablet: "",
-      showOpacity: false
+      showOpacity: false,
+      sampleData: null
+
     };
   }
   componentDidMount = () => {
     if (Dimensions.get("window").width > 568) {
       this.setState({ tablet: true }, () =>
-        console.log("will mount", this.state.tablet)
+        console.log("did mount", this.state.tablet, this.props.data)
       );
     }
+    // const { id, sampleRequestStatus, typeOfSample, note, pieces,
+    //   deadline, etd, sentDate, receivedDate, commentedDate,
+    //   overAllApprovedStatus } = this.props.data;
+    this.setState({
+      sampleData: this.props.data
+    }, () => this.dateConversion())
+
+    // deadline != null ? this.state.deadlineDate == "" ?
+    //   this.setState({
+    //     deadlineDate: format(parseISO(deadline), "MM-dd-yy")
+    //   })
+    //   : null : null
+
+    // etd != null ? this.state.etdDate == "" ?
+    //   this.setState({
+    //     etdDate: format(parseISO(etd), "MM-dd-yy")
+    //   })
+    //   : null : null
+
+    // sentDate != null ? this.state.sentDate == "" ?
+    //   this.setState({
+    //     sentDate: format(parseISO(sent), "MM-dd-yy")
+    //   })
+    //   : null : null
+
+    // receivedDate != null ? this.state.receivedDate == "" ?
+    //   this.setState({
+    //     receivedDate: format(parseISO(receivedDate), "MM-dd-yy")
+    //   })
+    //   : null : null
+
+    //   commentedDate != null ? this.state.commentedDate == "" ?
+    //   this.setState({
+    //     commentedDate: format(parseISO(commentedDate), "MM-dd-yy")
+    //   })
+    //   : null : null
+
   };
-  showDateTimePicker = value => {
+  dateConversion () {
+    // console.log('in date conversion :', this.state.sampleData);
+    let formatedDeadline = null;
+    let formatedEtd = null;
+    let formatedSent = null;
+    let formatedReceived = null;
+    let formatedCommented = null;
+
+    if(this.state.sampleData.deadline != null) {
+      const date = new Date(this.state.sampleData.deadline)
+      let localDate = new Date(date.setMinutes(date.getMinutes() - date.getTimezoneOffset()));
+      let formatedDeadline = format(localDate, "d-MMM-yyyy");
+    }
+    
+    if(this.state.sampleData.etd != null) {
+      const date = new Date(this.state.sampleData.deadline)
+      let localDate = new Date(date.setMinutes(date.getMinutes() - date.getTimezoneOffset()));
+      let formatedEtd = format(localDate, "d-MMM-yyyy");
+    }
+
+    if(this.state.sampleData.sentDate != null) {
+      const date = new Date(this.state.sampleData.deadline)
+      let localDate = new Date(date.setMinutes(date.getMinutes() - date.getTimezoneOffset()));
+      let formatedDeadline = format(localDate, "d-MMM-yyyy");
+    }
+
+    if(this.state.sampleData.etd != null) {
+      const date = new Date(this.state.sampleData.deadline)
+      let localDate = new Date(date.setMinutes(date.getMinutes() - date.getTimezoneOffset()));
+      let formatedDeadline = format(localDate, "d-MMM-yyyy");
+    }
+
+    if(this.state.sampleData.etd != null) {
+      const date = new Date(this.state.sampleData.deadline)
+      let localDate = new Date(date.setMinutes(date.getMinutes() - date.getTimezoneOffset()));
+      let formatedDeadline = format(localDate, "d-MMM-yyyy");
+    }
+
+    // let formatedEtd = this.checkNullDate();
+
+    this.setState(prevState => ({
+      sampleData: {
+        ...prevState.sampleData,
+        deadline: formatedDeadline,
+        etd: formatedEtd
+      }
+    }))
+
+
+  }
+  checkNullDate = () => {
+    let formatedEtd = null;
+    if(this.state.sampleData.etd != null) {
+      console.log('etd conversion',this.state.sampleData.etd);
+      formatedEtd = this.formatDate(this.state.sampleData.etd);
+      console.log('converted date', formatedEtd)
+    }
+    return formatedEtd;
+  }
+  
+  formatDate = (rawDate) => {
+    const date = new Date(rawDate)
+
+
+    let localDate = new Date(date.setMinutes(date.getMinutes() - date.getTimezoneOffset()));
+    return format(localDate, "d-MMM-yyyy");
+  }
+
+
+
+  showDatePicker = value => {
     // console.log("value", value);
     if (value == "deadline") {
-      this.setState({ isDeadlineDateTimePickerVisible: true });
+      this.setState({ isDeadlineDatePickerVisible: true });
     } else if (value == "etd") {
-      this.setState({ isEtdDateTimePickerVisible: true });
+      this.setState({ isEtdDatePickerVisible: true });
     } else if (value == "sent") {
-      this.setState({ isSentDateTimePickerVisible: true });
+      this.setState({ isSentDatePickerVisible: true });
     } else if (value == "received") {
-      this.setState({ isReceivedDateTimePickerVisible: true });
+      this.setState({ isReceivedDatePickerVisible: true });
     } else if (value == "commented") {
-      this.setState({ isCommentedDateTimePickerVisible: true });
+      this.setState({ isCommentedDatePickerVisible: true });
     }
+
   };
 
-  hideDateTimePicker = value => {
+  hideDatePicker = value => {
     if (value == "deadline") {
-      this.setState({ isDeadlineDateTimePickerVisible: false });
+      this.setState({ isDeadlineDatePickerVisible: false });
     } else if (value == "etd") {
-      this.setState({ isEtdDateTimePickerVisible: false });
+      this.setState({ isEtdDatePickerVisible: false });
     } else if (value == "sent") {
-      this.setState({ isSentDateTimePickerVisible: false });
+      this.setState({ isSentDatePickerVisible: false });
     } else if (value == "received") {
-      this.setState({ isReceivedDateTimePickerVisible: false });
+      this.setState({ isReceivedDatePickerVisible: false });
     } else if (value == "commented") {
-      this.setState({ isReceivedDateTimePickerVisible: false });
+      this.setState({ isCommentedDatePickerVisible: false });
+    }
+    else {
+      this.setState({
+        isDeadlineDatePickerVisible: false,
+        isEtdDatePickerVisible: false,
+        isSentDatePickerVisible: false,
+        isReceivedDatePickerVisible: false,
+        isCommentedDatePickerVisible: false,
+
+      });
     }
   };
 
-  handleDatePicked = date => {
-    // console.log("A date has been picked: ", date);
-    this.hideDateTimePicker();
+  handleConfirm = date => {
+    console.log("A date has been picked: ", date);
+    let newDate = format(date, "dd-MMM-yy");
+    let selectedType = -1;
+    if (this.state.isDeadlineDatePickerVisible == true) {
+      selectedType = 0;
+      console.log('deadline date', newDate);
+
+    }
+    GetAsyncToken()
+      .then(token => {
+        EditDate(token, this.props.data.id, selectedType, newDate)
+          .then(res => {
+            console.log('date edited successfully', res);
+            const date = new Date(res.data.deadline)
+            let localDate = new Date(date.setMinutes(date.getMinutes() - date.getTimezoneOffset()));
+            let formatedDeadline = format(localDate, "d-MMM-yyyy");
+            this.setState(prevState => ({
+              sampleData: {
+                ...prevState.sampleData,
+                deadline: formatedDeadline
+              }
+            }))
+            
+          })
+      })
+
+    this.hideDatePicker();
   };
   render() {
-    // console.log("state",this.state.isDeadlineDateTimePickerVisible )
-    const { id, sampleRequestStatus, typeOfSample, note, pieces,
-      deadline, etd, sentDate, receivedDate, commentedDate,
-      overAllApprovedStatus } = this.props.data;
 
-    deadline != null ? this.state.deadlineDate == "" ?
-      this.setState({
-        deadlineDate: format(parseISO(deadline), "MM-dd-yy")
-      })
-      : null : null
-
-    etd != null ? this.state.etdDate == "" ?
-      this.setState({
-        etdDate: format(parseISO(etd), "MM-dd-yy")
-      })
-      : null : null
-
-    sentDate != null ? this.state.sentDate == "" ?
-      this.setState({
-        sentDate: format(parseISO(sent), "MM-dd-yy")
-      })
-      : null : null
-
-    receivedDate != null ? this.state.receivedDate == "" ?
-      this.setState({
-        receivedDate: format(parseISO(receivedDate), "MM-dd-yy")
-      })
-      : null : null
-
-      commentedDate != null ? this.state.commentedDate == "" ?
-      this.setState({
-        commentedDate: format(parseISO(commentedDate), "MM-dd-yy")
-      })
-      : null : null
-
-
-
-    // let fsa = format(parseISO('2014-02-11T11:30:30'), "dd");
-
-
-
-    // console.log('typeOf(pieces)', typeof (pieces));
+    console.log('render sample component: ', this.state.sampleData)
     return (
       <Fragment>
-        <MainBox tablet={this.state.tablet}>
-          {this.state.showOpacity && <OpacityView />}
-          <TouchableWithoutFeedback
-            key={id}
-            onPressIn={() => this.setState({ showOpacity: true })}
-            onPressOut={() => this.setState({ showOpacity: false })}
-            onPress={() => this.props.closeSampleList(id)}
-          >
-            <View>
-              <TitleRow>
-                <TitleRowText numberOfLines={1}> {typeOfSample.name} </TitleRowText>
-                <StatusDot status={overAllApprovedStatus == true  ? true : false} />
-              </TitleRow>
-              <CardInfo>
-                <MessageRow>
-                  <Image
-                    resizeMode={"contain"}
-                    source={require("../../../../assets/img/sample/receivedblack.png")}
-
-                  />
-                  <CardTittle numberOfLines={1}> {sampleRequestStatus} </CardTittle>
-                </MessageRow>
-                <Pieces numberOfLines={1}> {pieces} {pieces > 1 ? "pcs" : "pc"} </Pieces>
-              </CardInfo>
-              <ContentRow>
-                <ContentTitle>deadline</ContentTitle>
-                <DateRow>
-                  <DateInput
-                    onChangeText={deadlineDate =>
-                      this.setState({ deadlineDate })
-                    }
-                    value={this.state.deadlineDate}
-                    placeholder="dd-mm-yy"
-                  />
-                  <CalenderTouchableOpacity
-                    onPress={() => this.showDateTimePicker("deadline")}
-                  >
-                    <Icon
-                      style={{ color: "#8C8076", fontSize: 18 }}
-                      name="calendar"
-                    />
-                  </CalenderTouchableOpacity>
-                  <DateTimePicker
-                    isVisible={this.state.isDeadlineDateTimePickerVisible}
-                    onConfirm={this.handleDatePicked}
-                    onCancel={() => this.hideDateTimePicker("deadline")}
-                  />
-                </DateRow>
-              </ContentRow>
-              <ContentRow>
-                <ContentTitle> etd</ContentTitle>
-                <DateRow>
-                  <DateInput
-                    onChangeText={etdDate => this.setState({ etdDate })}
-                    value={this.state.etdDate}
-                    placeholder="dd-mm-yy"
-                  />
-                  <CalenderTouchableOpacity
-                    onPress={() => this.showDateTimePicker("etd")}
-                  >
-                    <Icon
-                      style={{ color: "#8C8076", fontSize: 18 }}
-                      name="calendar"
-                    />
-                  </CalenderTouchableOpacity>
-                  <DateTimePicker
-                    isVisible={this.state.isEtdDateTimePickerVisible}
-                    onConfirm={this.handleDatePicked}
-                    onCancel={() => this.hideDateTimePicker("etd")}
-                  />
-                </DateRow>
-              </ContentRow>
-              <ContentRow>
-                <ContentTitle> sent </ContentTitle>
-                <DateRow>
-                  <DateInput
-                    onChangeText={sentDate => this.setState({ sentDate })}
-                    value={this.state.sentDate}
-                    placeholder="dd-mm-yy"
-                  />
-                  <CalenderTouchableOpacity
-                    onPress={() => this.showDateTimePicker("sent")}
-                  >
-                    <Icon
-                      style={{ color: "#8C8076", fontSize: 18 }}
-                      name="calendar"
-                    />
-                  </CalenderTouchableOpacity>
-                  <DateTimePicker
-                    isVisible={this.state.isSentDateTimePickerVisible}
-                    onConfirm={this.handleDatePicked}
-                    onCancel={() => this.hideDateTimePicker("sent")}
-                  />
-                </DateRow>
-              </ContentRow>
-              <ContentRow>
-                <ContentTitle> received </ContentTitle>
-                <DateRow>
-                  <DateInput
-                    onChangeText={receivedDate =>
-                      this.setState({ receivedDate })
-                    }
-                    value={this.state.receivedDate}
-                    placeholder="dd-mm-yy"
-                  />
-                  <CalenderTouchableOpacity
-                    onPress={() => this.showDateTimePicker("received")}
-                  >
-                    <Icon
-                      style={{ color: "#8C8076", fontSize: 18 }}
-                      name="calendar"
-                    />
-                  </CalenderTouchableOpacity>
-                  <DateTimePicker
-                    isVisible={this.state.isReceivedDateTimePickerVisible}
-                    onConfirm={this.handleDatePicked}
-                    onCancel={() => this.hideDateTimePicker("received")}
-                  />
-                </DateRow>
-              </ContentRow>
-              <ContentRow>
-                {/* <CommentTitle> commented </CommentTitle> */}
-                <ContentTitle> commented </ContentTitle>
-                <DateRow>
-                  <DateInput
-                    onChangeText={commentedDate => this.setState({ commentedDate })}
-                    value={this.state.commentedDate}
-                    placeholder="dd-mm-yy"
-                  />
-                  <CalenderTouchableOpacity
-                    onPress={() => this.showDateTimePicker("commented")}
-                  >
-                    <Icon
-                      style={{ color: "#8C8076", fontSize: 18 }}
-                      name="calendar"
-                    />
-                  </CalenderTouchableOpacity>
-                  <DateTimePicker
-                    isVisible={this.state.isCommentedDateTimePickerVisible}
-                    onConfirm={this.handleDatePicked}
-                    onCancel={() => this.hideDateTimePicker("commented")}
-                  />
-                </DateRow>
-              </ContentRow>
+        {this.state.sampleData != null ?
+          <MainBox tablet={this.state.tablet}>
+            {this.state.showOpacity && <OpacityView />}
+            <TouchableWithoutFeedback
+              key={this.state.sampleData.id}
+              onPressIn={() => this.setState({ showOpacity: true })}
+              onPressOut={() => this.setState({ showOpacity: false })}
+              onPress={() => this.props.closeSampleList(id)}
+            >
               <View>
-                {/* <CommentTitle> commented </CommentTitle> */}
-                <NoteText numberOfLines={1}> {note} </NoteText>
+                <TitleRow>
+                  <TitleRowText numberOfLines={1}> {this.state.sampleData.typeOfSample.name} </TitleRowText>
+                  <StatusDot status={this.state.sampleData.overAllApprovedStatus == true ? true : false} />
+                </TitleRow>
+                <CardInfo>
+                  <MessageRow>
+                    <Image
+                      resizeMode={"contain"}
+                      source={require("../../../../assets/img/sample/receivedblack.png")}
+
+                    />
+                    <CardTittle numberOfLines={1}> {this.state.sampleData.typeOfSample.sampleRequestStatus} </CardTittle>
+                  </MessageRow>
+                  <Pieces numberOfLines={1}> {this.state.sampleData.typeOfSample.pieces} {this.state.sampleData.typeOfSample.pieces > 1 ? "pcs" : "pc"} </Pieces>
+                </CardInfo>
+                <ContentRow>
+                  <ContentTitle>deadline</ContentTitle>
+                  <DateRow>
+                    <DateInput
+                      // onChangeText={1}
+                      value={this.state.sampleData.deadline}
+                      placeholder="dd-mm-yy"
+                    />
+                    <CalenderTouchableOpacity
+                      onPress={() => this.showDatePicker("deadline")}
+                    >
+                      <Icon
+                        style={{ color: "#8C8076", fontSize: 18 }}
+                        name="calendar"
+                      />
+                    </CalenderTouchableOpacity>
+                    <DateTimePickerModal
+                      isVisible={this.state.isDeadlineDatePickerVisible}
+                      onConfirm={this.handleConfirm}
+                      onCancel={() => this.hideDatePicker("deadline")}
+                      mode="date"
+                    />
+                  </DateRow>
+                </ContentRow>
+                <ContentRow>
+                  <ContentTitle> etd</ContentTitle>
+                  <DateRow>
+                    <DateInput
+                      // onChangeText={etdDate => this.setState({ etdDate })}
+                      value={this.state.etdDate}
+                      placeholder="dd-mm-yy"
+                    />
+                    <CalenderTouchableOpacity
+                      onPress={() => this.showDatePicker("etd")}
+                    >
+                      <Icon
+                        style={{ color: "#8C8076", fontSize: 18 }}
+                        name="calendar"
+                      />
+                    </CalenderTouchableOpacity>
+                    <DateTimePickerModal
+                      isVisible={this.state.isEtdDatePickerVisible}
+                      onConfirm={this.handleConfirm}
+                      onCancel={() => this.hideDatePicker("etd")}
+                      mode="date"
+                    />
+                  </DateRow>
+                </ContentRow>
+                <ContentRow>
+                  <ContentTitle> sent </ContentTitle>
+                  <DateRow>
+                    <DateInput
+                      // onChangeText={sentDate => this.setState({ sentDate })}
+                      value={this.state.sentDate}
+                      placeholder="dd-mm-yy"
+                    />
+                    <CalenderTouchableOpacity
+                      onPress={() => this.showDatePicker("sent")}
+                    >
+                      <Icon
+                        style={{ color: "#8C8076", fontSize: 18 }}
+                        name="calendar"
+                      />
+                    </CalenderTouchableOpacity>
+                    <DateTimePickerModal
+                      isVisible={this.state.isSentDatePickerVisible}
+                      onConfirm={this.handleConfirm}
+                      onCancel={() => this.hideDatePicker("sent")}
+                      mode="date"
+                    />
+                  </DateRow>
+                </ContentRow>
+                <ContentRow>
+                  <ContentTitle> received </ContentTitle>
+                  <DateRow>
+                    <DateInput
+                      // onChangeText={receivedDate =>
+                      //   this.setState({ receivedDate })
+                      // }
+                      value={this.state.receivedDate}
+                      placeholder="dd-mm-yy"
+                    />
+                    <CalenderTouchableOpacity
+                      onPress={() => this.showDatePicker("received")}
+                    >
+                      <Icon
+                        style={{ color: "#8C8076", fontSize: 18 }}
+                        name="calendar"
+                      />
+                    </CalenderTouchableOpacity>
+                    <DateTimePickerModal
+                      isVisible={this.state.isReceivedDatePickerVisible}
+                      onConfirm={this.handleConfirm}
+                      onCancel={() => this.hideDatePicker("received")}
+                      mode="date"
+                    />
+                  </DateRow>
+                </ContentRow>
+                <ContentRow>
+                  {/* <CommentTitle> commented </CommentTitle> */}
+                  <ContentTitle> commented </ContentTitle>
+                  <DateRow>
+                    <DateInput
+                      // onChangeText={commentedDate => this.setState({ commentedDate })}
+                      value={this.state.commentedDate}
+                      placeholder="dd-mm-yy"
+                    />
+                    <CalenderTouchableOpacity
+                      onPress={() => this.showDatePicker("commented")}
+                    >
+                      <Icon
+                        style={{ color: "#8C8076", fontSize: 18 }}
+                        name="calendar"
+                      />
+                    </CalenderTouchableOpacity>
+                    <DateTimePickerModal
+                      isVisible={this.state.isCommentedDatePickerVisible}
+                      onConfirm={this.handleConfirm}
+                      onCancel={() => this.hideDatePicker("commented")}
+                      mode="date"
+                    />
+                  </DateRow>
+                </ContentRow>
+                <View>
+                  {/* <CommentTitle> commented </CommentTitle> */}
+                  <NoteText numberOfLines={1}> {this.state.sampleData.note} </NoteText>
+                </View>
               </View>
-            </View>
-          </TouchableWithoutFeedback>
-        </MainBox>
+            </TouchableWithoutFeedback>
+          </MainBox>
+          : null
+        }
       </Fragment>
     );
   }

@@ -120,7 +120,7 @@ class Comments extends React.Component {
       .then(token => {
         GetSelectedStyle(token, this.props.styleID)
           .then(res => {
-            console.log('got single style : ', res);
+            // console.log('got single style : ', res);
             this.props.singleStyleFunction(res)
           })
       })
@@ -146,7 +146,7 @@ class Comments extends React.Component {
       // console.log("Entered nextProps comments");
       if(nextProps.dataMsg != null) {
         if(prevState.parentId == null)
-          console.log("Entered comment derived", nextProps.dataMsg);
+          // console.log("Entered comment derived", nextProps.dataMsg);
           return {
             MessageContent: nextProps.dataMsg,
           }
@@ -168,7 +168,7 @@ class Comments extends React.Component {
     })
   }
   openCreateReply = (id)  =>{
-    console.log('reply id', id, this.state.MessageContent, this.state.MessageContent.styleId);
+    // console.log('reply id', id, this.state.MessageContent, this.state.MessageContent.styleId);
     this.setState({
       parentId: id,
       ShowNewMsg: true,
@@ -183,7 +183,7 @@ class Comments extends React.Component {
   // }
   render() {
     // console.log("message open",this.props.styleID, this.state.MessageContent );
-    console.log('enter in comments render', this.props.style)
+    // console.log('enter in comments render', this.props.style)
     return (
       <View style={{ flex: 1 }}>
         <ItemDetail data={this.props.style  != null ? this.props.style.data :null} />

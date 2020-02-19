@@ -5,7 +5,7 @@ const initialState = {
 };
 
 const styleReducer = (state = initialState, action) => {
-  console.log('style action:',action);
+  // console.log('style action:',action);
   switch ( action.type) {
     case STYLE_LIST: 
       return {

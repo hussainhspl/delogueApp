@@ -221,7 +221,7 @@ class Message extends React.Component {
       .then(token => {
         SpecificMessage(token, id)
           .then(res => {
-            console.log('resp in message :', res);
+            // console.log('resp in message :', res);
             this.props.styleIdFunction(res.data.styleId);
             this.props.commentTabFunction();
             this.props.history.push({
@@ -247,38 +247,38 @@ class Message extends React.Component {
         })
         // console.log('if', currentAlert);
         if (currentAlert == false) {
-          console.log('auditLogId', auditLogId);
+          // console.log('auditLogId', auditLogId);
           DeleteAlert(token, auditLogId)
             .then(res => {
-              console.log('alert deleted successfully');
+              // console.log('alert deleted successfully');
 
               this.props.updateReadFunction(auditLogId)
 
             })
         } else {
-          console.log('auditLogId', auditLogId);
+          // console.log('auditLogId', auditLogId);
           CreateAlert(token, auditLogId, messageType)
             .then(res => {
-              console.log('successfully marked unread', res);
+              // console.log('successfully marked unread', res);
               this.props.updateUnReadFunction(auditLogId)
             })
         }
       })
   }
   toggleMessages = () => {
-    console.log('toggle messages')
+    // console.log('toggle messages')
     this.setState({
       hideRead: !this.state.hideRead
     })
   }
 
   render() {
-    console.log('msg', this.props)
+    // console.log('msg', this.props)
     history = this.props.history;
     let color = Appearance.getColorScheme();
 
     let CurrentTimeZone = RNLocalize.getTimeZone();
-    console.log('color: ', color, CurrentTimeZone);
+    // console.log('color: ', color, CurrentTimeZone);
     // console.log('html height in render: ', this.state.htmlHeight1);
     // if(this.state.MessageList != null)
     // console.log("message list render", this.state.MessageList);
@@ -347,7 +347,7 @@ class Message extends React.Component {
                   const date = new Date(m.loggedOn)
                   let localDate = new Date(date.setMinutes(date.getMinutes() - date.getTimezoneOffset()));
                   let formatedDate = format(localDate, "d-MMM-yyyy kk:mm") 
-                  console.log('current time ', formatedDate)
+                  // console.log('current time ', formatedDate)
                   
                   let newMsgBody = m.messageBody.replace(/class='commAttachmentsContainer/g, "style='display: none' class='")
                   let msgId = m.parentLogId != null ? m.parentLogId : m.auditLogId

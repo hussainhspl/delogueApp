@@ -237,7 +237,7 @@ class Search extends React.Component {
   }
   render() {
     const history = this.props.history;
-    console.log('style data from store', this.state.filteredStyle.length);
+    // console.log('style data from store', this.state.filteredStyle.length);
     // console.log("search history:", history);
     // console.log("history on search page", this.props.history);
     return (

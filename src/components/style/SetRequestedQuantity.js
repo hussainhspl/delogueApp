@@ -104,11 +104,11 @@ class SetRequestedQuantity extends React.Component {
     })
     let rowCount = this.props.sizeRange.sizes.length;
     let colCount = this.props.styleColors.length + 1;
-    console.log('count', rowCount, colCount);
+    // console.log('count', rowCount, colCount);
 
     let rawArray = [...Array(rowCount)].map(x => Array(colCount).fill(0));
     rawArray.map((d, index) => {
-      console.log("d create object", d);
+      // console.log("d create object", d);
       // console.log('range size id',this.props.sizeRange.sizes[index].id);
       return (
 
@@ -116,7 +116,7 @@ class SetRequestedQuantity extends React.Component {
           "SizeRangeSizeId": this.props.sizeRange.sizes[index].id,
           "RequestedSampleSizeSpecCommands":
             d.map((i, innerIndex) => {
-              console.log('color id', innerIndex, this.props.styleColors);
+              // console.log('color id', innerIndex, this.props.styleColors);
               return (
                 rawArray[index][innerIndex] = {
                   "Available": innerIndex == 0 ? true : false,

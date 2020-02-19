@@ -75,7 +75,7 @@ class Files extends React.Component {
     };
   }
   selectPhotoTapped(folderId) {
-    console.log('folder id in select picker', folderId, this.props.styleID);
+    // console.log('folder id in select picker', folderId, this.props.styleID);
     const options = {
       quality: 1.0,
       maxWidth: 500,
@@ -144,9 +144,9 @@ class Files extends React.Component {
       this.setState({ tablet: true }
       );
     }
-    console.log('enter in files did mount')
+    // console.log('enter in files did mount')
     if (this.state.fileArr) {
-      console.log("hurray")
+      // console.log("hurray")
     }
     GetAsyncToken()
       .then(token => {
@@ -174,13 +174,13 @@ class Files extends React.Component {
   };
   static getDerivedStateFromProps(nextProps, prevState) {
     if (nextProps.fileArr !== prevState.fileArr){}
-      console.log("Entered file nextProps");
+      // console.log("Entered file nextProps");
     return {
       fileArr: nextProps.styleFileList,
     }
   }
   render() {
-    console.log("file state", this.state.fileArr);
+    // console.log("file state", this.state.fileArr);
     // if(this.state.fileArr.delogueFolderResponse != null) {
 
     // }
@@ -213,7 +213,7 @@ class Files extends React.Component {
                       {data.delogueFileResponse.length > 0 ?
                         data.delogueFileResponse.map(d => {
                           no = no + 1;
-                          console.log('file card images', d);
+                          // console.log('file card images', d);
                           return (
                             <FileCard
                               imageName={d.fileName}

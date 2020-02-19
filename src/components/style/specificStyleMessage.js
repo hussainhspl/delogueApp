@@ -159,7 +159,7 @@ class SpecificStyleMessage extends React.Component {
     }
   }
   render() {
-    console.log('this. specific style block data', this.props.data)
+    // console.log('this. specific style block data', this.props.data)
     const { isRead, loggedInUser, loggedOn, notifiedUsers, internalOnly,
       subject, logMessage, id, replyList, fileList } = this.props.data.styleAuditLog;
     console.log('time : ', format(parseISO(loggedOn), "d-MMM-yyyy kk:mm"))
