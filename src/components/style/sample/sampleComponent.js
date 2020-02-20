@@ -77,14 +77,15 @@ const CardTittle = styled.Text`
   color: ${props => props.theme.textColor};
   font-family: ${props => props.theme.bold};
 `;
-const Pieces = styled.Text`
+const PiecesView = styled.View`
   background-color: #c2beb6;
-  padding: 0px 5px;
-  max-width: 70px;
+  max-width: 60px;
   height: 20px;
+  margin: 10px 5px;
+`;
+const Pieces = styled.Text`
   color: white;
   font-size: ${props => props.theme.large};
-  margin: 7px;
   font-family: ${props => props.theme.regular};
 `;
 const MessageRow = styled.View`
@@ -127,18 +128,19 @@ class sampleComponent extends React.Component {
     this.state = {
       isDeadlineDatePickerVisible: false,
       isEtdDatePickerVisible: false,
-      isSentDatePickerVisible: false,
+      isSendDatePickerVisible: false,
       isReceivedDatePickerVisible: false,
       isCommentedDatePickerVisible: false,
       text: "",
       deadlineDate: "",
       etdDate: "",
-      sentDate: "",
+      sendDate: "",
       receivedDate: "",
       commentedDate: "",
       tablet: "",
       showOpacity: false,
-      sampleData: null
+      sampleData: null,
+      selectedType : null,
 
     };
   }
@@ -148,80 +150,49 @@ class sampleComponent extends React.Component {
         console.log("did mount", this.state.tablet, this.props.data)
       );
     }
-    // const { id, sampleRequestStatus, typeOfSample, note, pieces,
-    //   deadline, etd, sentDate, receivedDate, commentedDate,
-    //   overAllApprovedStatus } = this.props.data;
+
     this.setState({
       sampleData: this.props.data
     }, () => this.dateConversion())
-
-    // deadline != null ? this.state.deadlineDate == "" ?
-    //   this.setState({
-    //     deadlineDate: format(parseISO(deadline), "MM-dd-yy")
-    //   })
-    //   : null : null
-
-    // etd != null ? this.state.etdDate == "" ?
-    //   this.setState({
-    //     etdDate: format(parseISO(etd), "MM-dd-yy")
-    //   })
-    //   : null : null
-
-    // sentDate != null ? this.state.sentDate == "" ?
-    //   this.setState({
-    //     sentDate: format(parseISO(sent), "MM-dd-yy")
-    //   })
-    //   : null : null
-
-    // receivedDate != null ? this.state.receivedDate == "" ?
-    //   this.setState({
-    //     receivedDate: format(parseISO(receivedDate), "MM-dd-yy")
-    //   })
-    //   : null : null
-
-    //   commentedDate != null ? this.state.commentedDate == "" ?
-    //   this.setState({
-    //     commentedDate: format(parseISO(commentedDate), "MM-dd-yy")
-    //   })
-    //   : null : null
 
   };
   dateConversion () {
     // console.log('in date conversion :', this.state.sampleData);
     let formatedDeadline = null;
     let formatedEtd = null;
-    let formatedSent = null;
+    let formatedSend = null;
     let formatedReceived = null;
     let formatedCommented = null;
 
     if(this.state.sampleData.deadline != null) {
       const date = new Date(this.state.sampleData.deadline)
       let localDate = new Date(date.setMinutes(date.getMinutes() - date.getTimezoneOffset()));
-      let formatedDeadline = format(localDate, "d-MMM-yyyy");
+      formatedDeadline = format(localDate, "d-MMM-yyyy");
     }
     
     if(this.state.sampleData.etd != null) {
-      const date = new Date(this.state.sampleData.deadline)
+      const date = new Date(this.state.sampleData.etd)
       let localDate = new Date(date.setMinutes(date.getMinutes() - date.getTimezoneOffset()));
-      let formatedEtd = format(localDate, "d-MMM-yyyy");
+      formatedEtd = format(localDate, "d-MMM-yyyy");
+    }
+    console.log("sent date", this.state.sampleData.sendDate);
+    if(this.state.sampleData.sendDate != null) {
+      const date = new Date(this.state.sampleData.sendDate)
+      let localDate = new Date(date.setMinutes(date.getMinutes() - date.getTimezoneOffset()));
+      formatedSend = format(localDate, "d-MMM-yyyy");
+      console.log('entered sent date');
     }
 
-    if(this.state.sampleData.sentDate != null) {
-      const date = new Date(this.state.sampleData.deadline)
+    if(this.state.sampleData.receivedDate != null) {
+      const date = new Date(this.state.sampleData.receivedDate)
       let localDate = new Date(date.setMinutes(date.getMinutes() - date.getTimezoneOffset()));
-      let formatedDeadline = format(localDate, "d-MMM-yyyy");
+      formatedReceived = format(localDate, "d-MMM-yyyy");
     }
 
-    if(this.state.sampleData.etd != null) {
-      const date = new Date(this.state.sampleData.deadline)
+    if(this.state.sampleData.commentedDate != null) {
+      const date = new Date(this.state.sampleData.commentedDate)
       let localDate = new Date(date.setMinutes(date.getMinutes() - date.getTimezoneOffset()));
-      let formatedDeadline = format(localDate, "d-MMM-yyyy");
-    }
-
-    if(this.state.sampleData.etd != null) {
-      const date = new Date(this.state.sampleData.deadline)
-      let localDate = new Date(date.setMinutes(date.getMinutes() - date.getTimezoneOffset()));
-      let formatedDeadline = format(localDate, "d-MMM-yyyy");
+      formatedCommented = format(localDate, "d-MMM-yyyy");
     }
 
     // let formatedEtd = this.checkNullDate();
@@ -230,31 +201,31 @@ class sampleComponent extends React.Component {
       sampleData: {
         ...prevState.sampleData,
         deadline: formatedDeadline,
-        etd: formatedEtd
+        etd: formatedEtd,
+        sendDate: formatedSend,
+        receivedDate: formatedReceived,
+        commentedDate: formatedCommented
       }
     }))
 
 
   }
-  checkNullDate = () => {
-    let formatedEtd = null;
-    if(this.state.sampleData.etd != null) {
-      console.log('etd conversion',this.state.sampleData.etd);
-      formatedEtd = this.formatDate(this.state.sampleData.etd);
-      console.log('converted date', formatedEtd)
-    }
-    return formatedEtd;
-  }
+  // checkNullDate = () => {
+  //   let formatedEtd = null;
+  //   if(this.state.sampleData.etd != null) {
+  //     console.log('etd conversion',this.state.sampleData.etd);
+  //     formatedEtd = this.formatDate(this.state.sampleData.etd);
+  //     console.log('converted date', formatedEtd)
+  //   }
+  //   return formatedEtd;
+  // }
   
   formatDate = (rawDate) => {
     const date = new Date(rawDate)
 
-
     let localDate = new Date(date.setMinutes(date.getMinutes() - date.getTimezoneOffset()));
     return format(localDate, "d-MMM-yyyy");
   }
-
-
 
   showDatePicker = value => {
     // console.log("value", value);
@@ -263,7 +234,7 @@ class sampleComponent extends React.Component {
     } else if (value == "etd") {
       this.setState({ isEtdDatePickerVisible: true });
     } else if (value == "sent") {
-      this.setState({ isSentDatePickerVisible: true });
+      this.setState({ isSendDatePickerVisible: true });
     } else if (value == "received") {
       this.setState({ isReceivedDatePickerVisible: true });
     } else if (value == "commented") {
@@ -278,7 +249,7 @@ class sampleComponent extends React.Component {
     } else if (value == "etd") {
       this.setState({ isEtdDatePickerVisible: false });
     } else if (value == "sent") {
-      this.setState({ isSentDatePickerVisible: false });
+      this.setState({ isSendDatePickerVisible: false });
     } else if (value == "received") {
       this.setState({ isReceivedDatePickerVisible: false });
     } else if (value == "commented") {
@@ -288,7 +259,7 @@ class sampleComponent extends React.Component {
       this.setState({
         isDeadlineDatePickerVisible: false,
         isEtdDatePickerVisible: false,
-        isSentDatePickerVisible: false,
+        isSendDatePickerVisible: false,
         isReceivedDatePickerVisible: false,
         isCommentedDatePickerVisible: false,
 
@@ -299,32 +270,107 @@ class sampleComponent extends React.Component {
   handleConfirm = date => {
     console.log("A date has been picked: ", date);
     let newDate = format(date, "dd-MMM-yy");
-    let selectedType = -1;
+    
     if (this.state.isDeadlineDatePickerVisible == true) {
-      selectedType = 0;
+      this.setState({
+        selectedType : 0,
+      }, () => {console.log("selectedType", this.state.selectedType); this.editDateByType(newDate)})
       console.log('deadline date', newDate);
-
     }
-    GetAsyncToken()
-      .then(token => {
-        EditDate(token, this.props.data.id, selectedType, newDate)
-          .then(res => {
-            console.log('date edited successfully', res);
-            const date = new Date(res.data.deadline)
-            let localDate = new Date(date.setMinutes(date.getMinutes() - date.getTimezoneOffset()));
-            let formatedDeadline = format(localDate, "d-MMM-yyyy");
-            this.setState(prevState => ({
-              sampleData: {
-                ...prevState.sampleData,
-                deadline: formatedDeadline
-              }
-            }))
-            
-          })
-      })
+    if(this.state.isEtdDatePickerVisible == true) {
+      this.setState({
+        selectedType : 1,
+      }, () => this.editDateByType(newDate))
+    }
+    if(this.state.isSendDatePickerVisible == true) {
+      this.setState({
+        selectedType : 2,
+      }, () => this.editDateByType(newDate))
+    }
+    if(this.state.isReceivedDatePickerVisible == true) {
+      this.setState({
+        selectedType : 3,
+      }, () => this.editDateByType(newDate))
+    }
+    if(this.state.isCommentedDatePickerVisible == true) {
+      this.setState({
+        selectedType : 4,
+      }, () => this.editDateByType(newDate))
+    }
+    
+    
 
     this.hideDatePicker();
   };
+  editDateByType (newDate) {
+    GetAsyncToken()
+      .then(token => {
+        EditDate(token, this.props.data.id, this.state.selectedType, newDate)
+          .then(res => {
+            console.log('date edited successfully', res);
+            if(this.state.selectedType == 0) {
+              const date = new Date(res.data.deadline)
+              let localDate = new Date(date.setMinutes(date.getMinutes() - date.getTimezoneOffset()));
+              let formatedDeadline = format(localDate, "d-MMM-yyyy");
+              this.setState(prevState => ({
+                sampleData: {
+                  ...prevState.sampleData,
+                  deadline: formatedDeadline
+                }
+              }))
+            }
+            if(this.state.selectedType == 1) {
+              console.log('enter in etd state');
+              const date = new Date(res.data.etd)
+              let localDate = new Date(date.setMinutes(date.getMinutes() - date.getTimezoneOffset()));
+              let formatedEtd = format(localDate, "d-MMM-yyyy");
+              this.setState(prevState => ({
+                sampleData: {
+                  ...prevState.sampleData,
+                  etd: formatedEtd
+                }
+              }))
+            }
+            if(this.state.selectedType == 2) {
+              console.log('enter in send state');
+              const date = new Date(res.data.sendDate)
+              let localDate = new Date(date.setMinutes(date.getMinutes() - date.getTimezoneOffset()));
+              let formatedSend = format(localDate, "d-MMM-yyyy");
+              this.setState(prevState => ({
+                sampleData: {
+                  ...prevState.sampleData,
+                  sendDate: formatedSend
+                }
+              }))
+            }
+            if(this.state.selectedType == 3) {
+              console.log('enter in received state');
+              const date = new Date(res.data.receivedDate)
+              let localDate = new Date(date.setMinutes(date.getMinutes() - date.getTimezoneOffset()));
+              let formatedReceived = format(localDate, "d-MMM-yyyy");
+              this.setState(prevState => ({
+                sampleData: {
+                  ...prevState.sampleData,
+                  receivedDate: formatedReceived
+                }
+              }))
+            }
+            if(this.state.selectedType == 4) {
+              console.log('enter in received state');
+              const date = new Date(res.data.commentedDate)
+              let localDate = new Date(date.setMinutes(date.getMinutes() - date.getTimezoneOffset()));
+              let formatedCommented = format(localDate, "d-MMM-yyyy");
+              this.setState(prevState => ({
+                sampleData: {
+                  ...prevState.sampleData,
+                  commentedDate: formatedCommented
+                }
+              }))
+            }
+            
+          })
+      })
+  }
   render() {
 
     console.log('render sample component: ', this.state.sampleData)
@@ -337,7 +383,7 @@ class sampleComponent extends React.Component {
               key={this.state.sampleData.id}
               onPressIn={() => this.setState({ showOpacity: true })}
               onPressOut={() => this.setState({ showOpacity: false })}
-              onPress={() => this.props.closeSampleList(id)}
+              onPress={() => this.props.closeSampleList(this.state.sampleData.id, this.state.sampleData.sampleRequestStatus)}
             >
               <View>
                 <TitleRow>
@@ -351,9 +397,11 @@ class sampleComponent extends React.Component {
                       source={require("../../../../assets/img/sample/receivedblack.png")}
 
                     />
-                    <CardTittle numberOfLines={1}> {this.state.sampleData.typeOfSample.sampleRequestStatus} </CardTittle>
+                    <CardTittle numberOfLines={1}> {this.state.sampleData.sampleRequestStatus} </CardTittle>
                   </MessageRow>
-                  <Pieces numberOfLines={1}> {this.state.sampleData.typeOfSample.pieces} {this.state.sampleData.typeOfSample.pieces > 1 ? "pcs" : "pc"} </Pieces>
+                  <PiecesView>
+                    <Pieces numberOfLines={1}> {this.state.sampleData.pieces} {this.state.sampleData.pieces > 1 ? "pcs" : "pc"} </Pieces>
+                  </PiecesView>
                 </CardInfo>
                 <ContentRow>
                   <ContentTitle>deadline</ContentTitle>
@@ -384,7 +432,7 @@ class sampleComponent extends React.Component {
                   <DateRow>
                     <DateInput
                       // onChangeText={etdDate => this.setState({ etdDate })}
-                      value={this.state.etdDate}
+                      value={this.state.sampleData.etd}
                       placeholder="dd-mm-yy"
                     />
                     <CalenderTouchableOpacity
@@ -407,8 +455,8 @@ class sampleComponent extends React.Component {
                   <ContentTitle> sent </ContentTitle>
                   <DateRow>
                     <DateInput
-                      // onChangeText={sentDate => this.setState({ sentDate })}
-                      value={this.state.sentDate}
+                      // onChangeText={sendDate => this.setState({ sendDate })}
+                      value={this.state.sampleData.sendDate}
                       placeholder="dd-mm-yy"
                     />
                     <CalenderTouchableOpacity
@@ -420,7 +468,7 @@ class sampleComponent extends React.Component {
                       />
                     </CalenderTouchableOpacity>
                     <DateTimePickerModal
-                      isVisible={this.state.isSentDatePickerVisible}
+                      isVisible={this.state.isSendDatePickerVisible}
                       onConfirm={this.handleConfirm}
                       onCancel={() => this.hideDatePicker("sent")}
                       mode="date"
@@ -434,7 +482,7 @@ class sampleComponent extends React.Component {
                       // onChangeText={receivedDate =>
                       //   this.setState({ receivedDate })
                       // }
-                      value={this.state.receivedDate}
+                      value={this.state.sampleData.receivedDate}
                       placeholder="dd-mm-yy"
                     />
                     <CalenderTouchableOpacity
@@ -452,6 +500,7 @@ class sampleComponent extends React.Component {
                       mode="date"
                     />
                   </DateRow>
+
                 </ContentRow>
                 <ContentRow>
                   {/* <CommentTitle> commented </CommentTitle> */}
@@ -459,7 +508,7 @@ class sampleComponent extends React.Component {
                   <DateRow>
                     <DateInput
                       // onChangeText={commentedDate => this.setState({ commentedDate })}
-                      value={this.state.commentedDate}
+                      value={this.state.sampleData.commentedDate}
                       placeholder="dd-mm-yy"
                     />
                     <CalenderTouchableOpacity

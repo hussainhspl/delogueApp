@@ -8,7 +8,7 @@ import {
   TouchableOpacity,
   TouchableHighlight,
   TouchableWithoutFeedback
-  
+
 } from "react-native";
 import styled from "styled-components";
 import { Icon } from "native-base";
@@ -110,83 +110,87 @@ class Sample extends React.Component {
       })
   }
   static getDerivedStateFromProps(nextProps, prevState) {
-    if(nextProps.sampleData !== prevState.sampleArray) {
-      return{
+    if (nextProps.sampleData !== prevState.sampleArray) {
+      return {
         sampleArray: nextProps.sampleData.data,
       }
     }
     return null;
   }
-  callSample = (id)  => {
-    console.log('yay', id);
+  callSample = (id, sampleName) => {
+    console.log('yay', id, sampleName);
     this.setState({
       sampleRequest: true,
-      selectedSample: id
+      selectedSample: {
+        "id": id,
+        "name" : sampleName
+      }
     })
   }
   render() {
-      console.log('this.state.sampleArray', this.state.sampleArray, this.props.sampleData);
+    console.log('this.state.sampleArray', this.state.sampleArray, this.props.sampleData);
     const history = this.props.history;
     return (
       <Fragment>
         <ItemDetail data={this.props.style.data} />
         {this.state.sampleRequest == false && (
           <Fragment>
-          <ScrollView showsVerticalScrollIndicator={false}>
-            <View>
-            <TouchableWithoutFeedback
-              onPressIn={() => this.setState({ showOpacity: true })}
-              onPressOut={() => this.setState({ showOpacity: false })}
-              onPress={() => {}}
-            >
-              <ButtonRow>
-                 {this.state.showOpacity && <ButtonOverlay />}
-                 <IconView>
-                    <Icon style={{ color: "#fff", fontSize: 15 }} name="eye" />
-                  </IconView>
-                <CommentedButton>
-                  <ButtonText> hide commented </ButtonText>
-                </CommentedButton>
-                  
-              </ButtonRow>
-            </TouchableWithoutFeedback>
+            <ScrollView showsVerticalScrollIndicator={false}>
+              <View>
+                <TouchableWithoutFeedback
+                  onPressIn={() => this.setState({ showOpacity: true })}
+                  onPressOut={() => this.setState({ showOpacity: false })}
+                  onPress={() => { }}
+                >
+                  <ButtonRow>
+                    {this.state.showOpacity && <ButtonOverlay />}
+                    <IconView>
+                      <Icon style={{ color: "#fff", fontSize: 15 }} name="eye" />
+                    </IconView>
+                    <CommentedButton>
+                      <ButtonText> hide commented </ButtonText>
+                    </CommentedButton>
+
+                  </ButtonRow>
+                </TouchableWithoutFeedback>
               </View>
-            <SampleRow>
-              {this.state.sampleArray != null ? 
-              <Fragment>
-                {
-                this.state.sampleArray.sampleRequests.map(d => {
-                // console.log('reach condition', d);
-                return (
-                  <SampleComponent
-                    key={d.id}
-                    data={d}
-                    closeSampleList={this.callSample}
-                  />
-                );
-              })
-              
-            }
-            <NewSampleRequest
-              styleId={this.props.styleId}
-              data={this.props.style.data}
-              history={this.props.history}
-            />
-            </Fragment>
-              : <LoaderView>
-                  <Loader />
-                </LoaderView>
-              }
-              
-            </SampleRow>
-          </ScrollView>
+              <SampleRow>
+                {this.state.sampleArray != null ?
+                  <Fragment>
+                    {
+                      this.state.sampleArray.sampleRequests.map(d => {
+                        // console.log('reach condition', d);
+                        return (
+                          <SampleComponent
+                            key={d.id}
+                            data={d}
+                            closeSampleList={this.callSample}
+                          />
+                        );
+                      })
+
+                    }
+                    <NewSampleRequest
+                      styleId={this.props.styleId}
+                      data={this.props.style.data}
+                      history={this.props.history}
+                    />
+                  </Fragment>
+                  : <LoaderView>
+                    <Loader />
+                  </LoaderView>
+                }
+
+              </SampleRow>
+            </ScrollView>
           </Fragment>
         )}
         {this.state.sampleRequest == true && (
           <SampleRequest
             apply={() => this.saveChanges()}
             history={this.props.history}
-            id={this.state.selectedSample}
+            id={this.state.selectedSample.id}
+            // deadline={this.state.sampleData.}
           />
         )}
       </Fragment>
@@ -194,15 +198,15 @@ class Sample extends React.Component {
   }
 }
 mapStateToProps = state => {
-  return{
+  return {
     sampleData: state.sampleList.sampleListState,
     styleId: state.styleId.styleIdState,
     style: state.singleStyle.singleStyleState,
   }
 }
 mapDispatchToProps = dispatch => {
-  return{
+  return {
     sampleListFunction: (data) => dispatch(sampleList(data))
   }
 }
-export default connect(mapStateToProps, mapDispatchToProps) (Sample);
+export default connect(mapStateToProps, mapDispatchToProps)(Sample);

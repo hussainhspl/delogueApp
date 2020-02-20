@@ -22,51 +22,6 @@ import { format } from 'date-fns';
 import {sortBy, orderBy} from 'lodash';
 
 
-const data = {
-  styleNo: "sty2211",
-  styleName: "Casual Shirt",
-  supplier: "head textiles",
-  season: "summer"
-};
-
-const SampleRequestRow = styled.View`
-  flex-direction: row;
-  margin: 15px;
-`;
-const ImageView = styled.View`
-  height: ${Dimensions.get('window').width / 3 + 30};
-  width: ${Dimensions.get('window').width / 3};
-  justify-content: center;
-  align-items: center;
-  border: 1px solid #ddd;
-  
-  
-`;
-
-const StyleImage = styled.Image`
-  max-height: ${Dimensions.get('window').width / 3};
-  width: ${Dimensions.get('window').width / 3 - 20};
-`;
-const StyleInfo = styled.View`
-  flex-direction: row;
-  padding-bottom: 10px;
-`;
-
-const SubTitle = styled.Text`
-  text-align: left;
-  width: 55%;
-  color: #4a4a4a;
-  padding-left: 5;
-  text-transform : capitalize;
-  font-size: 13;
-`;
-const ContentTitle = styled.Text`
-  text-transform: uppercase;
-  color: ${props => props.theme.textColor};
-  font-size: ${props => props.theme.large};
-  font-family: ${props => props.theme.regular};
-  padding-bottom: 5px;
-`;
 const StyledView = styled.View`
 	border: 1px solid #ddd;
 	height: 30px;
@@ -91,37 +46,6 @@ const DateInput = styled.TextInput`
   padding: 3px 6px;
   font-size: 14px;
   flex: 1;
-`;
-
-const CommentedButton = styled(View)`
-  background-color: ${props => props.theme.blue};
-  margin-left: 15;
-  width: 180;
-  margin: 15px;
-  padding: 0;
-  flex-direction: row;
-  align-items: center;
-`;
-const IconView = styled.View`
-  width: 30;
-  height: 30;
-  background-color: #415461;
-  justify-content: center;
-  align-items: center;
-`;
-const ButtonText = styled.Text`
-  color: white;
-  text-transform: uppercase;
-  width: 150;
-  text-align: center;
-`;
-const TextArea = styled.TextInput`
-	border: 1px solid #ddd;
-	justify-content: flex-start;
-	align-items: flex-start;
-	padding: 10px;
-  margin: 5px 15px 10px 15px;
-
 `;
 
 

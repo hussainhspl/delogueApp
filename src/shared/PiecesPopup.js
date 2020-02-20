@@ -1,39 +1,40 @@
-import React,{Fragment} from "react";
+import React, { Fragment } from "react";
 import { View, Text, Modal, Dimensions, ScrollView } from "react-native";
 import styled from 'styled-components';
 import ApplyButton from '../styles/ApplyButton'
+import TouchableApply from "../styles/TouchableApply";
 
 
-const colArr=['Availble','102 Nude','200 Black','300 White','400 Cherry Red','500 Orange'];
-const sizeArr=['S','M','L','XL','Total'];
-const MainArr=[
+const colArr = ['Availble', '102 Nude', '200 Black', '300 White', '400 Cherry Red', '500 Orange'];
+const sizeArr = ['S', 'M', 'L', 'XL', 'Total'];
+const MainArr = [
   {
     size: 'S',
     Available: '',
-    spec :[{
+    spec: [{
       color: '102 Nude',
       qty: 1,
     },
     {
       color: '200 Black',
-      qty:'',
+      qty: '',
     },
     {
       // Available: true,
       color: '300 White',
       qty: 3,
-    },{
+    }, {
       color: '200 Black',
-      qty:'',
-    },{
+      qty: '',
+    }, {
       color: '200 Black',
-      qty:'',
+      qty: '',
     },]
   },
   {
     size: 'M',
     Available: '',
-    spec :[{
+    spec: [{
       color: '102 Nude',
       qty: 4,
     },
@@ -46,16 +47,16 @@ const MainArr=[
       // Available: true,
       color: '102 Nude',
       qty: '',
-    },{
+    }, {
       qty: 3,
-    },{
+    }, {
       qty: 3,
     }]
   },
   {
     size: 'L',
     Available: '',
-    spec :[{
+    spec: [{
       color: '102 Nude',
       qty: 7,
     },
@@ -68,16 +69,16 @@ const MainArr=[
       Available: true,
       color: '102 Nude',
       qty: 9,
-    },{
+    }, {
       qty: 3,
-    },{
+    }, {
       qty: 3,
     }]
   },
   {
     size: 'XL',
     Available: '',
-    spec :[{
+    spec: [{
       color: '102 Nude',
       qty: 27,
     },
@@ -90,9 +91,9 @@ const MainArr=[
       Available: true,
       color: '102 Nude',
       qty: 11,
-    },{
+    }, {
       qty: 13,
-    },{
+    }, {
       qty: 13,
     }]
   }
@@ -111,7 +112,7 @@ const ColumnRow = styled.View`
   flex-direction: row;
 `;
 const HeaderColumn = styled.View`
-  width: ${Dimensions.get("window").width / 6};
+  width: ${Dimensions.get("window").width / 5};
   height: ${Dimensions.get("window").width / 7};
   justify-content: center;
   align-items: center;
@@ -123,7 +124,7 @@ const HeaderColumn = styled.View`
 `;
 
 const Column = styled.View`
-  width: ${Dimensions.get("window").width / 6};
+  width: ${Dimensions.get("window").width / 5};
   height: ${Dimensions.get("window").width / 7};
   justify-content: center;
   align-items: center;
@@ -133,7 +134,7 @@ const Column = styled.View`
   padding: 5px;
 `;
 const TableData = styled.View`
-  height: ${(Dimensions.get("window").width / 7) *4.5};
+  height: ${(Dimensions.get("window").width / 7) * 4.5};
 `;
 const SaveRow = styled.View`
   align-items: flex-end;
@@ -145,14 +146,28 @@ const ApplyButtonText = styled.Text`
 	padding-bottom: -5px;
 `;
 
-class PiecesPopup extends React.Component{
-  constructor(props){
+class PiecesPopup extends React.Component {
+  constructor(props) {
     super(props);
-    this.state={}
+    this.state = {
+      piecesData: null
+    }
+  }
+  componentDidMount = () => {
+    this.setState({
+      piecesData: this.props.data
+    },() => this.createTable())
+  }
+  createTable() {
+    let rowCount = this.state.piecesData.length;
+    // let colCount = this.state.piecesData.requestedSampleSizeSpecs.length + 1;
+    // let rawArray = [...Array(rowCount)].map(x => Array(colCount).fill(0));
+    // rawArray.map((d, index) => {
+    //   return (
   }
   render() {
-		console.log("pieces called");
-    return(
+    console.log("pieces called", this.state.piecesData);
+    return (
       <Modal
         animationType="fade"
         transparent={true}
@@ -160,73 +175,81 @@ class PiecesPopup extends React.Component{
         onRequestClose={() => {
         }}
       >
-				<BgView>
-          <ModalView>
-          <ScrollView
-              horizontal={true}
-              showsHorizontalScrollIndicator={false}
-            >
+        <BgView>
+          {this.state.piecesData != null ?
+            <ModalView>
+              <ScrollView
+                horizontal={true}
+                showsHorizontalScrollIndicator={false}
+              >
                 <View>
-						<ColumnRow>
-              <HeaderColumn> 
-                <Text>Size</Text>
-              </HeaderColumn>
-              {colArr.map(c => {   
-                  return(
-                    <HeaderColumn key={Math.random().toFixed(3)}>
-                      <Text>{c}</Text>
+                  <ColumnRow>
+                    <HeaderColumn>
+                      <Text>Size</Text>
                     </HeaderColumn>
-                  )
-                })
-              }      
-						</ColumnRow>
+                    <HeaderColumn>
+                      <Text>Available</Text>
+                    </HeaderColumn>
+                    {this.state.piecesData[0].requestedSampleSizeSpecs.map(c => {
+                      return (
+                        <HeaderColumn key={Math.random().toFixed(3)}>
+                          <Text>{c.styleColorName}</Text>
+                        </HeaderColumn>
+                      )
+                    })
+                    }
+                  </ColumnRow>
                   <TableData>
                     <ScrollView>
-            {
-              MainArr.map(data => {
-                return(
-						      <ColumnRow key={Math.random().toFixed(3)}>         
-                    <Column> 
-                      <Text>{data.size}</Text>
-                    </Column>
-                    <Column> 
-                      <Text></Text>
-                    </Column>
-                      {data.spec.map(data => {
-                        return(                             
-                          <Column>
-                            <Text>{data.qty}</Text>
-                          </Column>
-                        )
-                      })}
-                  </ColumnRow>
-                )
-              })
-            }
-            <ColumnRow>
-              <Column>
-                <Text>Total</Text>
-              </Column>
-              {
-                colArr.map(d => {
-                  return(
-                    <Column />
-                    )
-                  })
-                }
-            </ColumnRow>
-                </ScrollView>
-                </TableData>
-            </View>
-            </ScrollView>
-            <SaveRow>
-              <ApplyButton onPress={this.props.close}>
-                <ApplyButtonText>save </ApplyButtonText>
-              </ApplyButton>
-            </SaveRow> 
-					</ModalView>
-				</BgView>
-			</Modal> 
+                      {
+                        MainArr.map(data => {
+                          return (
+                            <ColumnRow key={Math.random().toFixed(3)}>
+                              <Column>
+                                <Text>{data.size}</Text>
+                              </Column>
+                              <Column>
+                                <Text></Text>
+                              </Column>
+                              {data.spec.map(data => {
+                                return (
+                                  <Column>
+                                    <Text>{data.qty}</Text>
+                                  </Column>
+                                )
+                              })}
+                            </ColumnRow>
+                          )
+                        })
+                      }
+                      <ColumnRow>
+                        <Column>
+                          <Text>Total</Text>
+                        </Column>
+                        {
+                          colArr.map(d => {
+                            return (
+                              <Column />
+                            )
+                          })
+                        }
+                      </ColumnRow>
+                    </ScrollView>
+                  </TableData>
+                </View>
+              </ScrollView>
+              <SaveRow>
+                <ApplyButton>
+                  <TouchableApply underlayColor="#354733" onPress={() => this.props.close()} >
+                    <ApplyButtonText>save </ApplyButtonText>
+                  </TouchableApply>
+                </ApplyButton>
+              </SaveRow>
+            </ModalView>
+            : null
+          }
+        </BgView>
+      </Modal>
     )
   }
 }

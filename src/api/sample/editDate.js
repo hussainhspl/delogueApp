@@ -2,7 +2,7 @@ import axios from "axios";
 import qs from "qs";
 
 const EditDate = (token, sampleId, selectedType, newDate) => {
-  // console.log('token alert messages', token, auditLogId, messageType)
+  console.log('edit date', selectedType)
   return new Promise(function(resolve, reject) {
     // let string = this.state.searchBrand;
     const data1 = {
@@ -20,12 +20,12 @@ const EditDate = (token, sampleId, selectedType, newDate) => {
       data: data1,
     })
       .then(res => {
-        console.log('success in alert unread', res);
+        console.log('success in edit date', res);
         resolve(res);
 
       })
       .catch(function(error) {
-        console.error("error in alert unread", error);
+        console.error("error in edit date", error);
       });
   });
 }

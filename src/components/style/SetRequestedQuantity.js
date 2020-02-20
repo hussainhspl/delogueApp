@@ -123,12 +123,9 @@ class SetRequestedQuantity extends React.Component {
                   "StyleColorId": innerIndex == 0 ? "-1" : this.props.styleColors[innerIndex - 1].id,
                   "Quantity": "0"
                 }
-
               )
             })
-
         }
-
       )
     })
     console.log('size array', rawArray);
@@ -225,49 +222,45 @@ class SetRequestedQuantity extends React.Component {
 
                 {this.state.initArray != null ?
                   <View style={{ flexDirection: "row", flex: 1 }}>
-                    <View>{
-                      this.state.sizeRange.sizes.map(data => {
-                        return (
+                    <View>
+                      {
+                        this.state.sizeRange.sizes.map(data => {
+                          return (
 
-                          <StyleCol style={{ width: 70, height: 40 }}>
-                            <Text>{data.name}</Text>
-                          </StyleCol>
-
-
-                        )
-                      })
-                    }</View>
-
+                            <StyleCol style={{ width: 70, height: 40 }}>
+                              <Text>{data.name}</Text>
+                            </StyleCol>
+                          )
+                        })
+                      }
+                    </View>
                     <View>
                       {
                         this.state.initArray.map((d, index) => {
-                          
-                          return (
-                            <View style={{flexDirection: "row"}}>{
-                            d.RequestedSampleSizeSpecCommands.map((i, innerIndex) => {
-                              console.log('i', i, i.Quantity, d.SizeRangeSizeId);
-                              return (
-                                <StyleCol style={{ width: 100 }}>
-                                  <TextInput
-                                    style={{ height: 30, borderColor: 'gray', borderWidth: 1, padding: 5 }}
-                                    onChangeText={text => this.onChangeText(text, i.StyleColorId, d.SizeRangeSizeId)}
-                                    value={i.Quantity}
-                                  />
-                                </StyleCol>
 
-                              )
-                            })
-                          }
-                          </View>
+                          return (
+                            <View style={{ flexDirection: "row" }}>{
+                              d.RequestedSampleSizeSpecCommands.map((i, innerIndex) => {
+                                console.log('i', i, i.Quantity, d.SizeRangeSizeId);
+                                return (
+                                  <StyleCol style={{ width: 100 }}>
+                                    <TextInput
+                                      style={{ height: 30, borderColor: 'gray', borderWidth: 1, padding: 5 }}
+                                      onChangeText={text => this.onChangeText(text, i.StyleColorId, d.SizeRangeSizeId)}
+                                      value={i.Quantity}
+                                    />
+                                  </StyleCol>
+                                )
+                              })
+                            }
+                            </View>
                           )
-                          
                         })
                       }
                     </View>
                   </View>
                   : null
                 }
-
                 {/* </ScrollView> */}
               </View>
             </CommonModal>
