@@ -135,29 +135,34 @@ class SetRequestedQuantity extends React.Component {
   }
   onChangeText(value, cid, sid) {
     console.log('value', value, cid, sid);
-    let stateArray = this.state.initArray;
-    stateArray.map((data, idx1) => {
-      if (data.SizeRangeSizeId == sid) {
-        console.log('data', data);
-        data.RequestedSampleSizeSpecCommands.map((d, idx2) => {
-          if (d.StyleColorId == cid) {
-            console.log('data1', d);
-            d.Quantity = value
-          }
-        })
-      }
-    })
+    // let stateArray = this.state.initArray;
+    // stateArray.map((data, idx1) => {
+    //   if (data.SizeRangeSizeId == sid) {
+    //     console.log('data', data);
+    //     data.RequestedSampleSizeSpecCommands.map((d, idx2) => {
+    //       if (d.StyleColorId == cid) {
+    //         console.log('data1', d);
+    //         d.Quantity = value
+    //       }
+    //     })
+    //   }
+    // })
 
-    this.setState({
-      initArray: stateArray
-    })
-    // this.setState(prevState => ({
-    //   initArray: prevState.initArray.map(
-    //     el => el1 => el1.SizeRangeSizeId == sizeId ? {...el.map(
-
-    //       el1 => el1.RequestedSampleSizeSpecCommands.StyleColorId == colorId ? {...el1, Quantity: "40"} :el1
-    //     }): el)
-    // }))
+    // this.setState({
+    //   initArray: stateArray
+    // })
+    this.setState(prevState =>({
+      initArray : prevState.initArray.map(
+        el => el.SizeRangeSizeId == sid ? { ...el, 
+          RequestedSampleSizeSpecCommands : el.RequestedSampleSizeSpecCommands.map(
+            el1 => el1.StyleColorId == cid ? {
+              ...el1, Quantity: value
+            } : el1
+          )
+        }
+        : el
+      )
+    }))
 
   }
   componentWillUnmount = () => {
@@ -200,8 +205,8 @@ class SetRequestedQuantity extends React.Component {
               }}
             >
               <View >
-                {/* <ScrollView horizontal={true}> */}
-
+                <ScrollView horizontal={true}>
+                <View>
                 <HeaderRow>
                   <HeaderStyleCol style={{ width: 70 }}>
                     <Text> Size </Text>
@@ -248,6 +253,9 @@ class SetRequestedQuantity extends React.Component {
                                       style={{ height: 30, borderColor: 'gray', borderWidth: 1, padding: 5 }}
                                       onChangeText={text => this.onChangeText(text, i.StyleColorId, d.SizeRangeSizeId)}
                                       value={i.Quantity}
+                                      keyboardType="numeric"
+
+
                                     />
                                   </StyleCol>
                                 )
@@ -261,7 +269,8 @@ class SetRequestedQuantity extends React.Component {
                   </View>
                   : null
                 }
-                {/* </ScrollView> */}
+                </View>
+                </ScrollView>
               </View>
             </CommonModal>
           </View>

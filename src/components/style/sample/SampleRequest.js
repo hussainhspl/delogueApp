@@ -11,9 +11,7 @@ import {
   AppState
 } from "react-native";
 import styled from "styled-components";
-import { Icon, Button } from "native-base";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
-import Swipeable from 'react-native-gesture-handler/Swipeable';
 import { RectButton } from 'react-native-gesture-handler';
 import Carousel from 'react-native-snap-carousel';
 import DateTimePickerModal from "react-native-modal-datetime-picker";
@@ -21,11 +19,9 @@ import DateTimePickerModal from "react-native-modal-datetime-picker";
 import SampleAccordion from "./SampleAccordion";
 import SampleRequestSummary from "../SampleRequestSummary";
 import ViewRequestedQuantity from "../ViewRequestedQuantity";
-import Header from "../../../Header";
 import ApplyButton from "../../../styles/ApplyButton";
 import CancelButton from '../../../styles/CancelButton';
 import ButtonText from '../../../styles/ButtonText';
-import ItemDetail from "../../../shared/ItemDetail";
 import SmallText from "../../../styles/SmallText";
 import CardText from "../../../styles/CardText";
 
@@ -35,10 +31,13 @@ import GetSampleOverview from "../../../api/sample/getSampleOverview";
 
 import { parseISO, format } from "date-fns";
 import EditDate from "../../../api/sample/editDate";
+import PlannedSampleRequest from "./plannedSampleRequest";
+import TouchableCancel from "../../../styles/ToucaableCancel";
+import TouchableApply from "../../../styles/TouchableApply";
 
 const StageArray = ['planned', 'requested', 'confirmed', 'sent', 'received', 'commented']
 
-const FooterButton = styled.View`
+const FooterButtonRow = styled.View`
   padding: 15px;
   align-items: center;
   justify-content: flex-end;
@@ -66,7 +65,6 @@ const FirstRow = styled.View`
   flex-direction: row;
   justify-content: space-between;
   flex: 1;
-  /* background-color: #f00; */
 `;
 
 const PiecesTouch = styled.TouchableHighlight`
@@ -91,14 +89,11 @@ const Block = styled.TouchableOpacity`
 `;
 const CurrentStage = styled.View`
   background-color: ${props => props.theme.brown};
-  /* padding: 5px 0px; */
-  /* padding: 5px 0px 0px 0px; */
   align-items: center;
 `;
 const CurrentStageTitle = styled.Text`
   color: ${props => props.theme.darkBrown};
   font-family: ${props => props.theme.bold};
-  /* background-color: #f00; */
   text-align: center;
   padding: 5px 0px;
 `;
@@ -338,7 +333,9 @@ class SampleRequest extends React.Component {
   render() {
     const screenWidth = Math.round(Dimensions.get('window').width);
     const slideWidth = Math.round(Dimensions.get('window').width / 2)
-    console.log('this.state', this.state.sampleData)
+    console.log('this.state', this.state.sampleData);
+    // this.state.sampleData != null ?
+    //   console.log('current state', this.state.sampleData.)
     return (
       <View style={{ flex: 1 }}>
         {
@@ -370,7 +367,7 @@ class SampleRequest extends React.Component {
                       </Block>
                       <Block>
                         <SmallText>Tracking #</SmallText>
-                        <CardText numberOfLines={1}>12111112222222222222</CardText>
+                        <CardText numberOfLines={1}>{this.state.sampleData.trackingNumber}</CardText>
                       </Block>
                     </DetailRow>
                   </View>
@@ -437,11 +434,21 @@ class SampleRequest extends React.Component {
                     {/* <RightTriangle active={this.state.currentIndex >= 5 ? true : false}/> */}
                   </Tab>
                 </TabRow>
+                
 
+                {
+                  this.state.sampleData.sampleRequestStatus != "Planned" && (
+                    <SampleAccordion
+                      data={this.state.sampleData}
+                    />
+                  )
+                }
+                {
+                  this.state.sampleData.sampleRequestStatus == "Planned" && (
+                    <PlannedSampleRequest />
+                  )
+                }
 
-                <SampleAccordion
-                  data={this.state.sampleData}
-                />
 
 
                 {/* <SampleRequestSummary /> */}
@@ -450,18 +457,23 @@ class SampleRequest extends React.Component {
 
             </KeyboardAwareScrollView>
             : null}
-        <FooterButton>
+        <FooterButtonRow>
           <CancelButton>
-            <ButtonText>CANCEL</ButtonText>
+            <TouchableCancel
+              underlayColor="#8f8c86"
+              onPress={() => {this.props.cancel()}}>
+              <ButtonText>CANCEL</ButtonText>
+            </TouchableCancel>
           </CancelButton>
-          <ApplyButton
-            onPress={() => {
+          <ApplyButton>
+            <TouchableApply onPress={() => {
               this.redirectTo(this.props.apply);
-            }}
-          >
-            <ButtonText>apply</ButtonText>
+            }} underlayColor="#354733">
+              <ButtonText>apply</ButtonText>
+            </TouchableApply>
+            
           </ApplyButton>
-        </FooterButton>
+        </FooterButtonRow>
 
       </View>
     );

@@ -170,6 +170,9 @@ class Sample extends React.Component {
                       })
 
                     }
+                    {
+                      
+                    }
                     <NewSampleRequest
                       styleId={this.props.styleId}
                       data={this.props.style.data}
@@ -188,6 +191,7 @@ class Sample extends React.Component {
         {this.state.sampleRequest == true && (
           <SampleRequest
             apply={() => this.saveChanges()}
+            cancel={() => this.setState({sampleRequest: false})}
             history={this.props.history}
             id={this.state.selectedSample.id}
             // deadline={this.state.sampleData.}

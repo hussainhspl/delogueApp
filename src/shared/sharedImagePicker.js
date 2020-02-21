@@ -97,7 +97,7 @@ class SharedImagePicker extends React.Component {
                 // this.props.attachmentImage(jsonObject)
                 this.setState(prevState => ({
                   attachment: [...prevState.attachment, jsonObject]
-                }))
+                }), () => this.props.VisualData(this.state.attachment))
               })
           })
         console.log('source', source);

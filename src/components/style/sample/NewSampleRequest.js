@@ -413,7 +413,9 @@ class NewSampleRequest extends React.Component {
                   bodyHtml={(html) => this.setState({ textArea: html })}
                 />
               </View>
-              <SharedImagePicker />
+              <SharedImagePicker 
+                visualData={(data) => console.log('visual data', data)}
+              />
               {this.state.sizeRange != null &&(
                 <SetRequestedQuantity
                   styleColors={this.state.styleColors}

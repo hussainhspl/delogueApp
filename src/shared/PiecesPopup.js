@@ -1,5 +1,5 @@
 import React, { Fragment } from "react";
-import { View, Text, Modal, Dimensions, ScrollView } from "react-native";
+import { View, Text, Modal, Dimensions, ScrollView, TextInput } from "react-native";
 import styled from 'styled-components';
 import ApplyButton from '../styles/ApplyButton'
 import TouchableApply from "../styles/TouchableApply";
@@ -106,7 +106,7 @@ const BgView = styled.View`
 const ModalView = styled.View`
   height: 60%;
   padding-top: 10px;
-  background-color: #fff;/
+  background-color: #fff;
 `;
 const ColumnRow = styled.View`
   flex-direction: row;
@@ -156,14 +156,31 @@ class PiecesPopup extends React.Component {
   componentDidMount = () => {
     this.setState({
       piecesData: this.props.data
-    },() => this.createTable())
+    }, () => this.createTable())
   }
   createTable() {
-    let rowCount = this.state.piecesData.length;
+    // let rowCount = this.state.piecesData.length;
     // let colCount = this.state.piecesData.requestedSampleSizeSpecs.length + 1;
     // let rawArray = [...Array(rowCount)].map(x => Array(colCount).fill(0));
     // rawArray.map((d, index) => {
     //   return (
+  }
+  onChangeText(value, cid, sid) {
+    console.log('value', value, cid, sid);
+
+    this.setState(prevState =>({
+      piecesData : prevState.piecesData.map(
+        el => el.sizeRangeSizeId == sid ? { ...el, 
+          requestedSampleSizeSpecs : el.requestedSampleSizeSpecs.map(
+            el1 => el1.styleColorId == cid ? {
+              ...el1, quantity: value
+            } : el1
+          )
+        }
+        : el
+      )
+    }))
+    
   }
   render() {
     console.log("pieces called", this.state.piecesData);
@@ -187,13 +204,11 @@ class PiecesPopup extends React.Component {
                     <HeaderColumn>
                       <Text>Size</Text>
                     </HeaderColumn>
-                    <HeaderColumn>
-                      <Text>Available</Text>
-                    </HeaderColumn>
+
                     {this.state.piecesData[0].requestedSampleSizeSpecs.map(c => {
                       return (
-                        <HeaderColumn key={Math.random().toFixed(3)}>
-                          <Text>{c.styleColorName}</Text>
+                        <HeaderColumn>
+                          <Text>{c.available == true ? "Available" : c.styleColorName}</Text>
                         </HeaderColumn>
                       )
                     })
@@ -202,19 +217,23 @@ class PiecesPopup extends React.Component {
                   <TableData>
                     <ScrollView>
                       {
-                        MainArr.map(data => {
+                        this.state.piecesData.map(data => {
                           return (
-                            <ColumnRow key={Math.random().toFixed(3)}>
+                            <ColumnRow>
                               <Column>
-                                <Text>{data.size}</Text>
+                                <Text>{data.sizeRangeSizeName}</Text>
                               </Column>
-                              <Column>
-                                <Text></Text>
-                              </Column>
-                              {data.spec.map(data => {
+
+                              {data.requestedSampleSizeSpecs.map(d => {
                                 return (
                                   <Column>
-                                    <Text>{data.qty}</Text>
+                                    {/* <Text>{d.quantity}</Text>dfaf */}
+                                    <TextInput
+                                      style={{ height: 30, textAlign: "center", width: '100%', borderColor: '#ccc', borderWidth: 1, padding: 5 }}
+                                      onChangeText={text => this.onChangeText(text, d.styleColorId, data.sizeRangeSizeId)}
+                                      keyboardType="numeric"
+                                      value={`${d.quantity}`}
+                                    />
                                   </Column>
                                 )
                               })}
