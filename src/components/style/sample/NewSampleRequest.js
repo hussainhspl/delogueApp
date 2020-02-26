@@ -101,8 +101,8 @@ class NewSampleRequest extends React.Component {
       adminLocations: null,
       notifyModal: false,
       notifyList: [],
-      quantityData: null
-
+      quantityData: null,
+      images: []
 
     }
   }
@@ -175,7 +175,7 @@ class NewSampleRequest extends React.Component {
     console.log('adding sample request successfully', selectedUser);
     GetAsyncToken()
       .then(token => {
-        CreateSampleRequest(token, this.state.deadline, this.state.etd, selectedUser)
+        CreateSampleRequest(token, this.state.deadline, this.state.etd, selectedUser, this.state.images)
           .then( res => {
             console.log('response while creating sample request', res)
           })
@@ -240,6 +240,14 @@ class NewSampleRequest extends React.Component {
     if (nextAppState === 'background') {
       this.setState({ modalVisible: false }, () => console.log(this.state.modalVisible));
     }
+  }
+  visualData = (data) => {
+    console.log('visual data', data);
+    // let result = [...data]
+    // console.log('foo', result);
+    this.setState({
+      images: data,
+    })
   }
   render() {
     const history = this.props.history;
@@ -414,7 +422,7 @@ class NewSampleRequest extends React.Component {
                 />
               </View>
               <SharedImagePicker 
-                visualData={(data) => console.log('visual data', data)}
+                childData={this.visualData}
               />
               {this.state.sizeRange != null &&(
                 <SetRequestedQuantity

@@ -147,7 +147,7 @@ class sampleComponent extends React.Component {
   componentDidMount = () => {
     if (Dimensions.get("window").width > 568) {
       this.setState({ tablet: true }, () =>
-        console.log("did mount", this.state.tablet, this.props.data)
+        console.log("did mount sample component", this.state.tablet, this.props.data)
       );
     }
 
@@ -383,7 +383,7 @@ class sampleComponent extends React.Component {
               key={this.state.sampleData.id}
               onPressIn={() => this.setState({ showOpacity: true })}
               onPressOut={() => this.setState({ showOpacity: false })}
-              onPress={() => this.props.closeSampleList(this.state.sampleData.id, this.state.sampleData.sampleRequestStatus)}
+              onPress={() => this.props.closeSampleList(this.state.sampleData)}
             >
               <View>
                 <TitleRow>

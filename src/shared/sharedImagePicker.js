@@ -97,7 +97,7 @@ class SharedImagePicker extends React.Component {
                 // this.props.attachmentImage(jsonObject)
                 this.setState(prevState => ({
                   attachment: [...prevState.attachment, jsonObject]
-                }), () => this.props.VisualData(this.state.attachment))
+                }), () => this.props.childData(this.state.attachment))
               })
           })
         console.log('source', source);
@@ -110,8 +110,16 @@ class SharedImagePicker extends React.Component {
       attachment : this.state.attachment.filter(imgObj => imgObj.id != id)
     })
   }
+  componentDidMount = () => {
+    if(this.props.initialImages != null) {
+      
+      this.setState(prevState => ({
+        attachment: [...prevState.attachment, ...this.props.initialImages]
+      }), () => this.props.childData(this.state.attachment))
+    }
+  }
   render() {
-    // console.log('shared picker ', this.props.styleID)
+    console.log('shared picker ', this.props.initialImages, this.state.attachment);
     return (
       <Fragment>
         <StyleFileTitle>
@@ -130,8 +138,9 @@ class SharedImagePicker extends React.Component {
               typeof (this.state.attachment) == 'object' && (
         <AttachImageRow>
           {this.state.attachment.map(d => {
-            // console.log('attachment d :', d);
+            console.log('attachment d :', d);
             return (
+              <Fragment>
               <AttachBox>
                 <TouchableHighlight onPress={() => this.setState({ modalVisible: true })}
                   underlayColor={this.props.theme.overlayBlue}
@@ -146,14 +155,20 @@ class SharedImagePicker extends React.Component {
                   <Icon style={{ fontSize: 16 }} name="ios-close" />
                 </Close>
               </AttachBox>
+               <AttachmentPopup
+                modalVisible={this.state.modalVisible}
+                close={() => this.setState({ modalVisible: false })}
+                path={d.url}
+                Name= {d.name}
+                Date = {""}
+                fileSrc = {d.url}
+              />
+              </Fragment>
             )
           })}
         </AttachImageRow>
         )}
-        {<AttachmentPopup
-          modalVisible={this.state.modalVisible}
-          close={() => this.setState({ modalVisible: false })}
-        />}
+       
       </Fragment>
     );
   }

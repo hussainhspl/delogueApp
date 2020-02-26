@@ -82,9 +82,21 @@ class SampleAccordion extends React.Component {
 		}
 	}
 	componentDidMount = () => {
-		this.setState({
-			ArrayData: this.props.data.adminSampleRequestCommentFields
-		})
+		console.log('accordion did mount', this.props.data.sampleRequestStatus);
+		if (this.props.data.sampleRequestStatus == "Planned") {
+			let requestedFields = this.props.data.adminSampleRequestCommentFields.filter(item => item.name == "Sample status");
+			console.log('filter', requestedFields);
+			this.setState({
+				ArrayData: requestedFields
+			})
+			// this.setState({
+			// 	ArrayData: this.props.data.adminSampleRequestCommentFields
+			// })
+		} else {
+			this.setState({
+				ArrayData: this.props.data.adminSampleRequestCommentFields
+			})
+		}
 	}
 
 	_renderSectionTitle = section => {
@@ -108,17 +120,17 @@ class SampleAccordion extends React.Component {
 	};
 
 	_renderContent = section => {
-		console.log('render content', this.state.activeSections);
-		
+		// console.log('render content', this.state.activeSections);
+
 		if (this.state.activeComponent != section.name) {
 			return null
 		}
 		console.log('id', section.id, this.state.activeComponent);
 		let clickId;
-		if(this.state.activeSections.length> 0){
+		if (this.state.activeSections.length > 0) {
 			clickId = this.state.ArrayData[this.state.activeSections[0]].id;
 		}
-		
+
 		return (
 			<View>
 				{this.state.activeComponent == "Measurement" && (<Measurement id={this.props.data.id} />)}
@@ -128,11 +140,11 @@ class SampleAccordion extends React.Component {
 				{this.state.activeComponent == "Sample status" && (<SampleStatus id={this.props.data.id} />)}
 				{
 					(this.state.activeComponent != "Measurement" &&
-					this.state.activeComponent != "Design" && 
-					this.state.activeComponent != "Finish" && 
-					this.state.activeComponent != "Item placement" &&
-					this.state.activeComponent != "Sample status" &&
-					this.state.activeSections.length> 0) ? 
+						this.state.activeComponent != "Design" &&
+						this.state.activeComponent != "Finish" &&
+						this.state.activeComponent != "Item placement" &&
+						this.state.activeComponent != "Sample status" &&
+						this.state.activeSections.length > 0) ?
 						<CustomComment id={this.props.data.id} commentFieldId={clickId} /> :
 						null
 				}

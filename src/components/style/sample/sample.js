@@ -24,6 +24,7 @@ import { connect } from "react-redux";
 import { sampleList } from '../../../store/actions/index'
 import LoaderView from "../../../styles/LoaderView";
 import Loader from '../../../shared/Loader';
+import UpdateOtherSampleRequest from '../../../api/sample/updateOtherSampleRequest';
 // import console = require("console");
 
 const data = {
@@ -86,7 +87,11 @@ class Sample extends React.Component {
       sampleRequest: false,
       showOpacity: false,
       sampleArray: null,
-      selectedSample: null
+      selectedSample: null,
+      mainState: [],
+      // mainState: [{
+      //   "sampleData": []
+      // }],
     };
   }
   saveChanges() {
@@ -94,6 +99,14 @@ class Sample extends React.Component {
     this.setState({
       sampleRequest: false
     });
+
+    GetAsyncToken()
+      .then(token => {
+        UpdateOtherSampleRequest(token, this.state.mainState)
+          .then(res => {
+            console.log('other sample updated', res);
+          })
+      })
   }
   componentDidMount = () => {
     this.getSamplesData();
@@ -117,15 +130,43 @@ class Sample extends React.Component {
     }
     return null;
   }
-  callSample = (id, sampleName) => {
-    console.log('yay', id, sampleName);
+  callSample = (sampleData) => {
+    console.log('yay', sampleData);
     this.setState({
       sampleRequest: true,
       selectedSample: {
-        "id": id,
-        "name" : sampleName
+        "id": sampleData.id,
+        "name": sampleData.sampleRequestStatus
       }
-    })
+    }, () => this.updateMainState(sampleData))
+  }
+  updateMainState(sampleData1) {
+
+    // this.setState(prevState => ({
+
+    // }))
+
+    this.setState(prevState => ({
+      ...prevState,
+      mainState: {
+        ...prevState.mainState,
+        sampleData: sampleData1
+      }
+    }))
+
+    // this.setState(prevState => ({
+    //   ...prevState,
+    //   dataArray: {
+    //     ...prevState.dataArray,
+    //     data: {
+    //       ...prevState.dataArray.data,
+    //       isFollower: true
+    //     }
+    //   }
+    // }))
+    // this.setState(prevState => ({
+    //   attachment: [...prevState.attachment, ...this.props.initialImages]
+    // }), () =>
   }
   render() {
     console.log('this.state.sampleArray', this.state.sampleArray, this.props.sampleData);
@@ -171,7 +212,7 @@ class Sample extends React.Component {
 
                     }
                     {
-                      
+
                     }
                     <NewSampleRequest
                       styleId={this.props.styleId}
@@ -191,10 +232,10 @@ class Sample extends React.Component {
         {this.state.sampleRequest == true && (
           <SampleRequest
             apply={() => this.saveChanges()}
-            cancel={() => this.setState({sampleRequest: false})}
+            cancel={() => this.setState({ sampleRequest: false })}
             history={this.props.history}
             id={this.state.selectedSample.id}
-            // deadline={this.state.sampleData.}
+          // deadline={this.state.sampleData.}
           />
         )}
       </Fragment>

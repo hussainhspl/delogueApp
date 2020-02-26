@@ -34,8 +34,11 @@ import EditDate from "../../../api/sample/editDate";
 import PlannedSampleRequest from "./plannedSampleRequest";
 import TouchableCancel from "../../../styles/ToucaableCancel";
 import TouchableApply from "../../../styles/TouchableApply";
+import UpdatePlanned from "../../../api/sample/updatePlanned";
 
-const StageArray = ['planned', 'requested', 'confirmed', 'sent', 'received', 'commented']
+const StageArray = ['planned', 'requested', 'confirmed', 'sent', 'received', 'commented'];
+const PlannedCarouselData = ['planned', 'requested', 'cancelled']
+
 
 const FooterButtonRow = styled.View`
   padding: 15px;
@@ -240,8 +243,18 @@ class SampleRequest extends React.Component {
     // console.log("redirect click");
     this.props.apply();
   }
+  // updateSampleRequest() {
+  //   console.log('click on apply');
+  //   GetAsyncToken()
+  //     .then(token => {
+  //       UpdatePlanned(res => {
+  //         console.log('sample updated :');
+  //       })
+  //     })
+  // }
   componentDidMount = () => {
-    AppState.addEventListener("change", this._handleAppStateChange);
+    // AppState.addEventListener("change111", this._handleAppStateChange);
+
     GetAsyncToken()
       .then(token => {
         GetSampleOverview(token, this.props.id)
@@ -284,17 +297,18 @@ class SampleRequest extends React.Component {
     );
   };
   changeIndex = (currentIndex) => {
-    console.log("Enter in ")
+    console.log("Enter in 22 ");
     this.setState({ currentIndex }, () => console.log('current Index', this.state.currentIndex));
   }
   _renderItem = ({ item, index }) => {
-    // console.log("render", index, item, this._carousel);
+    // console.log("render", index, item);
     return (
 
       <CurrentStageTitle>{item}</CurrentStageTitle>
     );
   }
   getSampleRequestStatus = () => {
+    console.log('getSampleRequestStatus', this.state.sampleData.sampleRequestStatus);
     let formatedDeadline = null;
     let formatedEtd = null;
 
@@ -316,26 +330,60 @@ class SampleRequest extends React.Component {
         deadline: formatedDeadline,
         etd: formatedEtd,
       }
-    }))
+    }), () => this.updateCarousel())
 
-    this.state.sampleData != null ?
-      this.state.sampleData.sampleRequestStatus == "Requested" ?
+    
+        
+      
+  }
+  updateCarousel () {
+    console.log('update carousel');
+    if(this.state.sampleData != null ) { 
+      if(this.state.sampleData.sampleRequestStatus == "Requested") {
         this.setState({
           sampleRequestStatus: 1,
           currentIndex: 1
         })
-        : null
-      : null
+      }
+      if(this.state.sampleData.sampleRequestStatus == "Confirmed") {
+        this.setState({
+          sampleRequestStatus: 2,
+          currentIndex: 2
+        })
+      }
+      if(this.state.sampleData.sampleRequestStatus == "Sent") {
+        this.setState({
+          sampleRequestStatus: 3,
+          currentIndex: 3
+        })
+      }
+      if(this.state.sampleData.sampleRequestStatus == "Received") {
+        this.setState({
+          sampleRequestStatus: 4,
+          currentIndex: 4
+        })
+      }
+      if(this.state.sampleData.sampleRequestStatus == "Commented") {
+        this.setState({
+          sampleRequestStatus: 5,
+          currentIndex: 5
+        }, () => console.log('5', this.state.sampleRequestStatus))
+      }
+
+    }
   }
-  updatePieces () {
+  updatePieces() {
     this.setState({ piecesModal: false })
   }
   render() {
     const screenWidth = Math.round(Dimensions.get('window').width);
     const slideWidth = Math.round(Dimensions.get('window').width / 2)
-    console.log('this.state', this.state.sampleData);
+    // console.log('this.state', this.state.sampleData);
+    // console.log('carousel111' , this.state.sampleRequestStatus, this.state.sampleData);
     // this.state.sampleData != null ?
     //   console.log('current state', this.state.sampleData.)
+    // let activeItem = this.state.sampleRequestStatus;
+    console.log('in render', this.state.sampleRequestStatus)
     return (
       <View style={{ flex: 1 }}>
         {
@@ -366,8 +414,9 @@ class SampleRequest extends React.Component {
                         <CardText numberOfLines={1}>{this.state.sampleData.etd}</CardText>
                       </Block>
                       <Block>
-                        <SmallText>Tracking #</SmallText>
+                        <SmallText>Tracking Number</SmallText>
                         <CardText numberOfLines={1}>{this.state.sampleData.trackingNumber}</CardText>
+                        
                       </Block>
                     </DetailRow>
                   </View>
@@ -377,12 +426,13 @@ class SampleRequest extends React.Component {
                     </PiecesView>
                   </PiecesTouch>
                 </FirstRow>
-                <PiecesPopup
+                {/* <PiecesPopup
                   modalVisible={this.state.piecesModal}
-                  close={() =>this.updatePieces()}
+                  close={() => this.updatePieces()}
                   data={this.state.sampleData.requestedSampleSizes}
-                />
+                /> */}
                 <CurrentStage>
+                  {this.state.sampleRequestStatus != null && (
                   <Carousel
                     ref={(c) => { this._carousel = c; }}
                     data={StageArray}
@@ -398,6 +448,7 @@ class SampleRequest extends React.Component {
                   // activeSlideOffset={'center'}
                   // layout={'tinder'}
                   />
+                  )}
                 </CurrentStage>
 
                 {/* <CurrentStage>
@@ -434,20 +485,20 @@ class SampleRequest extends React.Component {
                     {/* <RightTriangle active={this.state.currentIndex >= 5 ? true : false}/> */}
                   </Tab>
                 </TabRow>
-                
 
-                {
-                  this.state.sampleData.sampleRequestStatus != "Planned" && (
-                    <SampleAccordion
-                      data={this.state.sampleData}
-                    />
-                  )
+
+                {/* {
+                  this.state.sampleData.sampleRequestStatus != "Planned" && ( */}
+                <SampleAccordion
+                  data={this.state.sampleData}
+                />
+                {/* )
                 }
                 {
                   this.state.sampleData.sampleRequestStatus == "Planned" && (
                     <PlannedSampleRequest />
                   )
-                }
+                } */}
 
 
 
@@ -461,7 +512,7 @@ class SampleRequest extends React.Component {
           <CancelButton>
             <TouchableCancel
               underlayColor="#8f8c86"
-              onPress={() => {this.props.cancel()}}>
+              onPress={() => { this.props.cancel() }}>
               <ButtonText>CANCEL</ButtonText>
             </TouchableCancel>
           </CancelButton>
@@ -471,7 +522,7 @@ class SampleRequest extends React.Component {
             }} underlayColor="#354733">
               <ButtonText>apply</ButtonText>
             </TouchableApply>
-            
+
           </ApplyButton>
         </FooterButtonRow>
 
