@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import {
 	View, Text, TouchableOpacity, Image,
 	Dimensions, TouchableHighlight
@@ -14,6 +14,17 @@ import Finish from './finish';
 import SampleStatus from './sampleStatus';
 import CustomComment from './customComment';
 import ItemPlacement from './ItemPlacement';
+import GetAsyncToken from '../../../script/getAsyncToken';
+import GetMeasurement from '../../../api/sample/getMeasurement';
+import GetItemPlacement from '../../../api/sample/getItemPlacement';
+import GetDesign from '../../../api/sample/getDesign';
+import GetFinish from '../../../api/sample/getFinish';
+import GetSampleStatus from '../../../api/sample/get SampleStatus';
+import GetCustomComment from '../../../api/sample/getCustomComment';
+
+
+
+
 
 let renderOnce;
 
@@ -78,11 +89,30 @@ class SampleAccordion extends React.Component {
 			activeSections: [],
 			activeComponent: null,
 			ArrayData: null,
-			custom: false
+			custom: false,
+			measurementComments: null,
+			itemPlacementData: null,
+			designData: null,
+			textAreaDesign: "",
+			finishData: null,
+			statusData: null,
+			customData: [],
+			commentFieldId: null,
+			gotAllData: false
 		}
 	}
 	componentDidMount = () => {
 		console.log('accordion did mount', this.props.data.sampleRequestStatus);
+		GetAsyncToken()
+			.then(token => {
+				GetMeasurement(token, this.props.data.id)
+					.then(res => {
+						console.log('response from measurement api', res);
+						this.setState({
+							measurementComments: res.data.measurementComments,
+						}, () => this.callItemPlacement(token))
+					})
+			})
 		if (this.props.data.sampleRequestStatus == "Planned") {
 			let requestedFields = this.props.data.adminSampleRequestCommentFields.filter(item => item.name == "Sample status");
 			console.log('filter', requestedFields);
@@ -98,7 +128,76 @@ class SampleAccordion extends React.Component {
 			})
 		}
 	}
+	callItemPlacement(token) {
+		GetItemPlacement(token, this.props.data.id)
+			.then(res => {
+				console.log('item placement data from api', res)
+				this.setState({
+					itemPlacementData: res.data
+				}, () => this.callDesign(token))
+				// res.data.itemPlacementComments.map((d, idx) => {
+				// 	console.log('in map', d.designerComment.text, d.id)
+				// 	this.setState({
+				// 		[d.id]: d.designerComment.text
+				// 	})
+				// })
+			})
+	}
 
+	callDesign(token) {
+		GetDesign(token, this.props.data.id)
+			.then(res => {
+				console.log('design data from api', res)
+				this.setState({
+					designData: res.data,
+					textArea: res.data.designCommentDetails.designerComment.text
+				}, () => this.callFinish(token))
+			})
+	}
+
+	callFinish(token) {
+		console.log('done design')
+		GetFinish(token, this.props.data.id)
+			.then(res => {
+				console.log('finish data from api', res)
+				this.setState({
+					finishData: res.data,
+				}, () => this.callSampleStatus(token))
+			})
+	}
+
+	callSampleStatus(token) {
+		console.log('ge in sample status');
+
+		GetSampleStatus(token, this.props.data.id)
+			.then(res => {
+				console.log('sample status data from api', res)
+				this.setState({
+					statusData: res.data,
+				}, () => this.callCustomComments(token))
+			})
+	}
+
+	callCustomComments(token) {
+		if (this.state.activeSections.length > 0) {
+			// this.state.commentFieldId = this.state.ArrayData[this.state.activeSections[0]].id;
+			// console.log('custom ids', this.state.ArrayData);
+		}
+		this.state.ArrayData.map(d => {
+			if (d.templateSubTabId == 6) {
+				// console.log("d.id", d.id);
+				GetCustomComment(token, this.props.data.id, d.id)
+					.then(res => {
+						console.log('custom comments data from api', res);
+						this.setState(prevState => ({
+							customData: [...prevState.customData, res.data.styleSampleRequestCommentFields],
+						}), 
+						() => this.setState({gotAllData : true})
+						)
+					})
+			}
+		})
+	}
 	_renderSectionTitle = section => {
 		return (
 			<View>
@@ -125,19 +224,21 @@ class SampleAccordion extends React.Component {
 		if (this.state.activeComponent != section.name) {
 			return null
 		}
-		console.log('id', section.id, this.state.activeComponent);
-		let clickId;
-		if (this.state.activeSections.length > 0) {
-			clickId = this.state.ArrayData[this.state.activeSections[0]].id;
-		}
+		// console.log('id', section.id, this.state.activeComponent);
 
+		// let commentFieldId;
+		if (this.state.activeSections.length > 0) {
+			this.state.commentFieldId = this.state.ArrayData[this.state.activeSections[0]].id;
+		}
+  	let currentCustomTab = this.state.customData.filter(data => data.adminSampleRequestCommentField.id == section.id)
+		// console.log('this.state.activeComponent', this.state.activeComponent, currentCustomTab);
 		return (
 			<View>
-				{this.state.activeComponent == "Measurement" && (<Measurement id={this.props.data.id} />)}
-				{this.state.activeComponent == "Design" && (<Design id={this.props.data.id} />)}
-				{this.state.activeComponent == "Finish" && (<Finish id={this.props.data.id} />)}
-				{this.state.activeComponent == "Item placement" && (<ItemPlacement id={this.props.data.id} />)}
-				{this.state.activeComponent == "Sample status" && (<SampleStatus id={this.props.data.id} />)}
+				{this.state.activeComponent == "Measurement" && (<Measurement data={this.state.measurementComments} id={this.props.data.id} />)}
+				{this.state.activeComponent == "Design" && (<Design data={this.state.designData} id={this.props.data.id} />)}
+				{this.state.activeComponent == "Finish" && (<Finish data={this.state.finishData} id={this.props.data.id} />)}
+				{this.state.activeComponent == "Item placement" && (<ItemPlacement data={this.state.itemPlacementData} id={this.props.data.id} />)}
+				{this.state.activeComponent == "Sample status" && (<SampleStatus data={this.state.statusData} id={this.props.data.id} />)}
 				{
 					(this.state.activeComponent != "Measurement" &&
 						this.state.activeComponent != "Design" &&
@@ -145,7 +246,12 @@ class SampleAccordion extends React.Component {
 						this.state.activeComponent != "Item placement" &&
 						this.state.activeComponent != "Sample status" &&
 						this.state.activeSections.length > 0) ?
-						<CustomComment id={this.props.data.id} commentFieldId={clickId} /> :
+						<Fragment>
+							{console.log('render custom', this.state.activeComponent)}
+							<CustomComment data={currentCustomTab} id={this.props.data.id} />
+						</Fragment>
+						
+						 :
 						null
 				}
 			</View>
@@ -153,10 +259,10 @@ class SampleAccordion extends React.Component {
 	};
 
 	_updateSections = (activeSections) => {
-		console.log("enter in on change", activeSections, this.props.data.adminSampleRequestCommentFields);
+		// console.log("enter in on change", activeSections, this.props.data.adminSampleRequestCommentFields);
 		if (activeSections.length > 0) {
 			let name = this.state.ArrayData[activeSections].name
-			console.log('name', name)
+			// console.log('name', name)
 			if (name == "Measurement") {
 				this.setState({ activeSections, activeComponent: "Measurement" })
 			}
@@ -186,16 +292,18 @@ class SampleAccordion extends React.Component {
 		return (
 			<View>
 				{this.state.ArrayData != null ?
-					<Accordion
-						sections={this.state.ArrayData}
-						activeSections={this.state.activeSections}
-						// renderSectionTitle={this._renderSectionTitle}
-						renderHeader={this._renderHeader}
-						renderContent={this._renderContent}
-						onChange={this._updateSections}
-						underlayColor="#eee"
-					/>
-					: <Text>loading</Text>
+					this.state.gotAllData ?
+						<Accordion
+							sections={this.state.ArrayData}
+							activeSections={this.state.activeSections}
+							// renderSectionTitle={this._renderSectionTitle}
+							renderHeader={this._renderHeader}
+							renderContent={this._renderContent}
+							onChange={this._updateSections}
+							underlayColor="#eee"
+						/>
+						: <Text>Getting Api Data </Text>
+						: <Text>loading</Text>
 				}
 			</View>
 		)

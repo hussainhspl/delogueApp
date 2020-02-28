@@ -1,8 +1,8 @@
 import React, { Fragment } from 'react';
 import { View, Text, TouchableHighlight, Dimensions } from 'react-native';
 import styled from 'styled-components';
-import GetAsyncToken from '../../../script/getAsyncToken';
-import GetItemPlacement from '../../../api/sample/getItemPlacement';
+// import GetAsyncToken from '../../../script/getAsyncToken';
+// import GetItemPlacement from '../../../api/sample/getItemPlacement';
 import { CheckBox, Segment } from "native-base";
 import SmallText from '../../../styles/SmallText';
 import ImageCard from '../../../shared/ImageCard';
@@ -24,6 +24,7 @@ import ApplyButton from '../../../styles/ApplyButton';
 import TouchableApply from '../../../styles/TouchableApply';
 import ButtonText from '../../../styles/ButtonText';
 import UpdatePlanned from '../../../api/sample/updatePlanned';
+import sharedImageViewer from '../../../shared/sharedImageViewer';
 
 
 const MainView = styled.View`
@@ -52,22 +53,26 @@ class SampleStatus extends React.Component {
     }
   }
   componentDidMount = () => {
-    GetAsyncToken()
-      .then(token => {
-        GetSampleStatus(token, this.props.id)
-          .then(res => {
-            console.log('sample status data from api', res, res.data.designerComment.text)
-            this.setState({
-              statusData: res.data,
-              textArea: res.data.designerComment.text
-            })
-            // res.data.itemPlacementComments.map(d =>{
-            //   this.setState({
-            //     [d.designerComment.id]: d.designerComment.text
-            //   })
-            // })
-          })
-      })
+    this.setState({
+      statusData: this.props.data,
+      textArea: this.props.data.designerComment.text
+    })
+    // GetAsyncToken()
+    //   .then(token => {
+    //     GetSampleStatus(token, this.props.id)
+    //       .then(res => {
+    //         console.log('sample status data from api', res, res.data.designerComment.text)
+    //         this.setState({
+    //           statusData: res.data,
+    //           textArea: res.data.designerComment.text
+    //         })
+    //         // res.data.itemPlacementComments.map(d =>{
+    //         //   this.setState({
+    //         //     [d.designerComment.id]: d.designerComment.text
+    //         //   })
+    //         // })
+    //       })
+    //   })
   }
   visualData = (data) => {
     // console.log('visual data', data);
@@ -131,7 +136,10 @@ class SampleStatus extends React.Component {
               />
               <Separator />
               {/* <SmallText>Visual Comments </SmallText> */}
-              <View>
+              <SharedImageViewer 
+
+              />
+              {/* <View>
                 {
                   this.state.statusData.supplierComment.visualComments.length > 0 ?
                     <SharedImagePicker
@@ -145,7 +153,7 @@ class SampleStatus extends React.Component {
                     />
                 }
 
-              </View>
+              </View> */}
             </Fragment>
             : null
         }

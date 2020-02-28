@@ -73,23 +73,23 @@ const UpdatePlanned = (token, sampleId, selectedType, newDate) => {
       "isQuickSave": false
     }
     
-    axios({
-      url: `${baseUrl}StyleSampleRequest/Planned`,
-      method: 'PUT',
-      headers: {
-        Authorization: `Bearer ${token}`,
-        'Content-Type': 'application/json',
-      },
-      data: data1,
-    })
-      .then(res => {
-        console.log('success in alert unread', res);
-        resolve(res);
+    // axios({
+    //   url: `${baseUrl}StyleSampleRequest/Planned`,
+    //   method: 'PUT',
+    //   headers: {
+    //     Authorization: `Bearer ${token}`,
+    //     'Content-Type': 'application/json',
+    //   },
+    //   data: data1,
+    // })
+    //   .then(res => {
+    //     console.log('success in alert unread', res);
+    //     resolve(res);
 
-      })
-      .catch(function(error) {
-        console.error("error in alert unread", error);
-      });
+    //   })
+    //   .catch(function(error) {
+    //     console.error("error in alert unread", error);
+    //   });
   });
 }
 export default UpdatePlanned;

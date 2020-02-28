@@ -1,12 +1,12 @@
 import axios from "axios";
 import qs from "qs";
 
-const UpdateOtherSampleRequest = (token, sampleDataState) => {
-  console.log('token ', token, sampleDataState.sampleData.deadline);
+const UpdateOtherSampleRequest = (token, sampleDataState, finishOutside, finishInside) => {
+  console.log('token ', token, finishOutside, finishInside);
   return new Promise(function (resolve, reject) {
     // let string = this.state.searchBrand;
     let deadline = sampleDataState.deadline;
-    console.log('deadline', deadline);
+    // console.log('deadline', deadline);
     const data1 =
     {
       "IsQuickSave":false,

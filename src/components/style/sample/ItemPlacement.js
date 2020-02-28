@@ -1,8 +1,8 @@
 import React, { Fragment } from 'react';
 import { View, Text, TouchableHighlight, Dimensions } from 'react-native';
 import styled from 'styled-components';
-import GetAsyncToken from '../../../script/getAsyncToken';
-import GetItemPlacement from '../../../api/sample/getItemPlacement';
+// import GetAsyncToken from '../../../script/getAsyncToken';
+// import GetItemPlacement from '../../../api/sample/getItemPlacement';
 import { CheckBox, Segment } from "native-base";
 import SmallText from '../../../styles/SmallText';
 import ImageCard from '../../../shared/ImageCard';
@@ -22,6 +22,11 @@ import TouchableCancel from '../../../styles/ToucaableCancel';
 import ApplyButton from '../../../styles/ApplyButton';
 import TouchableApply from '../../../styles/TouchableApply';
 import ButtonText from '../../../styles/ButtonText';
+import { connect } from 'react-redux'
+import { itemPlacement } from '../../../store/actions/index';
+import SharedImageViewer from '../../../shared/sharedImageViewer';
+
+
 
 const MainView = styled.View`
   margin: 15px;
@@ -48,32 +53,39 @@ class ItemPlacement extends React.Component {
       selectedStyles: [],
       value: [getInitialObject()],
       images: [],
+      imagesSupplier: [],
 
     }
   }
   componentDidMount = () => {
-    GetAsyncToken()
-      .then(token => {
-        GetItemPlacement(token, this.props.id)
-          .then(res => {
-            console.log('item placement data from api', res)
-            res.data.itemPlacementComments.map((d, idx) => {
-              console.log('in map', d.designerComment.text, d.id)
-              this.setState({
-                [d.id] : d.designerComment.text
-              }, () => this.getInitialComments(res.data))
-            })
-            
-            
-          })
-      })
+    console.log('in item placement', this.props.data);
+    this.props.data.itemPlacementComments.map((d, idx) => {
+      console.log('in map', d.designerComment.text, d.id)
+      this.setState({
+        [d.id]: d.designerComment.text
+      }, () => this.getInitialComments(this.props.data))
+    })
+    // GetAsyncToken()
+    //   .then(token => {
+    //     GetItemPlacement(token, this.props.id)
+    //       .then(res => {
+    //         console.log('item placement data from api', res)
+    //         res.data.itemPlacementComments.map((d, idx) => {
+    //           console.log('in map', d.designerComment.text, d.id)
+    //           this.setState({
+    //             [d.id] : d.designerComment.text
+    //           }, () => this.getInitialComments(res.data))
+    //         })
+
+
+    //       })
+    //   })
   }
-  getInitialComments (resData) {
-    // console.log('initial data',this.state.itemData)
+  getInitialComments(resData) {
+    console.log('initial data', resData)
     this.setState({
       itemData: resData,
-
-    })
+    }, () => this.props.itemPlacementFunction(this.state.itemData))
   }
   visualData = (data) => {
     console.log('visual data', data);
@@ -81,6 +93,12 @@ class ItemPlacement extends React.Component {
     // console.log('foo', result);
     this.setState({
       images: data,
+    })
+  }
+  visualDataSupplier = (data) => {
+    // console.log('visual data', data);
+    this.setState({
+      imagesSupplier: data,
     })
   }
   render() {
@@ -142,21 +160,23 @@ class ItemPlacement extends React.Component {
                   />
                   <Separator />
                   {/* <SmallText> Visual comments </SmallText> */}
-
-                  <View>
+                  <SharedImageViewer 
+                    initialImages={d.supplierComment.visualComments}
+                  />
+                  {/* <View>
                     {
                       d.supplierComment.visualComments.length > 0 ?
                         <SharedImagePicker
-                          childData={this.visualData}
+                          childData={this.visualDataSupplier}
                           initialImages={d.supplierComment.visualComments}
                         />
                         :
                         <SharedImagePicker
-                          childData={this.visualData}
+                          childData={this.visualDataSupplier}
                           initialImages={null}
                         />
                     }
-                  </View>
+                  </View> */}
 
                 </Fragment>
               )
@@ -185,4 +205,18 @@ class ItemPlacement extends React.Component {
     )
   }
 }
-export default ItemPlacement;
+const mapStateToProps = state => {
+  return {
+    // style: state.singleStyle.singleStyleState,
+    // styleId: state.styleId.styleIdState
+
+  }
+}
+const mapDispatchToProps = dispatch => {
+  return {
+    itemPlacementFunction: (data) => dispatch(itemPlacement(data))
+    // styleIdFunction: (sid) => dispatch(styleId(sid)),
+
+  }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(ItemPlacement);

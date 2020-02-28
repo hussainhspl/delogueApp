@@ -1,8 +1,8 @@
 import React, { Fragment } from 'react';
 import { View, Text, TouchableHighlight, Dimensions } from 'react-native';
 import styled from 'styled-components';
-import GetAsyncToken from '../../../script/getAsyncToken';
-import GetDesign from '../../../api/sample/getDesign';
+// import GetAsyncToken from '../../../script/getAsyncToken';
+// import GetDesign from '../../../api/sample/getDesign';
 import { CheckBox } from "native-base";
 import SmallText from '../../../styles/SmallText';
 import ImageCard from '../../../shared/ImageCard';
@@ -14,6 +14,10 @@ import CNRichTextEditor, {
 import Separator from '../../../styles/Separator';
 import StyleRow from '../../../styles/StyleRow';
 import AutoHeightWebView from 'react-native-autoheight-webview';
+import SharedImageViewer from '../../../shared/sharedImageViewer';
+import SharedImagePicker from '../../../shared/sharedImagePicker';
+import { connect } from 'react-redux';
+import { design } from '../../../store/actions/index';
 
 const MainView = styled.View`
   margin: 15px;
@@ -29,28 +33,42 @@ class Design extends React.Component {
     super(props);
     this.state = {
       designData: null,
-      textArea: "",
+      textArea: '',
       selectedStyles: [],
-      value: [getInitialObject()]
-
+      value: [getInitialObject()],
+      images: []
     }
   }
   componentDidMount = () => {
-    GetAsyncToken()
-      .then(token => {
-        GetDesign(token, this.props.id)
-          .then(res => {
-            console.log('design data from api', res)
-            this.setState({
-              designData: res.data,
-              textArea: res.data.designCommentDetails.designerComment.text
-            })
-          })
-      })
+    console.log('design did mount', this.props.data)
+    this.setState({
+      designData: this.props.data,
+      textArea: this.props.data.designCommentDetails.designerComment.text
+    }, () => console.log('done text area'))
+    // GetAsyncToken()
+    //   .then(token => {
+    //     GetDesign(token, this.props.id)
+    //       .then(res => {
+    //         console.log('design data from api', res)
+    //         this.setState({
+    //           designData: res.data,
+    //           textArea: res.data.designCommentDetails.designerComment.text
+    //         })
+    //       })
+    //   })
+
+  }
+  updateText () {
+    this.setState({ textArea: html},
+
+    )
+  }
+  visualData = (data) => {
+    this.setState({ images: data })
   }
 
   render() {
-    console.log('Text area state', this.state.textArea);
+    console.log('Text area state', this.state.textArea, this.state.designData);
     return (
       <MainView>
         {
@@ -68,31 +86,31 @@ class Design extends React.Component {
               <Separator />
               <SmallText>Design</SmallText>
               <View style={{ height: 200, marginTop: 10 }}>
+                {/* {
+                  this.state.textArea !== null && ( */}
                 <TextEditor
                   initialValue={this.state.textArea}
-                  bodyHtml={(html) => this.setState({ textArea: html })}
+                  bodyHtml={(html) => this.updateText(html)}
                 />
+                {/* )} */}
               </View>
               <Separator />
-              <SmallText>Visual Comments</SmallText>
-              <StyleRow>
+              {/* <SmallText>Visual Comments</SmallText> */}
+              <View>
                 {
-                  this.state.designData.designCommentDetails.designerComment.visualComments.length > 0 ?
-                    this.state.designData.designCommentDetails.designerComment.visualComments.map(d => {
-                      console.log('map data', d);
-                      return (
-                        <ImageCard
-                          key={d.id}
-                          bigImgUrl={d.url}
-                          imgPath={{ uri: d.url }}
-                          fileName={d.name}
-                        />
-                      )
-                    })
-                    : null
+                  this.state.designData.designCommentDetails.designerComment.visualComments.length > 0 > 0 ?
+                    <SharedImagePicker
+                      childData={this.visualData}
+                      initialImages={this.state.designData.designCommentDetails.designerComment.visualComments}
+                    />
+                    :
+                    <SharedImagePicker
+                      childData={this.visualData}
+                      initialImages={null}
+                    />
                 }
-
-              </StyleRow>
+              </View>
+              
               <Separator />
               <SmallText>Comments by Supplier </SmallText>
               <AutoHeightWebView
@@ -109,24 +127,14 @@ class Design extends React.Component {
                 viewportContent={'width=device-width, user-scalable=no'}
               />
               <Separator />
-              <SmallText>Visual Comments </SmallText>
-              <StyleRow>
-                {
-                  this.state.designData.designCommentDetails.supplierComment.visualComments.length > 0 ?
-                    this.state.designData.designCommentDetails.supplierComment.visualComments.map(d => {
-                      console.log('map data', d);
-                      return (
-                        <ImageCard
-                          bigImgUrl={d.url}
-                          imgPath={{ uri: d.url }}
-                          fileName={d.name}
-                        />
-                      )
-                    })
-                    : null
+              {/* <SmallText>Visual Comments </SmallText> */}
+              <SharedImageViewer
+                initialImages={this.state.designData.designCommentDetails.supplierComment.visualComments.length > 0 ?
+                  this.state.designData.designCommentDetails.supplierComment.visualComments
+                  : null
                 }
-
-              </StyleRow>
+              />
+              
             </Fragment>
             : <Text> loading</Text>}
       </MainView>
@@ -134,4 +142,15 @@ class Design extends React.Component {
     )
   }
 }
-export default Design;
+const mapStateToProps = state => {
+  return {
+    // unreadList: state.unreadMessagesList.unreadMessagesListState
+  };
+};
+const mapDispatchToProps = dispatch => {
+  return {
+    designFunction: (data) => dispatch(design(data))
+  }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(Design);
+

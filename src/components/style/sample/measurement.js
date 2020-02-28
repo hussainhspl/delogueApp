@@ -5,8 +5,8 @@ import CommonModal from "../../../shared/CommonModal";
 import { Col, Row, Grid } from "react-native-easy-grid";
 import SmallText from "../../../styles/SmallText";
 import CardText from "../../../styles/CardText";
-import GetAsyncToken from '../../../script/getAsyncToken';
-import GetMeasurement from '../../../api/sample/getMeasurement';
+// import GetAsyncToken from '../../../script/getAsyncToken';
+// import GetMeasurement from '../../../api/sample/getMeasurement';
 
 const desc = ["Req", "Comp", "Want"];
 const colCount = [(key = 1), (key = 2), (key = 3)];
@@ -79,16 +79,19 @@ class Measurement extends React.Component {
   }
   componentDidMount = () => {
     console.log('hey');
-    GetAsyncToken()
-      .then(token => {
-        GetMeasurement(token, this.props.id)
-          .then(res => {
-            console.log('response from measurement api', res);
-            this.setState({
-              measurementComments: res.data.measurementComments,
-            })
-          })
-      })
+    this.setState({
+      measurementComments: this.props.data,
+    })
+    // GetAsyncToken()
+    //   .then(token => {
+    //     GetMeasurement(token, this.props.id)
+    //       .then(res => {
+    //         console.log('response from measurement api', res);
+    //         this.setState({
+    //           measurementComments: res.data.measurementComments,
+    //         })
+    //       })
+    //   })
   }
   render() {
     return (

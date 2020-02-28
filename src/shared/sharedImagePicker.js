@@ -12,6 +12,8 @@ import Toast from 'react-native-root-toast';
 import { connect } from "react-redux";
 import Close from "../styles/Close";
 import AttachmentPopup from "./AttachmentPopup";
+import ImageCard from "./ImageCard";
+import { relative } from "path";
 
 
 const AttachImageRow = styled.View`
@@ -107,19 +109,19 @@ class SharedImagePicker extends React.Component {
   popAttachment(id) {
     // console.log('remove image', id);
     this.setState({
-      attachment : this.state.attachment.filter(imgObj => imgObj.id != id)
+      attachment: this.state.attachment.filter(imgObj => imgObj.id != id)
     })
   }
   componentDidMount = () => {
-    if(this.props.initialImages != null) {
-      
+    if (this.props.initialImages != null) {
+
       this.setState(prevState => ({
         attachment: [...prevState.attachment, ...this.props.initialImages]
       }), () => this.props.childData(this.state.attachment))
     }
   }
   render() {
-    console.log('shared picker ', this.props.initialImages, this.state.attachment);
+    // console.log('shared picker ', this.props.initialImages, this.state.attachment);
     return (
       <Fragment>
         <StyleFileTitle>
@@ -135,40 +137,26 @@ class SharedImagePicker extends React.Component {
           </View>
         </StyleFileTitle>
         {
-              typeof (this.state.attachment) == 'object' && (
-        <AttachImageRow>
-          {this.state.attachment.map(d => {
-            console.log('attachment d :', d);
-            return (
-              <Fragment>
-              <AttachBox>
-                <TouchableHighlight onPress={() => this.setState({ modalVisible: true })}
-                  underlayColor={this.props.theme.overlayBlue}
-                >
+          typeof (this.state.attachment) == 'object' && (
+            <AttachImageRow>
+              {this.state.attachment.map(d => {
+                // console.log('attachment d :', d);
+                return (
+                  <View style={{position: "relative", marginTop: 15, marginRight: 10}}>
+                    <ImageCard
+                      bigImgUrl={d.url}
+                      imgPath={{ uri: d.url }}
+                      fileName={d.name}
+                    />
+                    <Close underlayColor={"#bbb"} onPress={() => this.popAttachment(d.id)}>
+                      <Icon style={{ fontSize: 16 }} name="ios-close" />
+                    </Close>
+                  </View>
+                )
+              })}
+            </AttachImageRow>
+          )}
 
-                  <AttachmentImage
-                    resizeMode={"contain"}
-                    source={{ uri: d.url }}
-                  />
-                </TouchableHighlight> 
-                <Close underlayColor={"#bbb"} onPress={() => this.popAttachment(d.id)}>
-                  <Icon style={{ fontSize: 16 }} name="ios-close" />
-                </Close>
-              </AttachBox>
-               <AttachmentPopup
-                modalVisible={this.state.modalVisible}
-                close={() => this.setState({ modalVisible: false })}
-                path={d.url}
-                Name= {d.name}
-                Date = {""}
-                fileSrc = {d.url}
-              />
-              </Fragment>
-            )
-          })}
-        </AttachImageRow>
-        )}
-       
       </Fragment>
     );
   }

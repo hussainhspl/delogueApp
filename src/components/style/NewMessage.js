@@ -366,7 +366,7 @@ class NewMessage extends React.Component {
               typeof (this.state.attachment) == 'object' && (
                 <AttachImageRow>
                   {this.state.attachment.map(d => {
-                    console.log('attachment d :', d);
+                    // console.log('attachment d :', d);
                     return (
                       <AttachBox>
                         <TouchableHighlight onPress={() => this.setState({ modalVisible: true })}

@@ -194,7 +194,7 @@ class CompanyList extends React.Component {
         console.log('no username found', error);
     }
   }
-  GetToken = (designerId, uid)  => {
+  GetToken = (designerId, uid, organizationType)  => {
     this.getCredential()
       .then(cred =>{
         const [username, password] = cred;
@@ -206,12 +206,15 @@ class CompanyList extends React.Component {
           let seconds = res.data.expires_in;
           tokenExp.setSeconds(tokenExp.getSeconds() + seconds);
           let strUid = JSON.stringify(uid);
-          let strDesignerId = JSON.stringify(designerId)
+          let strDesignerId = JSON.stringify(designerId);
+          console.log('strUid', strUid, strDesignerId);
+          let strOrgType = JSON.stringify(organizationType)
 
           // console.log('coming here', strUid, uid, typeof(uid), typeof(designerId))
           AsyncStorage.multiSet([
             ["@designerId", strDesignerId],
-            ["@userId", strUid]
+            ["@userId", strUid],
+            ["@organizationType",strOrgType]
           ])
           this.setState(
             {
@@ -310,7 +313,7 @@ class CompanyList extends React.Component {
                         onPress={() => { 
                           // history.push("/search");
                           this.GetToken(
-                            data.designerOrganizationId, data.id,
+                            data.designerOrganizationId, data.id, data.organizationType
                           )
                           // console.log('clicked on', data.designerOrganizationId, data.id, this.props.location.password)
                           // LoginStep2(

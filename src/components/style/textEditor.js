@@ -153,6 +153,7 @@ class TextEditor extends Component {
 
 	render() {
 		let customStyles = {...defaultStyles, ul: {fontSize: 14}, ol: {fontSize: 14}, body: {fontSize: 14}, heading : {fontSize: 14}, title : {fontSize: 14}};
+		console.log('enter in text editor');
 		return (
 			<KeyboardAvoidingView
 				behavior="padding"

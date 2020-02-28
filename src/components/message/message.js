@@ -193,7 +193,7 @@ class Message extends React.Component {
         .then(token => {
           UnreadMessageList(token)
             .then(res => {
-              // console.log('message list', res.data)
+              console.log('message list', res.data)
               // this.setState({
               //   MessageList: res.data,
               // })

@@ -10,6 +10,7 @@ import unreadMessagesListReducer from './reducers/unreadMessagesList_reducer';
 import styleMessageListReducer from './reducers/styleMessageList_reducer';
 import styleIdReducer from './reducers/StyleID_reducer'
 import sampleListReducer from './reducers/sampleList_reducer';
+import sampleRequestTabsReducer from './reducers/sampleRequestTabs_reducer';
 
 const rootReducer = combineReducers({
   tab: tabReducer,
@@ -22,7 +23,9 @@ const rootReducer = combineReducers({
   unreadMessagesList: unreadMessagesListReducer,
   styleMessageList: styleMessageListReducer,
   styleId: styleIdReducer,
-  sampleList: sampleListReducer
+  sampleList: sampleListReducer,
+  sampleRequestTabs : sampleRequestTabsReducer
+  
 });
 
 const configStore = () => {

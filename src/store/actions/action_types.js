@@ -31,6 +31,11 @@ export const STYLE_MESSAGE_LIST = "STYLE_MESSAGE_LIST";
 export const CLEAR_STYLE_LIST = "CLEAR_STYLE_LIST";
 // sample list
 export const SAMPLE_LIST =  "SAMPLE_LIST";
+// sample request tabs
+export const ITEM_PLACEMENT = "ITEM_PLACEMENT";
+export const FINISH_OUTSIDE = "FINISH_OUTSIDE";
+export const FINISH_INSIDE = "FINISH_INSIDE";
+export const DESIGN = "DESIGN";
 
 
 

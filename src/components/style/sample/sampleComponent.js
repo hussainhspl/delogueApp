@@ -175,7 +175,7 @@ class sampleComponent extends React.Component {
       let localDate = new Date(date.setMinutes(date.getMinutes() - date.getTimezoneOffset()));
       formatedEtd = format(localDate, "d-MMM-yyyy");
     }
-    console.log("sent date", this.state.sampleData.sendDate);
+    // console.log("sent date", this.state.sampleData.sendDate);
     if(this.state.sampleData.sendDate != null) {
       const date = new Date(this.state.sampleData.sendDate)
       let localDate = new Date(date.setMinutes(date.getMinutes() - date.getTimezoneOffset()));
@@ -373,7 +373,7 @@ class sampleComponent extends React.Component {
   }
   render() {
 
-    console.log('render sample component: ', this.state.sampleData)
+    // console.log('render sample component: ', this.state.sampleData)
     return (
       <Fragment>
         {this.state.sampleData != null ?

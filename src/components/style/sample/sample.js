@@ -89,6 +89,8 @@ class Sample extends React.Component {
       sampleArray: null,
       selectedSample: null,
       mainState: [],
+      finishOutsideState: null,
+      finishInsideState: null
       // mainState: [{
       //   "sampleData": []
       // }],
@@ -102,7 +104,7 @@ class Sample extends React.Component {
 
     GetAsyncToken()
       .then(token => {
-        UpdateOtherSampleRequest(token, this.state.mainState)
+        UpdateOtherSampleRequest(token, this.state.mainState, this.props.finishOutside, this.props.finishInside)
           .then(res => {
             console.log('other sample updated', res);
           })
@@ -126,6 +128,16 @@ class Sample extends React.Component {
     if (nextProps.sampleData !== prevState.sampleArray) {
       return {
         sampleArray: nextProps.sampleData.data,
+      }
+    }
+    if(nextProps.finishOutside !== prevState.finishOutsideState){
+      return{
+        finishOutsideState : nextProps.finishOutside
+      }
+    }
+    if(nextProps.finishInside != prevState.finishInsideState){
+      return{
+        finishInsideState : nextProps.finishInside
       }
     }
     return null;
@@ -169,7 +181,8 @@ class Sample extends React.Component {
     // }), () =>
   }
   render() {
-    console.log('this.state.sampleArray', this.state.sampleArray, this.props.sampleData);
+    console.log('this.state.finishOutside', this.state.finishOutside);
+    
     const history = this.props.history;
     return (
       <Fragment>
@@ -247,6 +260,10 @@ mapStateToProps = state => {
     sampleData: state.sampleList.sampleListState,
     styleId: state.styleId.styleIdState,
     style: state.singleStyle.singleStyleState,
+    finishOutside: state.sampleRequestTabs.finishOutsideState,
+    finishInside: state.sampleRequestTabs.finishInsideState
+
+
   }
 }
 mapDispatchToProps = dispatch => {

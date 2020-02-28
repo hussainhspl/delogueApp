@@ -21,31 +21,34 @@ const ImageView = styled.View`
     props.tablet
     ? Dimensions.get('window').width/ 4 -34
     : Dimensions.get('window').width/ 3 -34};
-	height: ${props =>
+	/* height: ${props =>
     props.tablet
     ? Dimensions.get('window').height/ 4 -60
-    : Dimensions.get('window').height/ 3 -50 };
-    padding: 3px;
+    : Dimensions.get('window').height/ 3 -50 }; */
+    padding: 2px;
     align-items: center;
+    /* background-color: blue; */
 `;
 
 const StyleImage = styled.Image`
 	  width : ${props =>
     props.tablet
     ? Dimensions.get('window').width/ 4 -50
-    : Dimensions.get('window').width/ 3 - 44};
+    : Dimensions.get('window').width/ 3 - 40};
 		height: ${props =>
     props.tablet
-    ? Dimensions.get('window').height / 4 -50
-    : Dimensions.get('window').height/ 3 - 60};
+    ? Dimensions.get('window').height / 4 -80
+    : Dimensions.get('window').width/ 3 - 30};
+    
 		margin: auto;
+    /* background-color: yellow; */
     
 `;
 
 
 const ImageName = styled.Text`
   text-align: center;
-  padding: 0px 10px 10px 10px;
+  padding: 3px 3px 10px 0px;
   font-size: ${props => props.theme.small};
   font-family: ${props => props.theme.regular};
   /* margin-bottom: 20px; */
@@ -69,7 +72,7 @@ class ImageCard extends React.Component{
     }
   }
   render() {
-    console.log('image card props :', this.props);
+    // console.log('image card props :', this.props);
     return(
       <MainBlock key={Math.random().toFixed(3)} tablet={this.state.tablet}>
         <TouchableHighlight underlayColor={this.props.theme.overlayBlue} onPress={() => this.setState({modalVisible: true})}>

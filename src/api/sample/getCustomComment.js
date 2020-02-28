@@ -14,7 +14,7 @@ const GetSampleStatus = (token, sampleReqId, SampleReqCommentFieldId) => {
       resolve(res);
     })
     .catch(error => {
-      console.error("error in get sample status", error);
+      console.error("error in get custom comments", error);
     })
   })
 }

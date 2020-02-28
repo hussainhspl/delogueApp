@@ -1,8 +1,8 @@
 import React, { Fragment } from 'react';
 import { View, Text, TouchableHighlight, Dimensions } from 'react-native';
 import styled from 'styled-components';
-import GetAsyncToken from '../../../script/getAsyncToken';
-import GetCustomComment from '../../../api/sample/getCustomComment';
+// import GetAsyncToken from '../../../script/getAsyncToken';
+// import GetCustomComment from '../../../api/sample/getCustomComment';
 import { CheckBox, Segment } from "native-base";
 import SmallText from '../../../styles/SmallText';
 import ImageCard from '../../../shared/ImageCard';
@@ -16,7 +16,9 @@ import StyleRow from '../../../styles/StyleRow';
 import CardText from '../../../styles/CardText';
 import { get } from 'lodash'
 import AutoHeightWebView from 'react-native-autoheight-webview';
-import GetSampleStatus from '../../../api/sample/get SampleStatus';
+import SharedImagePicker from '../../../shared/sharedImagePicker';
+import SharedImageViewer from '../../../shared/sharedImageViewer';
+
 
 const MainView = styled.View`
   margin: 15px;
@@ -29,24 +31,38 @@ class CustomComment extends React.Component {
       customData: null,
       textArea: "",
       selectedStyles: [],
-      value: [getInitialObject()]
+      value: [getInitialObject()],
+      images: [],
+      imagesSupplier: [],
 
     }
   }
   componentDidMount = () => {
-    GetAsyncToken()
-      .then(token => {
-        console.log('custom id', this.props.commentFieldId);
-        GetCustomComment(token, this.props.id, this.props.commentFieldId)
-          .then(res => {
-            console.log('custom comments data from api', res)
-            this.setState({
-              customData: res.data.styleSampleRequestCommentFields,
-              textArea: res.data.styleSampleRequestCommentFields.designerComment.text
-            })
-            
-          })
-      })
+    console.log('custom did mount', this.props.data, this.props.data[0].designerComment);
+    this.setState({
+      customData: this.props.data[0],
+      textArea: this.props.data[0].designerComment.text
+    })
+    // GetAsyncToken()
+    //   .then(token => {
+    //     console.log('custom id', this.props.commentFieldId);
+    //     GetCustomComment(token, this.props.id, this.props.commentFieldId)
+    //       .then(res => {
+    //         console.log('custom comments data from api', res)
+    //         this.setState({
+    //           customData: res.data.styleSampleRequestCommentFields,
+    //           textArea: res.data.styleSampleRequestCommentFields.designerComment.text
+    //         })
+
+    //       })
+    //   })
+  }
+
+  visualData = (data) => {
+    this.setState({ images: data })
+  }
+  visualDataSupplier = (data) => {
+    this.setState({ imagesSupplier: data })
   }
   render() {
     console.log('custom comments : ', this.state.customData)
@@ -54,17 +70,31 @@ class CustomComment extends React.Component {
       <MainView>
         {
           this.state.customData != null ?
-          <Fragment>
-            <SmallText >comments by company</SmallText>
-            <View style={{ height: 200, marginTop: 10 }}>
-              <TextEditor
-                initialValue={this.state.textArea}
-                bodyHtml={(html) => this.setState({ textArea: html })}
-              />
+            <Fragment>
+              <SmallText >comments by company</SmallText>
+              <View style={{ height: 200, marginTop: 10 }}>
+                <TextEditor
+                  initialValue={this.state.textArea}
+                  bodyHtml={(html) => this.setState({ textArea: html })}
+                />
 
-            </View>
-            <Separator />
-            <SmallText>Visual Comments</SmallText>
+              </View>
+              <Separator />
+              <View>
+                {
+                  this.state.customData.designerComment.visualComments.length > 0 ?
+                    <SharedImagePicker
+                      childData={this.visualDataSupplier}
+                      initialImages={this.state.customData.designerComment.visualComments}
+                    />
+                    :
+                    <SharedImagePicker
+                      childData={this.visualDataSupplier}
+                      initialImages={null}
+                    />
+                }
+              </View>
+              {/* <SmallText>Visual Comments</SmallText>
               <StyleRow>
                 {
                   this.state.customData.designerComment.visualComments.length > 0 ?
@@ -81,7 +111,7 @@ class CustomComment extends React.Component {
                     : null
                 }
 
-              </StyleRow>
+              </StyleRow> */}
               <Separator />
               <SmallText>Comments by Supplier </SmallText>
               <AutoHeightWebView
@@ -98,27 +128,27 @@ class CustomComment extends React.Component {
                 viewportContent={'width=device-width, user-scalable=no'}
               />
               <Separator />
-              <SmallText>Visual Comments </SmallText>
-              <StyleRow>
+                <SharedImageViewer 
+                  initialImages={this.state.customData.supplierComment.visualComments}
+                />
+              {/* <View>
                 {
                   this.state.customData.supplierComment.visualComments.length > 0 ?
-                    this.state.customData.supplierComment.visualComments.map(d => {
-                      console.log('map data', d);
-                      return (
-                        <ImageCard
-                          bigImgUrl={d.url}
-                          imgPath={{ uri: d.url }}
-                          fileName={d.name}
-                        />
-                      )
-                    })
-                    : null
+                    <SharedImagePicker
+                      childData={this.visualDataSupplier}
+                      initialImages={this.state.customData.supplierComment.visualComments}
+                    />
+                    :
+                    <SharedImagePicker
+                      childData={this.visualDataSupplier}
+                      initialImages={null}
+                    />
                 }
-
-              </StyleRow>
+              </View> */}
+              
             </Fragment>
-           : <Text>loading</Text>
-         }
+            : <Text>loading</Text>
+        }
       </MainView>
     )
   }
