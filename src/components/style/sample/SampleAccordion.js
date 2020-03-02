@@ -9,7 +9,7 @@ import { withTheme } from 'styled-components';
 import Accordion from 'react-native-collapsible/Accordion';
 // relative import
 import Measurement from './measurement';
-import Design from './design';
+import DesignTab from './designTab';
 import Finish from './finish';
 import SampleStatus from './sampleStatus';
 import CustomComment from './customComment';
@@ -21,9 +21,8 @@ import GetDesign from '../../../api/sample/getDesign';
 import GetFinish from '../../../api/sample/getFinish';
 import GetSampleStatus from '../../../api/sample/get SampleStatus';
 import GetCustomComment from '../../../api/sample/getCustomComment';
-
-
-
+import { connect } from 'react-redux';
+import { measurementTable } from '../../../store/actions/index';
 
 
 let renderOnce;
@@ -90,7 +89,7 @@ class SampleAccordion extends React.Component {
 			activeComponent: null,
 			ArrayData: null,
 			custom: false,
-			measurementComments: null,
+			measurement: null,
 			itemPlacementData: null,
 			designData: null,
 			textAreaDesign: "",
@@ -109,7 +108,7 @@ class SampleAccordion extends React.Component {
 					.then(res => {
 						console.log('response from measurement api', res);
 						this.setState({
-							measurementComments: res.data.measurementComments,
+							measurement: res.data,
 						}, () => this.callItemPlacement(token))
 					})
 			})
@@ -198,6 +197,23 @@ class SampleAccordion extends React.Component {
 			}
 		})
 	}
+	updateMeasurement = (LineComments) => {
+		console.log('update measurement called', LineComments, this.state.measurement);
+		let updateArray=[];
+		LineComments.map( data => {
+			let {id, designerComment, approved, measurementLineMeasurements} = data;
+			let fields = {
+				"Comment" : designerComment,
+				"id" : id,
+				"Approved" : approved,
+				"MeasurementLineCommentUpdateCommands" : measurementLineMeasurements	
+			};
+			updateArray.push(fields);
+		})
+		console.log('updateArray', updateArray);
+		this.props.measurementTableFunction(updateArray);
+
+	}
 	_renderSectionTitle = section => {
 		return (
 			<View>
@@ -234,8 +250,12 @@ class SampleAccordion extends React.Component {
 		// console.log('this.state.activeComponent', this.state.activeComponent, currentCustomTab);
 		return (
 			<View>
-				{this.state.activeComponent == "Measurement" && (<Measurement data={this.state.measurementComments} id={this.props.data.id} />)}
-				{this.state.activeComponent == "Design" && (<Design data={this.state.designData} id={this.props.data.id} />)}
+				{this.state.activeComponent == "Measurement" && (<Measurement 
+					data={this.state.measurement.measurementComments} 
+					id={this.props.data.id}
+					parent={this.updateMeasurement}
+				/>)}
+				{this.state.activeComponent == "Design" && (<DesignTab data={this.state.designData} id={this.props.data.id} />)}
 				{this.state.activeComponent == "Finish" && (<Finish data={this.state.finishData} id={this.props.data.id} />)}
 				{this.state.activeComponent == "Item placement" && (<ItemPlacement data={this.state.itemPlacementData} id={this.props.data.id} />)}
 				{this.state.activeComponent == "Sample status" && (<SampleStatus data={this.state.statusData} id={this.props.data.id} />)}
@@ -310,4 +330,20 @@ class SampleAccordion extends React.Component {
 	}
 }
 
-export default withTheme(SampleAccordion);
+const mapStateToProps = state => {
+  return {
+    // unreadList: state.unreadMessagesList.unreadMessagesListState
+  };
+};
+const mapDispatchToProps = dispatch => {
+  return {
+    measurementTableFunction: (data) => dispatch(measurementTable(data))
+    
+  };
+}
+
+export default connect(
+	mapStateToProps, mapDispatchToProps)(withTheme(SampleAccordion)
+);
+
+

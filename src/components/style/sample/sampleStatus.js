@@ -24,7 +24,10 @@ import ApplyButton from '../../../styles/ApplyButton';
 import TouchableApply from '../../../styles/TouchableApply';
 import ButtonText from '../../../styles/ButtonText';
 import UpdatePlanned from '../../../api/sample/updatePlanned';
-import sharedImageViewer from '../../../shared/sharedImageViewer';
+import SharedImageViewer from '../../../shared/sharedImageViewer';
+import { connect } from 'react-redux';
+import { sampleStatus } from '../../../store/actions/index';
+
 
 
 const MainView = styled.View`
@@ -55,7 +58,7 @@ class SampleStatus extends React.Component {
   componentDidMount = () => {
     this.setState({
       statusData: this.props.data,
-      textArea: this.props.data.designerComment.text
+      textArea: this.props.data.designerComment.text != "" ? this.props.data.designerComment.text : null
     })
     // GetAsyncToken()
     //   .then(token => {
@@ -74,21 +77,27 @@ class SampleStatus extends React.Component {
     //       })
     //   })
   }
+
+  updateText (html) {
+    console.log('html', html);
+    this.setState({ textArea: html},
+      () => this.props.sampleStatusFunction({
+        "text": this.state.textArea,
+        "VisualComments": this.state.images
+      })
+    )
+  }
+
   visualData = (data) => {
     // console.log('visual data', data);
     this.setState({
       images: data,
     })
   }
-  visualDataSupplier = (data) => {
-    // console.log('visual data', data);
-    this.setState({
-      imagesSupplier: data,
-    })
-  }
+  
   
   render() {
-    console.log('sample status : ', this.state.textArea)
+    console.log('sample status : ', this.state.statusData)
     return (
       <MainView>
         {
@@ -98,7 +107,7 @@ class SampleStatus extends React.Component {
               <View style={{ height: 200, marginTop: 10 }}>
                 <TextEditor
                   initialValue={this.state.textArea}
-                  bodyHtml={(html) => this.setState({ textArea: html })}
+                  bodyHtml={(html) => this.updateText(html)}
                 />
             
               </View>
@@ -137,7 +146,9 @@ class SampleStatus extends React.Component {
               <Separator />
               {/* <SmallText>Visual Comments </SmallText> */}
               <SharedImageViewer 
-
+                initialImages={this.state.statusData.supplierComment.visualComments.length > 0 ?
+                  this.state.statusData.supplierComment.visualComments
+                  : null }
               />
               {/* <View>
                 {
@@ -178,4 +189,15 @@ class SampleStatus extends React.Component {
     )
   }
 }
-export default SampleStatus;
+const mapStateToProps = state => {
+  return {
+    // unreadList: state.unreadMessagesList.unreadMessagesListState
+  };
+};
+const mapDispatchToProps = dispatch => {
+  return {
+    // finishOutsideFunction: (data) => dispatch(finishOutside(data)),
+    sampleStatusFunction: (data) => dispatch(sampleStatus(data))
+  }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(SampleStatus);

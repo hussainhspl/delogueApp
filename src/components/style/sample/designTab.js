@@ -28,22 +28,23 @@ const CheckBoxText = styled.Text`
 `;
 
 
-class Design extends React.Component {
+class DesignTab extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       designData: null,
-      textArea: '',
+      textArea: null,
       selectedStyles: [],
       value: [getInitialObject()],
       images: []
     }
   }
   componentDidMount = () => {
-    console.log('design did mount', this.props.data)
+    console.log('design did mount', this.props.data);
     this.setState({
       designData: this.props.data,
-      textArea: this.props.data.designCommentDetails.designerComment.text
+      textArea: this.props.data.designCommentDetails.designerComment.text != "" ? 
+        this.props.data.designCommentDetails.designerComment.text : null
     }, () => console.log('done text area'))
     // GetAsyncToken()
     //   .then(token => {
@@ -58,11 +59,16 @@ class Design extends React.Component {
     //   })
 
   }
-  updateText () {
+  updateText (html) {
+    console.log('html', html);
     this.setState({ textArea: html},
-
+      () => this.props.designFunction({
+        "text": this.state.textArea,
+        "VisualComments": this.state.images
+      })
     )
   }
+  
   visualData = (data) => {
     this.setState({ images: data })
   }
@@ -150,7 +156,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     designFunction: (data) => dispatch(design(data))
-  }
+    
+  };
 }
-export default connect(mapStateToProps, mapDispatchToProps)(Design);
+export default connect(mapStateToProps, mapDispatchToProps)(DesignTab);
 

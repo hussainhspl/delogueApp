@@ -104,7 +104,8 @@ class Sample extends React.Component {
 
     GetAsyncToken()
       .then(token => {
-        UpdateOtherSampleRequest(token, this.state.mainState, this.props.finishOutside, this.props.finishInside)
+        UpdateOtherSampleRequest(token, this.state.mainState, this.props.finishOutside, 
+          this.props.finishInside, this.props.designState)
           .then(res => {
             console.log('other sample updated', res);
           })
@@ -181,7 +182,7 @@ class Sample extends React.Component {
     // }), () =>
   }
   render() {
-    console.log('this.state.finishOutside', this.state.finishOutside);
+    // console.log('this.state.finishOutside', this.state.finishOutside);
     
     const history = this.props.history;
     return (
@@ -261,8 +262,8 @@ mapStateToProps = state => {
     styleId: state.styleId.styleIdState,
     style: state.singleStyle.singleStyleState,
     finishOutside: state.sampleRequestTabs.finishOutsideState,
-    finishInside: state.sampleRequestTabs.finishInsideState
-
+    finishInside: state.sampleRequestTabs.finishInsideState,
+    designState: state.sampleRequestTabs.designState
 
   }
 }
