@@ -83,9 +83,16 @@ class SharedImagePicker extends React.Component {
         let source = response.uri;
         GetAsyncToken()
           .then(token => {
+            let toast1 = Toast.show('uploading', {
+              duration: Toast.durations.LONG,
+              position: Toast.positions.BOTTOM,
+              shadow: false, animation: true,
+              hideOnPress: true, delay: 0,
+            })
             // console.log('sid', this.props.styleID);
             ImageUpload(token, source, response.fileName, 0, this.props.StoreStyleId)
               .then(res => {
+                Toast.hide(toast1)
                 let toast = Toast.show('image successfully attached', {
                   duration: Toast.durations.LONG,
                   position: Toast.positions.BOTTOM,

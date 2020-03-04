@@ -1,10 +1,17 @@
-import {ITEM_PLACEMENT, FINISH_OUTSIDE, FINISH_INSIDE, DESIGN, MEASUREMENT_TABLE,
-  SAMPLE_STATUS, CUSTOM_COMMENT} from './action_types';
+import {ITEM_PLACEMENT, FINISH, FINISH_OUTSIDE, FINISH_INSIDE, DESIGN, MEASUREMENT_TABLE,
+  SAMPLE_STATUS, CUSTOM_COMMENTS} from './action_types';
 
 export const itemPlacement = (itemPlacement) => {
   return {
     type: ITEM_PLACEMENT,
     payload: itemPlacement
+  };
+}
+
+export const finish = (finish) => {
+  return {
+    type: FINISH,
+    payload: finish
   };
 }
 
@@ -43,9 +50,9 @@ export const sampleStatus = (sampleStatus) => {
   }
 }
 
-export const customComment = (customComment) => {
+export const customComments = (customComments) => {
   return{
-    type: CUSTOM_COMMENT,
-    payload: customComment
+    type: CUSTOM_COMMENTS,
+    payload: customComments
   }
 }

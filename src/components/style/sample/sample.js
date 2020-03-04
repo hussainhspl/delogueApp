@@ -104,8 +104,9 @@ class Sample extends React.Component {
 
     GetAsyncToken()
       .then(token => {
+        console.log('design', this.props.designState);
         UpdateOtherSampleRequest(token, this.state.mainState, this.props.finishOutside, 
-          this.props.finishInside, this.props.designState)
+          this.props.finishInside, this.props.designState, this.props.customState)
           .then(res => {
             console.log('other sample updated', res);
           })
@@ -263,7 +264,10 @@ mapStateToProps = state => {
     style: state.singleStyle.singleStyleState,
     finishOutside: state.sampleRequestTabs.finishOutsideState,
     finishInside: state.sampleRequestTabs.finishInsideState,
-    designState: state.sampleRequestTabs.designState
+    designState: state.sampleRequestTabs.designState,
+    measurementState: state.sampleRequestTabs.measurementTableState,
+    sampleStatusState: state.sampleRequestTabs.sampleStatusState,
+    customState: state.sampleRequestTabs.customCommentsState,
 
   }
 }

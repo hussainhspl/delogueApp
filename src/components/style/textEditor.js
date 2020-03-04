@@ -5,11 +5,14 @@ import {
 	, KeyboardAvoidingView, Platform, Image
 } from 'react-native';
 import styled from 'styled-components';
-import CNRichTextEditor, { CNToolbar, getInitialObject, getDefaultStyles, 
-	convertToHtmlString, convertToObject } from "react-native-cn-richtext-editor";
+import CNRichTextEditor, {
+	CNToolbar, getInitialObject, getDefaultStyles,
+	convertToHtmlString, convertToObject
+} from "react-native-cn-richtext-editor";
 import {
-	Menu, MenuOptions, MenuOption,MenuTrigger,MenuContext,
-	MenuProvider, renderers} from 'react-native-popup-menu';
+	Menu, MenuOptions, MenuOption, MenuTrigger, MenuContext,
+	MenuProvider, renderers
+} from 'react-native-popup-menu';
 import { Icon } from "native-base";
 
 
@@ -17,7 +20,7 @@ const { SlideInMenu } = renderers;
 
 const IS_IOS = Platform.OS === 'ios';
 const { width, height } = Dimensions.get('window');
-const defaultStyles = getDefaultStyles();	
+const defaultStyles = getDefaultStyles();
 
 const ToolbarButton = styled.View`
 	width: 28px;
@@ -33,8 +36,8 @@ class TextEditor extends Component {
 		this.state = {
 			selectedTag: 'body',
 			selectedStyles: [],
-			selectedColor : 'default',
-			colors : ['red', 'green', 'blue'],
+			selectedColor: 'default',
+			colors: ['red', 'green', 'blue'],
 			value: [getInitialObject()]
 		};
 
@@ -42,14 +45,21 @@ class TextEditor extends Component {
 	}
 
 	componentDidMount = () => {
-		if(this.props.initialValue != null) {
-			let convertedHtml = convertToObject(`<div>${this.props.initialValue}</div>`)
+		if (this.props.initialValue != null) {
+			console.log('in text editor did mount @@@@@@@@@@@@@@@@@@', this.props.initialValue);
+			let convertedHtml
+			if (this.props.initialValue.startsWith("<div>")) {
+				convertedHtml = convertToObject(this.props.initialValue)
+			} else {
+				convertedHtml = convertToObject(`<div>${this.props.initialValue}</div>`)
+			}
+
 			console.log('text editor', convertedHtml, this.props.initialValue);
 			this.setState({
 				value: convertedHtml
-			})
+			}, () => console.log(this.state.value))
 		}
-		
+
 	}
 	onStyleKeyPress = (toolType) => {
 		this.editor.applyToolbar(toolType);
@@ -78,82 +88,81 @@ class TextEditor extends Component {
 		console.log('html string', html);
 		this.props.bodyHtml(html)
 	}
-	
+
 	renderColorSelector() {
-       
+
 		let selectedColor = '#737373';
-		if(defaultStyles[this.state.selectedColor])
-		{
-				selectedColor = defaultStyles[this.state.selectedColor].color;
+		if (defaultStyles[this.state.selectedColor]) {
+			selectedColor = defaultStyles[this.state.selectedColor].color;
 		}
-		
+
 		return (
-				<Menu renderer={SlideInMenu} onSelect={this.onColorSelectorClicked}>
+			<Menu renderer={SlideInMenu} onSelect={this.onColorSelectorClicked}>
 				<MenuTrigger>
 					{/* <MaterialCommunityIcons name="format-color-text" color={selectedColor}
             size={28} style={{
             	top:2
             }} />            */}
-						{/* <Text>A</Text> */}
-						<ToolbarButton>
-							<Image source={require("../../../assets/img/text-editor/004-tint-drop.png")} />
-						</ToolbarButton>
+					{/* <Text>A</Text> */}
+					<ToolbarButton>
+						<Image source={require("../../../assets/img/text-editor/004-tint-drop.png")} />
+					</ToolbarButton>
 				</MenuTrigger>
 				<MenuOptions customStyles={optionsStyles}>
-						{/* {this.renderColorMenuOptions()} */}
+					{/* {this.renderColorMenuOptions()} */}
 				</MenuOptions>
-				</Menu>
+			</Menu>
 		);
 	}
 	renderColorMenuOptions = () => {
 
 		let lst = [];
 
-		if(defaultStyles[this.state.selectedColor]) {
-				 lst = this.state.colors.filter(x => x !== this.state.selectedColor);
-				 lst.push('default');
-				lst.push(this.state.selectedColor);
+		if (defaultStyles[this.state.selectedColor]) {
+			lst = this.state.colors.filter(x => x !== this.state.selectedColor);
+			lst.push('default');
+			lst.push(this.state.selectedColor);
 		}
 		else {
-				lst = this.state.colors.filter(x=> true);
-				lst.push('default');
+			lst = this.state.colors.filter(x => true);
+			lst.push('default');
 		}
 
 		return (
-				
-				lst.map( (item) => {
-						let color = defaultStyles[item] ? defaultStyles[item].color : 'black';
-						return (
-								<MenuOption value={item} key={item}>
-										{/* <MaterialCommunityIcons name="format-color-text" color={color}
+
+			lst.map((item) => {
+				let color = defaultStyles[item] ? defaultStyles[item].color : 'black';
+				return (
+					<MenuOption value={item} key={item}>
+						{/* <MaterialCommunityIcons name="format-color-text" color={color}
 										size={28} /> */}
-										{/* <Text style={{color: color}}>A</Text> */}
-										{/* <View style={{color: color}}></View> */}
-									<Icon style={{color: color, fontSize: 34}} name="square" />
-								</MenuOption>
-						);
-				})
-				
+						{/* <Text style={{color: color}}>A</Text> */}
+						{/* <View style={{color: color}}></View> */}
+						<Icon style={{ color: color, fontSize: 34 }} name="square" />
+					</MenuOption>
+				);
+			})
+
 		);
 	}
 	onColorSelectorClicked = (value) => {
-        
-		if(value === 'default') {
-				this.editor.applyToolbar(this.state.selectedColor);
+
+		if (value === 'default') {
+			this.editor.applyToolbar(this.state.selectedColor);
 		}
 		else {
-				this.editor.applyToolbar(value);
-			 
+			this.editor.applyToolbar(value);
+
 		}
 
 		this.setState({
-				selectedColor: value
+			selectedColor: value
 		});
 	}
 
 	render() {
-		let customStyles = {...defaultStyles, ul: {fontSize: 14}, ol: {fontSize: 14}, body: {fontSize: 14}, heading : {fontSize: 14}, title : {fontSize: 14}};
-		console.log('enter in text editor');
+		let customStyles = { ...defaultStyles, ul: { fontSize: 14 }, ol: { fontSize: 14 }, body: { fontSize: 14 }, heading: { fontSize: 14 }, title: { fontSize: 14 } };
+		console.log('enter in text editor', this.props.initialValue, this.state.value);
 		return (
 			<KeyboardAvoidingView
 				behavior="padding"
@@ -169,16 +178,16 @@ class TextEditor extends Component {
 					minHeight: 60
 				}}
 			>
-				<MenuProvider style={{flex: 1}}>
-				<TouchableWithoutFeedback onPress={Keyboard.dismiss} >
-					{/* <View style={styles.main}> */}
+				<MenuProvider style={{ flex: 1 }}>
+					<TouchableWithoutFeedback onPress={Keyboard.dismiss} >
+						{/* <View style={styles.main}> */}
 						<CNRichTextEditor
 							ref={input => this.editor = input}
 							onSelectedTagChanged={this.onSelectedTagChanged}
 							onSelectedStyleChanged={this.onSelectedStyleChanged}
 							value={this.state.value}
 							// value={convertToObject('<div><p><span>This is </span><span style="font-weight: bold;">bold</span><span> and </span><span style="font-style: italic;">italic </span><span>text</span></p></div>', this.customStyles)}
-							style={{ backgroundColor: '#fff'}}
+							style={{ backgroundColor: '#fff' }}
 							styleList={defaultStyles}
 							onValueChanged={this.onValueChanged}
 							onBlur={() => this.sendHtml()}
@@ -186,8 +195,8 @@ class TextEditor extends Component {
 							size={12}
 							styleList={customStyles}
 						/>
-					{/* </View> */}
-				</TouchableWithoutFeedback>
+						{/* </View> */}
+					</TouchableWithoutFeedback>
 				</MenuProvider>
 				<View style={{
 					minHeight: 35
@@ -220,7 +229,7 @@ class TextEditor extends Component {
 								iconArray: [{
 									toolTypeText: 'italic',
 									buttonTypes: 'style',
-									iconComponent:<ToolbarButton>
+									iconComponent: <ToolbarButton>
 										<Image source={require("../../../assets/img/text-editor/002-italic.png")} />
 									</ToolbarButton>
 								}]
@@ -230,7 +239,7 @@ class TextEditor extends Component {
 								iconArray: [{
 									toolTypeText: 'underline',
 									buttonTypes: 'style',
-									iconComponent:<ToolbarButton>
+									iconComponent: <ToolbarButton>
 										<Image source={require("../../../assets/img/text-editor/003-underline.png")} />
 									</ToolbarButton>
 								}]
@@ -247,7 +256,7 @@ class TextEditor extends Component {
 							// 			iconComponent:
 							// 				<Text style={styles.toolbarButton}>
 							// 					body
-              //         </Text>
+							//         </Text>
 							// 		},
 							// 	]
 							// },
@@ -297,7 +306,7 @@ class TextEditor extends Component {
 const optionsStyles = {
 	optionsContainer: {
 		backgroundColor: 'yellow',
-		padding: 0,   
+		padding: 0,
 		width: 40,
 		marginLeft: width - 40 - 30,
 		alignItems: 'flex-end',
@@ -310,7 +319,7 @@ const optionsStyles = {
 		justifyContent: 'center',
 	},
 	optionWrapper: {
-		 //backgroundColor: 'yellow',
+		//backgroundColor: 'yellow',
 		// margin: 2,
 	},
 	optionTouchable: {
@@ -320,7 +329,7 @@ const optionsStyles = {
 	// optionText: {
 	//   color: 'brown',
 	//},
-  }; 
+};
 
 var styles = StyleSheet.create({
 	main: {

@@ -1,8 +1,8 @@
 import axios from "axios";
 import qs from "qs";
 
-const UpdateOtherSampleRequest = (token, sampleDataState, finishOutside, finishInside) => {
-  console.log('token ', token, finishOutside, finishInside);
+const UpdateOtherSampleRequest = (token, sampleDataState, finishOutside, finishInside, design, custom) => {
+  console.log('token ', token, sampleDataState, finishOutside, finishInside, design, custom);
   return new Promise(function (resolve, reject) {
     // let string = this.state.searchBrand;
     let deadline = sampleDataState.deadline;

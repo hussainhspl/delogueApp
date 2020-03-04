@@ -204,7 +204,7 @@ class Search extends React.Component {
   static getDerivedStateFromProps(nextProps, prevState) {
 
     if (nextProps.filteredStyle !== prevState.filteredStyle) {
-      console.log("Entered nextProps");
+      // console.log("Entered nextProps");
       return {
         filteredStyle: nextProps.styleList,
       }

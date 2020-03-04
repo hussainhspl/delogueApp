@@ -33,10 +33,12 @@ export const CLEAR_STYLE_LIST = "CLEAR_STYLE_LIST";
 export const SAMPLE_LIST =  "SAMPLE_LIST";
 // sample request tabs
 export const ITEM_PLACEMENT = "ITEM_PLACEMENT";
+export const FINISH = "FINISH";
 export const FINISH_OUTSIDE = "FINISH_OUTSIDE";
 export const FINISH_INSIDE = "FINISH_INSIDE";
 export const DESIGN = "DESIGN";
 export const MEASUREMENT_TABLE = "MEASUREMENT_TABLE";
 export const SAMPLE_STATUS = "SAMPLE_STATUS";
-export const CUSTOM_COMMENT = "CUSTOM_COMMENT";
+export const CUSTOM_COMMENTS = "CUSTOM_COMMENTS";
+
 

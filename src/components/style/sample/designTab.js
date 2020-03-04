@@ -32,20 +32,35 @@ class DesignTab extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      desin: null,
       designData: null,
+      designData1: null,
       textArea: null,
       selectedStyles: [],
       value: [getInitialObject()],
       images: []
     }
   }
+  static getDerivedStateFromProps(nextProps, prevState) {
+
+    if (nextProps.designData !== prevState.designData) {
+      console.log("Entered nextProps");
+      return {
+        designData: nextProps.designState,
+        textArea: nextProps.designState.designCommentDetails.designerComment.text != "" ? 
+          nextProps.designState.designCommentDetails.designerComment.text : null
+      }
+    }
+    return null;
+  }
   componentDidMount = () => {
-    console.log('design did mount', this.props.data);
-    this.setState({
-      designData: this.props.data,
-      textArea: this.props.data.designCommentDetails.designerComment.text != "" ? 
-        this.props.data.designCommentDetails.designerComment.text : null
-    }, () => console.log('done text area'))
+    // console.log('design did mount', this.props.data);
+    // this.setState({
+
+    //   designData: this.props.designState,
+    //   textArea: this.props.designState.designCommentDetails.designerComment.text != "" ? 
+    //     this.props.designState.designCommentDetails.designerComment.text : null
+    // }, () => console.log('done text area ==========', this.state.designData))
     // GetAsyncToken()
     //   .then(token => {
     //     GetDesign(token, this.props.id)
@@ -60,21 +75,45 @@ class DesignTab extends React.Component {
 
   }
   updateText (html) {
-    console.log('html', html);
+    console.log('html', html, this.state.designData);
+    
+    // this.setState(prevState => ({
+    //   customData: [...prevState.customData, res.data.styleSampleRequestCommentFields],
+    // }),
     this.setState({ textArea: html},
-      () => this.props.designFunction({
-        "text": this.state.textArea,
-        "VisualComments": this.state.images
-      })
+      () => this.updateRedux(html)
     )
+  }
+
+  updateRedux(text) {
+    console.log('this.state.textArea',this.state.designData);
+    this.setState({designData1: this.state.designData});
+
+    this.setState(prevState => ({   
+      ...prevState, 
+      designData1: {
+        ...prevState.designData1,
+        designCommentDetails: {
+          ...prevState.designData1.designCommentDetails,
+          designerComment: {
+            "text": text,
+            "visualComments": this.state.images
+          }
+        }
+      }
+    }),() => this.props.designFunction(this.state.designData1))
+    // () => this.props.designFunction(this.state.designData)
   }
   
   visualData = (data) => {
-    this.setState({ images: data })
+    console.log('vision data');
+    this.setState({ images: data },
+      () => this.updateRedux(this.state.textArea))
   }
 
   render() {
     console.log('Text area state', this.state.textArea, this.state.designData);
+    // console.log('desin', this.state.desin);
     return (
       <MainView>
         {
@@ -92,13 +131,15 @@ class DesignTab extends React.Component {
               <Separator />
               <SmallText>Design</SmallText>
               <View style={{ height: 200, marginTop: 10 }}>
-                {/* {
-                  this.state.textArea !== null && ( */}
+                {
+                  // this.state.textArea !== null && (
+
                 <TextEditor
                   initialValue={this.state.textArea}
                   bodyHtml={(html) => this.updateText(html)}
                 />
-                {/* )} */}
+              //  ) 
+               }
               </View>
               <Separator />
               {/* <SmallText>Visual Comments</SmallText> */}
@@ -118,7 +159,7 @@ class DesignTab extends React.Component {
               </View>
               
               <Separator />
-              <SmallText>Comments by Supplier </SmallText>
+              <SmallText> Comments by Supplier </SmallText>
               <AutoHeightWebView
                 style={{ width: Dimensions.get('window').width - 45, marginTop: 5 }}
                 customStyle={`
@@ -150,7 +191,7 @@ class DesignTab extends React.Component {
 }
 const mapStateToProps = state => {
   return {
-    // unreadList: state.unreadMessagesList.unreadMessagesListState
+    designState: state.sampleRequestTabs.designState,
   };
 };
 const mapDispatchToProps = dispatch => {

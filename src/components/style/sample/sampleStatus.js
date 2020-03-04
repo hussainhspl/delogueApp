@@ -47,19 +47,33 @@ class SampleStatus extends React.Component {
     super(props);
     this.state = {
       statusData: null,
+      statusData1: null,
       textArea: "",
       selectedStyles: [],
       value: [getInitialObject()],
       images: [],
       imagesSupplier: [],
-
     }
   }
+  static getDerivedStateFromProps(nextProps, prevState) {
+
+    if (nextProps.statusData !== prevState.statusData) {
+      console.log("Entered nextProps");
+      return {
+        statusData: nextProps.sampleStatusState,
+        textArea: nextProps.sampleStatusState.designerComment.text != "" ? 
+          nextProps.sampleStatusState.designerComment.text : null
+      }
+    }
+    return null;
+  }
   componentDidMount = () => {
-    this.setState({
-      statusData: this.props.data,
-      textArea: this.props.data.designerComment.text != "" ? this.props.data.designerComment.text : null
-    })
+
+    // this.setState({
+    //   statusData: this.props.data,
+    //   textArea: this.props.data.designerComment.text != "" ? this.props.data.designerComment.text : null
+    // })
+
     // GetAsyncToken()
     //   .then(token => {
     //     GetSampleStatus(token, this.props.id)
@@ -81,10 +95,7 @@ class SampleStatus extends React.Component {
   updateText (html) {
     console.log('html', html);
     this.setState({ textArea: html},
-      () => this.props.sampleStatusFunction({
-        "text": this.state.textArea,
-        "VisualComments": this.state.images
-      })
+      () => this.updateRedux(html)
     )
   }
 
@@ -92,9 +103,22 @@ class SampleStatus extends React.Component {
     // console.log('visual data', data);
     this.setState({
       images: data,
-    })
+    },() => this.updateRedux(this.state.textArea))
   }
-  
+  updateRedux(text) {
+    console.log('this.state.textArea',text, this.state.finishData);
+    this.setState({statusData1: this.state.statusData});
+    this.setState(prevState => ({    
+      statusData1: {
+        ...prevState.statusData1,
+        designerComment: {
+            "text": text,
+            "visualComments": this.state.images
+          }
+      }
+    }), () => this.props.sampleStatusFunction(this.state.statusData1))
+    // () => this.props.finishFunction(this.state.statusData1)
+  }
   
   render() {
     console.log('sample status : ', this.state.statusData)
@@ -168,23 +192,7 @@ class SampleStatus extends React.Component {
             </Fragment>
             : null
         }
-        {/* <FooterButtonRow>
-          <CancelButton>
-            <TouchableCancel
-              underlayColor="#8f8c86"
-              onPress={() => {console.log('cancel click')}}>
-              <ButtonText>CANCEL</ButtonText>
-            </TouchableCancel>
-          </CancelButton>
-          <ApplyButton>
-            <TouchableApply onPress={() => {
-              this.updateSampleRequest();
-            }} underlayColor="#354733">
-              <ButtonText>apply</ButtonText>
-            </TouchableApply>
-
-          </ApplyButton>
-        </FooterButtonRow> */}
+        
       </MainView>
     )
   }
@@ -192,6 +200,7 @@ class SampleStatus extends React.Component {
 const mapStateToProps = state => {
   return {
     // unreadList: state.unreadMessagesList.unreadMessagesListState
+    sampleStatusState: state.sampleRequestTabs.sampleStatusState,
   };
 };
 const mapDispatchToProps = dispatch => {

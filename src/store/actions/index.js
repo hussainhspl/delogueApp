@@ -9,5 +9,5 @@ export {styleFileList} from './StyleFileList_action';
 export {unreadMessagesList, readAll, unreadAll} from './unreadMessagesList_action';
 export { styleId } from './StyleID_actions';
 export { sampleList} from './sampleList_action';
-export { itemPlacement, finishOutside, finishInside, design, measurementTable,
-sampleStatus, customComment } from './sampleRequestTabs_actions';
+export { itemPlacement, finish, finishOutside, finishInside, design, measurementTable,
+sampleStatus, customComments } from './sampleRequestTabs_actions';

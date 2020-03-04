@@ -22,7 +22,7 @@ import GetFinish from '../../../api/sample/getFinish';
 import GetSampleStatus from '../../../api/sample/get SampleStatus';
 import GetCustomComment from '../../../api/sample/getCustomComment';
 import { connect } from 'react-redux';
-import { measurementTable } from '../../../store/actions/index';
+import { measurementTable, customComments, design, finish, sampleStatus } from '../../../store/actions/index';
 
 
 let renderOnce;
@@ -133,7 +133,10 @@ class SampleAccordion extends React.Component {
 				console.log('item placement data from api', res)
 				this.setState({
 					itemPlacementData: res.data
-				}, () => this.callDesign(token))
+				}, () => {
+						this.callDesign(token)
+					}
+				)
 				// res.data.itemPlacementComments.map((d, idx) => {
 				// 	console.log('in map', d.designerComment.text, d.id)
 				// 	this.setState({
@@ -147,21 +150,19 @@ class SampleAccordion extends React.Component {
 		GetDesign(token, this.props.data.id)
 			.then(res => {
 				console.log('design data from api', res)
-				this.setState({
-					designData: res.data,
-					textArea: res.data.designCommentDetails.designerComment.text
-				}, () => this.callFinish(token))
+				this.callFinish(token);
+				this.props.designFunction(res.data)
 			})
 	}
 
 	callFinish(token) {
-		console.log('done design')
 		GetFinish(token, this.props.data.id)
 			.then(res => {
 				console.log('finish data from api', res)
-				this.setState({
-					finishData: res.data,
-				}, () => this.callSampleStatus(token))
+				{
+					this.callSampleStatus(token);
+					this.props.finishFunction(res.data)
+				}
 			})
 	}
 
@@ -173,7 +174,10 @@ class SampleAccordion extends React.Component {
 				console.log('sample status data from api', res)
 				this.setState({
 					statusData: res.data,
-				}, () => this.callCustomComments(token))
+				}, () => {
+					this.props.sampleStatusFunction(res.data)
+					this.callCustomComments(token)
+				})
 			})
 	}
 
@@ -190,29 +194,58 @@ class SampleAccordion extends React.Component {
 						console.log('custom comments data from api', res);
 						this.setState(prevState => ({
 							customData: [...prevState.customData, res.data.styleSampleRequestCommentFields],
-						}), 
-						() => this.setState({gotAllData : true})
+						}),
+							() => this.saveCustomCommentsAndDisableLoader()
 						)
 					})
 			}
 		})
 	}
+	saveCustomCommentsAndDisableLoader() {
+		this.props.customCommentsFunction(this.state.customData)
+		this.setState({ gotAllData: true })
+	}
 	updateMeasurement = (LineComments) => {
 		console.log('update measurement called', LineComments, this.state.measurement);
-		let updateArray=[];
-		LineComments.map( data => {
-			let {id, designerComment, approved, measurementLineMeasurements} = data;
+		let updateArray = [];
+		LineComments.map(data => {
+			let { id, designerComment, approved, measurementLineMeasurements } = data;
 			let fields = {
-				"Comment" : designerComment,
-				"id" : id,
-				"Approved" : approved,
-				"MeasurementLineCommentUpdateCommands" : measurementLineMeasurements	
+				"Comment": designerComment,
+				"id": id,
+				"Approved": approved,
+				"MeasurementLineCommentUpdateCommands": measurementLineMeasurements
 			};
 			updateArray.push(fields);
 		})
 		console.log('updateArray', updateArray);
 		this.props.measurementTableFunction(updateArray);
+	}
+	updateCustomComments = (singleComment, id) => {
+		console.log('update custom comments called', this.state.customData, singleComment, id);
+		this.setState(prevState => ({
+			customData: prevState.customData.map(
+				(el) => el.id == id ? {
+					...el, designerComment: singleComment
+				} : el
+			)
 
+		}), () => this.props.customCommentsFunction(this.state.customData))
+
+		// this.setState(prevState => ({
+		//   printOptions: prevState.printOptions.map(
+		//     (el, index) => el.id === id ? {
+		//       ...el, selectDefaultInPrint: !this.state.printOptions[index].selectDefaultInPrint
+		//     } : el
+		//   )
+		// }), () => this.updateChild(id))
+		// this.props.customCommentsFunction(singleComment, id)
+		// this.state.customData.map(d => {
+		// 	if(d.id == id){
+		// 		console.log(this.state.customData)
+		// 	}
+		// })
+		// this.setState()
 	}
 	_renderSectionTitle = section => {
 		return (
@@ -246,19 +279,19 @@ class SampleAccordion extends React.Component {
 		if (this.state.activeSections.length > 0) {
 			this.state.commentFieldId = this.state.ArrayData[this.state.activeSections[0]].id;
 		}
-  	let currentCustomTab = this.state.customData.filter(data => data.adminSampleRequestCommentField.id == section.id)
+		let currentCustomTab = this.state.customData.filter(data => data.adminSampleRequestCommentField.id == section.id)
 		// console.log('this.state.activeComponent', this.state.activeComponent, currentCustomTab);
 		return (
 			<View>
-				{this.state.activeComponent == "Measurement" && (<Measurement 
-					data={this.state.measurement.measurementComments} 
+				{this.state.activeComponent == "Measurement" && (<Measurement
+					data={this.state.measurement.measurementComments}
 					id={this.props.data.id}
 					parent={this.updateMeasurement}
 				/>)}
-				{this.state.activeComponent == "Design" && (<DesignTab data={this.state.designData} id={this.props.data.id} />)}
-				{this.state.activeComponent == "Finish" && (<Finish data={this.state.finishData} id={this.props.data.id} />)}
+				{this.state.activeComponent == "Design" && (<DesignTab />)}
+				{this.state.activeComponent == "Finish" && (<Finish />)}
 				{this.state.activeComponent == "Item placement" && (<ItemPlacement data={this.state.itemPlacementData} id={this.props.data.id} />)}
-				{this.state.activeComponent == "Sample status" && (<SampleStatus data={this.state.statusData} id={this.props.data.id} />)}
+				{this.state.activeComponent == "Sample status" && (<SampleStatus />)}
 				{
 					(this.state.activeComponent != "Measurement" &&
 						this.state.activeComponent != "Design" &&
@@ -268,10 +301,14 @@ class SampleAccordion extends React.Component {
 						this.state.activeSections.length > 0) ?
 						<Fragment>
 							{console.log('render custom', this.state.activeComponent)}
-							<CustomComment data={currentCustomTab} id={this.props.data.id} />
+							<CustomComment 
+								sectionId={section.id} 
+								// data={currentCustomTab} 
+								parent={this.updateCustomComments} 
+							/>
 						</Fragment>
-						
-						 :
+
+						:
 						null
 				}
 			</View>
@@ -323,7 +360,7 @@ class SampleAccordion extends React.Component {
 							underlayColor="#eee"
 						/>
 						: <Text>Getting Api Data </Text>
-						: <Text>loading</Text>
+					: <Text>loading</Text>
 				}
 			</View>
 		)
@@ -331,19 +368,22 @@ class SampleAccordion extends React.Component {
 }
 
 const mapStateToProps = state => {
-  return {
-    // unreadList: state.unreadMessagesList.unreadMessagesListState
-  };
+	return {
+		// unreadList: state.unreadMessagesList.unreadMessagesListState
+	};
 };
 const mapDispatchToProps = dispatch => {
-  return {
-    measurementTableFunction: (data) => dispatch(measurementTable(data))
-    
-  };
+	return {
+		measurementTableFunction: (data) => dispatch(measurementTable(data)),
+		customCommentsFunction: (data) => dispatch(customComments(data)),
+		designFunction: (data) => dispatch(design(data)),
+		finishFunction: (data) => dispatch(finish(data)),
+		sampleStatusFunction: (data) => dispatch(sampleStatus(data))
+	};
 }
 
 export default connect(
 	mapStateToProps, mapDispatchToProps)(withTheme(SampleAccordion)
-);
+	);
 
 

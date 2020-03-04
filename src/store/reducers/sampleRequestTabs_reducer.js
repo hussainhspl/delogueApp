@@ -1,8 +1,9 @@
 import {ITEM_PLACEMENT, FINISH_OUTSIDE, FINISH_INSIDE, DESIGN, MEASUREMENT_TABLE,
-  SAMPLE_STATUS, CUSTOM_COMMENT} from '../actions/action_types';
+  SAMPLE_STATUS, CUSTOM_COMMENTS, FINISH} from '../actions/action_types';
 
 const initialState = {
   itemPlacementState : [],
+  finishState:[],
   finishOutsideState: [],
   finishInsideState: [],
   designState: [],
@@ -18,6 +19,11 @@ const sampleRequestTabsReducer = (state = initialState, action) => {
       return {
         ...state,
         itemPlacementState: {...state.itemPlacementState, ...action.payload}
+      }
+    case FINISH:
+      return {
+        ...state,
+        finishState: action.payload
       }
     case FINISH_OUTSIDE:
       return {
@@ -44,7 +50,7 @@ const sampleRequestTabsReducer = (state = initialState, action) => {
         ...state,
         sampleStatusState: action.payload
       }
-    case CUSTOM_COMMENT:
+    case CUSTOM_COMMENTS:
       return {
         ...state,
         customCommentsState: action.payload

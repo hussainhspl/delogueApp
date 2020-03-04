@@ -15,7 +15,7 @@ import SharedImagePicker from '../../../shared/sharedImagePicker';
 import SharedImageViewer from '../../../shared/sharedImageViewer';
 import AsyncStorage from "@react-native-community/async-storage";
 import { connect } from 'react-redux';
-import { finishOutside, finishInside } from '../../../store/actions/index';
+import { finishOutside, finishInside, finish } from '../../../store/actions/index';
 
 // import sharedImageViewer from '../../../shared/sharedImageViewer';
 
@@ -32,6 +32,8 @@ class Finish extends React.Component {
     super(props);
     this.state = {
       finishData: null,
+      finishData1: null,
+      finishData2: null,
       textAreaOutside: null,
       textAreaInside: "",
       imagesInside: [],
@@ -39,15 +41,27 @@ class Finish extends React.Component {
 
     }
   }
+  static getDerivedStateFromProps(nextProps, prevState) {
+
+    if (nextProps.finishData !== prevState.finishData) {
+      console.log("Entered nextProps");
+      return {
+        finishData: nextProps.finishStoreState,
+        textAreaOutside: nextProps.finishStoreState.finishOutsideDesignerComment.text != "" ? nextProps.finishStoreState.finishOutsideDesignerComment.text : null,
+        textAreaInside: nextProps.finishStoreState.finishInsideDesignerComment.text != "" ? nextProps.finishStoreState.finishInsideDesignerComment.text : null,
+      }
+    }
+    return null;
+  }
   componentDidMount = () => {
-    console.log('this.props finish ', this.props);
-    this.setState({
-      finishData: this.props.data,
-      textAreaOutside: this.props.data.finishOutsideDesignerComment.text != "" ? this.props.data.finishOutsideDesignerComment.text : null,
-      textAreaInside: this.props.data.finishInsideDesignerComment.text != "" ? this.props.data.finishInsideDesignerComment.text : null,
-    }, () => this.getUserType())
+    console.log('this.props finishOutsideState ', this.props.finishStoreState);
+    // this.setState({
+    //   finishData: this.props.data,
+    //   textAreaOutside: this.props.data.finishOutsideDesignerComment.text != "" ? this.props.data.finishOutsideDesignerComment.text : null,
+    //   textAreaInside: this.props.data.finishInsideDesignerComment.text != "" ? this.props.data.finishInsideDesignerComment.text : null,
+    // })
 
-
+    this.getUserType()
 
     // GetAsyncToken()
     //   .then(token => {
@@ -81,59 +95,76 @@ class Finish extends React.Component {
   updateOutsideText(html) {
     console.log("entering updated state");
     this.setState({ textAreaOutside: html },
-      () => this.props.finishOutsideFunction({
-        "text": this.state.textAreaOutside,
-        "VisualComments": this.state.imagesOutside
-      })
+      () => this.updateOutsideRedux(html)
     )
+  }
+  updateOutsideRedux(text) {
+    console.log('this.state.textArea',text, this.state.finishData);
+    this.setState({finishData1: this.state.finishData});
+    this.setState(prevState => ({    
+      finishData1: {
+        ...prevState.finishData1,
+        finishOutsideDesignerComment: {
+            "text": text,
+            "visualComments": this.state.imagesOutside
+          }
+      }
+    }), () => this.props.finishFunction(this.state.finishData1))
+    // () => this.props.finishFunction(this.state.finishData1)
+  }
+  updateInsideRedux(text) {
+    console.log('this.state.textArea',text, this.state.finishData);
+    this.setState({finishData2: this.state.finishData});
+    this.setState(prevState => ({    
+      finishData2: {
+        ...prevState.finishData2,
+        finishInsideDesignerComment: {
+            "text": text,
+            "visualComments": this.state.imagesInside
+          }
+      }
+    }), () => this.props.finishFunction(this.state.finishData2))
+    // () => this.props.finishFunction(this.state.finishData2)
   }
   updateInsideText(html) {
     console.log('inside text')
     this.setState({ textAreaInside: html },
-      () => this.props.finishInsideFunction({
-        "text": this.state.textAreaInside,
-        "VisualComments": this.state.imagesInside
-      })
+      () => this.updateInsideRedux(html)
     )
-
   }
   
   visualDataInside = (data) => {
     this.setState({ imagesInside: data },
-      () => this.props.finishInsideFunction({
-        "text": this.state.textAreaInside,
-        "VisualComments": this.state.imagesInside
-      })
+      () => this.updateInsideRedux(this.state.textAreaInside)
     )
   }
   visualDataOutside = (data) => {
     this.setState({ imagesOutside: data },
-      () => this.props.finishOutsideFunction({
-        "text": this.state.textAreaOutside,
-        "VisualComments": this.state.imagesOutside
-      }) 
+      () =>  this.updateOutsideRedux(this.state.textAreaOutside)
     )
   }
+ 
   render() {
-    this.state.finishData != null ?
-      console.log('hey', this.state.finishData.finishInsideSupplierComment.visualComments)
-    :null
-    console.log('finish text in render', this.state.finishData, this.state.textAreaInside);
-    console.log('text Area outside in render', this.state.textAreaOutside)
+    console.log('in render 111', this.state.finishData);
+    // this.state.finishData != null ?
+    //   console.log('hey', this.state.finishData.finishInsideSupplierComment.visualComments)
+    // : null
+    // // console.log('finish text in render', this.state.finishData, this.state.textAreaInside);
+    // console.log('text Area outside in render', this.state.textAreaOutside)
     return (
       <MainView>
         {
           this.state.finishData != null ?
             <Fragment>
               <SmallText>Finish Outside</SmallText>
-              <StyleRow>
+              {/* <StyleRow>
                 <CheckBox color="#aaa"
                   checked={true}
                   style={{ left: 0, paddingLeft: 4 }}
                   onPress={this.changeList}
                 />
                 <CheckBoxText>Approved </CheckBoxText>
-              </StyleRow>
+              </StyleRow> */}
               <Separator />
               <SmallText>Comments by Company</SmallText>
               <View style={{ height: 200, marginTop: 10 }}>
@@ -185,14 +216,14 @@ class Finish extends React.Component {
 
               <Separator />
               <SmallText>Finish Inside</SmallText>
-              <StyleRow>
+              {/* <StyleRow>
                 <CheckBox color="#aaa"
                   checked={false}
                   style={{ left: 0, paddingLeft: 4 }}
                   onPress={this.changeList}
                 />
                 <CheckBoxText>Approved </CheckBoxText>
-              </StyleRow>
+              </StyleRow> */}
               <Separator />
               <SmallText>Comments by Company</SmallText>
               <View style={{ height: 200, marginTop: 10 }}>
@@ -248,12 +279,16 @@ class Finish extends React.Component {
 const mapStateToProps = state => {
   return {
     // unreadList: state.unreadMessagesList.unreadMessagesListState
+    // designState: state.sampleRequestTabs.designState,
+    finishStoreState: state.sampleRequestTabs.finishState,
+
   };
 };
 const mapDispatchToProps = dispatch => {
   return {
     finishOutsideFunction: (data) => dispatch(finishOutside(data)),
-    finishInsideFunction: (data) => dispatch(finishInside(data))
+    finishInsideFunction: (data) => dispatch(finishInside(data)),
+    finishFunction: (data) => dispatch(finish(data)),
   }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(Finish);

@@ -18,6 +18,8 @@ import { get } from 'lodash'
 import AutoHeightWebView from 'react-native-autoheight-webview';
 import SharedImagePicker from '../../../shared/sharedImagePicker';
 import SharedImageViewer from '../../../shared/sharedImageViewer';
+import { connect } from 'react-redux';
+
 
 
 const MainView = styled.View`
@@ -28,6 +30,7 @@ class CustomComment extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      allCustomData: null,
       customData: null,
       textArea: "",
       selectedStyles: [],
@@ -37,16 +40,30 @@ class CustomComment extends React.Component {
 
     }
   }
+  static getDerivedStateFromProps(nextProps, prevState) {
+
+    if (nextProps.allCustomData !== prevState.allCustomData) {
+      console.log("Entered nextProps");
+      return {
+        allCustomData: nextProps.customCommentsStoreState,
+      }
+    }
+    return null;
+  }
   componentDidMount = () => {
-    console.log('custom did mount', this.props.data, this.props.data[0].designerComment);
+    console.log('custom did mount', this.props.customCommentsStoreState );
+    let currentCustomTab = this.state.allCustomData.filter(data => data.adminSampleRequestCommentField.id == this.props.sectionId)
+    console.log('currentCustomTab', currentCustomTab)
+    
     this.setState({
-      customData: this.props.data[0],
-      textArea: this.props.data[0].designerComment.text
+      customData: currentCustomTab[0],
+      textArea: currentCustomTab[0].designerComment.text != "" ? currentCustomTab[0].designerComment.text : null
     })
+
     // GetAsyncToken()
     //   .then(token => {
     //     console.log('custom id', this.props.commentFieldId);
-    //     GetCustomComment(token, this.props.id, this.props.commentFieldId)
+    //     Gets(token, this.props.id, this.props.commentFieldId)
     //       .then(res => {
     //         console.log('custom comments data from api', res)
     //         this.setState({
@@ -57,7 +74,34 @@ class CustomComment extends React.Component {
     //       })
     //   })
   }
+  updateText(html) {
+    console.log("entering updated state");
+    this.setState({ textArea: html },
+      () => this.props.parent({
+        "text": this.state.textArea,
+        "VisualComments": this.state.images
+      }, this.props.sectionId)
+    )
+  }
+  updateRedux(text) {
+    // console.log('this.state.textArea',this.state.designData);
+    // this.setState({designData1: this.state.designData});
 
+    // this.setState(prevState => ({   
+    //   ...prevState, 
+    //   designData1: {
+    //     ...prevState.designData1,
+    //     designCommentDetails: {
+    //       ...prevState.designData1.designCommentDetails,
+    //       designerComment: {
+    //         "text": text,
+    //         "visualComments": this.state.images
+    //       }
+    //     }
+    //   }
+    // }),() => this.props.designFunction(this.state.designData1))
+    // () => this.props.designFunction(this.state.designData)
+  }
   visualData = (data) => {
     this.setState({ images: data })
   }
@@ -65,7 +109,7 @@ class CustomComment extends React.Component {
     this.setState({ imagesSupplier: data })
   }
   render() {
-    console.log('custom comments : ', this.state.customData)
+    console.log('custom comments : ', this.state.customData);
     return (
       <MainView>
         {
@@ -75,7 +119,7 @@ class CustomComment extends React.Component {
               <View style={{ height: 200, marginTop: 10 }}>
                 <TextEditor
                   initialValue={this.state.textArea}
-                  bodyHtml={(html) => this.setState({ textArea: html })}
+                  bodyHtml={(html) => this.updateText(html)}
                 />
 
               </View>
@@ -84,12 +128,12 @@ class CustomComment extends React.Component {
                 {
                   this.state.customData.designerComment.visualComments.length > 0 ?
                     <SharedImagePicker
-                      childData={this.visualDataSupplier}
+                      childData={this.visualData}
                       initialImages={this.state.customData.designerComment.visualComments}
                     />
                     :
                     <SharedImagePicker
-                      childData={this.visualDataSupplier}
+                      childData={this.visualData}
                       initialImages={null}
                     />
                 }
@@ -153,4 +197,11 @@ class CustomComment extends React.Component {
     )
   }
 }
-export default CustomComment;
+const mapStateToProps = state => {
+  return {
+    // unreadList: state.unreadMessagesList.unreadMessagesListState
+    customCommentsStoreState: state.sampleRequestTabs.customCommentsState
+    
+  };
+};
+export default connect(mapStateToProps)(CustomComment);
