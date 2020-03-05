@@ -22,7 +22,7 @@ import GetFinish from '../../../api/sample/getFinish';
 import GetSampleStatus from '../../../api/sample/get SampleStatus';
 import GetCustomComment from '../../../api/sample/getCustomComment';
 import { connect } from 'react-redux';
-import { measurementTable, customComments, design, finish, sampleStatus } from '../../../store/actions/index';
+import { measurementTable, customComments, design, finish, sampleStatus, itemPlacement } from '../../../store/actions/index';
 
 
 let renderOnce;
@@ -134,6 +134,7 @@ class SampleAccordion extends React.Component {
 				this.setState({
 					itemPlacementData: res.data
 				}, () => {
+						this.props.itemPlacementFunction(res.data)
 						this.callDesign(token)
 					}
 				)
@@ -290,7 +291,12 @@ class SampleAccordion extends React.Component {
 				/>)}
 				{this.state.activeComponent == "Design" && (<DesignTab />)}
 				{this.state.activeComponent == "Finish" && (<Finish />)}
-				{this.state.activeComponent == "Item placement" && (<ItemPlacement data={this.state.itemPlacementData} id={this.props.data.id} />)}
+				{this.state.activeComponent == "Item placement" && (
+				<ItemPlacement 
+					// data={this.state.itemPlacementData} 
+					// id={this.props.data.id} 
+				/>
+				)}
 				{this.state.activeComponent == "Sample status" && (<SampleStatus />)}
 				{
 					(this.state.activeComponent != "Measurement" &&
@@ -378,7 +384,8 @@ const mapDispatchToProps = dispatch => {
 		customCommentsFunction: (data) => dispatch(customComments(data)),
 		designFunction: (data) => dispatch(design(data)),
 		finishFunction: (data) => dispatch(finish(data)),
-		sampleStatusFunction: (data) => dispatch(sampleStatus(data))
+		sampleStatusFunction: (data) => dispatch(sampleStatus(data)),
+		itemPlacementFunction: (data) => dispatch(itemPlacement(data))
 	};
 }
 

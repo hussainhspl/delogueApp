@@ -19,7 +19,7 @@ import { relative } from "path";
 const AttachImageRow = styled.View`
   flex-direction: row;
   flex-wrap: wrap;
-  padding: 0px 15px;
+  padding: 0px 5px;
 `;
 
 const AttachBox = styled.View`

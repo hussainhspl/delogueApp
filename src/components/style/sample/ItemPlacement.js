@@ -49,6 +49,8 @@ class ItemPlacement extends React.Component {
     super(props);
     this.state = {
       itemData: null,
+      itemData1: [],
+      setText: false,
       // textArea: "",
       selectedStyles: [],
       value: [getInitialObject()],
@@ -57,13 +59,34 @@ class ItemPlacement extends React.Component {
 
     }
   }
+
+  static getDerivedStateFromProps(nextProps, prevState) {
+
+    if (nextProps.itemData !== prevState.itemData) {
+      console.log("Entered nextProps item placement", nextProps.itemPlacementStoreState);
+      return {
+        itemData: nextProps.itemPlacementStoreState,
+      }
+    }
+    return null;
+  }
+
   componentDidMount = () => {
-    console.log('in item placement', this.props.data);
-    this.props.data.itemPlacementComments.map((d, idx) => {
-      console.log('in map', d.designerComment.text, d.id)
+    console.log('item placement did mount', this.props.itemPlacementStoreState);
+    if(!this.state.itemData) {
+      return
+    }
+    this.state.itemData.itemPlacementComments.map((d, idx) => {
+      console.log('in map component did mount', d.designerComment.text, d.id)
+      // textArea: nextProps.sampleStatusState.designerComment.text != "" ? 
+      // nextProps.sampleStatusState.designerComment.text : null
       this.setState({
-        [d.id]: d.designerComment.text
-      }, () => this.getInitialComments(this.props.data))
+        [d.id]: d.designerComment.text !="" ? d.designerComment.text : null,
+        setText: true
+      }, () => {
+        console.log('item placement did mount initial text', d.id, [d.id], d.designerComment.text)
+        // this.getInitialComments()
+      })
     })
     // GetAsyncToken()
     //   .then(token => {
@@ -81,20 +104,78 @@ class ItemPlacement extends React.Component {
     //       })
     //   })
   }
-  getInitialComments(resData) {
-    console.log('initial data', resData)
+  // getInitialComments() {
+  //   console.log('initial data', )
+  //   // this.setState({
+  //   //   itemData: resData,
+  //   // }, () => this.props.itemPlacementFunction(this.state.itemData))
+  // }
+  updateText(currentId, html) {
+    console.log('did, html', currentId, html);
     this.setState({
-      itemData: resData,
-    }, () => this.props.itemPlacementFunction(this.state.itemData))
+      currentId: html,
+      itemData1: this.state.itemData
+    }, () => this.updateRedux(html, currentId))
   }
-  visualData = (data) => {
-    console.log('visual data', data);
-    // let result = [...data]
-    // console.log('foo', result);
+
+  updateRedux(text, currentId) {
+    // this.setState({itemData1: this.state.itemData}) itemPlacementComments
+    console.log('text, currentId', text, currentId);
+
+    this.setState(prevState => ({
+      ...prevState,
+      itemData1: {
+        ...prevState.itemData1,
+        itemPlacementComments: [
+          ...prevState.itemData1.itemPlacementComments.map(
+            (el) => el.id == currentId ? {
+              ...el, designerComment: {
+                "text": text,
+                "visualComments": this.state.images
+              }
+            } : el
+          ),
+        ]
+      }
+    }), () => this.props.itemPlacementFunction(this.state.itemData1))
+
+    // this.setState(prevState => ({
+    //   itemData1: prevState.itemData1,
+    //     itemPlacementComments : prevState.itemData1.itemPlacementComments.map(
+    //       (el) => el.id == currentId ? {
+    //         ...el, designerComment: {
+    //           "text": text,
+    //           "visualComments": this.state.images
+    //         }
+    //       } : el
+    //   )
+    // }), () => this.props.itemPlacementFunction(this.state.itemData1))
+
+    // this.setState(prevState => ({
+    // 	itemData1: prevState.itemData1.map(
+
+    // 		(el) => el.id == currentId ? {
+    //       ...el, designerComment: {
+    //         "text": text,
+    //         "visualComments": this.state.images
+    //       }
+    // 		} : el
+    // 	)
+
+    // }), () => this.props.itemPlacementFunction(this.state.itemData1))
+
+    // () => this.props.customCommentsFunction(this.state.itemData1)
+
+  }
+
+  visualData (data , currentId) {
+    console.log('visual data', data, currentId);
     this.setState({
       images: data,
-    })
+      itemData1: this.state.itemData
+    }, () => this.updateRedux(this.state.currentId, currentId))
   }
+ 
   visualDataSupplier = (data) => {
     // console.log('visual data', data);
     this.setState({
@@ -102,13 +183,15 @@ class ItemPlacement extends React.Component {
     })
   }
   render() {
-    console.log('item placement render', this.state.idx);
+    // console.log('item placement render', this.state.idx);
+    console.log('in render', this.state.itemData);
     return (
       <MainView>
         {
           this.state.itemData != null ?
             this.state.itemData.itemPlacementComments.map((d, idx) => {
-              // console.log('inside', this.state.d.id)
+              console.log('in render map', d)
+              let dId = d.id;
               // console.log('dynamic state', this.state[d.designerComment.id])
               const context = get(d, 'styleItem');
               // console.log("context data", context,d.styleItem, get(context,'item'));
@@ -123,22 +206,26 @@ class ItemPlacement extends React.Component {
                   <Separator />
                   <SmallText > comments by company </SmallText>
                   <View style={{ height: 200, marginTop: 10 }}>
-                    <TextEditor
-                      initialValue={this.state[d.id]}
-                      bodyHtml={(html) => this.setState({ [d.designerComment.id]: html })}
-                    />
+                    {this.state.setText && (
+                      <TextEditor
+                        initialValue={this.state[d.id]}
+                        // bodyHtml={(html) => this.setState({ [d.designerComment.id]: html })}
+                        bodyHtml={(html) => this.updateText(d.id, html)}
+                      />
+                    )}
+
                   </View>
                   <Separator />
                   <View>
                     {
                       d.designerComment.visualComments.length > 0 ?
                         <SharedImagePicker
-                          childData={this.visualData}
+                          childData={(data)=> this.visualData(data, d.id)}
                           initialImages={d.designerComment.visualComments}
                         />
                         :
                         <SharedImagePicker
-                          childData={this.visualData}
+                          // childData={this.visualData}
                           initialImages={null}
                         />
                     }
@@ -160,7 +247,7 @@ class ItemPlacement extends React.Component {
                   />
                   <Separator />
                   {/* <SmallText> Visual comments </SmallText> */}
-                  <SharedImageViewer 
+                  <SharedImageViewer
                     initialImages={d.supplierComment.visualComments}
                   />
                   {/* <View>
@@ -207,8 +294,8 @@ class ItemPlacement extends React.Component {
 }
 const mapStateToProps = state => {
   return {
-    // style: state.singleStyle.singleStyleState,
-    // styleId: state.styleId.styleIdState
+    // sampleStatusState: state.sampleRequestTabs.sampleStatusState,
+    itemPlacementStoreState: state.sampleRequestTabs.itemPlacementState
 
   }
 }

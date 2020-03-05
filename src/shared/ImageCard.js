@@ -12,11 +12,11 @@ const MainBlock = styled.View`
 	height: auto;
   justify-content: center;
   align-items: center;
-  padding: 5px;
+  padding: 0px 5px 0px 0px;
+  /* background-color: #f66; */
 `;
 const ImageView = styled.View`
 	border: 1px solid #ddd;
-	
 	width: ${props =>
     props.tablet
     ? Dimensions.get('window').width/ 4 -34

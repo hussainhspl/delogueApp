@@ -54,7 +54,7 @@ class TextEditor extends Component {
 				convertedHtml = convertToObject(`<div>${this.props.initialValue}</div>`)
 			}
 
-			console.log('text editor', convertedHtml, this.props.initialValue);
+			console.log('text editor1', convertedHtml, this.props.initialValue);
 			this.setState({
 				value: convertedHtml
 			}, () => console.log(this.state.value))
