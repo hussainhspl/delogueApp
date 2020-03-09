@@ -10,4 +10,4 @@ export {unreadMessagesList, readAll, unreadAll} from './unreadMessagesList_actio
 export { styleId } from './StyleID_actions';
 export { sampleList} from './sampleList_action';
 export { itemPlacement, finish, finishOutside, finishInside, design, measurementTable,
-sampleStatus, customComments } from './sampleRequestTabs_actions';
+sampleStatus, customComments, sampleStatusPlanned } from './sampleRequestTabs_actions';

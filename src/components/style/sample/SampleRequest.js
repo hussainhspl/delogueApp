@@ -17,8 +17,6 @@ import Carousel from 'react-native-snap-carousel';
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 // relative import
 import SampleAccordion from "./SampleAccordion";
-import SampleRequestSummary from "../SampleRequestSummary";
-import ViewRequestedQuantity from "../ViewRequestedQuantity";
 import ApplyButton from "../../../styles/ApplyButton";
 import CancelButton from '../../../styles/CancelButton';
 import ButtonText from '../../../styles/ButtonText';
@@ -35,9 +33,13 @@ import PlannedSampleRequest from "./plannedSampleRequest";
 import TouchableCancel from "../../../styles/ToucaableCancel";
 import TouchableApply from "../../../styles/TouchableApply";
 import UpdatePlanned from "../../../api/sample/updatePlanned";
+import GetPlannedSample from "../../../api/sample/getPlannedSample";
+import PlannedSampleAccordion from "./plannedSampleAccordion";
 
-const StageArray = ['planned', 'requested', 'confirmed', 'sent', 'received', 'commented'];
-const PlannedCarouselData = ['planned', 'requested', 'cancelled']
+const StageArray = [ 'Requested', 'Sent', 'Received', 'Commented', 'Cancelled', 'Confirmed' ];
+const PlannedStageArray = ['Planned', 'Requested', 'Cancelled'];
+const otherStateCount = [ 0, 1, 2, 3, 4, 5, ];
+const plannedStateCount = [0, 1, 2];
 
 
 const FooterButtonRow = styled.View`
@@ -192,13 +194,13 @@ class SampleRequest extends React.Component {
   };
 
   handleConfirm = date => {
-    console.log("A date has been picked: ", date);
+    // console.log("A date has been picked: ", date);
     let newDate = format(date, "dd-MMM-yy");
     if (this.state.isDeadlineDatePickerVisible == true) {
       this.setState({
         selectedType: 0,
       }, () => { console.log("selectedType", this.state.selectedType); this.editDateByType(newDate) })
-      console.log('deadline date', newDate);
+      // console.log('deadline date', newDate);
     }
     if (this.state.isEtdDatePickerVisible == true) {
       this.setState({
@@ -254,17 +256,28 @@ class SampleRequest extends React.Component {
   // }
   componentDidMount = () => {
     // AppState.addEventListener("change111", this._handleAppStateChange);
-
+    // console.log('sample request did mount :',this.props.data.name);
     GetAsyncToken()
       .then(token => {
-        GetSampleOverview(token, this.props.id)
+        if(this.props.data.name != "Planned") {
+          GetSampleOverview(token, this.props.data.id)
           .then(res => {
-            console.log('success in sample overview', res);
+            // console.log('success in sample overview', res);
             this.setState({
               sampleData: res.data
             }, () => this.getSampleRequestStatus())
 
           })
+        } else {
+          GetPlannedSample(token, this.props.data.id)
+            .then(res => {
+              // console.log('got planned data', res);
+              this.setState({
+                sampleData: res.data
+              }, () => this.getSampleRequestStatus())
+            })
+        }
+        
       })
   };
   componentWillUnmount = () => {
@@ -297,18 +310,19 @@ class SampleRequest extends React.Component {
     );
   };
   changeIndex = (currentIndex) => {
-    console.log("Enter in 22 ");
+    // console.log("Enter in 22 ");
+    // if(this.state.sampleData.sampleRequestStatus == "Planned" && currentIndex == 2) {
+    //   this.setState({sampleRequestStatus: 5, currentIndex: 5})
+    // }
     this.setState({ currentIndex }, () => console.log('current Index', this.state.currentIndex));
   }
   _renderItem = ({ item, index }) => {
-    // console.log("render", index, item);
     return (
-
       <CurrentStageTitle>{item}</CurrentStageTitle>
     );
   }
   getSampleRequestStatus = () => {
-    console.log('getSampleRequestStatus', this.state.sampleData.sampleRequestStatus);
+    // console.log('getSampleRequestStatus', this.state.sampleData);
     let formatedDeadline = null;
     let formatedEtd = null;
 
@@ -332,43 +346,50 @@ class SampleRequest extends React.Component {
       }
     }), () => this.updateCarousel())
 
-    
-        
-      
   }
   updateCarousel () {
-    console.log('update carousel');
+    // console.log('update carousel', this.state.sampleData.sampleRequestStatus, this.state.currentIndex);
+
     if(this.state.sampleData != null ) { 
+      
+      
       if(this.state.sampleData.sampleRequestStatus == "Requested") {
         this.setState({
-          sampleRequestStatus: 1,
-          currentIndex: 1
-        })
-      }
-      if(this.state.sampleData.sampleRequestStatus == "Confirmed") {
-        this.setState({
-          sampleRequestStatus: 2,
-          currentIndex: 2
+          sampleRequestStatus: 0, currentIndex: 0
         })
       }
       if(this.state.sampleData.sampleRequestStatus == "Sent") {
         this.setState({
-          sampleRequestStatus: 3,
-          currentIndex: 3
+          sampleRequestStatus: 1, currentIndex: 1
         })
       }
       if(this.state.sampleData.sampleRequestStatus == "Received") {
         this.setState({
-          sampleRequestStatus: 4,
-          currentIndex: 4
+          sampleRequestStatus: 2, currentIndex: 2
         })
       }
       if(this.state.sampleData.sampleRequestStatus == "Commented") {
         this.setState({
-          sampleRequestStatus: 5,
-          currentIndex: 5
-        }, () => console.log('5', this.state.sampleRequestStatus))
+          sampleRequestStatus: 3, currentIndex: 3
+        })
       }
+      if(this.state.sampleData.sampleRequestStatus == "Cancelled") {
+        this.setState({
+          sampleRequestStatus: 4, currentIndex: 4
+        }, () => console.log('4', this.state.sampleRequestStatus))
+      }
+      if(this.state.sampleData.sampleRequestStatus == "Confirmed") {
+        this.setState({
+          sampleRequestStatus: 5, currentIndex: 5
+        })
+      }
+      if(this.state.sampleData.sampleRequestStatus =="Planned") {
+        this.setState({
+          sampleRequestStatus: 6, currentIndex: 6
+        })
+      }
+      
+      
 
     }
   }
@@ -378,12 +399,11 @@ class SampleRequest extends React.Component {
   render() {
     const screenWidth = Math.round(Dimensions.get('window').width);
     const slideWidth = Math.round(Dimensions.get('window').width / 2)
-    // console.log('this.state', this.state.sampleData);
-    // console.log('carousel111' , this.state.sampleRequestStatus, this.state.sampleData);
-    // this.state.sampleData != null ?
-    //   console.log('current state', this.state.sampleData.)
-    // let activeItem = this.state.sampleRequestStatus;
-    console.log('in render', this.state.sampleRequestStatus)
+    let currentCount = null;
+    if(this.state.sampleData != null) {
+      currentCount = this.state.sampleData.status == 6 ? plannedStateCount : otherStateCount
+    }
+    // console.log('in render sample request', this.state.sampleRequestStatus)
     return (
       <View style={{ flex: 1 }}>
         {
@@ -414,17 +434,20 @@ class SampleRequest extends React.Component {
                         <CardText numberOfLines={1}>{this.state.sampleData.etd}</CardText>
                       </Block>
                       <Block>
-                        <SmallText>Tracking Number</SmallText>
+                        <SmallText>Tracking Number </SmallText>
                         <CardText numberOfLines={1}>{this.state.sampleData.trackingNumber}</CardText>
                         
                       </Block>
                     </DetailRow>
                   </View>
-                  <PiecesTouch onPress={() => this.setState({ piecesModal: true })}>
-                    <PiecesView>
-                      <Pieces numberOfLines={1}> {this.state.sampleData.pieces} {this.state.sampleData.pieces > 1 ? "pcs" : "pc"} </Pieces>
-                    </PiecesView>
-                  </PiecesTouch>
+                  {this.state.sampleData.status != 6 && (
+                    //this.state.sampleData.status is defined only when sample status is planned
+                    <PiecesTouch onPress={() => this.setState({ piecesModal: true })}>
+                      <PiecesView>
+                        <Pieces numberOfLines={1}> {this.state.sampleData.pieces} {this.state.sampleData.pieces > 1 ? "pcs" : "pc"} </Pieces>
+                      </PiecesView>
+                    </PiecesTouch>
+                  )}
                 </FirstRow>
                 {/* <PiecesPopup
                   modalVisible={this.state.piecesModal}
@@ -432,10 +455,10 @@ class SampleRequest extends React.Component {
                   data={this.state.sampleData.requestedSampleSizes}
                 /> */}
                 <CurrentStage>
-                  {this.state.sampleRequestStatus != null && (
+                  {this.state.sampleRequestStatus != null || this.state.sampleData.status == 6 && (
                   <Carousel
                     ref={(c) => { this._carousel = c; }}
-                    data={StageArray}
+                    data={ this.state.sampleData.status == 6 ? PlannedStageArray : StageArray }
                     renderItem={this._renderItem}
                     itemWidth={slideWidth}
                     sliderWidth={screenWidth}
@@ -460,41 +483,37 @@ class SampleRequest extends React.Component {
               showsHorizontalScrollIndicator={false}
             > */}
                 <TabRow>
-                  <Tab active={this.state.currentIndex >= 0 ? true : false}>
-                    <RightTriangle active={this.state.currentIndex >= 0 ? true : false} />
-                    <TabTail active={this.state.currentIndex >= 0 ? true : false} />
-                  </Tab>
-                  <Tab active={this.state.currentIndex >= 1 ? true : false}>
-                    <TabTail active={this.state.currentIndex >= 1 ? true : false} />
-                    <RightTriangle active={this.state.currentIndex >= 1 ? true : false} />
-                  </Tab>
-                  <Tab active={this.state.currentIndex >= 2 ? true : false}>
-                    <TabTail active={this.state.currentIndex >= 2 ? true : false} />
-                    <RightTriangle active={this.state.currentIndex >= 2 ? true : false} />
-                  </Tab>
-                  <Tab active={this.state.currentIndex >= 3 ? true : false}>
-                    <TabTail active={this.state.currentIndex >= 3 ? true : false} />
-                    <RightTriangle active={this.state.currentIndex >= 3 ? true : false} />
-                  </Tab>
-                  <Tab active={this.state.currentIndex >= 4 ? true : false}>
-                    <TabTail active={this.state.currentIndex >= 4 ? true : false} />
-                    <RightTriangle active={this.state.currentIndex >= 4 ? true : false} />
-                  </Tab>
-                  <Tab active={this.state.currentIndex >= 5 ? true : false}>
-                    <TabTail active={this.state.currentIndex >= 5 ? true : false} />
-                    {/* <RightTriangle active={this.state.currentIndex >= 5 ? true : false}/> */}
-                  </Tab>
+                  {
+                    currentCount.map( count => {
+                      return(
+                        <Tab active={this.state.currentIndex >= count ? true : false}>
+                          <RightTriangle active={this.state.currentIndex >= count ? true : false} />
+                          <TabTail active={this.state.currentIndex >= count ? true : false} />
+                        </Tab>
+                      )
+                    })
+                  }
+                  {/* {
+                    this.state.sampleData.sampleRequestStatus == "Planned" ?
+
+                  } */}
                 </TabRow>
 
 
-                {/* {
-                  this.state.sampleData.sampleRequestStatus != "Planned" && ( */}
-                <SampleAccordion
-                  data={this.state.sampleData}
-                />
-                {/* )
-                }
                 {
+                  this.state.sampleData.status != 6 && (
+                    <SampleAccordion
+                      data={this.state.sampleData}
+                    />
+                )}
+                
+                {this.state.sampleData.status == 6 && (
+                  <PlannedSampleAccordion
+                    data={this.state.sampleData}
+                  />
+                )}
+
+                {/* {
                   this.state.sampleData.sampleRequestStatus == "Planned" && (
                     <PlannedSampleRequest />
                   )

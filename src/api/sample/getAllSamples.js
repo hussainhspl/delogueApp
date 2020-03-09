@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const GetSamples = (token, id) => {
+const GetAllSamples = (token, id) => {
   return new Promise((resolve, reject) => {
     axios({
       url: `${baseUrl}Style/${id}/StyleSampleRequest`,
@@ -11,6 +11,7 @@ const GetSamples = (token, id) => {
       }
     })
     .then(res => {
+      console.log("here");
       resolve(res);
     })
     .catch(error => {
@@ -18,4 +19,4 @@ const GetSamples = (token, id) => {
     })
   })
 }
-export default GetSamples;
+export default GetAllSamples;

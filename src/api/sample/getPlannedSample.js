@@ -1,9 +1,9 @@
 import axios from 'axios';
 
-const GetCustomComment = (token, sampleReqId, SampleReqCommentFieldId) => {
+const GetPlannedSample = (token, id) => {
   return new Promise((resolve, reject) => {
     axios({
-      url: `${baseUrl}StyleSampleRequest/${sampleReqId}/SampleReqCommentField/${SampleReqCommentFieldId}/Comment`,
+      url: `${baseUrl}StyleSampleRequest/${id}/Planned`,
       method: 'GET',
       headers: {
         Authorization: `Bearer ${token}`,
@@ -14,8 +14,8 @@ const GetCustomComment = (token, sampleReqId, SampleReqCommentFieldId) => {
       resolve(res);
     })
     .catch(error => {
-      console.error("error in get custom comments", error);
+      console.error("error in  get planned sample", error);
     })
   })
 }
-export default GetCustomComment;
+export default GetPlannedSample;

@@ -101,31 +101,40 @@ class SampleAccordion extends React.Component {
 		}
 	}
 	componentDidMount = () => {
-		console.log('accordion did mount', this.props.data.sampleRequestStatus);
-		GetAsyncToken()
-			.then(token => {
-				GetMeasurement(token, this.props.data.id)
-					.then(res => {
-						console.log('response from measurement api', res);
-						this.setState({
-							measurement: res.data,
-						}, () => this.callItemPlacement(token))
-					})
-			})
-		if (this.props.data.sampleRequestStatus == "Planned") {
-			let requestedFields = this.props.data.adminSampleRequestCommentFields.filter(item => item.name == "Sample status");
-			console.log('filter', requestedFields);
-			this.setState({
-				ArrayData: requestedFields
-			})
-			// this.setState({
-			// 	ArrayData: this.props.data.adminSampleRequestCommentFields
-			// })
-		} else {
-			this.setState({
-				ArrayData: this.props.data.adminSampleRequestCommentFields
-			})
+		// console.log('accordion did mount', this.props.data.sampleRequestStatus);
+		
+		if (this.props.data.sampleRequestStatus != "Planned" && this.props.data.status != 6) {
+			GetAsyncToken()
+				.then(token => {
+					if(this.props.data.status== 6) {
+						console.log('in planned');
+					}
+					GetMeasurement(token, this.props.data.id)
+						.then(res => {
+							console.log('response from measurement api', res);
+							this.setState({
+								measurement: res.data,
+							}, () => this.callItemPlacement(token))
+						})
+				})
+				this.setState({
+					ArrayData: this.props.data.adminSampleRequestCommentFields
+				})
 		}
+		if (this.props.data.status == 6) {
+			// let requestedFields = this.props.data.adminSampleRequestCommentFields.filter(item => item.name == "Sample status");
+			// console.log('filter', requestedFields);
+			// const {location, trackingNumber, id, status, deadline, etd, note, typeOfSample, style, requestedSampleSizes}= this.props.data;
+			// console.log('location', location, this.props);
+			this.setState({
+				ArrayData: this.props.data,
+				gotAllData: true
+			})
+			
+		} 
+
+		
+		
 	}
 	callItemPlacement(token) {
 		GetItemPlacement(token, this.props.data.id)
@@ -248,13 +257,13 @@ class SampleAccordion extends React.Component {
 		// })
 		// this.setState()
 	}
-	_renderSectionTitle = section => {
-		return (
-			<View>
-				<Text>{section.content}</Text>
-			</View>
-		);
-	};
+	// _renderSectionTitle = section => {
+	// 	return (
+	// 		<View>
+	// 			<Text>{section.content}</Text>
+	// 		</View>
+	// 	);
+	// };
 
 	_renderHeader = section => {
 		return (

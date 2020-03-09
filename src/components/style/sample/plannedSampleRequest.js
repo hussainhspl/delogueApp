@@ -17,6 +17,7 @@ class PlannedSampleRequest extends Component {
     return (
       <View>
         <Text> PlannedSampleRequest </Text>
+       
       </View>
     );
   }

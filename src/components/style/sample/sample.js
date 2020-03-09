@@ -19,12 +19,13 @@ import SampleRequest from "./SampleRequest";
 import ItemDetail from "../../../shared/ItemDetail";
 import ButtonOverlay from "../../../styles/ButtonOverlay";
 import GetAsyncToken from "../../../script/getAsyncToken";
-import GetSamples from "../../../api/sample/getSamples";
+import GetAllSamples from "../../../api/sample/getAllSamples";
 import { connect } from "react-redux";
 import { sampleList } from '../../../store/actions/index'
 import LoaderView from "../../../styles/LoaderView";
 import Loader from '../../../shared/Loader';
 import UpdateOtherSampleRequest from '../../../api/sample/updateOtherSampleRequest';
+import UpdatePlanned from "../../../api/sample/updatePlanned";
 // import console = require("console");
 
 const data = {
@@ -104,12 +105,22 @@ class Sample extends React.Component {
 
     GetAsyncToken()
       .then(token => {
-        console.log('design', this.props.designState);
-        UpdateOtherSampleRequest(token, this.state.mainState, this.props.finishOutside, 
-          this.props.finishInside, this.props.designState, this.props.customState)
-          .then(res => {
-            console.log('other sample updated', res);
-          })
+        console.log('length: ', this.props.sampleStatusPlannedState.length);
+        if(Array.isArray(this.props.sampleStatusPlannedState) == false){
+          
+          UpdatePlanned(token, this.props.sampleStatusPlannedState)
+            .then(res => {
+              console.log('done update', res);
+            })
+        }
+        else {
+          UpdateOtherSampleRequest(token, this.state.mainState, this.props.finishOutside, 
+            this.props.finishInside, this.props.designState, this.props.customState)
+            .then(res => {
+              console.log('other sample updated', res);
+            })
+        }
+        
       })
   }
   componentDidMount = () => {
@@ -119,7 +130,8 @@ class Sample extends React.Component {
     // console.log('getting samples');
     GetAsyncToken()
       .then(token => {
-        GetSamples(token, this.props.styleId)
+        
+        GetAllSamples(token, this.props.styleId)
           .then(res => {
             console.log('sample data from api', res);
             this.props.sampleListFunction(res)
@@ -145,7 +157,7 @@ class Sample extends React.Component {
     return null;
   }
   callSample = (sampleData) => {
-    console.log('yay', sampleData);
+    // console.log('yay', sampleData);
     this.setState({
       sampleRequest: true,
       selectedSample: {
@@ -249,7 +261,7 @@ class Sample extends React.Component {
             apply={() => this.saveChanges()}
             cancel={() => this.setState({ sampleRequest: false })}
             history={this.props.history}
-            id={this.state.selectedSample.id}
+            data={this.state.selectedSample}
           // deadline={this.state.sampleData.}
           />
         )}
@@ -268,6 +280,7 @@ mapStateToProps = state => {
     measurementState: state.sampleRequestTabs.measurementTableState,
     sampleStatusState: state.sampleRequestTabs.sampleStatusState,
     customState: state.sampleRequestTabs.customCommentsState,
+    sampleStatusPlannedState: state.sampleRequestTabs.sampleStatusPlannedState,
 
   }
 }
