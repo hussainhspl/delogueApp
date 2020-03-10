@@ -2,7 +2,19 @@ import axios from "axios";
 import qs from "qs";
 
 const UpdatePlanned = (token, sampleStatus, sampleId, selectedType, newDate) => {
-  console.log('sample status planned update', token, sampleStatus, sampleStatus.designerComment);
+  console.log('sample status planned update', token, sampleStatus, sampleStatus.requestedSampleSizes);
+  // let newRequestedSampleSizes = [];
+  // newRequestedSampleSizes = sampleStatus.requestedSampleSizes.map(
+  //   (d) => [{"Id":d.id, "SizeRangeSizeId": d.sizeRangeSizeId, 
+  //           "RequestedSampleSizeSpecCommands": [
+  //             {"Available": d.requestedSampleSizeSpecCommands.available}
+  //           ]
+  //          }]);
+  // console.log('newRequestedSampleSizes', newRequestedSampleSizes);
+  // sampleStatus.RequestedSampleSizes.map(d => {
+  //   "Id": 73080,
+  //   "SizeRangeSizeId": 23,
+  // })
   return new Promise(function (resolve, reject) {
     // let string = this.state.searchBrand;
 
@@ -19,52 +31,7 @@ const UpdatePlanned = (token, sampleStatus, sampleId, selectedType, newDate) => 
       "Deadline": sampleStatus.deadline,
       "ETD": sampleStatus.etd,
       "Note": sampleStatus.note,
-      "requestedSampleSizesCommand": [
-        {
-          "Id": 73080,
-          "SizeRangeSizeId": 23,
-          "RequestedSampleSizeSpecCommands": [
-            {
-              "Available": true,
-              "StyleColorId": "0",
-              "Quantity": "1"
-            }
-          ]
-        },
-        {
-          "Id": 73081,
-          "SizeRangeSizeId": 24,
-          "RequestedSampleSizeSpecCommands": [
-            {
-              "Available": true,
-              "StyleColorId": "0",
-              "Quantity": "2"
-            }
-          ]
-        },
-        {
-          "Id": 73082,
-          "SizeRangeSizeId": 26,
-          "RequestedSampleSizeSpecCommands": [
-            {
-              "Available": true,
-              "StyleColorId": "0",
-              "Quantity": "3"
-            }
-          ]
-        },
-        {
-          "Id": 73083,
-          "SizeRangeSizeId": 27,
-          "RequestedSampleSizeSpecCommands": [
-            {
-              "Available": true,
-              "StyleColorId": "0",
-              "Quantity": "40"
-            }
-          ]
-        }
-      ],
+      "requestedSampleSizesCommand": [sampleStatus.requestedSampleSizes],
       "NotifiedUsers": null,
       "isQuickSave": false
     }

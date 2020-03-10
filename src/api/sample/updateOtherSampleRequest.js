@@ -1,12 +1,25 @@
 import axios from "axios";
 import qs from "qs";
+import { fi } from "date-fns/locale";
 
-const UpdateOtherSampleRequest = (token, sampleDataState, finishOutside, finishInside, design, custom) => {
-  console.log('token ', token, sampleDataState, finishOutside, finishInside, design, custom);
+const UpdateOtherSampleRequest = (token, sampleDataState, itemPlacement, finishOutside, finishInside, design, custom, status) => {
+  console.log('token ', token, sampleDataState, finishOutside, finishInside, design, custom, status.deadline);
+  console.log('new', itemPlacement);
   return new Promise(function (resolve, reject) {
-    // let string = this.state.searchBrand;
-    let deadline = sampleDataState.deadline;
-    // console.log('deadline', deadline);
+
+    let newItemPlacementArray = [];
+    newItemPlacementArray = itemPlacement.itemPlacementComments.map(d => [{
+      "Id" : d.id,
+      "Approved" : d.approved,
+      "Comment" : d.designerComment
+    }])
+    let finalItemPlacementArray = [];
+    for(i=0; i<newItemPlacementArray.length; i++){
+      console.log('hey', ...newItemPlacementArray[i]);
+      finalItemPlacementArray.push(...newItemPlacementArray[i])
+    }
+    // let final = newItemPlacementArray.map((d, idx) => ({...{...d[idx]}}))
+    console.log('updated item placement', newItemPlacementArray, finalItemPlacementArray);
     const data1 =
     {
       "IsQuickSave":false,
@@ -21,49 +34,50 @@ const UpdateOtherSampleRequest = (token, sampleDataState, finishOutside, finishI
       "CancelComment":{
     
       },
-      "ItemPlacementCommentUpdateCommands":[
-        {
-          "Id":93186,
-          "Approved":false,
-          "Comment":{
-            "Text":"<p>item placement</p>",
-            "VisualComments":[
-              {
-                "Id":"fa6d0812-5bf8-410c-8c5c-dcff3c55324d",
-                "FileIconUrl":"handlers/ThumbnailService.ashx?ResourceId=fa6d0812-5bf8-410c-8c5c-dcff3c55324d&Width=200&Height=168&ResourceType=samplerequest",
-                "Name":"beautiful-beauty-blue-bright-414612.jpg",
-                "FileName":"beautiful-beauty-blue-bright-414612.jpg",
-                "ResourceId":"fa6d0812-5bf8-410c-8c5c-dcff3c55324d",
-                "CreatedOn":"/Date(1582522787990)/",
-                "IsFileEditable":true,
-                "Status":1,
-                "URL":"https://s3-eu-west-1.amazonaws.com/designhubtest/organization_2/style_26/fc22ecfd-6127-40c5-b40d-449e1d22aefa/beautiful-beauty-blue-bright-414612.jpg",
-                "IsDeletedFromS3":false,
-                "IsLink":false,
-                "IsStyleColorActive":false,
-                "IsColorwayModuleAccessible":false,
-                "RelatedEntityId":93186,
-                "RelatedEntityType":6,
-                "Provider":"DesignHub.Business.FileResource.S3FileResource",
-                "StorageLocation":"organization_2/style_26/fc22ecfd-6127-40c5-b40d-449e1d22aefa",
-                "StyleColorName":null
-              }
-            ]
-          },
-          "Status":"0"
-        },
-        {
-          "Id":93187,
-          "Approved":false,
-          "Comment":{
-            "Text":"",
-            "VisualComments":[
+      "ItemPlacementCommentUpdateCommands": finalItemPlacementArray,
+      // [
+      //   {
+      //     "Id":93186,
+      //     "Approved":false,
+      //     "Comment":{
+      //       "Text":"<p>item placement</p>",
+      //       "VisualComments":[
+      //         {
+      //           "Id":"fa6d0812-5bf8-410c-8c5c-dcff3c55324d",
+      //           "FileIconUrl":"handlers/ThumbnailService.ashx?ResourceId=fa6d0812-5bf8-410c-8c5c-dcff3c55324d&Width=200&Height=168&ResourceType=samplerequest",
+      //           "Name":"beautiful-beauty-blue-bright-414612.jpg",
+      //           "FileName":"beautiful-beauty-blue-bright-414612.jpg",
+      //           "ResourceId":"fa6d0812-5bf8-410c-8c5c-dcff3c55324d",
+      //           "CreatedOn":"/Date(1582522787990)/",
+      //           "IsFileEditable":true,
+      //           "Status":1,
+      //           "URL":"https://s3-eu-west-1.amazonaws.com/designhubtest/organization_2/style_26/fc22ecfd-6127-40c5-b40d-449e1d22aefa/beautiful-beauty-blue-bright-414612.jpg",
+      //           "IsDeletedFromS3":false,
+      //           "IsLink":false,
+      //           "IsStyleColorActive":false,
+      //           "IsColorwayModuleAccessible":false,
+      //           "RelatedEntityId":93186,
+      //           "RelatedEntityType":6,
+      //           "Provider":"DesignHub.Business.FileResource.S3FileResource",
+      //           "StorageLocation":"organization_2/style_26/fc22ecfd-6127-40c5-b40d-449e1d22aefa",
+      //           "StyleColorName":null
+      //         }
+      //       ]
+      //     },
+      //     "Status":"0"
+      //   },
+      //   {
+      //     "Id":93187,
+      //     "Approved":false,
+      //     "Comment":{
+      //       "Text":"",
+      //       "VisualComments":[
     
-            ]
-          },
-          "Status":"0"
-        }
-      ],
+      //       ]
+      //     },
+      //     "Status":"0"
+      //   }
+      // ],
       "FitApproved":false,
       "FitComment":{
         "Text":"",
@@ -430,7 +444,7 @@ const UpdateOtherSampleRequest = (token, sampleDataState, finishOutside, finishI
       ],
       "StyleId":26,
       "Status":"0",
-      "deadline":sampleDataState.sampleData.deadline,
+      "deadline": status.deadline,
       "ETD":"20-Feb-2020",
       "RequestedSampleSizesCommand":[
         {

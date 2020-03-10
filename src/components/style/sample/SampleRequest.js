@@ -35,6 +35,9 @@ import TouchableApply from "../../../styles/TouchableApply";
 import UpdatePlanned from "../../../api/sample/updatePlanned";
 import GetPlannedSample from "../../../api/sample/getPlannedSample";
 import PlannedSampleAccordion from "./plannedSampleAccordion";
+import { connect } from "react-redux";
+import { sampleStatusPlanned, sampleStatus } from '../../../store/actions/index';
+
 
 const StageArray = [ 'Requested', 'Sent', 'Received', 'Commented', 'Cancelled', 'Confirmed' ];
 const PlannedStageArray = ['Planned', 'Requested', 'Cancelled'];
@@ -72,14 +75,15 @@ const FirstRow = styled.View`
   flex: 1;
 `;
 
-const PiecesTouch = styled.TouchableHighlight`
-  align-self: flex-start;
+const PiecesMain = styled.View`
+  justify-content: center;
+  align-items: flex-end;
 `;
-const PiecesView = styled.View`
+const PiecesView = styled.TouchableHighlight`
   background-color: #c2beb6;
   max-width: 60px;
   height: 20px;
-  margin: 10px 5px;
+  /* margin: 10px 5px; */
 `;
 const Pieces = styled.Text`
   color: white;
@@ -210,6 +214,7 @@ class SampleRequest extends React.Component {
     this.hideDatePicker();
   };
   editDateByType(newDate) {
+    console.log('new date', newDate, this.state.sampleData);
     GetAsyncToken()
       .then(token => {
         EditDate(token, this.state.sampleData.id, this.state.selectedType, newDate)
@@ -224,7 +229,7 @@ class SampleRequest extends React.Component {
                   ...prevState.sampleData,
                   deadline: formatedDeadline
                 }
-              }))
+              }), () => this.updateRedux(formatedDeadline))
             }
             if (this.state.selectedType == 1) {
               console.log('enter in etd state');
@@ -240,6 +245,23 @@ class SampleRequest extends React.Component {
             }
           })
       })
+  }
+  updateRedux = (formatedDeadline) => {
+    console.log('update redux', this.state.sampleData, this.props.sampleStatusState);
+    if(this.props.data.name == "Planned") {
+      this.props.sampleStatusPlannedFunction(this.state.sampleData);
+    }
+    else {
+      let currentSampleStatus;
+      currentSampleStatus = this.props.sampleStatusState;
+      currentSampleStatus.deadline = formatedDeadline;
+      console.log('currentSampleStatus', this.props.sampleStatusState, currentSampleStatus);
+      this.props.sampleStatusFunction(currentSampleStatus);
+
+      // currentSampleStatus.map(d => console.log('deadline', d.deadline));
+
+      console.log('not planned',this.props.sampleStatusState);
+    }
   }
   redirectTo() {
     // console.log("redirect click");
@@ -440,20 +462,20 @@ class SampleRequest extends React.Component {
                       </Block>
                     </DetailRow>
                   </View>
-                  {this.state.sampleData.status != 6 && (
+                  {this.state.sampleData.status != 7 && (
                     //this.state.sampleData.status is defined only when sample status is planned
-                    <PiecesTouch onPress={() => this.setState({ piecesModal: true })}>
-                      <PiecesView>
+                    <PiecesMain>
+                      <PiecesView underlayColor="#a39e95" onPress={() => this.setState({ piecesModal: true })}>
                         <Pieces numberOfLines={1}> {this.state.sampleData.pieces} {this.state.sampleData.pieces > 1 ? "pcs" : "pc"} </Pieces>
                       </PiecesView>
-                    </PiecesTouch>
+                    </PiecesMain>
                   )}
                 </FirstRow>
-                {/* <PiecesPopup
+                <PiecesPopup
                   modalVisible={this.state.piecesModal}
                   close={() => this.updatePieces()}
                   data={this.state.sampleData.requestedSampleSizes}
-                /> */}
+                />
                 <CurrentStage>
                   {this.state.sampleRequestStatus != null || this.state.sampleData.status == 6 && (
                   <Carousel
@@ -549,7 +571,23 @@ class SampleRequest extends React.Component {
     );
   }
 }
-export default SampleRequest;
+const mapStateToProps = state => {
+  return {
+    // unreadList: state.unreadMessagesList.unreadMessagesListState
+    // sampleStatusState: state.sampleRequestTabs.sampleStatusState,
+    sampleStatusState: state.sampleRequestTabs.sampleStatusState,
+  };
+};
+const mapDispatchToProps = dispatch => {
+  return {
+    // finishOutsideFunction: (data) => dispatch(finishOutside(data)),
+    // sampleStatusFunction: (data) => dispatch(sampleStatus(data));
+    sampleStatusPlannedFunction: (data) => dispatch(sampleStatusPlanned(data)),
+		sampleStatusFunction: (data) => dispatch(sampleStatus(data)),
+
+  }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(SampleRequest);
 
 const styles = StyleSheet.create({
   leftAction: {
