@@ -1,6 +1,7 @@
 import axios from 'axios';
 
 const GetSampleOverview = (token, id) => {
+  console.log('id in overview api', id);
   return new Promise((resolve, reject) => {
     axios({
       url: `${baseUrl}StyleSampleRequest/${id}/Overview`,

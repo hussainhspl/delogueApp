@@ -1,16 +1,16 @@
 import axios from "axios";
 import qs from "qs";
 
-const UnreadMessageList = (token) => {
-  // console.log('token styles 12', token)
+const UnreadMessageList = (token, message, chat, pageNumber) => {
+  console.log('unread message called', pageNumber);
   return new Promise(function(resolve, reject) {
     // let string = this.state.searchBrand;
     const data1 = {  
       "filterOptions": {
-          "communicationMessages": true,
-          "sampleComments": true
+          "communicationMessages": message,
+          "sampleComments": chat
         },
-       "pageNumber":1 
+       "pageNumber":pageNumber 
     }
     axios({
       url: `${baseUrl}Messages/Unread/Overview/Style`,

@@ -114,8 +114,9 @@ class Sample extends React.Component {
             })
         }
         else {
-          UpdateOtherSampleRequest(token, this.state.mainState, this.props.itemPlacementStoreState, this.props.finishOutside, 
-            this.props.finishInside, this.props.designState, this.props.customState, this.props.sampleStatusState)
+          UpdateOtherSampleRequest(token, this.state.mainState, this.props.itemPlacementStoreState, this.props.finishStoreState, this.props.finishOutside, 
+            this.props.finishInside, this.props.designState, this.props.customState, this.props.sampleStatusState, 
+            this.props.measurementState)
             .then(res => {
               console.log('other sample updated', res);
             })
@@ -277,6 +278,7 @@ mapStateToProps = state => {
     itemPlacementStoreState: state.sampleRequestTabs.itemPlacementState,
     finishOutside: state.sampleRequestTabs.finishOutsideState,
     finishInside: state.sampleRequestTabs.finishInsideState,
+    finishStoreState: state.sampleRequestTabs.finishState,
     designState: state.sampleRequestTabs.designState,
     measurementState: state.sampleRequestTabs.measurementTableState,
     sampleStatusState: state.sampleRequestTabs.sampleStatusState,

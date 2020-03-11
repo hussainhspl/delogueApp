@@ -31,6 +31,7 @@ import GetAsyncToken from '../../script/getAsyncToken';
 import SearchSuggestionView from '../../styles/SearchSuggestionView';
 import SuggestionTerm from '../../styles/SuggestionTerm';
 import SearchIconBox from "../../styles/SearchIconBox";
+import LoadMoreView from "../../styles/LoadMoreView";
 
 let pageNumber = 1;
 
@@ -97,12 +98,7 @@ const Box = styled.View`
   margin-left: 10px;
 `;
 
-const LoadMoreView = styled.View`
-  justify-content: center;
-  align-items: center;
-  flex: 1;
-  flex-direction: column;
-`;
+
 
 class Search extends React.Component {
   constructor(props) {

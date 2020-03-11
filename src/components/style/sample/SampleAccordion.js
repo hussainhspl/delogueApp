@@ -114,7 +114,11 @@ class SampleAccordion extends React.Component {
 							console.log('response from measurement api', res);
 							this.setState({
 								measurement: res.data,
-							}, () => this.callItemPlacement(token))
+							}, () => {
+								this.props.measurementTableFunction(res.data.measurementComments);
+								this.callItemPlacement(token)
+								}
+							)
 						})
 				})
 				this.setState({
@@ -217,19 +221,19 @@ class SampleAccordion extends React.Component {
 	}
 	updateMeasurement = (LineComments) => {
 		console.log('update measurement called', LineComments, this.state.measurement);
-		let updateArray = [];
-		LineComments.map(data => {
-			let { id, designerComment, approved, measurementLineMeasurements } = data;
-			let fields = {
-				"Comment": designerComment,
-				"id": id,
-				"Approved": approved,
-				"MeasurementLineCommentUpdateCommands": measurementLineMeasurements
-			};
-			updateArray.push(fields);
-		})
-		console.log('updateArray', updateArray);
-		this.props.measurementTableFunction(updateArray);
+		// let updateArray = [];
+		// LineComments.map(data => {
+		// 	let { id, designerComment, approved, measurementLineMeasurements } = data;
+		// 	let fields = {
+		// 		"Comment": designerComment,
+		// 		"id": id,
+		// 		"Approved": approved,
+		// 		"MeasurementLineCommentUpdateCommands": measurementLineMeasurements
+		// 	};
+		// 	updateArray.push(fields);
+		// })
+		// console.log('updateArray', updateArray);
+		this.props.measurementTableFunction(LineComments);
 	}
 	updateCustomComments = (singleComment, id) => {
 		console.log('update custom comments called', this.state.customData, singleComment, id);

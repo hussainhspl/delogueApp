@@ -410,6 +410,11 @@ class SampleRequest extends React.Component {
           sampleRequestStatus: 6, currentIndex: 6
         })
       }
+      if(this.state.sampleData.status == 6 ) {
+        this.setState({
+          sampleRequestStatus: 0, currentIndex: 0
+        })
+      }
       
       
 
@@ -477,7 +482,7 @@ class SampleRequest extends React.Component {
                   data={this.state.sampleData.requestedSampleSizes}
                 />
                 <CurrentStage>
-                  {this.state.sampleRequestStatus != null || this.state.sampleData.status == 6 && (
+                  {this.state.sampleRequestStatus != null  && (
                   <Carousel
                     ref={(c) => { this._carousel = c; }}
                     data={ this.state.sampleData.status == 6 ? PlannedStageArray : StageArray }

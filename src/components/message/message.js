@@ -21,7 +21,7 @@ import UnreadMessageList from '../../api/message/unreadMessageList';
 import SpecificMessage from '../../api/message/specificMessage';
 
 import GetAsyncToken from '../../script/getAsyncToken';
-import {parseISO, format } from 'date-fns';
+import { parseISO, format } from 'date-fns';
 // import HTMLView from 'react-native-htmlview';
 import { WebView } from 'react-native-webview';
 import AutoHeightWebView from 'react-native-autoheight-webview'
@@ -33,6 +33,12 @@ import { Appearance, useColorScheme } from 'react-native-appearance';
 import { parseFromTimeZone, formatToTimeZone } from 'date-fns-timezone';
 import DeviceInfo from 'react-native-device-info';
 import * as RNLocalize from 'react-native-localize'
+import LoadMoreView from "../../styles/LoadMoreView";
+import LoadMoreButton from "../../styles/LoadMoreButton";
+import InfoView from "../../styles/InfoView";
+import InfoText from "../../styles/InfoText";
+
+// let pageNumber = 1;
 
 const IconRow = styled.View`
   flex-direction: row;
@@ -176,36 +182,54 @@ class Message extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      chat: false,
+      chat: true,
       message: true,
-      MessageList: null,
+      MessageList: [],
       showOpacity: false,
       read: false,
       chatRead: false,
       webViewHeight: null,
       htmlHeight1: [],
-      hideRead: false
+      hideRead: false,
+      pageNumber: 1
     };
   }
   componentDidMount = () => {
-    if (this.props.unreadList == null) {
-      GetAsyncToken()
-        .then(token => {
-          UnreadMessageList(token)
-            .then(res => {
-              console.log('message list', res.data)
-              // this.setState({
-              //   MessageList: res.data,
-              // })
-              this.props.unreadMessagesListFunction(res.data)
-            })
-        })
+    console.log('component did mount');
+    if (this.props.unreadList.length == 0) {
+      this.getNewData()
     }
 
   }
+  getNewData = () => {
+    GetAsyncToken()
+      .then(token => {
+        UnreadMessageList(token, this.state.message, this.state.chat, this.state.pageNumber)
+          .then(res => {
+            console.log('message list', res.data)
+            // this.setState({
+            //   MessageList: res.data,
+            // })
+            this.props.unreadMessagesListFunction(res.data)
+          })
+      })
+  }
+  updateMessage = () => {
+    this.setState({ message: !this.state.message },
+      () => this.getNewData())
+  }
+  updateChat = () => {
+    this.setState({ chat: !this.state.chat },
+      () => this.getNewData())
+  }
+  updatePage = () => {
+    // pageNumber: 1
+    this.setState({ pageNumber: this.state.pageNumber + 1 })
+    this.getNewData()
+  }
   static getDerivedStateFromProps(nextProps, prevState) {
     // console.log('before render', this.state.MessageList.isRead)
-    // console.log('enter in derived')
+    console.log('enter in derived', prevState.MessageList)
     if (nextProps.MessageList !== prevState.MessageList) {
       // console.log("Entered nextProps messages",prevState.MessageList);
       return {
@@ -273,7 +297,7 @@ class Message extends React.Component {
   }
 
   render() {
-    // console.log('msg', this.props)
+    console.log('msg');
     history = this.props.history;
     let color = Appearance.getColorScheme();
 
@@ -295,9 +319,7 @@ class Message extends React.Component {
               <Flex>
                 <IconBox
                   currentView={this.state.message == true ? true : false}
-                  onPress={() =>
-                    this.setState({ message: !this.state.message })
-                  }
+                  onPress={this.updateMessage}
                 >
                   <StyleImage
                     resizeMode={"contain"}
@@ -306,7 +328,7 @@ class Message extends React.Component {
                 </IconBox>
                 <IconBox
                   currentView={this.state.chat == true ? true : false}
-                  onPress={() => this.setState({ chat: !this.state.chat })}
+                  onPress={this.updateChat}
                 >
                   <StyleImage
                     resizeMode={"contain"}
@@ -335,20 +357,23 @@ class Message extends React.Component {
               </TouchableWithoutFeedback>
             </IconRow>
             {
-              this.state.MessageList != null ?
+              this.state.MessageList.length > 0 ?
                 this.state.MessageList.map((m, index) => {
                   if (this.state.hideRead)
                     if (m.isRead)
                       return
                   // let formatedDate = format(parseISO(m.loggedOn), "d-MMM-yyyy kk:mm");
                   // console.log('DeviceInfo', DeviceInfo);
-                 
 
+                  console.log('m', m, m.loggedOn);
                   const date = new Date(m.loggedOn)
+                  // console.log('date.setMinutes(date.getMinutes()', )
                   let localDate = new Date(date.setMinutes(date.getMinutes() - date.getTimezoneOffset()));
-                  let formatedDate = format(localDate, "d-MMM-yyyy kk:mm") 
-                  // console.log('current time ', formatedDate)
+                  console.log('localDate', localDate);
                   
+                  let formatedDate = format(localDate, "d-MMM-yyyy kk:mm")
+                  // console.log('current time ', formatedDate)
+
                   let newMsgBody = m.messageBody.replace(/class='commAttachmentsContainer/g, "style='display: none' class='")
                   let msgId = m.parentLogId != null ? m.parentLogId : m.auditLogId
                   // console.log('new msg : ', newMsgBody);
@@ -426,6 +451,7 @@ class Message extends React.Component {
                             </TouchableHighlight>
                           </MessageBox>
                         )}
+
                       </Fragment>
 
                     )
@@ -445,14 +471,37 @@ class Message extends React.Component {
 
                     )
                   }
+
                   else {
                     return (
                       <Text> other message type </Text>
                     )
                   }
                 })
+
+
                 : <Text> Loading Messages</Text>
             }
+            {this.state.MessageList.length > 0 ?
+              this.state.MessageList.length == 10 ?
+
+                <LoadMoreView>
+                  <LoadMoreButton
+                    onPress={this.updatePage}
+                    underlayColor={this.props.theme.overlayBlue}
+                  >
+                    <Text>Load More</Text>
+                  </LoadMoreButton>
+                </LoadMoreView>
+
+                : null
+              : null
+            }
+
+            {/* // }
+                        // : <InfoView>
+                        //   <InfoText> That's all for now Folks </InfoText>
+                        // </InfoView> */}
             {!this.state.message && !this.state.chat ? <Text> Select at least one icon </Text> : null}
 
           </ScrollView>

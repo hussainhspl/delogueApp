@@ -2,10 +2,31 @@ import axios from "axios";
 import qs from "qs";
 import { fi } from "date-fns/locale";
 
-const UpdateOtherSampleRequest = (token, sampleDataState, itemPlacement, finishOutside, finishInside, design, custom, status) => {
-  console.log('token ', token, sampleDataState, finishOutside, finishInside, design, custom, status.deadline);
-  console.log('new', itemPlacement);
+const UpdateOtherSampleRequest = (
+  token, sampleDataState, itemPlacement, finish, finishOutside, finishInside, design, custom, 
+  status, measurement
+  ) => {
+  console.log('token ', token, sampleDataState, finishOutside, finish, finishInside, design, custom, status.deadline);
+  console.log('new', custom);
   return new Promise(function (resolve, reject) {
+
+    
+    let fitApproved = design.designCommentDetails.approved;
+    let fitComment = design.designCommentDetails.designerComment;
+    let measurementData = measurement;
+
+    let updatedMeasurementArray = [];
+		measurement.map(data => {
+			let { id, designerComment, approved, measurementLineMeasurements } = data;
+			let fields = {
+				"Comment": designerComment,
+				"id": id,
+				"Approved": approved,
+				"MeasurementLineCommentUpdateCommands": measurementLineMeasurements
+			};
+			updatedMeasurementArray.push(fields);
+		})
+    console.log('updatedMeasurementArray', updatedMeasurementArray);
 
     let newItemPlacementArray = [];
     newItemPlacementArray = itemPlacement.itemPlacementComments.map(d => [{
@@ -15,9 +36,15 @@ const UpdateOtherSampleRequest = (token, sampleDataState, itemPlacement, finishO
     }])
     let finalItemPlacementArray = [];
     for(i=0; i<newItemPlacementArray.length; i++){
-      console.log('hey', ...newItemPlacementArray[i]);
+      // console.log('hey', ...newItemPlacementArray[i]);
       finalItemPlacementArray.push(...newItemPlacementArray[i])
     }
+    let finishInsideData= finish.finishInsideDesignerComment;
+    let finishOutsideData= finish.finishOutsideDesignerComment;
+
+    let updatedCustomCommentsArray = [];
+    // updatedCustomCommentsArray = custom.map()
+
     // let final = newItemPlacementArray.map((d, idx) => ({...{...d[idx]}}))
     console.log('updated item placement', newItemPlacementArray, finalItemPlacementArray);
     const data1 =
@@ -35,358 +62,301 @@ const UpdateOtherSampleRequest = (token, sampleDataState, itemPlacement, finishO
     
       },
       "ItemPlacementCommentUpdateCommands": finalItemPlacementArray,
+      "FitApproved":fitApproved,
+      "FitComment":fitComment,
+      "SizeMeasurementCommentUpdateCommands":updatedMeasurementArray,
       // [
       //   {
-      //     "Id":93186,
-      //     "Approved":false,
-      //     "Comment":{
-      //       "Text":"<p>item placement</p>",
-      //       "VisualComments":[
-      //         {
-      //           "Id":"fa6d0812-5bf8-410c-8c5c-dcff3c55324d",
-      //           "FileIconUrl":"handlers/ThumbnailService.ashx?ResourceId=fa6d0812-5bf8-410c-8c5c-dcff3c55324d&Width=200&Height=168&ResourceType=samplerequest",
-      //           "Name":"beautiful-beauty-blue-bright-414612.jpg",
-      //           "FileName":"beautiful-beauty-blue-bright-414612.jpg",
-      //           "ResourceId":"fa6d0812-5bf8-410c-8c5c-dcff3c55324d",
-      //           "CreatedOn":"/Date(1582522787990)/",
-      //           "IsFileEditable":true,
-      //           "Status":1,
-      //           "URL":"https://s3-eu-west-1.amazonaws.com/designhubtest/organization_2/style_26/fc22ecfd-6127-40c5-b40d-449e1d22aefa/beautiful-beauty-blue-bright-414612.jpg",
-      //           "IsDeletedFromS3":false,
-      //           "IsLink":false,
-      //           "IsStyleColorActive":false,
-      //           "IsColorwayModuleAccessible":false,
-      //           "RelatedEntityId":93186,
-      //           "RelatedEntityType":6,
-      //           "Provider":"DesignHub.Business.FileResource.S3FileResource",
-      //           "StorageLocation":"organization_2/style_26/fc22ecfd-6127-40c5-b40d-449e1d22aefa",
-      //           "StyleColorName":null
-      //         }
-      //       ]
-      //     },
-      //     "Status":"0"
-      //   },
-      //   {
-      //     "Id":93187,
-      //     "Approved":false,
       //     "Comment":{
       //       "Text":"",
       //       "VisualComments":[
     
       //       ]
       //     },
-      //     "Status":"0"
+      //     "Id":"50775",
+      //     "Approved":false,
+      //     "MeasurementLineCommentUpdateCommands":[
+      //       {
+      //         "Id":85616,
+      //         "SizeMeasurementApprovalId":50775,
+      //         "SupplierMeasurement":null,
+      //         "LineId":1113,
+      //         "Name":"aaaaa",
+      //         "RequestedMeasurement":"553",
+      //         "CompanyMeasurement":null,
+      //         "SupplierDiscrepancy":0,
+      //         "CompanyDiscrepancy":0,
+      //         "NewMeasurement":"553",
+      //         "Tolerance":20,
+      //         "Changes":[
+    
+      //         ],
+      //         "sampleRequestStatus":0
+      //       },
+      //       {
+      //         "Id":85617,
+      //         "SizeMeasurementApprovalId":50775,
+      //         "SupplierMeasurement":null,
+      //         "LineId":1116,
+      //         "Name":"bb",
+      //         "RequestedMeasurement":"2",
+      //         "CompanyMeasurement":null,
+      //         "SupplierDiscrepancy":0,
+      //         "CompanyDiscrepancy":0,
+      //         "NewMeasurement":"2",
+      //         "Tolerance":5.2,
+      //         "Changes":[
+    
+      //         ],
+      //         "sampleRequestStatus":0
+      //       },
+      //       {
+      //         "Id":85618,
+      //         "SizeMeasurementApprovalId":50775,
+      //         "SupplierMeasurement":null,
+      //         "LineId":1117,
+      //         "Name":"cc",
+      //         "RequestedMeasurement":"0",
+      //         "CompanyMeasurement":null,
+      //         "SupplierDiscrepancy":0,
+      //         "CompanyDiscrepancy":0,
+      //         "NewMeasurement":"0",
+      //         "Tolerance":null,
+      //         "Changes":[
+    
+      //         ],
+      //         "sampleRequestStatus":0
+      //       },
+      //       {
+      //         "Id":85619,
+      //         "SizeMeasurementApprovalId":50775,
+      //         "SupplierMeasurement":null,
+      //         "LineId":1153,
+      //         "Name":"r",
+      //         "RequestedMeasurement":"33",
+      //         "CompanyMeasurement":null,
+      //         "SupplierDiscrepancy":0,
+      //         "CompanyDiscrepancy":0,
+      //         "NewMeasurement":"33",
+      //         "Tolerance":null,
+      //         "Changes":[
+    
+      //         ],
+      //         "sampleRequestStatus":0
+      //       },
+      //       {
+      //         "Id":85620,
+      //         "SizeMeasurementApprovalId":50775,
+      //         "SupplierMeasurement":null,
+      //         "LineId":1154,
+      //         "Name":"4",
+      //         "RequestedMeasurement":"0",
+      //         "CompanyMeasurement":null,
+      //         "SupplierDiscrepancy":0,
+      //         "CompanyDiscrepancy":0,
+      //         "NewMeasurement":"0",
+      //         "Tolerance":20,
+      //         "Changes":[
+    
+      //         ],
+      //         "sampleRequestStatus":0
+      //       },
+      //       {
+      //         "Id":85621,
+      //         "SizeMeasurementApprovalId":50775,
+      //         "SupplierMeasurement":null,
+      //         "LineId":1155,
+      //         "Name":"3",
+      //         "RequestedMeasurement":"0",
+      //         "CompanyMeasurement":null,
+      //         "SupplierDiscrepancy":0,
+      //         "CompanyDiscrepancy":0,
+      //         "NewMeasurement":"0",
+      //         "Tolerance":0,
+      //         "Changes":[
+    
+      //         ],
+      //         "sampleRequestStatus":0
+      //       },
+      //       {
+      //         "Id":85622,
+      //         "SizeMeasurementApprovalId":50775,
+      //         "SupplierMeasurement":null,
+      //         "LineId":1156,
+      //         "Name":"3",
+      //         "RequestedMeasurement":"0",
+      //         "CompanyMeasurement":null,
+      //         "SupplierDiscrepancy":0,
+      //         "CompanyDiscrepancy":0,
+      //         "NewMeasurement":"0",
+      //         "Tolerance":0,
+      //         "Changes":[
+    
+      //         ],
+      //         "sampleRequestStatus":0
+      //       },
+      //       {
+      //         "Id":85623,
+      //         "SizeMeasurementApprovalId":50775,
+      //         "SupplierMeasurement":null,
+      //         "LineId":1157,
+      //         "Name":"4",
+      //         "RequestedMeasurement":"0",
+      //         "CompanyMeasurement":null,
+      //         "SupplierDiscrepancy":0,
+      //         "CompanyDiscrepancy":0,
+      //         "NewMeasurement":"0",
+      //         "Tolerance":0,
+      //         "Changes":[
+    
+      //         ],
+      //         "sampleRequestStatus":0
+      //       },
+      //       {
+      //         "Id":85624,
+      //         "SizeMeasurementApprovalId":50775,
+      //         "SupplierMeasurement":null,
+      //         "LineId":1158,
+      //         "Name":"9",
+      //         "RequestedMeasurement":"0",
+      //         "CompanyMeasurement":null,
+      //         "SupplierDiscrepancy":0,
+      //         "CompanyDiscrepancy":0,
+      //         "NewMeasurement":"0",
+      //         "Tolerance":0,
+      //         "Changes":[
+    
+      //         ],
+      //         "sampleRequestStatus":0
+      //       },
+      //       {
+      //         "Id":85625,
+      //         "SizeMeasurementApprovalId":50775,
+      //         "SupplierMeasurement":null,
+      //         "LineId":1159,
+      //         "Name":"77",
+      //         "RequestedMeasurement":"0",
+      //         "CompanyMeasurement":null,
+      //         "SupplierDiscrepancy":0,
+      //         "CompanyDiscrepancy":0,
+      //         "NewMeasurement":"0",
+      //         "Tolerance":0,
+      //         "Changes":[
+    
+      //         ],
+      //         "sampleRequestStatus":0
+      //       },
+      //       {
+      //         "Id":85626,
+      //         "SizeMeasurementApprovalId":50775,
+      //         "SupplierMeasurement":null,
+      //         "LineId":1160,
+      //         "Name":"ttt",
+      //         "RequestedMeasurement":"0",
+      //         "CompanyMeasurement":null,
+      //         "SupplierDiscrepancy":0,
+      //         "CompanyDiscrepancy":0,
+      //         "NewMeasurement":"0",
+      //         "Tolerance":2,
+      //         "Changes":[
+    
+      //         ],
+      //         "sampleRequestStatus":0
+      //       },
+      //       {
+      //         "Id":85627,
+      //         "SizeMeasurementApprovalId":50775,
+      //         "SupplierMeasurement":null,
+      //         "LineId":1169,
+      //         "Name":"55",
+      //         "RequestedMeasurement":"0",
+      //         "CompanyMeasurement":null,
+      //         "SupplierDiscrepancy":0,
+      //         "CompanyDiscrepancy":0,
+      //         "NewMeasurement":"0",
+      //         "Tolerance":null,
+      //         "Changes":[
+    
+      //         ],
+      //         "sampleRequestStatus":0
+      //       },
+      //       {
+      //         "Id":85628,
+      //         "SizeMeasurementApprovalId":50775,
+      //         "SupplierMeasurement":null,
+      //         "LineId":1161,
+      //         "Name":"0",
+      //         "RequestedMeasurement":"0",
+      //         "CompanyMeasurement":null,
+      //         "SupplierDiscrepancy":0,
+      //         "CompanyDiscrepancy":0,
+      //         "NewMeasurement":"0",
+      //         "Tolerance":2,
+      //         "Changes":[
+    
+      //         ],
+      //         "sampleRequestStatus":0
+      //       },
+      //       {
+      //         "Id":85629,
+      //         "SizeMeasurementApprovalId":50775,
+      //         "SupplierMeasurement":null,
+      //         "LineId":1170,
+      //         "Name":"4",
+      //         "RequestedMeasurement":"0",
+      //         "CompanyMeasurement":null,
+      //         "SupplierDiscrepancy":0,
+      //         "CompanyDiscrepancy":0,
+      //         "NewMeasurement":"0",
+      //         "Tolerance":1,
+      //         "Changes":[
+    
+      //         ],
+      //         "sampleRequestStatus":0
+      //       },
+      //       {
+      //         "Id":85630,
+      //         "SizeMeasurementApprovalId":50775,
+      //         "SupplierMeasurement":null,
+      //         "LineId":1503,
+      //         "Name":"p",
+      //         "RequestedMeasurement":"0",
+      //         "CompanyMeasurement":null,
+      //         "SupplierDiscrepancy":0,
+      //         "CompanyDiscrepancy":0,
+      //         "NewMeasurement":"0",
+      //         "Tolerance":null,
+      //         "Changes":[
+    
+      //         ],
+      //         "sampleRequestStatus":0
+      //       },
+      //       {
+      //         "Id":85631,
+      //         "SizeMeasurementApprovalId":50775,
+      //         "SupplierMeasurement":null,
+      //         "LineId":1504,
+      //         "Name":"p",
+      //         "RequestedMeasurement":"0",
+      //         "CompanyMeasurement":null,
+      //         "SupplierDiscrepancy":0,
+      //         "CompanyDiscrepancy":0,
+      //         "NewMeasurement":"0",
+      //         "Tolerance":null,
+      //         "Changes":[
+    
+      //         ],
+      //         "sampleRequestStatus":0
+      //       }
+      //     ]
       //   }
       // ],
-      "FitApproved":false,
-      "FitComment":{
-        "Text":"",
-        "VisualComments":[
-    
-        ]
-      },
-      "SizeMeasurementCommentUpdateCommands":[
-        {
-          "Comment":{
-            "Text":"",
-            "VisualComments":[
-    
-            ]
-          },
-          "Id":"50775",
-          "Approved":false,
-          "MeasurementLineCommentUpdateCommands":[
-            {
-              "Id":85616,
-              "SizeMeasurementApprovalId":50775,
-              "SupplierMeasurement":null,
-              "LineId":1113,
-              "Name":"aaaaa",
-              "RequestedMeasurement":"553",
-              "CompanyMeasurement":null,
-              "SupplierDiscrepancy":0,
-              "CompanyDiscrepancy":0,
-              "NewMeasurement":"553",
-              "Tolerance":20,
-              "Changes":[
-    
-              ],
-              "sampleRequestStatus":0
-            },
-            {
-              "Id":85617,
-              "SizeMeasurementApprovalId":50775,
-              "SupplierMeasurement":null,
-              "LineId":1116,
-              "Name":"bb",
-              "RequestedMeasurement":"2",
-              "CompanyMeasurement":null,
-              "SupplierDiscrepancy":0,
-              "CompanyDiscrepancy":0,
-              "NewMeasurement":"2",
-              "Tolerance":5.2,
-              "Changes":[
-    
-              ],
-              "sampleRequestStatus":0
-            },
-            {
-              "Id":85618,
-              "SizeMeasurementApprovalId":50775,
-              "SupplierMeasurement":null,
-              "LineId":1117,
-              "Name":"cc",
-              "RequestedMeasurement":"0",
-              "CompanyMeasurement":null,
-              "SupplierDiscrepancy":0,
-              "CompanyDiscrepancy":0,
-              "NewMeasurement":"0",
-              "Tolerance":null,
-              "Changes":[
-    
-              ],
-              "sampleRequestStatus":0
-            },
-            {
-              "Id":85619,
-              "SizeMeasurementApprovalId":50775,
-              "SupplierMeasurement":null,
-              "LineId":1153,
-              "Name":"r",
-              "RequestedMeasurement":"33",
-              "CompanyMeasurement":null,
-              "SupplierDiscrepancy":0,
-              "CompanyDiscrepancy":0,
-              "NewMeasurement":"33",
-              "Tolerance":null,
-              "Changes":[
-    
-              ],
-              "sampleRequestStatus":0
-            },
-            {
-              "Id":85620,
-              "SizeMeasurementApprovalId":50775,
-              "SupplierMeasurement":null,
-              "LineId":1154,
-              "Name":"4",
-              "RequestedMeasurement":"0",
-              "CompanyMeasurement":null,
-              "SupplierDiscrepancy":0,
-              "CompanyDiscrepancy":0,
-              "NewMeasurement":"0",
-              "Tolerance":20,
-              "Changes":[
-    
-              ],
-              "sampleRequestStatus":0
-            },
-            {
-              "Id":85621,
-              "SizeMeasurementApprovalId":50775,
-              "SupplierMeasurement":null,
-              "LineId":1155,
-              "Name":"3",
-              "RequestedMeasurement":"0",
-              "CompanyMeasurement":null,
-              "SupplierDiscrepancy":0,
-              "CompanyDiscrepancy":0,
-              "NewMeasurement":"0",
-              "Tolerance":0,
-              "Changes":[
-    
-              ],
-              "sampleRequestStatus":0
-            },
-            {
-              "Id":85622,
-              "SizeMeasurementApprovalId":50775,
-              "SupplierMeasurement":null,
-              "LineId":1156,
-              "Name":"3",
-              "RequestedMeasurement":"0",
-              "CompanyMeasurement":null,
-              "SupplierDiscrepancy":0,
-              "CompanyDiscrepancy":0,
-              "NewMeasurement":"0",
-              "Tolerance":0,
-              "Changes":[
-    
-              ],
-              "sampleRequestStatus":0
-            },
-            {
-              "Id":85623,
-              "SizeMeasurementApprovalId":50775,
-              "SupplierMeasurement":null,
-              "LineId":1157,
-              "Name":"4",
-              "RequestedMeasurement":"0",
-              "CompanyMeasurement":null,
-              "SupplierDiscrepancy":0,
-              "CompanyDiscrepancy":0,
-              "NewMeasurement":"0",
-              "Tolerance":0,
-              "Changes":[
-    
-              ],
-              "sampleRequestStatus":0
-            },
-            {
-              "Id":85624,
-              "SizeMeasurementApprovalId":50775,
-              "SupplierMeasurement":null,
-              "LineId":1158,
-              "Name":"9",
-              "RequestedMeasurement":"0",
-              "CompanyMeasurement":null,
-              "SupplierDiscrepancy":0,
-              "CompanyDiscrepancy":0,
-              "NewMeasurement":"0",
-              "Tolerance":0,
-              "Changes":[
-    
-              ],
-              "sampleRequestStatus":0
-            },
-            {
-              "Id":85625,
-              "SizeMeasurementApprovalId":50775,
-              "SupplierMeasurement":null,
-              "LineId":1159,
-              "Name":"77",
-              "RequestedMeasurement":"0",
-              "CompanyMeasurement":null,
-              "SupplierDiscrepancy":0,
-              "CompanyDiscrepancy":0,
-              "NewMeasurement":"0",
-              "Tolerance":0,
-              "Changes":[
-    
-              ],
-              "sampleRequestStatus":0
-            },
-            {
-              "Id":85626,
-              "SizeMeasurementApprovalId":50775,
-              "SupplierMeasurement":null,
-              "LineId":1160,
-              "Name":"ttt",
-              "RequestedMeasurement":"0",
-              "CompanyMeasurement":null,
-              "SupplierDiscrepancy":0,
-              "CompanyDiscrepancy":0,
-              "NewMeasurement":"0",
-              "Tolerance":2,
-              "Changes":[
-    
-              ],
-              "sampleRequestStatus":0
-            },
-            {
-              "Id":85627,
-              "SizeMeasurementApprovalId":50775,
-              "SupplierMeasurement":null,
-              "LineId":1169,
-              "Name":"55",
-              "RequestedMeasurement":"0",
-              "CompanyMeasurement":null,
-              "SupplierDiscrepancy":0,
-              "CompanyDiscrepancy":0,
-              "NewMeasurement":"0",
-              "Tolerance":null,
-              "Changes":[
-    
-              ],
-              "sampleRequestStatus":0
-            },
-            {
-              "Id":85628,
-              "SizeMeasurementApprovalId":50775,
-              "SupplierMeasurement":null,
-              "LineId":1161,
-              "Name":"0",
-              "RequestedMeasurement":"0",
-              "CompanyMeasurement":null,
-              "SupplierDiscrepancy":0,
-              "CompanyDiscrepancy":0,
-              "NewMeasurement":"0",
-              "Tolerance":2,
-              "Changes":[
-    
-              ],
-              "sampleRequestStatus":0
-            },
-            {
-              "Id":85629,
-              "SizeMeasurementApprovalId":50775,
-              "SupplierMeasurement":null,
-              "LineId":1170,
-              "Name":"4",
-              "RequestedMeasurement":"0",
-              "CompanyMeasurement":null,
-              "SupplierDiscrepancy":0,
-              "CompanyDiscrepancy":0,
-              "NewMeasurement":"0",
-              "Tolerance":1,
-              "Changes":[
-    
-              ],
-              "sampleRequestStatus":0
-            },
-            {
-              "Id":85630,
-              "SizeMeasurementApprovalId":50775,
-              "SupplierMeasurement":null,
-              "LineId":1503,
-              "Name":"p",
-              "RequestedMeasurement":"0",
-              "CompanyMeasurement":null,
-              "SupplierDiscrepancy":0,
-              "CompanyDiscrepancy":0,
-              "NewMeasurement":"0",
-              "Tolerance":null,
-              "Changes":[
-    
-              ],
-              "sampleRequestStatus":0
-            },
-            {
-              "Id":85631,
-              "SizeMeasurementApprovalId":50775,
-              "SupplierMeasurement":null,
-              "LineId":1504,
-              "Name":"p",
-              "RequestedMeasurement":"0",
-              "CompanyMeasurement":null,
-              "SupplierDiscrepancy":0,
-              "CompanyDiscrepancy":0,
-              "NewMeasurement":"0",
-              "Tolerance":null,
-              "Changes":[
-    
-              ],
-              "sampleRequestStatus":0
-            }
-          ]
-        }
-      ],
       "FinishInsideApproved":false,
       "FinishOutsideApproved":false,
-      "FinishInsideComment":{
-        "Text":"",
-        "VisualComments":[
-    
-        ]
-      },
-      "FinishOutsideComment":{
-        "Text":"",
-        "VisualComments":[
-    
-        ]
-      },
+      "FinishInsideComment":finishInsideData,
+      "FinishOutsideComment":finishOutsideData,
       "StyleSampleRequestCommentFields":[
-        {
+        {// custom comment
           "Id":13910,
           "Approved":false,
           "Comment":{
@@ -592,11 +562,12 @@ const UpdateOtherSampleRequest = (token, sampleDataState, itemPlacement, finishO
           ]
         }
       ],
-      "TrackingNumber":"12345",
-      "Location":{
-        "Id":"5"
-      },
-      "Note":"",
+      "TrackingNumber":sampleDataState.sampleData.trackingNumber,
+      "Location":sampleDataState.sampleData.location,
+      // {
+      //   "Id":"5"
+      // },
+      "Note":sampleDataState.sampleData.note,
       "NotifiedUsers":null,
       "Set_ON_OFF_WIPStateOfStyle":false
     }
