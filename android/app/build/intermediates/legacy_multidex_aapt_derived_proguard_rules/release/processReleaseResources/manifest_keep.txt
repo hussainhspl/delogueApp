@@ -1,0 +1,4 @@
+# Referenced at /Users/siyaulhaqu/hussain/delogueApp/android/app/build/intermediates/merged_manifests/release/AndroidManifest.xml:37
+-keep class androidx.core.app.CoreComponentFactory { <init>(); }
+# Referenced at /Users/siyaulhaqu/hussain/delogueApp/android/app/build/intermediates/merged_manifests/release/AndroidManifest.xml:37
+-keep class com.delogue.MainApplication { <init>(); }
