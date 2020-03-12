@@ -145,9 +145,10 @@ class Measurement extends React.Component {
         )
       }))
     }
-
   }
   applyClick () {
+    console.log('update measurement', this.state.measurementLineComments);
+    // return;
     this.setState({
       modalVisible: !this.state.modalVisible
     }, 

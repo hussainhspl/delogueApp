@@ -1,5 +1,5 @@
 import {ITEM_PLACEMENT, FINISH, FINISH_OUTSIDE, FINISH_INSIDE, DESIGN, MEASUREMENT_TABLE,
-  SAMPLE_STATUS, CUSTOM_COMMENTS, SAMPLE_STATUS_PLANNED} from './action_types';
+  SAMPLE_STATUS, CUSTOM_COMMENTS, SAMPLE_STATUS_PLANNED, SAMPLE_SIZES} from './action_types';
 
 export const itemPlacement = (itemPlacement) => {
   return {
@@ -61,5 +61,12 @@ export const sampleStatusPlanned = (sampleStatusPlanned) => {
   return{
     type: SAMPLE_STATUS_PLANNED,
     payload: sampleStatusPlanned
+  }
+}
+
+export const sampleSizes = (sampleSizes) => {
+  return{
+    type: SAMPLE_SIZES,
+    payload: sampleSizes
   }
 }

@@ -189,7 +189,7 @@ class Menu extends React.Component {
               <CardText > Logout </CardText>
 
             </LoginTouchableHighlight>
-            <SmallText>version 1.3.2 </SmallText>
+            <SmallText>version 1.4 </SmallText>
           </Bottom>
         </SidebarView>
       </MenuContainer>

@@ -4,10 +4,10 @@ import { fi } from "date-fns/locale";
 
 const UpdateOtherSampleRequest = (
   token, sampleDataState, itemPlacement, finish, finishOutside, finishInside, design, custom, 
-  status, measurement
+  status, measurement, sampleSizes
   ) => {
   console.log('token ', token, sampleDataState, finishOutside, finish, finishInside, design, custom, status.deadline);
-  console.log('new', custom);
+  console.log('new', status);
   return new Promise(function (resolve, reject) {
 
     
@@ -43,21 +43,55 @@ const UpdateOtherSampleRequest = (
     let finishOutsideData= finish.finishOutsideDesignerComment;
 
     let updatedCustomCommentsArray = [];
-    // updatedCustomCommentsArray = custom.map()
+    custom.map(d=> {
+      let {id,approved, designerComment, adminSampleRequestCommentField} = d;
+      let requiredCustom= {
+        "Id" : id,
+        "Approved" : approved,
+        "Comment" : designerComment,
+        "AdminSampleRequestCommentFieldId" : adminSampleRequestCommentField.id
+      }
+      updatedCustomCommentsArray.push(requiredCustom);
+      console.log('d', requiredCustom);
+    })
+
+    let updatedSampleSizesArray = [];
+    sampleSizes.map( d => {
+      let fieldInner=[];
+      let {id, sizeRangeSizeId, requestedSampleSizeSpecs} = d;
+      requestedSampleSizeSpecs.map(q => {
+        field1 = {
+          "Available": q.available,
+          "StyleColorId": q.styleColorId,
+          "Quantity": q.quantity
+          
+        };
+        fieldInner.push(field1)
+      })
+      let fields = {
+        "id" : id,
+        "SizeRangeSizeId": sizeRangeSizeId,
+        "RequestedSampleSizeSpecCommands": fieldInner
+      }
+      updatedSampleSizesArray.push(fields);
+      console.log('sizes', updatedSampleSizesArray, requestedSampleSizeSpecs);
+
+    })
 
     // let final = newItemPlacementArray.map((d, idx) => ({...{...d[idx]}}))
-    console.log('updated item placement', newItemPlacementArray, finalItemPlacementArray);
+    // console.log('updated custom', updatedCustomCommentsArray);
     const data1 =
     {
       "IsQuickSave":false,
       "IsUpdated":true,
-      "Comment":{
-        "Text":"",
-        "VisualComments":[
+      "Comment": status.designerComment,
+      // {
+      //   "Text":"",
+      //   "VisualComments":[
     
-        ]
-      },
-      "Id":33226,
+      //   ]
+      // },
+      "Id":status.id,
       "CancelComment":{
     
       },
@@ -351,217 +385,219 @@ const UpdateOtherSampleRequest = (
       //     ]
       //   }
       // ],
-      "FinishInsideApproved":false,
-      "FinishOutsideApproved":false,
+      "FinishInsideApproved":finish.finishInsideApproved,
+      "FinishOutsideApproved":finish.finishOutsideApproved,
       "FinishInsideComment":finishInsideData,
       "FinishOutsideComment":finishOutsideData,
-      "StyleSampleRequestCommentFields":[
-        {// custom comment
-          "Id":13910,
-          "Approved":false,
-          "Comment":{
-            "Text":"",
-            "VisualComments":[
+      "StyleSampleRequestCommentFields": updatedCustomCommentsArray,
+      // [
+      //   {// custom comment
+      //     "Id":13910,
+      //     "Approved":false,
+      //     "Comment":{
+      //       "Text":"",
+      //       "VisualComments":[
     
-            ]
-          },
-          "AdminSampleRequestCommentFieldId":1170
-        },
-        {
-          "Id":13911,
-          "Approved":false,
-          "Comment":{
-            "Text":"",
-            "VisualComments":[
+      //       ]
+      //     },
+      //     "AdminSampleRequestCommentFieldId":1170
+      //   },
+      //   {
+      //     "Id":13911,
+      //     "Approved":false,
+      //     "Comment":{
+      //       "Text":"",
+      //       "VisualComments":[
     
-            ]
-          },
-          "AdminSampleRequestCommentFieldId":1225
-        },
-        {
-          "Id":13912,
-          "Approved":false,
-          "Comment":{
-            "Text":"",
-            "VisualComments":[
+      //       ]
+      //     },
+      //     "AdminSampleRequestCommentFieldId":1225
+      //   },
+      //   {
+      //     "Id":13912,
+      //     "Approved":false,
+      //     "Comment":{
+      //       "Text":"",
+      //       "VisualComments":[
     
-            ]
-          },
-          "AdminSampleRequestCommentFieldId":1295
-        },
-        {
-          "Id":13913,
-          "Approved":false,
-          "Comment":{
-            "Text":"",
-            "VisualComments":[
+      //       ]
+      //     },
+      //     "AdminSampleRequestCommentFieldId":1295
+      //   },
+      //   {
+      //     "Id":13913,
+      //     "Approved":false,
+      //     "Comment":{
+      //       "Text":"",
+      //       "VisualComments":[
     
-            ]
-          },
-          "AdminSampleRequestCommentFieldId":1492
-        },
-        {
-          "Id":13914,
-          "Approved":false,
-          "Comment":{
-            "Text":"",
-            "VisualComments":[
+      //       ]
+      //     },
+      //     "AdminSampleRequestCommentFieldId":1492
+      //   },
+      //   {
+      //     "Id":13914,
+      //     "Approved":false,
+      //     "Comment":{
+      //       "Text":"",
+      //       "VisualComments":[
     
-            ]
-          },
-          "AdminSampleRequestCommentFieldId":1518
-        }
-      ],
-      "StyleId":26,
-      "Status":"0",
+      //       ]
+      //     },
+      //     "AdminSampleRequestCommentFieldId":1518
+      //   }
+      // ],
+      "StyleId":status.styleId,
+      "Status":status.status,
       "deadline": status.deadline,
-      "ETD":"20-Feb-2020",
-      "RequestedSampleSizesCommand":[
-        {
-          "Id":173579,
-          "SizeRangeSizeId":22,
-          "RequestedSampleSizeSpecCommands":[
-            {
-              "Available":true,
-              "StyleColorId":"0",
-              "Quantity":"20"
-            },
-            {
-              "Available":false,
-              "StyleColorId":"401",
-              "Quantity":""
-            },
-            {
-              "Available":false,
-              "StyleColorId":"402",
-              "Quantity":""
-            },
-            {
-              "Available":false,
-              "StyleColorId":"403",
-              "Quantity":""
-            },
-            {
-              "Available":false,
-              "StyleColorId":"404",
-              "Quantity":""
-            },
-            {
-              "Available":false,
-              "StyleColorId":"405",
-              "Quantity":""
-            }
-          ]
-        },
-        {
-          "Id":173580,
-          "SizeRangeSizeId":23,
-          "RequestedSampleSizeSpecCommands":[
-            {
-              "Available":true,
-              "StyleColorId":"0",
-              "Quantity":""
-            },
-            {
-              "Available":false,
-              "StyleColorId":"401",
-              "Quantity":""
-            },
-            {
-              "Available":false,
-              "StyleColorId":"402",
-              "Quantity":""
-            },
-            {
-              "Available":false,
-              "StyleColorId":"403",
-              "Quantity":""
-            },
-            {
-              "Available":false,
-              "StyleColorId":"404",
-              "Quantity":""
-            },
-            {
-              "Available":false,
-              "StyleColorId":"405",
-              "Quantity":""
-            }
-          ]
-        },
-        {
-          "Id":173581,
-          "SizeRangeSizeId":24,
-          "RequestedSampleSizeSpecCommands":[
-            {
-              "Available":true,
-              "StyleColorId":"0",
-              "Quantity":""
-            },
-            {
-              "Available":false,
-              "StyleColorId":"401",
-              "Quantity":""
-            },
-            {
-              "Available":false,
-              "StyleColorId":"402",
-              "Quantity":""
-            },
-            {
-              "Available":false,
-              "StyleColorId":"403",
-              "Quantity":""
-            },
-            {
-              "Available":false,
-              "StyleColorId":"404",
-              "Quantity":""
-            },
-            {
-              "Available":false,
-              "StyleColorId":"405",
-              "Quantity":""
-            }
-          ]
-        },
-        {
-          "Id":173582,
-          "SizeRangeSizeId":25,
-          "RequestedSampleSizeSpecCommands":[
-            {
-              "Available":true,
-              "StyleColorId":"0",
-              "Quantity":""
-            },
-            {
-              "Available":false,
-              "StyleColorId":"401",
-              "Quantity":""
-            },
-            {
-              "Available":false,
-              "StyleColorId":"402",
-              "Quantity":""
-            },
-            {
-              "Available":false,
-              "StyleColorId":"403",
-              "Quantity":""
-            },
-            {
-              "Available":false,
-              "StyleColorId":"404",
-              "Quantity":""
-            },
-            {
-              "Available":false,
-              "StyleColorId":"405",
-              "Quantity":""
-            }
-          ]
-        }
-      ],
+      "ETD":status.etd,
+      "RequestedSampleSizesCommand":updatedSampleSizesArray,
+      // [
+      //   {
+      //     "Id":173579,
+      //     "SizeRangeSizeId":22,
+      //     "RequestedSampleSizeSpecCommands":[
+      //       {
+      //         "Available":true,
+      //         "StyleColorId":"0",
+      //         "Quantity":"20"
+      //       },
+      //       {
+      //         "Available":false,
+      //         "StyleColorId":"401",
+      //         "Quantity":""
+      //       },
+      //       {
+      //         "Available":false,
+      //         "StyleColorId":"402",
+      //         "Quantity":""
+      //       },
+      //       {
+      //         "Available":false,
+      //         "StyleColorId":"403",
+      //         "Quantity":""
+      //       },
+      //       {
+      //         "Available":false,
+      //         "StyleColorId":"404",
+      //         "Quantity":""
+      //       },
+      //       {
+      //         "Available":false,
+      //         "StyleColorId":"405",
+      //         "Quantity":""
+      //       }
+      //     ]
+      //   },
+      //   {
+      //     "Id":173580,
+      //     "SizeRangeSizeId":23,
+      //     "RequestedSampleSizeSpecCommands":[
+      //       {
+      //         "Available":true,
+      //         "StyleColorId":"0",
+      //         "Quantity":""
+      //       },
+      //       {
+      //         "Available":false,
+      //         "StyleColorId":"401",
+      //         "Quantity":""
+      //       },
+      //       {
+      //         "Available":false,
+      //         "StyleColorId":"402",
+      //         "Quantity":""
+      //       },
+      //       {
+      //         "Available":false,
+      //         "StyleColorId":"403",
+      //         "Quantity":""
+      //       },
+      //       {
+      //         "Available":false,
+      //         "StyleColorId":"404",
+      //         "Quantity":""
+      //       },
+      //       {
+      //         "Available":false,
+      //         "StyleColorId":"405",
+      //         "Quantity":""
+      //       }
+      //     ]
+      //   },
+      //   {
+      //     "Id":173581,
+      //     "SizeRangeSizeId":24,
+      //     "RequestedSampleSizeSpecCommands":[
+      //       {
+      //         "Available":true,
+      //         "StyleColorId":"0",
+      //         "Quantity":""
+      //       },
+      //       {
+      //         "Available":false,
+      //         "StyleColorId":"401",
+      //         "Quantity":""
+      //       },
+      //       {
+      //         "Available":false,
+      //         "StyleColorId":"402",
+      //         "Quantity":""
+      //       },
+      //       {
+      //         "Available":false,
+      //         "StyleColorId":"403",
+      //         "Quantity":""
+      //       },
+      //       {
+      //         "Available":false,
+      //         "StyleColorId":"404",
+      //         "Quantity":""
+      //       },
+      //       {
+      //         "Available":false,
+      //         "StyleColorId":"405",
+      //         "Quantity":""
+      //       }
+      //     ]
+      //   },
+      //   {
+      //     "Id":173582,
+      //     "SizeRangeSizeId":25,
+      //     "RequestedSampleSizeSpecCommands":[
+      //       {
+      //         "Available":true,
+      //         "StyleColorId":"0",
+      //         "Quantity":""
+      //       },
+      //       {
+      //         "Available":false,
+      //         "StyleColorId":"401",
+      //         "Quantity":""
+      //       },
+      //       {
+      //         "Available":false,
+      //         "StyleColorId":"402",
+      //         "Quantity":""
+      //       },
+      //       {
+      //         "Available":false,
+      //         "StyleColorId":"403",
+      //         "Quantity":""
+      //       },
+      //       {
+      //         "Available":false,
+      //         "StyleColorId":"404",
+      //         "Quantity":""
+      //       },
+      //       {
+      //         "Available":false,
+      //         "StyleColorId":"405",
+      //         "Quantity":""
+      //       }
+      //     ]
+      //   }
+      // ],
       "TrackingNumber":sampleDataState.sampleData.trackingNumber,
       "Location":sampleDataState.sampleData.location,
       // {

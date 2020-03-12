@@ -6,7 +6,7 @@ const initialState = {
 };
 
 const unreadMessagesListReducer = (state = initialState, action) => {
-  console.log('action ', action)
+  // console.log('action ', action)
   switch (action.type) {
     case UNREAD_MESSAGES_LIST: 
       return {

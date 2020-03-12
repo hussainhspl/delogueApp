@@ -3,6 +3,9 @@ import { View, Text, Modal, Dimensions, ScrollView, TextInput } from "react-nati
 import styled from 'styled-components';
 import ApplyButton from '../styles/ApplyButton'
 import TouchableApply from "../styles/TouchableApply";
+import {sampleSizes } from '../store/actions/index';
+import { connect } from "react-redux";
+
 
 
 const colArr = ['Availble', '102 Nude', '200 Black', '300 White', '400 Cherry Red', '500 Orange'];
@@ -179,7 +182,11 @@ class PiecesPopup extends React.Component {
         }
         : el
       )
-    }))
+    }),() => {
+        console.log('popup data changed', this.state.piecesData);
+        this.props.sampleSizesFunction(this.state.piecesData);
+      }
+    )
     
   }
   render() {
@@ -272,4 +279,16 @@ class PiecesPopup extends React.Component {
     )
   }
 }
-export default PiecesPopup;
+const mapStateToProps = state => {
+  return {
+    // sampleStatusState: state.sampleRequestTabs.sampleStatusState,
+  };
+};
+const mapDispatchToProps = dispatch => {
+  return {
+    
+    sampleSizesFunction: (data) => dispatch(sampleSizes(data)),
+
+  }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(PiecesPopup);

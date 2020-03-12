@@ -36,12 +36,12 @@ import UpdatePlanned from "../../../api/sample/updatePlanned";
 import GetPlannedSample from "../../../api/sample/getPlannedSample";
 import PlannedSampleAccordion from "./plannedSampleAccordion";
 import { connect } from "react-redux";
-import { sampleStatusPlanned, sampleStatus } from '../../../store/actions/index';
+import { sampleStatusPlanned, sampleStatus, sampleSizes } from '../../../store/actions/index';
 
 
-const StageArray = [ 'Requested', 'Sent', 'Received', 'Commented', 'Cancelled', 'Confirmed' ];
+const StageArray = ['Requested', 'Sent', 'Received', 'Commented', 'Cancelled', 'Confirmed'];
 const PlannedStageArray = ['Planned', 'Requested', 'Cancelled'];
-const otherStateCount = [ 0, 1, 2, 3, 4, 5, ];
+const otherStateCount = [0, 1, 2, 3, 4, 5,];
 const plannedStateCount = [0, 1, 2];
 
 
@@ -174,6 +174,108 @@ class SampleRequest extends React.Component {
       selectedType: null
     };
   }
+  componentDidMount = () => {
+    // AppState.addEventListener("change111", this._handleAppStateChange);
+    // console.log('sample request did mount :',this.props.data.name);
+    GetAsyncToken()
+      .then(token => {
+        if (this.props.data.name != "Planned") {
+          GetSampleOverview(token, this.props.data.id)
+            .then(res => {
+              console.log('success in sample overview', res);
+              this.setState({
+                sampleData: res.data
+              }, () => this.getSampleRequestStatus())
+
+            })
+        } else {
+          GetPlannedSample(token, this.props.data.id)
+            .then(res => {
+              // console.log('got planned data', res);
+              this.setState({
+                sampleData: res.data
+              }, () => this.getSampleRequestStatus())
+            })
+        }
+      })
+  };
+
+  getSampleRequestStatus = () => {
+    console.log('sample sizes', this.state.sampleData.requestedSampleSizes);
+    this.props.sampleSizesFunction(this.state.sampleData.requestedSampleSizes);
+    let formatedDeadline = null;
+    let formatedEtd = null;
+
+    if (this.state.sampleData.deadline != null) {
+      const date = new Date(this.state.sampleData.deadline)
+      let localDate = new Date(date.setMinutes(date.getMinutes() - date.getTimezoneOffset()));
+      formatedDeadline = format(localDate, "d-MMM-yyyy");
+    }
+
+    if (this.state.sampleData.etd != null) {
+      const date = new Date(this.state.sampleData.etd)
+      let localDate = new Date(date.setMinutes(date.getMinutes() - date.getTimezoneOffset()));
+      formatedEtd = format(localDate, "d-MMM-yyyy");
+    }
+
+    this.setState(prevState => ({
+      sampleData: {
+        ...prevState.sampleData,
+        deadline: formatedDeadline,
+        etd: formatedEtd,
+      }
+    }), () => this.updateCarousel())
+
+  }
+  updateCarousel() {
+    // console.log('update carousel', this.state.sampleData.sampleRequestStatus, this.state.currentIndex);
+
+    if (this.state.sampleData != null) {
+
+
+      if (this.state.sampleData.sampleRequestStatus == "Requested") {
+        this.setState({
+          sampleRequestStatus: 0, currentIndex: 0
+        })
+      }
+      if (this.state.sampleData.sampleRequestStatus == "Sent") {
+        this.setState({
+          sampleRequestStatus: 1, currentIndex: 1
+        })
+      }
+      if (this.state.sampleData.sampleRequestStatus == "Received") {
+        this.setState({
+          sampleRequestStatus: 2, currentIndex: 2
+        })
+      }
+      if (this.state.sampleData.sampleRequestStatus == "Commented") {
+        this.setState({
+          sampleRequestStatus: 3, currentIndex: 3
+        })
+      }
+      if (this.state.sampleData.sampleRequestStatus == "Cancelled") {
+        this.setState({
+          sampleRequestStatus: 4, currentIndex: 4
+        }, () => console.log('4', this.state.sampleRequestStatus))
+      }
+      if (this.state.sampleData.sampleRequestStatus == "Confirmed") {
+        this.setState({
+          sampleRequestStatus: 5, currentIndex: 5
+        })
+      }
+      if (this.state.sampleData.sampleRequestStatus == "Planned") {
+        this.setState({
+          sampleRequestStatus: 6, currentIndex: 6
+        })
+      }
+      if (this.state.sampleData.status == 6) {
+        this.setState({
+          sampleRequestStatus: 0, currentIndex: 0
+        })
+      }
+    }
+  }
+
   showDatePicker = value => {
     if (value == "deadline") {
       this.setState({ isDeadlineDatePickerVisible: true });
@@ -248,7 +350,7 @@ class SampleRequest extends React.Component {
   }
   updateRedux = (formatedDeadline) => {
     console.log('update redux', this.state.sampleData, this.props.sampleStatusState);
-    if(this.props.data.name == "Planned") {
+    if (this.props.data.name == "Planned") {
       this.props.sampleStatusPlannedFunction(this.state.sampleData);
     }
     else {
@@ -260,7 +362,7 @@ class SampleRequest extends React.Component {
 
       // currentSampleStatus.map(d => console.log('deadline', d.deadline));
 
-      console.log('not planned',this.props.sampleStatusState);
+      console.log('not planned', this.props.sampleStatusState);
     }
   }
   redirectTo() {
@@ -276,32 +378,7 @@ class SampleRequest extends React.Component {
   //       })
   //     })
   // }
-  componentDidMount = () => {
-    // AppState.addEventListener("change111", this._handleAppStateChange);
-    // console.log('sample request did mount :',this.props.data.name);
-    GetAsyncToken()
-      .then(token => {
-        if(this.props.data.name != "Planned") {
-          GetSampleOverview(token, this.props.data.id)
-          .then(res => {
-            // console.log('success in sample overview', res);
-            this.setState({
-              sampleData: res.data
-            }, () => this.getSampleRequestStatus())
 
-          })
-        } else {
-          GetPlannedSample(token, this.props.data.id)
-            .then(res => {
-              // console.log('got planned data', res);
-              this.setState({
-                sampleData: res.data
-              }, () => this.getSampleRequestStatus())
-            })
-        }
-        
-      })
-  };
   componentWillUnmount = () => {
     AppState.removeEventListener("change", this._handleAppStateChange);
   };
@@ -343,83 +420,7 @@ class SampleRequest extends React.Component {
       <CurrentStageTitle>{item}</CurrentStageTitle>
     );
   }
-  getSampleRequestStatus = () => {
-    // console.log('getSampleRequestStatus', this.state.sampleData);
-    let formatedDeadline = null;
-    let formatedEtd = null;
-
-    if (this.state.sampleData.deadline != null) {
-      const date = new Date(this.state.sampleData.deadline)
-      let localDate = new Date(date.setMinutes(date.getMinutes() - date.getTimezoneOffset()));
-      formatedDeadline = format(localDate, "d-MMM-yyyy");
-    }
-
-    if (this.state.sampleData.etd != null) {
-      const date = new Date(this.state.sampleData.etd)
-      let localDate = new Date(date.setMinutes(date.getMinutes() - date.getTimezoneOffset()));
-      formatedEtd = format(localDate, "d-MMM-yyyy");
-    }
-
-    this.setState(prevState => ({
-      sampleData: {
-        ...prevState.sampleData,
-        deadline: formatedDeadline,
-        etd: formatedEtd,
-      }
-    }), () => this.updateCarousel())
-
-  }
-  updateCarousel () {
-    // console.log('update carousel', this.state.sampleData.sampleRequestStatus, this.state.currentIndex);
-
-    if(this.state.sampleData != null ) { 
-      
-      
-      if(this.state.sampleData.sampleRequestStatus == "Requested") {
-        this.setState({
-          sampleRequestStatus: 0, currentIndex: 0
-        })
-      }
-      if(this.state.sampleData.sampleRequestStatus == "Sent") {
-        this.setState({
-          sampleRequestStatus: 1, currentIndex: 1
-        })
-      }
-      if(this.state.sampleData.sampleRequestStatus == "Received") {
-        this.setState({
-          sampleRequestStatus: 2, currentIndex: 2
-        })
-      }
-      if(this.state.sampleData.sampleRequestStatus == "Commented") {
-        this.setState({
-          sampleRequestStatus: 3, currentIndex: 3
-        })
-      }
-      if(this.state.sampleData.sampleRequestStatus == "Cancelled") {
-        this.setState({
-          sampleRequestStatus: 4, currentIndex: 4
-        }, () => console.log('4', this.state.sampleRequestStatus))
-      }
-      if(this.state.sampleData.sampleRequestStatus == "Confirmed") {
-        this.setState({
-          sampleRequestStatus: 5, currentIndex: 5
-        })
-      }
-      if(this.state.sampleData.sampleRequestStatus =="Planned") {
-        this.setState({
-          sampleRequestStatus: 6, currentIndex: 6
-        })
-      }
-      if(this.state.sampleData.status == 6 ) {
-        this.setState({
-          sampleRequestStatus: 0, currentIndex: 0
-        })
-      }
-      
-      
-
-    }
-  }
+  
   updatePieces() {
     this.setState({ piecesModal: false })
   }
@@ -427,7 +428,7 @@ class SampleRequest extends React.Component {
     const screenWidth = Math.round(Dimensions.get('window').width);
     const slideWidth = Math.round(Dimensions.get('window').width / 2)
     let currentCount = null;
-    if(this.state.sampleData != null) {
+    if (this.state.sampleData != null) {
       currentCount = this.state.sampleData.status == 6 ? plannedStateCount : otherStateCount
     }
     // console.log('in render sample request', this.state.sampleRequestStatus)
@@ -463,7 +464,7 @@ class SampleRequest extends React.Component {
                       <Block>
                         <SmallText>Tracking Number </SmallText>
                         <CardText numberOfLines={1}>{this.state.sampleData.trackingNumber}</CardText>
-                        
+
                       </Block>
                     </DetailRow>
                   </View>
@@ -482,22 +483,22 @@ class SampleRequest extends React.Component {
                   data={this.state.sampleData.requestedSampleSizes}
                 />
                 <CurrentStage>
-                  {this.state.sampleRequestStatus != null  && (
-                  <Carousel
-                    ref={(c) => { this._carousel = c; }}
-                    data={ this.state.sampleData.status == 6 ? PlannedStageArray : StageArray }
-                    renderItem={this._renderItem}
-                    itemWidth={slideWidth}
-                    sliderWidth={screenWidth}
-                    callbackOffsetMargin={0}
-                    onBeforeSnapToItem={this.changeIndex}
-                    firstItem={this.state.sampleRequestStatus}
-                  // onSnapToItem={(index) => console.log('hello')}
-                  // onLayout={ () => console.log("swipe")}
-                  // activeSlideAlignment={'center'}
-                  // activeSlideOffset={'center'}
-                  // layout={'tinder'}
-                  />
+                  {this.state.sampleRequestStatus != null && (
+                    <Carousel
+                      ref={(c) => { this._carousel = c; }}
+                      data={this.state.sampleData.status == 6 ? PlannedStageArray : StageArray}
+                      renderItem={this._renderItem}
+                      itemWidth={slideWidth}
+                      sliderWidth={screenWidth}
+                      callbackOffsetMargin={0}
+                      onBeforeSnapToItem={this.changeIndex}
+                      firstItem={this.state.sampleRequestStatus}
+                    // onSnapToItem={(index) => console.log('hello')}
+                    // onLayout={ () => console.log("swipe")}
+                    // activeSlideAlignment={'center'}
+                    // activeSlideOffset={'center'}
+                    // layout={'tinder'}
+                    />
                   )}
                 </CurrentStage>
 
@@ -511,8 +512,8 @@ class SampleRequest extends React.Component {
             > */}
                 <TabRow>
                   {
-                    currentCount.map( count => {
-                      return(
+                    currentCount.map(count => {
+                      return (
                         <Tab active={this.state.currentIndex >= count ? true : false}>
                           <RightTriangle active={this.state.currentIndex >= count ? true : false} />
                           <TabTail active={this.state.currentIndex >= count ? true : false} />
@@ -532,8 +533,8 @@ class SampleRequest extends React.Component {
                     <SampleAccordion
                       data={this.state.sampleData}
                     />
-                )}
-                
+                  )}
+
                 {this.state.sampleData.status == 6 && (
                   <PlannedSampleAccordion
                     data={this.state.sampleData}
@@ -586,9 +587,9 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     // finishOutsideFunction: (data) => dispatch(finishOutside(data)),
-    // sampleStatusFunction: (data) => dispatch(sampleStatus(data));
     sampleStatusPlannedFunction: (data) => dispatch(sampleStatusPlanned(data)),
-		sampleStatusFunction: (data) => dispatch(sampleStatus(data)),
+    sampleStatusFunction: (data) => dispatch(sampleStatus(data)),
+    sampleSizesFunction: (data) => dispatch(sampleSizes(data)),
 
   }
 }
