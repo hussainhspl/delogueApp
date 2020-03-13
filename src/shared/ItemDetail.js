@@ -3,6 +3,7 @@ import { View, Text, Image, Dimensions } from "react-native";
 import styled from "styled-components";
 import Title from "../styles/SmallText";
 import CardText from '../styles/CardText';
+import { connect } from "react-redux";
 
 const ImageBox = styled.View`
   height: 80px;
@@ -47,8 +48,34 @@ class ItemDetail extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      imgSrc: null
+      imgSrc: null,
+      itemData: null
     };
+  }
+  
+  static getDerivedStateFromProps(nextProps, prevState) {
+    if(nextProps.itemData !== prevState.itemData) {
+      console.log('enter in get single style in derived state');
+      return {
+        itemData : nextProps.style
+      }
+    }
+    return null
+  }
+  componentDidMount = () => {
+    if (this.props.data != null) {
+      console.log('enter in item derived');
+      this.setState({itemData: this.props.data});
+      if (this.props.data.logoThumbnails != null) {
+        this.getThumbnail(this.props.data.logoThumbnails)
+      }
+    }
+    if(this.props.style != null) {
+      if (this.props.style.logoThumbnails != null) {
+        this.getThumbnail(this.props.style.logoThumbnails)
+      }
+    }
+    
   }
   getThumbnail = (thumbnails) => {
     // console.log("get thumbnail called")
@@ -71,16 +98,10 @@ class ItemDetail extends React.Component {
       })
     }
   }
-  componentDidMount = () => {
-    if (this.props.data != null) {
-      if (this.props.data.logoThumbnails != null) {
-        this.getThumbnail(this.props.data.logoThumbnails)
-      }
-    }
-  }
+  
   render() {
-    let data = this.props.data;
-    // console.log("data in item detail", data);
+    let data = this.state.itemData;
+    console.log("data in item detail", this.state.itemData);
     return (
       <MainRow>
         {data != null ? <Fragment>
@@ -159,5 +180,9 @@ class ItemDetail extends React.Component {
     );
   }
 }
-
-export default ItemDetail;
+const mapStateToProps = state => {
+  return {
+    style: state.singleStyle.singleStyleState,
+  }
+}
+export default connect(mapStateToProps)(ItemDetail);

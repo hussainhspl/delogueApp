@@ -10,7 +10,7 @@ import {
 import { Icon } from "native-base";
 import { withTheme } from 'styled-components';
 import { connect } from "react-redux";
-import { commentTab, unreadMessagesList, readAll, unreadAll, styleId } from "../../store/actions/index";
+import { commentTab, unreadMessagesList, readAll, unreadAll, styleId, singleStyle } from "../../store/actions/index";
 import styled from "styled-components";
 import Header from "../../Header";
 import Subject from '../../styles/Subject';
@@ -37,6 +37,7 @@ import LoadMoreView from "../../styles/LoadMoreView";
 import LoadMoreButton from "../../styles/LoadMoreButton";
 import InfoView from "../../styles/InfoView";
 import InfoText from "../../styles/InfoText";
+import GetSelectedStyle from '../../api/getStyle';
 
 // let pageNumber = 1;
 
@@ -229,7 +230,7 @@ class Message extends React.Component {
   }
   static getDerivedStateFromProps(nextProps, prevState) {
     // console.log('before render', this.state.MessageList.isRead)
-    console.log('enter in derived', prevState.MessageList)
+    // console.log('enter in derived', prevState.MessageList)
     if (nextProps.MessageList !== prevState.MessageList) {
       // console.log("Entered nextProps messages",prevState.MessageList);
       return {
@@ -243,17 +244,25 @@ class Message extends React.Component {
     // console.log('enter in redirect', id);
     GetAsyncToken()
       .then(token => {
+        
         SpecificMessage(token, id)
           .then(res => {
-            // console.log('resp in message :', res);
+            console.log('resp in specific message when clicked :', res);
             this.props.styleIdFunction(res.data.styleId);
             this.props.commentTabFunction();
+            GetSelectedStyle(token, res.data.styleId)
+              .then(res => {
+                // console.log('got single style : ', res);
+                this.props.singleStyleFunction(res.data)
+              })
             this.props.history.push({
               pathname: '/style',
               data: res.data,
               openMessage: true,
             })
           })
+        
+          
       })
 
   }
@@ -297,7 +306,7 @@ class Message extends React.Component {
   }
 
   render() {
-    console.log('msg');
+    console.log('render in msg');
     history = this.props.history;
     let color = Appearance.getColorScheme();
 
@@ -365,11 +374,11 @@ class Message extends React.Component {
                   // let formatedDate = format(parseISO(m.loggedOn), "d-MMM-yyyy kk:mm");
                   // console.log('DeviceInfo', DeviceInfo);
 
-                  console.log('m', m, m.loggedOn);
+                  // console.log('m', m, m.loggedOn);
                   const date = new Date(m.loggedOn)
                   // console.log('date.setMinutes(date.getMinutes()', )
                   let localDate = new Date(date.setMinutes(date.getMinutes() - date.getTimezoneOffset()));
-                  console.log('localDate', localDate);
+                  // console.log('localDate', localDate);
                   
                   let formatedDate = format(localDate, "d-MMM-yyyy kk:mm")
                   // console.log('current time ', formatedDate)
@@ -379,7 +388,7 @@ class Message extends React.Component {
                   // console.log('new msg : ', newMsgBody);
                   if (m.messageType == "StyleCommunicationMessage") {
                     return (
-                      <Fragment key={m.auditLogId}>
+                      <Fragment key={index}>
                         {this.state.message && (
                           <MessageBox >
                             <TouchableHighlight
@@ -526,6 +535,8 @@ const mapDispatchToProps = dispatch => {
     updateUnReadFunction: (auditLogId) => dispatch(unreadAll(auditLogId)),
 
     styleIdFunction: (sid) => dispatch(styleId(sid)),
+    singleStyleFunction: (s) => dispatch(singleStyle(s))
+
 
 
   }

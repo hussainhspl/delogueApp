@@ -20,6 +20,7 @@ import NotificationModal from '../NotificationModal';
 import CreateSampleRequest from '../../../api/sample/CreateSampleRequest';
 import { format } from 'date-fns';
 import {sortBy, orderBy} from 'lodash';
+import {connect} from 'react-redux';
 
 
 const StyledView = styled.View`
@@ -106,6 +107,58 @@ class NewSampleRequest extends React.Component {
 
     }
   }
+
+  // static getDerivedStateFromProps(nextProps, prevState) {
+  //   if(nextProps.itemData !== prevState.itemData) {
+  //     console.log('enter in get single style in derived state');
+  //     return {
+  //       itemData : nextProps.style
+  //     }
+  //   }
+  //   return null
+  // }
+
+  componentDidMount = () => {
+    if (Dimensions.get('window').width > 568) {
+      this.setState({ tablet: true }, () => console.log("did mount", this.state.tablet))
+    }
+    
+    AppState.addEventListener('change', this._handleAppStateChange);
+
+    GetAsyncToken()
+      .then(token => {
+        AddSample(token, this.props.styleId)
+          .then(res => {
+            console.log('getting add sample data', res);
+            this.setState({
+              style: res.data.style,
+              styleColors: res.data.styleColors,
+              sizeRange: res.data.sizeRange,
+              adminLocations: res.data.adminLocations
+            }, () => this.setCurrentLocation());
+
+            if (res.data.notifiedUsers.internalUsers.length > 0) {
+              const sorted = orderBy(res.data.notifiedUsers.internalUsers, [user => user.name.toLowerCase()]);
+              // console.log('sorted users', sorted);
+              this.setState({
+                notifyList: sorted
+              })
+            }
+            if (res.data.notifiedUsers.otherUsers.length > 0) {
+              let internalUser = this.state.notifyList;
+              let allUser = internalUser.concat(res.data.notifiedUsers.otherUsers);
+              const sorted = orderBy(allUser, [user => user.name.toLowerCase()]);
+              // console.log('all user', allUser, sorted);
+              this.setState({
+                notifyList: sorted,
+                otherUsers: res.data.otherUsers
+              })
+              
+            }
+          })
+      })
+  };
+
   setModalVisible(visible) {
     console.log('props close click');
     this.setState({ modalVisible: visible });
@@ -128,7 +181,6 @@ class NewSampleRequest extends React.Component {
       currentLocation: value,
     });
   }
-
 
   showDateTimePicker = (value) => {
     // console.log("calender clicked: ", value);
@@ -185,47 +237,7 @@ class NewSampleRequest extends React.Component {
       modalVisible: false
     })
   }
-  componentDidMount = () => {
-    if (Dimensions.get('window').width > 568) {
-      this.setState({ tablet: true }, () => console.log("did mount", this.state.tablet))
-    }
-    
-    AppState.addEventListener('change', this._handleAppStateChange);
-
-    GetAsyncToken()
-      .then(token => {
-        AddSample(token, this.props.styleId)
-          .then(res => {
-            console.log('getting add sample data', res);
-            this.setState({
-              style: res.data.style,
-              styleColors: res.data.styleColors,
-              sizeRange: res.data.sizeRange,
-              adminLocations: res.data.adminLocations
-            }, () => this.setCurrentLocation());
-
-            if (res.data.notifiedUsers.internalUsers.length > 0) {
-              const sorted = orderBy(res.data.notifiedUsers.internalUsers, [user => user.name.toLowerCase()]);
-              // console.log('sorted users', sorted);
-              this.setState({
-                notifyList: sorted
-              })
-            }
-            if (res.data.notifiedUsers.otherUsers.length > 0) {
-              let internalUser = this.state.notifyList;
-              let allUser = internalUser.concat(res.data.notifiedUsers.otherUsers);
-              const sorted = orderBy(allUser, [user => user.name.toLowerCase()]);
-              // console.log('all user', allUser, sorted);
-              this.setState({
-                notifyList: sorted,
-                otherUsers: res.data.otherUsers
-              })
-              
-            }
-          })
-
-      })
-  };
+  
   setCurrentLocation () {
     // console.log('set location', this.state.adminLocations);
     let defaultLocation = this.state.adminLocations.filter(item => item.defaultLocation == true)
@@ -284,7 +296,7 @@ class NewSampleRequest extends React.Component {
               okButtonText="notification"
               okClick={() => this.redirectTo(history)}
             >
-              <ItemDetail data={this.props.data} />
+              <ItemDetail />
               <MainContent>
                 <ContentBlock tablet={this.state.tablet}>
                   <Title> status </Title>
@@ -451,4 +463,24 @@ class NewSampleRequest extends React.Component {
   }
 }
 
-export default withTheme(NewSampleRequest);
+const mapStateToProps = state => {
+  return {
+    // style: state.singleStyle.singleStyleState,
+
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    // sampleTabFunction: () => dispatch(sampleTab()),
+    // styleIdFunction: (sid) => dispatch(styleId(sid)),
+    // singleStyleFunction: (s) => dispatch(singleStyle(s))
+
+  }
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withTheme(NewSampleRequest));
+// export default withTheme(NewSampleRequest);

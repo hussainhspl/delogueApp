@@ -71,6 +71,7 @@ class Style extends React.Component {
       case "sample":
         return <Sample
           history={this.props.history}
+          styleData={StateData != null ? StateData.data : null}
           // data={locationData.SampleCommentData}
           // styleData={StateData != null ? StateData.data : null}
         />;
@@ -111,7 +112,7 @@ class Style extends React.Component {
   }
 
   render() {
-    // console.log("style data", this.props.StoreStyleId, this.props.location);
+    console.log("style data", this.props);
     // step 2 create reducer: it needs state and action
     //payload = newState/ command
     // console.log("store state: ",this.props.currentTab)

@@ -20,7 +20,7 @@ import GetAsyncToken from "../../script/getAsyncToken";
 import SpecificStyleMessage from '../style/specificStyleMessage';
 import { connect } from 'react-redux';
 import { styleId, singleStyle} from '../../store/actions/index';
-import GetSelectedStyle from '../../api/getStyle';;
+import GetSelectedStyle from '../../api/getStyle';
 
 
 const ImageView = styled.View`
@@ -100,7 +100,8 @@ class Comments extends React.Component {
       showList: !props.openMessage || false,
       MessageContent: null,
       styleMessage: false,
-      parentId: null
+      parentId: null, 
+      singleStyleState: null
     };
   }
   componentDidMount = () => {
@@ -110,19 +111,20 @@ class Comments extends React.Component {
     if (this.state.openMessage) {
       console.log('props data', this.props.dataMsg);
     }
-    if (this.props.style  == null) {
+    // if (this.props.style  == null) {
       // console.log('in did mount comments', this.props.styleID);
       this.getCurrentStyle();
-    }
+    // }
   }
   getCurrentStyle() {
+    console.log('enter when click on msg on first page');
     GetAsyncToken()
       .then(token => {
-        GetSelectedStyle(token, this.props.styleID)
-          .then(res => {
-            // console.log('got single style : ', res);
-            this.props.singleStyleFunction(res)
-          })
+        // GetSelectedStyle(token, this.props.styleID)
+        //   .then(res => {
+        //     // console.log('got single style : ', res);
+        //     this.props.singleStyleFunction(res.data)
+        //   })
       })
   }
   openMessage(id) {
@@ -137,13 +139,13 @@ class Comments extends React.Component {
             showList: false,
             styleMessage: true
           });
-          this.props.styleIdFunction(res.data.styleId);
+          // this.props.styleIdFunction(res.data.styleId);
         })
     })
   }
   static getDerivedStateFromProps(nextProps, prevState) {
     if (nextProps.MessageContent !== prevState.MessageContent) {
-      // console.log("Entered nextProps comments");
+      console.log("Entered nextProps comments");
       if(nextProps.dataMsg != null) {
         if(prevState.parentId == null)
           // console.log("Entered comment derived", nextProps.dataMsg);
@@ -153,9 +155,9 @@ class Comments extends React.Component {
       }
       else {
         return null;
-      }
-        
+      }  
     }
+    
     return null;
   }
   backClicked = () => {
@@ -182,11 +184,11 @@ class Comments extends React.Component {
   //   }
   // }
   render() {
-    // console.log("message open",this.props.styleID, this.state.MessageContent );
+    console.log("in comments tab render", this.state.singleStyleState);
     // console.log('enter in comments render', this.props.style)
     return (
       <View style={{ flex: 1 }}>
-        <ItemDetail data={this.props.style  != null ? this.props.style.data :null} />
+        <ItemDetail />
         <ScrollView showsVerticalScrollIndicator={false}>
           {this.state.ShowNewMsg || this.state.showMessage || this.state.styleMessage ? (
             <TouchableOpacity

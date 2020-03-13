@@ -173,14 +173,14 @@ class General extends React.Component {
 
     if (prevProps.style == null) {
       // console.log('entered null')
-      this.getThumbnail(this.props.style.data.styleLogoThumbnails)
+      this.getThumbnail(this.props.style.styleLogoThumbnails)
     }
     if (prevProps.style != null) {
       // console.log('1');
-      // console.log('should component update in', this.props.style.data.id, prevProps.style.data.id);
-      if (this.props.style.data.id !== prevProps.style.data.id) {
+      // console.log('should component update in', this.props.style.id, prevProps.style.id);
+      if (this.props.style.id !== prevProps.style.id) {
         // console.log('entered');
-        this.getThumbnail(this.props.style.data.styleLogoThumbnails)
+        this.getThumbnail(this.props.style.styleLogoThumbnails)
       }
     }
 
@@ -197,14 +197,11 @@ class General extends React.Component {
 
   componentDidMount = () => {
     if (Dimensions.get("window").width > 568) {
-      this.setState({ tablet: true }, () =>
-        console.log("did mount", this.state.tablet)
-      );
+      this.setState({ tablet: true });
     }
-    // console.log('component did mount called')
-    // if(this.state.dataArray == null){
+    if(this.state.dataArray == null){
       this.getCurrentStyle()
-    // }
+    }
     
     // console.log('state status:', this.state.dataArray);
     // if(this.state.dataArray !=null)
@@ -224,8 +221,7 @@ class General extends React.Component {
         GetSelectedStyle(token, sId)
           .then(res => {
             // console.log('got single style : ', res);
-            this.props.singleStyleFunction(res)
-            // debugger;
+            this.props.singleStyleFunction(res.data)
           })
       })
   }
@@ -269,7 +265,7 @@ class General extends React.Component {
     console.log("render in general :", this.state.dataArray);
     let state = null;
     if (this.state.dataArray != null) {
-      state = this.state.dataArray.data;
+      state = this.state.dataArray;
       // console.log('general rendered');
       // if(state.styleLogoThumbnails != null) {
       //   return null
@@ -438,7 +434,11 @@ class General extends React.Component {
                   <Title>season</Title>
                   <SubTitle>
                     {state.season ? state.season.name : " "} - {" "}
-                    {state.season.projectName ? state.season.projectName : " "}
+                    {state.season ? 
+                      state.season.projectName ? 
+                        state.season.projectName : " " 
+                      : " "
+                    }
                   </SubTitle>
                 </StyleInfo>
                 <StyleInfo>

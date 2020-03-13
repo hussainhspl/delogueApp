@@ -188,7 +188,7 @@ class Files extends React.Component {
     let no = 0;
     return (
       <View style={{ flex: 1 }}>
-        <ItemDetail data={this.props.style.data} />
+        <ItemDetail />
 
         <ScrollView showsVerticalScrollIndicator={false}>
           {

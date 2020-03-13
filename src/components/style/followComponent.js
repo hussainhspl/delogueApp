@@ -35,9 +35,9 @@ class FollowComponent extends React.Component {
   }
   static getDerivedStateFromProps(props, state) {
     // console.log('enter should');
-    if(props.isFollow !== state.isFollow) {
+    if (props.isFollow !== state.isFollow) {
       // console.log('enter should 1');
-      return{
+      return {
         isFollower: props.isFollow,
       }
     }
@@ -48,7 +48,7 @@ class FollowComponent extends React.Component {
       if (follower === false) {
         StyleFollow(token, id)
           .then(res => {
-            console.log('styled followed',res);
+            console.log('styled followed', res);
             // this.setState({isFollower : true})
             // this.setState(prevState => ({
             //   ...prevState,
@@ -67,19 +67,7 @@ class FollowComponent extends React.Component {
         StyleNeglect(token, id)
           .then(res => {
             console.log('style neglect :', res);
-            // this.setState({isFollower : false})
 
-            // console.log("style deleted");
-            // this.setState(prevState => ({
-            //   ...prevState,
-            //   dataArray: {
-            //     ...prevState.dataArray,
-            //     data: {
-            //       ...prevState.dataArray.data,
-            //       isFollower: false
-            //     }
-            //   }
-            // }))
           })
       }
       this.props.callSingleStyle(id);
@@ -89,21 +77,21 @@ class FollowComponent extends React.Component {
     })
   }
   render() {
-    if(this.props.isFollow != null)
+    if (this.props.isFollow != null)
       console.log('follow component', this.state.isFollower, this.props.isFollow);
     return (
       <FollowView>
-        <FollowTouchableHighlight underlayColor="#42546033" onPress={() => this.toggleFollow(this.props.id, this.state.isFollower)}>
-          {this.props.isFollow != null && <Icon
-            style={{
-              color:
-                this.state.isFollower === false
-                  ? "#ccc"
-                  : "#f00"
-            }}
-            name="heart"
-          />}
-        </FollowTouchableHighlight>
+        {this.props.isFollow != null && (
+          <FollowTouchableHighlight
+            underlayColor="#42546033"
+            onPress={() => this.toggleFollow(this.props.id, this.state.isFollower)}
+          >
+            <Icon
+              style={{ color: this.state.isFollower === false ? "#ccc" : "#f00" }}
+              name="heart"
+            />
+          </FollowTouchableHighlight>
+        )}
       </FollowView>
     )
   }

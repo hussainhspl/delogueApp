@@ -168,7 +168,7 @@ class CommentBlock extends React.Component {
     }
   }
   render() {
-    // console.log('this. comment block data', this.props.data)
+    console.log('this. comment block data', this.props.data)
     const { isRead, loggedInUser, loggedOn, notifiedUsers, internalOnly,
       subject, logMessage, id, replyList, fileList } = this.props.data.styleAuditLog
     // console.log('is read : ', isRead, this.props.data.styleAuditLog);

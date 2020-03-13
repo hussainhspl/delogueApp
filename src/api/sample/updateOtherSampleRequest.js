@@ -1,6 +1,5 @@
 import axios from "axios";
 import qs from "qs";
-import { fi } from "date-fns/locale";
 
 const UpdateOtherSampleRequest = (
   token, sampleDataState, itemPlacement, finish, finishOutside, finishInside, design, custom, 

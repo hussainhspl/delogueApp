@@ -125,7 +125,9 @@ class Sample extends React.Component {
       })
   }
   componentDidMount = () => {
+    console.log('hello',this.props);
     this.getSamplesData();
+    console.log('component did mount in sample : ', this.props.styleId);
   }
   getSamplesData = () => {
     // console.log('getting samples');
@@ -201,7 +203,7 @@ class Sample extends React.Component {
     const history = this.props.history;
     return (
       <Fragment>
-        <ItemDetail data={this.props.style.data} />
+        <ItemDetail />
         {this.state.sampleRequest == false && (
           <Fragment>
             <ScrollView showsVerticalScrollIndicator={false}>
@@ -244,7 +246,6 @@ class Sample extends React.Component {
                     }
                     <NewSampleRequest
                       styleId={this.props.styleId}
-                      data={this.props.style.data}
                       history={this.props.history}
                     />
                   </Fragment>

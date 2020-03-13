@@ -1,5 +1,5 @@
 import React, {Fragment} from "react";
-import { View, Text, TouchableHighlight } from "react-native";
+import { View, Text, TouchableHighlight, Dimensions } from "react-native";
 import styled from "styled-components";
 import { withTheme } from 'styled-components';
 import Title from "../../styles/SmallText";
@@ -7,7 +7,11 @@ import CardText from "../../styles/CardText";
 import Subject from '../../styles/Subject';
 import { format, parseISO } from 'date-fns';
 import { connect } from "react-redux";
-import {sampleTab} from '../../store/actions/index';
+import {sampleTab, styleId, singleStyle} from '../../store/actions/index';
+import AutoHeightWebView from "react-native-autoheight-webview";
+import GetAsyncToken from "../../script/getAsyncToken";
+import SpecificMessage from "../../api/message/specificMessage";
+import GetSelectedStyle from '../../api/getStyle';
 
 const MessageBox = styled.View`
   flex: 1;
@@ -88,7 +92,15 @@ class ChatMessage extends React.Component {
     this.state = {};
   }
   redirectToSample() {
-    // console.log('goto sample', this.props.data);
+    console.log('goto sample', this.props.data);
+    GetAsyncToken()
+      .then(token => {
+        GetSelectedStyle(token, this.props.data.styleId)
+          .then(res => {
+            this.props.singleStyleFunction(res.data)
+          })
+      })
+    this.props.styleIdFunction(this.props.data.styleId);
     this.props.sampleTabFunction();
     this.props.history.push({
       pathname: '/style',
@@ -100,7 +112,7 @@ class ChatMessage extends React.Component {
     // console.log('props in sample request', this.props.data)
     // console.log('enter in chat')
     let {styleName, loggedOn, styleNumber, loggedByUserName, 
-      messageSubject, isRead, sampleTypeName} = this.props.data;
+      messageSubject, isRead, sampleTypeName, messageBody} = this.props.data;
     // let formatedDate = format(parseISO(loggedOn), "d-MMM-yyyy kk:mm");
     const date = new Date(loggedOn)
     let localDate = new Date(date.setMinutes(date.getMinutes() - date.getTimezoneOffset()));
@@ -141,7 +153,25 @@ class ChatMessage extends React.Component {
             <Row>
               <MainContent>
                 <Subject>{sampleTypeName !== null ? sampleTypeName : 'no subject'} </Subject>
-                <ContentText numberOfLines={2}>
+                <AutoHeightWebView
+                  style={{ width: Dimensions.get('window').width - 45, marginTop: 15, height: 40 }}
+                  customStyle={`
+                  * {
+                    font-family: ${props => props.theme.regular};
+                  }
+                  .fr-emoticon {
+                    width: 15px;
+                    height: 15px;
+                    display: inline-block;
+                  }  
+                `}
+                  source={{ html: `<html><head></head><body>${messageBody}</body></html>` }}
+                  scalesPageToFit={false}
+                  zoomable={false}
+                  viewportContent={'width=device-width, user-scalable=no'}
+                />
+
+                {/* <ContentText numberOfLines={2}>
                   Has been <HighlightText> Planned </HighlightText>{" "}
                 </ContentText>
                 <ContentText numberOfLines={2}>
@@ -164,7 +194,7 @@ class ChatMessage extends React.Component {
                 </ContentText>
                 <ContentText numberOfLines={2}>
                   Status changed to <HighlightText> Commented</HighlightText>{" "}
-                </ContentText>
+                </ContentText> */}
               </MainContent>
               <InternalView>
                 <DetailsButton> Show Details </DetailsButton>
@@ -181,8 +211,10 @@ const mapStateToProps = state => {
 };
 const mapDispatchToProps = dispatch => {
   return {
-    sampleTabFunction: () => dispatch(sampleTab())
-    
+    sampleTabFunction: () => dispatch(sampleTab()),
+    styleIdFunction: (sid) => dispatch(styleId(sid)),
+    singleStyleFunction: (s) => dispatch(singleStyle(s))
+
   }
 }
 export default connect(
