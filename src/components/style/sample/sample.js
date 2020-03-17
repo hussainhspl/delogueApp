@@ -85,7 +85,7 @@ class Sample extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      sampleRequest: false,
+      sampleRequest: props.dataFromMsg.sampleRequestOpen || false,
       showOpacity: false,
       sampleArray: null,
       selectedSample: null,
@@ -126,7 +126,14 @@ class Sample extends React.Component {
   }
   componentDidMount = () => {
     console.log('hello',this.props);
+    if(this.props.dataFromMsg.sampleRequestOpen){
+      let data = this.props.dataFromMsg;
+      console.log('data', data);
+      this.callSampleFromLog(data);
+    }
+    console.log(this.state.sampleRequest);
     this.getSamplesData();
+      
     console.log('component did mount in sample : ', this.props.styleId);
   }
   getSamplesData = () => {
@@ -169,12 +176,17 @@ class Sample extends React.Component {
       }
     }, () => this.updateMainState(sampleData))
   }
+  callSampleFromLog = (data) => {
+  
+    this.setState({
+      sampleRequest: true,
+      selectedSample: {
+        "id": data.SampleCommentData.auditLogId,
+        "name": data.SampleCommentData.sampleTypeName
+      }
+    })
+  }
   updateMainState(sampleData1) {
-
-    // this.setState(prevState => ({
-
-    // }))
-
     this.setState(prevState => ({
       ...prevState,
       mainState: {
@@ -182,23 +194,10 @@ class Sample extends React.Component {
         sampleData: sampleData1
       }
     }))
-
-    // this.setState(prevState => ({
-    //   ...prevState,
-    //   dataArray: {
-    //     ...prevState.dataArray,
-    //     data: {
-    //       ...prevState.dataArray.data,
-    //       isFollower: true
-    //     }
-    //   }
-    // }))
-    // this.setState(prevState => ({
-    //   attachment: [...prevState.attachment, ...this.props.initialImages]
-    // }), () =>
   }
+
   render() {
-    // console.log('this.state.finishOutside', this.state.finishOutside);
+    console.log('this props in sample', this.props);
     
     const history = this.props.history;
     return (

@@ -46,6 +46,7 @@ class Style extends React.Component {
     //   season: sdata.data.season != null ? sdata.data.season.name :  "-",
     // }
     // console.log('object created : ', floatingStyle);
+    console.log('location props in style', locationData);
     console.log('this.props.StoreStyleId', this.props.StoreStyleId);
     switch (params) {
       case "general":
@@ -71,6 +72,7 @@ class Style extends React.Component {
       case "sample":
         return <Sample
           history={this.props.history}
+          dataFromMsg={locationData}
           styleData={StateData != null ? StateData.data : null}
           // data={locationData.SampleCommentData}
           // styleData={StateData != null ? StateData.data : null}
