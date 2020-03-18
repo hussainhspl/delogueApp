@@ -19,7 +19,7 @@ import SpecificMessage from "../../api/message/specificMessage";
 import GetAsyncToken from "../../script/getAsyncToken";
 import SpecificStyleMessage from '../style/specificStyleMessage';
 import { connect } from 'react-redux';
-import { styleId, singleStyle} from '../../store/actions/index';
+import { styleId, singleStyle, sampleTab} from '../../store/actions/index';
 import GetSelectedStyle from '../../api/getStyle';
 
 
@@ -127,21 +127,32 @@ class Comments extends React.Component {
         //   })
       })
   }
-  openMessage(id) {
+  openMessage(id, selectedObj) {
 
-    console.log("open msg called22 style message", id, this.state.showList);
-    GetAsyncToken().then(token => {
-      SpecificMessage(token, id)
-        .then(res => {
-          console.log('resp in message comments :', res.data.styleAuditLog);
-          this.setState({
-            MessageContent: res.data,
-            showList: false,
-            styleMessage: true
-          });
-          // this.props.styleIdFunction(res.data.styleId);
-        })
-    })
+    console.log("open msg called when we click on inner style message", selectedObj.messageType, id, this.state.showList);
+    if(selectedObj.messageType == "StyleCommunicationMessage") {
+      GetAsyncToken().then(token => {
+        SpecificMessage(token, id)
+          .then(res => {
+            console.log('resp in message comments :', res.data.styleAuditLog);
+            this.setState({
+              MessageContent: res.data,
+              showList: false,
+              styleMessage: true
+            });
+            // this.props.styleIdFunction(res.data.styleId);
+          })
+      })
+    } else {
+      console.log('comments open msg history :', this.props.history);
+      this.props.sampleTabFunction();
+      this.props.history.push({
+        pathname: '/style',
+        SampleCommentData: selectedObj,
+        sampleRequestOpen: true
+      })
+    }
+    
   }
   static getDerivedStateFromProps(nextProps, prevState) {
     if (nextProps.MessageContent !== prevState.MessageContent) {
@@ -215,7 +226,7 @@ class Comments extends React.Component {
 
           {this.state.showList && (
             <CommentsList
-              closeList={(id) => this.openMessage(id)}
+              closeList={(id, selectedObj) => this.openMessage(id, selectedObj)}
               styleID={this.props.styleID}
             />
           )}
@@ -263,7 +274,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     styleIdFunction: (sid) => dispatch(styleId(sid)),
-    singleStyleFunction: (s) => dispatch(singleStyle(s))
+    singleStyleFunction: (s) => dispatch(singleStyle(s)),
+    sampleTabFunction: () => dispatch(sampleTab()),
 
     // styleListFunction: (s) => dispatch(styleList(s)),;
 

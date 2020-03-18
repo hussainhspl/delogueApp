@@ -47,7 +47,7 @@ const MarkAllReadBox = styled.TouchableHighlight`
   height: 40px;
   align-items: center;
   justify-content: center;
-  background-color: ${props => props.theme.darkGreen};\
+  background-color: ${props => props.theme.darkGreen};
   margin-left: 15px;
 `;
 const StyleImage = styled.Image`
@@ -214,7 +214,16 @@ class CommentsList extends React.Component {
         })
     })
   }
+  showDetail (msgId, selectedObj) {
+    console.log('show detail', selectedObj);
+    // if(selectedObj == "StyleCommunicationMessage") {
+      this.props.closeList(msgId, selectedObj);
+  // }
+
+    
+  }
   render() {
+    console.log('comment list render');
     // console.log('this.state.msgList', this.state.msgList);
     return (
       <View style={{ flex: 1 }}>
@@ -252,7 +261,7 @@ class CommentsList extends React.Component {
                   <TouchableHighlight
                     underlayColor="#42546033"
                     // onPress={() => console.log('style msg click')}
-                    onPress={() => this.props.closeList(msgId)}
+                    onPress={() => this.showDetail(msgId, data)}
                   >
                     <Row>
                       <MainContent>
@@ -261,7 +270,12 @@ class CommentsList extends React.Component {
                             onPress={() => this.toggleAlert(data.auditLogId, data.messageType)}>
                             <MsgImage
                               resizeMode={"contain"}
-                              source={require("../../../assets/img/message-icon.png")} />
+                              source={ data.messageType == "StyleCommunicationMessage" ?
+                                require("../../../assets/img/message-icon.png") : 
+                                require("../../../assets/img/comment.png")  
+                              }
+                            />
+                              
                           </STouchableHighlight>
                         </IconBox>
                         <Subject>

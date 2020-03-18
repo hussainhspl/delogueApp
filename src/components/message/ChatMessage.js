@@ -104,7 +104,6 @@ class ChatMessage extends React.Component {
     this.props.sampleTabFunction();
     this.props.history.push({
       pathname: '/style',
-      // openSample: true,
       SampleCommentData: this.props.data,
       sampleRequestOpen: true
     })

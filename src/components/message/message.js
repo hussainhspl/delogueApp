@@ -183,7 +183,7 @@ class Message extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      chat: true,
+      chat: false,
       message: true,
       MessageList: [],
       showOpacity: false,
@@ -200,7 +200,6 @@ class Message extends React.Component {
     if (this.props.unreadList.length == 0) {
       this.getNewData()
     }
-
   }
   getNewData = () => {
     GetAsyncToken()

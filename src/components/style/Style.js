@@ -57,6 +57,7 @@ class Style extends React.Component {
         />;
       case "comments":
         return <Comments
+          history={this.props.history}
           dataMsg={locationData.data}
           openMessage={locationData.openMessage}
           styleData={StateData != null ? StateData.data : null}

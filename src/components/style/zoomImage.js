@@ -1,6 +1,6 @@
-import React, { Fragment } from 'react';
-import { TouchableOpacity, View } from 'react-native'
-import styled from 'styled-components';
+import React, { Fragment } from "react";
+import { TouchableOpacity, View } from "react-native";
+import styled from "styled-components";
 import ImageLayout from "react-native-image-layout";
 import { Icon } from "native-base";
 
@@ -43,27 +43,7 @@ class ZoomImage extends React.Component {
     // console.log("this.props.imgSource", this.props.imgSource, this.props.src);
     return (
       <Fragment>
-        {
-        this.props.src == "logo" &&(
-          <ImageLayout
-          renderPageHeader={this._renderPageHeader}
-          renderPageFooter={this._renderPageFooter}
-          imageContainerStyle={{ backgroundColor: "#eee" }}
-          pageScrollViewStyle={{ backgroundColor: "#000" }}
-          // imagePageComponent={ () => resizeMode: "contain"}
-          resizeMode={"contain"}
-          columns={1}
-          enableScale
-          rerender={true}
-          images={[
-            {
-              // uri: state.logo ? state.logo.url : noImage
-              uri: this.props.imgSource
-            }
-          ]}
-        />
-        )}
-        {this.props.src == 'thumbnail' &&(
+        {this.props.src == "logo" && this.props.src == "thumbnail" && (
           <ImageLayout
             renderPageHeader={this._renderPageHeader}
             renderPageFooter={this._renderPageFooter}
@@ -82,7 +62,7 @@ class ZoomImage extends React.Component {
             ]}
           />
         )}
-        {this.props.src == 'noLogo' &&(
+        {this.props.src == "thumbnail" && this.props.src != "logo" && (
           <ImageLayout
             renderPageHeader={this._renderPageHeader}
             renderPageFooter={this._renderPageFooter}
@@ -101,11 +81,27 @@ class ZoomImage extends React.Component {
             ]}
           />
         )}
-      
+        {this.props.src == "noLogo" && (
+          <ImageLayout
+            renderPageHeader={this._renderPageHeader}
+            renderPageFooter={this._renderPageFooter}
+            imageContainerStyle={{ backgroundColor: "#eee" }}
+            pageScrollViewStyle={{ backgroundColor: "#000" }}
+            // imagePageComponent={ () => resizeMode: "contain"}
+            resizeMode={"contain"}
+            columns={1}
+            enableScale
+            rerender={true}
+            images={[
+              {
+                // uri: state.logo ? state.logo.url : noImage
+                uri: this.props.imgSource
+              }
+            ]}
+          />
+        )}
       </Fragment>
-      
-      
-    )
+    );
   }
 }
 export default ZoomImage;

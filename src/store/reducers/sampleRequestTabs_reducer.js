@@ -15,7 +15,7 @@ const initialState = {
 };
 
 const sampleRequestTabsReducer = (state = initialState, action) => {
-  console.log('payload', action);
+  // console.log('payload', action);
   switch ( action.type) {
     case ITEM_PLACEMENT:
       return {

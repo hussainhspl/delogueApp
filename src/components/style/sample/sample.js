@@ -137,7 +137,7 @@ class Sample extends React.Component {
     console.log('component did mount in sample : ', this.props.styleId);
   }
   getSamplesData = () => {
-    // console.log('getting samples');
+    console.log('getting samples');
     GetAsyncToken()
       .then(token => {
         
@@ -181,7 +181,7 @@ class Sample extends React.Component {
     this.setState({
       sampleRequest: true,
       selectedSample: {
-        "id": data.SampleCommentData.auditLogId,
+        "id": data.SampleCommentData.sampleRequestId,
         "name": data.SampleCommentData.sampleTypeName
       }
     })

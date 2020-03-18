@@ -151,6 +151,15 @@ const ReplyBlock = styled.View`
   border-bottom-width: 1px;
   border-color: #ddd;
 `;
+
+const ImageName = styled.Text`
+  text-align: center;
+  padding: 0px 10px 10px 10px;
+  font-size: ${props => props.theme.small};
+  font-family: ${props => props.theme.regular};
+  /* margin-bottom: 20px; */
+`;
+
 class SpecificStyleMessage extends React.Component {
   constructor(props) {
     super(props);
@@ -350,7 +359,7 @@ class SpecificStyleMessage extends React.Component {
                   );
                 })}
               </ImageRow>
-              : nul
+              : null
           }
         </CommentBox>
       </Fragment>
