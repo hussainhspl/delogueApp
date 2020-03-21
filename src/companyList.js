@@ -312,6 +312,7 @@ class CompanyList extends React.Component {
                         underlayColor="rgba(245, 245, 245, 1)"
                         onPress={() => { 
                           // history.push("/search");
+                          console.log('login data', data);
                           this.GetToken(
                             data.designerOrganizationId, data.id, data.organizationType
                           )

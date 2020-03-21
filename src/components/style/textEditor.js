@@ -65,19 +65,19 @@ class TextEditor extends Component {
 		this.editor.applyToolbar(toolType);
 	}
 
-	onSelectedTagChanged = (tag) => {
+	onSelectedTagChanged (tag) {
 		this.setState({
 			selectedTag: tag
 		})
 	}
 
-	onSelectedStyleChanged = (styles) => {
+	onSelectedStyleChanged (styles) {
 		this.setState({
 			selectedStyles: styles,
 		})
 	}
 
-	onValueChanged = (value) => {
+	onValueChanged (value) {
 		this.setState({
 			value: value
 		});
@@ -183,13 +183,13 @@ class TextEditor extends Component {
 						{/* <View style={styles.main}> */}
 						<CNRichTextEditor
 							ref={input => this.editor = input}
-							onSelectedTagChanged={this.onSelectedTagChanged}
-							onSelectedStyleChanged={this.onSelectedStyleChanged}
+							onSelectedTagChanged={() => this.onSelectedTagChanged}
+							onSelectedStyleChanged={() => this.onSelectedStyleChanged}
 							value={this.state.value}
 							// value={convertToObject('<div><p><span>This is </span><span style="font-weight: bold;">bold</span><span> and </span><span style="font-style: italic;">italic </span><span>text</span></p></div>', this.customStyles)}
 							style={{ backgroundColor: '#fff' }}
 							styleList={defaultStyles}
-							onValueChanged={this.onValueChanged}
+							onValueChanged={() => this.onValueChanged}
 							onBlur={() => this.sendHtml()}
 							placeholder="Type Your Message"
 							size={12}

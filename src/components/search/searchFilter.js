@@ -354,7 +354,7 @@ class searchFilter extends Component {
     })
   }
   render() {
-    console.log('suggestionArr', this.state.filteredBrand, this.state.suggestionSeasonArr.length)
+    console.log('search filter render', this.state.filteredBrand, this.state.suggestionSeasonArr.length)
     return (
       <Fragment>
         <FilterButton>

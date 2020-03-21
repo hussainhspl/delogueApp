@@ -169,8 +169,11 @@ class CommentBlock extends React.Component {
   }
   render() {
     console.log('this. comment block data', this.props.data)
-    const { isRead, loggedInUser, loggedOn, notifiedUsers, internalOnly,
-      subject, logMessage, id, replyList, fileList } = this.props.data.styleAuditLog
+    const { 
+      isRead, loggedInUser, loggedOn, notifiedUsers, internalOnly,
+      subject, logMessage, id, replyList, fileList 
+    } = this.props.data.styleAuditLog;
+    console.log('comment block notifiedUsers', notifiedUsers);
     // console.log('is read : ', isRead, this.props.data.styleAuditLog);
     // let formatedDate = format(parseISO(loggedOn), "d-MMM-yyyy kk:mm");
     let date1 = new Date(loggedOn);
@@ -193,7 +196,7 @@ class CommentBlock extends React.Component {
                   <Subject numberOfLines={1}> {subject != null ? subject : "no-subject"} </Subject>
                 </View>
                 <TouchableHighlight
-                  onPress={() => this.props.createReply(id)}
+                  onPress={(notifiedUsers) => this.props.createReply(id, notifiedUsers)}
                   underlayColor={this.props.theme.overlayBlue}
                 >
                   <NewButton small >
@@ -227,7 +230,7 @@ class CommentBlock extends React.Component {
                       <Name>{d.loggedInUser.name} </Name>
                       <Title>{formatedDate}</Title>
                       <NotifyView>
-                        <Title> NOTIFIED</Title>
+                        <Title>  NOTIFIED 1</Title>
                         {
                           notifiedUsers.length > 0 ?
                             notifiedUsers.map(d => (
@@ -298,11 +301,11 @@ class CommentBlock extends React.Component {
               <NotifyView>
                 <Title> NOTIFIED</Title>
                 {
-                  // notifiedUsers.length > 0 ?
-                  //   notifiedUsers.map(d => (
-                  //     <Title> {name} </Title>
-                  //   ))
-                  //   : null
+                  notifiedUsers.length > 0 ?
+                    notifiedUsers.map(d => (
+                      <Title> {d.name} </Title>
+                    ))
+                    : null
                 }
                 {internalOnly != null && (
                   <InternalView>

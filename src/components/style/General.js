@@ -196,13 +196,17 @@ class General extends React.Component {
 
   componentDidMount = () => {
     console.log('general did mount',  this.state.dataArray, );
-    if(this.state.dataArray.styleLogoThumbnails.length > 0) {
-      this.getThumbnail(this.props.style.styleLogoThumbnails)
+    if(this.state.dataArray != null) {
+      if(this.state.dataArray.styleLogoThumbnails.length > 0) {
+        this.getThumbnail(this.props.style.styleLogoThumbnails)
+      }
+      if(this.state.dataArray.id != this.props.styleId) {
+        console.log('style id not equal');
+        this.getCurrentStyle();
+      }
     }
-    if(this.state.dataArray.id != this.props.styleId) {
-      console.log('style id not equal');
-      this.getCurrentStyle();
-    }
+    
+    
     if (Dimensions.get("window").width > 568) {
       this.setState({ tablet: true });
     }

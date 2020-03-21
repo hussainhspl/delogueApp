@@ -58,7 +58,7 @@ class searchGridCard extends React.Component {
   };
   render() {
     let data = this.props.data;
-    // console.log('this.state.imgSrc ', this.state.imgSrc);
+    // console.log('search grid card', data.id);
     const history = this.props.history;
     return (
       <TouchableWithoutFeedback
@@ -66,7 +66,7 @@ class searchGridCard extends React.Component {
         onPressOut={() => this.setState({ showOpacity: false })}
         onPress={() => this.props.GetStyleClicked(data.id)}
       >
-        <GridCard key={data.styleNo} tablet={this.state.tablet}>
+        <GridCard tablet={this.state.tablet}>
           {this.state.showOpacity && <OpacityView />}
           <GridImageView tablet={this.state.tablet}>
             <GridImage

@@ -97,9 +97,6 @@ const CloseView = styled.View`
 const Box = styled.View`
   margin-left: 10px;
 `;
-
-
-
 class Search extends React.Component {
   constructor(props) {
     super(props);
@@ -117,11 +114,49 @@ class Search extends React.Component {
       showSuggestion: false,
       suggestionArr: [],
       myStyle: false,
+      currentCompany: null,
       // pageNumber : 1,
     };
   }
   componentDidMount = () => {
-    // console.log('enter in style component did mount');
+    console.log('enter in style component did mount');
+    this.getUsername();
+  }
+
+  getUsername = async () => {
+    try {
+      const userId = await AsyncStorage.getItem("@userId")
+      const parseUserId = JSON.parse(userId);
+      const userData = await AsyncStorage.getItem("@userData");
+      const parseData = JSON.parse(userData);
+      console.log('parse data :', parseData);
+
+      parseData.some(user => {
+        if(user.id ==parseUserId) {
+          this.setState({
+            currentCompany: user.organizationName
+          }, () => console.log("current company :", this.state.currentCompany))
+          return true;
+        }
+        return false;
+      })
+      console.log("current company :", this.state.currentCompany)
+    }
+    catch (error) {
+      if(error)
+        console.log('no username found in search', error);
+    }
+  }
+  getCompanyName () {
+      this.state.companyData.some(user => {
+        if(user.id == this.state.userIdState) {
+          this.setState({
+            currentCompany: user.organizationName
+          })
+          return true;
+        }
+        return false;
+      })
   }
   searchUpdated(term) {
     this.setState({
@@ -143,7 +178,6 @@ class Search extends React.Component {
   };
 
   styles = () => {
-    
     GetAsyncToken().then(token => {
       GetStyles(this.state.searchTerm, token, this.state.brandIds,
         this.state.seasonIds, this.state.myStyle, pageNumber)
@@ -208,6 +242,7 @@ class Search extends React.Component {
     return null;
   }
   shouldComponentUpdate(nextProps, nextState) {
+    console.log('should component update');
     if (this.state.brandIds != nextState.brandIds) {
       this.styles()
       return false;
@@ -231,8 +266,14 @@ class Search extends React.Component {
     this.props.clearStyleListFunction();
     this.styles();
   }
+  BrandIdArrFilter = (bid) => {
+    this.setState({
+      brandIds: bid
+    }, () => this.styles)
+  }
   render() {
     const history = this.props.history;
+    console.log("search render", this.state.currentCompany);
     // console.log('style data from store', this.state.filteredStyle.length);
     // console.log("search history:", history);
     // console.log("history on search page", this.props.history);
@@ -311,7 +352,7 @@ class Search extends React.Component {
                       this.state.filteredStyle.map(data => {
                         return (
                           <SearchGridCard
-                          key={data.styleNo}
+                          key={data.id}
                           data={data}
                           history={history}
                           GetStyleClicked={() => { this.redirectToCurrentStyle(data.id) }}
@@ -379,13 +420,13 @@ class Search extends React.Component {
           
 
           <SearchFilter
-            BrandIdArr={(bid) => {
+            BrandIdArr={(bid) => { this.BrandIdArrFilter(bid) }}
               // console.log("yipee", bid);
-              this.setState({
-                brandIds: bid
-              }, () => this.styles)
+            //   this.setState({
+            //     brandIds: bid
+            //   }, () => this.styles)
 
-            }}
+            // }}
             SeasonIdArr={(sid) => {
               this.setState({
                 seasonIds: sid

@@ -169,8 +169,12 @@ class SpecificStyleMessage extends React.Component {
   }
   render() {
     console.log('this. specific style block data', this.props.data)
-    const { isRead, loggedInUser, loggedOn, notifiedUsers, internalOnly,
-      subject, logMessage, id, replyList, fileList } = this.props.data.styleAuditLog;
+    const { 
+      isRead, loggedInUser, loggedOn, notifiedUsers, internalOnly,
+      subject, logMessage, id, replyList, fileList 
+    } = this.props.data.styleAuditLog;
+    console.log('specific style message notifiedUsers', notifiedUsers);
+
     console.log('time : ', format(parseISO(loggedOn), "d-MMM-yyyy kk:mm"))
     // console.log('is read : ', isRead, this.props.data.styleAuditLog);
     // let formatedDate = format(parseISO(loggedOn), "d-MMM-yyyy kk:mm");
@@ -224,7 +228,7 @@ class SpecificStyleMessage extends React.Component {
                       <Name>{d.loggedInUser.name} </Name>
                       <Title>{formatedDate}</Title>
                       <NotifyView>
-                        <Title> NOTIFIED</Title>
+                        <Title> NOTIFIED 2</Title>
                         {
                           notifiedUsers.length > 0 ?
                             notifiedUsers.map(d => (
@@ -235,7 +239,7 @@ class SpecificStyleMessage extends React.Component {
                         {d.internalOnly != null && (
                           <InternalView>
                             <Icon style={{ color: '#ddd', fontSize: 15 }} name="home" />
-                            <InternalText>Internal</InternalText>
+                            <InternalText>Internal 2</InternalText>
                           </InternalView>
                         )}
 

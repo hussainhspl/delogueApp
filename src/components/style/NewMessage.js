@@ -193,6 +193,9 @@ class NewMessage extends React.Component {
     };
   }
   componentDidMount = () => {
+    this.setState({
+      notifySelected : this.props.selectedUsers != null ? this.props.selectedUsers : []
+    }, () => console.log('reply notified user previously selected :', this.state.notifySelected))
     GetAsyncToken()
       .then(token => {
         console.log('this. style id ', this.props.styleID);
@@ -288,15 +291,16 @@ class NewMessage extends React.Component {
   }
   render() {
     // console.log('attachment state :', this.state.attachment, typeof (this.state.attachment))
-    // console.log('render in new msg', this.props.parentId)
-
+    console.log('render in new msg', this.state.notifySelected)
+    
     return (
       <View>
         <MessageBlock>
           <IconBox>
             <MsgImage
               resizeMode={"contain"}
-              source={require("../../../assets/img/message-icon.png")} />
+              source={require("../../../assets/img/message-icon.png")} 
+            />
           </IconBox>
           <SubjectInput
             onChangeText={subject => this.setState({ subject })}

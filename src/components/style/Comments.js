@@ -101,7 +101,8 @@ class Comments extends React.Component {
       MessageContent: null,
       styleMessage: false,
       parentId: null, 
-      singleStyleState: null
+      singleStyleState: null,
+      existingNotifiedUsers: null,
     };
   }
   componentDidMount = () => {
@@ -182,10 +183,11 @@ class Comments extends React.Component {
   }
   openCreateReply = (id)  =>{
     // console.log('reply id', id, this.state.MessageContent, this.state.MessageContent.styleId);
+    console.log('reply notified ', this.state.MessageContent.styleAuditLog.notifiedUsers.length );
     this.setState({
       parentId: id,
       ShowNewMsg: true,
-      showMessage: false
+      showMessage: false,
     })
   }
   // shouldComponentUpdate  () {
@@ -220,6 +222,7 @@ class Comments extends React.Component {
               styleID={this.props.styleID == null ? this.state.MessageContent.styleId : this.props.styleID}
               closeMessage={this.backClicked}
               parentId={this.state.parentId}
+              selectedUsers= {this.state.MessageContent.styleAuditLog.notifiedUsers != null ? this.state.MessageContent.styleAuditLog.notifiedUsers : null}
               // submitMessage={this.sendMessage}
             />
           )}

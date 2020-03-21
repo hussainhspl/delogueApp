@@ -196,7 +196,7 @@ class Message extends React.Component {
     };
   }
   componentDidMount = () => {
-    console.log('component did mount');
+    console.log('component did mount in messages');
     if (this.props.unreadList.length == 0) {
       this.getNewData()
     }

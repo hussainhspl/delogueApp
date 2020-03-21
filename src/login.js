@@ -115,7 +115,7 @@ class Login extends React.Component {
   checkCredential() {
     LoginStep1(this.state.username, this.state.password, this.props.tokenData)
       .then(res =>{
-        console.log('login 1 response', res)
+        console.log('login 1 response', res);
         // this.props.userFunction(res)
         // console.log('context', res.data)
         let strUserData = JSON.stringify(res.data.loginContexts)
@@ -136,6 +136,7 @@ class Login extends React.Component {
           let id = res.data.loginContexts[0].id
           loginStep2(designerId, id, this.state.username, this.state.password)
             .then(() => {
+              console.log('login step 2 response', res)
               let tokenExp = new Date(res.headers.date);
               let seconds = res.data.expires_in;
               tokenExp.setSeconds(tokenExp.getSeconds() + seconds);

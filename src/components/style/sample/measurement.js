@@ -72,7 +72,7 @@ class Measurement extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      modalVisible: false,
+      modalVisible: true,
       measurementLineComments: null
     }
   }
@@ -104,7 +104,7 @@ class Measurement extends React.Component {
             ...el,
             measurementLineMeasurements: el.measurementLineMeasurements.map(
               el1 => el1.id == rowId ? {
-                ...el1, supplierMeasurement: value
+                ...el1, requestedMeasurement: value
               } : el1
   
             )
@@ -120,7 +120,7 @@ class Measurement extends React.Component {
             ...el,
             measurementLineMeasurements: el.measurementLineMeasurements.map(
               el1 => el1.id == rowId ? {
-                ...el1, requestedMeasurement: value
+                ...el1, companyMeasurement: value
               } : el1
   
             )
@@ -237,7 +237,7 @@ class Measurement extends React.Component {
                                 <Text>{data1.name}</Text>
                               </StyleCol>
                               <StyleCol size={1}>
-                                {/* <Text>{data1.supplierMeasurement}</Text> */}
+                                {/* <Text>{data1.requestedMeasurement}</Text> */}
                                 {/* 
                                   <TextInput
                                     style={{ height: 30, textAlign: "center", width: '100%', borderColor: '#ccc', borderWidth: 1, padding: 5 }}
@@ -247,16 +247,16 @@ class Measurement extends React.Component {
                                   /> */}
                                 <TextInput
                                   style={{ height: 30, textAlign: "center", width: '100%', borderColor: '#ccc', borderWidth: 1, padding: 5 }}
-                                  value={data1.supplierMeasurement == null ? '-' : `${data1.supplierMeasurement}`}
+                                  value={data1.requestedMeasurement == null ? '-' : `${data1.requestedMeasurement}`}
                                   onChangeText={text => this.onChangeText(text, data.id, data1.id, 1)}
                                   keyboardType="numeric"
                                 />
                               </StyleCol>
                               <StyleCol size={1}>
-                                {/* <Text>b{data1.requestedMeasurement}</Text> */}
+                                {/* <Text>b{data1.companyMeasurement}</Text> */}
                                 <TextInput
                                   style={{ height: 30, textAlign: "center", width: '100%', borderColor: '#ccc', borderWidth: 1, padding: 5 }}
-                                  value={data1.requestedMeasurement != null ? `${data1.requestedMeasurement}` : '-'}
+                                  value={data1.companyMeasurement != null ? `${data1.companyMeasurement}` : '-'}
                                   onChangeText={text => this.onChangeText(text, data.id, data1.id, 2)}
                                   keyboardType="numeric"
                                 />
