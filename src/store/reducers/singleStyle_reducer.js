@@ -1,4 +1,4 @@
-import {SINGLE_STYLE} from '../actions/action_types';
+import {SINGLE_STYLE, CLEAR_STORE} from '../actions/action_types';
 
 const initialState = {
   singleStyleState: null
@@ -11,6 +11,11 @@ const singleStyleReducer = (state = initialState, action) => {
       return {
         ...state,
         singleStyleState: action.payload
+      }
+    case CLEAR_STORE:
+      return {
+        ...state,
+        singleStyleState: []
       }
     default: 
       return state

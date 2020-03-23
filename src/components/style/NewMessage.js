@@ -194,7 +194,8 @@ class NewMessage extends React.Component {
   }
   componentDidMount = () => {
     this.setState({
-      notifySelected : this.props.selectedUsers != null ? this.props.selectedUsers : []
+      notifySelected : this.props.selectedUsers != null ? this.props.selectedUsers : [],
+      subject: this.props.replySubject
     }, () => console.log('reply notified user previously selected :', this.state.notifySelected))
     GetAsyncToken()
       .then(token => {

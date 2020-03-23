@@ -10,7 +10,7 @@ const UnreadMessageList = (token, message, chat, pageNumber) => {
           "communicationMessages": message,
           "sampleComments": chat
         },
-       "pageNumber":pageNumber 
+       "pageNumber":pageNumber
     }
     axios({
       url: `${baseUrl}Messages/Unread/Overview/Style`,

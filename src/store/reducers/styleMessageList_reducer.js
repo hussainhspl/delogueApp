@@ -1,4 +1,4 @@
-import {STYLE_MESSAGE_LIST} from '../actions/action_types';
+import {STYLE_MESSAGE_LIST, CLEAR_STORE} from '../actions/action_types';
 
 const initialState = {
   styleMessageListState : null
@@ -12,6 +12,11 @@ const styleMessageListReducer = (state = initialState, action) => {
       return {
         ...state,
         styleMessageListState: action.payload
+      }
+    case CLEAR_STORE:
+      return {
+        ...state,
+        styleMessageListState: null
       }
     default: 
       return state

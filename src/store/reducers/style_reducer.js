@@ -1,4 +1,4 @@
-import { STYLE_LIST, CLEAR_STYLE_LIST } from '../actions/action_types';
+import { STYLE_LIST, CLEAR_STYLE_LIST, CLEAR_STORE } from '../actions/action_types';
 
 const initialState = {
   styleListState: []
@@ -13,6 +13,11 @@ const styleReducer = (state = initialState, action) => {
         styleListState: [...state.styleListState, ...action.payload]
       }
     case CLEAR_STYLE_LIST:
+      return {
+        ...state,
+        styleListState: []
+      }
+    case CLEAR_STORE:
       return {
         ...state,
         styleListState: []

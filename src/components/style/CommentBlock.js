@@ -196,7 +196,7 @@ class CommentBlock extends React.Component {
                   <Subject numberOfLines={1}> {subject != null ? subject : "no-subject"} </Subject>
                 </View>
                 <TouchableHighlight
-                  onPress={(notifiedUsers) => this.props.createReply(id, notifiedUsers)}
+                  onPress={() => this.props.createReply(id, subject)}
                   underlayColor={this.props.theme.overlayBlue}
                 >
                   <NewButton small >

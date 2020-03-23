@@ -1,4 +1,4 @@
-import { STYLE_FILE_LIST } from '../actions/action_types';
+import { STYLE_FILE_LIST, CLEAR_STORE } from '../actions/action_types';
 
 const initialState = {
   styleFileListState: null
@@ -10,6 +10,11 @@ const styleFileListReducer = (state = initialState, action) => {
       return {
         ...state,
         styleFileListState: action.payload
+      }
+      case CLEAR_STORE:
+      return {
+        ...state,
+        styleFileListState: []
       }
     default: 
       return state

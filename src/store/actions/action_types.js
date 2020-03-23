@@ -21,6 +21,7 @@ export const SINGLE_STYLE = 'SINGLE_STYLE';
 export const STYLE_FILE_LIST = "STYLE_FILE_LIST";
 // unread messages msg page
 export const UNREAD_MESSAGES_LIST = "UNREAD_MESSAGES_LIST";
+export const CLEAR_UNREAD_MESSAGES_LIST = "CLEAR_UNREAD_MESSAGES_LIST";
 export const READ_ALL = "READ_ALL";
 export const UNREAD_ALL = "UNREAD_ALL";
 export const STYLE_ID = "STYLE_ID";
@@ -41,5 +42,6 @@ export const MEASUREMENT_TABLE = "MEASUREMENT_TABLE";
 export const SAMPLE_STATUS = "SAMPLE_STATUS";
 export const CUSTOM_COMMENTS = "CUSTOM_COMMENTS";
 export const SAMPLE_STATUS_PLANNED = "SAMPLE_STATUS_PLANNED";
-export const SAMPLE_SIZES = 'SAMPLE_SIZES'
+export const SAMPLE_SIZES = 'SAMPLE_SIZES';
+export const CLEAR_STORE = 'CLEAR_STORE';
 

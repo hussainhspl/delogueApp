@@ -72,7 +72,7 @@ class Measurement extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      modalVisible: true,
+      modalVisible: false,
       measurementLineComments: null
     }
   }

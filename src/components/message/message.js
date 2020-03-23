@@ -10,7 +10,7 @@ import {
 import { Icon } from "native-base";
 import { withTheme } from 'styled-components';
 import { connect } from "react-redux";
-import { commentTab, unreadMessagesList, readAll, unreadAll, styleId, singleStyle } from "../../store/actions/index";
+import { commentTab, unreadMessagesList, readAll, unreadAll, styleId, singleStyle, clearUnreadMessagesList } from "../../store/actions/index";
 import styled from "styled-components";
 import Header from "../../Header";
 import Subject from '../../styles/Subject';
@@ -183,7 +183,7 @@ class Message extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      chat: false,
+      chat: true,
       message: true,
       MessageList: [],
       showOpacity: false,
@@ -196,7 +196,7 @@ class Message extends React.Component {
     };
   }
   componentDidMount = () => {
-    console.log('component did mount in messages');
+    console.log('component did mount in messages', this.props.unreadList);
     if (this.props.unreadList.length == 0) {
       this.getNewData()
     }
@@ -216,11 +216,17 @@ class Message extends React.Component {
   }
   updateMessage = () => {
     this.setState({ message: !this.state.message },
-      () => this.getNewData())
+      () => {
+        this.props.clearUnreadMessagesListFunction(); 
+        this.getNewData()
+      })
   }
   updateChat = () => {
     this.setState({ chat: !this.state.chat },
-      () => this.getNewData())
+      () => {
+        this.props.clearUnreadMessagesListFunction(); 
+        this.getNewData()
+      })
   }
   updatePage = () => {
     // pageNumber: 1
@@ -450,10 +456,13 @@ class Message extends React.Component {
                                     </View>
                                     {/* :null} */}
                                   </MainContent>
-                                  <InternalView>
-                                    <Icon style={{ color: "#ddd", fontSize: 18 }} name="home" />
-                                    <InternalText>Internal</InternalText>
-                                  </InternalView>
+                                  {m.internalOnly && (
+                                    <InternalView>
+                                      <Icon style={{ color: "#ddd", fontSize: 18 }} name="home" />
+                                      <InternalText>Internal </InternalText>
+                                    </InternalView>
+                                  )}
+                                  
                                 </Row>
                               </Fragment>
                             </TouchableHighlight>
@@ -529,6 +538,7 @@ const mapDispatchToProps = dispatch => {
     //calling action
     commentTabFunction: () => dispatch(commentTab()),
     unreadMessagesListFunction: (unread) => dispatch(unreadMessagesList(unread)),
+    clearUnreadMessagesListFunction: () => dispatch(clearUnreadMessagesList()),
 
     updateReadFunction: (auditLogId) => dispatch(readAll(auditLogId)),
     updateUnReadFunction: (auditLogId) => dispatch(unreadAll(auditLogId)),

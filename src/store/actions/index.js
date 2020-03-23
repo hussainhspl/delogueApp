@@ -6,10 +6,11 @@ export {styleList, clearStyleList} from './Style_actions';
 export {singleStyle} from './singleStyle_action';
 export {styleMessageList} from './styleMessageList_actions'
 export {styleFileList} from './StyleFileList_action';
-export {unreadMessagesList, readAll, unreadAll} from './unreadMessagesList_action';
+export {unreadMessagesList, readAll, unreadAll, clearUnreadMessagesList} from './unreadMessagesList_action';
 export { styleId } from './StyleID_actions';
 export { sampleList} from './sampleList_action';
 export { 
   itemPlacement, finish, finishOutside, finishInside, design, measurementTable,
   sampleStatus, customComments, sampleStatusPlanned, sampleSizes 
 } from './sampleRequestTabs_actions';
+export { clearStore } from './clearStore._action';

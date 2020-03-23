@@ -1,4 +1,4 @@
-import {USER} from '../actions/action_types';
+import {USER, CLEAR_STORE} from '../actions/action_types';
 
 const initialState = {
 	userState: ''
@@ -11,6 +11,11 @@ const userReducer = (state = initialState, action) => {
 				return {
 					...state,
 					userState: action.payload
+				}
+			case CLEAR_STORE:
+				return {
+					...state,
+					userState: []
 				}
 			default:
 				return state

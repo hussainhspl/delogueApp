@@ -25,7 +25,7 @@ import CardText from './styles/CardText';
 import LoaderView from './styles/LoaderView'
 import LoginStep2 from './api/loginStep2';
 import Message from './components/message/message'
-
+import { clearStore } from './store/actions/index'
 
 const Card = styled.View`
   width: ${props =>
@@ -100,7 +100,6 @@ const ParentView = styled.View`
   flex-direction: row;
   padding: 5px;
 `;
-
 
 const MainView = styled.View`
   flex: 1;
@@ -199,6 +198,7 @@ class CompanyList extends React.Component {
       .then(cred =>{
         const [username, password] = cred;
         // console.log("async cred", cred, uname, pass, uid);
+        this.props.clearStoreFunction();
         LoginStep2(designerId, uid, username, password)
         .then(res => {
           console.log('data after successful login:', res);
@@ -247,7 +247,7 @@ class CompanyList extends React.Component {
   };
   render() {
     const history = this.props.history;
-    console.log("company list tablet", this.state.tablet);
+    // console.log("company list tablet", this.state.tablet);
     // console.log('user data from redux', this.props.userData)
     // const tablet = this.state.tablet;
     if (this.state.loading) {
@@ -378,4 +378,9 @@ const mapStateToProps = state => {
     userData: state.user.userState
   };
 };
-export default connect(mapStateToProps)(CompanyList);
+const mapDispatchToProps = dispatch => {
+  return {
+    clearStoreFunction: () => dispatch(clearStore())
+  }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(CompanyList);

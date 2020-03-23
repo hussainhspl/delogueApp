@@ -1,4 +1,4 @@
-import {STYLE_ID} from '../actions/action_types';
+import {STYLE_ID, CLEAR_STORE} from '../actions/action_types';
 
 const initialState = {
   styleIdState: ''
@@ -11,6 +11,11 @@ const styleIdReducer = (state = initialState, action) => {
       return {
         ...state,
         styleIdState: action.payload
+      }
+    case CLEAR_STORE:
+      return {
+        ...state,
+        styleIdState: []
       }
     default: 
       return state

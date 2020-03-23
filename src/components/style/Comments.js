@@ -178,16 +178,19 @@ class Comments extends React.Component {
       showList: true,
       ShowNewMsg: false,
       showMessage: false,
-      styleMessage : false
+      styleMessage : false,
+      replySubject: null
     })
   }
-  openCreateReply = (id)  =>{
+  openCreateReply = (id, subject)  => {
     // console.log('reply id', id, this.state.MessageContent, this.state.MessageContent.styleId);
-    console.log('reply notified ', this.state.MessageContent.styleAuditLog.notifiedUsers.length );
+    console.log('reply notified ', id, subject, this.state.MessageContent );
+    // let currentMsg = this.state.MessageContent 
     this.setState({
       parentId: id,
       ShowNewMsg: true,
       showMessage: false,
+      replySubject : subject
     })
   }
   // shouldComponentUpdate  () {
@@ -197,7 +200,7 @@ class Comments extends React.Component {
   //   }
   // }
   render() {
-    console.log("in comments tab render", this.state.singleStyleState);
+    console.log("in comments tab render", this.state.MessageContent);
     // console.log('enter in comments render', this.props.style)
     return (
       <View style={{ flex: 1 }}>
@@ -222,7 +225,15 @@ class Comments extends React.Component {
               styleID={this.props.styleID == null ? this.state.MessageContent.styleId : this.props.styleID}
               closeMessage={this.backClicked}
               parentId={this.state.parentId}
-              selectedUsers= {this.state.MessageContent.styleAuditLog.notifiedUsers != null ? this.state.MessageContent.styleAuditLog.notifiedUsers : null}
+              replySubject={this.state.replySubject}
+              selectedUsers= {
+                this.state.MessageContent != null ?
+                  this.state.MessageContent.styleAuditLog.notifiedUsers != null ? 
+                    this.state.MessageContent.styleAuditLog.notifiedUsers 
+                    : 
+                    null
+                :null
+              }
               // submitMessage={this.sendMessage}
             />
           )}
@@ -237,7 +248,7 @@ class Comments extends React.Component {
             <Fragment>
               <CommentBlock
                 data={this.state.MessageContent}
-                createReply={(id1) => this.openCreateReply(id1)}
+                createReply={(id1, subject) => this.openCreateReply(id1, subject)}
               />
             </Fragment>
           )}
