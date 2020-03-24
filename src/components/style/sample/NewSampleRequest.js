@@ -7,8 +7,6 @@ import { withTheme } from 'styled-components';
 // relative import
 import CommonModal from '../../../shared/CommonModal';
 import SetRequestedQuantity from '../SetRequestedQuantity';
-import CameraComponent from '../../../shared/CameraComponent';
-import CameraView from '../../../styles/CameraView';
 import ItemDetail from '../../../shared/ItemDetail';
 import Title from '../../../styles/SmallText';
 import GetAsyncToken from '../../../script/getAsyncToken';
@@ -19,9 +17,8 @@ import SharedImagePicker from '../../../shared/sharedImagePicker';
 import NotificationModal from '../NotificationModal';
 import CreateSampleRequest from '../../../api/sample/CreateSampleRequest';
 import { format } from 'date-fns';
-import {sortBy, orderBy} from 'lodash';
+import {orderBy} from 'lodash';
 import {connect} from 'react-redux';
-
 
 const StyledView = styled.View`
 	border: 1px solid #ddd;
@@ -48,7 +45,6 @@ const DateInput = styled.TextInput`
   font-size: 14px;
   flex: 1;
 `;
-
 
 const AddView = styled.View`
   border: 1px solid #ddd;

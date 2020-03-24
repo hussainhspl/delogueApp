@@ -12,18 +12,15 @@ import {
 } from "react-native";
 import styled from "styled-components";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
-import { RectButton } from 'react-native-gesture-handler';
-import Carousel from 'react-native-snap-carousel';
+import { RectButton } from "react-native-gesture-handler";
+import Carousel from "react-native-snap-carousel";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 // relative import
 import SampleAccordion from "./SampleAccordion";
 import ApplyButton from "../../../styles/ApplyButton";
-import CancelButton from '../../../styles/CancelButton';
-import ButtonText from '../../../styles/ButtonText';
-import SmallText from "../../../styles/SmallText";
-import CardText from "../../../styles/CardText";
+import CancelButton from "../../../styles/CancelButton";
+import ButtonText from "../../../styles/ButtonText";
 
-import PiecesPopup from "../../../shared/PiecesPopup";
 import GetAsyncToken from "../../../script/getAsyncToken";
 import GetSampleOverview from "../../../api/sample/getSampleOverview";
 
@@ -36,14 +33,25 @@ import UpdatePlanned from "../../../api/sample/updatePlanned";
 import GetPlannedSample from "../../../api/sample/getPlannedSample";
 import PlannedSampleAccordion from "./plannedSampleAccordion";
 import { connect } from "react-redux";
-import { sampleStatusPlanned, sampleStatus, sampleSizes } from '../../../store/actions/index';
+import {
+  sampleStatusPlanned,
+  sampleStatus,
+  sampleSizes
+} from "../../../store/actions/index";
+import TinyCommonModal from "../../../shared/tinyCommonModal";
+import SampleRequestDateComponent from "./SampleRequestDateComponent";
 
-
-const StageArray = ['Requested', 'Sent', 'Received', 'Commented', 'Cancelled', 'Confirmed'];
-const PlannedStageArray = ['Planned', 'Requested', 'Cancelled'];
-const otherStateCount = [0, 1, 2, 3, 4, 5,];
+const StageArray = [
+  "Requested",
+  "Sent",
+  "Received",
+  "Commented",
+  "Cancelled",
+  "Confirmed"
+];
+const PlannedStageArray = ["Planned", "Requested", "Cancelled"];
+const otherStateCount = [0, 1, 2, 3, 4, 5];
 const plannedStateCount = [0, 1, 2];
-
 
 const FooterButtonRow = styled.View`
   padding: 15px;
@@ -62,40 +70,40 @@ const FooterButtonRow = styled.View`
 const MainView = styled.View`
   padding-bottom: 60px;
 `;
-const SampleName = styled.Text`
-  color: ${props => props.theme.darkBlue};
-  font-weight: 700;
-  padding-bottom: 5px;
-`;
+// const SampleName = styled.Text`
+//   color: ${props => props.theme.darkBlue};
+//   font-weight: 700;
+//   padding-bottom: 5px;
+// `;
 
-const FirstRow = styled.View`
-  padding: 15px;
-  flex-direction: row;
-  justify-content: space-between;
-  flex: 1;
-`;
+// const FirstRow = styled.View`
+//   padding: 15px;
+//   flex-direction: row;
+//   justify-content: space-between;
+//   flex: 1;
+// `;
 
-const PiecesMain = styled.View`
-  justify-content: center;
-  align-items: flex-end;
-`;
-const PiecesView = styled.TouchableHighlight`
-  background-color: #c2beb6;
-  max-width: 60px;
-  height: 20px;
-  /* margin: 10px 5px; */
-`;
-const Pieces = styled.Text`
-  color: white;
-  font-size: ${props => props.theme.large};
-  font-family: ${props => props.theme.regular};
-`;
-const DetailRow = styled.View`
-  flex-direction: row;
-`;
-const Block = styled.TouchableOpacity`
-  width: 100px;
-`;
+// const PiecesMain = styled.View`
+//   justify-content: center;
+//   align-items: flex-end;
+// `;
+// const PiecesView = styled.TouchableHighlight`
+//   background-color: #c2beb6;
+//   max-width: 60px;
+//   height: 20px;
+//   /* margin: 10px 5px; */
+// `;
+// const Pieces = styled.Text`
+//   color: white;
+//   font-size: ${props => props.theme.large};
+//   font-family: ${props => props.theme.regular};
+// `;
+// const DetailRow = styled.View`
+//   flex-direction: row;
+// `;
+// const Block = styled.TouchableOpacity`
+//   width: 100px;
+// `;
 const CurrentStage = styled.View`
   background-color: ${props => props.theme.brown};
   align-items: center;
@@ -111,7 +119,6 @@ const TabRow = styled.View`
   border-bottom-width: 3px;
   border-top-width: 3px;
   border-color: #fff;
-  
 `;
 const RightTriangle = styled.View`
   width: 0px;
@@ -165,206 +172,245 @@ class SampleRequest extends React.Component {
     super(props);
     this.state = {
       appState: AppState.currentState0px,
-      isDeadlineDatePickerVisible: false,
-      isEtdDatePickerVisible: false,
+      // isDeadlineDatePickerVisible: false,
+      // isEtdDatePickerVisible: false,
       piecesModal: false,
       currentIndex: 0,
       sampleData: null,
       sampleRequestStatus: null,
-      selectedType: null
+      // selectedType: null,
+      tinyModalVisible: false
     };
   }
   componentDidMount = () => {
     // AppState.addEventListener("change111", this._handleAppStateChange);
     // console.log('sample request did mount :',this.props.data.name);
-    GetAsyncToken()
-      .then(token => {
-        if (this.props.data.name != "Planned") {
-          GetSampleOverview(token, this.props.data.id)
-            .then(res => {
-              console.log('success in sample overview', res);
-              this.setState({
-                sampleData: res.data
-              }, () => this.getSampleRequestStatus())
-
-            })
-        } else {
-          GetPlannedSample(token, this.props.data.id)
-            .then(res => {
-              // console.log('got planned data', res);
-              this.setState({
-                sampleData: res.data
-              }, () => this.getSampleRequestStatus())
-            })
-        }
-      })
+    GetAsyncToken().then(token => {
+      if (this.props.data.name != "Planned") {
+        GetSampleOverview(token, this.props.data.id).then(res => {
+          console.log("success in sample overview", res);
+          this.setState({
+              sampleData: res.data
+            }, () => this.getSampleRequestStatus()
+          );
+        });
+      } else {
+        GetPlannedSample(token, this.props.data.id).then(res => {
+          this.setState(
+            {
+              sampleData: res.data
+            },
+            () => this.getSampleRequestStatus()
+          );
+        });
+      }
+    });
   };
 
   getSampleRequestStatus = () => {
-    console.log('sample sizes', this.state.sampleData.requestedSampleSizes);
+    console.log("sample sizes", this.state.sampleData.requestedSampleSizes);
     this.props.sampleSizesFunction(this.state.sampleData.requestedSampleSizes);
     let formatedDeadline = null;
-    let formatedEtd = null;
+    let formattedEtd = null;
 
     if (this.state.sampleData.deadline != null) {
-      const date = new Date(this.state.sampleData.deadline)
-      let localDate = new Date(date.setMinutes(date.getMinutes() - date.getTimezoneOffset()));
+      const date = new Date(this.state.sampleData.deadline);
+      let localDate = new Date(
+        date.setMinutes(date.getMinutes() - date.getTimezoneOffset())
+      );
       formatedDeadline = format(localDate, "d-MMM-yyyy");
     }
 
     if (this.state.sampleData.etd != null) {
-      const date = new Date(this.state.sampleData.etd)
-      let localDate = new Date(date.setMinutes(date.getMinutes() - date.getTimezoneOffset()));
-      formatedEtd = format(localDate, "d-MMM-yyyy");
+      const date = new Date(this.state.sampleData.etd);
+      let localDate = new Date(
+        date.setMinutes(date.getMinutes() - date.getTimezoneOffset())
+      );
+      formattedEtd = format(localDate, "d-MMM-yyyy");
     }
 
-    this.setState(prevState => ({
-      sampleData: {
-        ...prevState.sampleData,
-        deadline: formatedDeadline,
-        etd: formatedEtd,
-      }
-    }), () => this.updateCarousel())
-
-  }
+    this.setState(
+      prevState => ({
+        sampleData: {
+          ...prevState.sampleData,
+          deadline: formatedDeadline,
+          etd: formattedEtd
+        }
+      }),
+      () => this.updateCarousel()
+    );
+  };
   updateCarousel() {
     // console.log('update carousel', this.state.sampleData.sampleRequestStatus, this.state.currentIndex);
 
     if (this.state.sampleData != null) {
-
-
       if (this.state.sampleData.sampleRequestStatus == "Requested") {
         this.setState({
-          sampleRequestStatus: 0, currentIndex: 0
-        })
+          sampleRequestStatus: 0,
+          currentIndex: 0
+        });
       }
       if (this.state.sampleData.sampleRequestStatus == "Sent") {
         this.setState({
-          sampleRequestStatus: 1, currentIndex: 1
-        })
+          sampleRequestStatus: 1,
+          currentIndex: 1
+        });
       }
       if (this.state.sampleData.sampleRequestStatus == "Received") {
         this.setState({
-          sampleRequestStatus: 2, currentIndex: 2
-        })
+          sampleRequestStatus: 2,
+          currentIndex: 2
+        });
       }
       if (this.state.sampleData.sampleRequestStatus == "Commented") {
         this.setState({
-          sampleRequestStatus: 3, currentIndex: 3
-        })
+          sampleRequestStatus: 3,
+          currentIndex: 3
+        });
       }
       if (this.state.sampleData.sampleRequestStatus == "Cancelled") {
-        this.setState({
-          sampleRequestStatus: 4, currentIndex: 4
-        }, () => console.log('4', this.state.sampleRequestStatus))
+        this.setState(
+          {
+            sampleRequestStatus: 4,
+            currentIndex: 4
+          },
+          () => console.log("4", this.state.sampleRequestStatus)
+        );
       }
       if (this.state.sampleData.sampleRequestStatus == "Confirmed") {
         this.setState({
-          sampleRequestStatus: 5, currentIndex: 5
-        })
+          sampleRequestStatus: 5,
+          currentIndex: 5
+        });
       }
       if (this.state.sampleData.sampleRequestStatus == "Planned") {
         this.setState({
-          sampleRequestStatus: 6, currentIndex: 6
-        })
+          sampleRequestStatus: 6,
+          currentIndex: 6
+        });
       }
       if (this.state.sampleData.status == 6) {
         this.setState({
-          sampleRequestStatus: 0, currentIndex: 0
-        })
+          sampleRequestStatus: 0,
+          currentIndex: 0
+        });
       }
     }
   }
 
-  showDatePicker = value => {
-    if (value == "deadline") {
-      this.setState({ isDeadlineDatePickerVisible: true });
-    } else if (value == "etd") {
-      this.setState({ isEtdDatePickerVisible: true });
-    }
-  };
+  // showDatePicker = value => {
+  //   if (value == "deadline") {
+  //     this.setState({ isDeadlineDatePickerVisible: true });
+  //   } else if (value == "etd") {
+  //     this.setState({ isEtdDatePickerVisible: true });
+  //   }
+  // };
 
-  hideDatePicker = value => {
-    if (value == "deadline") {
-      this.setState({ isDeadlineDatePickerVisible: false });
-    } else if (value == "etd") {
-      this.setState({ isEtdDatePickerVisible: false });
-    }
-    else {
-      this.setState({
-        isDeadlineDatePickerVisible: false,
-        isEtdDatePickerVisible: false,
+  // hideDatePicker = value => {
+  //   if (value == "deadline") {
+  //     this.setState({ isDeadlineDatePickerVisible: false });
+  //   } else if (value == "etd") {
+  //     this.setState({ isEtdDatePickerVisible: false });
+  //   } else {
+  //     this.setState({
+  //       isDeadlineDatePickerVisible: false,
+  //       isEtdDatePickerVisible: false
+  //     });
+  //   }
+  // };
 
-      });
-    }
-  };
-
-  handleConfirm = date => {
-    // console.log("A date has been picked: ", date);
-    let newDate = format(date, "dd-MMM-yy");
-    if (this.state.isDeadlineDatePickerVisible == true) {
-      this.setState({
-        selectedType: 0,
-      }, () => { console.log("selectedType", this.state.selectedType); this.editDateByType(newDate) })
-      // console.log('deadline date', newDate);
-    }
-    if (this.state.isEtdDatePickerVisible == true) {
-      this.setState({
-        selectedType: 1,
-      }, () => this.editDateByType(newDate))
-    }
-    this.hideDatePicker();
-  };
-  editDateByType(newDate) {
-    console.log('new date', newDate, this.state.sampleData);
-    GetAsyncToken()
-      .then(token => {
-        EditDate(token, this.state.sampleData.id, this.state.selectedType, newDate)
-          .then(res => {
-            console.log('date edited successfully', res);
-            if (this.state.selectedType == 0) {
-              const date = new Date(res.data.deadline)
-              let localDate = new Date(date.setMinutes(date.getMinutes() - date.getTimezoneOffset()));
-              let formatedDeadline = format(localDate, "d-MMM-yyyy");
-              this.setState(prevState => ({
-                sampleData: {
-                  ...prevState.sampleData,
-                  deadline: formatedDeadline
-                }
-              }), () => this.updateRedux(formatedDeadline))
-            }
-            if (this.state.selectedType == 1) {
-              console.log('enter in etd state');
-              const date = new Date(res.data.etd)
-              let localDate = new Date(date.setMinutes(date.getMinutes() - date.getTimezoneOffset()));
-              let formatedEtd = format(localDate, "d-MMM-yyyy");
-              this.setState(prevState => ({
-                sampleData: {
-                  ...prevState.sampleData,
-                  etd: formatedEtd
-                }
-              }))
-            }
-          })
-      })
-  }
-  updateRedux = (formatedDeadline) => {
-    console.log('update redux', this.state.sampleData, this.props.sampleStatusState);
+  // handleConfirm = date => {
+  //   // console.log("A date has been picked: ", date);
+  //   let newDate = format(date, "dd-MMM-yy");
+  //   if (this.state.isDeadlineDatePickerVisible == true) {
+  //     this.setState(
+  //       {
+  //         selectedType: 0
+  //       },
+  //       () => {
+  //         console.log("selectedType", this.state.selectedType);
+  //         this.editDateByType(newDate);
+  //       }
+  //     );
+  //     // console.log('deadline date', newDate);
+  //   }
+  //   if (this.state.isEtdDatePickerVisible == true) {
+  //     this.setState(
+  //       {
+  //         selectedType: 1
+  //       },
+  //       () => this.editDateByType(newDate)
+  //     );
+  //   }
+  //   this.hideDatePicker();
+  // };
+  // editDateByType(newDate) {
+  //   console.log("new date", newDate, this.state.sampleData);
+  //   GetAsyncToken().then(token => {
+  //     EditDate(
+  //       token,
+  //       this.state.sampleData.id,
+  //       this.state.selectedType,
+  //       newDate
+  //     ).then(res => {
+  //       console.log("date edited successfully", res);
+  //       if (this.state.selectedType == 0) {
+  //         const date = new Date(res.data.deadline);
+  //         let localDate = new Date(
+  //           date.setMinutes(date.getMinutes() - date.getTimezoneOffset())
+  //         );
+  //         let formatedDeadline = format(localDate, "d-MMM-yyyy");
+  //         this.setState(
+  //           prevState => ({
+  //             sampleData: {
+  //               ...prevState.sampleData,
+  //               deadline: formatedDeadline
+  //             }
+  //           }),
+  //           () => this.updateRedux(formatedDeadline)
+  //         );
+  //       }
+  //       if (this.state.selectedType == 1) {
+  //         console.log("enter in etd state");
+  //         const date = new Date(res.data.etd);
+  //         let localDate = new Date(
+  //           date.setMinutes(date.getMinutes() - date.getTimezoneOffset())
+  //         );
+  //         let formattedEtd = format(localDate, "d-MMM-yyyy");
+  //         this.setState(prevState => ({
+  //           sampleData: {
+  //             ...prevState.sampleData,
+  //             etd: formattedEtd
+  //           }
+  //         }));
+  //       }
+  //     });
+  //   });
+  // }
+  updateRedux = formatedDeadline => {
+    console.log(
+      "update redux",
+      this.state.sampleData,
+      this.props.sampleStatusState
+    );
     if (this.props.data.name == "Planned") {
       this.props.sampleStatusPlannedFunction(this.state.sampleData);
-    }
-    else {
+    } else {
       let currentSampleStatus;
       currentSampleStatus = this.props.sampleStatusState;
       currentSampleStatus.deadline = formatedDeadline;
-      console.log('currentSampleStatus', this.props.sampleStatusState, currentSampleStatus);
+      console.log(
+        "currentSampleStatus",
+        this.props.sampleStatusState,
+        currentSampleStatus
+      );
       this.props.sampleStatusFunction(currentSampleStatus);
 
       // currentSampleStatus.map(d => console.log('deadline', d.deadline));
 
-      console.log('not planned', this.props.sampleStatusState);
+      console.log("not planned", this.props.sampleStatusState);
     }
-  }
+  };
   redirectTo() {
     // console.log("redirect click");
     this.props.apply();
@@ -392,7 +438,7 @@ class SampleRequest extends React.Component {
   renderLeftActions = (progress, dragX) => {
     const trans = dragX.interpolate({
       inputRange: [0, 50, 100, 101],
-      outputRange: [-20, 0, 0, 1],
+      outputRange: [-20, 0, 0, 1]
     });
     return (
       <RectButton onPress={this.close}>
@@ -400,179 +446,225 @@ class SampleRequest extends React.Component {
           style={[
             styles.actionText,
             {
-              transform: [{ translateX: trans }],
-            },
-          ]}>
+              transform: [{ translateX: trans }]
+            }
+          ]}
+        >
           Archive
         </Animated.Text>
       </RectButton>
     );
   };
-  changeIndex = (currentIndex) => {
+  changeIndex = currentIndex => {
     // console.log("Enter in 22 ");
     // if(this.state.sampleData.sampleRequestStatus == "Planned" && currentIndex == 2) {
     //   this.setState({sampleRequestStatus: 5, currentIndex: 5})
     // }
-    this.setState({ currentIndex }, () => console.log('current Index', this.state.currentIndex));
-  }
-  _renderItem = ({ item, index }) => {
-    return (
-      <CurrentStageTitle>{item}</CurrentStageTitle>
+    this.setState({ currentIndex }, () =>
+      console.log("current Index", this.state.currentIndex)
     );
-  }
-  
+  };
+  _renderItem = ({ item, index }) => {
+    return <CurrentStageTitle>{item}</CurrentStageTitle>;
+  };
+
   updatePieces() {
-    this.setState({ piecesModal: false })
+    this.setState({ piecesModal: false });
+  }
+
+  setTinyModalVisible(visible) {
+    this.setState({ tinyModalVisible: visible });
+  }
+  changeState() {
+    console.log('change the state ');
   }
   render() {
-    const screenWidth = Math.round(Dimensions.get('window').width);
-    const slideWidth = Math.round(Dimensions.get('window').width / 2)
+    const screenWidth = Math.round(Dimensions.get("window").width);
+    const slideWidth = Math.round(Dimensions.get("window").width / 2);
     let currentCount = null;
     if (this.state.sampleData != null) {
-      currentCount = this.state.sampleData.status == 6 ? plannedStateCount : otherStateCount
+      currentCount =
+        this.state.sampleData.status == 6 ? plannedStateCount : otherStateCount;
     }
     // console.log('in render sample request', this.state.sampleRequestStatus)
     return (
       <View style={{ flex: 1 }}>
-        {
-          this.state.sampleData != null ?
-            <KeyboardAwareScrollView showsVerticalScrollIndicator={true}>
-              <MainView>
-                {/* <ItemDetail data={data} /> */}
-                <FirstRow>
-                  <View style={{ flex: 1 }}>
-                    <SampleName numberOfLine={1}> {this.state.sampleData.typeOfSample.name} </SampleName>
-                    <DateTimePickerModal
-                      isVisible={this.state.isDeadlineDatePickerVisible}
-                      onConfirm={this.handleConfirm}
-                      onCancel={() => this.hideDatePicker("deadline")}
-                    />
-                    <DateTimePickerModal
-                      isVisible={this.state.isEtdDatePickerVisible}
-                      onConfirm={this.handleConfirm}
-                      onCancel={() => this.hideDatePicker("etd")}
-                    />
-                    <DetailRow>
-                      <Block onPress={() => this.showDatePicker("deadline")}>
-                        <SmallText>Deadline</SmallText>
-                        <CardText numberOfLines={1}>{this.state.sampleData.deadline}</CardText>
-                      </Block>
-                      <Block onPress={() => this.showDatePicker("etd")}>
-                        <SmallText>ETD</SmallText>
-                        <CardText numberOfLines={1}>{this.state.sampleData.etd}</CardText>
-                      </Block>
-                      <Block>
-                        <SmallText>Tracking Number </SmallText>
-                        <CardText numberOfLines={1}>{this.state.sampleData.trackingNumber}</CardText>
-
-                      </Block>
-                    </DetailRow>
-                  </View>
-                  {this.state.sampleData.status != 7 && (
-                    //this.state.sampleData.status is defined only when sample status is planned
-                    <PiecesMain>
-                      <PiecesView underlayColor="#a39e95" onPress={() => this.setState({ piecesModal: true })}>
-                        <Pieces numberOfLines={1}> {this.state.sampleData.pieces} {this.state.sampleData.pieces > 1 ? "pcs" : "pc"} </Pieces>
-                      </PiecesView>
-                    </PiecesMain>
-                  )}
-                </FirstRow>
-                <PiecesPopup
-                  modalVisible={this.state.piecesModal}
-                  close={() => this.updatePieces()}
-                  data={this.state.sampleData.requestedSampleSizes}
-                />
-                <CurrentStage>
-                  {this.state.sampleRequestStatus != null && (
-                    <Carousel
-                      ref={(c) => { this._carousel = c; }}
-                      data={this.state.sampleData.status == 6 ? PlannedStageArray : StageArray}
-                      renderItem={this._renderItem}
-                      itemWidth={slideWidth}
-                      sliderWidth={screenWidth}
-                      callbackOffsetMargin={0}
-                      onBeforeSnapToItem={this.changeIndex}
-                      firstItem={this.state.sampleRequestStatus}
+        <TinyCommonModal
+          title="filter"
+          okButtonText="Yes"
+          cancelButtonText="No"
+          modalVisible={this.state.tinyModalVisible}
+          close={() => {
+            this.setTinyModalVisible(!this.state.tinyModalVisible);
+          }}
+          okClick={() => this.changeState()}
+        >
+          <View>
+            <Text>Do you want to set sample as received ? </Text>
+            <Text>Note that this cannot be undone.</Text>
+          </View>
+          
+        </TinyCommonModal>
+        {this.state.sampleData != null ? (
+          <KeyboardAwareScrollView showsVerticalScrollIndicator={true}>
+            <MainView>
+              {/* <ItemDetail data={data} /> */}
+              
+              <SampleRequestDateComponent 
+                data= {this.state.sampleData}
+              />
+              {/* <FirstRow>
+                <View style={{ flex: 1 }}>
+                  <SampleName numberOfLine={1}>
+                    {this.state.sampleData.typeOfSample.name}{" "}
+                  </SampleName>
+                  <DateTimePickerModal
+                    isVisible={this.state.isDeadlineDatePickerVisible}
+                    onConfirm={this.handleConfirm}
+                    onCancel={() => this.hideDatePicker("deadline")}
+                  />
+                  <DateTimePickerModal
+                    isVisible={this.state.isEtdDatePickerVisible}
+                    onConfirm={this.handleConfirm}
+                    onCancel={() => this.hideDatePicker("etd")}
+                  />
+                  <DetailRow>
+                    <Block onPress={() => this.showDatePicker("deadline")}>
+                      <SmallText>Deadline</SmallText>
+                      <CardText numberOfLines={1}>
+                        {this.state.sampleData.deadline}
+                      </CardText>
+                    </Block>
+                    <Block onPress={() => this.showDatePicker("etd")}>
+                      <SmallText>ETD</SmallText>
+                      <CardText numberOfLines={1}>
+                        {this.state.sampleData.etd}
+                      </CardText>
+                    </Block>
+                    <Block>
+                      <SmallText>Tracking Number </SmallText>
+                      <CardText numberOfLines={1}>
+                        {this.state.sampleData.trackingNumber}
+                      </CardText>
+                    </Block>
+                  </DetailRow>
+                </View>
+                {this.state.sampleData.status != 7 && (
+                  //this.state.sampleData.status is defined only when sample status is planned
+                  <PiecesMain>
+                    <PiecesView
+                      underlayColor="#a39e95"
+                      onPress={() => this.setState({ piecesModal: true })}
+                    >
+                      <Pieces numberOfLines={1}>
+                        {this.state.sampleData.pieces}
+                        {this.state.sampleData.pieces > 1 ? "pcs" : "pc"}
+                      </Pieces>
+                    </PiecesView>
+                  </PiecesMain>
+                )}
+              </FirstRow> */}
+              {/* <PiecesPopup
+                modalVisible={this.state.piecesModal}
+                close={() => this.updatePieces()}
+                data={this.state.sampleData.requestedSampleSizes}
+              /> */}
+              <CurrentStage>
+                {this.state.sampleRequestStatus != null && (
+                  <Carousel
+                    ref={c => {
+                      this._carousel = c;
+                    }}
+                    data={
+                      this.state.sampleData.status == 6
+                        ? PlannedStageArray
+                        : StageArray
+                    }
+                    renderItem={this._renderItem}
+                    itemWidth={slideWidth}
+                    sliderWidth={screenWidth}
+                    callbackOffsetMargin={0}
+                    onBeforeSnapToItem={this.changeIndex}
+                    firstItem={this.state.sampleRequestStatus}
                     // onSnapToItem={(index) => console.log('hello')}
                     // onLayout={ () => console.log("swipe")}
                     // activeSlideAlignment={'center'}
                     // activeSlideOffset={'center'}
                     // layout={'tinder'}
-                    />
-                  )}
-                </CurrentStage>
+                  />
+                )}
+              </CurrentStage>
 
-                {/* <CurrentStage>
+              {/* <CurrentStage>
                 <CurrentStageTitle>Planned</CurrentStageTitle>
               </CurrentStage> */}
 
-                {/* <ScrollView
+              {/* <ScrollView
               horizontal={true}
               showsHorizontalScrollIndicator={false}
             > */}
-                <TabRow>
-                  {
-                    currentCount.map(count => {
-                      return (
-                        <Tab active={this.state.currentIndex >= count ? true : false}>
-                          <RightTriangle active={this.state.currentIndex >= count ? true : false} />
-                          <TabTail active={this.state.currentIndex >= count ? true : false} />
-                        </Tab>
-                      )
-                    })
-                  }
-                  {/* {
+              <TabRow>
+                {currentCount.map(count => {
+                  return (
+                    <Tab
+                      active={this.state.currentIndex >= count ? true : false}
+                    >
+                      <RightTriangle
+                        active={this.state.currentIndex >= count ? true : false}
+                      />
+                      <TabTail
+                        active={this.state.currentIndex >= count ? true : false}
+                      />
+                    </Tab>
+                  );
+                })}
+                {/* {
                     this.state.sampleData.sampleRequestStatus == "Planned" ?
 
                   } */}
-                </TabRow>
+              </TabRow>
 
+              {this.state.sampleData.status != 6 && (
+                <SampleAccordion data={this.state.sampleData} />
+              )}
 
-                {
-                  this.state.sampleData.status != 6 && (
-                    <SampleAccordion
-                      data={this.state.sampleData}
-                    />
-                  )}
+              {this.state.sampleData.status == 6 && (
+                <PlannedSampleAccordion data={this.state.sampleData} />
+              )}
 
-                {this.state.sampleData.status == 6 && (
-                  <PlannedSampleAccordion
-                    data={this.state.sampleData}
-                  />
-                )}
-
-                {/* {
+              {/* {
                   this.state.sampleData.sampleRequestStatus == "Planned" && (
                     <PlannedSampleRequest />
                   )
                 } */}
 
-
-
-                {/* <SampleRequestSummary /> */}
-                {/* <ViewRequestedQuantity /> */}
-              </MainView>
-
-            </KeyboardAwareScrollView>
-            : null}
+              {/* <SampleRequestSummary /> */}
+              {/* <ViewRequestedQuantity /> */}
+            </MainView>
+          </KeyboardAwareScrollView>
+        ) : null}
         <FooterButtonRow>
           <CancelButton>
             <TouchableCancel
               underlayColor="#8f8c86"
-              onPress={() => { this.props.cancel() }}>
+              onPress={() => {
+                this.props.cancel();
+              }}
+            >
               <ButtonText>CANCEL</ButtonText>
             </TouchableCancel>
           </CancelButton>
           <ApplyButton>
-            <TouchableApply onPress={() => {
-              this.redirectTo(this.props.apply);
-            }} underlayColor="#354733">
+            <TouchableApply
+              onPress={() => {
+                this.redirectTo(this.props.apply);
+              }}
+              underlayColor="#354733"
+            >
               <ButtonText>apply</ButtonText>
             </TouchableApply>
-
           </ApplyButton>
         </FooterButtonRow>
-
       </View>
     );
   }
@@ -581,35 +673,34 @@ const mapStateToProps = state => {
   return {
     // unreadList: state.unreadMessagesList.unreadMessagesListState
     // sampleStatusState: state.sampleRequestTabs.sampleStatusState,
-    sampleStatusState: state.sampleRequestTabs.sampleStatusState,
+    sampleStatusState: state.sampleRequestTabs.sampleStatusState
   };
 };
 const mapDispatchToProps = dispatch => {
   return {
     // finishOutsideFunction: (data) => dispatch(finishOutside(data)),
-    sampleStatusPlannedFunction: (data) => dispatch(sampleStatusPlanned(data)),
-    sampleStatusFunction: (data) => dispatch(sampleStatus(data)),
-    sampleSizesFunction: (data) => dispatch(sampleSizes(data)),
-
-  }
-}
+    sampleStatusPlannedFunction: data => dispatch(sampleStatusPlanned(data)),
+    sampleStatusFunction: data => dispatch(sampleStatus(data)),
+    sampleSizesFunction: data => dispatch(sampleSizes(data))
+  };
+};
 export default connect(mapStateToProps, mapDispatchToProps)(SampleRequest);
 
 const styles = StyleSheet.create({
   leftAction: {
     flex: 1,
-    backgroundColor: '#497AFC',
-    justifyContent: 'center',
+    backgroundColor: "#497AFC",
+    justifyContent: "center"
   },
   actionText: {
-    color: 'white',
+    color: "white",
     fontSize: 16,
-    backgroundColor: 'red',
-    padding: 10,
+    backgroundColor: "red",
+    padding: 10
   },
   rightAction: {
-    alignItems: 'center',
+    alignItems: "center",
     flex: 1,
-    justifyContent: 'center',
-  },
+    justifyContent: "center"
+  }
 });
