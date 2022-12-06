@@ -20,7 +20,7 @@
     "lottie-react-native": "^3.2.1",
     "native-base": "^2.13.8",
     "path": "^0.12.7",
-    "qs": "^6.9.1",
+    "qs": "^6.9.7",
     "quill-delta": "^4.2.1",
     "react": "^16.9.0",
     "react-native": "^0.61.3",
